@@ -6,7 +6,7 @@
   "description": "Differential geometric foundations of information geometry and its application to Active Inference.",
   "prerequisites": ["information_geometry", "advanced_probability"],
   "tags": ["differential geometry", "riemannian manifolds", "connections", "curvature", "information manifolds"],
-  "learning_objectsives": [
+  "learning_objectives": [
     "Understand differential geometry in Active Inference",
     "Work with Riemannian manifolds of probability distributions",
     "Compute connections and curvature",

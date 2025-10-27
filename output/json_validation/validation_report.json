@@ -46,17 +46,11 @@
         "Missing required field: content",
         "Missing required field: metadata"
       ]
-    },
-    {
-      "file": "knowledge/mathematics/differential_geometry.json",
-      "errors": [
-        "Missing required field: learning_objectives"
-      ]
     }
   ],
   "missing_references": [],
   "validation_summary": {
-    "files_with_schema_errors": 4,
+    "files_with_schema_errors": 3,
     "missing_prerequisites": 0,
     "missing_related_concepts": 0
   }

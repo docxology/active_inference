@@ -47,11 +47,11 @@ class KnowledgeBaseValidator:
         errors = []
 
         # Debug logging for specific files
-        if 'differential_geometry' in str(file_path):
-            logger.info(f"Debug: differential_geometry data keys: {list(data.keys())}")
-            logger.info(f"Debug: learning_objectives in data: {'learning_objectives' in data}")
-            if 'learning_objectives' in data:
-                logger.info(f"Debug: learning_objectives value: {data['learning_objectives']}")
+        # if 'differential_geometry' in str(file_path):
+        #     logger.info(f"Debug: differential_geometry data keys: {list(data.keys())}")
+        #     logger.info(f"Debug: learning_objectives in data: {'learning_objectives' in data}")
+        #     if 'learning_objectives' in data:
+        #         logger.info(f"Debug: learning_objectives value: {data['learning_objectives']}")
 
         # Required fields
         required_fields = [
