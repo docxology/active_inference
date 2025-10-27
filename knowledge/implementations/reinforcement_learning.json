@@ -1,0 +1,176 @@
+{
+  "id": "reinforcement_learning",
+  "title": "Reinforcement Learning with Active Inference",
+  "content_type": "implementation",
+  "difficulty": "advanced",
+  "description": "Comprehensive implementation of reinforcement learning algorithms using Active Inference framework.",
+  "prerequisites": ["active_inference_basic", "expected_free_energy_calculation"],
+  "tags": ["reinforcement learning", "policy gradient", "q-learning", "active inference", "python"],
+  "learning_objectives": [
+    "Implement RL algorithms using Active Inference",
+    "Compare Active Inference to standard RL methods",
+    "Apply to continuous and discrete control tasks",
+    "Understand exploration in Active Inference vs RL"
+  ],
+  "content": {
+    "overview": "This tutorial demonstrates how to implement reinforcement learning algorithms using the Active Inference framework. We'll show how expected free energy provides a principled approach to exploration and exploitation that differs from traditional RL methods.",
+    "active_inference_vs_reinforcement_learning": {
+      "reward_maximization": "RL maximizes cumulative discounted reward",
+      "free_energy_minimization": "Active Inference minimizes expected free energy",
+      "exploration": "Active Inference explores to reduce uncertainty, RL explores to find rewards",
+      "planning": "Active Inference uses tree search or gradient methods",
+      "learning": "Active Inference learns world models, RL learns value functions or policies"
+    },
+    "expected_free_energy_for_rl": {
+      "pragmatic_term": "Expected reward (negative expected cost)",
+      "epistemic_term": "Expected information gain about environment",
+      "policy_evaluation": "G(π) = -E[∑ γ^t r_t] + H[s_T | observations]",
+      "interpretation": "Balance immediate rewards with long-term information gain"
+    },
+    "model_based_active_inference": {
+      "generative_model": "p(o,s,a | θ) - model of environment dynamics",
+      "belief_updating": "q(s | o, a) - Bayesian inference about states",
+      "planning": "π* = argmin_π E[G(π)] - expected free energy planning",
+      "learning": "θ* = argmax_θ p(o | θ) - learning model parameters"
+    },
+    "python_implementation": {
+      "environment_interface": "Standard RL environment (OpenAI Gym)",
+      "agent_architecture": "Active Inference agent class",
+      "key_components": [
+        "GenerativeModel: Environment model with uncertainty",
+        "BeliefUpdater: Bayesian inference for state estimation",
+        "Planner: Expected free energy policy selection",
+        "Learner: Model parameter updates"
+      ]
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Environment Model",
+        "description": "Build generative model of RL environment",
+        "code_snippet": "class EnvironmentModel:\n    def __init__(self, num_states, num_actions, num_obs):\n        self.num_states = num_states\n        self.num_actions = num_actions\n        self.num_obs = num_obs\n        \n        # Transition model p(s'|s,a)\n        self.B = np.random.rand(num_states, num_states, num_actions)\n        self.B /= np.sum(self.B, axis=1, keepdims=True)\n        \n        # Observation model p(o|s)\n        self.A = np.random.rand(num_obs, num_states)\n        self.A /= np.sum(self.A, axis=0, keepdims=True)\n        \n        # Reward model r(s,a)\n        self.R = np.random.rand(num_states, num_actions)\n        \n    def step(self, state, action):\n        # Sample next state\n        next_state = np.random.choice(self.num_states, p=self.B[state, :, action])\n        # Sample observation\n        obs = np.random.choice(self.num_obs, p=self.A[:, next_state])\n        # Get reward\n        reward = self.R[next_state, action]\n        return next_state, obs, reward",
+        "explanation": "Generative model captures environment dynamics and rewards"
+      },
+      {
+        "step": 2,
+        "title": "Belief Updating",
+        "description": "Implement Bayesian inference for state estimation",
+        "code_snippet": "class BeliefUpdater:\n    def __init__(self, model, prior_state=None):\n        self.model = model\n        if prior_state is None:\n            self.qs = np.ones(model.num_states) / model.num_states\n        else:\n            self.qs = prior_state\n            \n    def update(self, obs, action):\n        # Predictive posterior\n        predicted_obs = self.model.A.T @ self.qs\n        \n        # Likelihood\n        likelihood = self.model.A[obs, :]\n        \n        # Update beliefs (simplified - ignoring action for now)\n        self.qs = likelihood * self.qs\n        self.qs /= np.sum(self.qs)\n        \n        return self.qs",
+        "explanation": "Bayesian belief updating using generative model"
+      },
+      {
+        "step": 3,
+        "title": "Policy Evaluation",
+        "description": "Compute expected free energy for different policies",
+        "code_snippet": "class PolicyEvaluator:\n    def __init__(self, model, beta=1.0, gamma=0.9):\n        self.model = model\n        self.beta = beta\n        self.gamma = gamma\n        \n    def evaluate_policy(self, policy, current_belief, horizon=10):\n        G = 0\n        qs = current_belief.copy()\n        \n        for t in range(horizon):\n            # Expected reward (pragmatic term)\n            expected_reward = 0\n            for s in range(self.model.num_states):\n                for a in range(self.model.num_actions):\n                    if policy[t] == a:\n                        expected_reward += qs[s] * self.model.R[s, a]\n            \n            # Entropy of beliefs (epistemic term)\n            epistemic_value = -np.sum(qs * np.log(qs + 1e-16))\n            \n            G += self.gamma**t * (-expected_reward + epistemic_value)\n            \n            # Update beliefs for next time step\n            qs_next = np.zeros(self.model.num_states)\n            for s in range(self.model.num_states):\n                for s_next in range(self.model.num_states):\n                    for a in range(self.model.num_actions):\n                        if policy[t] == a:\n                            qs_next[s_next] += qs[s] * self.model.B[s, s_next, a]\n            qs = qs_next\n            qs /= np.sum(qs)\n            \n        return G",
+        "explanation": "Expected free energy combines pragmatic and epistemic terms"
+      }
+    ],
+    "algorithms_comparison": {
+      "q_learning": {
+        "value_function": "Q(s,a) = E[r + γ max_a' Q(s',a')]",
+        "update": "Q(s,a) ← Q(s,a) + α[r + γ max_a' Q(s',a') - Q(s,a)]",
+        "exploration": "ε-greedy or Boltzmann exploration"
+      },
+      "policy_gradient": {
+        "policy_parameterization": "π_θ(a|s)",
+        "objective": "J(θ) = E_π[∑ γ^t r_t]",
+        "gradient": "∇_θ J(θ) = E[∇_θ log π_θ(a|s) A(s,a)]",
+        "advantages": "A(s,a) = Q(s,a) - V(s)"
+      },
+      "active_inference": {
+        "expected_free_energy": "G(π) = -E[∑ γ^t r_t] + H[s_T]",
+        "policy_gradient": "∇_π G(π) = -E[∇_π log π(a|s) (r + γ H[s'])]",
+        "natural_gradient": "Use Fisher information for better convergence"
+      }
+    },
+    "continuous_control": {
+      "continuous_actions": "Gaussian policies π(a|s) = N(μ(s), σ²(s))",
+      "actor_critic": "Separate policy and value networks",
+      "active_inference_control": "Expected free energy for continuous policies",
+      "stochastic_optimal_control": "Linear quadratic Gaussian control"
+    },
+    "examples": [
+      {
+        "name": "CartPole with Active Inference",
+        "description": "Balance pole on cart using Active Inference",
+        "environment": "OpenAI Gym CartPole-v1",
+        "generative_model": "Physics model of cart-pole system",
+        "policy": "Continuous control policy for balancing",
+        "comparison": "Compare with standard RL algorithms"
+      },
+      {
+        "name": "Grid World Navigation",
+        "description": "Navigate to goal with unknown environment",
+        "environment": "2D grid with hidden rewards",
+        "planning": "Multi-step planning with expected free energy",
+        "exploration": "Epistemic term drives exploration of unknown areas",
+        "learning": "Learn reward locations through experience"
+      }
+    ],
+    "advanced_topics": {
+      "model_based_rl": "Learn environment model for planning",
+      "meta_learning": "Learning to learn Active Inference models",
+      "multi_agent_rl": "Active Inference for multi-agent scenarios",
+      "risk_sensitive_control": "Risk aversion in Active Inference"
+    },
+    "interactive_exercises": [
+      {
+        "id": "implement_active_rl",
+        "type": "coding",
+        "description": "Implement Active Inference RL agent",
+        "difficulty": "advanced",
+        "starter_code": "Template with environment model and belief updater",
+        "expected_output": "Agent that learns to solve RL task"
+      },
+      {
+        "id": "compare_rl_methods",
+        "type": "comparison",
+        "description": "Compare Active Inference with standard RL methods",
+        "difficulty": "advanced",
+        "environments": "Multiple RL benchmarks",
+        "metrics": "Sample efficiency, final performance, exploration quality"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "Numerical instability in expected free energy",
+        "solution": "Use log probabilities and stable softmax"
+      },
+      {
+        "issue": "Poor exploration in deterministic environments",
+        "solution": "Add noise to epistemic term or use temperature parameter"
+      },
+      {
+        "issue": "Slow planning for large action spaces",
+        "solution": "Use hierarchical policies or continuous control"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Reinforcement Learning: An Introduction",
+        "author": "Richard Sutton and Andrew Barto",
+        "year": 2018,
+        "description": "Standard RL textbook"
+      },
+      {
+        "title": "Active Inference and Reinforcement Learning",
+        "author": "Community literature",
+        "description": "Connections between Active Inference and RL"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_basic",
+      "expected_free_energy_calculation",
+      "continuous_control",
+      "policy_gradient"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 70,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

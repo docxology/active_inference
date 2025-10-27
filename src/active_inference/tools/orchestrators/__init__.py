@@ -16,23 +16,9 @@ This module contains orchestrators for different research roles:
 """
 
 from .base_orchestrator import BaseOrchestrator, OrchestratorConfig, ResearchStage
-from .intern_orchestrator import InternResearchOrchestrator
-from .phd_orchestrator import PhDResearchOrchestrator
-from .grant_orchestrator import GrantResearchOrchestrator
-from .publication_orchestrator import PublicationResearchOrchestrator
-from .hypothesis_orchestrator import HypothesisResearchOrchestrator
-from .ideation_orchestrator import IdeationResearchOrchestrator
-from .documentation_orchestrator import DocumentationResearchOrchestrator
 
 __all__ = [
     "BaseOrchestrator",
     "OrchestratorConfig",
     "ResearchStage",
-    "InternResearchOrchestrator",
-    "PhDResearchOrchestrator",
-    "GrantResearchOrchestrator",
-    "PublicationResearchOrchestrator",
-    "HypothesisResearchOrchestrator",
-    "IdeationResearchOrchestrator",
-    "DocumentationResearchOrchestrator",
 ]

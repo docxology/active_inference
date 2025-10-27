@@ -22,13 +22,16 @@ src/active_inference/
 │   ├── __init__.py         # Knowledge module exports
 │   ├── repository.py       # Core knowledge repository implementation
 │   ├── foundations.py      # Theoretical foundations management
-│   └── mathematics.py      # Mathematical formulations and derivations
+│   ├── mathematics.py      # Mathematical formulations and derivations
+│   ├── implementations.py  # Practical code implementations and tutorials
+│   └── applications.py     # Real-world applications and domain knowledge
 ├── research/                # Research tools and scientific computing
 │   ├── __init__.py         # Research module exports
 │   ├── experiments.py      # Experiment management and execution
 │   ├── simulations.py      # Multi-scale simulation engine
 │   ├── analysis.py         # Statistical and information-theoretic analysis
-│   └── benchmarks.py       # Performance evaluation and comparison
+│   ├── benchmarks.py       # Performance evaluation and comparison
+│   └── data_management.py  # Data collection, preprocessing, and storage
 ├── visualization/           # Interactive visualization systems
 │   ├── __init__.py         # Visualization module exports
 │   ├── diagrams.py         # Interactive diagram generation
@@ -122,6 +125,184 @@ def handle_visualization_commands(args: Namespace) -> int:
 
 def handle_platform_commands(args: Namespace) -> int:
     """Handle platform management and deployment commands"""
+```
+
+### 📚 Knowledge Module (`knowledge/`)
+**Educational content and learning systems**
+- **repository.py**: Core knowledge repository implementation
+- **foundations.py**: Theoretical foundations management
+- **mathematics.py**: Mathematical formulations and derivations
+- **implementations.py**: Practical code implementations and tutorials
+- **applications.py**: Real-world applications and domain knowledge
+
+**Key Features:**
+- Structured learning paths with prerequisite validation
+- Interactive tutorials with immediate feedback
+- Research integration with implementation notes
+- Mathematical foundations with computational verification
+- Domain applications across multiple disciplines
+
+**Key Methods:**
+```python
+def search_knowledge(self, query: str, filters: Dict[str, Any]) -> List[KnowledgeNode]:
+    """Search knowledge base with semantic ranking"""
+
+def get_learning_path(self, path_id: str) -> LearningPath:
+    """Get structured learning path with prerequisites"""
+
+def validate_prerequisites(self, node_id: str) -> Dict[str, Any]:
+    """Validate learning prerequisites and dependencies"""
+
+def export_knowledge(self, format_type: str, content_filter: Dict[str, Any]) -> Any:
+    """Export knowledge content in various formats"""
+```
+
+### 🔬 Research Module (`research/`)
+**Scientific research and experimentation framework**
+- **experiments.py**: Experiment management and execution
+- **simulations.py**: Multi-scale simulation engine
+- **analysis.py**: Statistical and information-theoretic analysis
+- **benchmarks.py**: Performance evaluation and comparison
+- **data_management.py**: Data collection, preprocessing, and storage
+
+**Key Features:**
+- Reproducible research pipeline orchestration
+- Multi-scale simulation and behavioral modeling
+- Statistical analysis with information-theoretic methods
+- Standardized evaluation and comparison frameworks
+- Comprehensive data management and validation
+
+**Key Methods:**
+```python
+def run_experiment(self, config: ExperimentConfig) -> Dict[str, Any]:
+    """Run experiment with comprehensive logging and validation"""
+
+def simulate_model(self, model_config: Dict[str, Any]) -> SimulationResult:
+    """Run multi-scale simulation with parameter sweeps"""
+
+def analyze_results(self, data: Any, analysis_type: str) -> Dict[str, Any]:
+    """Perform statistical and information-theoretic analysis"""
+
+def benchmark_models(self, models: List[str], metrics: List[str]) -> Dict[str, Any]:
+    """Benchmark and compare model performance"""
+
+def collect_data(self, config: DataCollectionConfig) -> str:
+    """Collect and validate research data according to specifications"""
+```
+
+### 👁️ Visualization Module (`visualization/`)
+**Interactive exploration and understanding tools**
+- **diagrams.py**: Interactive diagram generation
+- **animations.py**: Educational animation system
+- **dashboards.py**: Real-time monitoring dashboards
+- **comparative.py**: Model comparison tools
+
+**Key Features:**
+- Dynamic diagrams with real-time concept visualization
+- Simulation dashboards with live monitoring
+- Comparative analysis with side-by-side evaluation
+- Educational animations with step-by-step demonstrations
+- 3D exploration with immersive model interaction
+
+**Key Methods:**
+```python
+def create_concept_diagram(self, concept: str, style: str) -> Diagram:
+    """Create interactive concept visualization"""
+
+def animate_process(self, process: str, steps: List[str]) -> Animation:
+    """Create educational animation for learning processes"""
+
+def create_dashboard(self, components: List[str], layout: str) -> Dashboard:
+    """Create real-time monitoring dashboard"""
+
+def compare_models(self, models: List[str], metrics: List[str]) -> Comparison:
+    """Create side-by-side model comparison visualization"""
+```
+
+### 🛠️ Applications Module (`applications/`)
+**Practical implementation and real-world deployment**
+- **templates.py**: Implementation templates and code generation
+- **case_studies.py**: Real-world application examples
+- **integrations.py**: External system integration tools
+- **best_practices.py**: Architectural patterns and guidelines
+
+**Key Features:**
+- Production-ready implementation patterns
+- Documented real-world application examples
+- External system connectivity and data exchange
+- Scalable design patterns and best practices
+- Domain-specific implementation frameworks
+
+**Key Methods:**
+```python
+def generate_template(self, template_type: str, config: Dict[str, Any]) -> Dict[str, Any]:
+    """Generate implementation template with validation"""
+
+def create_case_study(self, domain: str, requirements: Dict[str, Any]) -> CaseStudy:
+    """Create comprehensive case study implementation"""
+
+def integrate_system(self, system_type: str, config: Dict[str, Any]) -> Integration:
+    """Create integration with external systems"""
+
+def validate_architecture(self, code: str, pattern: str) -> Dict[str, Any]:
+    """Validate code against architectural patterns"""
+```
+
+### 🖥️ Platform Module (`platform/`)
+**Scalable backend services and APIs**
+- **knowledge_graph.py**: Semantic knowledge representation
+- **search.py**: Intelligent search and indexing
+- **collaboration.py**: Multi-user collaboration features
+- **deployment.py**: Deployment and scaling tools
+
+**Key Features:**
+- REST API server with comprehensive service APIs
+- Semantic representation and reasoning
+- Multi-modal content search and retrieval
+- Multi-user content creation and discussion
+- Production scaling and infrastructure management
+
+**Key Methods:**
+```python
+def build_knowledge_graph(self, content: Dict[str, Any]) -> KnowledgeGraph:
+    """Build semantic knowledge graph from content"""
+
+def search_semantic(self, query: str, context: Dict[str, Any]) -> List[Result]:
+    """Perform semantic search with context awareness"""
+
+def manage_collaboration(self, project: str, users: List[str]) -> Collaboration:
+    """Manage collaborative content creation"""
+
+def deploy_service(self, config: Dict[str, Any]) -> Deployment:
+    """Deploy platform services with scaling"""
+```
+
+### 🧪 Tools Module (`tools/`)
+**Development workflow and automation systems**
+- **utilities.py**: Helper functions and development tools
+- **testing.py**: Testing frameworks and quality assurance
+- **documentation.py**: Documentation generation tools
+- **orchestrators.py**: Workflow orchestration components
+
+**Key Features:**
+- Thin orchestration and workflow management
+- Advanced testing infrastructure and utilities
+- Automated documentation creation and maintenance
+- Development and deployment automation
+
+**Key Methods:**
+```python
+def orchestrate_workflow(self, workflow: str, config: Dict[str, Any]) -> Any:
+    """Orchestrate complex workflows with dependencies"""
+
+def run_comprehensive_tests(self, modules: List[str]) -> Dict[str, Any]:
+    """Run comprehensive test suites with coverage"""
+
+def generate_documentation(self, modules: List[str], format: str) -> Dict[str, Any]:
+    """Generate comprehensive documentation"""
+
+def optimize_performance(self, target: str, metrics: List[str]) -> Dict[str, Any]:
+    """Optimize performance with comprehensive analysis"""
 ```
 
 ## Architecture Principles

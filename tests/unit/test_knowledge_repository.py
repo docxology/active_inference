@@ -66,8 +66,13 @@ class TestKnowledgeRepository:
                 "difficulty": "beginner",
                 "description": "First test node",
                 "prerequisites": [],
+                "content": {
+                    "overview": "Test overview content",
+                    "examples": [{"name": "Example 1", "description": "Test example"}]
+                },
                 "tags": ["test", "beginner"],
-                "learning_objectives": ["Learn something"]
+                "learning_objectives": ["Learn something"],
+                "metadata": {"version": "1.0"}
             }
             (foundations_dir / "node1.json").write_text(json.dumps(node1_data))
 
@@ -78,8 +83,13 @@ class TestKnowledgeRepository:
                 "difficulty": "intermediate",
                 "description": "Second test node",
                 "prerequisites": ["node1"],
+                "content": {
+                    "overview": "Test overview content for node 2",
+                    "mathematical_formulation": "Mathematical content here"
+                },
                 "tags": ["test", "intermediate"],
-                "learning_objectives": ["Learn something else"]
+                "learning_objectives": ["Learn something else"],
+                "metadata": {"version": "1.0"}
             }
             (foundations_dir / "node2.json").write_text(json.dumps(node2_data))
 
@@ -259,6 +269,70 @@ class TestKnowledgeRepository:
         assert validation["valid"] == False
         assert "Path not found" in validation["error"]
 
+    def test_get_node_content(self, repository_config):
+        """Test getting node content"""
+        repo = KnowledgeRepository(repository_config)
+
+        content = repo.get_node_content("node1")
+        assert content is not None
+        assert "overview" in content
+        assert content["overview"] == "Test overview content"
+
+        # Test non-existent node
+        content = repo.get_node_content("nonexistent")
+        assert content is None
+
+    def test_repository_validation(self, repository_config):
+        """Test repository validation functionality"""
+        repo = KnowledgeRepository(repository_config)
+
+        validation = repo.validate_repository()
+
+        assert "valid" in validation
+        assert "missing_prerequisites" in validation
+        assert "orphaned_nodes" in validation
+        assert "circular_dependencies" in validation
+
+        # Our test repository should be valid
+        assert validation["valid"] == True
+
+    def test_json_schema_validation(self, repository_config):
+        """Test JSON schema validation"""
+        from active_inference.knowledge.repository import KnowledgeNodeSchema
+
+        # Valid data
+        valid_data = {
+            "id": "test",
+            "title": "Test",
+            "content_type": "foundation",
+            "difficulty": "beginner",
+            "description": "Test description",
+            "prerequisites": [],
+            "content": {"overview": "test"},
+            "tags": ["test"],
+            "learning_objectives": ["learn"],
+            "metadata": {"version": "1.0"}
+        }
+
+        errors = KnowledgeNodeSchema.validate_json_structure(valid_data)
+        assert len(errors) == 0
+
+        # Invalid data - missing required field
+        invalid_data = valid_data.copy()
+        del invalid_data["title"]
+
+        errors = KnowledgeNodeSchema.validate_json_structure(invalid_data)
+        assert len(errors) > 0
+        assert any("title" in error for error in errors)
+
+        # Invalid data - wrong type
+        invalid_data = valid_data.copy()
+        invalid_data["prerequisites"] = "not a list"
+
+        errors = KnowledgeNodeSchema.validate_json_structure(invalid_data)
+        assert len(errors) > 0
+        assert any("prerequisites" in error for error in errors)
+
 
 class TestKnowledgeNode:
     """Test cases for KnowledgeNode model"""
@@ -272,8 +346,13 @@ class TestKnowledgeNode:
             "difficulty": DifficultyLevel.BEGINNER,
             "description": "A test node",
             "prerequisites": [],
+            "content": {
+                "overview": "Test overview",
+                "examples": []
+            },
             "tags": ["test"],
-            "learning_objectives": ["Learn something"]
+            "learning_objectives": ["Learn something"],
+            "metadata": {"version": "1.0"}
         }
 
         node = KnowledgeNode(**node_data)
@@ -284,6 +363,8 @@ class TestKnowledgeNode:
         assert node.difficulty == DifficultyLevel.BEGINNER
         assert node.prerequisites == []
         assert node.tags == ["test"]
+        assert node.content == {"overview": "Test overview", "examples": []}
+        assert node.metadata == {"version": "1.0"}
 
 
 class TestLearningPath:

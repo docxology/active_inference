@@ -6,7 +6,7 @@ Provides thin orchestration components, utility functions, testing frameworks,
 and documentation generators for efficient development workflows.
 """
 
-from .orchestrators import Orchestrator, WorkflowManager, TaskScheduler
+from .orchestrators import BaseOrchestrator as Orchestrator
 from .utilities import Utilities, HelperFunctions, DataProcessingTools
 from .testing import TestingFramework, TestRunner, QualityAssurance
 from .documentation import (
@@ -19,8 +19,6 @@ from .documentation import (
 
 __all__ = [
     "Orchestrator",
-    "WorkflowManager",
-    "TaskScheduler",
     "Utilities",
     "HelperFunctions",
     "DataProcessingTools",

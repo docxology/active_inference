@@ -79,6 +79,13 @@ Examples:
   ai-knowledge search "entropy"           # Search knowledge base
   ai-knowledge path show complete        # Show complete learning path
   ai-knowledge stats                     # Show repository statistics
+
+  ai-knowledge llm chat "Explain Active Inference"  # Chat with AI
+  ai-knowledge llm chat --template explanation    # Use explanation template
+  ai-knowledge llm generate "What is FEP?" --template active_inference_explanation  # Generate explanation
+  ai-knowledge llm models list           # List available models
+  ai-knowledge llm models pull gemma3:2b # Pull model from registry
+  ai-knowledge llm conversation list     # List saved conversations
             """
         )
 

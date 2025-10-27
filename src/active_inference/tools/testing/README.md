@@ -1,325 +1,578 @@
-# Testing Framework - Source Code Implementation
+# Testing Tools
 
-This directory contains the source code implementation of the Active Inference testing framework, providing comprehensive unit testing, integration testing, performance testing, and quality assurance tools for ensuring reliable implementations.
+**Advanced testing frameworks and utilities for the Active Inference Knowledge Environment.**
 
 ## Overview
 
-The testing framework module provides comprehensive testing and quality assurance capabilities for the Active Inference Knowledge Environment, including unit testing, integration testing, performance testing, and automated quality validation systems.
+The testing tools module provides comprehensive testing infrastructure, utilities, and frameworks specifically designed for testing Active Inference components, knowledge content, and platform integrations.
 
-## Module Structure
+### Core Features
+
+- **Test Framework**: Custom testing framework for Active Inference components
+- **Knowledge Validation**: Automated validation of knowledge content
+- **Integration Testing**: Cross-component testing utilities
+- **Performance Testing**: Load testing and performance validation
+- **Mock Services**: Mock implementations for testing
+- **Test Data Generation**: Automated test data creation
+
+## Architecture
+
+### Testing Components
 
 ```
-src/active_inference/tools/testing/
-├── __init__.py         # Testing framework module exports
-├── testing.py          # Core testing framework and quality assurance
-└── [implementations]   # Testing framework implementations
-    ├── unit_testing/   # Unit testing implementations
-    ├── integration/    # Integration testing implementations
-    ├── performance/    # Performance testing implementations
-    └── quality/        # Quality assurance implementations
+┌─────────────────┐
+│   Test          │ ← Test execution and management
+│   Framework     │
+├─────────────────┤
+│   Knowledge     │ ← Content validation and testing
+│   Validation    │
+├─────────────────┤
+│   Integration   │ ← Cross-component testing
+│   Testing       │
+├─────────────────┤
+│ Mock Services   │ ← Test doubles and mocks
+├─────────────────┤
+│ Test Data       │ ← Automated test data generation
+│   Generation    │
+└─────────────────┘
 ```
 
-## Core Components
+### Test Types
 
-### 🧪 Testing Framework (`testing.py`)
-**Comprehensive testing and quality assurance**
-- Unit testing, integration testing, and performance testing
-- Quality assurance and validation tools
-- Test result analysis and reporting
-- Integration with development workflows
+- **Unit Tests**: Individual component testing
+- **Integration Tests**: Component interaction testing
+- **Knowledge Tests**: Content accuracy and completeness
+- **Performance Tests**: Scalability and efficiency testing
+- **Security Tests**: Vulnerability and security validation
 
-**Key Methods to Implement:**
+## Usage
+
+### Basic Setup
+
 ```python
-def run_test(self, test_function: Callable, test_name: str) -> TestResult:
-    """Execute individual test with comprehensive monitoring and validation"""
+from active_inference.tools.testing import TestFramework
 
-def run_test_class(self, test_class: type) -> List[TestResult]:
-    """Execute all tests in test class with proper setup and teardown"""
-
-def run_test_suite(self, test_modules: List[str]) -> Dict[str, Any]:
-    """Execute complete test suite with comprehensive reporting and analysis"""
-
-def validate_component(self, component_name: str, component_data: Dict[str, Any], validation_types: List[str] = None) -> Dict[str, Any]:
-    """Validate component using comprehensive validation rules and quality gates"""
-
-def run_performance_test(self, test_function: Callable, test_name: str, iterations: int = 100) -> Dict[str, Any]:
-    """Execute performance test with statistical analysis and benchmarking"""
-
-def generate_report(self, output_path: Path) -> bool:
-    """Generate comprehensive test report with analysis and recommendations"""
-
-def create_test_environment(self, test_config: Dict[str, Any]) -> Dict[str, Any]:
-    """Create isolated test environment with proper setup and cleanup"""
-
-def validate_test_coverage(self, test_results: Dict[str, Any]) -> Dict[str, Any]:
-    """Validate test coverage and identify gaps in testing"""
-
-def create_test_data_generator(self, data_type: str, parameters: Dict[str, Any]) -> Callable:
-    """Create test data generator for various data types and distributions"""
-
-def implement_continuous_integration_testing(self) -> Dict[str, Any]:
-    """Implement continuous integration testing with automated validation and reporting"""
-```
-
-## Implementation Architecture
-
-### Testing Framework Architecture
-The testing system implements a comprehensive framework with:
-- **Multi-Level Testing**: Unit, integration, performance, and acceptance testing
-- **Quality Assurance**: Automated quality validation and gate systems
-- **Performance Monitoring**: Comprehensive performance testing and benchmarking
-- **Integration Testing**: Component interaction and system integration validation
-- **Reporting**: Detailed reporting and analysis of test results
-
-### Quality Assurance Architecture
-The quality system provides:
-- **Validation Rules**: Comprehensive validation rules for different component types
-- **Quality Metrics**: Quantitative quality measurement and tracking
-- **Automated Checking**: Automated validation workflows and quality gates
-- **Standards Compliance**: Validation against coding and documentation standards
-
-## Development Guidelines
-
-### Testing Standards
-- **Test-Driven Development**: All development must follow TDD principles
-- **Comprehensive Coverage**: Maintain high test coverage for all components
-- **Quality Gates**: Automated quality validation before integration
-- **Performance Testing**: Regular performance testing and optimization
-- **Integration Testing**: Comprehensive integration testing for all components
-
-### Quality Standards
-- **Code Quality**: Follow established testing patterns and best practices
-- **Test Quality**: Ensure tests are reliable, maintainable, and comprehensive
-- **Performance**: Optimize testing for efficiency and speed
-- **Documentation**: Complete documentation of testing procedures
-- **Validation**: Built-in validation for all testing frameworks
-
-## Usage Examples
-
-### Testing Framework Usage
-```python
-from active_inference.tools.testing import TestingFramework, TestResult
-
-# Initialize testing framework
-testing_framework = TestingFramework(config)
-
-# Run unit tests
-unit_test_results = testing_framework.run_tests([
-    "tests.unit.test_knowledge_repository",
-    "tests.unit.test_research_framework",
-    "tests.unit.test_visualization_engine"
-])
-
-print(f"Unit tests completed: {unit_test_results['passed']}/{unit_test_results['total_tests']}")
-
-# Validate component quality
-model_data = {
-    "accuracy": 0.95,
-    "free_energy": 0.12,
-    "numerical_stability": {"stable": True, "converged": True},
-    "parameters": {"learning_rate": 0.01, "precision": 1.0}
+# Initialize test framework
+config = {
+    "test_environment": "development",
+    "coverage_enabled": True,
+    "parallel_execution": True
 }
 
-validation = testing_framework.validate_model("active_inference_model", model_data)
-if validation["overall_valid"]:
-    print("Model validation passed")
-else:
-    print(f"Validation issues: {validation['validation_results']}")
+test_framework = TestFramework(config)
+```
+
+### Running Tests
+
+```python
+# Run all tests
+results = await test_framework.run_all_tests()
+
+# Run specific test categories
+unit_results = await test_framework.run_unit_tests()
+integration_results = await test_framework.run_integration_tests()
+knowledge_results = await test_framework.run_knowledge_tests()
 
 # Run performance tests
-def benchmark_function():
-    # Simulate intensive computation
-    import numpy as np
-    return np.random.random((1000, 1000)).sum()
-
-performance = testing_framework.run_performance_test(
-    benchmark_function,
-    "model_computation_benchmark",
-    iterations=50
-)
-
-print(f"Performance: {performance['mean_time']".3f"}s average")
-print(f"Throughput: {performance['throughput']".2f"} operations/second")
+perf_results = await test_framework.run_performance_tests()
 ```
 
-### Quality Assurance Usage
+### Test Configuration
+
 ```python
-from active_inference.tools.testing import QualityAssurance
-
-# Initialize quality assurance
-qa = QualityAssurance(config)
-
-# Validate probability distributions
-probability_data = [0.1, 0.3, 0.4, 0.2]
-prob_validation = qa.validate_component(
-    "probability_distribution",
-    {"data": probability_data},
-    ["probability_distribution"]
-)
-
-print(f"Probability validation: {prob_validation['validation_results']['probability_distribution']['valid']}")
-
-# Validate numerical stability
-numerical_data = {
-    "accuracy": 0.95,
-    "loss": 0.05,
-    "gradients": [0.001, -0.002, 0.001],
-    "parameters": {"weights": [1.0, 2.0, 3.0]}
+# Configure test execution
+test_config = {
+    "test_categories": ["unit", "integration", "knowledge"],
+    "parallel_execution": True,
+    "max_workers": 4,
+    "timeout": 300,
+    "coverage_threshold": 0.95,
+    "fail_fast": False
 }
 
-numerical_validation = qa.validate_component(
-    "numerical_computation",
-    numerical_data,
-    ["numerical_stability", "parameter_ranges"]
-)
-
-print(f"Numerical validation: {numerical_validation['overall_valid']}")
+# Run with configuration
+results = await test_framework.run_tests(test_config)
 ```
 
-## Testing Framework
+## Testing Patterns
 
-### Comprehensive Testing Requirements
-- **Unit Testing**: Test individual functions and methods in isolation
-- **Integration Testing**: Test component interactions and data flow
-- **Performance Testing**: Test system performance under various loads
-- **Quality Testing**: Test code and documentation quality standards
-- **Accessibility Testing**: Test accessibility features and compliance
+### Component Testing
 
-### Test Structure
 ```python
-class TestTestingFramework(unittest.TestCase):
-    """Test testing framework functionality and accuracy"""
+class TestKnowledgeRepository:
+    """Test pattern for knowledge repository"""
 
     def setUp(self):
         """Set up test environment"""
-        self.testing = TestingFramework(test_config)
-        self.qa = QualityAssurance(test_config)
+        self.config = create_test_config()
+        self.repository = KnowledgeRepository(self.config)
 
-    def test_unit_testing_functionality(self):
-        """Test unit testing functionality"""
-        # Create test function
-        def test_function(x: int, y: int) -> int:
-            """Test function for unit testing."""
-            if x < 0 or y < 0:
-                raise ValueError("Parameters must be non-negative")
-            return x + y
+    def test_content_creation(self):
+        """Test content creation functionality"""
+        content = create_test_content()
 
-        # Run unit test
-        def positive_test():
-            result = test_function(5, 3)
-            assert result == 8, f"Expected 8, got {result}"
+        result = self.repository.create_content(content)
 
-        def negative_test():
-            try:
-                test_function(-1, 5)
-                assert False, "Should have raised ValueError"
-            except ValueError as e:
-                assert "non-negative" in str(e)
+        assert result["success"] == True
+        assert result["content_id"] is not None
 
-        # Execute tests
-        positive_result = self.testing.run_test(positive_test, "test_positive_case")
-        negative_result = self.testing.run_test(negative_test, "test_negative_case")
+    def test_content_validation(self):
+        """Test content validation"""
+        invalid_content = {"invalid": "content"}
 
-        self.assertEqual(positive_result.status, "passed")
-        self.assertEqual(negative_result.status, "passed")
-
-    def test_quality_assurance_validation(self):
-        """Test quality assurance validation functionality"""
-        # Test probability distribution validation
-        valid_prob = [0.2, 0.3, 0.3, 0.2]
-        prob_validation = self.qa.validate_component(
-            "probability_test",
-            {"data": valid_prob},
-            ["probability_distribution"]
-        )
-
-        self.assertTrue(prob_validation["overall_valid"])
-        self.assertTrue(prob_validation["validation_results"]["probability_distribution"]["valid"])
-
-        # Test invalid probability distribution
-        invalid_prob = [0.1, 0.3, 0.4, 0.5]  # Sums to 1.3, not 1.0
-        invalid_validation = self.qa.validate_component(
-            "invalid_probability_test",
-            {"data": invalid_prob},
-            ["probability_distribution"]
-        )
-
-        self.assertFalse(invalid_validation["overall_valid"])
-        self.assertIn("sum to 1.0", invalid_validation["validation_results"]["probability_distribution"]["issues"][0])
-
-    def test_performance_testing_accuracy(self):
-        """Test performance testing accuracy and statistical analysis"""
-        def test_computation():
-            """Test computation for performance testing."""
-            import time
-            time.sleep(0.01)  # Simulate 10ms computation
-            return 42
-
-        # Run performance test
-        performance = self.testing.run_performance_test(
-            test_computation,
-            "test_computation_performance",
-            iterations=10
-        )
-
-        # Validate performance metrics
-        self.assertEqual(performance["successful_iterations"], 10)
-        self.assertGreater(performance["mean_time"], 0.009)  # Should be close to 10ms
-        self.assertLess(performance["mean_time"], 0.020)    # Should not be much higher
-        self.assertIn("min_time", performance)
-        self.assertIn("max_time", performance)
-        self.assertIn("throughput", performance)
-
-        # Validate statistical properties
-        self.assertLessEqual(performance["max_time"], performance["mean_time"] * 2)  # No major outliers
+        with pytest.raises(ValidationError):
+            self.repository.create_content(invalid_content)
 ```
 
-## Performance Considerations
+### Knowledge Validation
 
-### Testing Performance
-- **Test Execution Speed**: Optimize test execution for fast feedback
-- **Resource Management**: Efficient resource usage during testing
-- **Parallel Testing**: Parallel test execution where beneficial
-- **Memory Management**: Efficient memory usage for test suites
+```python
+class TestKnowledgeValidation:
+    """Test pattern for knowledge content validation"""
 
-### Quality Assurance Performance
-- **Validation Speed**: Fast validation without compromising thoroughness
-- **Analysis Performance**: Efficient analysis of large codebases
-- **Report Generation**: Fast report generation and export
-- **Continuous Integration**: Efficient integration with CI/CD pipelines
+    def test_content_schema(self):
+        """Test JSON schema compliance"""
+        content = load_test_content()
 
-## Quality Assurance Integration
+        validator = KnowledgeValidator()
+        result = validator.validate_schema(content)
 
-### Automated Quality Gates
-- **Code Quality Gates**: Automated code quality validation
-- **Test Coverage Gates**: Minimum test coverage requirements
-- **Performance Gates**: Performance regression detection
-- **Documentation Gates**: Documentation completeness validation
+        assert result["valid"] == True
 
-### Continuous Quality Monitoring
-- **Quality Metrics Tracking**: Continuous quality metric monitoring
-- **Trend Analysis**: Quality trend analysis and reporting
-- **Automated Alerts**: Quality regression alerts and notifications
-- **Quality Dashboards**: Real-time quality status visualization
+    def test_prerequisite_chains(self):
+        """Test prerequisite relationship validity"""
+        content_graph = load_content_graph()
 
-## Contributing Guidelines
+        validator = PrerequisiteValidator()
+        cycles = validator.detect_cycles(content_graph)
 
-When contributing to the testing framework:
+        assert len(cycles) == 0, f"Circular dependencies detected: {cycles}"
 
-1. **Testing Design**: Design tests following TDD and quality assurance principles
-2. **Coverage**: Ensure comprehensive test coverage for all functionality
-3. **Performance**: Optimize testing for efficiency and speed
-4. **Integration**: Ensure integration with development workflows
-5. **Documentation**: Update README and AGENTS files
-6. **Validation**: Validate testing frameworks against real usage scenarios
+    def test_learning_objectives(self):
+        """Test learning objective completeness"""
+        content = load_test_content()
 
-## Related Documentation
+        validator = LearningObjectiveValidator()
+        completeness = validator.check_completeness(content)
 
-- **[Main Tools README](../README.md)**: Tools module overview
-- **[Testing Framework AGENTS.md](AGENTS.md)**: Agent development guidelines for this module
-- **[Testing Documentation](testing.py)**: Core testing framework details
-- **[Quality Assurance Documentation](testing.py)**: Quality validation details
+        assert completeness["score"] > 0.8
+```
+
+### Integration Testing
+
+```python
+class TestPlatformIntegration:
+    """Test pattern for platform integration"""
+
+    def setUp(self):
+        """Set up integrated test environment"""
+        self.platform = TestPlatform()
+        self.components = self.platform.initialize_components()
+
+    def test_knowledge_search_integration(self):
+        """Test knowledge and search integration"""
+        knowledge = self.components["knowledge_repository"]
+        search = self.components["search_engine"]
+
+        # Index content
+        content = create_test_content()
+        knowledge.create_content(content)
+
+        # Search for content
+        results = search.search("test content")
+
+        assert len(results) > 0
+        assert results[0]["title"] == content["title"]
+
+    def test_full_workflow(self):
+        """Test complete user workflow"""
+        # Simulate user journey
+        user_actions = [
+            "create_content",
+            "search_content",
+            "view_content",
+            "rate_content"
+        ]
+
+        for action in user_actions:
+            result = await self.platform.execute_action(action)
+            assert result["success"] == True
+```
+
+## Configuration
+
+### Test Environment Configuration
+
+```python
+test_env_config = {
+    "environment": "test",
+    "database_url": "sqlite:///:memory:",
+    "redis_url": "redis://localhost:6379/15",
+    "elasticsearch_url": "http://localhost:9200",
+    "mock_external_services": True,
+    "seed_data": "test_fixtures"
+}
+```
+
+### Coverage Configuration
+
+```python
+coverage_config = {
+    "enabled": True,
+    "threshold": {
+        "overall": 0.80,
+        "critical_paths": 0.95,
+        "new_code": 0.90
+    },
+    "exclude_patterns": [
+        "tests/",
+        "migrations/",
+        "__pycache__/"
+    ]
+}
+```
+
+### Performance Testing Configuration
+
+```python
+perf_test_config = {
+    "enabled": True,
+    "load_patterns": [
+        "constant_load",
+        "spike_load",
+        "gradual_increase"
+    ],
+    "metrics": [
+        "response_time",
+        "throughput",
+        "error_rate",
+        "memory_usage"
+    ],
+    "thresholds": {
+        "response_time": "<100ms",
+        "error_rate": "<1%"
+    }
+}
+```
+
+## API Reference
+
+### TestFramework
+
+Main interface for test execution and management.
+
+#### Core Methods
+
+- `run_all_tests(config: Dict = None) -> TestResults`: Run complete test suite
+- `run_unit_tests() -> TestResults`: Run unit tests only
+- `run_integration_tests() -> TestResults`: Run integration tests
+- `run_knowledge_tests() -> TestResults`: Run knowledge validation tests
+- `run_performance_tests() -> TestResults`: Run performance tests
+- `generate_coverage_report() -> CoverageReport`: Generate coverage report
+
+### KnowledgeValidator
+
+Validates knowledge content and structure.
+
+#### Methods
+
+- `validate_schema(content: Dict) -> ValidationResult`: Validate JSON schema
+- `validate_prerequisites(content_graph: Dict) -> ValidationResult`: Validate prerequisites
+- `validate_learning_objectives(content: Dict) -> ValidationResult`: Validate objectives
+- `validate_cross_references(content: Dict) -> ValidationResult`: Validate references
+
+### MockService
+
+Provides mock implementations for testing.
+
+#### Methods
+
+- `create_mock_service(service_type: str) -> MockService`: Create mock service
+- `configure_mock_response(service: MockService, response: Dict) -> None`: Configure response
+- `verify_service_calls(service: MockService) -> List[Call]`: Verify service calls
+
+## Advanced Testing Features
+
+### Property-Based Testing
+
+```python
+from hypothesis import given, strategies as st
+
+@given(st.dictionaries(
+    keys=st.text(),
+    values=st.one_of(st.text(), st.integers(), st.floats())
+))
+def test_content_validation_properties(content_data):
+    """Test content validation with property-based testing"""
+    validator = KnowledgeValidator()
+
+    # Should either validate or provide clear error
+    result = validator.validate_schema(content_data)
+
+    assert isinstance(result["valid"], bool)
+    if not result["valid"]:
+        assert len(result["errors"]) > 0
+```
+
+### Performance Testing
+
+```python
+class TestPerformance:
+    """Performance testing patterns"""
+
+    def test_concurrent_access(self):
+        """Test performance under concurrent load"""
+        load_tester = PerformanceLoadTester()
+
+        # Generate concurrent requests
+        results = await load_tester.run_concurrent_test(
+            endpoint="/api/knowledge/search",
+            concurrent_users=100,
+            duration=60
+        )
+
+        assert results["avg_response_time"] < 100
+        assert results["error_rate"] < 0.01
+
+    def test_memory_usage(self):
+        """Test memory usage under load"""
+        memory_monitor = MemoryMonitor()
+
+        # Monitor memory during test
+        with memory_monitor:
+            await self.run_memory_intensive_operation()
+
+        peak_memory = memory_monitor.get_peak_usage()
+        assert peak_memory < 512  # MB
+```
+
+### Integration Testing
+
+```python
+class TestCrossComponentIntegration:
+    """Test integration across multiple components"""
+
+    def setUp(self):
+        """Set up multi-component test environment"""
+        self.test_platform = TestPlatform()
+        self.components = self.test_platform.initialize_all_components()
+
+    async def test_knowledge_to_research_pipeline(self):
+        """Test knowledge to research workflow"""
+        # Create knowledge content
+        knowledge = self.components["knowledge_repository"]
+        content = create_test_content()
+        content_id = await knowledge.create_content(content)
+
+        # Process through research pipeline
+        research = self.components["research_framework"]
+        experiment = await research.create_experiment_from_knowledge(content_id)
+
+        # Validate end-to-end flow
+        assert experiment["status"] == "created"
+        assert experiment["knowledge_source"] == content_id
+```
+
+## Test Data Management
+
+### Test Data Generation
+
+```python
+# Generate test knowledge content
+test_generator = TestDataGenerator()
+
+# Create test content with specific characteristics
+test_content = test_generator.generate_content(
+    content_type="foundation",
+    difficulty="intermediate",
+    topics=["active_inference", "bayesian_inference"],
+    relationships=True
+)
+
+# Generate test users
+test_users = test_generator.generate_users(count=100, roles=["student", "researcher"])
+
+# Generate test experiments
+test_experiments = test_generator.generate_experiments(
+    count=50,
+    types=["simulation", "analysis", "benchmark"]
+)
+```
+
+### Test Fixtures
+
+```python
+# Knowledge content fixtures
+@pytest.fixture
+def sample_knowledge_content():
+    """Sample knowledge content for testing"""
+    return {
+        "id": "test_active_inference",
+        "title": "Test Active Inference",
+        "content_type": "foundation",
+        "difficulty": "beginner",
+        "content": {
+            "overview": "Test overview",
+            "mathematical_definition": "Test definition",
+            "examples": ["example1", "example2"]
+        }
+    }
+
+# Platform fixtures
+@pytest.fixture
+def test_platform():
+    """Test platform with all components"""
+    platform = TestPlatform()
+    return platform.initialize_components()
+```
+
+## Testing Best Practices
+
+### Test Organization
+
+```
+tests/
+├── unit/
+│   ├── test_knowledge_repository.py
+│   ├── test_research_framework.py
+│   ├── test_visualization_engine.py
+│   └── test_platform_services.py
+├── integration/
+│   ├── test_knowledge_research_integration.py
+│   ├── test_platform_knowledge_integration.py
+│   └── test_full_system_integration.py
+├── knowledge/
+│   ├── test_content_validation.py
+│   ├── test_prerequisite_chains.py
+│   └── test_learning_paths.py
+├── performance/
+│   ├── test_concurrent_access.py
+│   ├── test_memory_usage.py
+│   └── test_scalability.py
+└── security/
+    ├── test_authentication.py
+    ├── test_authorization.py
+    └── test_data_protection.py
+```
+
+### Test Naming Conventions
+
+```python
+def test_[component]_[functionality]_[scenario]():
+    """Test description"""
+    # Test implementation
+
+# Examples
+def test_knowledge_repository_create_content_valid():
+def test_knowledge_repository_create_content_invalid_schema():
+def test_research_framework_run_experiment_concurrent():
+def test_platform_integration_authentication_workflow():
+```
+
+## Performance Testing
+
+### Load Testing
+
+```python
+class TestLoadPerformance:
+    """Load testing for platform performance"""
+
+    def test_concurrent_knowledge_access(self):
+        """Test concurrent knowledge access performance"""
+        load_tester = LoadTester()
+
+        results = load_tester.run_test(
+            endpoint="/api/knowledge/nodes/{node_id}",
+            method="GET",
+            concurrent_users=1000,
+            duration=300
+        )
+
+        assert results["avg_response_time"] < 50  # ms
+        assert results["throughput"] > 1000     # requests/sec
+        assert results["error_rate"] < 0.001    # 0.1%
+
+    def test_search_performance_under_load(self):
+        """Test search performance with concurrent queries"""
+        load_tester = SearchLoadTester()
+
+        results = load_tester.run_search_test(
+            queries=["active inference", "bayesian inference", "free energy"],
+            concurrent_searches=500,
+            duration=180
+        )
+
+        assert results["avg_search_time"] < 100  # ms
+        assert results["result_quality"] > 0.9   # relevance score
+```
+
+### Memory Testing
+
+```python
+class TestMemoryUsage:
+    """Test memory usage patterns"""
+
+    def test_knowledge_loading_memory(self):
+        """Test memory usage when loading large knowledge bases"""
+        memory_monitor = MemoryMonitor()
+
+        with memory_monitor:
+            # Load large knowledge repository
+            repository = KnowledgeRepository()
+            await repository.load_all_content()
+
+        peak_memory = memory_monitor.get_peak_usage()
+        memory_efficiency = memory_monitor.get_efficiency_score()
+
+        assert peak_memory < 1024  # MB
+        assert memory_efficiency > 0.8
+```
+
+## Contributing
+
+See [AGENTS.md](AGENTS.md) for development guidelines and [.cursorrules](../../../.cursorrules) for comprehensive development standards.
+
+### Development Process
+
+1. **Environment Setup**:
+   ```bash
+   cd src/active_inference/tools/testing
+   make setup
+   ```
+
+2. **Testing**:
+   ```bash
+   make test
+   make test-integration
+   ```
+
+3. **Documentation**:
+   - Update README.md for new testing features
+   - Update AGENTS.md for testing patterns
+   - Add comprehensive test examples
+
+## Quality Assurance
+
+### Test Coverage
+
+- **Component Tests**: >95% coverage for all components
+- **Integration Tests**: >80% coverage for component interactions
+- **Knowledge Tests**: 100% coverage for content validation
+- **Performance Tests**: Continuous performance regression testing
+
+### Test Automation
+
+```bash
+# Automated testing pipeline
+make test-all          # Run complete test suite
+make test-quick        # Run fast tests only
+make test-coverage     # Generate coverage report
+make test-performance  # Run performance tests
+make test-security     # Run security tests
+```
 
 ---
 
-*"Active Inference for, with, by Generative AI"* - Building testing frameworks through collaborative intelligence and comprehensive quality assurance.
+**Component Version**: 1.0.0 | **Development Status**: Active Development
+
+*"Active Inference for, with, by Generative AI"* - Rigorous testing for reliable intelligence.

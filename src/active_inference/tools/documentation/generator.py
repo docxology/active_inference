@@ -18,7 +18,7 @@ import sys
 from pydantic import BaseModel
 from jinja2 import Environment, FileSystemLoader
 
-from ..utilities.logging import setup_logger
+import logging
 from ...knowledge.repository import KnowledgeRepository
 
 logger = logging.getLogger(__name__)

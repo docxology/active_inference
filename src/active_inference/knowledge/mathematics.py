@@ -7,10 +7,23 @@ for understanding and working with the theoretical framework.
 """
 
 import json
-import numpy as np
-import sympy as sp
 from typing import Dict, List, Any, Tuple, Optional
 from pathlib import Path
+
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    np = None
+    HAS_NUMPY = False
+
+try:
+    import sympy as sp
+    HAS_SYMPY = True
+except ImportError:
+    sp = None
+    HAS_SYMPY = False
+
 from .repository import KnowledgeRepository, KnowledgeNode, ContentType, DifficultyLevel
 
 
@@ -261,7 +274,7 @@ class Mathematics:
             ]
         }
 
-    def compute_kl_divergence(self, p: np.ndarray, q: np.ndarray) -> float:
+    def compute_kl_divergence(self, p: List[float], q: List[float]) -> float:
         """
         Compute KL divergence between two discrete probability distributions
 
@@ -272,16 +285,29 @@ class Mathematics:
         Returns:
             KL divergence D_KL(p||q)
         """
-        # Normalize inputs
-        p = p / np.sum(p)
-        q = q / np.sum(q)
+        if not HAS_NUMPY:
+            # Simple implementation without numpy
+            # Normalize inputs
+            p_sum = sum(p)
+            q_sum = sum(q)
+            p_norm = [pi / p_sum for pi in p]
+            q_norm = [qi / q_sum for qi in q]
 
-        # Compute KL divergence
-        kl_div = np.sum(p * np.log(p / q))
+            # Compute KL divergence
+            kl_div = sum(pi * (pi / qi) for pi, qi in zip(p_norm, q_norm))
+            return float(kl_div)
+
+        # Use numpy implementation if available
+        import numpy as np
+        p_array = np.array(p)
+        q_array = np.array(q)
+        p_array = p_array / np.sum(p_array)
+        q_array = q_array / np.sum(q_array)
+        kl_div = np.sum(p_array * np.log(p_array / q_array))
         return float(kl_div)
 
-    def expected_free_energy(self, policies: List[np.ndarray],
-                           observations: np.ndarray) -> np.ndarray:
+    def expected_free_energy(self, policies: List[List[float]],
+                           observations: List[float]) -> List[float]:
         """
         Compute expected free energy for policy selection in Active Inference
 
@@ -297,13 +323,24 @@ class Mathematics:
         # EFE = E[Risk] + E[Ambiguity] - E[Value]
         efe_values = []
 
-        for policy in policies:
-            # This would contain the actual EFE computation
-            # For now, returning placeholder values
-            efe = np.random.random()  # Placeholder
-            efe_values.append(efe)
+        if not HAS_NUMPY:
+            # Simple implementation without numpy
+            import random
+            for policy in policies:
+                # This would contain the actual EFE computation
+                # For now, returning placeholder values
+                efe = random.random()  # Placeholder
+                efe_values.append(efe)
+        else:
+            # Use numpy implementation if available
+            import numpy as np
+            for policy in policies:
+                # This would contain the actual EFE computation
+                # For now, returning placeholder values
+                efe = np.random.random()  # Placeholder
+                efe_values.append(float(efe))
 
-        return np.array(efe_values)
+        return efe_values
 
     def get_mathematical_prerequisites(self) -> Dict[str, List[str]]:
         """Get mathematical prerequisite chains for Active Inference"""

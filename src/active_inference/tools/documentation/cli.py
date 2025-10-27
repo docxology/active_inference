@@ -11,7 +11,6 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from ..utilities.logging import setup_logger
 from .generator import DocumentationGenerator
 from .analyzer import DocumentationAnalyzer
 from .reviewer import RepositoryReviewer
@@ -36,7 +35,7 @@ class DocumentationCLI:
             repo_path: Path to repository root
         """
         self.repo_path = repo_path or Path.cwd()
-        self.logger = setup_logger(__name__)
+        self.logger = logging.getLogger(__name__)
 
         # Initialize tools
         self.generator = DocumentationGenerator(self.repo_path / "docs")
@@ -302,10 +301,10 @@ Examples:
 📊 Documentation Quality Analysis
 {'=' * 40}
 
-Coverage: {quality.coverage_percentage".1f"}%
+Coverage: {quality.coverage_percentage:.1f}%
 Total Elements: {quality.total_elements}
 Documented Elements: {quality.documented_elements}
-Average Quality Score: {quality.average_quality".2f"}
+Average Quality Score: {quality.average_quality:.2f}
 
 Quality Distribution:
 - Excellent: {len(quality.excellent_docs)} elements
@@ -332,7 +331,7 @@ Missing Documentation: {len(quality.missing_docs)} elements
 📈 Documentation Coverage Analysis
 {'=' * 40}
 
-Overall Coverage: {quality.coverage_percentage".1f"}%
+Overall Coverage: {quality.coverage_percentage:.1f}%
 
 Elements:
 - Total: {quality.total_elements}
@@ -397,8 +396,8 @@ Issues by Category:
 {'=' * 50}
 
 📊 Documentation Quality
-Coverage: {quality.coverage_percentage".1f"}%
-Quality Score: {quality.average_quality".2f"}
+Coverage: {quality.coverage_percentage:.1f}%
+Quality Score: {quality.average_quality:.2f}
 
 🔍 Validation Status
 Errors: {validation['errors']}
@@ -407,7 +406,7 @@ Validation Passed: {'✅ Yes' if validation['validation_passed'] else '❌ No'}
 
 📈 Repository Health
 Total Issues: {validation['total_issues']}
-Documentation Score: {quality.coverage_percentage".1f"}%
+Documentation Score: {quality.coverage_percentage:.1f}%
 
 🔧 Recommendations
 {chr(10).join(f'- {rec}' for rec in self._get_recommendations(quality, validation))}
@@ -418,7 +417,7 @@ Documentation Score: {quality.coverage_percentage".1f"}%
         recommendations = []
 
         if quality.coverage_percentage < 80:
-            recommendations.append(f"Improve documentation coverage from {quality.coverage_percentage:.".1f"to 80%+")
+            recommendations.append(f"Improve documentation coverage from {quality.coverage_percentage:.1f}% to 80%+")
 
         if validation['errors'] > 0:
             recommendations.append(f"Fix {validation['errors']} documentation errors")

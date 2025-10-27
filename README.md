@@ -2,7 +2,7 @@
 
 **"Active Inference for, with, by Generative AI"**
 
-A comprehensive integrated platform for Active Inference & Free Energy Principle education, research, visualization, and application development. This repository provides a structured, accessible knowledge environment that bridges theoretical foundations with practical applications, built through collaborative intelligence between humans and AI.
+A comprehensive integrated platform for Active Inference & Free Energy Principle education, research, visualization, and application development. This repository provides a structured, accessible knowledge environment that bridges theoretical foundations with practical applications, built through collaborative intelligence among humans and AI.
 
 ## 🎯 Mission & Vision
 

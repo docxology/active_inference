@@ -146,25 +146,20 @@ class TestOllamaClient:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
-            # Mock streaming response for model pull
-            mock_response = AsyncMock()
-            mock_response.raise_for_status = Mock()
-            mock_response.aiter_lines = AsyncMock()
-            mock_response.aiter_lines.return_value = [
-                '{"status": "pulling manifest"}',
-                '{"status": "downloading", "digest": "abc123", "total": 1000, "completed": 500}',
-                '{"status": "success"}'
-            ]
-            mock_client.stream.return_value.__aenter__.return_value = mock_response
+            # Mock pull response
+            mock_pull_response = Mock()
+            mock_pull_response.raise_for_status = Mock()
+            mock_client.post.return_value = mock_pull_response
 
             # Mock refresh models
-            mock_client.get.return_value = Mock()
-            mock_client.get.return_value.raise_for_status = Mock()
-            mock_client.get.return_value.json.return_value = {
+            mock_refresh_response = Mock()
+            mock_refresh_response.raise_for_status = Mock()
+            mock_refresh_response.json.return_value = {
                 "models": [
                     {"name": "gemma3:2b", "size": 2000000000}
                 ]
             }
+            mock_client.get.return_value = mock_refresh_response
 
             client = OllamaClient(client_config)
             client.client = mock_client
@@ -173,7 +168,11 @@ class TestOllamaClient:
             success = await client.pull_model("gemma3:2b")
 
             assert success is True
-            mock_client.stream.assert_called_once()
+            mock_client.post.assert_called_once_with(
+                "/api/pull",
+                json={"name": "gemma3:2b"},
+                timeout=client_config.timeout
+            )
 
     @pytest.mark.asyncio
     async def test_generate_text(self, client_config, mock_ollama_response):
@@ -296,16 +295,24 @@ class TestOllamaClient:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
-            # Mock version response
-            mock_response = Mock()
-            mock_response.raise_for_status = Mock()
-            mock_response.json.return_value = {"version": "0.1.0"}
-            mock_client.get.return_value = mock_response
+            # Mock version response (first call)
+            mock_version_response = Mock()
+            mock_version_response.raise_for_status = Mock()
+            mock_version_response.json.return_value = {"version": "0.1.0"}
+
+            # Mock models response (second call)
+            mock_models_response = Mock()
+            mock_models_response.raise_for_status = Mock()
+            mock_models_response.json.return_value = {
+                "models": [{"name": "gemma3:2b", "size": 2000000000}]
+            }
+
+            # Set up mock to return different responses for different endpoints
+            mock_client.get.side_effect = [mock_version_response, mock_models_response]
 
             client = OllamaClient(client_config)
             client.client = mock_client
             client._is_initialized = True
-            client._available_models = ["gemma3:2b"]
 
             health = await client.health_check()
 

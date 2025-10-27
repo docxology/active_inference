@@ -93,7 +93,7 @@ class BenchmarkSuite:
 
         self.metrics[model_name] = metrics
 
-        logger.info(f"Model {model_name} evaluation completed in {evaluation_time".2f"}s")
+        logger.info(f"Model {model_name} evaluation completed in {evaluation_time:.2f}s")
         return metrics
 
     def compare_models(self, model_names: List[str]) -> Dict[str, Any]:

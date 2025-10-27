@@ -1,0 +1,127 @@
+{
+  "id": "information_bottleneck",
+  "title": "Information Bottleneck and Minimal Sufficient Statistics",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding the information bottleneck principle for finding compressed representations that preserve predictive information.",
+  "prerequisites": ["info_theory_mutual_information", "variational_free_energy"],
+  "tags": ["information bottleneck", "dimensionality reduction", "sufficient statistics", "representation learning"],
+  "learning_objectives": [
+    "Understand the information bottleneck principle",
+    "Derive the information bottleneck functional",
+    "Apply information bottleneck to representation learning",
+    "Connect information bottleneck to Active Inference"
+  ],
+  "content": {
+    "overview": "The information bottleneck principle provides a theoretical framework for finding compressed representations that preserve the most relevant information about a target variable. It formalizes the trade-off between compression and preservation of predictive information.",
+    "information_bottleneck_principle": {
+      "fundamental_tradeoff": "Find representation Z that compresses X but preserves information about Y",
+      "mathematical_formulation": "max I(Y;Z) - β I(X;Z)",
+      "interpretation": "Balance relevance (I(Y;Z)) against complexity (I(X;Z))",
+      "lagrangian": "IB(β) = max_{p(z|x)} [I(Y;Z) - β I(X;Z)]"
+    },
+    "variational_information_bottleneck": {
+      "functional": "IB = E_{p(x,y)} [log q(z|x) - log r(z)] + β KL(q(z)||p(z))",
+      "encoder": "q(z|x) - encodes input to representation",
+      "decoder": "p(y|z) - predicts target from representation",
+      "prior": "r(z) - regularization prior on representations"
+    },
+    "sufficient_statistics_interpretation": {
+      "minimal_sufficient_statistics": "Representation Z contains all information about X relevant to Y",
+      "data_processing_inequality": "I(X;Z) ≥ I(X;Y) if Z is sufficient for Y",
+      "markov_chain": "X → Z → Y forms Markov chain when Z is sufficient",
+      "information_preservation": "All mutual information I(X;Y) flows through I(X;Z)"
+    },
+    "connection_to_rate_distortion": {
+      "rate_distortion_theory": "Compress X to minimize distortion D(X,Z)",
+      "information_bottleneck": "Special case where distortion is -I(Y;Z)",
+      "generalization": "IB generalizes rate-distortion to supervised setting",
+      "optimal_tradeoff": "Characterizes fundamental limits of compression with supervision"
+    },
+    "examples": [
+      {
+        "name": "Text Classification",
+        "description": "Learning document representations for topic classification",
+        "input": "Document word frequencies X",
+        "target": "Document topic Y",
+        "bottleneck": "Topic representation Z",
+        "optimization": "Maximize I(Y;Z) while constraining I(X;Z)"
+      },
+      {
+        "name": "Image Recognition",
+        "description": "Learning visual representations for object recognition",
+        "input": "Pixel values X",
+        "target": "Object category Y",
+        "bottleneck": "Feature representation Z",
+        "optimization": "Find Z that compresses pixels but preserves category information"
+      }
+    ],
+    "connections_to_active_inference": {
+      "predictive_coding": "Information bottleneck as hierarchical compression",
+      "free_energy_minimization": "IB objective related to variational free energy",
+      "attention_mechanisms": "Selective information flow through bottlenecks",
+      "representation_learning": "Learning internal models that preserve relevant information"
+    },
+    "applications_in_machine_learning": {
+      "deep_learning": "Training neural networks with information bottleneck",
+      "unsupervised_learning": "Finding compressed representations",
+      "transfer_learning": "Learning representations that generalize",
+      "interpretability": "Understanding what information is preserved"
+    },
+    "interactive_exercises": [
+      {
+        "id": "bottleneck_optimization",
+        "type": "optimization",
+        "description": "Optimize information bottleneck objective",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "sufficient_statistics",
+        "type": "analysis",
+        "description": "Analyze sufficiency of different representations",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Information bottleneck always reduces dimensionality",
+        "clarification": "Can increase dimensionality if beneficial for prediction"
+      },
+      {
+        "misconception": "IB is only for supervised learning",
+        "clarification": "Can be extended to unsupervised and semi-supervised settings"
+      },
+      {
+        "misconception": "Higher compression always means better representation",
+        "clarification": "Must balance compression against preservation of relevant information"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "The Information Bottleneck Method",
+        "author": "Tishby et al.",
+        "year": 1999,
+        "description": "Original formulation of information bottleneck"
+      },
+      {
+        "title": "Opening the Black Box of Deep Neural Networks via Information",
+        "author": "Shwartz-Ziv and Tishby",
+        "year": 2017,
+        "description": "Information bottleneck analysis of neural networks"
+      }
+    ],
+    "related_concepts": [
+      "info_theory_mutual_information",
+      "variational_free_energy",
+      "dimensionality_reduction",
+      "representation_learning"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 35,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

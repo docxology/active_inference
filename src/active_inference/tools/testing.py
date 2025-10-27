@@ -66,7 +66,7 @@ class TestRunner:
             result.execution_time = time.time() - start_time
 
         self.test_results.append(result)
-        logger.debug(f"Test {test_name} completed: {result.status} ({result.execution_time".3f"}s)")
+        logger.debug(f"Test {test_name} completed: {result.status} ({result.execution_time:.3f}s)")
 
         return result
 

@@ -13,9 +13,9 @@ This module enables:
 """
 
 from .client import OllamaClient, LLMConfig
-from .prompts import PromptTemplate, PromptBuilder, PromptManager
+from .prompts import PromptTemplate, PromptBuilder, PromptManager, ActiveInferencePromptBuilder
 from .models import ModelManager, ModelInfo, ModelRegistry
-from .conversations import ConversationManager, Conversation
+from .conversations import ConversationManager, Conversation, ActiveInferenceTemplates
 
 __all__ = [
     "OllamaClient",
@@ -23,9 +23,11 @@ __all__ = [
     "PromptTemplate",
     "PromptBuilder",
     "PromptManager",
+    "ActiveInferencePromptBuilder",
     "ModelManager",
     "ModelInfo",
     "ModelRegistry",
     "ConversationManager",
     "Conversation",
+    "ActiveInferenceTemplates",
 ]

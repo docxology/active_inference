@@ -224,18 +224,18 @@ class ModelComparator:
         accuracies = [(i, model.get("accuracy", 0)) for i, model in enumerate(models)]
         best_accuracy = max(accuracies, key=lambda x: x[1])
 
-        insights.append(f"Model {best_accuracy[0]} has the highest accuracy ({best_accuracy[1]".3f"})")
+        insights.append(f"Model {best_accuracy[0]} has the highest accuracy ({best_accuracy[1]:.3f})")
 
         # Compare free energy
         free_energies = [(i, model.get("free_energy", 1.0)) for i, model in enumerate(models)]
         best_fe = min(free_energies, key=lambda x: x[1])
 
-        insights.append(f"Model {best_fe[0]} achieves the lowest free energy ({best_fe[1]".3f"})")
+        insights.append(f"Model {best_fe[0]} achieves the lowest free energy ({best_fe[1]:.3f})")
 
         # Convergence analysis
         convergence_times = [(i, model.get("convergence_time", 100)) for i, model in enumerate(models)]
         fastest = min(convergence_times, key=lambda x: x[1])
 
-        insights.append(f"Model {fastest[0]} converges fastest ({fastest[1]".1f"} time units)")
+        insights.append(f"Model {fastest[0]} converges fastest ({fastest[1]:.1f} time units)")
 
         return insights

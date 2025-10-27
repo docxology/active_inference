@@ -10,6 +10,13 @@ from .experiments import ResearchFramework, ExperimentManager, ExperimentConfig
 from .simulations import SimulationEngine, ModelRunner
 from .analysis import AnalysisTools, StatisticalAnalysis
 from .benchmarks import BenchmarkSuite, PerformanceMetrics
+from .data_management import (
+    DataManager,
+    DataMetadata,
+    DataCollectionConfig,
+    DataSecurityLevel,
+    DataFormat
+)
 
 __all__ = [
     "ResearchFramework",
@@ -21,4 +28,9 @@ __all__ = [
     "StatisticalAnalysis",
     "BenchmarkSuite",
     "PerformanceMetrics",
+    "DataManager",
+    "DataMetadata",
+    "DataCollectionConfig",
+    "DataSecurityLevel",
+    "DataFormat",
 ]

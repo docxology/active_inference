@@ -1,0 +1,33 @@
+{
+  "id": "ae4e23f9-949c-48b4-bfd0-734443ec24b5",
+  "title": "What is the Free Energy Principle?",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is the Free Energy Principle?",
+      "timestamp": "2025-10-27T09:46:43.254766",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "The Free Energy Principle is a unifying theory...",
+      "timestamp": "2025-10-27T09:46:43.254853",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "How does it relate to entropy?",
+      "timestamp": "2025-10-27T09:46:43.254922",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "You're right to point out the connection! The Free Energy Principle is deeply intertwined with entropy.  Here's how:\n\n**Understanding the Core Concepts:**\n\n* **Entropy (S):**  A measure of disorder or randomness in a system.  Think about a messy room vs. a tidy one - the messy room has higher entropy.\n* **Free Energy (G):** A fundamental concept that tells us if a process will happen spontaneously. It's influenced by two factors",
+      "timestamp": "2025-10-27T09:46:44.665827",
+      "metadata": {}
+    }
+  ],
+  "metadata": {},
+  "created_at": "2025-10-27T09:46:43.254553",
+  "updated_at": "2025-10-27T09:46:44.665833"
+}

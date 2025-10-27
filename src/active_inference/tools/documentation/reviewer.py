@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from collections import defaultdict
 import re
 
-from ..utilities.logging import setup_logger
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +83,7 @@ class RepositoryReviewer:
             '*.egg-info'
         ]
 
-        self.logger = setup_logger(__name__)
+        self.logger = logging.getLogger(__name__)
         self.logger.info(f"Repository reviewer initialized for {self.repo_path}")
 
     def analyze_repository(self) -> Dict[str, Any]:
@@ -440,7 +440,7 @@ class RepositoryReviewer:
         # Check for very large files
         for file_path in python_files:
             if file_path.stat().st_size > 1024 * 1024:  # 1MB
-                issues.append(f"Large file detected: {file_path} ({file_path.stat().st_size / 1024 / 1024".2f"}MB)")
+                issues.append(f"Large file detected: {file_path} ({file_path.stat().st_size / 1024 / 1024:.2f}MB)")
 
         return issues
 
@@ -551,17 +551,17 @@ class RepositoryReviewer:
 
         # Documentation recommendations
         if docs.coverage_percentage < 80:
-            recommendations.append(f"Improve documentation coverage: currently {docs.coverage_percentage".1f"}%")
+            recommendations.append(f"Improve documentation coverage: currently {docs.coverage_percentage:.1f}%")
 
         if quality['type_hint_coverage'] < 70:
-            recommendations.append(f"Add type hints: currently {quality['type_hint_coverage']".1f"}% coverage")
+            recommendations.append(f"Add type hints: currently {quality['type_hint_coverage']:.1f}% coverage")
 
         # Testing recommendations
         if testing['test_files'] == 0:
             recommendations.append("Add comprehensive test suite")
 
         if testing['coverage_available'] and quality['average_test_coverage'] < 80:
-            recommendations.append(f"Improve test coverage: currently {quality['average_test_coverage']".1f"}%")
+            recommendations.append(f"Improve test coverage: currently {quality['average_test_coverage']:.1f}%")
 
         # Architecture recommendations
         if quality['modules_with_issues'] > 0:
@@ -628,7 +628,7 @@ class RepositoryReviewer:
         report.append("## Overview")
         report.append(f"- **Total Files:** {overview['total_files']}")
         report.append(f"- **Total Directories:** {overview['total_directories']}")
-        report.append(f"- **Repository Size:** {overview['total_size_mb']".2f"} MB")
+        report.append(f"- **Repository Size:** {overview['total_size_mb']:.2f} MB")
         report.append(f"- **Python Files:** {overview['python_files']}")
         report.append("")
 
@@ -637,15 +637,15 @@ class RepositoryReviewer:
         report.append("## Code Quality")
         report.append(f"- **Total Modules:** {quality['total_modules']}")
         report.append(f"- **Modules with Issues:** {quality['modules_with_issues']}")
-        report.append(f"- **Average Complexity:** {quality['average_complexity']".2f"}")
-        report.append(f"- **Documentation Coverage:** {quality['average_documentation_coverage']".1f"}%")
-        report.append(f"- **Type Hint Coverage:** {quality['type_hint_coverage']".1f"}%")
+        report.append(f"- **Average Complexity:** {quality['average_complexity']:.2f}")
+        report.append(f"- **Documentation Coverage:** {quality['average_documentation_coverage']:.1f}%")
+        report.append(f"- **Type Hint Coverage:** {quality['type_hint_coverage']:.1f}%")
         report.append("")
 
         # Documentation
         docs = analysis['documentation']
         report.append("## Documentation")
-        report.append(f"- **Coverage:** {docs.coverage_percentage".1f"}%")
+        report.append(f"- **Coverage:** {docs.coverage_percentage:.1f}%")
         report.append(f"- **Documented Modules:** {docs.documented_modules}/{docs.total_modules}")
         report.append(f"- **Documented Functions:** {docs.documented_functions}/{docs.total_functions}")
         report.append("")

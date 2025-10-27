@@ -14,7 +14,7 @@ from typing import Dict, List, Any, Optional, Tuple, Set
 from dataclasses import dataclass, field
 from collections import defaultdict
 
-from ..utilities.logging import setup_logger
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -97,7 +97,7 @@ class DocumentationAnalyzer:
                 score for score in [self._calculate_element_quality_score(elem) for elem in quality.excellent_docs + quality.poor_quality_docs]
             ) / len(quality.excellent_docs + quality.poor_quality_docs) if (quality.excellent_docs + quality.poor_quality_docs) else 0.0
 
-        self.logger.info(f"Documentation analysis completed: {quality.coverage_percentage".1f"}% coverage")
+        self.logger.info(f"Documentation analysis completed: {quality.coverage_percentage:.1f}% coverage")
         return quality
 
     def _analyze_path_documentation(self, source_path: Path) -> DocumentationQuality:
@@ -332,10 +332,10 @@ class DocumentationAnalyzer:
 
         # Overall metrics
         report.append("## Overview")
-        report.append(f"- **Coverage:** {quality.coverage_percentage".1f"}%")
+        report.append(f"- **Coverage:** {quality.coverage_percentage:.1f}%")
         report.append(f"- **Total Elements:** {quality.total_elements}")
         report.append(f"- **Documented Elements:** {quality.documented_elements}")
-        report.append(f"- **Average Quality Score:** {quality.average_quality".2f"}")
+        report.append(f"- **Average Quality Score:** {quality.average_quality:.2f}")
         report.append("")
 
         # Quality distribution
@@ -370,7 +370,7 @@ class DocumentationAnalyzer:
         # Recommendations
         report.append("## Recommendations")
         if quality.coverage_percentage < 80:
-            report.append(f"1. Improve documentation coverage from {quality.coverage_percentage:.".1f"to 80%+")
+            report.append(f"1. Improve documentation coverage from {quality.coverage_percentage:.1f}% to 80%+")
         if poor_count > 0:
             report.append(f"2. Review and improve {poor_count} poorly documented elements")
         if quality.average_quality < 0.7:

@@ -161,6 +161,11 @@ class KnowledgeRepository:
         if config.auto_index:
             self._build_index()
 
+        # Validate content consistency
+        validation_report = self._validate_content_consistency()
+        if not validation_report["valid"]:
+            logger.warning(f"Content validation issues found: {validation_report}")
+
         logger.info(f"Knowledge repository initialized with {len(self._nodes)} nodes")
 
     def _default_content_paths(self) -> Dict[ContentType, str]:
@@ -196,6 +201,9 @@ class KnowledgeRepository:
             with open(paths_file, 'r') as f:
                 paths_data = json.load(f)
                 for path_data in paths_data:
+                    # Convert string difficulty to enum
+                    if "difficulty" in path_data:
+                        path_data["difficulty"] = DifficultyLevel(path_data["difficulty"])
                     path = LearningPath(**path_data)
                     self._paths[path.id] = path
 
@@ -212,8 +220,28 @@ class KnowledgeRepository:
             try:
                 with open(knowledge_file, 'r') as f:
                     node_data = json.load(f)
-                    node = KnowledgeNode(**node_data)
-                    self._nodes[node.id] = node
+
+                # Validate JSON structure
+                validation_errors = KnowledgeNodeSchema.validate_json_structure(node_data)
+                if validation_errors:
+                    logger.error(f"JSON validation errors in {knowledge_file}: {validation_errors}")
+                    continue
+
+                # Convert string enums to enum objects
+                node_data["content_type"] = ContentType(node_data["content_type"])
+                node_data["difficulty"] = DifficultyLevel(node_data["difficulty"])
+
+                # Set content_path for reference
+                node_data["content_path"] = str(knowledge_file.relative_to(self.root_path))
+
+                # Create knowledge node
+                node = KnowledgeNode(**node_data)
+                self._nodes[node.id] = node
+
+                logger.debug(f"Successfully loaded knowledge node: {node.id}")
+
+            except ValidationError as e:
+                logger.error(f"Pydantic validation error loading knowledge node {knowledge_file}: {e}")
             except Exception as e:
                 logger.error(f"Error loading knowledge node {knowledge_file}: {e}")
 
@@ -250,6 +278,60 @@ class KnowledgeRepository:
                 if prereq not in self._index['prerequisites']:
                     self._index['prerequisites'][prereq] = []
                 self._index['prerequisites'][prereq].append(node_id)
+
+    def _validate_content_consistency(self) -> Dict[str, Any]:
+        """Validate content consistency and report issues"""
+        validation_report = {
+            "valid": True,
+            "missing_prerequisites": [],
+            "orphaned_nodes": [],
+            "circular_dependencies": [],
+            "validation_errors": []
+        }
+
+        # Check that all prerequisites exist
+        all_node_ids = set(self._nodes.keys())
+        for node_id, node in self._nodes.items():
+            for prereq_id in node.prerequisites:
+                if prereq_id not in all_node_ids:
+                    validation_report["missing_prerequisites"].append({
+                        "node": node_id,
+                        "missing_prerequisite": prereq_id
+                    })
+                    validation_report["valid"] = False
+
+        # Check for circular dependencies
+        for node_id in self._nodes:
+            if self._has_circular_dependency(node_id, set()):
+                validation_report["circular_dependencies"].append(node_id)
+                validation_report["valid"] = False
+
+        # Check for orphaned nodes (nodes that are not prerequisites for anything)
+        referenced_nodes = set()
+        for node in self._nodes.values():
+            referenced_nodes.update(node.prerequisites)
+        validation_report["orphaned_nodes"] = [
+            node_id for node_id in self._nodes.keys()
+            if node_id not in referenced_nodes
+        ]
+
+        return validation_report
+
+    def _has_circular_dependency(self, node_id: str, visited: set) -> bool:
+        """Check if node has circular dependency"""
+        if node_id in visited:
+            return True
+
+        node = self.get_node(node_id)
+        if not node:
+            return False
+
+        visited.add(node_id)
+        for prereq_id in node.prerequisites:
+            if self._has_circular_dependency(prereq_id, visited.copy()):
+                return True
+
+        return False
 
     def search(self,
                query: str = "",
@@ -295,6 +377,13 @@ class KnowledgeRepository:
     def get_node(self, node_id: str) -> Optional[KnowledgeNode]:
         """Get a specific knowledge node by ID"""
         return self._nodes.get(node_id)
+
+    def get_node_content(self, node_id: str) -> Optional[Dict[str, Any]]:
+        """Get the detailed content of a knowledge node"""
+        node = self.get_node(node_id)
+        if node:
+            return node.content
+        return None
 
     def get_learning_path(self, path_id: str) -> Optional[LearningPath]:
         """Get a specific learning path by ID"""
@@ -415,8 +504,11 @@ class KnowledgeRepository:
                 'content_type': node.content_type.value,
                 'difficulty': node.difficulty.value,
                 'description': node.description,
+                'content': node.content,
                 'tags': node.tags,
                 'learning_objectives': node.learning_objectives,
+                'content_path': node.content_path,
+                'metadata': node.metadata,
             })
 
         # Add prerequisite edges
@@ -473,3 +565,7 @@ class KnowledgeRepository:
             'total_tags': len(tag_counts),
             'metadata': self._metadata,
         }
+
+    def validate_repository(self) -> Dict[str, Any]:
+        """Get validation report for the entire repository"""
+        return self._validate_content_consistency()

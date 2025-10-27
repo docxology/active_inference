@@ -10,10 +10,12 @@ from .generator import DocumentationGenerator
 from .analyzer import DocumentationAnalyzer
 from .reviewer import RepositoryReviewer
 from .validator import DocumentationValidator
+from .cli import DocumentationCLI
 
 __all__ = [
     "DocumentationGenerator",
     "DocumentationAnalyzer",
     "RepositoryReviewer",
     "DocumentationValidator",
+    "DocumentationCLI",
 ]

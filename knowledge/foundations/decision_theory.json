@@ -1,0 +1,131 @@
+{
+  "id": "decision_theory",
+  "title": "Decision Theory and Rational Choice",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Foundations of decision theory and how Active Inference provides a normative theory of decision making under uncertainty.",
+  "prerequisites": ["bayesian_basics", "expected_free_energy"],
+  "tags": ["decision theory", "rational choice", "utility theory", "behavioral economics"],
+  "learning_objectives": [
+    "Understand normative theories of decision making",
+    "Apply expected utility theory to decision problems",
+    "Analyze departures from rationality",
+    "Connect decision theory to Active Inference"
+  ],
+  "content": {
+    "overview": "Decision theory provides the normative foundation for rational choice under uncertainty. Active Inference extends decision theory by providing a principled account of how agents learn and represent their preferences.",
+    "expected_utility_theory": {
+      "axioms": "Completeness, transitivity, independence, continuity",
+      "expected_utility": "E[U(x)] = ∑ p(x) u(x)",
+      "utility_function": "u(x) - numerical representation of preferences",
+      "von_neumann_morgenstern": "Expected utility theorem"
+    },
+    "subjective_expected_utility": {
+      "subjective_probabilities": "Personal beliefs about uncertain events",
+      "bayesian_decision_theory": "Decisions based on subjective expected utility",
+      "prior_elicitation": "Methods for assessing subjective beliefs",
+      "updating_beliefs": "Bayesian updating of subjective probabilities"
+    },
+    "prospect_theory": {
+      "value_function": "v(x) = x^α for gains, -λ(-x)^β for losses",
+      "probability_weighting": "w(p) ≠ p - overweighting of small probabilities",
+      "loss_aversion": "λ > 1 - losses hurt more than gains help",
+      "reference_dependence": "Outcomes evaluated relative to reference point"
+    },
+    "active_inference_decision_making": {
+      "expected_free_energy": "G(π) = expected cost of policy π",
+      "epistemic_value": "Information gain as intrinsic utility",
+      "pragmatic_value": "Achievement of extrinsic goals",
+      "policy_selection": "π* = argmin G(π)"
+    },
+    "examples": [
+      {
+        "name": "Medical Decision Making",
+        "description": "Choosing treatment under uncertainty",
+        "expected_utility": "E[U] = p(cure) * U(healthy) + p(death) * U(dead)",
+        "active_inference": "Consider information from diagnostic tests",
+        "prospect_theory": "Loss aversion affects treatment choices"
+      },
+      {
+        "name": "Investment Decisions",
+        "description": "Portfolio allocation under risk",
+        "expected_utility": "E[U] = ∑ p(r) U(wealth + r)",
+        "active_inference": "Learn market dynamics through experience",
+        "behavioral_biases": "Overconfidence and herding behavior"
+      }
+    ],
+    "bounded_rationality": {
+      "limited_computation": "Agents cannot compute optimal solutions",
+      "limited_knowledge": "Incomplete information about consequences",
+      "limited_time": "Decisions made under time pressure",
+      "satisficing": "Good enough rather than optimal solutions"
+    },
+    "multi_agent_decision_theory": {
+      "game_theory": "Strategic interaction between multiple agents",
+      "nash_equilibrium": "No agent can improve by unilateral deviation",
+      "cooperation": "Mutual benefit through coordinated action",
+      "social_preferences": "Concern for others' outcomes"
+    },
+    "connections_to_active_inference": {
+      "normative_theory": "Expected free energy as generalization of expected utility",
+      "preference_learning": "Learning utility functions from behavior",
+      "uncertainty_representation": "Probabilistic beliefs about consequences",
+      "sequential_decisions": "Planning over extended time horizons"
+    },
+    "interactive_exercises": [
+      {
+        "id": "expected_utility_calculation",
+        "type": "calculation",
+        "description": "Calculate expected utility for decision problems",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "prospect_theory_analysis",
+        "type": "analysis",
+        "description": "Analyze decisions using prospect theory",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "People always make rational decisions",
+        "clarification": "Behavioral economics shows systematic departures from rationality"
+      },
+      {
+        "misconception": "Expected utility is the only rational theory",
+        "clarification": "Active Inference provides alternative normative accounts"
+      },
+      {
+        "misconception": "Rationality requires perfect information",
+        "clarification": "Rational decision making works with uncertainty"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Choices, Values, and Frames",
+        "author": "Daniel Kahneman and Amos Tversky",
+        "year": 1984,
+        "description": "Foundations of prospect theory"
+      },
+      {
+        "title": "Decision Theory: A Brief Introduction",
+        "author": "Simon French",
+        "year": 1988,
+        "description": "Comprehensive introduction to decision theory"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_basics",
+      "expected_free_energy",
+      "prospect_theory",
+      "behavioral_economics"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 30,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "id": "neural_dynamics",
+  "title": "Neural Dynamics and Active Inference",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding how neural systems implement Active Inference through dynamical equations and population coding.",
+  "prerequisites": ["fep_biological_systems", "predictive_coding"],
+  "tags": ["neural dynamics", "population coding", "synaptic plasticity", "neural networks"],
+  "learning_objectives": [
+    "Understand neural implementation of Active Inference",
+    "Model neural population dynamics",
+    "Connect synaptic plasticity to learning",
+    "Apply neural dynamics to brain function"
+  ],
+  "content": {
+    "overview": "Neural dynamics provides the bridge between Active Inference theory and neural implementation. It describes how populations of neurons implement belief updating, prediction, and control through dynamical equations.",
+    "population_coding": {
+      "neural_representation": "Neural activity represents probability distributions",
+      "mean_field_approximation": "Population activity approximates posterior beliefs",
+      "precision_encoding": "Neural variability encodes uncertainty",
+      "dynamical_systems": "Neural dynamics as gradient flow on free energy"
+    },
+    "synaptic_dynamics": {
+      "hebbian_learning": "Neurons that fire together wire together",
+      "predictive_coding": "Synaptic plasticity minimizes prediction errors",
+      "three_factor_rule": "Eligibility traces, prediction errors, and neuromodulation",
+      "homeostatic_plasticity": "Maintaining neural activity within bounds"
+    },
+    "dynamical_equations": {
+      "neural_mass_model": "Mean-field equations for neural populations",
+      "gradient_flow": "dμ/dt = -∇_μ F (belief updating)",
+      "prediction_error": "ε = x - g(μ) (sensory prediction error)",
+      "precision_update": "dπ/dt = -∇_π F (attention and precision)"
+    },
+    "hierarchical_organization": {
+      "cortical_hierarchy": "Different areas implement different levels",
+      "feedforward_paths": "Prediction error propagation",
+      "feedback_paths": "Top-down predictions and expectations",
+      "canonical_microcircuit": "Excitatory and inhibitory balance"
+    },
+    "neuromodulatory_systems": {
+      "dopamine": "Encodes precision-weighted prediction errors",
+      "acetylcholine": "Modulates precision and attention",
+      "serotonin": "Influences learning rate and mood",
+      "norepinephrine": "Arousal and novelty detection"
+    },
+    "examples": [
+      {
+        "name": "Visual Cortex Dynamics",
+        "description": "Predictive coding in visual processing",
+        "dynamics": "V1 → V2 → V4 → IT hierarchy",
+        "prediction_errors": "Edge detection and shape prediction",
+        "attention": "Precision weighting of visual features"
+      },
+      {
+        "name": "Motor Control",
+        "description": "Neural control of movement",
+        "forward_models": "Predicting sensory consequences",
+        "inverse_models": "Computing motor commands",
+        "cerebellum": "Learning internal models"
+      }
+    ],
+    "connections_to_active_inference": {
+      "perception": "Neural dynamics implement Bayesian inference",
+      "action": "Motor commands minimize expected free energy",
+      "learning": "Synaptic changes implement model updating",
+      "attention": "Precision modulation implements selective processing"
+    },
+    "pathophysiology": {
+      "schizophrenia": "Aberrant precision and prediction errors",
+      "autism": "Impaired hierarchical prediction",
+      "anxiety": "Overactive threat prediction",
+      "depression": "Impaired prediction error signaling"
+    },
+    "interactive_exercises": [
+      {
+        "id": "neural_dynamics_simulation",
+        "type": "simulation",
+        "description": "Simulate neural population dynamics",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "synaptic_plasticity",
+        "type": "modeling",
+        "description": "Model synaptic plasticity rules",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Neural activity directly represents beliefs",
+        "clarification": "Neural activity approximates beliefs through population coding"
+      },
+      {
+        "misconception": "All neural computation is conscious",
+        "clarification": "Active Inference operates at subconscious levels"
+      },
+      {
+        "misconception": "Neural dynamics are deterministic",
+        "clarification": "Stochastic elements are essential for Bayesian computation"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference and Learning",
+        "author": "Karl Friston et al.",
+        "year": 2016,
+        "description": "Neural implementation of Active Inference"
+      },
+      {
+        "title": "The Predictive Mind",
+        "author": "Jakob Hohwy",
+        "year": 2013,
+        "description": "Predictive processing in cognitive science"
+      }
+    ],
+    "related_concepts": [
+      "fep_biological_systems",
+      "predictive_coding",
+      "synaptic_plasticity",
+      "population_coding"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 40,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "id": "control_systems",
+  "title": "Control Systems and Active Inference",
+  "content_type": "implementation",
+  "difficulty": "advanced",
+  "description": "Implementation of control systems using Active Inference for autonomous systems and robotics applications.",
+  "prerequisites": ["continuous_control", "active_inference_basic"],
+  "tags": ["control systems", "optimal control", "linear quadratic control", "model predictive control", "robotics"],
+  "learning_objectives": [
+    "Implement Active Inference control systems",
+    "Design generative models for dynamical systems",
+    "Apply to linear and nonlinear control problems",
+    "Understand real-time control constraints"
+  ],
+  "content": {
+    "overview": "Active Inference provides a principled framework for control systems design. This tutorial shows how to implement control systems that minimize expected free energy while satisfying real-time constraints and safety requirements.",
+    "control_theory_fundamentals": {
+      "open_loop_control": "Pre-computed control sequences",
+      "closed_loop_control": "Feedback control based on state estimation",
+      "optimal_control": "Minimize cost functional over control trajectories",
+      "stochastic_control": "Control under uncertainty and disturbances"
+    },
+    "active_inference_control": {
+      "generative_model": "p(s_{t+1}, o_t | s_t, a_t) - dynamics and observation model",
+      "beliefs": "q(s_t | o_{1:t}, a_{1:t-1}) - current state beliefs",
+      "policies": "π(a_t | s_t) - control policies",
+      "expected_free_energy": "G(π) = E[∑ γ^t c(s_t, a_t)] + H[s_T]"
+    },
+    "linear_quadratic_control": {
+      "linear_dynamics": "x_{t+1} = A x_t + B u_t + w_t",
+      "quadratic_cost": "c(x_t, u_t) = x_t^T Q x_t + u_t^T R u_t",
+      "riccati_equation": "P = Q + A^T P A - A^T P B (R + B^T P B)^{-1} B^T P A",
+      "optimal_policy": "u_t = -K x_t where K = (R + B^T P B)^{-1} B^T P A"
+    },
+    "python_implementation": {
+      "system_model": "LinearSystem class for dynamical systems",
+      "controller": "ActiveInferenceController class",
+      "components": [
+        "StateEstimator: Kalman filter for state estimation",
+        "TrajectoryOptimizer: Expected free energy optimization",
+        "SafetyConstraints: Hard constraints on control actions"
+      ]
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Linear System Model",
+        "description": "Implement linear dynamical system",
+        "code_snippet": "class LinearSystem:\n    def __init__(self, A, B, C, Q, R):\n        self.A = A  # State transition matrix\n        self.B = B  # Control matrix\n        self.C = C  # Observation matrix\n        self.Q = Q  # Process noise covariance\n        self.R = R  # Observation noise covariance\n        \n        self.nx = A.shape[0]  # Number of states\n        self.nu = B.shape[1]  # Number of controls\n        self.ny = C.shape[0]  # Number of observations\n        \n    def step(self, x, u, w=None):\n        if w is None:\n            w = np.random.multivariate_normal(np.zeros(self.nx), self.Q)\n        x_next = self.A @ x + self.B @ u + w\n        return x_next\n        \n    def observe(self, x, v=None):\n        if v is None:\n            v = np.random.multivariate_normal(np.zeros(self.ny), self.R)\n        y = self.C @ x + v\n        return y",
+        "explanation": "Linear system with process and observation noise"
+      },
+      {
+        "step": 2,
+        "title": "State Estimation",
+        "description": "Implement Kalman filter for state estimation",
+        "code_snippet": "class KalmanFilter:\n    def __init__(self, system):\n        self.system = system\n        self.x_hat = np.zeros(system.nx)  # State estimate\n        self.P = np.eye(system.nx)        # Covariance estimate\n        \n    def predict(self, u):\n        # Prediction step\n        self.x_hat = self.system.A @ self.x_hat + self.system.B @ u\n        self.P = self.system.A @ self.P @ self.system.A.T + self.system.Q\n        \n    def update(self, y):\n        # Update step\n        K = self.P @ self.system.C.T @ np.linalg.inv(\n            self.system.C @ self.P @ self.system.C.T + self.system.R)\n        \n        self.x_hat = self.x_hat + K @ (y - self.system.C @ self.x_hat)\n        self.P = (np.eye(self.system.nx) - K @ self.system.C) @ self.P\n        \n    def step(self, u, y):\n        self.predict(u)\n        self.update(y)\n        return self.x_hat, self.P",
+        "explanation": "Kalman filter provides optimal state estimation"
+      },
+      {
+        "step": 3,
+        "title": "Active Inference Controller",
+        "description": "Implement controller using expected free energy",
+        "code_snippet": "class ActiveInferenceController:\n    def __init__(self, system, horizon=20, gamma=0.95):\n        self.system = system\n        self.horizon = horizon\n        self.gamma = gamma\n        self.filter = KalmanFilter(system)\n        \n    def compute_control(self, x_hat, P, target_state=None):\n        if target_state is None:\n            target_state = np.zeros(self.system.nx)\n            \n        # Simulate multiple control sequences\n        best_G = np.inf\n        best_u = np.zeros(self.system.nu)\n        \n        for u_sequence in self.generate_control_sequences():\n            G = self.evaluate_policy(x_hat, P, u_sequence, target_state)\n            if G < best_G:\n                best_G = G\n                best_u = u_sequence[0]\n                \n        return best_u\n        \n    def evaluate_policy(self, x_hat, P, u_sequence, target):\n        G = 0\n        x_sim = x_hat.copy()\n        P_sim = P.copy()\n        \n        for t, u in enumerate(u_sequence):\n            # Simulate one step\n            x_sim = self.system.A @ x_sim + self.system.B @ u\n            P_sim = self.system.A @ P_sim @ self.system.A.T + self.system.Q\n            \n            # Cost (negative reward)\n            cost = (x_sim - target).T @ (x_sim - target)\n            \n            # Epistemic term (uncertainty)\n            epistemic = np.trace(P_sim)\n            \n            G += self.gamma**t * (cost + epistemic)\n            \n        return G",
+        "explanation": "Active Inference controller optimizes expected free energy"
+      }
+    ],
+    "model_predictive_control": {
+      "receding_horizon": "Optimize over finite horizon, implement first action",
+      "constraints": "Handle state and control constraints",
+      "real_time_feasibility": "Fast optimization for real-time control",
+      "robustness": "Handle model uncertainty and disturbances"
+    },
+    "nonlinear_control": {
+      "extended_kalman_filter": "Linearization for nonlinear systems",
+      "unscented_kalman_filter": "Unscented transform for better accuracy",
+      "particle_filter": "Monte Carlo approximation for complex systems",
+      "feedback_linearization": "Transform nonlinear systems to linear"
+    },
+    "examples": [
+      {
+        "name": "Inverted Pendulum Control",
+        "description": "Balance inverted pendulum using Active Inference",
+        "dynamics": "Nonlinear pendulum dynamics",
+        "control": "Continuous torque control",
+        "constraints": "Limited torque, pendulum angle limits",
+        "implementation": "Extended Kalman filter + MPC"
+      },
+      {
+        "name": "Quadrotor Control",
+        "description": "Autonomous quadrotor navigation",
+        "dynamics": "6DOF rigid body dynamics",
+        "control": "4 rotor thrust commands",
+        "objectives": "Trajectory tracking, obstacle avoidance",
+        "sensors": "IMU, GPS, camera"
+      }
+    ],
+    "safety_and_constraints": {
+      "hard_constraints": "Physical limits on states and controls",
+      "soft_constraints": "Penalty methods for constraint violation",
+      "barrier_functions": "Prevent constraint violation",
+      "control_barrier_functions": "Safety certificates for control systems"
+    },
+    "real_time_implementation": {
+      "computational_complexity": "Balance accuracy and computation time",
+      "parallel_computation": "Parallel evaluation of control sequences",
+      "fast_methods": "Efficient algorithms for real-time control",
+      "hardware_acceleration": "GPU/FPGA implementation for speed"
+    },
+    "interactive_exercises": [
+      {
+        "id": "implement_lqr",
+        "type": "coding",
+        "description": "Implement Linear Quadratic Regulator using Active Inference",
+        "difficulty": "advanced",
+        "starter_code": "Linear system model template",
+        "expected_output": "Stable control of linear system"
+      },
+      {
+        "id": "nonlinear_control",
+        "type": "implementation",
+        "description": "Implement nonlinear control system",
+        "difficulty": "advanced",
+        "system": "Nonlinear pendulum or robot arm",
+        "task": "Stabilize system using Active Inference"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "Real-time computation constraints",
+        "solution": "Use model reduction or fast optimization methods"
+      },
+      {
+        "issue": "Model uncertainty",
+        "solution": "Robust control or adaptive methods"
+      },
+      {
+        "issue": "Constraint handling",
+        "solution": "Use barrier functions or penalty methods"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Optimal Control and Estimation",
+        "author": "Robert Stengel",
+        "year": 2012,
+        "description": "Comprehensive control systems textbook"
+      },
+      {
+        "title": "Predictive Control for Linear and Hybrid Systems",
+        "author": "Francesco Borrelli et al.",
+        "year": 2017,
+        "description": "Model predictive control methods"
+      }
+    ],
+    "related_concepts": [
+      "continuous_control",
+      "optimal_control",
+      "kalman_filtering",
+      "model_predictive_control"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 75,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

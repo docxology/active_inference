@@ -14,7 +14,7 @@ from typing import Dict, List, Any, Optional, Set, Tuple
 from dataclasses import dataclass, field
 from collections import defaultdict
 
-from ..utilities.logging import setup_logger
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,7 @@ class DocumentationValidator:
             source_paths: List of source directories to validate
         """
         self.source_paths = [Path(p) for p in source_paths]
-        self.logger = setup_logger(__name__)
+        self.logger = logging.getLogger(__name__)
 
         # Initialize validation rules
         self.rules = self._initialize_validation_rules()

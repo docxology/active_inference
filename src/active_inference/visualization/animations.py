@@ -174,7 +174,7 @@ class ProcessAnimation:
                     "prediction_accuracy": {"value": min(0.95, 0.4 + (i * 0.05))},
                     "belief_confidence": {"value": min(0.9, 0.3 + (i * 0.06))}
                 },
-                narration=f"Step {i}: Free energy = {free_energy_value".3f"}",
+                narration=f"Step {i}: Free energy = {free_energy_value:.3f}",
                 highlights=["free_energy"] if i % 2 == 0 else []
             ))
 

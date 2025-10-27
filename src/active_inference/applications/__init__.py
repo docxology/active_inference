@@ -8,7 +8,7 @@ and architectural patterns for building real-world applications.
 
 from .templates import ApplicationFramework, TemplateManager, CodeGenerator
 from .case_studies import CaseStudyManager, ExampleApplications
-from .integrations import IntegrationManager, APIConnectors
+from .integrations import IntegrationManager, APIConnector
 from .best_practices import BestPracticesGuide, ArchitecturePatterns
 
 __all__ = [
@@ -18,7 +18,7 @@ __all__ = [
     "CaseStudyManager",
     "ExampleApplications",
     "IntegrationManager",
-    "APIConnectors",
+    "APIConnector",
     "BestPracticesGuide",
     "ArchitecturePatterns",
 ]

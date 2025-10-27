@@ -15,7 +15,7 @@ This module provides:
 import json
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 import logging
@@ -71,8 +71,8 @@ class Conversation:
         self.messages.append(message)
         self.updated_at = datetime.now()
 
-        # Auto-generate title if this is the first user message
-        if role == "user" and len(self.messages) == 1:
+        # Auto-generate title if this is the first user message and no title is set
+        if role == "user" and len(self.messages) == 1 and not self.title:
             self.title = self._generate_title(content)
 
     def get_messages(self, limit: Optional[int] = None) -> List[Message]:
@@ -87,20 +87,13 @@ class Conversation:
         context_messages = []
         current_tokens = 0
 
-        # Always include system message if present
-        system_messages = [msg for msg in self.messages if msg.role == "system"]
-        context_messages.extend(system_messages)
-
-        # Add most recent messages within token limit
-        for message in reversed(self.messages):
-            if message.role == "system":
-                continue  # Already added
-
+        # Add messages in chronological order, prioritizing system messages
+        for message in self.messages:
             estimated_tokens = len(message.content.split()) * 1.3  # Rough token estimate
             if current_tokens + estimated_tokens > max_tokens:
                 break
 
-            context_messages.insert(0, message)  # Insert at beginning to maintain order
+            context_messages.append(message)
             current_tokens += estimated_tokens
 
         return context_messages
@@ -308,7 +301,7 @@ class ConversationManager:
 
     def cleanup_old_conversations(self, days: int = 30) -> int:
         """Clean up conversations older than specified days"""
-        cutoff_date = datetime.now() - datetime.timedelta(days=days)
+        cutoff_date = datetime.now() - timedelta(days=days)
         deleted_count = 0
 
         for conversation_id, conversation in list(self.conversations.items()):
