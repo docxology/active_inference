@@ -1,434 +1,590 @@
-# Intelligent Search Engine
+# Platform Search Engine
 
-**Multi-modal intelligent search and retrieval for the Active Inference Knowledge Environment.**
+This directory contains the intelligent search and discovery system for the Active Inference Knowledge Environment. It provides advanced search capabilities, semantic understanding, and intelligent content discovery across all platform content including knowledge bases, research tools, applications, and documentation.
 
 ## Overview
 
-The search engine provides intelligent, multi-modal search capabilities across all Active Inference knowledge content, research tools, and platform resources with semantic understanding and personalized results.
+The platform search engine delivers comprehensive search and discovery capabilities that help users find relevant Active Inference content, research, implementations, and educational materials. It combines traditional text search with semantic understanding, knowledge graph integration, and intelligent recommendation systems.
 
-### Core Features
+### Mission & Role
 
-- **Multi-Modal Search**: Text, semantic, and structured queries
-- **Intelligent Ranking**: Context-aware result ranking and filtering
-- **Personalization**: User-specific search results and recommendations
-- **Real-time Indexing**: Automatic content indexing and updates
-- **Advanced Filters**: Multi-faceted filtering and refinement
-- **Search Analytics**: Query analysis and optimization insights
+This search system contributes to the platform mission by:
+
+- **Content Discovery**: Making all platform content easily discoverable and accessible
+- **Knowledge Navigation**: Enabling intelligent navigation through complex knowledge structures
+- **Research Acceleration**: Helping researchers quickly find relevant methods and implementations
+- **Educational Support**: Guiding learners to appropriate educational content
+- **Platform Usability**: Enhancing overall platform user experience through effective search
 
 ## Architecture
 
-### Search Components
+### Search System Structure
 
 ```
-┌─────────────────┐
-│   Query Layer   │ ← Natural language, semantic, structured
-├─────────────────┤
-│   Ranking       │ ← Relevance scoring, personalization
-│     Engine      │
-├─────────────────┤
-│   Index Storage │ ← Inverted index, embeddings, metadata
-├─────────────────┤
-│ Content          │ ← Crawling, extraction, indexing
-│   Ingestion     │
-└─────────────────┘
+platform/search/
+├── engine/                   # Core search engine implementation
+├── indexing/                 # Content indexing and processing
+├── semantic/                 # Semantic understanding and analysis
+├── recommendations/          # Intelligent recommendation system
+├── analytics/                # Search analytics and optimization
+└── README.md                # This file
 ```
 
-### Search Pipeline
+### Integration Points
 
-1. **Query Processing**: Parse and understand user queries
-2. **Content Retrieval**: Find relevant documents and content
-3. **Relevance Scoring**: Rank results by relevance and context
-4. **Personalization**: Adapt results to user preferences
-5. **Result Formatting**: Format and highlight results
+**Platform Integration:**
+- **Knowledge Graph**: Integration with semantic knowledge representation
+- **Content Management**: Integration with all content creation and management systems
+- **User Interface**: Search interface integration across all platform components
+- **Analytics System**: Search behavior analytics and performance monitoring
 
-## Usage
+**External Systems:**
+- **Search Libraries**: Elasticsearch, Solr, Whoosh for full-text search capabilities
+- **NLP Tools**: spaCy, NLTK, transformers for natural language processing
+- **Vector Databases**: FAISS, Pinecone for semantic vector search
+- **Machine Learning**: TensorFlow, PyTorch for recommendation systems
+
+## Search Categories
+
+### Full-Text Search
+Traditional text-based search capabilities:
+- **Keyword Search**: Search by keywords, phrases, and terms
+- **Boolean Queries**: Complex queries with AND, OR, NOT operators
+- **Field-Specific Search**: Search within specific content fields or metadata
+- **Fuzzy Search**: Approximate matching for typos and variations
+
+### Semantic Search
+Understanding-based search capabilities:
+- **Concept Search**: Search by concepts and ideas rather than exact terms
+- **Contextual Understanding**: Understanding search context and intent
+- **Related Content**: Finding semantically related content and concepts
+- **Cross-Language Search**: Search across multiple languages and translations
+
+### Knowledge Graph Search
+Graph-based knowledge navigation:
+- **Entity Search**: Search for specific concepts, methods, or implementations
+- **Relationship Navigation**: Navigate between related concepts and methods
+- **Path Discovery**: Find learning paths and concept progressions
+- **Graph Queries**: Complex queries using graph relationships
+
+### Intelligent Recommendations
+AI-powered content recommendations:
+- **Personalized Search**: Personalized results based on user behavior
+- **Similar Content**: Finding similar research, implementations, or educational content
+- **Trending Topics**: Surface trending and popular content
+- **Learning Path Suggestions**: Recommend content based on learning objectives
+
+## Getting Started
+
+### Prerequisites
+- **Search Technology**: Understanding of search engines and information retrieval
+- **Natural Language Processing**: Basic knowledge of NLP concepts and techniques
+- **Information Architecture**: Understanding of content organization and metadata
+- **User Experience**: Knowledge of search user interface design
 
 ### Basic Setup
 
-```python
-from platform.search import SearchEngine
+```bash
+# Install search dependencies
+pip install elasticsearch whoosh
+pip install spacy nltk transformers
+pip install faiss-cpu  # Vector search
+pip install networkx  # Graph operations
 
-# Initialize search engine
-config = {
-    "backend": "elasticsearch",  # or "solr", "opensearch"
-    "indexing": "auto",
+# Install machine learning dependencies
+pip install scikit-learn tensorflow
+pip install torch  # For deep learning models
+
+# Set up search environment
+export SEARCH_BACKEND="elasticsearch"
+export INDEXING_STRATEGY="incremental"
+export SEMANTIC_ENABLED="true"
+```
+
+### Initial Search Implementation
+
+```python
+# Basic search implementation workflow
+from platform.search import SearchManager
+from platform.search.indexing import ContentIndexer
+
+# Initialize search system
+search_manager = SearchManager(config)
+
+# Set up content indexing
+indexer_config = {
+    "content_sources": ["knowledge_base", "research_papers", "documentation", "applications"],
+    "indexing_frequency": "real_time",
+    "semantic_analysis": True,
+    "vector_embeddings": True
+}
+
+indexer = ContentIndexer(indexer_config)
+
+# Index platform content
+indexing_result = indexer.index_all_content()
+
+# Set up search interface
+search_interface_config = {
+    "search_types": ["full_text", "semantic", "graph", "recommendations"],
+    "result_limit": 50,
+    "ranking_algorithm": "hybrid",
     "personalization": True
 }
 
-search = SearchEngine(config)
+search_interface = search_manager.create_search_interface(search_interface_config)
 ```
 
-### Basic Search
+## Usage Examples
+
+### Example 1: Semantic Search Implementation
 
 ```python
-# Text search
-results = search.search("active inference fundamentals")
+# Implement semantic search for Active Inference concepts
+from platform.search.semantic import SemanticSearchEngine
 
-# Semantic search
-semantic_results = search.semantic_search("how does the brain make decisions?")
+# Define search domain
+search_domain = {
+    "content_types": ["research_papers", "educational_content", "implementations", "documentation"],
+    "semantic_fields": ["concepts", "methods", "applications", "mathematical_formulations"],
+    "embedding_model": "active_inference_bert",
+    "similarity_threshold": 0.7
+}
 
-# Advanced search with filters
-advanced_results = search.advanced_search({
-    "query": "bayesian inference",
-    "filters": {
-        "content_type": "foundation",
-        "difficulty": "beginner",
-        "tags": ["probability"]
-    },
-    "sort": "relevance",
-    "limit": 20
-})
+# Initialize semantic search
+semantic_engine = SemanticSearchEngine(search_domain)
+
+# Set up content embeddings
+embedding_config = {
+    "model_type": "transformer",
+    "max_sequence_length": 512,
+    "pooling_strategy": "mean",
+    "normalization": True
+}
+
+semantic_engine.initialize_embeddings(embedding_config)
+
+# Index content with semantic understanding
+content_to_index = [
+    "active_inference_theory.json",
+    "belief_updating_algorithms.py",
+    "neural_implementations.md",
+    "research_papers/"
+]
+
+indexing_result = semantic_engine.index_content(content_to_index)
+
+# Implement semantic search interface
+def semantic_search(query: str, filters: Dict[str, Any] = None) -> List[SearchResult]:
+    """Perform semantic search with optional filtering"""
+
+    # Encode query semantically
+    query_embedding = semantic_engine.encode_query(query)
+
+    # Search semantic space
+    semantic_results = semantic_engine.search_similar(query_embedding, filters)
+
+    # Rank and filter results
+    ranked_results = semantic_engine.rank_results(semantic_results, query)
+
+    # Add explanations
+    explained_results = semantic_engine.add_result_explanations(ranked_results)
+
+    return explained_results
 ```
 
-### Content Indexing
+### Example 2: Knowledge Graph Search
 
 ```python
-# Index new content
-await search.index_content("knowledge/foundations/active_inference_introduction.json")
+# Implement knowledge graph search for concept navigation
+from platform.search.graph import KnowledgeGraphSearch
 
-# Index directory
-await search.index_directory("knowledge/foundations/")
+# Define knowledge graph structure
+graph_config = {
+    "nodes": ["concepts", "methods", "implementations", "applications"],
+    "edges": ["prerequisites", "related_to", "implements", "applies_to"],
+    "graph_algorithm": "hierarchical",
+    "search_strategy": "path_finding"
+}
 
-# Reindex all content
-await search.reindex_all()
+# Initialize graph search
+graph_search = KnowledgeGraphSearch(graph_config)
+
+# Set up concept relationships
+concept_relationships = {
+    "active_inference": {
+        "prerequisites": ["bayesian_inference", "information_theory"],
+        "related_to": ["free_energy_principle", "predictive_coding"],
+        "implementations": ["variational_inference", "particle_filtering"],
+        "applications": ["robotics", "neuroscience", "ai"]
+    }
+}
+
+graph_search.build_concept_graph(concept_relationships)
+
+# Implement graph search interface
+def graph_search_concept(concept: str, search_type: str = "related") -> List[ConceptResult]:
+    """Search knowledge graph for related concepts"""
+
+    if search_type == "related":
+        # Find related concepts
+        related_concepts = graph_search.find_related_concepts(concept)
+
+        # Calculate relationship strengths
+        strengthened_relations = graph_search.calculate_relationship_strengths(related_concepts)
+
+        # Generate explanations
+        explained_relations = graph_search.explain_relationships(strengthened_relations)
+
+        return explained_relations
+
+    elif search_type == "prerequisites":
+        # Find prerequisite concepts
+        prerequisites = graph_search.find_prerequisites(concept)
+
+        # Validate learning order
+        ordered_prerequisites = graph_search.order_by_learning_progression(prerequisites)
+
+        return ordered_prerequisites
+
+    elif search_type == "learning_path":
+        # Generate learning path
+        learning_path = graph_search.generate_learning_path(concept)
+
+        # Add supporting resources
+        enhanced_path = graph_search.add_supporting_resources(learning_path)
+
+        return enhanced_path
 ```
 
-### Search Suggestions
+### Example 3: Intelligent Recommendation System
 
 ```python
-# Get search suggestions
-suggestions = search.get_suggestions("active inf")
+# Implement intelligent recommendation system
+from platform.search.recommendations import RecommendationEngine
 
-# Auto-complete queries
-completions = search.autocomplete("bayesian")
+# Define recommendation context
+recommendation_config = {
+    "user_types": ["researcher", "educator", "developer", "student"],
+    "content_types": ["research", "educational", "implementation", "documentation"],
+    "recommendation_strategies": ["collaborative", "content_based", "knowledge_based", "hybrid"],
+    "personalization_level": "high"
+}
 
-# Related concepts
-related = search.get_related_concepts("entropy")
+# Initialize recommendation engine
+recommendation_engine = RecommendationEngine(recommendation_config)
+
+# Set up user profiling
+user_profiling_config = {
+    "behavior_tracking": True,
+    "preference_learning": True,
+    "expertise_assessment": True,
+    "learning_objective_inference": True
+}
+
+recommendation_engine.setup_user_profiling(user_profiling_config)
+
+# Implement recommendation interface
+def get_personalized_recommendations(user_id: str, context: Dict[str, Any]) -> List[Recommendation]:
+    """Get personalized recommendations for user"""
+
+    # Analyze user behavior and preferences
+    user_profile = recommendation_engine.analyze_user_profile(user_id)
+
+    # Get current context
+    current_context = recommendation_engine.analyze_context(context)
+
+    # Generate recommendations
+    recommendations = recommendation_engine.generate_recommendations(user_profile, current_context)
+
+    # Rank and filter recommendations
+    ranked_recommendations = recommendation_engine.rank_recommendations(recommendations)
+
+    # Add explanations
+    explained_recommendations = recommendation_engine.explain_recommendations(ranked_recommendations)
+
+    return explained_recommendations
+
+# Example usage
+user_recommendations = get_personalized_recommendations(
+    user_id="researcher_123",
+    context={"current_topic": "belief_updating", "experience_level": "intermediate"}
+)
 ```
 
 ## Configuration
 
-### Backend Configuration
+### Search System Configuration
 
 ```python
-backend_config = {
-    "type": "elasticsearch",
-    "hosts": ["localhost:9200"],
-    "index_name": "active_inference",
-    "settings": {
-        "number_of_shards": 3,
-        "number_of_replicas": 1
+# Basic search configuration
+search_config = {
+    "engine": {
+        "backend": "elasticsearch",  # elasticsearch, whoosh, custom
+        "index_name": "active_inference_knowledge",
+        "search_timeout": 30,
+        "max_results": 100
+    },
+    "indexing": {
+        "strategy": "incremental",  # incremental, full, hybrid
+        "frequency": "real_time",  # real_time, hourly, daily
+        "content_types": ["json", "md", "py", "pdf", "html"],
+        "metadata_extraction": True
+    },
+    "semantic": {
+        "enabled": True,
+        "embedding_model": "sentence_transformers",
+        "vector_dimensions": 768,
+        "similarity_threshold": 0.7,
+        "reranking": True
+    },
+    "recommendations": {
+        "enabled": True,
+        "algorithm": "hybrid",
+        "personalization": True,
+        "diversity_factor": 0.3,
+        "explanation": True
     }
 }
 ```
 
-### Indexing Configuration
+### Advanced Search Configuration
 
 ```python
-indexing_config = {
-    "auto_index": True,
-    "batch_size": 1000,
-    "refresh_interval": "30s",
-    "embedding_model": "sentence_transformers",
-    "fields_to_index": [
-        "title",
-        "description",
-        "content",
-        "tags",
-        "metadata"
-    ]
-}
-```
-
-### Personalization Configuration
-
-```python
-personalization_config = {
-    "enabled": True,
-    "user_history_weight": 0.3,
-    "collaborative_filtering": True,
-    "learning_rate": 0.1,
-    "decay_rate": 0.95
+# Advanced search settings
+advanced_config = {
+    "performance": {
+        "indexing_parallelism": 4,
+        "search_parallelism": 8,
+        "caching_strategy": "intelligent",
+        "memory_optimization": True
+    },
+    "quality": {
+        "relevance_threshold": 0.8,
+        "diversity_enabled": True,
+        "freshness_boost": True,
+        "user_feedback_integration": True
+    },
+    "analytics": {
+        "search_analytics": True,
+        "user_behavior_tracking": True,
+        "performance_monitoring": True,
+        "a_b_testing": True
+    },
+    "integration": {
+        "knowledge_graph_integration": True,
+        "cross_platform_search": True,
+        "external_api_integration": True,
+        "real_time_indexing": True
+    }
 }
 ```
 
 ## API Reference
 
-### SearchEngine
+### Core Search Classes
 
-Main interface for search functionality.
-
-#### Core Methods
-
-- `search(query: str, options: Dict = None) -> SearchResult`: Text-based search
-- `semantic_search(query: str, limit: int = 20) -> SearchResult`: Semantic search
-- `advanced_search(params: Dict) -> SearchResult`: Advanced search with filters
-- `index_content(content_path: str) -> bool`: Index new content
-- `get_suggestions(query: str) -> List[str]`: Get search suggestions
-
-### QueryProcessor
-
-Processes and optimizes search queries.
-
-#### Methods
-
-- `parse_query(query: str) -> ParsedQuery`: Parse natural language query
-- `expand_query(parsed: ParsedQuery) -> ExpandedQuery`: Expand with synonyms
-- `optimize_query(query: str) -> OptimizedQuery`: Optimize for performance
-- `extract_filters(query: str) -> Dict`: Extract search filters
-
-### ResultRanker
-
-Ranks and filters search results.
-
-#### Methods
-
-- `rank_results(results: List, query: str) -> List`: Rank by relevance
-- `apply_filters(results: List, filters: Dict) -> List`: Apply search filters
-- `personalize_results(results: List, user_id: str) -> List`: Personalize results
-- `highlight_snippets(results: List) -> List`: Highlight relevant snippets
-
-## Advanced Features
-
-### Semantic Search
+#### `SearchManager`
+Central management system for all search functionality.
 
 ```python
-# Configure semantic search
-semantic_config = {
-    "model": "sentence-transformers/all-MiniLM-L6-v2",
-    "dimensions": 384,
-    "similarity_threshold": 0.7
-}
+class SearchManager:
+    """Manage comprehensive search and discovery capabilities"""
 
-# Semantic similarity search
-similar_docs = search.find_similar_documents(
-    source_doc_id="active_inference_basics",
-    threshold=0.8,
-    limit=10
-)
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize search manager with configuration"""
 
-# Concept-based search
-concept_results = search.search_by_concept("free_energy_principle")
+    def search_content(self, query: str, search_config: Dict[str, Any]) -> SearchResults:
+        """Perform comprehensive search across all content"""
+
+    def get_recommendations(self, user_context: Dict[str, Any]) -> List[Recommendation]:
+        """Get personalized recommendations"""
+
+    def navigate_knowledge_graph(self, concept: str, navigation_config: Dict[str, Any]) -> NavigationResults:
+        """Navigate knowledge graph from concept"""
+
+    def analyze_search_behavior(self, user_id: str) -> SearchAnalytics:
+        """Analyze search behavior and patterns"""
+
+    def optimize_search_performance(self, optimization_config: Dict[str, Any]) -> OptimizationReport:
+        """Optimize search performance and relevance"""
 ```
 
-### Personalized Search
+#### `ContentIndexer`
+Intelligent content indexing and processing system.
 
 ```python
-# Track user behavior
-search.track_user_interaction(user_id, doc_id, interaction_type="view")
+class ContentIndexer:
+    """Index and process platform content for search"""
 
-# Get personalized recommendations
-recommendations = search.get_personalized_recommendations(user_id, limit=10)
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize content indexer with configuration"""
 
-# Update user preferences
-search.update_user_preferences(user_id, preferences)
+    def index_content(self, content_path: str, metadata: Dict[str, Any]) -> IndexingResult:
+        """Index specific content with metadata"""
+
+    def update_index(self, content_path: str, update_type: str) -> UpdateResult:
+        """Update index for content changes"""
+
+    def extract_semantic_features(self, content: Any) -> SemanticFeatures:
+        """Extract semantic features from content"""
+
+    def create_content_embeddings(self, content: Any) -> VectorEmbeddings:
+        """Create vector embeddings for content"""
+
+    def validate_index_quality(self) -> IndexQualityReport:
+        """Validate index completeness and quality"""
 ```
 
-### Search Analytics
+#### `RecommendationEngine`
+AI-powered recommendation and personalization system.
 
 ```python
-# Query analytics
-analytics = search.get_query_analytics()
+class RecommendationEngine:
+    """Generate intelligent recommendations and personalizations"""
 
-print(f"Top queries: {analytics['top_queries']}")
-print(f"Zero results rate: {analytics['zero_results_rate']}")
-print(f"Average query length: {analytics['avg_query_length']}")
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize recommendation engine with configuration"""
 
-# User behavior analytics
-behavior = search.get_user_behavior_analytics()
+    def analyze_user_profile(self, user_id: str) -> UserProfile:
+        """Analyze user behavior and preferences"""
+
+    def generate_recommendations(self, user_profile: UserProfile, context: Dict[str, Any]) -> List[Recommendation]:
+        """Generate personalized recommendations"""
+
+    def update_user_model(self, user_id: str, feedback: Dict[str, Any]) -> UpdateResult:
+        """Update user model based on feedback"""
+
+    def evaluate_recommendation_quality(self, recommendations: List[Recommendation]) -> QualityReport:
+        """Evaluate recommendation quality and effectiveness"""
+
+    def optimize_recommendation_algorithm(self, performance_data: Dict[str, Any]) -> OptimizationResult:
+        """Optimize recommendation algorithms based on performance"""
 ```
 
-## Performance
+## Search Workflows
 
-### Optimization
+### Standard Search Pipeline
+
+```mermaid
+flowchart TD
+    A[User Query] --> B[Query Processing]
+    B --> C[Multi-Modal Search]
+    C --> D[Result Ranking]
+    D --> E[Result Enhancement]
+    E --> F[Response Generation]
+    F --> G[User Feedback]
+
+    A1[Receive Search Query] --> A
+    B1[Parse and Understand Query] --> B
+    C1[Search Multiple Sources] --> C
+    D1[Rank by Relevance] --> D
+    E1[Add Explanations] --> E
+    F1[Format Response] --> F
+    G1[Collect Feedback] --> G
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+```
+
+### Advanced Search Patterns
 
 ```python
-# Enable search caching
-search.enable_caching(cache_size=1000, ttl=300)
+# Multi-modal search workflow
+def perform_multi_modal_search(query: str, search_config: Dict[str, Any]) -> MultiModalResults:
+    """Perform search across multiple content types and modalities"""
 
-# Optimize index structure
-search.optimize_index()
+    # Text-based search
+    text_results = perform_text_search(query, search_config)
 
-# Pre-warm popular queries
-search.prewarm_queries(popular_queries)
-```
+    # Semantic search
+    semantic_results = perform_semantic_search(query, search_config)
 
-### Performance Metrics
+    # Graph-based search
+    graph_results = perform_graph_search(query, search_config)
 
-```python
-# Monitor performance
-metrics = search.get_performance_metrics()
+    # Recommendation-based search
+    recommendation_results = perform_recommendation_search(query, search_config)
 
-print(f"Query time: {metrics['avg_query_time']}ms")
-print(f"Index size: {metrics['index_size']}GB")
-print(f"Cache hit rate: {metrics['cache_hit_rate']}%")
-print(f"Throughput: {metrics['queries_per_second']} QPS")
-```
+    # Combine and rank results
+    combined_results = combine_search_results([
+        text_results, semantic_results, graph_results, recommendation_results
+    ])
 
-## Testing
+    # Apply multi-modal ranking
+    ranked_results = apply_multi_modal_ranking(combined_results, search_config)
 
-### Running Tests
+    # Add explanations and context
+    enhanced_results = add_multi_modal_explanations(ranked_results)
 
-```bash
-# Run search tests
-make test-search
+    return enhanced_results
 
-# Or run specific tests
-pytest platform/search/tests/ -v
+# Knowledge graph navigation workflow
+def navigate_knowledge_graph(start_concept: str, navigation_goals: List[str]) -> NavigationPath:
+    """Navigate knowledge graph to achieve learning or research goals"""
 
-# Load testing
-pytest platform/search/tests/test_load.py -v
+    # Identify navigation goals
+    navigation_analysis = analyze_navigation_goals(navigation_goals)
 
-# Integration tests
-pytest platform/search/tests/test_integration.py -v
-```
+    # Find optimal paths
+    optimal_paths = find_optimal_navigation_paths(start_concept, navigation_goals)
 
-### Test Coverage
+    # Validate path quality
+    path_validation = validate_navigation_paths(optimal_paths, navigation_analysis)
 
-- **Unit Tests**: Query processing and ranking
-- **Integration Tests**: End-to-end search workflows
-- **Performance Tests**: Search performance under load
-- **Analytics Tests**: Search analytics and reporting
+    # Select best path
+    best_path = select_best_navigation_path(optimal_paths, path_validation)
 
-## Monitoring
+    # Add educational enhancements
+    enhanced_path = add_educational_enhancements(best_path, navigation_goals)
 
-### Health Checks
+    # Generate navigation guidance
+    navigation_guidance = generate_navigation_guidance(enhanced_path)
 
-```python
-# Search health check
-health = search.health_check()
-
-print(f"Index status: {health['index_status']}")
-print(f"Query performance: {health['query_performance']}")
-print(f"Disk usage: {health['disk_usage']}GB")
-print(f"Last update: {health['last_update']}")
-```
-
-### Search Analytics Dashboard
-
-```bash
-# Start analytics dashboard
-make search-analytics
-
-# View real-time metrics
-curl http://localhost:8080/search/analytics
-```
-
-## Integration
-
-### Knowledge Repository Integration
-
-```python
-# Automatic indexing of new content
-search.watch_content_directory("knowledge/")
-
-# Index learning paths
-search.index_learning_paths()
-
-# Index research experiments
-search.index_experiments()
-```
-
-### Platform Integration
-
-```python
-# Integrate with user management
-search.set_user_service(user_service)
-
-# Integrate with recommendation engine
-search.set_recommendation_service(recommendation_service)
-
-# Integrate with analytics
-search.set_analytics_service(analytics_service)
+    return NavigationPath(
+        path=best_path,
+        validation=path_validation,
+        enhancements=enhanced_path,
+        guidance=navigation_guidance
+    )
 ```
 
 ## Contributing
 
-See [AGENTS.md](AGENTS.md) for development guidelines and [.cursorrules](../../../.cursorrules) for comprehensive development standards.
+### Search Documentation Standards
 
-### Development Process
+When contributing to search documentation:
 
-1. **Environment Setup**:
-   ```bash
-   cd platform/search
-   make setup
-   ```
+1. **Search Expertise**: Ensure deep understanding of search and information retrieval
+2. **User Experience**: Focus on search user experience and discoverability
+3. **Performance**: Optimize search performance and response times
+4. **Accuracy**: Maintain high search accuracy and relevance
+5. **Accessibility**: Ensure search interface is accessible to all users
 
-2. **Testing**:
-   ```bash
-   make test
-   make test-performance
-   ```
+### Search Contribution Process
 
-3. **Documentation**:
-   - Update README.md for new features
-   - Update AGENTS.md for development patterns
-   - Add comprehensive examples
+1. **Search Gap Analysis**: Identify search functionality gaps and opportunities
+2. **Search Design**: Design comprehensive search features and user experience
+3. **Implementation Development**: Develop robust search functionality
+4. **Performance Testing**: Validate search performance and scalability
+5. **User Experience Testing**: Test search interface and user experience
+6. **Documentation**: Provide comprehensive search documentation and examples
 
-## Security
+## Related Documentation
 
-### Query Security
-
-```python
-# Enable query sanitization
-search.enable_query_sanitization()
-
-# Configure access control
-search.set_access_control(permissions)
-
-# Enable audit logging
-search.enable_audit_logging()
-```
-
-### Data Protection
-
-- Encrypted search indexes
-- Secure query processing
-- GDPR compliance for personal data
-- Query log anonymization
-
-## Troubleshooting
-
-### Common Issues
-
-#### Search Performance
-```bash
-# Check index performance
-search.analyze_index_performance()
-
-# Optimize search queries
-search.optimize_queries()
-
-# Reindex content
-search.reindex_all()
-```
-
-#### No Results
-```bash
-# Check content indexing
-search.check_indexing_status()
-
-# Validate search configuration
-search.validate_configuration()
-
-# Test with simple queries
-search.test_basic_queries()
-```
-
-#### Index Issues
-```bash
-# Check index health
-search.check_index_health()
-
-# Repair corrupted index
-search.repair_index()
-
-# Rebuild index
-search.rebuild_index()
-```
+- **[Platform Services](../../../platform/README.md)**: Overview of platform infrastructure
+- **[Knowledge Graph](../../../platform/knowledge_graph/README.md)**: Knowledge organization system
+- **[Collaboration Hub](../../../platform/collaboration/README.md)**: Community and collaboration features
+- **[Search Analytics](../../../platform/search/analytics/)**: Search performance and analytics
+- **[Platform Integration](../../../platform/)**: Platform-wide service integration
 
 ---
 
-**Component Version**: 1.0.0 | **Development Status**: Active Development
+**Platform Search Engine Version**: 1.0.0 | **Last Updated**: October 2024 | **Development Status**: Active Development
 
-*"Active Inference for, with, by Generative AI"* - Intelligent discovery through semantic understanding.
+*"Active Inference for, with, by Generative AI"* - Enabling intelligent discovery of Active Inference knowledge through advanced search, semantic understanding, and personalized recommendations.

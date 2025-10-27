@@ -1,400 +1,488 @@
 # Information Theory Analysis
 
-Comprehensive information-theoretic analysis tools for Active Inference research. Provides entropy measures, mutual information calculations, divergence measures, complexity analysis, and causal analysis for understanding information processing in intelligent systems.
+This directory contains specialized tools and methods for information-theoretic analysis of Active Inference systems. It provides comprehensive frameworks for analyzing entropy, divergence measures, mutual information, and other information-theoretic quantities in the context of Active Inference research.
 
 ## Overview
 
-The Information Theory Analysis module provides a complete toolkit for information-theoretic analysis in Active Inference research. It includes rigorous implementations of entropy measures, mutual information, divergence measures, complexity analysis, and causal analysis tools.
+The information theory analysis module offers rigorous mathematical tools for quantifying and analyzing information processing in Active Inference systems. This includes entropy analysis, divergence measures, information flow analysis, and complexity measures that are fundamental to understanding Active Inference dynamics.
 
-## Directory Structure
+### Mission & Role
+
+This module contributes to the research mission by:
+
+- **Information Quantification**: Providing precise measures of information content and flow
+- **Model Analysis**: Enabling quantitative analysis of Active Inference model behavior
+- **Theory Validation**: Supporting empirical validation of information-theoretic predictions
+- **Research Advancement**: Facilitating cutting-edge research in Active Inference information dynamics
+- **Educational Support**: Offering clear explanations of complex information-theoretic concepts
+
+## Architecture
+
+### Information Theory Structure
 
 ```
-information_theory/
-├── entropy/                    # Entropy measures and analysis
-├── mutual_information/         # Mutual information calculations
-├── divergence_measures/        # Statistical divergence measures
-├── complexity/                 # System complexity analysis
-├── causal_analysis/            # Causal information analysis
-└── validation/                 # Information theory validation tools
+research/analysis/information_theory/
+├── entropy/                  # Entropy analysis and estimation
+├── divergence_measures/      # KL divergence and related measures
+├── mutual_information/       # Mutual information and dependence analysis
+├── complexity/               # Statistical and computational complexity
+├── causal_analysis/          # Causal information flow analysis
+└── README.md                # This file
 ```
 
-## Core Components
+### Integration Points
 
-### 🔬 Entropy Measures
-- **Shannon Entropy**: Classical discrete entropy calculations
-- **Differential Entropy**: Continuous variable entropy measures
-- **Relative Entropy**: Entropy measures for system comparison
-- **Conditional Entropy**: Entropy under conditional constraints
-- **Joint Entropy**: Multi-variable entropy calculations
-- **Cross Entropy**: Cross-entropy loss calculations
+**Platform Integration:**
+- **Analysis Framework**: Integration with statistical analysis tools
+- **Simulation Engine**: Information analysis of simulated Active Inference systems
+- **Visualization**: Information flow and entropy visualization tools
+- **Knowledge Base**: Connection to information theory foundations
 
-### 🔗 Mutual Information Analysis
-- **Mutual Information**: Information shared between variables
-- **Conditional Mutual Information**: Conditional information measures
-- **Multi-information**: Information in multiple variable systems
-- **Transfer Entropy**: Information transfer between systems
-- **Partial Information**: Decomposition of information measures
-- **Pointwise Mutual Information**: Local information measures
+**External Systems:**
+- **Information Theory Libraries**: PyInform, infotheory, specialized information theory packages
+- **Statistical Computing**: SciPy, StatsModels for statistical information measures
+- **Numerical Computing**: NumPy, CuPy for high-performance information calculations
+- **Visualization**: Matplotlib, NetworkX for information flow visualization
 
-### 📊 Divergence Measures
-- **KL Divergence**: Kullback-Leibler divergence calculations
+## Analysis Categories
+
+### Entropy Analysis
+Comprehensive entropy estimation and analysis:
+- **Shannon Entropy**: Classical entropy measures for discrete and continuous systems
+- **Differential Entropy**: Entropy measures for continuous probability distributions
+- **Relative Entropy**: Entropy differences and information content measures
+- **Conditional Entropy**: Entropy in conditional probability contexts
+- **Joint Entropy**: Entropy of multivariate systems and joint distributions
+
+### Divergence Measures
+Information divergence and distance measures:
+- **Kullback-Leibler Divergence**: Classic KL divergence and variants
 - **Jensen-Shannon Divergence**: Symmetric divergence measures
-- **Wasserstein Distance**: Optimal transport-based distances
-- **Hellinger Distance**: Statistical distance measures
-- **f-Divergences**: Generalized divergence framework
-- **Bhattacharyya Distance**: Statistical similarity measures
+- **Wasserstein Distance**: Earth mover's distance and optimal transport
+- **f-Divergences**: Generalized divergence measure framework
+- **Cross-Entropy**: Cross-entropy measures and applications
 
-### 🧬 Complexity Analysis
-- **Fractal Dimensions**: System complexity measures
-- **Lyapunov Exponents**: Chaotic system analysis
-- **Sample Entropy**: Time series complexity measures
-- **Permutation Entropy**: Ordinal pattern complexity
-- **Multiscale Entropy**: Multi-scale complexity analysis
-- **Approximate Entropy**: Regularity and complexity measures
+### Mutual Information
+Information dependence and correlation analysis:
+- **Mutual Information**: Basic mutual information between variables
+- **Conditional Mutual Information**: Mutual information in conditional contexts
+- **Transfer Entropy**: Directed information flow and causality measures
+- **Partial Mutual Information**: Mutual information controlling for other variables
+- **Multivariate Mutual Information**: Information measures for multiple variables
 
-### 🔄 Causal Analysis
-- **Granger Causality**: Temporal causal relationships
-- **Transfer Entropy**: Information flow causality
-- **Causal Graphs**: Information-theoretic causal networks
-- **Causal Discovery**: Automated causal relationship discovery
-- **Causal Strength**: Quantifying causal influence
-- **Directed Information**: Directed information flow measures
+### Complexity Measures
+Statistical and computational complexity analysis:
+- **Statistical Complexity**: Measures of system complexity and organization
+- **Effective Measure Complexity**: Complexity of effective models
+- **Causal Density**: Density of causal relationships in systems
+- **Integrated Information**: Measures of system integration and information
+- **Dimensionality Measures**: Intrinsic dimensionality and manifold analysis
 
-## Research Roles and Functions
+## Getting Started
 
-### 🧑‍🎓 Intern Level
-```python
-from active_inference.analysis.information_theory import InternInformationTheory
+### Prerequisites
+- **Information Theory**: Strong foundation in information theory concepts
+- **Probability Theory**: Advanced probability and stochastic processes
+- **Statistical Analysis**: Statistical inference and estimation methods
+- **Programming Skills**: Python programming with scientific computing
+- **Mathematical Computing**: Familiarity with numerical methods and optimization
 
-# Basic information theory analysis
-info_theory = InternInformationTheory()
-entropy = info_theory.calculate_basic_entropy(data)
-mi = info_theory.calculate_mutual_information(data_x, data_y)
+### Basic Setup
+
+```bash
+# Install information theory dependencies
+pip install numpy scipy matplotlib seaborn
+pip install networkx scikit-learn statsmodels
+
+# Install specialized information theory packages
+pip install pyinform  # Information theory toolkit
+pip install infotheory  # Additional information theory tools
+pip install chaospy  # Uncertainty quantification
+
+# Install performance computing
+pip install numba cupy  # High-performance computing
+pip install dask  # Parallel computing
 ```
 
-**Features:**
-- Basic entropy calculations
-- Simple mutual information
-- Tutorial explanations
-- Error checking and validation
-- Basic interpretation tools
+### Initial Analysis Project
 
-### 🎓 PhD Student Level
 ```python
-from active_inference.analysis.information_theory import PhDInformationTheory
+# Basic information theory analysis workflow
+import numpy as np
+from active_inference.research.analysis.information_theory import EntropyAnalyzer
+from active_inference.research.analysis.information_theory import DivergenceAnalyzer
 
-# Advanced information theory analysis
-info_theory = PhDInformationTheory()
-complexity_analysis = info_theory.analyze_system_complexity(time_series)
-causal_analysis = info_theory.analyze_causal_relationships(multivariate_data)
+# Load data for analysis
+neural_data = np.load("neural_activity.npy")
+belief_data = np.load("belief_trajectories.npy")
+
+# Initialize analyzers
+entropy_analyzer = EntropyAnalyzer(neural_data)
+divergence_analyzer = DivergenceAnalyzer(belief_data)
+
+# Perform comprehensive analysis
+entropy_results = entropy_analyzer.calculate_all_entropy_measures()
+divergence_results = divergence_analyzer.calculate_divergence_measures()
+
+# Generate analysis report
+report = generate_information_theory_report(entropy_results, divergence_results)
 ```
-
-**Features:**
-- Advanced entropy measures
-- Complex system analysis
-- Causal analysis tools
-- Statistical validation
-- Publication-quality results
-
-### 🧑‍🔬 Grant Application Level
-```python
-from active_inference.analysis.information_theory import GrantInformationTheory
-
-# Research proposal information analysis
-info_theory = GrantInformationTheory()
-feasibility_analysis = info_theory.assess_method_feasibility(theoretical_requirements)
-power_analysis = info_theory.calculate_statistical_power(sample_sizes)
-```
-
-**Features:**
-- Method feasibility analysis
-- Statistical power calculations
-- Theoretical validation
-- Resource requirement planning
-- Grant proposal support
-
-### 📝 Publication Level
-```python
-from active_inference.analysis.information_theory import PublicationInformationTheory
-
-# Publication-ready information analysis
-info_theory = PublicationInformationTheory()
-comprehensive_analysis = info_theory.run_comprehensive_analysis(dataset)
-validated_results = info_theory.validate_for_publication(comprehensive_analysis)
-```
-
-**Features:**
-- Publication-standard analysis
-- Comprehensive validation
-- Reviewer-ready documentation
-- Multiple method comparison
-- Citation management
 
 ## Usage Examples
 
-### Entropy Analysis
+### Example 1: Neural Entropy Analysis
+
 ```python
-from active_inference.analysis.information_theory import EntropyAnalyzer
+# Analyze entropy in neural spike trains
+import numpy as np
+from active_inference.research.analysis.information_theory.entropy import NeuralEntropyAnalyzer
 
-# Initialize entropy analyzer
-entropy_analyzer = EntropyAnalyzer()
+# Load neural spike data
+spike_trains = load_spike_train_data("experiment_001.mat")
+time_windows = create_analysis_windows(spike_trains, window_size=100)
 
-# Analyze different types of entropy
-data = np.random.normal(0, 1, 1000)
+# Initialize neural entropy analyzer
+analyzer = NeuralEntropyAnalyzer(spike_trains, time_windows)
 
-# Shannon entropy
-shannon_result = entropy_analyzer.calculate_entropy(data, method='shannon')
-print(f"Shannon entropy: {shannon_result.entropy_value:.3f}")
+# Calculate comprehensive entropy measures
+shannon_entropy = analyzer.calculate_shannon_entropy()
+differential_entropy = analyzer.calculate_differential_entropy()
+entropy_rate = analyzer.calculate_entropy_rate()
 
-# Differential entropy
-diff_result = entropy_analyzer.calculate_entropy(data, method='differential')
-print(f"Differential entropy: {diff_result.entropy_value:.3f}")
+# Analyze entropy dynamics
+entropy_dynamics = analyzer.analyze_entropy_dynamics()
+spatiotemporal_entropy = analyzer.analyze_spatiotemporal_entropy()
 
-# Conditional entropy
-conditioning_data = np.random.normal(0, 0.5, 1000)
-cond_result = entropy_analyzer.calculate_conditional_entropy(data, conditioning_data)
-print(f"Conditional entropy: {cond_result.entropy_value:.3f}")
+# Visualize entropy patterns
+analyzer.plot_entropy_time_series()
+analyzer.plot_entropy_spatial_distribution()
+analyzer.plot_entropy_rate_analysis()
 ```
 
-### Mutual Information Analysis
+### Example 2: Belief Divergence Analysis
+
 ```python
-from active_inference.analysis.information_theory import MutualInformationAnalyzer
+# Analyze divergence between belief states
+from active_inference.research.analysis.information_theory.divergence_measures import BeliefDivergenceAnalyzer
 
-# Initialize mutual information analyzer
-mi_analyzer = MutualInformationAnalyzer()
-
-# Analyze information relationships
-x_data = np.random.normal(0, 1, 1000)
-y_data = x_data + np.random.normal(0, 0.1, 1000)  # Related data
-
-# Calculate mutual information using different methods
-mi_histogram = mi_analyzer.calculate_mutual_information(x_data, y_data, method='histogram')
-mi_kernel = mi_analyzer.calculate_mutual_information(x_data, y_data, method='kernel')
-mi_kraskov = mi_analyzer.calculate_mutual_information(x_data, y_data, method='kraskov')
-
-print(f"Histogram MI: {mi_histogram:.3f}")
-print(f"Kernel MI: {mi_kernel:.3f}")
-print(f"Kraskov MI: {mi_kraskov:.3f}")
-
-# Analyze transfer entropy
-te = mi_analyzer.transfer_entropy(x_data, y_data, lag=1)
-print(f"Transfer entropy: {te:.3f}")
-```
-
-### Divergence Analysis
-```python
-from active_inference.analysis.information_theory import DivergenceAnalyzer
+# Define belief trajectories
+prior_beliefs = load_prior_belief_trajectory()
+posterior_beliefs = load_posterior_belief_trajectory()
+predictive_beliefs = load_predictive_belief_trajectory()
 
 # Initialize divergence analyzer
-divergence_analyzer = DivergenceAnalyzer()
+analyzer = BeliefDivergenceAnalyzer([prior_beliefs, posterior_beliefs, predictive_beliefs])
 
-# Analyze differences between distributions
-dist1 = np.random.normal(0, 1, 1000)
-dist2 = np.random.normal(1, 1, 1000)
-dist3 = np.random.normal(0, 2, 1000)
+# Calculate various divergence measures
+kl_divergence = analyzer.calculate_kl_divergence()
+js_divergence = analyzer.calculate_js_divergence()
+wasserstein_distance = analyzer.calculate_wasserstein_distance()
 
-distributions = [dist1, dist2, dist3]
+# Analyze divergence patterns
+divergence_dynamics = analyzer.analyze_divergence_dynamics()
+information_geometry = analyzer.analyze_information_geometry()
 
-# Calculate various divergences
-kl_div = divergence_analyzer.calculate_divergence(dist1, dist2, measure='kl_divergence')
-js_div = divergence_analyzer.calculate_divergence(dist1, dist2, measure='js_divergence')
-hellinger = divergence_analyzer.calculate_divergence(dist1, dist2, measure='hellinger')
-
-print(f"KL Divergence: {kl_div:.3f}")
-print(f"JS Divergence: {js_div:.3f}")
-print(f"Hellinger Distance: {hellinger:.3f}")
-
-# Analyze multiple distributions
-multi_analysis = divergence_analyzer.analyze_distribution_differences(distributions)
-print(f"Most similar pairs: {multi_analysis['most_similar_pairs']}")
+# Visualize divergence patterns
+analyzer.plot_divergence_time_series()
+analyzer.plot_information_geometry()
+analyzer.plot_divergence_heatmap()
 ```
 
-## Information Theory Methods
+### Example 3: Information Flow Analysis
 
-### Entropy Methods
-- **Shannon Entropy**: Classical information entropy for discrete variables
-- **Differential Entropy**: Entropy for continuous variables
-- **Relative Entropy**: Entropy difference between distributions
-- **Conditional Entropy**: Entropy given knowledge of other variables
-- **Joint Entropy**: Entropy of multiple variables together
-- **Cross Entropy**: Cross-entropy between distributions
-
-### Mutual Information Methods
-- **Histogram Method**: Mutual information using histogram binning
-- **Kernel Method**: Kernel density estimation approach
-- **Kraskov Method**: Nearest neighbor based estimation
-- **Transfer Entropy**: Information flow between time series
-- **Partial Information**: Information decomposition methods
-
-### Divergence Methods
-- **KL Divergence**: Kullback-Leibler information divergence
-- **JS Divergence**: Jensen-Shannon symmetric divergence
-- **Wasserstein Distance**: Earth mover's distance
-- **Hellinger Distance**: Statistical distance measure
-- **f-Divergences**: Generalized divergence framework
-
-## Advanced Features
-
-### Multi-Scale Information Analysis
 ```python
-from active_inference.analysis.information_theory import MultiScaleAnalyzer
+# Analyze information flow in Active Inference systems
+from active_inference.research.analysis.information_theory.mutual_information import InformationFlowAnalyzer
 
-# Analyze information at multiple scales
-multiscale = MultiScaleAnalyzer()
+# Set up system for analysis
+system_config = {
+    "components": ["observations", "beliefs", "policies", "actions"],
+    "connections": "hierarchical",
+    "time_scale": "milliseconds"
+}
 
-scales = [1, 2, 4, 8, 16]
-entropy_scales = multiscale.analyze_entropy_scales(time_series, scales)
-mi_scales = multiscale.analyze_mi_scales(data_x, data_y, scales)
+# Load system data
+system_data = load_active_inference_system_data("experiment_002.h5")
+
+# Initialize information flow analyzer
+analyzer = InformationFlowAnalyzer(system_data, system_config)
+
+# Calculate mutual information measures
+mutual_information = analyzer.calculate_mutual_information()
+conditional_mutual_information = analyzer.calculate_conditional_mutual_information()
+transfer_entropy = analyzer.calculate_transfer_entropy()
+
+# Analyze information pathways
+information_pathways = analyzer.identify_information_pathways()
+causal_flow = analyzer.analyze_causal_flow()
+information_efficiency = analyzer.analyze_information_efficiency()
+
+# Visualize information flow
+analyzer.plot_information_flow_network()
+analyzer.plot_transfer_entropy_matrix()
+analyzer.plot_causal_flow_diagram()
 ```
 
-### Information Flow Networks
+## Configuration
+
+### Information Theory Analysis Configuration
+
 ```python
-from active_inference.analysis.information_theory import InformationFlowAnalyzer
-
-# Analyze information flow networks
-flow_analyzer = InformationFlowAnalyzer()
-
-# Build information flow network
-network = flow_analyzer.build_information_network(multivariate_data, max_lag=10)
-centrality = flow_analyzer.calculate_information_centrality(network)
-```
-
-### Complexity Measures
-```python
-from active_inference.analysis.information_theory import ComplexityAnalyzer
-
-# Analyze system complexity
-complexity = ComplexityAnalyzer()
-
-# Calculate various complexity measures
-measures = ['sample_entropy', 'permutation_entropy', 'lyapunov_exponent']
-complexity_results = complexity.calculate_complexity_measures(time_series, measures)
-
-# Multi-scale complexity
-multiscale_complexity = complexity.multiscale_complexity_analysis(time_series)
-```
-
-## Integration with Analysis Pipeline
-
-### Statistical Integration
-```python
-from active_inference.analysis.information_theory import StatisticalInformationIntegration
-
-# Integrate with statistical analysis
-stat_integration = StatisticalInformationIntegration()
-
-# Combine information theory with statistical tests
-combined_analysis = stat_integration.combine_with_statistics(
-    information_results,
-    statistical_results
-)
-```
-
-### Visualization Integration
-```python
-from active_inference.analysis.information_theory import InformationVisualization
-
-# Create information-theoretic visualizations
-info_viz = InformationVisualization()
-
-# Generate entropy plots
-entropy_plots = info_viz.plot_entropy_analysis(entropy_results)
-
-# Generate mutual information heatmaps
-mi_heatmaps = info_viz.plot_mutual_information_matrix(mi_matrix)
-```
-
-## Configuration Options
-
-### Analysis Settings
-```python
-analysis_config = {
-    'default_method': 'histogram',
-    'bias_correction': True,
-    'confidence_level': 0.95,
-    'sample_size_threshold': 100,
-    'numerical_precision': 'double',
-    'parallel_processing': True,
-    'validation_strictness': 'high'
+# Basic information theory configuration
+info_theory_config = {
+    "entropy": {
+        "estimator": "maximum_likelihood",  # maximum_likelihood, bayesian, plugin
+        "bias_correction": True,
+        "confidence_intervals": True,
+        "bootstrap_samples": 1000
+    },
+    "divergence": {
+        "method": "k_nearest_neighbors",  # analytical, numerical, knn
+        "k_neighbors": 5,
+        "distance_metric": "euclidean",
+        "regularization": 1e-8
+    },
+    "mutual_information": {
+        "estimator": "kraskov",  # kraskov, ross, maximal
+        "k_neighbors": 4,
+        "noise_level": 1e-8,
+        "surrogate_method": "shuffle"
+    },
+    "complexity": {
+        "measure_type": "statistical_complexity",  # statistical, causal, integrated
+        "window_size": 100,
+        "overlap": 0.5,
+        "normalization": True
+    }
 }
 ```
 
-### Entropy Configuration
+### Advanced Configuration
+
 ```python
-entropy_config = {
-    'base': 2.0,  # logarithm base
-    'bins': 'auto',  # histogram bins
-    'bandwidth': 'scott',  # KDE bandwidth
-    'bias_correction': True,
-    'confidence_intervals': True,
-    'validation': True
+# Advanced information theory settings
+advanced_config = {
+    "performance": {
+        "parallel_processing": True,
+        "max_workers": 8,
+        "memory_limit": "16GB",
+        "gpu_acceleration": True
+    },
+    "numerical": {
+        "precision": "double",
+        "tolerance": 1e-12,
+        "max_iterations": 10000,
+        "convergence_threshold": 1e-8
+    },
+    "statistical": {
+        "significance_level": 0.05,
+        "multiple_testing_correction": "bonferroni",
+        "confidence_level": 0.95,
+        "effect_size_threshold": 0.8
+    },
+    "validation": {
+        "bootstrap_replications": 1000,
+        "cross_validation_folds": 10,
+        "permutation_tests": 1000,
+        "sensitivity_analysis": True
+    }
 }
 ```
 
-## Quality Assurance
+## API Reference
 
-### Mathematical Validation
-- **Theoretical Compliance**: Validate against information theory principles
-- **Numerical Accuracy**: Ensure numerical precision and accuracy
-- **Convergence Testing**: Test algorithm convergence properties
-- **Benchmark Comparison**: Compare with established implementations
-- **Edge Case Testing**: Test with boundary conditions
+### Core Information Theory Classes
 
-### Scientific Validation
-- **Method Validation**: Validate methods against known results
-- **Consistency Testing**: Ensure consistent results across methods
-- **Interpretation Validation**: Validate result interpretations
-- **Reproducibility**: Ensure reproducible analysis results
+#### `EntropyAnalyzer`
+Comprehensive entropy analysis toolkit.
 
-## Information Theory Standards
+```python
+class EntropyAnalyzer:
+    """Analyze entropy in various forms and contexts"""
 
-### Mathematical Standards
-- **Correctness**: Mathematically correct implementations
-- **Precision**: Appropriate numerical precision
-- **Stability**: Numerical stability of algorithms
-- **Convergence**: Proper algorithm convergence
-- **Validation**: Validated against theoretical benchmarks
+    def __init__(self, data: Union[np.ndarray, torch.Tensor], config: Dict[str, Any]):
+        """Initialize entropy analyzer with data and configuration"""
 
-### Analysis Standards
-- **Method Selection**: Appropriate method selection
-- **Parameter Validation**: Proper parameter validation
-- **Result Interpretation**: Correct result interpretation
-- **Reporting**: Clear and accurate reporting
-- **Reproducibility**: Reproducible analysis procedures
+    def calculate_shannon_entropy(self) -> EntropyResult:
+        """Calculate Shannon entropy for discrete data"""
+
+    def calculate_differential_entropy(self) -> EntropyResult:
+        """Calculate differential entropy for continuous data"""
+
+    def calculate_relative_entropy(self, reference_distribution: Any) -> EntropyResult:
+        """Calculate relative entropy (KL divergence)"""
+
+    def analyze_entropy_dynamics(self) -> EntropyDynamics:
+        """Analyze how entropy changes over time"""
+
+    def estimate_entropy_rate(self) -> EntropyRateResult:
+        """Estimate entropy rate for time series data"""
+```
+
+#### `DivergenceAnalyzer`
+Information divergence and distance analysis.
+
+```python
+class DivergenceAnalyzer:
+    """Analyze information divergence between distributions"""
+
+    def __init__(self, distributions: List[Any], config: Dict[str, Any]):
+        """Initialize with distributions to compare"""
+
+    def calculate_kl_divergence(self) -> DivergenceResult:
+        """Calculate Kullback-Leibler divergence"""
+
+    def calculate_js_divergence(self) -> DivergenceResult:
+        """Calculate Jensen-Shannon divergence"""
+
+    def calculate_wasserstein_distance(self) -> DistanceResult:
+        """Calculate Wasserstein distance between distributions"""
+
+    def analyze_divergence_dynamics(self) -> DivergenceDynamics:
+        """Analyze how divergence changes over time"""
+
+    def compare_divergence_measures(self, measures: List[str]) -> ComparisonResult:
+        """Compare different divergence measures"""
+```
+
+#### `MutualInformationAnalyzer`
+Mutual information and dependence analysis.
+
+```python
+class MutualInformationAnalyzer:
+    """Analyze mutual information and statistical dependence"""
+
+    def __init__(self, variables: List[Any], config: Dict[str, Any]):
+        """Initialize with variables to analyze"""
+
+    def calculate_mutual_information(self) -> MutualInformationResult:
+        """Calculate mutual information between variables"""
+
+    def calculate_transfer_entropy(self) -> TransferEntropyResult:
+        """Calculate transfer entropy for directed information flow"""
+
+    def analyze_information_flow(self) -> InformationFlowResult:
+        """Analyze information flow patterns in systems"""
+
+    def identify_causal_relationships(self) -> CausalAnalysisResult:
+        """Identify causal relationships using information measures"""
+
+    def analyze_network_structure(self) -> NetworkAnalysisResult:
+        """Analyze network structure using information theory"""
+```
+
+## Research Workflows
+
+### Information Theory Research Pipeline
+
+```mermaid
+flowchart TD
+    A[Research Question] --> B[Data Collection]
+    B --> C[Entropy Analysis]
+    C --> D[Divergence Analysis]
+    D --> E[Mutual Information Analysis]
+    E --> F[Complexity Analysis]
+    F --> G[Interpretation]
+    G --> H[Validation]
+    H --> I[Publication]
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+    style I fill:#ffebee
+```
+
+### Advanced Analysis Patterns
+
+```python
+# Multi-scale information analysis
+def conduct_multiscale_information_analysis(data: Any, scales: List[float]) -> AnalysisReport:
+    """Conduct information theory analysis across multiple scales"""
+
+    # Scale-specific analysis
+    scale_results = {}
+    for scale in scales:
+        scaled_data = preprocess_data_for_scale(data, scale)
+
+        # Entropy analysis at this scale
+        entropy_analysis = perform_entropy_analysis(scaled_data)
+
+        # Divergence analysis at this scale
+        divergence_analysis = perform_divergence_analysis(scaled_data)
+
+        # Mutual information analysis at this scale
+        mutual_info_analysis = perform_mutual_information_analysis(scaled_data)
+
+        scale_results[scale] = {
+            'entropy': entropy_analysis,
+            'divergence': divergence_analysis,
+            'mutual_information': mutual_info_analysis
+        }
+
+    # Cross-scale integration
+    cross_scale_patterns = identify_cross_scale_patterns(scale_results)
+
+    # Multi-scale validation
+    multiscale_validation = validate_multiscale_consistency(scale_results)
+
+    return generate_multiscale_report(scale_results, cross_scale_patterns, multiscale_validation)
+
+# Information geometry analysis
+def conduct_information_geometry_analysis(distributions: List[Any]) -> GeometryReport:
+    """Analyze information geometry of belief distributions"""
+
+    # Calculate Fisher information
+    fisher_information = calculate_fisher_information(distributions)
+
+    # Analyze geodesic paths
+    geodesic_analysis = analyze_geodesic_paths(distributions)
+
+    # Study curvature properties
+    curvature_analysis = analyze_information_curvature(distributions)
+
+    # Validate geometric structure
+    geometry_validation = validate_information_geometry(distributions)
+
+    return generate_geometry_report(fisher_information, geodesic_analysis, curvature_analysis, geometry_validation)
+```
 
 ## Contributing
 
-We welcome contributions to the information theory module! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for guidelines.
+### Information Theory Documentation Standards
 
-### Development Setup
-```bash
-# Install information theory dependencies
-pip install -e ".[information_theory,dev]"
+When contributing to information theory documentation:
 
-# Run information theory tests
-pytest tests/unit/test_information_theory.py -v
+1. **Mathematical Rigor**: Ensure all information-theoretic concepts are mathematically precise
+2. **Implementation Accuracy**: Verify all algorithms implement the mathematical definitions correctly
+3. **Computational Validation**: Validate implementations against known benchmarks
+4. **Educational Clarity**: Provide clear explanations of complex information-theoretic concepts
+5. **Research Relevance**: Connect methods to Active Inference research applications
 
-# Run validation tests
-pytest tests/analysis/test_information_theory_validation.py -v
-```
+### Information Theory Contribution Process
 
-## Learning Resources
-
-- **Information Theory**: Foundations of information theory
-- **Entropy Methods**: Entropy calculation and interpretation
-- **Mutual Information**: Mutual information theory and applications
-- **Divergence Measures**: Statistical divergence theory
-- **Complexity Theory**: System complexity analysis
-- **Causal Analysis**: Information-theoretic causality
+1. **Identify Theory Gap**: Find missing or inadequate information theory methods
+2. **Research Implementation**: Implement robust information-theoretic algorithms
+3. **Mathematical Validation**: Ensure mathematical correctness and numerical stability
+4. **Computational Testing**: Validate against benchmarks and test cases
+5. **Document Comprehensively**: Provide complete documentation and examples
+6. **Submit for Review**: Follow peer review process for information theory contributions
 
 ## Related Documentation
 
-- **[Analysis README](../README.md)**: Analysis tools module overview
-- **[Main README](../../../README.md)**: Project overview
-- **[Knowledge Repository](../../../knowledge/)**: Theoretical foundations
-- **[Statistical Analysis](../../analysis/statistical/)**: Statistical analysis methods
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Analysis Framework](../../analysis/README.md)**: Overview of analysis tools and methods
+- **[Entropy Analysis](../entropy/README.md)**: Specialized entropy estimation methods
+- **[Divergence Measures](../divergence_measures/README.md)**: Information divergence analysis
+- **[Mutual Information](../mutual_information/README.md)**: Mutual information analysis tools
+- **[Complexity Analysis](../complexity/README.md)**: Statistical complexity measures
+- **[Research Analysis Documentation](../../../docs/research/analysis/README.md)**: Analysis framework documentation
 
 ---
 
-*"Active Inference for, with, by Generative AI"* - Advancing research through rigorous information theory, comprehensive analysis, and mathematical precision.
+**Information Theory Analysis Version**: 1.0.0 | **Last Updated**: October 2024 | **Development Status**: Active Development
+
+*"Active Inference for, with, by Generative AI"* - Advancing the mathematical foundations of Active Inference through rigorous information theory, precise divergence measures, and comprehensive information analysis.

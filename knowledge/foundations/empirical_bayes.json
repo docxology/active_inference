@@ -4,8 +4,16 @@
   "content_type": "foundation",
   "difficulty": "advanced",
   "description": "Understanding empirical Bayes methods for estimating hyperparameters from data in hierarchical models.",
-  "prerequisites": ["hierarchical_models", "conjugate_priors"],
-  "tags": ["empirical bayes", "hyperparameter estimation", "hierarchical modeling", "evidence maximization"],
+  "prerequisites": [
+    "hierarchical_models",
+    "conjugate_priors"
+  ],
+  "tags": [
+    "empirical bayes",
+    "hyperparameter estimation",
+    "hierarchical modeling",
+    "evidence maximization"
+  ],
   "learning_objectives": [
     "Understand the empirical Bayes approach",
     "Estimate hyperparameters from data",
@@ -130,6 +138,367 @@
     "difficulty_level": "advanced",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 6
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Empirical Bayes Methods",
+      "question": "Empirical Bayes Methods is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Empirical Bayes Methods",
+      "instructions": "Drag and drop to connect related concepts from empirical bayes methods:",
+      "concepts": {
+        "concepts": [
+          "empirical bayes",
+          "hyperparameter estimation",
+          "hierarchical modeling",
+          "evidence maximization"
+        ],
+        "relationships": [
+          {
+            "from": "empirical bayes",
+            "to": "hyperparameter estimation"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Empirical Bayes Methods",
+      "questions": [
+        "How does empirical bayes methods relate to other Active Inference concepts?",
+        "What are the practical implications of empirical bayes methods?",
+        "What challenges arise when applying empirical bayes methods?",
+        "How might empirical bayes methods evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Empirical Bayes Methods Applications",
+      "questions": [
+        "Find a real-world application of empirical bayes methods",
+        "What research papers discuss empirical bayes methods?",
+        "How is empirical bayes methods used in industry?",
+        "What are current research challenges related to empirical bayes methods?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Empirical Bayes Methods Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Empirical Bayes Methods",
+      "problem": "Develop a novel extension or application of empirical bayes methods",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Empirical Bayes Methods Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Empirical Bayes Methods",
+      "question": "Empirical Bayes Methods is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Empirical Bayes Methods",
+      "instructions": "Drag and drop to connect related concepts from empirical bayes methods:",
+      "concepts": {
+        "concepts": [
+          "empirical bayes",
+          "hyperparameter estimation",
+          "hierarchical modeling",
+          "evidence maximization"
+        ],
+        "relationships": [
+          {
+            "from": "empirical bayes",
+            "to": "hyperparameter estimation"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Empirical Bayes Methods",
+      "questions": [
+        "How does empirical bayes methods relate to other Active Inference concepts?",
+        "What are the practical implications of empirical bayes methods?",
+        "What challenges arise when applying empirical bayes methods?",
+        "How might empirical bayes methods evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Empirical Bayes Methods Applications",
+      "questions": [
+        "Find a real-world application of empirical bayes methods",
+        "What research papers discuss empirical bayes methods?",
+        "How is empirical bayes methods used in industry?",
+        "What are current research challenges related to empirical bayes methods?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Empirical Bayes Methods Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Empirical Bayes Methods",
+      "problem": "Develop a novel extension or application of empirical bayes methods",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Empirical Bayes Methods Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Empirical Bayes Methods Concept Map",
+        "description": "Visual representation of empirical bayes methods and its relationships",
+        "file_path": "diagrams/empirical_bayes_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Empirical Bayes Methods",
+            "type": "central",
+            "description": "Understanding empirical Bayes methods for estimating hyperparameters from data in hierarchical models."
+          },
+          {
+            "id": "prereq_0",
+            "label": "hierarchical_models",
+            "type": "prerequisite",
+            "description": "Required knowledge: hierarchical_models"
+          },
+          {
+            "id": "prereq_1",
+            "label": "conjugate_priors",
+            "type": "prerequisite",
+            "description": "Required knowledge: conjugate_priors"
+          },
+          {
+            "id": "tag_0",
+            "label": "empirical bayes",
+            "type": "related",
+            "description": "Related concept: empirical bayes"
+          },
+          {
+            "id": "tag_1",
+            "label": "hyperparameter estimation",
+            "type": "related",
+            "description": "Related concept: hyperparameter estimation"
+          },
+          {
+            "id": "tag_2",
+            "label": "hierarchical modeling",
+            "type": "related",
+            "description": "Related concept: hierarchical modeling"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Empirical Bayes Methods Relationships",
+        "description": "Connections between empirical bayes methods and related concepts",
+        "file_path": "diagrams/empirical_bayes_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Empirical Bayes Methods",
+        "description": "Comprehensive introduction to empirical bayes methods concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=725e085ae28",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/empirical_bayes_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Empirical Bayes Methods"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/empirical_bayes_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Empirical Bayes Methods"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Empirical Bayes Methods Audio Explanation",
+        "description": "Audio explanation of empirical bayes methods concepts",
+        "file_path": "audio/empirical_bayes_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

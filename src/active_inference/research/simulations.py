@@ -79,25 +79,102 @@ class SimulationEngine:
         return results
 
     def _simulate_active_inference(self, time_points: np.ndarray, config: ModelConfig, inputs: Dict[str, Any]) -> Dict[str, Any]:
-        """Simulate an Active Inference model"""
-        # Mock Active Inference simulation
+        """Simulate a realistic Active Inference model"""
         n_states = inputs.get("n_states", 4)
         n_observations = inputs.get("n_observations", 8)
+        n_actions = inputs.get("n_actions", 4)
 
-        # Generate synthetic data
-        free_energy = np.exp(-0.001 * time_points) + 0.1 * np.random.normal(0, 0.1, len(time_points))
-        accuracy = 1 - np.exp(-0.002 * time_points) + 0.05 * np.random.normal(0, 0.1, len(time_points))
+        # Initialize generative model matrices
+        np.random.seed(42)  # For reproducible results
 
-        # State beliefs evolution
-        state_beliefs = np.random.dirichlet(np.ones(n_states), len(time_points))
+        # Observation likelihood A: P(o|s)
+        A = np.random.rand(n_observations, n_states)
+        A = A / A.sum(axis=0)  # Normalize columns
+
+        # Transition likelihood B: P(s'|s,a)
+        B = np.random.rand(n_states, n_states, n_actions)
+        B = B / B.sum(axis=0)  # Normalize
+
+        # Prior preferences C: log P(o)
+        C = np.random.normal(0, 0.1, n_observations)
+
+        # Initialize beliefs (uniform prior)
+        beliefs = np.ones(n_states) / n_states
+
+        # Initialize action selection
+        current_action = 0
+
+        # Simulation data storage
+        free_energy_trajectory = []
+        belief_trajectory = []
+        accuracy_trajectory = []
+        action_trajectory = []
+        observation_trajectory = []
+
+        for t in range(len(time_points)):
+            # Generate observation from current belief state
+            observation_probs = A @ beliefs
+            observation = np.random.choice(n_observations, p=observation_probs)
+            observation_trajectory.append(int(observation))
+
+            # Update beliefs using variational inference (simplified)
+            likelihood = A[observation, :]
+            posterior = likelihood * beliefs
+            posterior = posterior / posterior.sum()
+            beliefs = posterior
+            belief_trajectory.append(beliefs.tolist())
+
+            # Calculate expected free energy for action selection
+            expected_free_energy = np.zeros(n_actions)
+
+            for a in range(n_actions):
+                # Predicted beliefs after action
+                predicted_beliefs = B[:, :, a] @ beliefs
+
+                # Expected observations under predicted beliefs
+                expected_obs = A @ predicted_beliefs
+
+                # Epistemic affordance (information gain)
+                epistemic = 0.5 * np.sum(expected_obs * np.log(expected_obs + 1e-10))
+
+                # Extrinsic affordance (preference satisfaction)
+                extrinsic = np.sum(expected_obs * C)
+
+                # Total expected free energy
+                expected_free_energy[a] = extrinsic - epistemic
+
+            # Select action (greedy policy)
+            current_action = np.argmin(expected_free_energy)  # Minimize free energy
+            action_trajectory.append(int(current_action))
+
+            # Calculate variational free energy (simplified)
+            # F = E_Q[log Q] - E_Q[log P]
+            log_likelihood = np.log(np.maximum(likelihood, 1e-10))
+            entropy = -np.sum(beliefs * np.log(np.maximum(beliefs, 1e-10)))
+            free_energy = -np.mean(log_likelihood) - entropy
+            free_energy_trajectory.append(float(free_energy))
+
+            # Calculate accuracy (confidence in most likely state)
+            accuracy = float(np.max(beliefs))
+            accuracy_trajectory.append(accuracy)
 
         return {
             "time_points": time_points.tolist(),
-            "free_energy": free_energy.tolist(),
-            "accuracy": accuracy.tolist(),
-            "state_beliefs": state_beliefs.tolist(),
+            "free_energy": free_energy_trajectory,
+            "accuracy": accuracy_trajectory,
+            "state_beliefs": belief_trajectory,
+            "actions": action_trajectory,
+            "observations": observation_trajectory,
             "n_states": n_states,
-            "n_observations": n_observations
+            "n_observations": n_observations,
+            "n_actions": n_actions,
+            "model_parameters": {
+                "A_shape": A.shape,
+                "B_shape": B.shape,
+                "C_shape": C.shape,
+                "final_beliefs": beliefs.tolist(),
+                "preferred_observations": np.argsort(C)[-3:].tolist()  # Top 3 preferred observations
+            }
         }
 
     def _simulate_generic_model(self, time_points: np.ndarray, config: ModelConfig, inputs: Dict[str, Any]) -> Dict[str, Any]:
@@ -166,4 +243,5 @@ class ModelRunner:
 
         # Add more sophisticated comparison metrics here
         return metrics
+
 

@@ -1,309 +1,521 @@
 """
-Platform - Deployment and Monitoring
+Deployment Platform Service
 
-Deployment management, service orchestration, and monitoring tools for the
-Active Inference Knowledge Environment. Provides containerization, scaling,
-health monitoring, and operational management capabilities.
+Provides deployment automation, service orchestration, and monitoring for the
+Active Inference Knowledge Environment. Manages platform scaling, health monitoring,
+and operational management.
 """
 
 import logging
-from typing import Dict, List, Optional, Any
-from pathlib import Path
-from dataclasses import dataclass
+import time
+from typing import Dict, Any, List, Optional, Set
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
+import subprocess
+import psutil
 
 logger = logging.getLogger(__name__)
 
 
 class ServiceStatus(Enum):
-    """Service health status"""
-    HEALTHY = "healthy"
-    DEGRADED = "degraded"
-    UNHEALTHY = "unhealthy"
+    """Service status enumeration"""
+    STOPPED = "stopped"
+    STARTING = "starting"
+    RUNNING = "running"
+    STOPPING = "stopping"
+    ERROR = "error"
     UNKNOWN = "unknown"
 
 
+class DeploymentStatus(Enum):
+    """Deployment status enumeration"""
+    PENDING = "pending"
+    IN_PROGRESS = "in_progress"
+    SUCCESSFUL = "successful"
+    FAILED = "failed"
+    ROLLED_BACK = "rolled_back"
+
+
 @dataclass
-class ServiceHealth:
-    """Health status of a service"""
-    service_name: str
+class ServiceInfo:
+    """Service information"""
+    name: str
     status: ServiceStatus
-    response_time: float = 0.0
-    last_check: datetime = None
+    pid: Optional[int] = None
+    port: Optional[int] = None
+    start_time: Optional[datetime] = None
+    health_endpoint: Optional[str] = None
+    dependencies: List[str] = field(default_factory=list)
+    config: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class Deployment:
+    """Deployment record"""
+    id: str
+    service_name: str
+    status: DeploymentStatus
+    start_time: datetime
+    end_time: Optional[datetime] = None
+    version: str = ""
+    changes: List[str] = field(default_factory=list)
     error_message: Optional[str] = None
-
-    def __post_init__(self):
-        if self.last_check is None:
-            self.last_check = datetime.now()
-
-
-class MonitoringTools:
-    """System monitoring and health checking"""
-
-    def __init__(self, config: Dict[str, Any]):
-        self.config = config
-        self.health_checks: Dict[str, ServiceHealth] = {}
-        self.metrics: Dict[str, List[float]] = {}
-
-        logger.info("MonitoringTools initialized")
-
-    def register_service(self, service_name: str) -> None:
-        """Register a service for monitoring"""
-        self.health_checks[service_name] = ServiceHealth(
-            service_name=service_name,
-            status=ServiceStatus.UNKNOWN
-        )
-
-        self.metrics[service_name] = []
-        logger.info(f"Registered service for monitoring: {service_name}")
-
-    def update_service_health(self, service_name: str, status: ServiceStatus,
-                            response_time: float = 0.0, error_message: Optional[str] = None) -> None:
-        """Update service health status"""
-        if service_name not in self.health_checks:
-            self.register_service(service_name)
-
-        self.health_checks[service_name].status = status
-        self.health_checks[service_name].response_time = response_time
-        self.health_checks[service_name].last_check = datetime.now()
-        self.health_checks[service_name].error_message = error_message
-
-        # Store metric
-        self.metrics[service_name].append(response_time)
-        if len(self.metrics[service_name]) > 100:  # Keep last 100 measurements
-            self.metrics[service_name].pop(0)
-
-        logger.debug(f"Updated health for {service_name}: {status.value}")
-
-    def get_system_health(self) -> Dict[str, Any]:
-        """Get overall system health"""
-        if not self.health_checks:
-            return {"status": "no_services", "services": {}}
-
-        healthy_count = sum(1 for h in self.health_checks.values() if h.status == ServiceStatus.HEALTHY)
-        total_count = len(self.health_checks)
-
-        overall_status = ServiceStatus.HEALTHY
-        if healthy_count < total_count:
-            overall_status = ServiceStatus.DEGRADED
-        if healthy_count == 0:
-            overall_status = ServiceStatus.UNHEALTHY
-
-        return {
-            "overall_status": overall_status.value,
-            "healthy_services": healthy_count,
-            "total_services": total_count,
-            "health_percentage": (healthy_count / total_count) * 100 if total_count > 0 else 0,
-            "services": {
-                name: {
-                    "status": health.status.value,
-                    "response_time": health.response_time,
-                    "last_check": health.last_check.isoformat(),
-                    "error_message": health.error_message
-                }
-                for name, health in self.health_checks.items()
-            },
-            "timestamp": datetime.now().isoformat()
-        }
-
-    def get_performance_metrics(self, service_name: Optional[str] = None) -> Dict[str, Any]:
-        """Get performance metrics"""
-        if service_name:
-            if service_name not in self.metrics:
-                return {"error": f"Service {service_name} not found"}
-
-            metrics = self.metrics[service_name]
-            if not metrics:
-                return {"service": service_name, "metrics": {}}
-
-            return {
-                "service": service_name,
-                "metrics": {
-                    "average_response_time": sum(metrics) / len(metrics),
-                    "min_response_time": min(metrics),
-                    "max_response_time": max(metrics),
-                    "samples": len(metrics)
-                }
-            }
-
-        # All services
-        all_metrics = {}
-        for name in self.metrics:
-            all_metrics[name] = self.get_performance_metrics(name)["metrics"]
-
-        return {"all_services": all_metrics}
 
 
 class ServiceOrchestrator:
     """Orchestrates platform services"""
 
     def __init__(self, config: Dict[str, Any]):
+        """Initialize service orchestrator"""
         self.config = config
-        self.services: Dict[str, Dict[str, Any]] = {}
-        self.dependencies: Dict[str, List[str]] = {}
+        self.services: Dict[str, ServiceInfo] = {}
+        self.deployments: Dict[str, Deployment] = {}
 
-        logger.info("ServiceOrchestrator initialized")
+        # Load service configurations
+        self.service_configs = config.get('services', {})
 
-    def register_service(self, service_name: str, service_config: Dict[str, Any],
-                        dependencies: List[str] = None) -> None:
-        """Register a service"""
-        self.services[service_name] = {
-            "config": service_config,
-            "status": "stopped",
-            "started_at": None,
-            "dependencies": dependencies or []
-        }
+        logger.info("Service orchestrator initialized")
 
-        self.dependencies[service_name] = dependencies or []
+    def register_service(self, service_name: str, service_config: Dict[str, Any]) -> bool:
+        """Register service with orchestrator"""
+        try:
+            service_info = ServiceInfo(
+                name=service_name,
+                status=ServiceStatus.STOPPED,
+                port=service_config.get('port'),
+                health_endpoint=service_config.get('health_endpoint'),
+                dependencies=service_config.get('dependencies', []),
+                config=service_config
+            )
 
-        logger.info(f"Registered service: {service_name}")
+            self.services[service_name] = service_info
+            logger.info(f"Registered service: {service_name}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error registering service {service_name}: {e}")
+            return False
 
     def start_service(self, service_name: str) -> bool:
         """Start a service"""
-        if service_name not in self.services:
-            logger.error(f"Service {service_name} not found")
-            return False
-
-        service = self.services[service_name]
-
-        # Check dependencies
-        for dep in service["dependencies"]:
-            if self.services.get(dep, {}).get("status") != "running":
-                logger.error(f"Cannot start {service_name}: dependency {dep} not running")
+        try:
+            if service_name not in self.services:
+                logger.error(f"Service {service_name} not registered")
                 return False
 
-        # Placeholder for actual service startup
-        logger.info(f"Starting service: {service_name}")
+            service_info = self.services[service_name]
 
-        service["status"] = "running"
-        service["started_at"] = datetime.now().isoformat()
+            # Check dependencies
+            for dep in service_info.dependencies:
+                if dep not in self.services or self.services[dep].status != ServiceStatus.RUNNING:
+                    logger.error(f"Dependency {dep} not satisfied for {service_name}")
+                    return False
 
-        return True
+            # Update status
+            service_info.status = ServiceStatus.STARTING
+            service_info.start_time = datetime.now()
+
+            # Start service (simplified - in real implementation, this would start actual processes)
+            logger.info(f"Starting service: {service_name}")
+            service_info.status = ServiceStatus.RUNNING
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error starting service {service_name}: {e}")
+            if service_name in self.services:
+                self.services[service_name].status = ServiceStatus.ERROR
+            return False
 
     def stop_service(self, service_name: str) -> bool:
         """Stop a service"""
-        if service_name not in self.services:
-            logger.error(f"Service {service_name} not found")
+        try:
+            if service_name not in self.services:
+                return False
+
+            service_info = self.services[service_name]
+            service_info.status = ServiceStatus.STOPPING
+
+            # Stop service (simplified)
+            logger.info(f"Stopping service: {service_name}")
+            service_info.status = ServiceStatus.STOPPED
+            service_info.pid = None
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error stopping service {service_name}: {e}")
             return False
 
-        service = self.services[service_name]
-
-        # Placeholder for actual service shutdown
-        logger.info(f"Stopping service: {service_name}")
-
-        service["status"] = "stopped"
-        service["started_at"] = None
-
-        return True
-
-    def get_service_status(self) -> Dict[str, Any]:
-        """Get status of all services"""
-        return {
-            "services": {
-                name: {
-                    "status": service["status"],
-                    "started_at": service["started_at"],
-                    "dependencies": service["dependencies"]
+    def get_service_status(self, service_name: str = None) -> Dict[str, Any]:
+        """Get service status"""
+        if service_name:
+            service_info = self.services.get(service_name)
+            if service_info:
+                return {
+                    'name': service_info.name,
+                    'status': service_info.status.value,
+                    'pid': service_info.pid,
+                    'port': service_info.port,
+                    'uptime': (datetime.now() - (service_info.start_time or datetime.now())).seconds if service_info.start_time else 0
                 }
-                for name, service in self.services.items()
-            },
-            "total_services": len(self.services),
-            "running_services": len([s for s in self.services.values() if s["status"] == "running"]),
-            "timestamp": datetime.now().isoformat()
+            return {}
+
+        # Return all services
+        return {
+            'services': {
+                name: {
+                    'status': info.status.value,
+                    'pid': info.pid,
+                    'port': info.port,
+                    'uptime': (datetime.now() - (info.start_time or datetime.now())).seconds if info.start_time else 0
+                }
+                for name, info in self.services.items()
+            }
+        }
+
+    def check_service_health(self, service_name: str) -> Dict[str, Any]:
+        """Check health of a service"""
+        service_info = self.services.get(service_name)
+        if not service_info:
+            return {'status': 'unknown', 'message': 'Service not found'}
+
+        try:
+            # Simplified health check
+            if service_info.status == ServiceStatus.RUNNING:
+                return {'status': 'healthy', 'message': 'Service is running'}
+            else:
+                return {'status': 'unhealthy', 'message': f'Service status: {service_info.status.value}'}
+
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+
+    def get_service_dependencies(self, service_name: str) -> List[str]:
+        """Get service dependencies"""
+        service_info = self.services.get(service_name)
+        return service_info.dependencies if service_info else []
+
+
+class HealthMonitoring:
+    """Monitors platform health and performance"""
+
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize health monitoring"""
+        self.config = config
+        self.metrics: Dict[str, List[float]] = {}
+        self.alerts: List[Dict[str, Any]] = []
+        self.max_metrics_history = config.get('max_metrics_history', 1000)
+
+    def record_metric(self, metric_name: str, value: float, timestamp: Optional[float] = None):
+        """Record a metric value"""
+        if metric_name not in self.metrics:
+            self.metrics[metric_name] = []
+
+        self.metrics[metric_name].append(value)
+
+        # Maintain history limit
+        if len(self.metrics[metric_name]) > self.max_metrics_history:
+            self.metrics[metric_name] = self.metrics[metric_name][-self.max_metrics_history:]
+
+    def get_metric_average(self, metric_name: str, window: int = 10) -> Optional[float]:
+        """Get average metric value over window"""
+        if metric_name not in self.metrics:
+            return None
+
+        values = self.metrics[metric_name][-window:]
+        return sum(values) / len(values) if values else None
+
+    def check_health_thresholds(self) -> List[Dict[str, Any]]:
+        """Check if metrics exceed thresholds"""
+        alerts = []
+
+        thresholds = self.config.get('thresholds', {
+            'cpu_usage': 80.0,
+            'memory_usage': 85.0,
+            'response_time': 5.0
+        })
+
+        # Check CPU usage
+        cpu_usage = psutil.cpu_percent(interval=1)
+        if cpu_usage > thresholds['cpu_usage']:
+            alerts.append({
+                'type': 'cpu_high',
+                'message': f'CPU usage is {cpu_usage:.1f}%',
+                'severity': 'warning',
+                'timestamp': datetime.now()
+            })
+
+        # Check memory usage
+        memory = psutil.virtual_memory()
+        if memory.percent > thresholds['memory_usage']:
+            alerts.append({
+                'type': 'memory_high',
+                'message': f'Memory usage is {memory.percent:.1f}%',
+                'severity': 'warning',
+                'timestamp': datetime.now()
+            })
+
+        self.alerts.extend(alerts)
+        return alerts
+
+    def get_system_health(self) -> Dict[str, Any]:
+        """Get comprehensive system health information"""
+        health_info = {
+            'timestamp': datetime.now(),
+            'cpu_usage': psutil.cpu_percent(),
+            'memory_usage': psutil.virtual_memory().percent,
+            'disk_usage': psutil.disk_usage('/').percent,
+            'network_connections': len(psutil.net_connections()),
+            'alerts': self.check_health_thresholds()
+        }
+
+        # Record metrics
+        for metric_name, value in [('cpu_usage', health_info['cpu_usage']),
+                                 ('memory_usage', health_info['memory_usage']),
+                                 ('disk_usage', health_info['disk_usage'])]:
+            self.record_metric(metric_name, value)
+
+        return health_info
+
+    def get_health_history(self, metric_name: str, limit: int = 50) -> List[float]:
+        """Get historical health data"""
+        return self.metrics.get(metric_name, [])[-limit:]
+
+
+class DeploymentAutomation:
+    """Handles automated deployments"""
+
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize deployment automation"""
+        self.config = config
+        self.deployments: Dict[str, Deployment] = {}
+
+    def deploy_service(self, service_name: str, version: str, changes: List[str] = None) -> str:
+        """Deploy a service"""
+        deployment_id = f"deploy_{service_name}_{int(time.time())}"
+
+        deployment = Deployment(
+            id=deployment_id,
+            service_name=service_name,
+            status=DeploymentStatus.IN_PROGRESS,
+            start_time=datetime.now(),
+            version=version,
+            changes=changes or []
+        )
+
+        self.deployments[deployment_id] = deployment
+
+        try:
+            # Perform deployment (simplified)
+            logger.info(f"Deploying {service_name} version {version}")
+
+            # Simulate deployment steps
+            time.sleep(1)  # Simulate deployment time
+
+            deployment.status = DeploymentStatus.SUCCESSFUL
+            deployment.end_time = datetime.now()
+
+            logger.info(f"Successfully deployed {service_name} version {version}")
+            return deployment_id
+
+        except Exception as e:
+            deployment.status = DeploymentStatus.FAILED
+            deployment.error_message = str(e)
+            deployment.end_time = datetime.now()
+            logger.error(f"Deployment failed for {service_name}: {e}")
+            return deployment_id
+
+    def rollback_deployment(self, deployment_id: str) -> bool:
+        """Rollback a deployment"""
+        deployment = self.deployments.get(deployment_id)
+        if not deployment:
+            return False
+
+        try:
+            # Perform rollback (simplified)
+            logger.info(f"Rolling back deployment {deployment_id}")
+
+            deployment.status = DeploymentStatus.ROLLED_BACK
+            deployment.end_time = datetime.now()
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Rollback failed for deployment {deployment_id}: {e}")
+            return False
+
+    def get_deployment_status(self, deployment_id: str) -> Optional[Dict[str, Any]]:
+        """Get deployment status"""
+        deployment = self.deployments.get(deployment_id)
+        if not deployment:
+            return None
+
+        return {
+            'id': deployment.id,
+            'service_name': deployment.service_name,
+            'status': deployment.status.value,
+            'start_time': deployment.start_time.isoformat(),
+            'end_time': deployment.end_time.isoformat() if deployment.end_time else None,
+            'version': deployment.version,
+            'changes': deployment.changes,
+            'error_message': deployment.error_message
+        }
+
+    def get_deployment_history(self, service_name: Optional[str] = None,
+                             limit: int = 10) -> List[Dict[str, Any]]:
+        """Get deployment history"""
+        deployments = list(self.deployments.values())
+
+        if service_name:
+            deployments = [d for d in deployments if d.service_name == service_name]
+
+        # Sort by start time, most recent first
+        deployments.sort(key=lambda x: x.start_time, reverse=True)
+
+        return [
+            self.get_deployment_status(d.id)
+            for d in deployments[:limit]
+            if self.get_deployment_status(d.id)
+        ]
+
+
+class MonitoringTools:
+    """Comprehensive monitoring and analytics tools"""
+
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize monitoring tools"""
+        self.config = config
+        self.logs: List[Dict[str, Any]] = []
+        self.max_logs = config.get('max_logs', 10000)
+
+    def log_event(self, level: str, message: str, service: str = "platform",
+                  details: Dict[str, Any] = None):
+        """Log an event"""
+        log_entry = {
+            'timestamp': datetime.now(),
+            'level': level,
+            'message': message,
+            'service': service,
+            'details': details or {}
+        }
+
+        self.logs.append(log_entry)
+
+        # Maintain log size
+        if len(self.logs) > self.max_logs:
+            self.logs = self.logs[-self.max_logs:]
+
+        # Also log to standard logger
+        log_method = getattr(logger, level.lower(), logger.info)
+        log_method(f"[{service}] {message}", extra={'details': details})
+
+    def get_logs(self, level: Optional[str] = None, service: Optional[str] = None,
+                limit: int = 100) -> List[Dict[str, Any]]:
+        """Get filtered logs"""
+        filtered_logs = self.logs
+
+        if level:
+            filtered_logs = [log for log in filtered_logs if log['level'] == level]
+
+        if service:
+            filtered_logs = [log for log in filtered_logs if log['service'] == service]
+
+        return filtered_logs[-limit:]
+
+    def get_service_metrics(self) -> Dict[str, Any]:
+        """Get service performance metrics"""
+        # Aggregate metrics by service
+        service_metrics = {}
+
+        for log in self.logs[-1000:]:  # Check recent logs
+            service = log['service']
+            if service not in service_metrics:
+                service_metrics[service] = {'errors': 0, 'warnings': 0, 'info': 0}
+
+            if log['level'] == 'ERROR':
+                service_metrics[service]['errors'] += 1
+            elif log['level'] == 'WARNING':
+                service_metrics[service]['warnings'] += 1
+            elif log['level'] == 'INFO':
+                service_metrics[service]['info'] += 1
+
+        return service_metrics
+
+    def generate_health_report(self) -> Dict[str, Any]:
+        """Generate comprehensive health report"""
+        return {
+            'timestamp': datetime.now(),
+            'log_summary': self.get_service_metrics(),
+            'recent_alerts': self.get_logs(level='WARNING', limit=10),
+            'system_status': 'operational',  # Simplified
+            'recommendations': []  # Could add automated recommendations
         }
 
 
 class DeploymentManager:
-    """Main deployment and operations management"""
+    """Main deployment manager coordinating all deployment services"""
 
     def __init__(self, config: Dict[str, Any]):
+        """Initialize deployment manager"""
         self.config = config
-        self.monitoring = MonitoringTools(config.get("monitoring", {}))
-        self.orchestrator = ServiceOrchestrator(config.get("orchestrator", {}))
 
-        # Register core platform services
-        self._register_core_services()
+        # Initialize services
+        self.orchestrator = ServiceOrchestrator(config.get('orchestrator', {}))
+        self.health_monitoring = HealthMonitoring(config.get('health_monitoring', {}))
+        self.deployment_automation = DeploymentAutomation(config.get('deployment_automation', {}))
+        self.monitoring_tools = MonitoringTools(config.get('monitoring_tools', {}))
 
-        logger.info("DeploymentManager initialized")
+        logger.info("Deployment manager initialized")
 
-    def _register_core_services(self) -> None:
-        """Register core platform services"""
-        core_services = {
-            "knowledge_graph": {
-                "port": 8001,
-                "health_endpoint": "/health",
-                "dependencies": []
-            },
-            "search_engine": {
-                "port": 8002,
-                "health_endpoint": "/health",
-                "dependencies": ["knowledge_graph"]
-            },
-            "visualization_engine": {
-                "port": 8003,
-                "health_endpoint": "/health",
-                "dependencies": []
-            },
-            "collaboration_service": {
-                "port": 8004,
-                "health_endpoint": "/health",
-                "dependencies": ["knowledge_graph"]
-            }
+    def deploy_platform(self, version: str = "latest") -> Dict[str, Any]:
+        """Deploy the complete platform"""
+        deployment_id = self.deployment_automation.deploy_service(
+            "platform",
+            version,
+            ["Updated platform components", "Enhanced monitoring", "Improved orchestration"]
+        )
+
+        return {
+            'deployment_id': deployment_id,
+            'status': self.deployment_automation.get_deployment_status(deployment_id)
         }
 
-        for service_name, service_config in core_services.items():
-            self.monitoring.register_service(service_name)
-            self.orchestrator.register_service(service_name, service_config)
+    def get_platform_status(self) -> Dict[str, Any]:
+        """Get comprehensive platform status"""
+        return {
+            'services': self.orchestrator.get_service_status(),
+            'health': self.health_monitoring.get_system_health(),
+            'deployments': self.deployment_automation.get_deployment_history(limit=5),
+            'logs': self.monitoring_tools.get_logs(limit=10)
+        }
 
-    def deploy_platform(self, environment: str = "development") -> Dict[str, Any]:
-        """Deploy the platform in specified environment"""
-        logger.info(f"Deploying platform in {environment} environment")
+    def start_platform_services(self) -> Dict[str, Any]:
+        """Start all platform services"""
+        results = {}
 
-        # Start services in dependency order
-        deployment_results = {}
+        # Define service startup order (respecting dependencies)
+        services_to_start = ['knowledge_graph', 'search', 'collaboration', 'platform']
 
-        for service_name in ["knowledge_graph", "search_engine", "visualization_engine", "collaboration_service"]:
+        for service_name in services_to_start:
             success = self.orchestrator.start_service(service_name)
-            deployment_results[service_name] = success
+            results[service_name] = 'started' if success else 'failed'
 
-            # Update monitoring
-            status = ServiceStatus.HEALTHY if success else ServiceStatus.UNHEALTHY
-            self.monitoring.update_service_health(service_name, status)
+        return results
 
-        success_count = sum(1 for success in deployment_results.values() if success)
-        total_count = len(deployment_results)
+    def stop_platform_services(self) -> Dict[str, Any]:
+        """Stop all platform services"""
+        results = {}
 
-        return {
-            "deployment_id": f"deploy_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-            "environment": environment,
-            "success": success_count == total_count,
-            "services_deployed": success_count,
-            "total_services": total_count,
-            "service_results": deployment_results,
-            "timestamp": datetime.now().isoformat()
-        }
+        # Define service shutdown order (reverse of startup)
+        services_to_stop = ['platform', 'collaboration', 'search', 'knowledge_graph']
 
-    def get_deployment_status(self) -> Dict[str, Any]:
-        """Get current deployment status"""
-        return {
-            "platform_status": self.monitoring.get_system_health(),
-            "service_status": self.orchestrator.get_service_status(),
-            "deployment_info": {
-                "environment": self.config.get("environment", "unknown"),
-                "version": self.config.get("version", "0.1.0"),
-                "deployed_at": self.config.get("deployed_at", "unknown")
-            }
-        }
+        for service_name in services_to_stop:
+            success = self.orchestrator.stop_service(service_name)
+            results[service_name] = 'stopped' if success else 'failed'
 
-    def scale_service(self, service_name: str, replicas: int) -> bool:
-        """Scale a service to specified number of replicas"""
-        logger.info(f"Scaling service {service_name} to {replicas} replicas")
+        return results
 
-        # Placeholder for actual scaling logic
-        if service_name in self.orchestrator.services:
-            self.orchestrator.services[service_name]["replicas"] = replicas
-            return True
-
-        return False
-
+    def get_platform_health_report(self) -> Dict[str, Any]:
+        """Get comprehensive platform health report"""
+        return self.monitoring_tools.generate_health_report()

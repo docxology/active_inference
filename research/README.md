@@ -18,6 +18,321 @@ research/
 └── collaboration/        # Collaborative research features
 ```
 
+## Research Architecture Diagrams
+
+### Research Workflow Architecture
+```mermaid
+graph TD
+    subgraph "Research Planning"
+        HYPOTHESIS[Formulate<br/>Hypothesis]
+        DESIGN[Design<br/>Experiment]
+        PARAMETERS[Set<br/>Parameters]
+    end
+
+    subgraph "Experiment Execution"
+        CONFIG[Configure<br/>Experiment]
+        RUN[Execute<br/>Runs]
+        MONITOR[Monitor<br/>Progress]
+    end
+
+    subgraph "Data Collection & Analysis"
+        COLLECT[Collect<br/>Data]
+        VALIDATE[Validate<br/>Results]
+        ANALYZE[Statistical<br/>Analysis]
+    end
+
+    subgraph "Interpretation & Publication"
+        INTERPRET[Interpret<br/>Results]
+        VISUALIZE[Create<br/>Visualizations]
+        PUBLISH[Prepare for<br/>Publication]
+    end
+
+    subgraph "Tools Integration"
+        EXP_FRAME[Experiment<br/>Framework]
+        SIM_ENGINE[Simulation<br/>Engine]
+        ANALYSIS_TOOLS[Analysis<br/>Toolbox]
+        BENCHMARK_SUITE[Benchmark<br/>Suite]
+    end
+
+    HYPOTHESIS --> DESIGN
+    DESIGN --> PARAMETERS
+    PARAMETERS --> CONFIG
+
+    CONFIG --> EXP_FRAME
+    EXP_FRAME --> RUN
+    RUN --> MONITOR
+
+    MONITOR --> COLLECT
+    COLLECT --> VALIDATE
+    VALIDATE --> ANALYZE
+
+    ANALYZE --> ANALYSIS_TOOLS
+    ANALYSIS_TOOLS --> INTERPRET
+
+    INTERPRET --> VISUALIZE
+    VISUALIZE --> PUBLISH
+
+    RUN --> SIM_ENGINE
+    SIM_ENGINE --> COLLECT
+
+    ANALYZE --> BENCHMARK_SUITE
+    BENCHMARK_SUITE --> INTERPRET
+
+    classDef planning fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef execution fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef analysis fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef interpretation fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef tools fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+
+    class HYPOTHESIS,DESIGN,PARAMETERS planning
+    class CONFIG,RUN,MONITOR execution
+    class COLLECT,VALIDATE,ANALYZE analysis
+    class INTERPRET,VISUALIZE,PUBLISH interpretation
+    class EXP_FRAME,SIM_ENGINE,ANALYSIS_TOOLS,BENCHMARK_SUITE tools
+```
+
+### Multi-Scale Simulation Framework
+```mermaid
+graph TD
+    subgraph "Micro Scale (Neural)"
+        NEURONS[Individual<br/>Neurons]
+        SYNAPSES[Synaptic<br/>Connections]
+        CORTICAL[Cortical<br/>Columns]
+    end
+
+    subgraph "Meso Scale (Cognitive)"
+        PERCEPTION[Perceptual<br/>Processing]
+        ACTION[Action<br/>Selection]
+        LEARNING[Learning<br/>& Adaptation]
+    end
+
+    subgraph "Macro Scale (Behavioral)"
+        BEHAVIOR[Behavioral<br/>Patterns]
+        DECISION[Decision<br/>Making]
+        SOCIAL[Social<br/>Interaction]
+    end
+
+    subgraph "Simulation Engines"
+        NEURAL_SIM[Neural<br/>Simulator]
+        COGNITIVE_SIM[Cognitive<br/>Simulator]
+        BEHAVIORAL_SIM[Behavioral<br/>Simulator]
+    end
+
+    subgraph "Integration Layer"
+        TIME_SYNC[Time<br/>Synchronization]
+        STATE_COMM[State<br/>Communication]
+        PARAMETER_SHARING[Parameter<br/>Sharing]
+    end
+
+    subgraph "Analysis Tools"
+        NEURAL_ANALYSIS[Neural<br/>Analysis]
+        COGNITIVE_ANALYSIS[Cognitive<br/>Analysis]
+        BEHAVIORAL_ANALYSIS[Behavioral<br/>Analysis]
+    end
+
+    NEURONS --> NEURAL_SIM
+    SYNAPSES --> NEURAL_SIM
+    CORTICAL --> NEURAL_SIM
+
+    PERCEPTION --> COGNITIVE_SIM
+    ACTION --> COGNITIVE_SIM
+    LEARNING --> COGNITIVE_SIM
+
+    BEHAVIOR --> BEHAVIORAL_SIM
+    DECISION --> BEHAVIORAL_SIM
+    SOCIAL --> BEHAVIORAL_SIM
+
+    NEURAL_SIM --> TIME_SYNC
+    COGNITIVE_SIM --> STATE_COMM
+    BEHAVIORAL_SIM --> PARAMETER_SHARING
+
+    TIME_SYNC --> NEURAL_ANALYSIS
+    STATE_COMM --> COGNITIVE_ANALYSIS
+    PARAMETER_SHARING --> BEHAVIORAL_ANALYSIS
+
+    classDef micro fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef meso fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef macro fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef engine fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef integration fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef analysis fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+
+    class NEURONS,SYNAPSES,CORTICAL micro
+    class PERCEPTION,ACTION,LEARNING meso
+    class BEHAVIOR,DECISION,SOCIAL macro
+    class NEURAL_SIM,COGNITIVE_SIM,BEHAVIORAL_SIM engine
+    class TIME_SYNC,STATE_COMM,PARAMETER_SHARING integration
+    class NEURAL_ANALYSIS,COGNITIVE_ANALYSIS,BEHAVIORAL_ANALYSIS analysis
+```
+
+### Experiment Lifecycle Management
+```mermaid
+stateDiagram-v2
+    [*] --> Planned: Create experiment
+    Planned --> Designed: Define parameters
+    Designed --> Configured: Set up environment
+    Configured --> Ready: Validation complete
+
+    Ready --> Running: Start execution
+    Running --> Collecting: Gather data
+    Collecting --> Processing: Analyze results
+
+    Processing --> Completed: Success
+    Processing --> Failed: Error occurred
+
+    Completed --> Published: Share results
+    Failed --> Debugging: Investigate issues
+
+    Debugging --> Configured: Fix and retry
+    Debugging --> Cancelled: Abandon experiment
+
+    Published --> [*]: Archive
+    Cancelled --> [*]: Archive
+
+    note right of Planned
+        Define hypothesis,
+        objectives, methods
+    end note
+
+    note right of Designed
+        Parameters, controls,
+        expected outcomes
+    end note
+
+    note right of Configured
+        Environment setup,
+        resource allocation
+    end note
+
+    note right of Running
+        Execute trials,
+        monitor progress
+    end note
+
+    note right of Collecting
+        Data acquisition,
+        quality checks
+    end note
+
+    note right of Processing
+        Statistical analysis,
+        result validation
+    end note
+
+    note right of Completed
+        Generate reports,
+        prepare visualizations
+    end note
+
+    note right of Published
+        Share with community,
+        peer review
+    end note
+```
+
+### Analysis Pipeline Architecture
+```mermaid
+flowchart TD
+    subgraph "Data Sources"
+        EXP_DATA[Experiment<br/>Results]
+        SIM_DATA[Simulation<br/>Outputs]
+        OBS_DATA[Observational<br/>Data]
+        EXTERNAL[External<br/>Datasets]
+    end
+
+    subgraph "Preprocessing"
+        CLEAN[Data<br/>Cleaning]
+        NORMALIZE[Normalization<br/>& Scaling]
+        FILTER[Filtering<br/>& Smoothing]
+        TRANSFORM[Feature<br/>Transformation]
+    end
+
+    subgraph "Statistical Analysis"
+        DESCRIPTIVE[Descriptive<br/>Statistics]
+        INFERENCE[Statistical<br/>Inference]
+        CORRELATION[Correlation<br/>Analysis]
+        REGRESSION[Regression<br/>Models]
+    end
+
+    subgraph "Information Theory"
+        ENTROPY[Entropy<br/>Analysis]
+        MUTUAL_INFO[Mutual<br/>Information]
+        KL_DIVERGENCE[KL<br/>Divergence]
+        COMPLEXITY[Complexity<br/>Measures]
+    end
+
+    subgraph "Active Inference Metrics"
+        FREE_ENERGY[Free Energy<br/>Minimization]
+        EFE[Expected<br/>Free Energy]
+        POST_PRECISION[Posterior<br/>Precision]
+        MODEL_EVIDENCE[Model<br/>Evidence]
+    end
+
+    subgraph "Visualization & Reporting"
+        PLOTS[Statistical<br/>Plots]
+        HEATMAPS[Heat<br/>Maps]
+        TIME_SERIES[Time Series<br/>Analysis]
+        REPORTS[Automated<br/>Reports]
+    end
+
+    EXP_DATA --> CLEAN
+    SIM_DATA --> CLEAN
+    OBS_DATA --> CLEAN
+    EXTERNAL --> CLEAN
+
+    CLEAN --> NORMALIZE
+    NORMALIZE --> FILTER
+    FILTER --> TRANSFORM
+
+    TRANSFORM --> DESCRIPTIVE
+    TRANSFORM --> INFERENCE
+    TRANSFORM --> CORRELATION
+    TRANSFORM --> REGRESSION
+
+    TRANSFORM --> ENTROPY
+    TRANSFORM --> MUTUAL_INFO
+    TRANSFORM --> KL_DIVERGENCE
+    TRANSFORM --> COMPLEXITY
+
+    TRANSFORM --> FREE_ENERGY
+    TRANSFORM --> EFE
+    TRANSFORM --> POST_PRECISION
+    TRANSFORM --> MODEL_EVIDENCE
+
+    DESCRIPTIVE --> PLOTS
+    INFERENCE --> PLOTS
+    CORRELATION --> HEATMAPS
+    REGRESSION --> TIME_SERIES
+
+    ENTROPY --> PLOTS
+    MUTUAL_INFO --> HEATMAPS
+    KL_DIVERGENCE --> TIME_SERIES
+    COMPLEXITY --> PLOTS
+
+    FREE_ENERGY --> TIME_SERIES
+    EFE --> PLOTS
+    POST_PRECISION --> HEATMAPS
+    MODEL_EVIDENCE --> REPORTS
+
+    PLOTS --> REPORTS
+    HEATMAPS --> REPORTS
+    TIME_SERIES --> REPORTS
+
+    classDef input fill:#e8f5e8,stroke:#2e7d32
+    classDef preprocessing fill:#fff3e0,stroke:#ef6c00
+    classDef statistical fill:#e3f2fd,stroke:#1976d2
+    classDef information fill:#f3e5f5,stroke:#7b1fa2
+    classDef metrics fill:#fce4ec,stroke:#c2185b
+    classDef output fill:#e1f5fe,stroke:#0277bd
+
+    class EXP_DATA,SIM_DATA,OBS_DATA,EXTERNAL input
+    class CLEAN,NORMALIZE,FILTER,TRANSFORM preprocessing
+    class DESCRIPTIVE,INFERENCE,CORRELATION,REGRESSION statistical
+    class ENTROPY,MUTUAL_INFO,KL_DIVERGENCE,COMPLEXITY information
+    class FREE_ENERGY,EFE,POST_PRECISION,MODEL_EVIDENCE metrics
+    class PLOTS,HEATMAPS,TIME_SERIES,REPORTS output
+```
+
 ## Core Components
 
 ### 🔬 Experiment Framework
@@ -213,4 +528,5 @@ We welcome contributions to the research tools module! See [CONTRIBUTING.md](../
 ---
 
 *"Active Inference for, with, by Generative AI"* - Advancing research through comprehensive tools, rigorous methods, and collaborative scientific inquiry.
+
 

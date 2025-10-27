@@ -48,20 +48,35 @@ Proficiency in:
 - **Integration**: Connecting with existing systems
 - **Maintenance**: Long-term code sustainability
 
-## Common Implementation Patterns
+## Implementation Categories
 
-### Active Inference Components
+### Core Active Inference
 - **Agent class**: Main class for Active Inference agents
 - **Generative model**: Internal world model implementation
 - **Inference engine**: Variational inference algorithms
 - **Policy selection**: Expected free energy calculation
 - **Learning module**: Parameter and structure updates
 
+### Advanced Machine Learning Integration
+- **Reinforcement Learning**: RL algorithms with Active Inference objectives
+- **Deep Generative Models**: VAEs, GANs, normalizing flows with Active Inference
+- **Graph Neural Networks**: Message passing with Active Inference attention
+- **Transformer Integration**: Large language models with uncertainty quantification
+- **Federated Systems**: Distributed Active Inference with privacy preservation
+
+### Control and Optimization
+- **Planning Algorithms**: Tree search, Monte Carlo, gradient-based planning
+- **Control Systems**: Continuous control with expected free energy
+- **Benchmarking**: Performance evaluation and comparison frameworks
+- **Simulation Methods**: Multi-scale modeling and validation
+- **Uncertainty Quantification**: Advanced uncertainty modeling and propagation
+
 ### Algorithm Implementation
 - **Numerical stability**: Handle edge cases and floating point issues
 - **Memory efficiency**: Manage large matrices and tensors
 - **Parallel processing**: Utilize multiple cores and GPUs
 - **Online learning**: Incremental updates and adaptation
+- **Scalability**: Large-scale distributed computation
 
 ## Debugging and Troubleshooting
 

@@ -432,6 +432,47 @@ tools/tests/
 - **Streaming Processing**: Use streaming for large data processing
 - **Garbage Collection**: Optimize garbage collection settings for tool workloads
 
+## Platform Integration
+
+### Development Tools Integration Architecture
+
+```mermaid
+graph TB
+    subgraph "Tools Module"
+        A[Documentation Tools] --> B[Central Orchestrator]
+        C[Testing Framework] --> B
+        D[Quality Assurance] --> B
+        E[Development Utilities] --> B
+    end
+
+    subgraph "Platform Integration"
+        F[Development Workflow] <--> B
+        G[CI/CD Pipeline] <--> C
+        H[Quality Gates] <--> D
+        I[Deployment System] <--> B
+        J[Knowledge Base] <--> A
+    end
+
+    subgraph "External Integration"
+        K[IDE Tools] --> A
+        L[Version Control] <--> B
+        M[Package Managers] --> E
+        N[Code Quality Tools] --> D
+        O[Build Systems] --> B
+    end
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#ffebee
+    style H fill:#f3e5f5
+    style I fill:#e8f5e8
+    style J fill:#fff3e0
+```
+
 ## Getting Started as an Agent
 
 ### Development Setup
@@ -494,12 +535,39 @@ tools/tests/
 
 ## Related Documentation
 
+### 🔝 **Core Platform Documentation**
 - **[Main AGENTS.md](../AGENTS.md)**: Project-wide agent guidelines and standards
+- **[Main README.md](../README.md)**: Active Inference Knowledge Environment overview
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes and guidelines
+
+### 🛠️ **Tools Module Documentation**
 - **[Tools README](./README.md)**: Development tools overview and usage guide
-- **[Documentation Tools](documentation/README.md)**: Documentation generation tools guide
-- **[Orchestration Tools](orchestrators/README.md)**: Workflow orchestration components guide
-- **[Testing Tools](testing/README.md)**: Advanced testing frameworks guide
-- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution guidelines and processes
+- **[Documentation Tools AGENTS.md](documentation/AGENTS.md)**: Documentation generation development guide
+- **[Orchestration Tools AGENTS.md](orchestrators/AGENTS.md)**: Workflow orchestration development guide
+- **[Testing Tools AGENTS.md](testing/AGENTS.md)**: Advanced testing frameworks development guide
+- **[Utilities AGENTS.md](utilities/AGENTS.md)**: Development utilities and helper functions guide
+
+### 📚 **Knowledge Integration**
+- **[Knowledge Base AGENTS.md](../../knowledge/AGENTS.md)**: Educational content development guidelines
+- **[Research Framework AGENTS.md](../../research/AGENTS.md)**: Scientific tools and methods development
+- **[Applications AGENTS.md](../../applications/AGENTS.md)**: Implementation and deployment guidelines
+
+### 🧪 **Quality Assurance**
+- **[Testing Framework AGENTS.md](../../tests/AGENTS.md)**: Comprehensive testing and validation
+- **[Unit Tests AGENTS.md](../../tests/unit/AGENTS.md)**: Unit testing development guidelines
+- **[Integration Tests AGENTS.md](../../tests/integration/AGENTS.md)**: Integration testing guidelines
+- **[Performance Tests AGENTS.md](../../tests/performance/AGENTS.md)**: Performance testing guidelines
+
+### 📖 **Navigation Breadcrumb**
+```
+📖 AGENTS.md > 🛠️ Tools > 🔧 Development Tools
+```
+
+### 🔗 **Quick Links**
+- **[Development Workflow](../../applications/best_practices/)** - Best practices for development
+- **[Code Quality Standards](../../applications/best_practices/)** - Quality standards and guidelines
+- **[Platform Integration](../../platform/README.md)** - Platform services and infrastructure
+- **[Template Library](../../tools/templates/)** - Ready-to-use development templates
 
 ---
 

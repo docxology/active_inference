@@ -1,0 +1,29 @@
+{
+  "id": "25b47f39-738e-4751-b2d5-e160a1ef8e41",
+  "title": "Active Inference Discussion",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in Active Inference and the Free Energy Principle.",
+      "timestamp": "2025-10-27T11:16:31.321809",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "Explain variational inference in Active Inference.",
+      "timestamp": "2025-10-27T11:16:31.321916",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "I understand you're asking about variational inference in the context of Active Inference. This is a key computational method for...",
+      "timestamp": "2025-10-27T11:16:31.322093",
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "domain": "active_inference"
+  },
+  "created_at": "2025-10-27T11:16:31.321593",
+  "updated_at": "2025-10-27T11:16:31.322093"
+}

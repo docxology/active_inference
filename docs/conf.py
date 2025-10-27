@@ -23,8 +23,8 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
     'sphinx.ext.graphviz',
-    'myst_nb',  # For markdown and Jupyter notebooks
-    'nbsphinx',  # For Jupyter notebooks
+    # 'myst_nb',  # For markdown and Jupyter notebooks - temporarily disabled
+    # 'nbsphinx',  # For Jupyter notebooks - temporarily disabled
     'sphinx_rtd_theme',  # Read the Docs theme
 ]
 
@@ -140,4 +140,6 @@ def math_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
     from docutils import nodes
     node = nodes.math(text=text, **options)
     return [node], []
+
+
 

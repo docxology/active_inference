@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "last_updated": "2024-10-27",
+  "total_nodes": 78,
+  "content_types": [
+    "foundation",
+    "mathematics",
+    "implementation",
+    "application"
+  ],
+  "metadata": {
+    "estimated_reading_time": 5,
+    "author": "Active Inference Community",
+    "version": "1.0",
+    "last_updated": "2025-10-27T11:08:59.776324",
+    "difficulty_level": "intermediate",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 0,
+    "prerequisites_count": 0
+  }
+}

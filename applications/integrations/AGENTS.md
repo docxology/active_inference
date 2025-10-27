@@ -511,3 +511,5 @@ class OAuth2Manager(AuthenticationManager):
 
 *"Active Inference for, with, by Generative AI"* - Building seamless integrations through robust connectors and comprehensive interoperability solutions.
 
+
+

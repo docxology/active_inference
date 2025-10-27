@@ -1,883 +1,804 @@
-# Research Reporting - Agent Documentation
+# Research Reporting Framework - Agent Development Guide
 
-This document provides comprehensive guidance for AI agents and contributors working within the Research Reporting module of the Active Inference Knowledge Environment. It outlines reporting methodologies, publication preparation, documentation patterns, and best practices for creating comprehensive research reports throughout the research lifecycle.
+**Guidelines for AI agents working with scientific reporting and publication systems in the Active Inference Knowledge Environment.**
 
-## Reporting Module Overview
+## 🤖 Agent Role & Responsibilities
 
-The Research Reporting module provides a comprehensive framework for creating, formatting, and disseminating research reports, publications, documentation, and presentations. It supports the complete reporting lifecycle from initial results through publication, documentation, and presentation preparation.
+**What agents should do when working with research reporting systems:**
 
-## Core Responsibilities
+### Primary Responsibilities
+- **Scientific Communication**: Create clear, professional scientific reports and publications
+- **Automation Development**: Build automated report generation and formatting systems
+- **Publication Workflows**: Develop comprehensive publication and dissemination workflows
+- **Presentation Systems**: Create effective scientific presentations and visualizations
+- **Quality Assurance**: Ensure scientific rigor and reproducibility in all communications
 
-### Report Generation & Formatting
-- **Automated Reports**: Generate comprehensive research reports
-- **Format Conversion**: Convert between different document formats
-- **Template Management**: Manage report templates and styles
-- **Content Integration**: Integrate results from multiple sources
-- **Quality Assurance**: Ensure report quality and completeness
+### Development Focus Areas
+1. **Report Generation**: Develop automated report generation from research data
+2. **Publication Management**: Build publication workflow and submission systems
+3. **Presentation Tools**: Create scientific presentation and visualization tools
+4. **Documentation Systems**: Develop comprehensive technical documentation generation
+5. **Quality Validation**: Ensure scientific quality and reproducibility standards
 
-### Publication Preparation
-- **Manuscript Preparation**: Prepare manuscripts for publication
-- **Journal Formatting**: Format for specific journal requirements
-- **Citation Management**: Manage references and citations
-- **Reviewer Response**: Tools for responding to reviewer comments
-- **Submission Management**: Manage publication submission process
+## 🏗️ Architecture & Integration
 
-### Documentation & Knowledge
-- **Technical Documentation**: Create technical documentation
-- **User Guides**: Generate user guides and manuals
-- **API Documentation**: Create API and interface documentation
-- **Knowledge Base**: Maintain research knowledge base
-- **Standards Compliance**: Ensure documentation standards compliance
+### Reporting Framework Architecture
 
-### Presentation & Visualization
-- **Slide Generation**: Create presentation slides
-- **Figure Creation**: Generate publication-quality figures
-- **Poster Creation**: Create conference posters
-- **Interactive Media**: Create interactive presentations
-- **Accessibility**: Ensure presentation accessibility
+**Understanding how reporting systems fit into the research ecosystem:**
 
-### Dissemination & Communication
-- **Multi-format Output**: Generate multiple output formats
-- **Web Publishing**: Prepare content for web publication
-- **Social Media**: Format for social media dissemination
-- **Press Releases**: Create press releases and summaries
-- **Public Engagement**: Tools for public communication
+```
+Research Communication Layer
+├── Report Generation (Automated creation from research results)
+├── Publication Management (Workflow and submission systems)
+├── Presentation Systems (Visual communication and demos)
+└── Quality Validation (Scientific rigor and reproducibility)
+```
 
-## Development Workflows
+### Integration Points
 
-### Report Generation Process
-1. **Requirements Analysis**: Analyze reporting requirements
-2. **Content Collection**: Collect content from research sources
-3. **Template Selection**: Select appropriate report templates
-4. **Content Generation**: Generate report content automatically
-5. **Formatting**: Apply formatting and styling
-6. **Review**: Review and validate report content
-7. **Publication**: Publish in appropriate formats
-8. **Archiving**: Archive reports for future reference
+**Key integration points and dependencies:**
 
-### Publication Preparation Workflow
-1. **Target Analysis**: Analyze publication targets and requirements
-2. **Content Adaptation**: Adapt content for publication format
-3. **Formatting**: Apply journal or conference formatting
-4. **Citation Integration**: Integrate proper citations and references
-5. **Quality Review**: Review for publication standards
-6. **Submission Preparation**: Prepare submission package
-7. **Reviewer Response**: Prepare responses to reviewer comments
-8. **Final Publication**: Complete publication process
+#### Upstream Components
+- **Research Framework**: Research results and experimental data for reporting
+- **Analysis Systems**: Statistical analysis and validation results
+- **Knowledge Base**: Research findings and theoretical foundations
+- **Visualization Tools**: Scientific visualizations for reports and presentations
 
-### Documentation Development
-1. **Documentation Planning**: Plan documentation requirements
-2. **Content Creation**: Create comprehensive documentation
-3. **Format Selection**: Select appropriate documentation formats
-4. **Integration**: Integrate with existing documentation
-5. **Validation**: Validate documentation completeness
-6. **Publication**: Publish documentation
-7. **Maintenance**: Maintain and update documentation
+#### Downstream Components
+- **Publication Platforms**: Academic journals, conferences, and preprint servers
+- **Presentation Systems**: Conference presentations and educational materials
+- **Community Tools**: Research dissemination and community engagement
+- **Educational Platforms**: Research-based learning materials and tutorials
 
-## Quality Standards
+#### External Systems
+- **Document Systems**: LaTeX, Markdown, Word processing systems
+- **Publication Platforms**: Journal submission systems and academic databases
+- **Presentation Software**: PowerPoint, Google Slides, and specialized presentation tools
+- **Reference Managers**: Zotero, Mendeley, and citation management systems
 
-### Report Quality Standards
-- **Completeness**: Complete coverage of research findings
-- **Clarity**: Clear and understandable presentation
-- **Accuracy**: Accurate representation of results
-- **Consistency**: Consistent formatting and style
-- **Accessibility**: Accessible to target audiences
+### Reporting Flow Patterns
 
-### Publication Standards
-- **Journal Compliance**: Compliance with journal requirements
-- **Citation Standards**: Proper citation and referencing
-- **Ethical Standards**: Adherence to publication ethics
-- **Reviewer Response**: Professional reviewer interaction
-- **Impact Optimization**: Optimize for research impact
-
-### Documentation Standards
-- **Technical Accuracy**: Technically accurate content
-- **User Focus**: User-centered documentation design
-- **Maintainability**: Easy to maintain and update
-- **Standards Compliance**: Compliance with documentation standards
-- **Accessibility**: Accessible documentation formats
-
-## Implementation Patterns
-
-### Report Generation Framework
 ```python
-from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional, Union
-from dataclasses import dataclass, field
-from datetime import datetime
-import json
-import markdown
-from jinja2 import Template, Environment
-import logging
+# Typical reporting workflow
+research_results → analysis → report_generation → review → publication → dissemination
+```
+
+## 💻 Development Patterns
+
+### Required Implementation Patterns
+
+**All reporting development must follow these patterns:**
+
+#### 1. Report Generation Factory Pattern (PREFERRED)
+
+```python
+def create_report_generator(report_type: str, config: Dict[str, Any]) -> BaseReportGenerator:
+    """Create report generator using factory pattern with validation"""
+
+    generator_factories = {
+        'experiment_report': create_experiment_report_generator,
+        'analysis_report': create_analysis_report_generator,
+        'validation_report': create_validation_report_generator,
+        'progress_report': create_progress_report_generator,
+        'publication_manuscript': create_publication_manuscript_generator,
+        'presentation_slides': create_presentation_slides_generator
+    }
+
+    if report_type not in generator_factories:
+        raise ValueError(f"Unknown report type: {report_type}")
+
+    # Validate report configuration
+    validate_report_config(config)
+
+    # Create report generator with scientific validation
+    generator = generator_factories[report_type](config)
+
+    # Add scientific standards compliance
+    generator = add_scientific_standards_compliance(generator)
+
+    # Add reproducibility requirements
+    generator = add_reproducibility_requirements(generator)
+
+    return generator
+
+def validate_report_config(config: Dict[str, Any]) -> None:
+    """Validate report generation configuration"""
+
+    required_fields = ['report_type', 'content_source', 'scientific_standards']
+
+    for field in required_fields:
+        if field not in config:
+            raise ReportConfigurationError(f"Missing required field: {field}")
+
+    # Type-specific validation
+    if config['report_type'] == 'publication_manuscript':
+        validate_publication_config(config)
+    elif config['report_type'] == 'presentation_slides':
+        validate_presentation_config(config)
+```
+
+#### 2. Scientific Standards Pattern (MANDATORY)
+
+```python
+from dataclasses import dataclass
+from typing import Dict, Any, List, Optional
 
 @dataclass
-class ReportConfig:
-    """Report configuration"""
-    title: str
-    authors: List[str]
-    format: str  # markdown, latex, html, pdf, etc.
-    template: str
-    sections: List[str]
-    data_sources: Dict[str, Any]
-    style_config: Dict[str, Any]
-    output_path: str
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-@dataclass
-class PublicationTarget:
-    """Publication target configuration"""
-    venue_type: str  # journal, conference, preprint, etc.
-    venue_name: str
-    style_guide: str
-    formatting_requirements: Dict[str, Any]
-    submission_requirements: Dict[str, Any]
-    deadline: Optional[datetime] = None
-
-class BaseReportGenerator(ABC):
-    """Base class for report generation"""
-
-    def __init__(self, config: ReportConfig):
-        """Initialize report generator"""
-        self.config = config
-        self.report_data: Dict[str, Any] = {}
-        self.templates: Dict[str, Template] = {}
-        self.logger = logging.getLogger(self.__class__.__name__)
-        self.setup_generator()
-
-    @abstractmethod
-    def setup_generator(self) -> None:
-        """Set up report generator"""
-        pass
-
-    @abstractmethod
-    def collect_data(self) -> Dict[str, Any]:
-        """Collect data for report"""
-        pass
-
-    @abstractmethod
-    def generate_sections(self, data: Dict[str, Any]) -> Dict[str, str]:
-        """Generate report sections"""
-        pass
-
-    @abstractmethod
-    def format_report(self, sections: Dict[str, str]) -> str:
-        """Format complete report"""
-        pass
-
-    def generate_report(self) -> str:
-        """Generate complete report"""
-        self.logger.info(f"Generating report: {self.config.title}")
-
-        # Collect data from sources
-        data = self.collect_data()
-
-        # Generate sections
-        sections = self.generate_sections(data)
-
-        # Format report
-        formatted_report = self.format_report(sections)
-
-        # Save report
-        self.save_report(formatted_report)
-
-        self.logger.info(f"Report generated successfully: {len(formatted_report)} characters")
-
-        return formatted_report
-
-    def save_report(self, report_content: str) -> None:
-        """Save report to file"""
-        import os
-
-        # Create output directory if needed
-        os.makedirs(os.path.dirname(self.config.output_path), exist_ok=True)
-
-        # Save based on format
-        if self.config.format.lower() == 'markdown':
-            with open(self.config.output_path, 'w') as f:
-                f.write(report_content)
-
-        elif self.config.format.lower() == 'html':
-            # Convert markdown to HTML if needed
-            if 'markdown' in self.config.template.lower():
-                html_content = markdown.markdown(report_content)
-                with open(self.config.output_path, 'w') as f:
-                    f.write(html_content)
-            else:
-                with open(self.config.output_path, 'w') as f:
-                    f.write(report_content)
-
-        elif self.config.format.lower() == 'latex':
-            # Ensure LaTeX formatting
-            with open(self.config.output_path, 'w') as f:
-                f.write(report_content)
-
-        self.logger.info(f"Report saved to: {self.config.output_path}")
-
-    def validate_report(self, report_content: str) -> Dict[str, Any]:
-        """Validate generated report"""
-        validation_results = {
-            'valid': True,
-            'issues': [],
-            'recommendations': [],
-            'completeness_score': 0.0
-        }
-
-        # Check for required sections
-        for section in self.config.sections:
-            if section.lower() not in report_content.lower():
-                validation_results['issues'].append(f"Missing section: {section}")
-                validation_results['valid'] = False
-
-        # Check content completeness
-        required_elements = ['introduction', 'methods', 'results', 'discussion', 'conclusion']
-        found_elements = sum(1 for elem in required_elements if elem in report_content.lower())
-        validation_results['completeness_score'] = found_elements / len(required_elements)
-
-        # Check formatting
-        if self.config.format == 'latex':
-            if not report_content.startswith('\\documentclass'):
-                validation_results['issues'].append("LaTeX document should start with \\documentclass")
-
-        return validation_results
-
-class ResearchReportGenerator(BaseReportGenerator):
-    """Research report generator"""
-
-    def setup_generator(self) -> None:
-        """Set up research report generator"""
-        # Load templates
-        self.templates = self.load_templates()
-
-        # Set up formatting
-        self.setup_formatting()
-
-    def load_templates(self) -> Dict[str, Template]:
-        """Load report templates"""
-        templates = {}
-
-        # Load section templates
-        template_dir = self.config.style_config.get('template_dir', './templates')
-
-        sections = ['title', 'abstract', 'introduction', 'methods', 'results', 'discussion', 'conclusion', 'references']
-
-        for section in sections:
-            try:
-                with open(f"{template_dir}/{section}_template.md", 'r') as f:
-                    template_content = f.read()
-                templates[section] = Template(template_content)
-            except FileNotFoundError:
-                # Create default template
-                templates[section] = Template(f"# {section.title()}\n\n{{{{ content }}}}")
-
-        return templates
-
-    def setup_formatting(self) -> None:
-        """Set up report formatting"""
-        self.formatting_config = {
-            'font_size': self.config.style_config.get('font_size', 12),
-            'line_spacing': self.config.style_config.get('line_spacing', 1.5),
-            'margins': self.config.style_config.get('margins', '1in'),
-            'citation_style': self.config.style_config.get('citation_style', 'apa')
-        }
-
-    def collect_data(self) -> Dict[str, Any]:
-        """Collect data from various sources"""
-        data = {
-            'project_info': self.config.metadata,
-            'authors': self.config.authors,
-            'timestamp': datetime.now(),
-            'data_sources': {}
-        }
-
-        # Collect from configured data sources
-        for source_name, source_config in self.config.data_sources.items():
-            source_data = self.collect_source_data(source_config)
-            data['data_sources'][source_name] = source_data
-
-        return data
-
-    def collect_source_data(self, source_config: Dict[str, Any]) -> Dict[str, Any]:
-        """Collect data from specific source"""
-        source_type = source_config.get('type', 'file')
-
-        if source_type == 'experiment_results':
-            return self.collect_experiment_data(source_config)
-        elif source_type == 'simulation_results':
-            return self.collect_simulation_data(source_config)
-        elif source_type == 'analysis_results':
-            return self.collect_analysis_data(source_config)
-        else:
-            return {}
-
-    def collect_experiment_data(self, config: Dict[str, Any]) -> Dict[str, Any]:
-        """Collect experiment results"""
-        # Implementation to collect experiment data
-        return {'experiments': [], 'summary': 'Experiment data collected'}
-
-    def collect_simulation_data(self, config: Dict[str, Any]) -> Dict[str, Any]:
-        """Collect simulation results"""
-        # Implementation to collect simulation data
-        return {'simulations': [], 'summary': 'Simulation data collected'}
-
-    def collect_analysis_data(self, config: Dict[str, Any]) -> Dict[str, Any]:
-        """Collect analysis results"""
-        # Implementation to collect analysis data
-        return {'analyses': [], 'summary': 'Analysis data collected'}
-
-    def generate_sections(self, data: Dict[str, Any]) -> Dict[str, str]:
-        """Generate report sections"""
-        sections = {}
-
-        for section_name in self.config.sections:
-            if section_name in self.templates:
-                section_content = self.generate_section_content(section_name, data)
-                sections[section_name] = self.templates[section_name].render(content=section_content)
-
-        return sections
-
-    def generate_section_content(self, section_name: str, data: Dict[str, Any]) -> str:
-        """Generate content for specific section"""
-        if section_name == 'title':
-            return self.generate_title(data)
-        elif section_name == 'abstract':
-            return self.generate_abstract(data)
-        elif section_name == 'introduction':
-            return self.generate_introduction(data)
-        elif section_name == 'methods':
-            return self.generate_methods(data)
-        elif section_name == 'results':
-            return self.generate_results(data)
-        elif section_name == 'discussion':
-            return self.generate_discussion(data)
-        elif section_name == 'conclusion':
-            return self.generate_conclusion(data)
-        elif section_name == 'references':
-            return self.generate_references(data)
-        else:
-            return f"Content for {section_name} section"
-
-    def generate_title(self, data: Dict[str, Any]) -> str:
-        """Generate title section"""
-        return f"# {self.config.title}\n\n**Authors:** {', '.join(self.config.authors)}\n\n**Date:** {datetime.now().strftime('%Y-%m-%d')}"
-
-    def generate_abstract(self, data: Dict[str, Any]) -> str:
-        """Generate abstract section"""
-        return "This research investigates Active Inference models and their applications. Results demonstrate significant improvements in decision-making performance and learning efficiency."
-
-    def generate_introduction(self, data: Dict[str, Any]) -> str:
-        """Generate introduction section"""
-        return "Active Inference provides a principled framework for understanding intelligence, perception, and action. This study explores novel applications and implementations of Active Inference in various domains."
-
-    def generate_methods(self, data: Dict[str, Any]) -> str:
-        """Generate methods section"""
-        methods_content = []
-
-        # Add methods from data sources
-        for source_name, source_data in data['data_sources'].items():
-            methods_content.append(f"## {source_name.title()} Methods")
-            methods_content.append(f"Data was collected and analyzed using established {source_name} protocols.")
-            methods_content.append("")
-
-        return "\n".join(methods_content)
-
-    def generate_results(self, data: Dict[str, Any]) -> str:
-        """Generate results section"""
-        results_content = []
-
-        # Add results from data sources
-        for source_name, source_data in data['data_sources'].items():
-            results_content.append(f"## {source_name.title()} Results")
-            results_content.append(f"Analysis of {source_name} data revealed significant findings.")
-            results_content.append("")
-
-        return "\n".join(results_content)
-
-    def generate_discussion(self, data: Dict[str, Any]) -> str:
-        """Generate discussion section"""
-        return "The results support the theoretical predictions of Active Inference. The findings have important implications for understanding intelligence and decision-making."
-
-    def generate_conclusion(self, data: Dict[str, Any]) -> str:
-        """Generate conclusion section"""
-        return "This research demonstrates the utility of Active Inference in modeling intelligent behavior. Future work should explore additional applications and theoretical extensions."
-
-    def generate_references(self, data: Dict[str, Any]) -> str:
-        """Generate references section"""
-        return "References will be added based on the citation style and sources used in the research."
-
-    def format_report(self, sections: Dict[str, str]) -> str:
-        """Format complete report"""
-        formatted_sections = []
-
-        # Add title
-        formatted_sections.append(sections.get('title', ''))
-
-        # Add other sections in order
-        section_order = ['abstract', 'introduction', 'methods', 'results', 'discussion', 'conclusion', 'references']
-
-        for section in section_order:
-            if section in sections:
-                formatted_sections.append(sections[section])
-
-        return "\n\n".join(formatted_sections)
-
-class PublicationManager:
-    """Manager for publication preparation and submission"""
-
-    def __init__(self, config: Dict[str, Any]):
-        """Initialize publication manager"""
-        self.config = config
-        self.publication_targets: Dict[str, PublicationTarget] = {}
-        self.submission_history: List[Dict[str, Any]] = []
-        self.logger = logging.getLogger(self.__class__.__name__)
-
-    def prepare_manuscript(self, research_data: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Prepare manuscript for specific publication target"""
-        manuscript = {
-            'target': target,
-            'content': {},
-            'formatting': {},
-            'citations': {},
-            'submission_package': {},
-            'validation': {}
-        }
-
-        # Adapt content for target venue
-        adapted_content = self.adapt_content_for_venue(research_data, target)
-        manuscript['content'] = adapted_content
-
-        # Apply venue formatting
-        formatted_content = self.apply_venue_formatting(adapted_content, target)
-        manuscript['formatting'] = formatted_content
-
-        # Generate citations
-        citations = self.generate_citations(formatted_content, target.style_guide)
-        manuscript['citations'] = citations
-
-        # Create submission package
-        submission_package = self.create_submission_package(manuscript, target)
-        manuscript['submission_package'] = submission_package
-
-        # Validate manuscript
-        validation = self.validate_manuscript(manuscript, target)
-        manuscript['validation'] = validation
-
-        return manuscript
-
-    def adapt_content_for_venue(self, research_data: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Adapt content for specific venue"""
-        adapted_content = research_data.copy()
-
-        # Adapt based on venue type
-        if target.venue_type == 'journal':
-            adapted_content = self.adapt_for_journal(research_data, target)
-        elif target.venue_type == 'conference':
-            adapted_content = self.adapt_for_conference(research_data, target)
-        elif target.venue_type == 'preprint':
-            adapted_content = self.adapt_for_preprint(research_data, target)
-
-        return adapted_content
-
-    def adapt_for_journal(self, research_data: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Adapt content for journal publication"""
-        # Journal-specific adaptations
-        return {
-            **research_data,
-            'format': 'journal_style',
-            'length': 'full_length',
-            'technical_depth': 'high'
-        }
-
-    def adapt_for_conference(self, research_data: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Adapt content for conference presentation"""
-        # Conference-specific adaptations
-        return {
-            **research_data,
-            'format': 'conference_style',
-            'length': 'concise',
-            'technical_depth': 'medium'
-        }
-
-    def adapt_for_preprint(self, research_data: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Adapt content for preprint publication"""
-        # Preprint-specific adaptations
-        return {
-            **research_data,
-            'format': 'preprint_style',
-            'length': 'full_length',
-            'technical_depth': 'high'
-        }
-
-    def apply_venue_formatting(self, content: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Apply venue-specific formatting"""
-        formatted_content = content.copy()
-
-        # Apply formatting requirements
-        requirements = target.formatting_requirements
-
-        # Structure formatting
-        formatted_content['structure'] = requirements.get('structure', 'standard')
-
-        # Citation formatting
-        formatted_content['citation_style'] = requirements.get('citation_style', 'apa')
-
-        # Length constraints
-        formatted_content['length_constraints'] = requirements.get('length_constraints', {})
+class ScientificStandardsConfig:
+    """Configuration for scientific reporting standards"""
+
+    # Citation and referencing
+    citation_style: str = "apa"
+    bibliography_format: str = "bibtex"
+    reference_validation: bool = True
+
+    # Scientific rigor
+    statistical_reporting: bool = True
+    methodology_transparency: bool = True
+    reproducibility_requirements: bool = True
+    peer_review_readiness: bool = False
+
+    # Content standards
+    word_limits: Optional[Dict[str, int]] = None
+    figure_limits: Optional[int] = None
+    section_requirements: List[str] = None
+
+    # Quality assurance
+    plagiarism_check: bool = True
+    fact_checking: bool = True
+    scientific_accuracy_validation: bool = True
+
+    def validate_standards_compliance(self, content: Any) -> List[str]:
+        """Validate content compliance with scientific standards"""
+
+        errors = []
+
+        # Check citation requirements
+        citation_errors = validate_citation_compliance(content, self.citation_style)
+        errors.extend(citation_errors)
+
+        # Check statistical reporting
+        if self.statistical_reporting:
+            statistical_errors = validate_statistical_reporting(content)
+            errors.extend(statistical_errors)
+
+        # Check methodology transparency
+        if self.methodology_transparency:
+            methodology_errors = validate_methodology_transparency(content)
+            errors.extend(methodology_errors)
+
+        # Check reproducibility
+        if self.reproducibility_requirements:
+            reproducibility_errors = validate_reproducibility_requirements(content)
+            errors.extend(reproducibility_errors)
+
+        return errors
+
+    def apply_standards_formatting(self, content: Any) -> Any:
+        """Apply scientific standards formatting to content"""
+
+        # Apply citation formatting
+        formatted_content = apply_citation_formatting(content, self.citation_style)
+
+        # Apply statistical formatting
+        if self.statistical_reporting:
+            formatted_content = apply_statistical_formatting(formatted_content)
+
+        # Add reproducibility information
+        if self.reproducibility_requirements:
+            formatted_content = add_reproducibility_information(formatted_content)
 
         return formatted_content
-
-    def generate_citations(self, content: Dict[str, Any], style_guide: str) -> Dict[str, Any]:
-        """Generate citations in specified style"""
-        citations = {
-            'style': style_guide,
-            'references': [],
-            'in_text_citations': {},
-            'bibliography': ""
-        }
-
-        # Generate reference list based on style
-        if style_guide.lower() == 'apa':
-            citations['bibliography'] = self.generate_apa_bibliography(content)
-        elif style_guide.lower() == 'mla':
-            citations['bibliography'] = self.generate_mla_bibliography(content)
-        elif style_guide.lower() == 'chicago':
-            citations['bibliography'] = self.generate_chicago_bibliography(content)
-
-        return citations
-
-    def generate_apa_bibliography(self, content: Dict[str, Any]) -> str:
-        """Generate APA style bibliography"""
-        bibliography = []
-
-        # Sample APA references
-        bibliography.append("Friston, K. (2010). The free-energy principle: A unified brain theory? *Nature Reviews Neuroscience, 11*(2), 127-138.")
-        bibliography.append("Schwartenbeck, P., FitzGerald, T., Mathys, C., Dolan, R., & Friston, K. (2015). The dopaminergic midbrain encodes the expected certainty about desired outcomes. *Cerebral Cortex, 25*(10), 3434-3445.")
-
-        return "\n\n".join(bibliography)
-
-    def generate_mla_bibliography(self, content: Dict[str, Any]) -> str:
-        """Generate MLA style bibliography"""
-        bibliography = []
-
-        # Sample MLA references
-        bibliography.append('Friston, Karl. "The Free-Energy Principle: A Unified Brain Theory?" *Nature Reviews Neuroscience*, vol. 11, no. 2, 2010, pp. 127-138.')
-        bibliography.append('Schwartenbeck, Philipp, et al. "The Dopaminergic Midbrain Encodes the Expected Certainty about Desired Outcomes." *Cerebral Cortex*, vol. 25, no. 10, 2015, pp. 3434-3445.')
-
-        return "\n\n".join(bibliography)
-
-    def generate_chicago_bibliography(self, content: Dict[str, Any]) -> str:
-        """Generate Chicago style bibliography"""
-        bibliography = []
-
-        # Sample Chicago references
-        bibliography.append("Friston, Karl. 2010. \"The Free-Energy Principle: A Unified Brain Theory?\" *Nature Reviews Neuroscience* 11 (2): 127-138.")
-        bibliography.append("Schwartenbeck, Philipp, Thomas FitzGerald, Christoph Mathys, Raymond Dolan, and Karl Friston. 2015. \"The Dopaminergic Midbrain Encodes the Expected Certainty about Desired Outcomes.\" *Cerebral Cortex* 25 (10): 3434-3445.")
-
-        return "\n\n".join(bibliography)
-
-    def create_submission_package(self, manuscript: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Create submission package"""
-        submission_package = {
-            'manuscript': manuscript['formatting'],
-            'cover_letter': self.generate_cover_letter(manuscript, target),
-            'supplementary_materials': self.prepare_supplementary_materials(manuscript),
-            'submission_metadata': self.generate_submission_metadata(manuscript, target),
-            'required_forms': self.generate_required_forms(target)
-        }
-
-        return submission_package
-
-    def generate_cover_letter(self, manuscript: Dict[str, Any], target: PublicationTarget) -> str:
-        """Generate cover letter for submission"""
-        return f"""Dear Editor,
-
-We are pleased to submit our manuscript entitled "{manuscript['content'].get('title', 'Research Manuscript')}" for consideration in {target.venue_name}.
-
-This work presents novel findings in Active Inference research with significant implications for understanding intelligent behavior.
-
-Thank you for considering our submission.
-
-Sincerely,
-{', '.join(manuscript['content'].get('authors', ['Research Team']))}
-"""
-
-    def prepare_supplementary_materials(self, manuscript: Dict[str, Any]) -> Dict[str, Any]:
-        """Prepare supplementary materials"""
-        return {
-            'code': 'Supplementary code and data',
-            'figures': 'High-resolution figures',
-            'data': 'Additional data and analysis',
-            'methods': 'Detailed methodological information'
-        }
-
-    def generate_submission_metadata(self, manuscript: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Generate submission metadata"""
-        return {
-            'title': manuscript['content'].get('title', ''),
-            'authors': manuscript['content'].get('authors', []),
-            'keywords': ['Active Inference', 'Free Energy Principle', 'Computational Modeling'],
-            'submission_date': datetime.now(),
-            'corresponding_author': manuscript['content'].get('authors', [''])[0] if manuscript['content'].get('authors') else 'Research Team'
-        }
-
-    def generate_required_forms(self, target: PublicationTarget) -> Dict[str, Any]:
-        """Generate required submission forms"""
-        return {
-            'copyright_form': 'Copyright transfer form',
-            'conflict_of_interest': 'Conflict of interest declaration',
-            'authorship_contribution': 'Authorship contribution statement',
-            'ethical_approval': 'Ethics approval documentation'
-        }
-
-    def validate_manuscript(self, manuscript: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Validate manuscript for submission"""
-        validation = {
-            'valid': True,
-            'issues': [],
-            'recommendations': [],
-            'compliance_score': 1.0
-        }
-
-        # Check formatting requirements
-        requirements = target.formatting_requirements
-
-        # Check length requirements
-        if 'max_length' in requirements:
-            estimated_length = len(str(manuscript['formatting']))
-            if estimated_length > requirements['max_length']:
-                validation['issues'].append(f"Manuscript too long: {estimated_length} > {requirements['max_length']}")
-                validation['valid'] = False
-
-        # Check citation style
-        if manuscript['citations']['style'] != requirements.get('citation_style', 'apa'):
-            validation['recommendations'].append("Consider updating citation style")
-
-        return validation
-
-    def submit_manuscript(self, submission_package: Dict[str, Any], target: PublicationTarget) -> Dict[str, Any]:
-        """Submit manuscript to target venue"""
-        submission_result = {
-            'submission_id': f"sub_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-            'target': target.venue_name,
-            'status': 'submitted',
-            'timestamp': datetime.now(),
-            'confirmation': 'Manuscript submitted successfully'
-        }
-
-        # Record submission
-        self.submission_history.append(submission_result)
-
-        self.logger.info(f"Manuscript submitted to {target.venue_name}: {submission_result['submission_id']}")
-
-        return submission_result
 ```
 
-### Documentation Generator
+#### 3. Publication Workflow Pattern (MANDATORY)
+
 ```python
-from typing import Dict, Any, List, Optional
-import os
-from pathlib import Path
+def create_publication_workflow(manuscript: Manuscript, workflow_config: Dict[str, Any]) -> PublicationWorkflow:
+    """Create comprehensive publication workflow"""
 
-class DocumentationGenerator:
-    """Generate comprehensive documentation"""
+    # Pre-submission preparation
+    preparation = prepare_manuscript_for_submission(manuscript, workflow_config)
 
-    def __init__(self, config: Dict[str, Any]):
-        """Initialize documentation generator"""
-        self.config = config
-        self.output_dir = Path(config.get('output_dir', './docs'))
+    # Journal selection and formatting
+    journal_formatting = format_for_target_journal(preparation, workflow_config)
 
-    def generate_api_documentation(self, modules: List[str]) -> Dict[str, str]:
-        """Generate API documentation for modules"""
-        api_docs = {}
+    # Peer review preparation
+    peer_review_prep = prepare_for_peer_review(journal_formatting, workflow_config)
 
-        for module in modules:
-            try:
-                api_doc = self.extract_api_documentation(module)
-                api_docs[module] = api_doc
+    # Submission management
+    submission_management = setup_submission_management(peer_review_prep, workflow_config)
 
-                # Save to file
-                self.save_api_documentation(module, api_doc)
+    # Revision tracking
+    revision_tracking = setup_revision_tracking(submission_management, workflow_config)
 
-            except Exception as e:
-                self.logger.error(f"Failed to generate API docs for {module}: {str(e)}")
+    # Publication monitoring
+    publication_monitoring = setup_publication_monitoring(revision_tracking, workflow_config)
 
-        return api_docs
+    return PublicationWorkflow(
+        preparation=preparation,
+        formatting=journal_formatting,
+        peer_review=peer_review_prep,
+        submission=submission_management,
+        revisions=revision_tracking,
+        monitoring=publication_monitoring
+    )
 
-    def extract_api_documentation(self, module_name: str) -> str:
-        """Extract API documentation from module"""
-        # Implementation to extract docstrings and generate API docs
-        return f"API documentation for {module_name}"
+def prepare_manuscript_for_submission(manuscript: Manuscript, config: Dict[str, Any]) -> PreparedManuscript:
+    """Prepare manuscript for submission with all requirements"""
 
-    def save_api_documentation(self, module_name: str, api_doc: str) -> None:
-        """Save API documentation to file"""
-        doc_path = self.output_dir / 'api' / f"{module_name}.md"
-        doc_path.parent.mkdir(parents=True, exist_ok=True)
+    # Apply journal formatting
+    formatted_manuscript = apply_journal_formatting(manuscript, config)
 
-        with open(doc_path, 'w') as f:
-            f.write(api_doc)
+    # Generate required documents
+    cover_letter = generate_cover_letter(manuscript, config)
+    conflict_statement = generate_conflict_of_interest_statement(manuscript, config)
+    data_availability = generate_data_availability_statement(manuscript, config)
 
-    def generate_user_guide(self, features: Dict[str, Any]) -> str:
-        """Generate user guide"""
-        guide_sections = [
-            "# User Guide",
-            "",
-            "## Getting Started",
-            "This guide provides instructions for using the Active Inference platform.",
-            "",
-            "## Core Features",
-            ""
-        ]
+    # Create supplementary materials
+    supplementary_materials = generate_supplementary_materials(manuscript, config)
 
-        for feature_name, feature_info in features.items():
-            guide_sections.extend([
-                f"### {feature_name.title()}",
-                feature_info.get('description', 'Feature description'),
-                "",
-                "#### Usage",
-                feature_info.get('usage', 'Usage instructions'),
-                ""
-            ])
+    # Validate submission requirements
+    validation = validate_submission_requirements({
+        "manuscript": formatted_manuscript,
+        "cover_letter": cover_letter,
+        "conflict_statement": conflict_statement,
+        "data_availability": data_availability,
+        "supplementary": supplementary_materials
+    }, config)
 
-        return "\n".join(guide_sections)
-
-    def generate_tutorials(self, tutorial_configs: List[Dict[str, Any]]) -> Dict[str, str]:
-        """Generate tutorial documentation"""
-        tutorials = {}
-
-        for tutorial_config in tutorial_configs:
-            tutorial = self.generate_single_tutorial(tutorial_config)
-            tutorials[tutorial_config['name']] = tutorial
-
-            # Save tutorial
-            self.save_tutorial(tutorial_config['name'], tutorial)
-
-        return tutorials
-
-    def generate_single_tutorial(self, config: Dict[str, Any]) -> str:
-        """Generate single tutorial"""
-        tutorial = [
-            f"# {config['title']}",
-            "",
-            config.get('description', ''),
-            "",
-            "## Prerequisites",
-            config.get('prerequisites', ''),
-            "",
-            "## Step by Step",
-            ""
-        ]
-
-        for i, step in enumerate(config.get('steps', []), 1):
-            tutorial.extend([
-                f"### Step {i}: {step['title']}",
-                step.get('description', ''),
-                "",
-                "```python",
-                step.get('code', ''),
-                "```",
-                ""
-            ])
-
-        return "\n".join(tutorial)
-
-    def save_tutorial(self, tutorial_name: str, tutorial_content: str) -> None:
-        """Save tutorial to file"""
-        tutorial_path = self.output_dir / 'tutorials' / f"{tutorial_name}.md"
-        tutorial_path.parent.mkdir(parents=True, exist_ok=True)
-
-        with open(tutorial_path, 'w') as f:
-            f.write(tutorial_content)
+    return PreparedManuscript(
+        manuscript=formatted_manuscript,
+        cover_letter=cover_letter,
+        conflict_statement=conflict_statement,
+        data_availability=data_availability,
+        supplementary=supplementary_materials,
+        validation=validation
+    )
 ```
 
-## Testing Guidelines
+## 🧪 Reporting Testing Standards
 
-### Reporting Testing
-- **Content Testing**: Test report content generation
-- **Format Testing**: Test different output formats
-- **Template Testing**: Test template rendering and formatting
-- **Integration Testing**: Test integration with data sources
-- **Validation Testing**: Test report validation and quality checks
+### Reporting Testing Categories (MANDATORY)
 
-### Quality Assurance
-- **Content Validation**: Ensure content accuracy and completeness
-- **Format Compliance**: Verify format compliance with standards
-- **Accessibility Testing**: Test accessibility of generated content
-- **Performance Testing**: Test generation performance
-- **User Testing**: Test with real users and feedback
+#### 1. Scientific Quality Testing
+**Test scientific quality and accuracy of reports:**
 
-## Performance Considerations
+```python
+def test_scientific_quality():
+    """Test scientific quality of generated reports"""
+    # Generate test report
+    test_report = generate_scientific_report(test_data)
 
-### Report Generation Performance
-- **Template Caching**: Cache compiled templates
-- **Data Caching**: Cache frequently accessed data
-- **Parallel Generation**: Generate sections in parallel
-- **Streaming Output**: Stream large reports for better performance
+    # Test scientific accuracy
+    accuracy_validation = validate_scientific_accuracy(test_report)
+    assert accuracy_validation['accurate'], "Report contains scientific inaccuracies"
 
-### Publication Performance
-- **Format Optimization**: Optimize for specific formats
-- **Batch Processing**: Process multiple submissions
-- **Caching**: Cache formatting rules and templates
-- **Background Processing**: Background submission preparation
+    # Test statistical reporting
+    statistical_validation = validate_statistical_reporting(test_report)
+    assert statistical_validation['statistically_sound'], "Statistical reporting inadequate"
 
-## Maintenance and Evolution
+    # Test methodological rigor
+    methodological_validation = validate_methodological_rigor(test_report)
+    assert methodological_validation['rigorous'], "Methodological rigor insufficient"
 
-### Report Updates
-- **Template Updates**: Update templates with latest standards
-- **Format Updates**: Add support for new formats
-- **Content Updates**: Update content generation algorithms
-- **Integration Updates**: Maintain integration with research tools
+def test_reproducibility_reporting():
+    """Test reproducibility information in reports"""
+    # Generate reproducible report
+    reproducible_report = generate_reproducible_report(test_experiment)
 
-### Publication Updates
-- **Venue Updates**: Update for new publication venues
-- **Style Updates**: Update citation and formatting styles
-- **Compliance Updates**: Update for regulatory changes
-- **Feature Updates**: Add new publication features
+    # Test code availability
+    code_availability = validate_code_availability(reproducible_report)
+    assert code_availability['available'], "Code not properly made available"
 
-## Common Challenges and Solutions
+    # Test data availability
+    data_availability = validate_data_availability(reproducible_report)
+    assert data_availability['available'], "Data not properly made available"
 
-### Challenge: Content Integration
-**Solution**: Implement robust data source integration with error handling.
+    # Test method documentation
+    method_documentation = validate_method_documentation(reproducible_report)
+    assert method_documentation['complete'], "Method documentation incomplete"
+```
 
-### Challenge: Format Compliance
-**Solution**: Maintain comprehensive format validation and correction.
+#### 2. Publication Compliance Testing
+**Test compliance with publication standards and requirements:**
 
-### Challenge: Citation Management
-**Solution**: Use automated citation management with style verification.
+```python
+def test_publication_compliance():
+    """Test compliance with publication standards"""
+    # Prepare manuscript for journal
+    manuscript = prepare_manuscript_for_journal(test_content, journal_config)
 
-### Challenge: Quality Assurance
-**Solution**: Implement comprehensive validation and review processes.
+    # Test formatting compliance
+    formatting_compliance = validate_formatting_compliance(manuscript, journal_config)
+    assert formatting_compliance['compliant'], "Manuscript formatting not compliant"
 
-## Getting Started as an Agent
+    # Test content requirements
+    content_compliance = validate_content_requirements(manuscript, journal_config)
+    assert content_compliance['complete'], "Content requirements not met"
 
-### Development Setup
-1. **Study Reporting Framework**: Understand reporting architecture
-2. **Learn Documentation Standards**: Study documentation best practices
-3. **Practice Generation**: Practice generating various report types
-4. **Understand Publication Process**: Learn publication workflows
+    # Test submission package completeness
+    submission_compliance = validate_submission_package(manuscript, journal_config)
+    assert submission_compliance['complete'], "Submission package incomplete"
 
-### Contribution Process
-1. **Identify Reporting Needs**: Find gaps in current reporting capabilities
-2. **Research Standards**: Study relevant documentation and publication standards
-3. **Design Solutions**: Create detailed reporting tool designs
-4. **Implement and Test**: Follow quality implementation standards
-5. **Validate Thoroughly**: Ensure report accuracy and completeness
-6. **Document Completely**: Provide comprehensive reporting documentation
-7. **Standards Review**: Submit for standards and quality review
+def test_peer_review_readiness():
+    """Test manuscript readiness for peer review"""
+    # Prepare manuscript for peer review
+    peer_review_manuscript = prepare_for_peer_review(test_manuscript)
 
-### Learning Resources
-- **Technical Writing**: Study technical writing methodologies
-- **Publication Standards**: Learn publication and citation standards
-- **Documentation Tools**: Master documentation generation tools
-- **Content Management**: Learn content management systems
-- **Accessibility**: Understand accessibility requirements
+    # Test clarity and coherence
+    clarity_test = validate_manuscript_clarity(peer_review_manuscript)
+    assert clarity_test['clear'], "Manuscript clarity insufficient for peer review"
 
-## Related Documentation
+    # Test scientific contribution
+    contribution_test = validate_scientific_contribution(peer_review_manuscript)
+    assert contribution_test['significant'], "Scientific contribution unclear"
 
-- **[Reporting README](./README.md)**: Reporting module overview
-- **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Research AGENTS.md](../AGENTS.md)**: Research tools module guidelines
-- **[Documentation Tools](../../tools/documentation/)**: Documentation generation tools
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+    # Test methodological soundness
+    methodology_test = validate_methodological_soundness(peer_review_manuscript)
+    assert methodology_test['sound'], "Methodology not sufficiently sound"
+```
+
+#### 3. Presentation Effectiveness Testing
+**Test effectiveness of presentations and visualizations:**
+
+```python
+def test_presentation_effectiveness():
+    """Test effectiveness of generated presentations"""
+    # Generate test presentation
+    test_presentation = generate_scientific_presentation(test_content, presentation_config)
+
+    # Test content organization
+    organization_test = validate_content_organization(test_presentation)
+    assert organization_test['well_organized'], "Presentation content poorly organized"
+
+    # Test visual effectiveness
+    visual_test = validate_visual_effectiveness(test_presentation)
+    assert visual_test['effective'], "Presentation visuals not effective"
+
+    # Test audience engagement
+    engagement_test = validate_audience_engagement(test_presentation)
+    assert engagement_test['engaging'], "Presentation not sufficiently engaging"
+
+def test_interactive_elements():
+    """Test interactive elements in presentations"""
+    # Generate interactive presentation
+    interactive_presentation = generate_interactive_presentation(test_content)
+
+    # Test interactivity functionality
+    interactivity_test = validate_interactivity_functionality(interactive_presentation)
+    assert interactivity_test['functional'], "Interactive elements not functional"
+
+    # Test user experience
+    user_experience_test = validate_user_experience(interactive_presentation)
+    assert user_experience_test['positive'], "User experience inadequate"
+
+    # Test educational effectiveness
+    educational_test = validate_educational_effectiveness(interactive_presentation)
+    assert educational_test['effective'], "Educational effectiveness insufficient"
+```
+
+### Reporting Coverage Requirements
+
+- **Report Type Coverage**: Support for all major scientific report types
+- **Publication Coverage**: Support for major publication venues and formats
+- **Presentation Coverage**: Support for various presentation formats and audiences
+- **Quality Coverage**: Comprehensive quality validation and scientific standards
+- **Integration Coverage**: Integration with all research and publication workflows
+
+### Reporting Testing Commands
+
+```bash
+# Test all reporting functionality
+make test-reporting-framework
+
+# Test scientific quality
+pytest research/reporting/tests/test_scientific_quality.py -v
+
+# Test publication compliance
+pytest research/reporting/tests/test_publication_compliance.py -v
+
+# Test presentation effectiveness
+pytest research/reporting/tests/test_presentation_effectiveness.py -v
+
+# Validate reporting standards
+python research/reporting/validate_reporting_standards.py
+```
+
+## 📖 Reporting Documentation Standards
+
+### Documentation Requirements (MANDATORY)
+
+#### 1. Scientific Documentation Standards
+**All reporting must follow scientific documentation guidelines:**
+
+```python
+def document_scientific_reporting(report: Any, documentation_config: Dict[str, Any]) -> str:
+    """Document scientific reporting following established standards"""
+
+    scientific_documentation = {
+        "methodology_documentation": document_reporting_methodology(report, documentation_config),
+        "quality_standards": document_quality_standards(report, documentation_config),
+        "validation_procedures": document_validation_procedures(report, documentation_config),
+        "usage_guidelines": document_usage_guidelines(report, documentation_config),
+        "troubleshooting": document_troubleshooting_guide(report, documentation_config)
+    }
+
+    return format_scientific_documentation(scientific_documentation)
+
+def document_reporting_methodology(report_system: Any, config: Dict[str, Any]) -> str:
+    """Document the methodology behind report generation"""
+
+    methodology = {
+        "automated_generation": document_automated_generation_methodology(report_system, config),
+        "scientific_standards": document_scientific_standards_compliance(report_system, config),
+        "quality_assurance": document_quality_assurance_processes(report_system, config),
+        "validation_procedures": document_validation_and_verification(report_system, config),
+        "reproducibility_measures": document_reproducibility_ensurance(report_system, config)
+    }
+
+    return format_methodology_documentation(methodology)
+```
+
+#### 2. Publication Documentation Standards
+**Publication workflows must be comprehensively documented:**
+
+```python
+def document_publication_workflow(workflow: Any, documentation_config: Dict[str, Any]) -> str:
+    """Document publication workflow comprehensively"""
+
+    workflow_documentation = {
+        "workflow_overview": document_workflow_overview(workflow, documentation_config),
+        "submission_process": document_submission_process(workflow, documentation_config),
+        "revision_management": document_revision_management(workflow, documentation_config),
+        "peer_review_integration": document_peer_review_integration(workflow, documentation_config),
+        "publication_tracking": document_publication_tracking(workflow, documentation_config)
+    }
+
+    return format_workflow_documentation(workflow_documentation)
+```
+
+#### 3. Presentation Documentation Standards
+**Presentation systems must have clear usage documentation:**
+
+```python
+def document_presentation_system(system: Any, documentation_config: Dict[str, Any]) -> str:
+    """Document presentation system for scientific communication"""
+
+    presentation_documentation = {
+        "system_capabilities": document_system_capabilities(system, documentation_config),
+        "content_preparation": document_content_preparation(system, documentation_config),
+        "visualization_integration": document_visualization_integration(system, documentation_config),
+        "audience_adaptation": document_audience_adaptation(system, documentation_config),
+        "delivery_optimization": document_delivery_optimization(system, documentation_config)
+    }
+
+    return format_presentation_documentation(presentation_documentation)
+```
+
+## 🚀 Performance Optimization
+
+### Reporting Performance Requirements
+
+**Reporting systems must meet these performance standards:**
+
+- **Generation Speed**: Reports generated within reasonable timeframes
+- **Format Conversion**: Efficient conversion between document formats
+- **Publication Processing**: Fast processing for submission requirements
+- **Presentation Rendering**: Smooth rendering of presentations and visualizations
+- **Quality Validation**: Efficient validation without compromising thoroughness
+
+### Optimization Techniques
+
+#### 1. Report Generation Optimization
+
+```python
+def optimize_report_generation(report_config: Dict[str, Any]) -> OptimizedReportGenerator:
+    """Optimize report generation for performance and quality"""
+
+    # Optimize content processing
+    content_optimization = optimize_content_processing(report_config)
+
+    # Optimize formatting pipeline
+    formatting_optimization = optimize_formatting_pipeline(content_optimization)
+
+    # Optimize validation process
+    validation_optimization = optimize_validation_process(formatting_optimization)
+
+    # Add caching mechanisms
+    caching_optimization = add_caching_mechanisms(validation_optimization)
+
+    # Implement parallel processing
+    parallel_optimization = implement_parallel_processing(caching_optimization)
+
+    return OptimizedReportGenerator(
+        content=content_optimization,
+        formatting=formatting_optimization,
+        validation=validation_optimization,
+        caching=caching_optimization,
+        parallel=parallel_optimization
+    )
+```
+
+#### 2. Publication Workflow Optimization
+
+```python
+def optimize_publication_workflow(workflow_config: Dict[str, Any]) -> OptimizedPublicationWorkflow:
+    """Optimize publication workflow for efficiency"""
+
+    # Streamline submission preparation
+    preparation_optimization = optimize_submission_preparation(workflow_config)
+
+    # Automate formatting processes
+    formatting_optimization = automate_formatting_processes(preparation_optimization)
+
+    # Optimize review processes
+    review_optimization = optimize_review_processes(formatting_optimization)
+
+    # Implement automated tracking
+    tracking_optimization = implement_automated_tracking(review_optimization)
+
+    # Add predictive analytics
+    predictive_optimization = add_predictive_analytics(tracking_optimization)
+
+    return OptimizedPublicationWorkflow(
+        preparation=preparation_optimization,
+        formatting=formatting_optimization,
+        review=review_optimization,
+        tracking=tracking_optimization,
+        predictive=predictive_optimization
+    )
+```
+
+## 🔒 Reporting Security Standards
+
+### Reporting Security Requirements (MANDATORY)
+
+#### 1. Content Security
+
+```python
+def validate_reporting_security(report: Any, security_config: Dict[str, Any]) -> SecurityResult:
+    """Validate security of reporting systems and content"""
+
+    security_checks = {
+        "content_validation": validate_report_content_security(report),
+        "access_control": validate_access_control_for_reports(report),
+        "data_privacy": validate_data_privacy_in_reports(report),
+        "intellectual_property": validate_intellectual_property_protection(report)
+    }
+
+    return {
+        "secure": all(security_checks.values()),
+        "checks": security_checks,
+        "vulnerabilities": [k for k, v in security_checks.items() if not v]
+    }
+
+def secure_report_generation(report_data: Dict[str, Any], security_config: Dict[str, Any]) -> SecureReport:
+    """Generate reports with comprehensive security measures"""
+
+    # Validate input data security
+    input_validation = validate_input_data_security(report_data)
+
+    # Apply content filtering
+    content_filtering = apply_content_security_filtering(report_data)
+
+    # Implement access controls
+    access_controls = implement_report_access_controls(content_filtering)
+
+    # Add audit logging
+    audit_logging = add_comprehensive_audit_logging(access_controls)
+
+    # Generate secure report
+    secure_report = generate_report_with_security_measures(audit_logging)
+
+    return SecureReport(
+        report=secure_report,
+        security_measures={
+            "input_validation": input_validation,
+            "content_filtering": content_filtering,
+            "access_controls": access_controls,
+            "audit_logging": audit_logging
+        }
+    )
+```
+
+#### 2. Publication Security
+
+```python
+def validate_publication_security(manuscript: Any, security_config: Dict[str, Any]) -> SecurityResult:
+    """Validate security of publication workflows"""
+
+    publication_checks = {
+        "plagiarism_prevention": validate_plagiarism_prevention(manuscript),
+        "authorship_verification": validate_authorship_verification(manuscript),
+        "peer_review_integrity": validate_peer_review_integrity(manuscript),
+        "publication_ethics": validate_publication_ethics_compliance(manuscript)
+    }
+
+    return {
+        "secure": all(publication_checks.values()),
+        "checks": publication_checks,
+        "issues": [k for k, v in publication_checks.items() if not v]
+    }
+```
+
+## 🐛 Reporting Debugging & Troubleshooting
+
+### Debug Configuration
+
+```python
+# Enable reporting debugging
+debug_config = {
+    "debug": True,
+    "generation_debugging": True,
+    "publication_debugging": True,
+    "presentation_debugging": True,
+    "quality_debugging": True
+}
+
+# Debug reporting development
+debug_reporting_workflow(debug_config)
+```
+
+### Common Debugging Patterns
+
+#### 1. Report Generation Debugging
+
+```python
+def debug_report_generation(report_type: str, generation_config: Dict[str, Any]) -> DebugResult:
+    """Debug report generation issues"""
+
+    # Test content processing
+    content_debug = debug_content_processing(generation_config)
+    if not content_debug['processed_correctly']:
+        return {"type": "content_processing", "issues": content_debug['issues']}
+
+    # Test formatting
+    formatting_debug = debug_formatting_process(generation_config)
+    if not formatting_debug['formatted_correctly']:
+        return {"type": "formatting", "issues": formatting_debug['issues']}
+
+    # Test validation
+    validation_debug = debug_validation_process(generation_config)
+    if not validation_debug['validated_correctly']:
+        return {"type": "validation", "issues": validation_debug['issues']}
+
+    return {"status": "report_generation_ok"}
+
+def debug_content_processing(config: Dict[str, Any]) -> Dict[str, Any]:
+    """Debug content processing issues in report generation"""
+
+    # Test data extraction
+    extraction_test = test_data_extraction(config)
+    if not extraction_test['successful']:
+        return {"processed_correctly": False, "issues": ["Data extraction failed"]}
+
+    # Test content transformation
+    transformation_test = test_content_transformation(config)
+    if not transformation_test['successful']:
+        return {"processed_correctly": False, "issues": ["Content transformation failed"]}
+
+    # Test template application
+    template_test = test_template_application(config)
+    if not template_test['successful']:
+        return {"processed_correctly": False, "issues": ["Template application failed"]}
+
+    return {"processed_correctly": True, "issues": []}
+```
+
+#### 2. Publication Workflow Debugging
+
+```python
+def debug_publication_workflow(workflow: Any, debug_config: Dict[str, Any]) -> DebugResult:
+    """Debug publication workflow issues"""
+
+    # Test submission preparation
+    preparation_debug = debug_submission_preparation(workflow)
+    if not preparation_debug['prepared_correctly']:
+        return {"type": "preparation", "issues": preparation_debug['issues']}
+
+    # Test journal formatting
+    formatting_debug = debug_journal_formatting(workflow)
+    if not formatting_debug['formatted_correctly']:
+        return {"type": "formatting", "issues": formatting_debug['issues']}
+
+    # Test submission process
+    submission_debug = debug_submission_process(workflow)
+    if not submission_debug['submitted_correctly']:
+        return {"type": "submission", "issues": submission_debug['issues']}
+
+    return {"status": "publication_workflow_ok"}
+```
+
+## 🔄 Development Workflow
+
+### Agent Development Process
+
+1. **Reporting System Assessment**
+   - Understand current scientific communication capabilities and limitations
+   - Identify gaps in research reporting and publication workflows
+   - Review existing documentation and presentation quality
+
+2. **Communication Framework Planning**
+   - Design comprehensive scientific reporting and publication workflows
+   - Plan integration with research and publication systems
+   - Consider scientific standards and reproducibility requirements
+
+3. **Reporting System Implementation**
+   - Implement automated report generation and formatting systems
+   - Create comprehensive publication workflow management
+   - Develop effective presentation and visualization tools
+
+4. **Scientific Quality Assurance**
+   - Implement comprehensive testing for scientific accuracy and rigor
+   - Validate reproducibility and methodological transparency
+   - Ensure compliance with publication standards and ethics
+
+5. **Integration and Scientific Validation**
+   - Test integration with research and publication workflows
+   - Validate against scientific community standards
+   - Update related documentation and educational materials
+
+### Code Review Checklist
+
+**Before submitting reporting code for review:**
+
+- [ ] **Scientific Accuracy**: All reporting maintains scientific accuracy and rigor
+- [ ] **Reproducibility**: Complete reproducibility information included
+- [ ] **Publication Standards**: Compliance with relevant publication standards
+- [ ] **Quality Validation**: Comprehensive quality validation implemented
+- [ ] **User Experience**: Effective user experience for scientific communication
+- [ ] **Integration**: Proper integration with research and publication systems
+- [ ] **Documentation**: Comprehensive documentation for all reporting features
+- [ ] **Testing**: Thorough testing including scientific validation and edge cases
+- [ ] **Standards Compliance**: Follows all development and scientific standards
+
+## 📚 Learning Resources
+
+### Reporting Development Resources
+
+- **[Research Reporting AGENTS.md](AGENTS.md)**: Reporting development guidelines
+- **[Scientific Writing](https://example.com)**: Scientific writing and publication standards
+- **[Publication Ethics](https://example.com)**: Ethical standards for scientific publication
+- **[Presentation Design](https://example.com)**: Effective scientific presentation techniques
+
+### Technical References
+
+- **[LaTeX Documentation](https://example.com)**: Scientific document preparation
+- **[Markdown for Science](https://example.com)**: Markdown formatting for scientific content
+- **[Citation Management](https://example.com)**: Reference and citation management
+- **[Presentation Tools](https://example.com)**: Scientific presentation and visualization
+
+### Related Components
+
+Study these related components for integration patterns:
+
+- **[Research Framework](../../)**: Research tools and scientific methods
+- **[Analysis Tools](../../analysis/)**: Statistical analysis for reporting
+- **[Experiment Framework](../../experiments/)**: Experimental results for reports
+- **[Visualization Tools](../../../src/active_inference/visualization/)**: Scientific visualizations
+- **[Publication Platforms](../../../platform/)**: Platform publication integration
+
+## 🎯 Success Metrics
+
+### Reporting Quality Metrics
+
+- **Scientific Accuracy**: >98% accuracy in scientific content and reporting
+- **Publication Success**: >85% acceptance rate for prepared manuscripts
+- **Reproducibility Score**: 100% reproducibility for generated reports
+- **User Satisfaction**: >90% user satisfaction with reporting tools
+- **Citation Impact**: Measurable improvement in research citation rates
+
+### Development Metrics
+
+- **Implementation Speed**: Reporting systems implemented within 2 months
+- **Quality Score**: Consistent high-quality scientific reporting implementations
+- **Integration Success**: Seamless integration with research workflows
+- **Scientific Impact**: Positive impact on research dissemination and impact
+- **Maintenance Efficiency**: Easy to update and maintain reporting systems
 
 ---
 
-*"Active Inference for, with, by Generative AI"* - Advancing research through comprehensive reporting, rigorous publication standards, and accessible knowledge dissemination.
+**Research Reporting Framework**: Agent Guide | **Version**: 1.0.0 | **Last Updated**: October 2024
+
+*"Active Inference for, with, by Generative AI"* - Enabling professional scientific communication through automated reporting, rigorous publication workflows, and effective research dissemination in the Active Inference community.

@@ -497,13 +497,45 @@ graph TB
 
 ## Related Documentation
 
+### 🔝 **Core Platform Documentation**
 - **[Main AGENTS.md](../AGENTS.md)**: Project-wide agent guidelines and standards
+- **[Main README.md](../README.md)**: Active Inference Knowledge Environment overview
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes and guidelines
+
+### 📚 **Knowledge Module Documentation**
 - **[Knowledge README](./README.md)**: Knowledge base overview and usage guide
 - **[Foundations AGENTS.md](./foundations/AGENTS.md)**: Foundation concepts development guide
 - **[Mathematics AGENTS.md](./mathematics/AGENTS.md)**: Mathematical content development guide
 - **[Implementations AGENTS.md](./implementations/AGENTS.md)**: Implementation examples development guide
 - **[Applications AGENTS.md](./applications/AGENTS.md)**: Application content development guide
-- **[Learning Paths](../../knowledge/learning_paths.json)**: Structured curricula definitions
+
+### 🎓 **Learning Resources**
+- **[Learning Paths](../../knowledge/learning_paths.json)**: Structured curricula and learning tracks
+- **[Foundations Content](../../knowledge/foundations/)**: Core theoretical concepts
+- **[Mathematics Content](../../knowledge/mathematics/)**: Mathematical formulations
+- **[Implementation Examples](../../knowledge/implementations/)**: Code examples and tutorials
+- **[Application Case Studies](../../knowledge/applications/)**: Real-world applications
+
+### 🔧 **Development Tools Integration**
+- **[Tools AGENTS.md](../../tools/AGENTS.md)**: Development tools and automation
+- **[Testing Framework AGENTS.md](../../tests/AGENTS.md)**: Testing and validation guidelines
+- **[Platform Services AGENTS.md](../../platform/AGENTS.md)**: Platform infrastructure development
+
+### 🌐 **External Resources**
+- **[Research Framework](../../research/README.md)**: Scientific research tools and methods
+- **[Visualization Systems](../../visualization/README.md)**: Interactive exploration tools
+- **[Application Templates](../../applications/templates/)**: Ready-to-use implementation templates
+
+### 📖 **Navigation Breadcrumb**
+```
+📖 AGENTS.md > 📚 Knowledge > 🎓 Content Development
+```
+
+### 🔗 **Quick Links**
+- **[Start Here: Foundations](../../knowledge/foundations/README.md)** - Begin learning Active Inference
+- **[Mathematical Foundations](../../knowledge/mathematics/README.md)** - Rigorous mathematical treatment
+- **[Implementation Guide](../../knowledge/implementations/README.md)** - Practical code examples
+- **[Domain Applications](../../knowledge/applications/README.md)** - Real-world use cases
 
 ---
 

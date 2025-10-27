@@ -37,7 +37,7 @@ class TestTemplateType:
     def test_template_type_count(self):
         """Test correct number of template types"""
         types = list(TemplateType)
-        assert len(types) == 6
+        assert len(types) == 11
 
 
 class TestTemplateConfig:

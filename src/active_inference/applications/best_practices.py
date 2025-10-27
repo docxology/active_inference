@@ -229,3 +229,5 @@ class BestPracticesGuide:
 
         return recommendations
 
+
+

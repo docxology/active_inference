@@ -4,19 +4,63 @@
       "id": "foundations_complete",
       "name": "Complete Foundations Track",
       "description": "Comprehensive introduction to the theoretical foundations of Active Inference and the Free Energy Principle",
-      "nodes": [
-        "info_theory_entropy",
-        "info_theory_kl_divergence",
-        "info_theory_mutual_information",
-        "bayesian_basics",
-        "bayesian_models",
-        "belief_updating",
-        "fep_introduction",
-        "fep_mathematical_formulation",
-        "fep_biological_systems",
-        "active_inference_introduction",
-        "ai_generative_models",
-        "ai_policy_selection"
+      "tracks": [
+        {
+          "id": "information_theory_core",
+          "title": "Information Theory Core",
+          "description": "Essential information theory concepts",
+          "nodes": [
+            "info_theory_entropy",
+            "info_theory_kl_divergence",
+            "info_theory_mutual_information",
+            "cross_entropy"
+          ],
+          "estimated_hours": 10,
+          "difficulty": "beginner"
+        },
+        {
+          "id": "bayesian_foundation",
+          "title": "Bayesian Foundation",
+          "description": "Bayesian probability and inference methods",
+          "nodes": [
+            "bayesian_basics",
+            "bayesian_models",
+            "belief_updating",
+            "posterior_inference",
+            "graphical_models",
+            "empirical_bayes"
+          ],
+          "estimated_hours": 12,
+          "difficulty": "beginner"
+        },
+        {
+          "id": "free_energy_principle",
+          "title": "Free Energy Principle",
+          "description": "Theoretical foundations of the Free Energy Principle",
+          "nodes": [
+            "fep_introduction",
+            "fep_mathematical_formulation",
+            "fep_biological_systems"
+          ],
+          "estimated_hours": 15,
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "active_inference_basics",
+          "title": "Active Inference Basics",
+          "description": "Core Active Inference framework and components",
+          "nodes": [
+            "active_inference_introduction",
+            "ai_generative_models",
+            "ai_policy_selection",
+            "perception",
+            "kalman_filtering",
+            "optimal_control",
+            "policy_gradient"
+          ],
+          "estimated_hours": 13,
+          "difficulty": "intermediate"
+        }
       ],
       "estimated_hours": 50,
       "difficulty": "intermediate",
@@ -28,6 +72,18 @@
           "Apply mathematical concepts to practical problems",
           "Implement basic Active Inference models",
           "Critically evaluate research in the field"
+        ],
+        "interactive_elements": [
+          "Entropy calculations and visualizations",
+          "Bayesian belief updating exercises",
+          "Free energy minimization examples",
+          "Active Inference policy selection simulations"
+        ],
+        "assessment_methods": [
+          "Knowledge checks after each major concept",
+          "Mathematical problem solving exercises",
+          "Implementation challenges",
+          "Critical analysis of research papers"
         ]
       }
     },
@@ -186,50 +242,139 @@
       "id": "complete_curriculum",
       "name": "Complete Active Inference Curriculum",
       "description": "Comprehensive learning path covering all aspects of Active Inference from theory to practice",
-      "nodes": [
-        "info_theory_entropy",
-        "info_theory_kl_divergence",
-        "info_theory_mutual_information",
-        "bayesian_basics",
-        "bayesian_models",
-        "belief_updating",
-        "fep_introduction",
-        "fep_mathematical_formulation",
-        "fep_biological_systems",
-        "active_inference_introduction",
-        "ai_generative_models",
-        "ai_policy_selection",
-        "variational_free_energy",
-        "information_geometry",
-        "expected_free_energy",
-        "predictive_coding",
-        "active_inference_basic",
-        "variational_inference",
-        "expected_free_energy_calculation",
-        "robotics_control",
-        "neuroscience_perception",
-        "decision_making",
-        "conjugate_priors",
-        "hierarchical_models",
-        "empirical_bayes",
-        "cross_entropy",
-        "multi_agent_systems",
-        "continuous_control",
-        "variational_free_energy",
-        "information_geometry",
-        "expected_free_energy",
-        "predictive_coding",
-        "stochastic_processes",
-        "optimal_transport",
-        "markov_chain_monte_carlo",
-        "mcmc_sampling",
-        "neural_network_implementation",
-        "ai_alignment",
-        "adaptive_learning",
-        "control_systems",
-        "climate_modeling"
+      "tracks": [
+        {
+          "id": "information_theory_foundations",
+          "title": "Information Theory Foundations",
+          "description": "Core information theory concepts essential for Active Inference",
+          "nodes": [
+            "info_theory_entropy",
+            "info_theory_kl_divergence",
+            "info_theory_mutual_information",
+            "cross_entropy"
+          ],
+          "estimated_hours": 12,
+          "difficulty": "beginner"
+        },
+        {
+          "id": "bayesian_methods",
+          "title": "Bayesian Methods and Inference",
+          "description": "Bayesian probability, graphical models, and belief updating",
+          "nodes": [
+            "bayesian_basics",
+            "bayesian_models",
+            "belief_updating",
+            "conjugate_priors",
+            "hierarchical_models",
+            "empirical_bayes"
+          ],
+          "estimated_hours": 25,
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "free_energy_principle",
+          "title": "Free Energy Principle Theory",
+          "description": "Theoretical foundations of the Free Energy Principle",
+          "nodes": [
+            "fep_introduction",
+            "fep_mathematical_formulation",
+            "fep_biological_systems",
+            "variational_free_energy",
+            "expected_free_energy"
+          ],
+          "estimated_hours": 30,
+          "difficulty": "advanced"
+        },
+        {
+          "id": "active_inference_core",
+          "title": "Active Inference Framework",
+          "description": "Complete Active Inference from theory to implementation",
+          "nodes": [
+            "active_inference_introduction",
+            "ai_generative_models",
+            "ai_policy_selection",
+            "active_inference_basic",
+            "variational_inference",
+            "expected_free_energy_calculation"
+          ],
+          "estimated_hours": 35,
+          "difficulty": "advanced"
+        },
+        {
+          "id": "advanced_mathematics",
+          "title": "Advanced Mathematical Methods",
+          "description": "Advanced mathematical tools and formulations",
+          "nodes": [
+            "information_geometry",
+            "predictive_coding",
+            "stochastic_processes",
+            "optimal_transport",
+            "markov_chain_monte_carlo",
+            "mcmc_sampling",
+            "causal_inference",
+            "optimization_methods",
+            "neural_dynamics",
+            "differential_geometry",
+            "fisher_information",
+            "natural_gradient",
+            "advanced_variational_methods"
+          ],
+          "estimated_hours": 45,
+          "difficulty": "expert"
+        },
+        {
+          "id": "practical_implementations",
+          "title": "Practical Implementations",
+          "description": "Hands-on implementation of Active Inference algorithms",
+          "nodes": [
+            "neural_network_implementation",
+            "planning_algorithms",
+            "reinforcement_learning",
+            "control_systems",
+            "deep_generative_models",
+            "graph_neural_networks_active_inference",
+            "active_inference_transformers",
+            "federated_active_inference",
+            "simulation_methods",
+            "benchmarking",
+            "uncertainty_quantification",
+            "validation",
+            "neural_networks"
+          ],
+          "estimated_hours": 45,
+          "difficulty": "advanced"
+        },
+        {
+          "id": "domain_applications",
+          "title": "Domain Applications",
+          "description": "Real-world applications across multiple domains",
+          "nodes": [
+            "robotics_control",
+            "neuroscience_perception",
+            "decision_making",
+            "multi_agent_systems",
+            "continuous_control",
+            "ai_alignment",
+            "adaptive_learning",
+            "climate_modeling",
+            "information_bottleneck",
+            "cognitive_science",
+            "behavioral_economics",
+            "market_behavior",
+            "game_theory",
+            "clinical_applications",
+            "intelligent_tutoring",
+            "personalized_learning",
+            "climate_decision_making",
+            "ai_safety",
+            "autonomous_systems",
+            "brain_imaging"
+          ],
+          "estimated_hours": 35,
+          "difficulty": "advanced"
+        }
       ],
-      "estimated_hours": 180,
+      "estimated_hours": 222,
       "difficulty": "advanced",
       "metadata": {
         "target_audience": "comprehensive learners, researchers, educators",
@@ -240,7 +385,8 @@
           "Implement and deploy Active Inference systems",
           "Conduct research in Active Inference",
           "Teach and communicate Active Inference concepts"
-        ]
+        ],
+        "structure_notes": "Organized into 7 progressive tracks for better navigation and focus"
       }
     },
     {
@@ -353,14 +499,55 @@
       "id": "neuroscience_research",
       "name": "Neuroscience Research Track",
       "description": "Specialized track for neuroscientists applying Active Inference to brain and behavior research",
-      "nodes": [
-        "fep_biological_systems",
-        "neural_dynamics",
-        "predictive_coding",
-        "neuroscience_perception",
-        "cognitive_science",
-        "neural_network_implementation",
-        "information_bottleneck"
+      "tracks": [
+        {
+          "id": "neural_theory_foundation",
+          "title": "Neural Theory Foundation",
+          "description": "Theoretical foundations of neural computation and predictive coding",
+          "nodes": [
+            "fep_biological_systems",
+            "predictive_coding",
+            "neural_dynamics"
+          ],
+          "estimated_hours": 12,
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "cognitive_processes",
+          "title": "Cognitive Processes and Perception",
+          "description": "Active Inference models of cognitive processes and perception",
+          "nodes": [
+            "neuroscience_perception",
+            "cognitive_science",
+            "decision_theory"
+          ],
+          "estimated_hours": 10,
+          "difficulty": "advanced"
+        },
+        {
+          "id": "neural_implementations",
+          "title": "Neural Implementations",
+          "description": "Computational models of neural circuits and brain networks",
+          "nodes": [
+            "neural_network_implementation",
+            "information_bottleneck",
+            "hierarchical_models"
+          ],
+          "estimated_hours": 10,
+          "difficulty": "advanced"
+        },
+        {
+          "id": "brain_imaging_analysis",
+          "title": "Brain Imaging and Analysis",
+          "description": "Apply Active Inference to neuroimaging data and analysis",
+          "nodes": [
+            "brain_imaging",
+            "causal_inference",
+            "stochastic_processes"
+          ],
+          "estimated_hours": 8,
+          "difficulty": "expert"
+        }
       ],
       "estimated_hours": 40,
       "difficulty": "advanced",
@@ -372,6 +559,29 @@
           "Design experiments testing predictive coding",
           "Model brain dynamics and connectivity",
           "Connect theory to empirical neuroscience"
+        ],
+        "interactive_elements": [
+          "Neural simulation exercises",
+          "Brain imaging data analysis projects",
+          "Predictive coding model implementations",
+          "Experimental design challenges"
+        ],
+        "assessment_methods": [
+          "Neural model validation against empirical data",
+          "Predictive coding hypothesis testing",
+          "Brain connectivity analysis exercises",
+          "Research proposal development"
+        ],
+        "research_projects": [
+          "Analyze neural data using Active Inference models",
+          "Design predictive coding experiments",
+          "Model brain dynamics for specific cognitive tasks",
+          "Develop computational psychiatry applications"
+        ],
+        "clinical_applications": [
+          "Model psychiatric disorders using Active Inference",
+          "Design therapeutic interventions based on predictive coding",
+          "Analyze treatment response using generative models"
         ]
       }
     },
@@ -379,15 +589,63 @@
       "id": "ai_practitioner",
       "name": "AI Practitioner Track",
       "description": "Practical track for AI engineers and researchers implementing Active Inference systems",
-      "nodes": [
-        "active_inference_basic",
-        "variational_inference",
-        "expected_free_energy_calculation",
-        "reinforcement_learning",
-        "deep_generative_models",
-        "control_systems",
-        "neural_network_implementation",
-        "ai_alignment"
+      "tracks": [
+        {
+          "id": "active_inference_implementation",
+          "title": "Active Inference Implementation",
+          "description": "Core Active Inference implementation from theory to code",
+          "nodes": [
+            "active_inference_basic",
+            "variational_inference",
+            "expected_free_energy_calculation",
+            "neural_networks"
+          ],
+          "estimated_hours": 15,
+          "difficulty": "intermediate"
+        },
+        {
+          "id": "machine_learning_integration",
+          "title": "Machine Learning Integration",
+          "description": "Integrate Active Inference with modern ML techniques",
+          "nodes": [
+            "reinforcement_learning",
+            "deep_generative_models",
+            "neural_network_implementation",
+            "graph_neural_networks_active_inference",
+            "active_inference_transformers",
+            "federated_active_inference",
+            "neural_networks"
+          ],
+          "estimated_hours": 35,
+          "difficulty": "advanced"
+        },
+        {
+          "id": "control_and_planning",
+          "title": "Control and Planning Systems",
+          "description": "Build control systems and planning algorithms with Active Inference",
+          "nodes": [
+            "control_systems",
+            "planning_algorithms",
+            "continuous_control",
+            "neural_networks"
+          ],
+          "estimated_hours": 15,
+          "difficulty": "advanced"
+        },
+        {
+          "id": "ai_safety_and_alignment",
+          "title": "AI Safety and Alignment",
+          "description": "Safe and aligned AI systems using Active Inference",
+          "nodes": [
+            "ai_alignment",
+            "ai_safety",
+            "value_alignment",
+            "multi_agent_systems",
+            "neural_networks"
+          ],
+          "estimated_hours": 10,
+          "difficulty": "expert"
+        }
       ],
       "estimated_hours": 60,
       "difficulty": "advanced",
@@ -399,6 +657,24 @@
           "Build generative models for complex environments",
           "Design control systems using expected free energy",
           "Apply to real-world AI problems"
+        ],
+        "interactive_elements": [
+          "Code implementation challenges",
+          "Model debugging and optimization exercises",
+          "Performance benchmarking activities",
+          "Real-world application design projects"
+        ],
+        "assessment_methods": [
+          "Working code submissions",
+          "Performance optimization tasks",
+          "Integration testing with existing ML frameworks",
+          "Application deployment and validation"
+        ],
+        "practical_projects": [
+          "Build an Active Inference agent for a specific environment",
+          "Optimize Active Inference for real-time performance",
+          "Design safe AI systems with uncertainty quantification",
+          "Deploy Active Inference in a production environment"
         ]
       }
     },
@@ -576,6 +852,9 @@
         "dynamical_systems",
         "advanced_probability",
         "planning_algorithms",
+        "graph_neural_networks_active_inference",
+        "active_inference_transformers",
+        "federated_active_inference",
         "uncertainty_quantification",
         "benchmarking",
         "simulation_methods",
@@ -602,6 +881,435 @@
           "Publish in top-tier interdisciplinary journals"
         ]
       }
+    },
+    {
+      "id": "modern_ai_integration",
+      "name": "Modern AI Integration Track",
+      "description": "Advanced track integrating Active Inference with cutting-edge AI and machine learning technologies",
+      "nodes": [
+        "graph_neural_networks_active_inference",
+        "active_inference_transformers",
+        "federated_active_inference",
+        "deep_generative_models",
+        "uncertainty_quantification",
+        "ai_safety",
+        "planning_algorithms"
+      ],
+      "estimated_hours": 80,
+      "difficulty": "expert",
+      "metadata": {
+        "target_audience": "AI researchers, machine learning engineers, advanced practitioners",
+        "prerequisites": "Strong background in machine learning, deep learning, and Active Inference foundations",
+        "learning_outcomes": [
+          "Integrate Active Inference with modern deep learning architectures",
+          "Build uncertainty-aware AI systems",
+          "Implement distributed and federated Active Inference",
+          "Apply Active Inference to graph-structured and sequential data",
+          "Design safe and interpretable AI systems"
+        ],
+        "interactive_elements": [
+          "Advanced implementation challenges",
+          "Research project development",
+          "Performance optimization exercises",
+          "System design and architecture planning"
+        ],
+        "assessment_methods": [
+          "Research project implementation and evaluation",
+          "Technical paper analysis and critique",
+          "System performance benchmarking",
+          "Interdisciplinary application design"
+        ]
+      }
+    },
+    {
+      "id": "active_inference_for_policy_makers",
+      "title": "Active Inference for Policy Makers",
+      "description": "Understanding Active Inference for informed policy decisions in science, technology, and governance.",
+      "difficulty": "intermediate",
+      "estimated_hours": 15,
+      "metadata": {
+        "target_audience": "policy_makers",
+        "learning_outcomes": [
+          "Understand Active Inference implications for policy",
+          "Evaluate AI safety and governance frameworks",
+          "Assess neuroscience and psychology applications",
+          "Make informed decisions about research funding"
+        ],
+        "prerequisites": "Basic understanding of science policy",
+        "focus": "policy implications",
+        "emphasis": "decision-making frameworks"
+      },
+      "tracks": [
+        {
+          "id": "foundations",
+          "title": "Theoretical Foundations",
+          "description": "Understand the core theory of Active Inference",
+          "estimated_hours": 5,
+          "nodes": [
+            "active_inference_introduction",
+            "fep_introduction",
+            "fep_mathematical_formulation"
+          ]
+        },
+        {
+          "id": "policy_applications",
+          "title": "Policy Applications",
+          "description": "Explore applications relevant to policy makers",
+          "estimated_hours": 7,
+          "nodes": [
+            "ai_alignment",
+            "ai_safety",
+            "climate_decision_making",
+            "behavioral_economics"
+          ]
+        },
+        {
+          "id": "future_implications",
+          "title": "Future Implications",
+          "description": "Consider future policy challenges and opportunities",
+          "estimated_hours": 3,
+          "nodes": [
+            "multi_agent_systems",
+            "decision_theory"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "philosophical_foundations_active_inference",
+      "title": "Philosophical Foundations of Active Inference",
+      "description": "Explore the deep philosophical implications of Active Inference for understanding mind, consciousness, and intelligence.",
+      "difficulty": "advanced",
+      "estimated_hours": 25,
+      "metadata": {
+        "target_audience": "philosophers",
+        "learning_outcomes": [
+          "Understand philosophical implications of Active Inference",
+          "Connect to theories of mind and consciousness",
+          "Explore epistemology and ontology of intelligence",
+          "Critique traditional philosophical frameworks"
+        ],
+        "prerequisites": "Philosophy background recommended",
+        "focus": "philosophical analysis",
+        "emphasis": "fundamental questions"
+      },
+      "tracks": [
+        {
+          "id": "epistemology",
+          "title": "Epistemological Foundations",
+          "description": "How Active Inference changes our understanding of knowledge and belief",
+          "estimated_hours": 8,
+          "nodes": [
+            "bayesian_basics",
+            "belief_updating",
+            "information_bottleneck",
+            "empirical_bayes"
+          ]
+        },
+        {
+          "id": "philosophy_of_mind",
+          "title": "Philosophy of Mind",
+          "description": "Active Inference perspectives on consciousness and cognition",
+          "estimated_hours": 10,
+          "nodes": [
+            "fep_biological_systems",
+            "neural_dynamics",
+            "hierarchical_models",
+            "perception"
+          ]
+        },
+        {
+          "id": "metaphysical_questions",
+          "title": "Metaphysical Questions",
+          "description": "Fundamental questions about reality and intelligence",
+          "estimated_hours": 7,
+          "nodes": [
+            "information_geometry",
+            "causal_inference",
+            "optimal_control"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "student_comprehensive_curriculum",
+      "name": "Student Comprehensive Curriculum",
+      "description": "Complete Active Inference curriculum for undergraduate and graduate students across disciplines",
+      "difficulty": "intermediate",
+      "estimated_hours": 120,
+      "metadata": {
+        "target_audience": "undergraduate_students,graduate_students",
+        "learning_outcomes": [
+          "Master Active Inference theory and applications",
+          "Apply concepts to research and coursework",
+          "Develop interdisciplinary research skills",
+          "Create original contributions to the field"
+        ],
+        "prerequisites": "Basic mathematics, programming, and science background",
+        "focus": "academic excellence and research skills",
+        "emphasis": "comprehensive understanding"
+      },
+      "tracks": [
+        {
+          "id": "foundational_knowledge",
+          "title": "Foundational Knowledge",
+          "description": "Core concepts and mathematical foundations",
+          "estimated_hours": 40,
+          "nodes": [
+            "info_theory_entropy",
+            "bayesian_basics",
+            "fep_introduction",
+            "active_inference_introduction",
+            "variational_free_energy"
+          ]
+        },
+        {
+          "id": "mathematical_methods",
+          "title": "Mathematical Methods",
+          "description": "Advanced mathematical tools and techniques",
+          "estimated_hours": 35,
+          "nodes": [
+            "information_geometry",
+            "stochastic_processes",
+            "causal_inference",
+            "optimization_methods",
+            "predictive_coding"
+          ]
+        },
+        {
+          "id": "practical_skills",
+          "title": "Practical Skills",
+          "description": "Implementation and computational skills",
+          "estimated_hours": 30,
+          "nodes": [
+            "active_inference_basic",
+            "neural_networks",
+            "reinforcement_learning",
+            "simulation_methods",
+            "benchmarking"
+          ]
+        },
+        {
+          "id": "research_applications",
+          "title": "Research Applications",
+          "description": "Apply Active Inference to research problems",
+          "estimated_hours": 15,
+          "nodes": [
+            "decision_making",
+            "neuroscience_perception",
+            "climate_modeling",
+            "behavioral_economics"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "educator_pedagogical_curriculum",
+      "name": "Educator Pedagogical Curriculum",
+      "description": "Specialized curriculum for educators teaching Active Inference and related concepts",
+      "difficulty": "intermediate",
+      "estimated_hours": 80,
+      "metadata": {
+        "target_audience": "university_professors,teachers,educational_researchers",
+        "learning_outcomes": [
+          "Teach Active Inference effectively at all levels",
+          "Design curricula and learning experiences",
+          "Assess student understanding and progress",
+          "Connect Active Inference to broader educational contexts"
+        ],
+        "prerequisites": "Teaching experience and basic quantitative skills",
+        "focus": "pedagogical excellence",
+        "emphasis": "teaching and learning design"
+      },
+      "tracks": [
+        {
+          "id": "content_mastery",
+          "title": "Content Mastery",
+          "description": "Deep understanding of Active Inference content",
+          "estimated_hours": 25,
+          "nodes": [
+            "fep_introduction",
+            "active_inference_introduction",
+            "bayesian_basics",
+            "belief_updating",
+            "ai_policy_selection"
+          ]
+        },
+        {
+          "id": "pedagogical_methods",
+          "title": "Pedagogical Methods",
+          "description": "Teaching strategies and learning design",
+          "estimated_hours": 20,
+          "nodes": [
+            "adaptive_learning",
+            "cognitive_science",
+            "decision_theory",
+            "multi_agent_systems"
+          ]
+        },
+        {
+          "id": "curriculum_design",
+          "title": "Curriculum Design",
+          "description": "Designing effective learning experiences",
+          "estimated_hours": 20,
+          "nodes": [
+            "hierarchical_models",
+            "information_bottleneck",
+            "personalized_learning",
+            "intelligent_tutoring"
+          ]
+        },
+        {
+          "id": "assessment_methods",
+          "title": "Assessment Methods",
+          "description": "Evaluating student learning and progress",
+          "estimated_hours": 15,
+          "nodes": [
+            "validation",
+            "benchmarking",
+            "predictive_coding",
+            "neural_dynamics"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clinical_practice_curriculum",
+      "name": "Clinical Practice Curriculum",
+      "description": "Active Inference applications for clinical psychologists, psychiatrists, and mental health professionals",
+      "difficulty": "advanced",
+      "estimated_hours": 100,
+      "metadata": {
+        "target_audience": "clinical_psychologists,psychiatrists,behavioral_health_professionals",
+        "learning_outcomes": [
+          "Apply Active Inference to mental health disorders",
+          "Understand predictive coding in clinical contexts",
+          "Design therapeutic interventions using Active Inference",
+          "Model patient behavior and treatment response"
+        ],
+        "prerequisites": "Clinical training and basic neuroscience knowledge",
+        "focus": "clinical applications",
+        "emphasis": "therapeutic interventions"
+      },
+      "tracks": [
+        {
+          "id": "neural_mechanisms",
+          "title": "Neural Mechanisms",
+          "description": "Neural basis of cognition and behavior",
+          "estimated_hours": 25,
+          "nodes": [
+            "fep_biological_systems",
+            "predictive_coding",
+            "neural_dynamics",
+            "neuroscience_perception"
+          ]
+        },
+        {
+          "id": "clinical_applications",
+          "title": "Clinical Applications",
+          "description": "Direct applications to clinical practice",
+          "estimated_hours": 30,
+          "nodes": [
+            "cognitive_science",
+            "decision_theory",
+            "clinical_applications",
+            "behavioral_economics"
+          ]
+        },
+        {
+          "id": "therapeutic_methods",
+          "title": "Therapeutic Methods",
+          "description": "Therapeutic interventions and treatment design",
+          "estimated_hours": 25,
+          "nodes": [
+            "belief_updating",
+            "multi_agent_systems",
+            "adaptive_learning",
+            "ai_alignment"
+          ]
+        },
+        {
+          "id": "assessment_evaluation",
+          "title": "Assessment & Evaluation",
+          "description": "Clinical assessment and outcome evaluation",
+          "estimated_hours": 20,
+          "nodes": [
+            "validation",
+            "causal_inference",
+            "stochastic_processes",
+            "brain_imaging"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering_systems_curriculum",
+      "name": "Engineering Systems Curriculum",
+      "description": "Active Inference applications for control engineers, robotics engineers, and autonomous systems designers",
+      "difficulty": "advanced",
+      "estimated_hours": 90,
+      "metadata": {
+        "target_audience": "control_engineers,robotics_engineers,systems_engineers",
+        "learning_outcomes": [
+          "Design Active Inference control systems",
+          "Implement autonomous systems with uncertainty handling",
+          "Apply predictive coding to engineering problems",
+          "Build robust control systems for complex environments"
+        ],
+        "prerequisites": "Engineering background, control theory, and programming",
+        "focus": "engineering applications",
+        "emphasis": "system design and implementation"
+      },
+      "tracks": [
+        {
+          "id": "control_foundations",
+          "title": "Control Foundations",
+          "description": "Control theory and Active Inference integration",
+          "estimated_hours": 20,
+          "nodes": [
+            "continuous_control",
+            "control_systems",
+            "optimal_control",
+            "stochastic_processes"
+          ]
+        },
+        {
+          "id": "robotics_applications",
+          "title": "Robotics Applications",
+          "description": "Active Inference in robotics and autonomous systems",
+          "estimated_hours": 25,
+          "nodes": [
+            "robotics_control",
+            "reinforcement_learning",
+            "planning_algorithms",
+            "multi_agent_systems"
+          ]
+        },
+        {
+          "id": "system_design",
+          "title": "System Design",
+          "description": "Designing complex engineering systems",
+          "estimated_hours": 25,
+          "nodes": [
+            "hierarchical_models",
+            "neural_network_implementation",
+            "simulation_methods",
+            "benchmarking"
+          ]
+        },
+        {
+          "id": "robustness_safety",
+          "title": "Robustness & Safety",
+          "description": "Building robust and safe engineering systems",
+          "estimated_hours": 20,
+          "nodes": [
+            "ai_safety",
+            "uncertainty_quantification",
+            "validation",
+            "autonomous_systems"
+          ]
+        }
+      ]
     }
   ]
 }

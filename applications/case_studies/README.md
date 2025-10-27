@@ -190,3 +190,5 @@ Each case study should follow a structured format to ensure consistency and comp
 
 *"Active Inference for, with, by Generative AI"* - Learning from real-world applications through comprehensive case studies and practical implementation insights.
 
+
+

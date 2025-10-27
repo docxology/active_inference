@@ -1,0 +1,309 @@
+{
+  "id": "f68f75f5-4b39-4180-8cdf-56d805df4f4d",
+  "title": "Large Context Test",
+  "messages": [
+    {
+      "role": "user",
+      "content": "This is message number 0 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.932950",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 1 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933017",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 2 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933074",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 3 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933131",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 4 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933186",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 5 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933249",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 6 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933334",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 7 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933407",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 8 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933480",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 9 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933569",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 10 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933640",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 11 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933717",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 12 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933797",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 13 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933880",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 14 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.933961",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 15 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.934043",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 16 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.934131",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 17 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.934289",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 18 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.934447",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 19 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.934603",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 20 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.934764",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 21 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.934919",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 22 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.935066",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 23 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.935249",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 24 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.935525",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 25 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.935781",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 26 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.935995",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 27 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.936161",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 28 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.936326",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 29 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.936497",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 30 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.936709",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 31 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.936885",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 32 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.937053",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 33 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.937246",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 34 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.937436",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 35 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.937630",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 36 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.937977",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 37 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.938329",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 38 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.938618",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 39 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.938878",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 40 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.939132",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 41 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.939404",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 42 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.939711",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 43 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.939962",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 44 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.940190",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 45 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.940410",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 46 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.940627",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 47 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.940863",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "This is message number 48 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.941087",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "This is message number 49 with some content to make it longer and test the context window optimization.",
+      "timestamp": "2025-10-27T11:34:59.941325",
+      "metadata": {}
+    }
+  ],
+  "metadata": {},
+  "created_at": "2025-10-27T11:34:59.932809",
+  "updated_at": "2025-10-27T11:34:59.941326"
+}

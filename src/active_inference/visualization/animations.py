@@ -153,6 +153,392 @@ class ProcessAnimation:
             frame_rate=30
         )
 
+    def create_belief_updating_animation(self, initial_belief: List[float] = None,
+                                       observations: List[float] = None) -> AnimationSequence:
+        """Create animation showing belief updating process"""
+        if initial_belief is None:
+            initial_belief = [0.5, 0.3, 0.2]  # Example belief distribution
+        if observations is None:
+            observations = [0.8, 0.1, 0.1]  # Example observation
+
+        frames = []
+
+        # Initial state
+        frames.append(AnimationFrame(
+            frame_id=0,
+            timestamp=0.0,
+            components={
+                "belief_distribution": initial_belief,
+                "observation": [0, 0, 0],
+                "prediction_error": 0.0,
+                "updated_belief": initial_belief.copy()
+            },
+            narration="Initial belief state before observation",
+            highlights=[]
+        ))
+
+        # Observation received
+        frames.append(AnimationFrame(
+            frame_id=1,
+            timestamp=1.0,
+            components={
+                "belief_distribution": initial_belief,
+                "observation": observations,
+                "prediction_error": 0.0,
+                "updated_belief": initial_belief.copy()
+            },
+            narration="Observation received",
+            highlights=["observation"]
+        ))
+
+        # Prediction error calculation
+        prediction = initial_belief.copy()
+        prediction_error = [obs - pred for obs, pred in zip(observations, prediction)]
+
+        frames.append(AnimationFrame(
+            frame_id=2,
+            timestamp=2.0,
+            components={
+                "belief_distribution": initial_belief,
+                "observation": observations,
+                "prediction_error": prediction_error,
+                "updated_belief": initial_belief.copy()
+            },
+            narration="Prediction error calculated",
+            highlights=["prediction_error"]
+        ))
+
+        # Belief updating with different learning rates
+        learning_rates = [0.1, 0.3, 0.5, 0.7, 0.9]
+        for i, alpha in enumerate(learning_rates):
+            updated_belief = [
+                belief + alpha * error
+                for belief, error in zip(initial_belief, prediction_error)
+            ]
+            # Normalize to ensure valid probability distribution
+            total = sum(updated_belief)
+            updated_belief = [b / total for b in updated_belief]
+
+            frames.append(AnimationFrame(
+                frame_id=3 + i,
+                timestamp=3.0 + i * 0.5,
+                components={
+                    "belief_distribution": initial_belief,
+                    "observation": observations,
+                    "prediction_error": prediction_error,
+                    "updated_belief": updated_belief,
+                    "learning_rate": alpha
+                },
+                narration=f"Belief update with learning rate α={alpha:.1f}",
+                highlights=["updated_belief"]
+            ))
+
+        return AnimationSequence(
+            id="belief_updating",
+            name="Belief Updating Process",
+            description="Animation showing Bayesian belief updating with different learning rates",
+            frames=frames,
+            duration=6.0,
+            frame_rate=30
+        )
+
+    def create_multi_agent_animation(self, num_agents: int = 3) -> AnimationSequence:
+        """Create animation showing multi-agent Active Inference interactions"""
+        frames = []
+
+        # Initialize agent states
+        agent_states = [
+            {"beliefs": [0.6, 0.3, 0.1], "action": None, "reward": 0.0}
+            for _ in range(num_agents)
+        ]
+
+        # Frame 1: Initial state
+        frames.append(AnimationFrame(
+            frame_id=0,
+            timestamp=0.0,
+            components={
+                "agents": agent_states,
+                "environment": {"state": "neutral", "shared_info": 0.0},
+                "communication": {"active": False, "messages": []}
+            },
+            narration="Initial state of multi-agent system",
+            highlights=[]
+        ))
+
+        # Frame 2: Environment change
+        frames.append(AnimationFrame(
+            frame_id=1,
+            timestamp=1.0,
+            components={
+                "agents": agent_states,
+                "environment": {"state": "changed", "shared_info": 0.7},
+                "communication": {"active": False, "messages": []}
+            },
+            narration="Environment state changes, affecting all agents",
+            highlights=["environment"]
+        ))
+
+        # Frame 3: Individual agent updates
+        for i in range(num_agents):
+            updated_belief = agent_states[i]["beliefs"].copy()
+            # Simulate belief update based on environment change
+            updated_belief[0] += 0.2  # Increase belief in first state
+            updated_belief[1] -= 0.1  # Decrease belief in second state
+            updated_belief[2] -= 0.1  # Decrease belief in third state
+            # Normalize
+            total = sum(updated_belief)
+            updated_belief = [b / total for b in updated_belief]
+
+            agent_states[i]["beliefs"] = updated_belief
+
+        frames.append(AnimationFrame(
+            frame_id=2,
+            timestamp=2.0,
+            components={
+                "agents": agent_states,
+                "environment": {"state": "changed", "shared_info": 0.7},
+                "communication": {"active": False, "messages": []}
+            },
+            narration="Agents update their beliefs individually",
+            highlights=["agents"]
+        ))
+
+        # Frame 4: Communication phase
+        messages = [
+            {"sender": 0, "receiver": 1, "content": agent_states[0]["beliefs"]},
+            {"sender": 1, "receiver": 2, "content": agent_states[1]["beliefs"]}
+        ]
+
+        frames.append(AnimationFrame(
+            frame_id=3,
+            timestamp=3.0,
+            components={
+                "agents": agent_states,
+                "environment": {"state": "changed", "shared_info": 0.7},
+                "communication": {"active": True, "messages": messages}
+            },
+            narration="Agents communicate and share information",
+            highlights=["communication"]
+        ))
+
+        # Frame 5: Coordinated action
+        for i in range(num_agents):
+            agent_states[i]["action"] = "coordinate"
+
+        frames.append(AnimationFrame(
+            frame_id=4,
+            timestamp=4.0,
+            components={
+                "agents": agent_states,
+                "environment": {"state": "changed", "shared_info": 0.7},
+                "communication": {"active": True, "messages": messages}
+            },
+            narration="Agents coordinate actions based on shared understanding",
+            highlights=["agents"]
+        ))
+
+        return AnimationSequence(
+            id="multi_agent_interaction",
+            name="Multi-Agent Active Inference",
+            description="Animation showing coordinated belief updating and action selection in multi-agent systems",
+            frames=frames,
+            duration=5.0,
+            frame_rate=30
+        )
+
+    def create_neural_network_animation(self, layers: List[int] = None) -> AnimationSequence:
+        """Create animation showing Active Inference in neural networks"""
+        if layers is None:
+            layers = [4, 8, 8, 4]  # Example network architecture
+
+        frames = []
+
+        # Initialize network state
+        network_state = {
+            "input_layer": [0.0] * layers[0],
+            "hidden_layers": [[0.0] * size for size in layers[1:-1]],
+            "output_layer": [0.0] * layers[-1],
+            "weights": "initial",
+            "activation": "none"
+        }
+
+        # Frame 1: Network initialization
+        frames.append(AnimationFrame(
+            frame_id=0,
+            timestamp=0.0,
+            components=network_state,
+            narration="Neural network initialized for Active Inference",
+            highlights=[]
+        ))
+
+        # Frame 2: Forward pass (perception)
+        network_state["activation"] = "forward"
+        frames.append(AnimationFrame(
+            frame_id=1,
+            timestamp=1.0,
+            components=network_state,
+            narration="Forward pass: Processing sensory input",
+            highlights=["input_layer"]
+        ))
+
+        # Frame 3: Prediction generation
+        for i in range(len(network_state["hidden_layers"])):
+            network_state["hidden_layers"][i] = [0.5] * len(network_state["hidden_layers"][i])
+
+        frames.append(AnimationFrame(
+            frame_id=2,
+            timestamp=2.0,
+            components=network_state,
+            narration="Generating predictions in hidden layers",
+            highlights=["hidden_layers"]
+        ))
+
+        # Frame 4: Output prediction
+        network_state["output_layer"] = [0.7, 0.2, 0.05, 0.05]
+        frames.append(AnimationFrame(
+            frame_id=3,
+            timestamp=3.0,
+            components=network_state,
+            narration="Output layer generates predictions",
+            highlights=["output_layer"]
+        ))
+
+        # Frame 5: Prediction error and learning
+        network_state["weights"] = "updating"
+        frames.append(AnimationFrame(
+            frame_id=4,
+            timestamp=4.0,
+            components=network_state,
+            narration="Updating weights to minimize prediction error",
+            highlights=["weights"]
+        ))
+
+        # Frame 6: Free energy minimization
+        network_state["activation"] = "minimizing"
+        frames.append(AnimationFrame(
+            frame_id=5,
+            timestamp=5.0,
+            components=network_state,
+            narration="Free energy minimization through weight updates",
+            highlights=["activation"]
+        ))
+
+        return AnimationSequence(
+            id="neural_network_ai",
+            name="Neural Network Active Inference",
+            description="Animation showing Active Inference principles in neural network processing",
+            frames=frames,
+            duration=6.0,
+            frame_rate=30
+        )
+
+    def create_information_flow_animation(self) -> AnimationSequence:
+        """Create animation showing information flow in Active Inference"""
+        frames = []
+
+        # Initialize information flow components
+        components = {
+            "sensory_input": {"value": 0.0, "entropy": 1.0},
+            "generative_model": {"complexity": 0.5, "accuracy": 0.3},
+            "prediction": {"confidence": 0.2, "information": 0.1},
+            "prediction_error": {"magnitude": 0.0, "information_gain": 0.0},
+            "free_energy": {"value": 1.0, "trend": "decreasing"},
+            "action": {"selection": None, "expected_utility": 0.0}
+        }
+
+        # Frame 1: Information at rest
+        frames.append(AnimationFrame(
+            frame_id=0,
+            timestamp=0.0,
+            components=components,
+            narration="Information flow begins with high uncertainty",
+            highlights=[]
+        ))
+
+        # Frame 2: Sensory input received
+        components["sensory_input"]["value"] = 0.8
+        components["sensory_input"]["entropy"] = 0.3
+        frames.append(AnimationFrame(
+            frame_id=1,
+            timestamp=1.0,
+            components=components,
+            narration="Sensory input reduces uncertainty",
+            highlights=["sensory_input"]
+        ))
+
+        # Frame 3: Model processes information
+        components["generative_model"]["accuracy"] = 0.6
+        components["prediction"]["confidence"] = 0.5
+        frames.append(AnimationFrame(
+            frame_id=2,
+            timestamp=2.0,
+            components=components,
+            narration="Generative model processes sensory information",
+            highlights=["generative_model"]
+        ))
+
+        # Frame 4: Prediction generated
+        components["prediction"]["information"] = 0.4
+        frames.append(AnimationFrame(
+            frame_id=3,
+            timestamp=3.0,
+            components=components,
+            narration="Prediction generated with increasing confidence",
+            highlights=["prediction"]
+        ))
+
+        # Frame 5: Prediction error computed
+        components["prediction_error"]["magnitude"] = 0.2
+        components["prediction_error"]["information_gain"] = 0.3
+        frames.append(AnimationFrame(
+            frame_id=4,
+            timestamp=4.0,
+            components=components,
+            narration="Prediction error provides information gain",
+            highlights=["prediction_error"]
+        ))
+
+        # Frame 6: Free energy calculated
+        components["free_energy"]["value"] = 0.7
+        frames.append(AnimationFrame(
+            frame_id=5,
+            timestamp=5.0,
+            components=components,
+            narration="Free energy quantifies model fit and complexity",
+            highlights=["free_energy"]
+        ))
+
+        # Frame 7: Action selected
+        components["action"]["selection"] = "optimal"
+        components["action"]["expected_utility"] = 0.6
+        frames.append(AnimationFrame(
+            frame_id=6,
+            timestamp=6.0,
+            components=components,
+            narration="Action selected to minimize free energy",
+            highlights=["action"]
+        ))
+
+        # Frame 8: Information flow complete
+        components["free_energy"]["value"] = 0.4
+        components["free_energy"]["trend"] = "stable"
+        frames.append(AnimationFrame(
+            frame_id=7,
+            timestamp=7.0,
+            components=components,
+            narration="Information flow stabilizes with reduced free energy",
+            highlights=["free_energy"]
+        ))
+
+        return AnimationSequence(
+            id="information_flow",
+            name="Information Flow in Active Inference",
+            description="Animation showing complete information flow from sensory input to action selection",
+            frames=frames,
+            duration=8.0,
+            frame_rate=30
+        )
+
     def create_free_energy_minimization(self) -> AnimationSequence:
         """Create animation of free energy minimization"""
         frames = []

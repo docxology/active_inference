@@ -196,6 +196,58 @@
           ]
         }
       ]
+    },
+    {
+      "category": "Learning and Resources",
+      "questions": [
+        {
+          "question": "How is the knowledge base organized?",
+          "answer": "The knowledge base is organized into four main sections: foundations (core concepts), mathematics (rigorous formulations), implementations (code examples), and applications (real-world use cases). Content follows a structured JSON schema with learning paths guiding progression from beginner to expert levels.",
+          "related_concepts": ["foundations_complete", "mathematical_research_track", "ai_practitioner"],
+          "organization": [
+            "Foundations: Information theory, Bayesian methods, Free Energy Principle, Active Inference",
+            "Mathematics: Variational methods, information geometry, predictive coding",
+            "Implementations: Active Inference algorithms, ML integration, control systems",
+            "Applications: Robotics, neuroscience, AI systems, decision making"
+          ]
+        },
+        {
+          "question": "What learning paths are available?",
+          "answer": "The knowledge base offers 26 specialized learning paths covering different audiences and goals: from quick starts to comprehensive curricula, AI practitioners to philosophers, educators to interdisciplinary researchers. Each path includes prerequisites, estimated time, and clear learning outcomes.",
+          "related_concepts": ["foundations_complete", "ai_practitioner", "interdisciplinary_research"],
+          "available_paths": [
+            "Complete Foundations Track (50 hours)",
+            "Modern AI Integration Track (80 hours)",
+            "AI Practitioner Track (60 hours)",
+            "Neuroscience Research Track (40 hours)",
+            "Philosophy of Mind Track (45 hours)",
+            "Interdisciplinary Research Track (200 hours)"
+          ]
+        },
+        {
+          "question": "How do I navigate between related concepts?",
+          "answer": "Each knowledge node includes 'related_concepts' and 'prerequisites' fields linking to connected ideas. Learning paths provide structured progression. The cross-reference system connects concepts across mathematics, implementation, and applications, creating a comprehensive knowledge graph.",
+          "related_concepts": ["cross_entropy", "bayesian_inference", "variational_free_energy"],
+          "navigation_features": [
+            "Related concepts links within each node",
+            "Prerequisite chains for logical progression",
+            "Learning path curricula with dependencies",
+            "Cross-references between theory and applications"
+          ]
+        },
+        {
+          "question": "What support resources are available?",
+          "answer": "The knowledge base includes comprehensive documentation (README, AGENTS guides), a detailed glossary of 50+ key terms with mathematical formulations, an extensive FAQ covering basic to advanced questions, and success metrics tracking content quality and completeness.",
+          "related_concepts": ["active_inference_introduction", "bayesian_basics", "fep_introduction"],
+          "support_resources": [
+            "Comprehensive README with architecture diagrams",
+            "Agent development guides (AGENTS.md files)",
+            "Glossary with mathematical notation and key equations",
+            "Extensive FAQ covering all difficulty levels",
+            "Quality metrics and validation reports"
+          ]
+        }
+      ]
     }
   ],
   "quick_reference": {

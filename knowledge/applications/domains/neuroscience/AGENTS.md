@@ -588,3 +588,5 @@ class PredictiveCodingAnalyzer:
 ---
 
 *"Active Inference for, with, by Generative AI"* - Understanding brain function through Active Inference and collaborative neuroscience research.
+
+

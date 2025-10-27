@@ -4,8 +4,18 @@
   "content_type": "application",
   "difficulty": "expert",
   "description": "Application of Active Inference to analysis of brain imaging data including fMRI, EEG, and MEG.",
-  "prerequisites": ["neural_dynamics", "predictive_coding"],
-  "tags": ["brain imaging", "fmri", "eeg", "meg", "neural data analysis", "connectivity"],
+  "prerequisites": [
+    "neural_dynamics",
+    "predictive_coding"
+  ],
+  "tags": [
+    "brain imaging",
+    "fmri",
+    "eeg",
+    "meg",
+    "neural data analysis",
+    "connectivity"
+  ],
   "learning_objectives": [
     "Analyze brain imaging data using Active Inference",
     "Model neural dynamics from imaging data",
@@ -150,6 +160,438 @@
     "difficulty_level": "expert",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "domain_applications": "neuroscience",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 8
+  },
+  "interactive_exercises": [
+    {
+      "type": "case_analysis",
+      "title": "Analyze Brain Imaging and Neural Data Analysis Application",
+      "scenario": "A company is trying to apply Brain Imaging and Neural Data Analysis to solve a complex problem in their domain.",
+      "questions": [
+        "What are the key challenges in this application?",
+        "How does the Active Inference approach help?",
+        "What are the potential benefits and drawbacks?",
+        "What metrics would you use to evaluate success?"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 15
+    },
+    {
+      "type": "design",
+      "title": "Design Brain Imaging and Neural Data Analysis System",
+      "requirements": [
+        "Must incorporate Active Inference principles",
+        "Should be scalable and maintainable",
+        "Needs to handle uncertainty appropriately",
+        "Should provide clear interfaces and documentation"
+      ],
+      "constraints": [
+        "Limited computational resources",
+        "Real-time performance requirements",
+        "Data privacy and security concerns",
+        "Integration with existing systems"
+      ],
+      "evaluation_criteria": [
+        "Technical correctness",
+        "Performance efficiency",
+        "Practical applicability",
+        "Code quality and maintainability"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 30
+    },
+    {
+      "type": "planning",
+      "title": "Plan Brain Imaging and Neural Data Analysis Implementation",
+      "objectives": [
+        "Create a working prototype",
+        "Validate against theoretical predictions",
+        "Ensure computational efficiency",
+        "Document the implementation thoroughly"
+      ],
+      "steps": [
+        "Review theoretical foundations",
+        "Design the system architecture",
+        "Implement core algorithms",
+        "Test and validate the implementation",
+        "Document and share results"
+      ],
+      "resources": [
+        "Python programming environment",
+        "Scientific computing libraries (NumPy, SciPy)",
+        "Data for testing and validation",
+        "Computational resources for experiments"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 20
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Brain Imaging and Neural Data Analysis",
+      "questions": [
+        "How does brain imaging and neural data analysis relate to other Active Inference concepts?",
+        "What are the practical implications of brain imaging and neural data analysis?",
+        "What challenges arise when applying brain imaging and neural data analysis?",
+        "How might brain imaging and neural data analysis evolve in the future?"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Brain Imaging and Neural Data Analysis Applications",
+      "questions": [
+        "Find a real-world application of brain imaging and neural data analysis",
+        "What research papers discuss brain imaging and neural data analysis?",
+        "How is brain imaging and neural data analysis used in industry?",
+        "What are current research challenges related to brain imaging and neural data analysis?"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Brain Imaging and Neural Data Analysis Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "expert",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Brain Imaging and Neural Data Analysis",
+      "problem": "Develop a novel extension or application of brain imaging and neural data analysis",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Brain Imaging and Neural Data Analysis Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "case_analysis",
+      "title": "Analyze Brain Imaging and Neural Data Analysis Application",
+      "scenario": "A company is trying to apply Brain Imaging and Neural Data Analysis to solve a complex problem in their domain.",
+      "questions": [
+        "What are the key challenges in this application?",
+        "How does the Active Inference approach help?",
+        "What are the potential benefits and drawbacks?",
+        "What metrics would you use to evaluate success?"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 15
+    },
+    {
+      "type": "design",
+      "title": "Design Brain Imaging and Neural Data Analysis System",
+      "requirements": [
+        "Must incorporate Active Inference principles",
+        "Should be scalable and maintainable",
+        "Needs to handle uncertainty appropriately",
+        "Should provide clear interfaces and documentation"
+      ],
+      "constraints": [
+        "Limited computational resources",
+        "Real-time performance requirements",
+        "Data privacy and security concerns",
+        "Integration with existing systems"
+      ],
+      "evaluation_criteria": [
+        "Technical correctness",
+        "Performance efficiency",
+        "Practical applicability",
+        "Code quality and maintainability"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 30
+    },
+    {
+      "type": "planning",
+      "title": "Plan Brain Imaging and Neural Data Analysis Implementation",
+      "objectives": [
+        "Create a working prototype",
+        "Validate against theoretical predictions",
+        "Ensure computational efficiency",
+        "Document the implementation thoroughly"
+      ],
+      "steps": [
+        "Review theoretical foundations",
+        "Design the system architecture",
+        "Implement core algorithms",
+        "Test and validate the implementation",
+        "Document and share results"
+      ],
+      "resources": [
+        "Python programming environment",
+        "Scientific computing libraries (NumPy, SciPy)",
+        "Data for testing and validation",
+        "Computational resources for experiments"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 20
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Brain Imaging and Neural Data Analysis",
+      "questions": [
+        "How does brain imaging and neural data analysis relate to other Active Inference concepts?",
+        "What are the practical implications of brain imaging and neural data analysis?",
+        "What challenges arise when applying brain imaging and neural data analysis?",
+        "How might brain imaging and neural data analysis evolve in the future?"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Brain Imaging and Neural Data Analysis Applications",
+      "questions": [
+        "Find a real-world application of brain imaging and neural data analysis",
+        "What research papers discuss brain imaging and neural data analysis?",
+        "How is brain imaging and neural data analysis used in industry?",
+        "What are current research challenges related to brain imaging and neural data analysis?"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Brain Imaging and Neural Data Analysis Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "expert",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Brain Imaging and Neural Data Analysis",
+      "problem": "Develop a novel extension or application of brain imaging and neural data analysis",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Brain Imaging and Neural Data Analysis Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "architecture_diagram",
+        "title": "Brain Imaging and Neural Data Analysis System Architecture",
+        "description": "High-level architecture of brain imaging and neural data analysis application",
+        "file_path": "apps/brain_imaging_architecture.svg",
+        "format": "svg",
+        "interactive": true,
+        "components": [
+          {
+            "id": "input_layer",
+            "label": "Input Processing",
+            "type": "input"
+          },
+          {
+            "id": "core_engine",
+            "label": "Core Engine",
+            "type": "processing"
+          },
+          {
+            "id": "output_layer",
+            "label": "Output Generation",
+            "type": "output"
+          }
+        ]
+      },
+      {
+        "type": "use_case_diagram",
+        "title": "Brain Imaging and Neural Data Analysis Use Cases",
+        "description": "Use cases and scenarios for brain imaging and neural data analysis application",
+        "file_path": "apps/brain_imaging_usecases.svg",
+        "format": "svg",
+        "interactive": false,
+        "actors": [
+          "User",
+          "System",
+          "Administrator",
+          "External Service"
+        ],
+        "scenarios": [
+          {
+            "actor": "User",
+            "action": "Interact with system",
+            "outcome": "Expected results"
+          },
+          {
+            "actor": "System",
+            "action": "Process request",
+            "outcome": "Response generated"
+          }
+        ]
+      },
+      {
+        "type": "results_visualization",
+        "title": "Brain Imaging and Neural Data Analysis Results and Outcomes",
+        "description": "Visualization of results and outcomes from brain imaging and neural data analysis application",
+        "file_path": "apps/brain_imaging_results.svg",
+        "format": "svg",
+        "interactive": true,
+        "metrics": [
+          "accuracy",
+          "performance",
+          "efficiency",
+          "reliability"
+        ]
+      }
+    ],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Brain Imaging and Neural Data Analysis",
+        "description": "Comprehensive introduction to brain imaging and neural data analysis concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=6a10d808851",
+        "duration": 600,
+        "level": "beginner"
+      },
+      {
+        "type": "case_study_video",
+        "title": "Brain Imaging and Neural Data Analysis Case Study",
+        "description": "Real-world application of brain imaging and neural data analysis",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=136ca5df8af",
+        "duration": 900,
+        "level": "intermediate"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/brain_imaging_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Brain Imaging and Neural Data Analysis"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/brain_imaging_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Brain Imaging and Neural Data Analysis"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Brain Imaging and Neural Data Analysis Audio Explanation",
+        "description": "Audio explanation of brain imaging and neural data analysis concepts",
+        "file_path": "audio/brain_imaging_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

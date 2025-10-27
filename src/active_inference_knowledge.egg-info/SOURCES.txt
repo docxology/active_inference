@@ -3,7 +3,9 @@ pyproject.toml
 setup.py
 src/active_inference/__init__.py
 src/active_inference/cli.py
+src/active_inference_knowledge.egg-info/AGENTS.md
 src/active_inference_knowledge.egg-info/PKG-INFO
+src/active_inference_knowledge.egg-info/README.md
 src/active_inference_knowledge.egg-info/SOURCES.txt
 src/active_inference_knowledge.egg-info/dependency_links.txt
 src/active_inference_knowledge.egg-info/entry_points.txt

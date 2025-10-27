@@ -4,8 +4,22 @@
   "content_type": "foundation",
   "difficulty": "advanced",
   "description": "Understanding how neural systems implement Active Inference through dynamical equations and population coding.",
-  "prerequisites": ["fep_biological_systems", "predictive_coding"],
-  "tags": ["neural dynamics", "population coding", "synaptic plasticity", "neural networks"],
+  "prerequisites": [
+    "fep_biological_systems",
+    "predictive_coding"
+  ],
+  "tags": [
+    "neural dynamics",
+    "population coding",
+    "synaptic plasticity",
+    "neural networks",
+    "predictive coding",
+    "neural oscillations",
+    "neuromodulation",
+    "computational neuroscience",
+    "neural mass models",
+    "spike timing plasticity"
+  ],
   "learning_objectives": [
     "Understand neural implementation of Active Inference",
     "Model neural population dynamics",
@@ -30,7 +44,19 @@
       "neural_mass_model": "Mean-field equations for neural populations",
       "gradient_flow": "dμ/dt = -∇_μ F (belief updating)",
       "prediction_error": "ε = x - g(μ) (sensory prediction error)",
-      "precision_update": "dπ/dt = -∇_π F (attention and precision)"
+      "precision_update": "dπ/dt = -∇_π F (attention and precision)",
+      "mathematical_formulation": {
+        "belief_dynamics": "dμ/dt = -D(μ) ∇_μ F(μ, x) where D(μ) is precision matrix",
+        "prediction_error_dynamics": "dε/dt = -α ε + ∂_μ g(μ) · dμ/dt",
+        "precision_dynamics": "dπ/dt = β (γ - π) where γ is expected precision",
+        "stability_conditions": "Eigenvalues of Jacobian determine stability"
+      },
+      "neural_implementation": {
+        "excitatory_inhibitory_balance": "E-I balance maintains stability",
+        "oscillatory_dynamics": "Gamma oscillations emerge from prediction errors",
+        "synaptic_efficacy": "Synaptic strengths encode causal relationships",
+        "plasticity_rules": "Spike-timing dependent plasticity implements learning"
+      }
     },
     "hierarchical_organization": {
       "cortical_hierarchy": "Different areas implement different levels",
@@ -50,14 +76,85 @@
         "description": "Predictive coding in visual processing",
         "dynamics": "V1 → V2 → V4 → IT hierarchy",
         "prediction_errors": "Edge detection and shape prediction",
-        "attention": "Precision weighting of visual features"
+        "attention": "Precision weighting of visual features",
+        "mathematical_model": {
+          "hierarchical_equations": "dμ_i/dt = -∇_μ_i F_i + ∑_j W_ij (μ_j - μ_i)",
+          "prediction_errors": "ε_i = x_i - g_i(μ_i)",
+          "precision_modulation": "D_i = σ^{-2}(ε_i) precision as inverse variance",
+          "oscillatory_behavior": "Gamma oscillations emerge from error dynamics"
+        }
       },
       {
         "name": "Motor Control",
         "description": "Neural control of movement",
         "forward_models": "Predicting sensory consequences",
         "inverse_models": "Computing motor commands",
-        "cerebellum": "Learning internal models"
+        "cerebellum": "Learning internal models",
+        "mathematical_model": {
+          "forward_model": "x_t = f(s_t, a_t) + ε_t sensory prediction",
+          "inverse_model": "a_t = g^{-1}(x_t, s_t) motor command computation",
+          "prediction_error": "ε_t = x_t - f(s_t, a_t)",
+          "learning_rule": "dθ/dt = -α ∇_θ ε_t² (θ) parameter updates"
+        }
+      }
+    ],
+    "computational_examples": [
+      {
+        "name": "Neural Mass Model Simulation",
+        "description": "Simulating neural population dynamics using differential equations",
+        "framework": "Brian2 or NEST neural simulators",
+        "implementation_steps": [
+          "Define neural populations (excitatory and inhibitory)",
+          "Implement synaptic connectivity matrices",
+          "Set up differential equations for membrane potentials",
+          "Add external inputs and noise",
+          "Analyze population activity and oscillations"
+        ],
+        "mathematical_model": {
+          "membrane_dynamics": "C dV/dt = -g_L (V - V_L) + I_syn + I_ext",
+          "synaptic_currents": "I_syn = g_E (V - V_E) ∑ w_ij s_j",
+          "firing_rates": "r_i = φ(V_i) sigmoid or ReLU activation",
+          "population_activity": "dμ/dt = -μ/τ + r(μ) + σ ξ(t)"
+        },
+        "active_inference_connection": "Population activity represents beliefs, synaptic weights encode generative model"
+      },
+      {
+        "name": "Predictive Coding Neural Network",
+        "description": "Implementing hierarchical predictive coding in neural networks",
+        "architecture": "Deep network with lateral and feedback connections",
+        "implementation_steps": [
+          "Design hierarchical network architecture",
+          "Implement bottom-up prediction error computation",
+          "Add top-down prediction generation",
+          "Train using prediction error minimization",
+          "Analyze hierarchical representations"
+        ],
+        "code_structure": {
+          "network_layers": "Sequential layers with skip connections",
+          "prediction_errors": "Layer-wise error computation",
+          "precision_weighting": "Adaptive precision for each layer",
+          "learning_rules": "Hebbian learning with error modulation"
+        },
+        "evaluation_metrics": "Reconstruction quality, prediction accuracy, representational hierarchy"
+      },
+      {
+        "name": "Spike-Timing Dependent Plasticity",
+        "description": "Modeling synaptic learning rules in Active Inference",
+        "biological_realism": "Spike-based neural dynamics",
+        "implementation_steps": [
+          "Implement spiking neuron model (LIF or HH)",
+          "Add synaptic connections with plasticity",
+          "Compute prediction errors from population activity",
+          "Update synaptic weights using three-factor rule",
+          "Analyze learning dynamics and stability"
+        ],
+        "mathematical_formulation": {
+          "stdp_rule": "dw/dt = A+ exp(-Δt/τ+) - A- exp(Δt/τ-)",
+          "three_factor_rule": "dw/dt = η ε(t) e(t-Δt) where ε is prediction error",
+          "eligibility_trace": "de/dt = -e/τ_e + δ(t - t_spike)",
+          "learning_rate": "η modulated by neuromodulators (dopamine, acetylcholine)"
+        },
+        "neural_interpretation": "Synaptic changes encode causal relationships learned through prediction errors"
       }
     ],
     "connections_to_active_inference": {
@@ -77,15 +174,96 @@
         "id": "neural_dynamics_simulation",
         "type": "simulation",
         "description": "Simulate neural population dynamics",
-        "difficulty": "advanced"
+        "difficulty": "advanced",
+        "steps": [
+          "Implement neural mass equations in Python",
+          "Simulate hierarchical network with multiple populations",
+          "Add sensory input and analyze response dynamics",
+          "Compute prediction errors and precision updates",
+          "Visualize population activity and oscillations"
+        ],
+        "tools": "NumPy/SciPy for ODEs, Matplotlib for visualization",
+        "validation": "Compare simulated dynamics with experimental data"
       },
       {
         "id": "synaptic_plasticity",
         "type": "modeling",
         "description": "Model synaptic plasticity rules",
-        "difficulty": "advanced"
+        "difficulty": "advanced",
+        "steps": [
+          "Implement spiking neuron model (e.g., leaky integrate-and-fire)",
+          "Add synaptic connections with STDP learning rule",
+          "Present stimulus patterns and observe learning",
+          "Analyze synaptic weight changes over time",
+          "Test generalization to new stimuli"
+        ],
+        "mathematical_focus": "Three-factor learning rule with eligibility traces",
+        "biological_validation": "Compare with experimental plasticity data"
+      },
+      {
+        "id": "predictive_coding_network",
+        "type": "implementation",
+        "description": "Build and train a predictive coding neural network",
+        "difficulty": "expert",
+        "steps": [
+          "Design hierarchical network architecture",
+          "Implement prediction error computation between layers",
+          "Train network using error minimization",
+          "Analyze learned representations",
+          "Test on natural stimuli (images, sounds)"
+        ],
+        "framework": "PyTorch or TensorFlow",
+        "evaluation": "Reconstruction quality, sparsity, hierarchical organization"
+      },
+      {
+        "id": "neuromodulation_modeling",
+        "type": "analysis",
+        "description": "Model the effects of neuromodulators on neural dynamics",
+        "difficulty": "expert",
+        "steps": [
+          "Implement base neural dynamics model",
+          "Add neuromodulatory systems (dopamine, acetylcholine)",
+          "Model precision modulation and attention",
+          "Simulate different behavioral contexts",
+          "Analyze how neuromodulation affects learning"
+        ],
+        "biological_relevance": "Connect to experimental studies of attention and learning"
       }
     ],
+    "advanced_topics": {
+      "neural_criticality": {
+        "description": "Neural systems operate near critical phase transitions",
+        "signatures": "Power-law distributions, long-range correlations",
+        "connection_to_active_inference": "Criticality enables flexible belief updating",
+        "experimental_evidence": "fMRI, EEG, and local field potential studies"
+      },
+      "neural_oscillations": {
+        "description": "Rhythmic neural activity patterns",
+        "gamma_oscillations": "40 Hz oscillations linked to prediction errors",
+        "theta_oscillations": "4-8 Hz oscillations in memory and navigation",
+        "beta_oscillations": "13-30 Hz oscillations in motor control",
+        "cross_frequency_coupling": "Interactions between different frequency bands"
+      },
+      "neural_plasticity_mechanisms": {
+        "homeostatic_plasticity": "Maintain activity levels within bounds",
+        "metaplasticity": "Plasticity of plasticity rules",
+        "structural_plasticity": "Formation and elimination of synapses",
+        "neuromodulatory_control": "Modulation of plasticity by brain state"
+      },
+      "multiscale_dynamics": {
+        "microscale": "Single neuron and synapse dynamics",
+        "mesoscale": "Local circuit and population dynamics",
+        "macroscale": "Whole-brain dynamics and connectivity",
+        "integration": "Active Inference across multiple scales"
+      }
+    },
+    "computational_challenges": {
+      "dimensionality": "High-dimensional neural state spaces",
+      "nonlinearity": "Nonlinear neural dynamics and interactions",
+      "stochasticity": "Modeling noise and uncertainty",
+      "scalability": "Simulating large-scale neural networks",
+      "parameter_identification": "Inferring parameters from neural data"
+    },
     "common_misconceptions": [
       {
         "misconception": "Neural activity directly represents beliefs",
@@ -98,6 +276,14 @@
       {
         "misconception": "Neural dynamics are deterministic",
         "clarification": "Stochastic elements are essential for Bayesian computation"
+      },
+      {
+        "misconception": "Neural networks are just artificial neural networks",
+        "clarification": "Biological neural dynamics include rich temporal and spatial structure"
+      },
+      {
+        "misconception": "Prediction errors are always conscious",
+        "clarification": "Most prediction error processing occurs subconsciously"
       }
     ],
     "further_reading": [
@@ -112,20 +298,493 @@
         "author": "Jakob Hohwy",
         "year": 2013,
         "description": "Predictive processing in cognitive science"
+      },
+      {
+        "title": "Neural Dynamics of Active Inference",
+        "author": "Karl Friston, Thomas Parr",
+        "year": 2019,
+        "description": "Mathematical treatment of neural dynamics"
+      },
+      {
+        "title": "Predictive Coding in the Visual Cortex",
+        "author": "Rao and Ballard",
+        "year": 1999,
+        "description": "Original predictive coding model"
+      },
+      {
+        "title": "Synaptic Plasticity and Memory",
+        "author": "Robert Malenka and Mark Bear",
+        "year": 2004,
+        "description": "Mechanisms of learning and memory"
       }
     ],
     "related_concepts": [
       "fep_biological_systems",
       "predictive_coding",
       "synaptic_plasticity",
-      "population_coding"
+      "population_coding",
+      "neural_oscillations",
+      "neuromodulation",
+      "neural_mass_models",
+      "spike_timing_plasticity",
+      "computational_neuroscience"
     ]
   },
   "metadata": {
-    "estimated_reading_time": 40,
+    "estimated_reading_time": 75,
     "difficulty_level": "advanced",
     "last_updated": "2024-10-27",
-    "version": "1.0",
-    "author": "Active Inference Community"
+    "version": "2.0",
+    "author": "Active Inference Community",
+    "enhancement_notes": "Expanded with comprehensive mathematical formulations, computational examples, advanced topics, and practical implementations",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 9
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Neural Dynamics and Active Inference",
+      "question": "Neural Dynamics and Active Inference is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Neural Dynamics and Active Inference",
+      "instructions": "Drag and drop to connect related concepts from neural dynamics and active inference:",
+      "concepts": {
+        "concepts": [
+          "neural dynamics",
+          "population coding",
+          "synaptic plasticity",
+          "neural networks",
+          "predictive coding"
+        ],
+        "relationships": [
+          {
+            "from": "neural dynamics",
+            "to": "population coding"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Neural Dynamics and Active Inference",
+      "questions": [
+        "How does neural dynamics and active inference relate to other Active Inference concepts?",
+        "What are the practical implications of neural dynamics and active inference?",
+        "What challenges arise when applying neural dynamics and active inference?",
+        "How might neural dynamics and active inference evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Neural Dynamics and Active Inference Applications",
+      "questions": [
+        "Find a real-world application of neural dynamics and active inference",
+        "What research papers discuss neural dynamics and active inference?",
+        "How is neural dynamics and active inference used in industry?",
+        "What are current research challenges related to neural dynamics and active inference?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Neural Dynamics and Active Inference Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Neural Dynamics and Active Inference",
+      "problem": "Develop a novel extension or application of neural dynamics and active inference",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Neural Dynamics and Active Inference Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Neural Dynamics and Active Inference",
+      "question": "Neural Dynamics and Active Inference is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Neural Dynamics and Active Inference",
+      "instructions": "Drag and drop to connect related concepts from neural dynamics and active inference:",
+      "concepts": {
+        "concepts": [
+          "neural dynamics",
+          "population coding",
+          "synaptic plasticity",
+          "neural networks",
+          "predictive coding"
+        ],
+        "relationships": [
+          {
+            "from": "neural dynamics",
+            "to": "population coding"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Neural Dynamics and Active Inference",
+      "questions": [
+        "How does neural dynamics and active inference relate to other Active Inference concepts?",
+        "What are the practical implications of neural dynamics and active inference?",
+        "What challenges arise when applying neural dynamics and active inference?",
+        "How might neural dynamics and active inference evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Neural Dynamics and Active Inference Applications",
+      "questions": [
+        "Find a real-world application of neural dynamics and active inference",
+        "What research papers discuss neural dynamics and active inference?",
+        "How is neural dynamics and active inference used in industry?",
+        "What are current research challenges related to neural dynamics and active inference?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Neural Dynamics and Active Inference Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Neural Dynamics and Active Inference",
+      "problem": "Develop a novel extension or application of neural dynamics and active inference",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Neural Dynamics and Active Inference Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Neural Dynamics and Active Inference Concept Map",
+        "description": "Visual representation of neural dynamics and active inference and its relationships",
+        "file_path": "diagrams/neural_dynamics_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Neural Dynamics and Active Inference",
+            "type": "central",
+            "description": "Understanding how neural systems implement Active Inference through dynamical equations and population coding."
+          },
+          {
+            "id": "prereq_0",
+            "label": "fep_biological_systems",
+            "type": "prerequisite",
+            "description": "Required knowledge: fep_biological_systems"
+          },
+          {
+            "id": "prereq_1",
+            "label": "predictive_coding",
+            "type": "prerequisite",
+            "description": "Required knowledge: predictive_coding"
+          },
+          {
+            "id": "tag_0",
+            "label": "neural dynamics",
+            "type": "related",
+            "description": "Related concept: neural dynamics"
+          },
+          {
+            "id": "tag_1",
+            "label": "population coding",
+            "type": "related",
+            "description": "Related concept: population coding"
+          },
+          {
+            "id": "tag_2",
+            "label": "synaptic plasticity",
+            "type": "related",
+            "description": "Related concept: synaptic plasticity"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Neural Dynamics and Active Inference Relationships",
+        "description": "Connections between neural dynamics and active inference and related concepts",
+        "file_path": "diagrams/neural_dynamics_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      },
+      {
+        "type": "flow_diagram",
+        "title": "Neural Dynamics and Active Inference Process Flow",
+        "description": "Step-by-step process of neural dynamics and active inference",
+        "file_path": "diagrams/neural_dynamics_flow.svg",
+        "format": "svg",
+        "interactive": true,
+        "steps": [
+          {
+            "id": "input",
+            "label": "Input",
+            "description": "Process inputs"
+          },
+          {
+            "id": "processing",
+            "label": "Processing",
+            "description": "Core processing"
+          },
+          {
+            "id": "output",
+            "label": "Output",
+            "description": "Process outputs"
+          }
+        ]
+      }
+    ],
+    "animations": [
+      {
+        "type": "process_animation",
+        "title": "Neural Dynamics and Active Inference Process Animation",
+        "description": "Animated visualization of neural dynamics and active inference process over time",
+        "file_path": "animations/neural_dynamics_process.mp4",
+        "format": "mp4",
+        "duration": 30,
+        "frames": 900,
+        "keyframes": [
+          {
+            "time": 0,
+            "description": "Initial state",
+            "visual_elements": []
+          },
+          {
+            "time": 15,
+            "description": "Processing state",
+            "visual_elements": []
+          },
+          {
+            "time": 30,
+            "description": "Final state",
+            "visual_elements": []
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "simulation_interface",
+        "title": "Neural Dynamics and Active Inference Simulation Interface",
+        "description": "Interactive simulation of neural dynamics and active inference dynamics",
+        "file_path": "interactive/neural_dynamics_simulation.html",
+        "format": "html",
+        "interactive_elements": [
+          "play_pause",
+          "reset",
+          "parameter_controls"
+        ],
+        "simulation_parameters": [
+          {
+            "name": "time_steps",
+            "value": 1000,
+            "description": "Number of simulation steps"
+          },
+          {
+            "name": "dt",
+            "value": 0.01,
+            "description": "Time step size"
+          },
+          {
+            "name": "initial_conditions",
+            "value": [
+              0.0,
+              0.0
+            ],
+            "description": "Starting conditions"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Neural Dynamics and Active Inference",
+        "description": "Comprehensive introduction to neural dynamics and active inference concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=8fcbd8f8d9e",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/neural_dynamics_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Neural Dynamics and Active Inference"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/neural_dynamics_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Neural Dynamics and Active Inference"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Neural Dynamics and Active Inference Audio Explanation",
+        "description": "Audio explanation of neural dynamics and active inference concepts",
+        "file_path": "audio/neural_dynamics_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

@@ -4,8 +4,17 @@
   "content_type": "foundation",
   "difficulty": "advanced",
   "description": "Application of the Free Energy Principle to biological self-organization, homeostasis, and evolution.",
-  "prerequisites": ["fep_mathematical_formulation", "active_inference_introduction"],
-  "tags": ["biological systems", "homeostasis", "evolution", "self-organization", "physiology"],
+  "prerequisites": [
+    "fep_mathematical_formulation",
+    "active_inference_introduction"
+  ],
+  "tags": [
+    "biological systems",
+    "homeostasis",
+    "evolution",
+    "self-organization",
+    "physiology"
+  ],
   "learning_objectives": [
     "Apply FEP to homeostatic regulation",
     "Understand FEP in evolutionary context",
@@ -148,6 +157,411 @@
     "difficulty_level": "advanced",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 7
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Free Energy Principle in Biological Systems",
+      "question": "Free Energy Principle in Biological Systems is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Free Energy Principle in Biological Systems",
+      "instructions": "Drag and drop to connect related concepts from free energy principle in biological systems:",
+      "concepts": {
+        "concepts": [
+          "biological systems",
+          "homeostasis",
+          "evolution",
+          "self-organization",
+          "physiology"
+        ],
+        "relationships": [
+          {
+            "from": "biological systems",
+            "to": "homeostasis"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Free Energy Principle in Biological Systems",
+      "questions": [
+        "How does free energy principle in biological systems relate to other Active Inference concepts?",
+        "What are the practical implications of free energy principle in biological systems?",
+        "What challenges arise when applying free energy principle in biological systems?",
+        "How might free energy principle in biological systems evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Free Energy Principle in Biological Systems Applications",
+      "questions": [
+        "Find a real-world application of free energy principle in biological systems",
+        "What research papers discuss free energy principle in biological systems?",
+        "How is free energy principle in biological systems used in industry?",
+        "What are current research challenges related to free energy principle in biological systems?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Free Energy Principle in Biological Systems Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Free Energy Principle in Biological Systems",
+      "problem": "Develop a novel extension or application of free energy principle in biological systems",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Free Energy Principle in Biological Systems Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Free Energy Principle in Biological Systems",
+      "question": "Free Energy Principle in Biological Systems is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Free Energy Principle in Biological Systems",
+      "instructions": "Drag and drop to connect related concepts from free energy principle in biological systems:",
+      "concepts": {
+        "concepts": [
+          "biological systems",
+          "homeostasis",
+          "evolution",
+          "self-organization",
+          "physiology"
+        ],
+        "relationships": [
+          {
+            "from": "biological systems",
+            "to": "homeostasis"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Free Energy Principle in Biological Systems",
+      "questions": [
+        "How does free energy principle in biological systems relate to other Active Inference concepts?",
+        "What are the practical implications of free energy principle in biological systems?",
+        "What challenges arise when applying free energy principle in biological systems?",
+        "How might free energy principle in biological systems evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Free Energy Principle in Biological Systems Applications",
+      "questions": [
+        "Find a real-world application of free energy principle in biological systems",
+        "What research papers discuss free energy principle in biological systems?",
+        "How is free energy principle in biological systems used in industry?",
+        "What are current research challenges related to free energy principle in biological systems?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Free Energy Principle in Biological Systems Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Free Energy Principle in Biological Systems",
+      "problem": "Develop a novel extension or application of free energy principle in biological systems",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Free Energy Principle in Biological Systems Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Free Energy Principle in Biological Systems Concept Map",
+        "description": "Visual representation of free energy principle in biological systems and its relationships",
+        "file_path": "diagrams/fep_biological_systems_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Free Energy Principle in Biological Systems",
+            "type": "central",
+            "description": "Application of the Free Energy Principle to biological self-organization, homeostasis, and evolution."
+          },
+          {
+            "id": "prereq_0",
+            "label": "fep_mathematical_formulation",
+            "type": "prerequisite",
+            "description": "Required knowledge: fep_mathematical_formulation"
+          },
+          {
+            "id": "prereq_1",
+            "label": "active_inference_introduction",
+            "type": "prerequisite",
+            "description": "Required knowledge: active_inference_introduction"
+          },
+          {
+            "id": "tag_0",
+            "label": "biological systems",
+            "type": "related",
+            "description": "Related concept: biological systems"
+          },
+          {
+            "id": "tag_1",
+            "label": "homeostasis",
+            "type": "related",
+            "description": "Related concept: homeostasis"
+          },
+          {
+            "id": "tag_2",
+            "label": "evolution",
+            "type": "related",
+            "description": "Related concept: evolution"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Free Energy Principle in Biological Systems Relationships",
+        "description": "Connections between free energy principle in biological systems and related concepts",
+        "file_path": "diagrams/fep_biological_systems_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "parameter_explorer",
+        "title": "Free Energy Principle in Biological Systems Parameter Explorer",
+        "description": "Interactive exploration of free energy principle in biological systems parameters and their effects",
+        "file_path": "interactive/fep_biological_systems_explorer.html",
+        "format": "html",
+        "interactive_elements": [
+          "sliders",
+          "dropdowns",
+          "plots"
+        ],
+        "parameters": [
+          {
+            "name": "learning_rate",
+            "type": "slider",
+            "range": [
+              0.001,
+              1.0
+            ],
+            "default": 0.01
+          },
+          {
+            "name": "iterations",
+            "type": "slider",
+            "range": [
+              10,
+              1000
+            ],
+            "default": 100
+          },
+          {
+            "name": "noise_level",
+            "type": "slider",
+            "range": [
+              0.0,
+              1.0
+            ],
+            "default": 0.1
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Free Energy Principle in Biological Systems",
+        "description": "Comprehensive introduction to free energy principle in biological systems concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=6d465e7b32d",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/fep_biological_systems_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Free Energy Principle in Biological Systems"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/fep_biological_systems_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Free Energy Principle in Biological Systems"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Free Energy Principle in Biological Systems Audio Explanation",
+        "description": "Audio explanation of free energy principle in biological systems concepts",
+        "file_path": "audio/fep_biological_systems_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

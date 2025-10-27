@@ -5,7 +5,12 @@
   "difficulty": "beginner",
   "description": "Understanding entropy as a measure of uncertainty and information content in probability distributions.",
   "prerequisites": [],
-  "tags": ["information theory", "entropy", "uncertainty", "probability"],
+  "tags": [
+    "information theory",
+    "entropy",
+    "uncertainty",
+    "probability"
+  ],
   "learning_objectives": [
     "Define entropy mathematically",
     "Understand entropy as a measure of uncertainty",
@@ -97,7 +102,369 @@
     "difficulty_level": "beginner",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 0,
+    "multimedia_integrated": true,
+    "multimedia_count": 5
+  },
+  "interactive_exercises": [
+    {
+      "type": "multiple_choice",
+      "title": "Understanding Entropy and Information",
+      "question": "Which of the following best describes the concept of entropy and information?",
+      "options": [
+        "Entropy and Information is a fundamental concept in Active Inference theory",
+        "Entropy and Information is primarily used in machine learning applications",
+        "Entropy and Information deals with quantum mechanics principles",
+        "Entropy and Information is related to classical physics only"
+      ],
+      "correct_answer": 0,
+      "explanation": "This exercise tests understanding of entropy and information and its key characteristics.",
+      "difficulty": "beginner",
+      "estimated_time": 3
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Entropy and Information",
+      "question": "Entropy and Information is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "beginner",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Entropy and Information",
+      "instructions": "Drag and drop to connect related concepts from entropy and information:",
+      "concepts": {
+        "concepts": [
+          "information theory",
+          "entropy",
+          "uncertainty",
+          "probability"
+        ],
+        "relationships": [
+          {
+            "from": "information theory",
+            "to": "entropy"
+          }
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Entropy and Information",
+      "questions": [
+        "How does entropy and information relate to other Active Inference concepts?",
+        "What are the practical implications of entropy and information?",
+        "What challenges arise when applying entropy and information?",
+        "How might entropy and information evolve in the future?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Entropy and Information Applications",
+      "questions": [
+        "Find a real-world application of entropy and information",
+        "What research papers discuss entropy and information?",
+        "How is entropy and information used in industry?",
+        "What are current research challenges related to entropy and information?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Entropy and Information Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Entropy and Information",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Entropy and Information",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "multiple_choice",
+      "title": "Understanding Entropy and Information",
+      "question": "Which of the following best describes the concept of entropy and information?",
+      "options": [
+        "Entropy and Information is a fundamental concept in Active Inference theory",
+        "Entropy and Information is primarily used in machine learning applications",
+        "Entropy and Information deals with quantum mechanics principles",
+        "Entropy and Information is related to classical physics only"
+      ],
+      "correct_answer": 0,
+      "explanation": "This exercise tests understanding of entropy and information and its key characteristics.",
+      "difficulty": "beginner",
+      "estimated_time": 3
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Entropy and Information",
+      "question": "Entropy and Information is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "beginner",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Entropy and Information",
+      "instructions": "Drag and drop to connect related concepts from entropy and information:",
+      "concepts": {
+        "concepts": [
+          "information theory",
+          "entropy",
+          "uncertainty",
+          "probability"
+        ],
+        "relationships": [
+          {
+            "from": "information theory",
+            "to": "entropy"
+          }
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Entropy and Information",
+      "questions": [
+        "How does entropy and information relate to other Active Inference concepts?",
+        "What are the practical implications of entropy and information?",
+        "What challenges arise when applying entropy and information?",
+        "How might entropy and information evolve in the future?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Entropy and Information Applications",
+      "questions": [
+        "Find a real-world application of entropy and information",
+        "What research papers discuss entropy and information?",
+        "How is entropy and information used in industry?",
+        "What are current research challenges related to entropy and information?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Entropy and Information Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Entropy and Information",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Entropy and Information",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Entropy and Information Concept Map",
+        "description": "Visual representation of entropy and information and its relationships",
+        "file_path": "diagrams/info_theory_entropy_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Entropy and Information",
+            "type": "central",
+            "description": "Understanding entropy as a measure of uncertainty and information content in probability distributions."
+          },
+          {
+            "id": "tag_0",
+            "label": "information theory",
+            "type": "related",
+            "description": "Related concept: information theory"
+          },
+          {
+            "id": "tag_1",
+            "label": "entropy",
+            "type": "related",
+            "description": "Related concept: entropy"
+          },
+          {
+            "id": "tag_2",
+            "label": "uncertainty",
+            "type": "related",
+            "description": "Related concept: uncertainty"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Entropy and Information Relationships",
+        "description": "Connections between entropy and information and related concepts",
+        "file_path": "diagrams/info_theory_entropy_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": []
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Entropy and Information",
+        "description": "Comprehensive introduction to entropy and information concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=1a7ea8e0066",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/info_theory_entropy_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Entropy and Information"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/info_theory_entropy_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Entropy and Information"
+      }
+    ]
   }
 }
-

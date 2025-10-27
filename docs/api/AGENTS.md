@@ -101,70 +101,76 @@ class APIDocumentationGenerator:
         self.api_info: Dict[str, Any] = {}
         self.load_api_info()
 
-    def load_api_info(self) -> None:
-        """Load API information from source code"""
-        self.api_info = {
-            'modules': self.discover_modules(),
-            'classes': self.discover_classes(),
-            'functions': self.discover_functions(),
-            'endpoints': self.discover_endpoints()
+```python
+def load_api_info(self) -> None:
+    """Load API information from source code"""
+    self.api_info = {
+        'modules': self.discover_modules(),
+        'classes': self.discover_classes(),
+        'functions': self.discover_functions(),
+        'endpoints': self.discover_endpoints()
+    }
+```
+
+```python
+def discover_modules(self) -> List[Dict[str, Any]]:
+    """Discover Python modules and their documentation"""
+    modules = []
+
+    for module_file in self.source_path.rglob('*.py'):
+        if not module_file.name.startswith('_'):
+            module_info = self.extract_module_info(module_file)
+            if module_info:
+                modules.append(module_info)
+
+    return modules
+
+def extract_module_info(self, module_file: Path) -> Optional[Dict[str, Any]]:
+    """Extract information from Python module"""
+    try:
+        # Import module
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            f"module_{module_file.stem}",
+            module_file
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        # Extract module information
+        docstring = inspect.getdoc(module) or ""
+        members = self.get_module_members(module)
+
+        return {
+            'name': module.__name__,
+            'file': str(module_file.relative_to(self.source_path)),
+            'docstring': docstring,
+            'members': members,
+            'classes': [name for name, obj in members.items()
+                       if inspect.isclass(obj)],
+            'functions': [name for name, obj in members.items()
+                         if callable(obj) and not inspect.isclass(obj)]
+```
         }
 
-    def discover_modules(self) -> List[Dict[str, Any]]:
-        """Discover Python modules and their documentation"""
-        modules = []
+    except Exception as e:
+        print(f"Failed to extract info from {module_file}: {e}")
+        return None
 
-        for module_file in self.source_path.rglob('*.py'):
-            if not module_file.name.startswith('_'):
-                module_info = self.extract_module_info(module_file)
-                if module_info:
-                    modules.append(module_info)
-
-        return modules
-
-    def extract_module_info(self, module_file: Path) -> Optional[Dict[str, Any]]:
-        """Extract information from Python module"""
-        try:
-            # Import module
-            import importlib.util
-            spec = importlib.util.spec_from_file_location(
-                f"module_{module_file.stem}",
-                module_file
-            )
-            module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(module)
-
-            # Extract module information
-            docstring = inspect.getdoc(module) or ""
-            members = self.get_module_members(module)
-
-            return {
-                'name': module.__name__,
-                'file': str(module_file.relative_to(self.source_path)),
-                'docstring': docstring,
-                'members': members,
-                'classes': [name for name, obj in members.items()
-                           if inspect.isclass(obj)],
-                'functions': [name for name, obj in members.items()
-                             if callable(obj) and not inspect.isclass(obj)]
-            }
-
-        except Exception as e:
-            print(f"Failed to extract info from {module_file}: {e}")
-            return None
-
-    def get_module_members(self, module) -> Dict[str, Any]:
-        """Get public members of module"""
-        members = {}
-        for name in dir(module):
-            if not name.startswith('_'):
-                try:
-                    obj = getattr(module, name)
-                    if hasattr(obj, '__module__') and obj.__module__ == module.__name__:
-                        members[name] = obj
-                except:
-                    continue
-        return members
+```python
+def get_module_members(self, module) -> Dict[str, Any]:
+    """Get public members of module"""
+    members = {}
+    for name in dir(module):
+        if not name.startswith('_'):
+            try:
+                obj = getattr(module, name)
+                if hasattr(obj, '__module__') and obj.__module__ == module.__name__:
+                    members[name] = obj
+            except:
+                continue
+    return members
+```
 
     def discover_classes(self) -> List[Dict[str, Any]]:
         """Discover and document classes"""
@@ -553,4 +559,6 @@ class APIDocumentationValidator:
 ---
 
 *"Active Inference for, with, by Generative AI"* - Enabling seamless integration through comprehensive, well-documented APIs and clear integration patterns.
+
+
 

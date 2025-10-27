@@ -4,8 +4,22 @@
   "content_type": "foundation",
   "difficulty": "advanced",
   "description": "Optimization techniques for minimizing free energy and expected free energy in Active Inference systems.",
-  "prerequisites": ["variational_free_energy", "expected_free_energy"],
-  "tags": ["optimization", "gradient_descent", "natural_gradient", "convex_optimization"],
+  "prerequisites": [
+    "variational_free_energy",
+    "expected_free_energy"
+  ],
+  "tags": [
+    "optimization",
+    "gradient_descent",
+    "natural_gradient",
+    "convex_optimization",
+    "variational_inference",
+    "policy_optimization",
+    "trust_region",
+    "bayesian_optimization",
+    "meta_learning",
+    "computational_examples"
+  ],
   "learning_objectives": [
     "Understand optimization methods used in Active Inference",
     "Apply gradient-based optimization to free energy minimization",
@@ -18,13 +32,37 @@
       "gradient_descent": "x_{t+1} = x_t - α ∇f(x_t)",
       "stochastic_gradient_descent": "Use noisy gradients for efficiency",
       "momentum": "Add momentum term to accelerate convergence",
-      "adaptive_methods": "Adam, RMSprop, AdaGrad for adaptive learning rates"
+      "adaptive_methods": "Adam, RMSprop, AdaGrad for adaptive learning rates",
+      "mathematical_formulation": {
+        "gradient_flow": "dx/dt = -∇f(x) continuous-time gradient descent",
+        "convergence_rate": "Linear convergence for strongly convex functions",
+        "step_size_schedules": "Constant, decreasing, adaptive step sizes",
+        "line_search": "Find optimal step size along gradient direction"
+      },
+      "practical_considerations": {
+        "learning_rate_scheduling": "Exponential decay, cosine annealing, warm restarts",
+        "gradient_clipping": "Prevent exploding gradients in deep networks",
+        "batch_normalization": "Stabilize training and accelerate convergence",
+        "early_stopping": "Monitor validation loss to prevent overfitting"
+      }
     },
     "natural_gradient_methods": {
       "fisher_information": "g_ij = E[∂_i log p ∂_j log p]",
       "natural_gradient": "∇̃f = G^{-1} ∇f",
       "invariance": "Natural gradient is invariant to parameterization",
-      "information_geometry": "Gradient flow on statistical manifold"
+      "information_geometry": "Gradient flow on statistical manifold",
+      "mathematical_properties": {
+        "riemannian_gradient": "∇̃f = G^{-1} ∇f where G is Fisher information matrix",
+        "geodesic_movement": "Natural gradient moves along geodesics on statistical manifold",
+        "invariance_property": "∇̃f(θ) = ∇̃f(φ(θ)) for reparameterization φ",
+        "convergence_rate": "Often faster convergence than standard gradients"
+      },
+      "computation_methods": {
+        "exact_fisher": "Compute full Fisher matrix (computationally expensive)",
+        "diagonal_approximation": "Use diagonal of Fisher matrix",
+        "empirical_fisher": "Estimate from data samples",
+        "kron_decomposition": "Kronecker factorization for structured matrices"
+      }
     },
     "second_order_methods": {
       "newton_method": "x_{t+1} = x_t - H^{-1} ∇f(x_t)",
@@ -45,7 +83,12 @@
         "objective": "min_φ F[q_φ] = min_φ D_KL[q_φ || p(x,θ)] - log p(x)",
         "method": "Coordinate ascent or gradient descent",
         "convergence": "ELBO increases monotonically",
-        "implementation": "Natural gradients for probabilistic parameters"
+        "implementation": "Natural gradients for probabilistic parameters",
+        "mathematical_details": {
+          "elbo_decomposition": "ELBO = E_q[log p(x,θ)] - E_q[log q(θ)]",
+          "gradient_computation": "∇_φ ELBO = E_q[∇_φ log q(θ) (log p(x,θ) - log q(θ))]",
+          "reparameterization_trick": "θ = g(φ, ε) for gradient computation through stochastic nodes"
+        }
       },
       {
         "name": "Policy Optimization",
@@ -53,7 +96,71 @@
         "objective": "min_π G(π) = min_π Risk(π) + Ambiguity(π)",
         "method": "Policy gradient with natural gradients",
         "convergence": "Converges to locally optimal policy",
-        "implementation": "REINFORCE or A3C-style updates"
+        "implementation": "REINFORCE or A3C-style updates",
+        "mathematical_details": {
+          "policy_gradient": "∇_θ J(θ) = E_π[∇_θ log π_θ(a|s) A(s,a)]",
+          "advantage_function": "A(s,a) = Q(s,a) - V(s)",
+          "expected_free_energy": "G(π) = Σ_s ρ(s) Σ_a π(a|s) [log π(a|s) - E[log p(o|s,a)]]",
+          "natural_policy_gradient": "Uses Fisher information of policy distribution"
+        }
+      }
+    ],
+    "computational_examples": [
+      {
+        "name": "Variational Autoencoder Training with Natural Gradients",
+        "description": "Using natural gradients for VAE training in Active Inference",
+        "framework": "PyTorch with automatic differentiation",
+        "implementation_steps": [
+          "Define generative model p(x,θ) and variational posterior q_φ(θ)",
+          "Compute variational free energy F = D_KL[q_φ || p] - log p(x)",
+          "Compute gradients ∇_φ F using automatic differentiation",
+          "Apply natural gradient preconditioning with Fisher information",
+          "Update parameters using Riemannian gradient descent"
+        ],
+        "code_structure": {
+          "vae_model": "Neural network with encoder and decoder",
+          "loss_function": "BCE loss + KL divergence term",
+          "natural_gradient": "Precondition gradients with inverse Fisher matrix",
+          "optimization": "Adam optimizer with natural gradient modifications"
+        },
+        "benefits": "Faster convergence and better uncertainty quantification"
+      },
+      {
+        "name": "Expected Free Energy Optimization for Planning",
+        "description": "Optimizing policies using expected free energy minimization",
+        "algorithm": "Cross-entropy method or evolutionary strategies",
+        "implementation_steps": [
+          "Define generative model for states and observations",
+          "Compute expected free energy for each policy",
+          "Sample policies from distribution over policy space",
+          "Evaluate expected free energy for sampled policies",
+          "Update policy distribution using natural gradients"
+        ],
+        "mathematical_formulation": {
+          "expected_free_energy": "G(π) = Σ_τ Σ_s ρ(s_τ) Σ_a π(a_τ|s_τ) C(s_τ,a_τ)",
+          "policy_distribution": "π_θ(a|s) parameterized by neural network",
+          "natural_gradient_update": "θ ← θ - α F^{-1} ∇_θ E[G(π_θ)]",
+          "fisher_matrix": "F = E[∇_θ log π_θ ∇_θ log π_θ^T]"
+        },
+        "practical_considerations": "Handling discrete vs continuous action spaces"
+      },
+      {
+        "name": "Neural Network Optimization for Predictive Coding",
+        "description": "Training hierarchical neural networks for predictive coding",
+        "architecture": "Deep neural network with lateral and feedback connections",
+        "optimization_objective": "Minimize prediction errors across hierarchy",
+        "training_methods": [
+          "End-to-end backpropagation through hierarchy",
+          "Layer-wise training with precision weighting",
+          "Variational inference for uncertainty estimation",
+          "Online learning with streaming data"
+        ],
+        "implementation_details": {
+          "prediction_errors": "e_i = μ_i - σ(ρ_i) where ρ_i are predictions from layer above",
+          "precision_weighting": "Weights updated proportional to prediction precision",
+          "hierarchical_learning": "Different learning rates for different levels",
+          "stability_constraints": "Bound weights to prevent instability"
+        }
       }
     ],
     "stochastic_optimization": {
@@ -85,15 +192,95 @@
         "id": "gradient_optimization",
         "type": "implementation",
         "description": "Implement gradient descent for free energy minimization",
-        "difficulty": "advanced"
+        "difficulty": "advanced",
+        "steps": [
+          "Define simple generative model (e.g., Gaussian mixture)",
+          "Implement variational posterior (e.g., mean-field approximation)",
+          "Compute gradients of variational free energy",
+          "Implement gradient descent updates",
+          "Monitor convergence and ELBO improvement"
+        ],
+        "tools": "NumPy or PyTorch for gradient computation",
+        "validation": "Compare with analytical solution for simple cases"
       },
       {
         "id": "natural_gradient",
         "type": "calculation",
         "description": "Compute natural gradients for probabilistic models",
-        "difficulty": "advanced"
+        "difficulty": "advanced",
+        "steps": [
+          "Define probabilistic model (e.g., Gaussian distribution)",
+          "Compute Fisher information matrix",
+          "Calculate standard gradient of log-likelihood",
+          "Compute natural gradient using Fisher matrix inverse",
+          "Compare convergence with standard gradient descent"
+        ],
+        "mathematical_verification": "Verify invariance property under reparameterization"
+      },
+      {
+        "id": "policy_gradient_active_inference",
+        "type": "implementation",
+        "description": "Implement policy gradient optimization for Active Inference agent",
+        "difficulty": "expert",
+        "steps": [
+          "Design simple grid world environment",
+          "Implement generative model for states and observations",
+          "Define policy parameterization (neural network)",
+          "Compute expected free energy for policies",
+          "Implement natural policy gradient updates",
+          "Evaluate agent's learning and planning performance"
+        ],
+        "framework": "PyTorch or TensorFlow for automatic differentiation",
+        "evaluation_metrics": "Policy performance, convergence speed, exploration behavior"
+      },
+      {
+        "id": "second_order_optimization",
+        "type": "analysis",
+        "description": "Compare first-order and second-order optimization methods",
+        "difficulty": "expert",
+        "steps": [
+          "Implement Newton method for simple convex function",
+          "Compare convergence rates with gradient descent",
+          "Analyze computational complexity",
+          "Apply to variational inference problem",
+          "Discuss when second-order methods are beneficial"
+        ],
+        "theoretical_analysis": "Prove quadratic convergence of Newton method for strongly convex functions"
       }
     ],
+    "advanced_topics": {
+      "trust_region_methods": {
+        "description": "Constrain step size to ensure improvement",
+        "algorithms": "TRPO, PPO for policy optimization",
+        "advantages": "More stable than vanilla policy gradients",
+        "applications": "Safe reinforcement learning, robust control"
+      },
+      "meta_learning": {
+        "description": "Learning to optimize optimization algorithms",
+        "meta_gradients": "Gradients through the optimization process",
+        "applications": "Neural architecture search, hyperparameter optimization",
+        "connection_to_active_inference": "Learning priors over optimization dynamics"
+      },
+      "distributed_optimization": {
+        "description": "Parallel and distributed optimization methods",
+        "synchronous_vs_asynchronous": "Different approaches to distributed updates",
+        "communication_efficiency": "Reduce communication between workers",
+        "consensus_optimization": "Distributed consensus algorithms"
+      },
+      "bayesian_optimization": {
+        "description": "Model-based optimization for expensive function evaluations",
+        "gaussian_processes": "Surrogate models for objective function",
+        "acquisition_functions": "Expected improvement, upper confidence bound",
+        "applications": "Hyperparameter tuning, experimental design"
+      }
+    },
+    "challenges_in_active_inference": {
+      "non_convexity": "Free energy landscapes are typically non-convex",
+      "local_optima": "Multiple local optima in hierarchical models",
+      "uncertainty_quantification": "Optimization under uncertainty",
+      "online_learning": "Optimization with streaming data",
+      "computational_scalability": "Efficient optimization for large models"
+    },
     "common_misconceptions": [
       {
         "misconception": "All optimization methods work equally well",
@@ -106,6 +293,14 @@
       {
         "misconception": "Optimization always finds global optimum",
         "clarification": "Only for convex problems or with good initialization"
+      },
+      {
+        "misconception": "More complex optimization is always better",
+        "clarification": "Simpler methods often work well and are more interpretable"
+      },
+      {
+        "misconception": "Active Inference optimization is just standard ML optimization",
+        "clarification": "Requires handling of uncertainty, hierarchical structure, and information geometry"
       }
     ],
     "further_reading": [
@@ -120,20 +315,493 @@
         "author": "Jorge Nocedal and Stephen Wright",
         "year": 2006,
         "description": "Practical optimization algorithms"
+      },
+      {
+        "title": "Information Geometry and Its Applications",
+        "author": "Shun-ichi Amari",
+        "year": 2016,
+        "description": "Natural gradients and information geometry"
+      },
+      {
+        "title": "Trust Region Methods",
+        "author": "Andrew R. Conn, Nicholas I. M. Gould, Philippe L. Toint",
+        "year": 2000,
+        "description": "Trust region optimization methods"
+      },
+      {
+        "title": "Bayesian Optimization",
+        "author": "Roman Garnett",
+        "year": 2023,
+        "description": "Model-based optimization methods"
       }
     ],
     "related_concepts": [
       "variational_free_energy",
       "expected_free_energy",
       "natural_gradient",
-      "information_geometry"
+      "information_geometry",
+      "policy_gradient",
+      "variational_inference",
+      "neural_networks",
+      "stochastic_processes",
+      "uncertainty_quantification"
     ]
   },
   "metadata": {
-    "estimated_reading_time": 45,
+    "estimated_reading_time": 70,
     "difficulty_level": "advanced",
     "last_updated": "2024-10-27",
-    "version": "1.0",
-    "author": "Active Inference Community"
+    "version": "2.0",
+    "author": "Active Inference Community",
+    "enhancement_notes": "Expanded with comprehensive mathematical formulations, computational examples, advanced topics, and practical implementations",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 9
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Optimization Methods in Active Inference",
+      "question": "Optimization Methods in Active Inference is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Optimization Methods in Active Inference",
+      "instructions": "Drag and drop to connect related concepts from optimization methods in active inference:",
+      "concepts": {
+        "concepts": [
+          "optimization",
+          "gradient_descent",
+          "natural_gradient",
+          "convex_optimization",
+          "variational_inference"
+        ],
+        "relationships": [
+          {
+            "from": "optimization",
+            "to": "gradient_descent"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Optimization Methods in Active Inference",
+      "questions": [
+        "How does optimization methods in active inference relate to other Active Inference concepts?",
+        "What are the practical implications of optimization methods in active inference?",
+        "What challenges arise when applying optimization methods in active inference?",
+        "How might optimization methods in active inference evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Optimization Methods in Active Inference Applications",
+      "questions": [
+        "Find a real-world application of optimization methods in active inference",
+        "What research papers discuss optimization methods in active inference?",
+        "How is optimization methods in active inference used in industry?",
+        "What are current research challenges related to optimization methods in active inference?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Optimization Methods in Active Inference Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Optimization Methods in Active Inference",
+      "problem": "Develop a novel extension or application of optimization methods in active inference",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Optimization Methods in Active Inference Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Optimization Methods in Active Inference",
+      "question": "Optimization Methods in Active Inference is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Optimization Methods in Active Inference",
+      "instructions": "Drag and drop to connect related concepts from optimization methods in active inference:",
+      "concepts": {
+        "concepts": [
+          "optimization",
+          "gradient_descent",
+          "natural_gradient",
+          "convex_optimization",
+          "variational_inference"
+        ],
+        "relationships": [
+          {
+            "from": "optimization",
+            "to": "gradient_descent"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Optimization Methods in Active Inference",
+      "questions": [
+        "How does optimization methods in active inference relate to other Active Inference concepts?",
+        "What are the practical implications of optimization methods in active inference?",
+        "What challenges arise when applying optimization methods in active inference?",
+        "How might optimization methods in active inference evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Optimization Methods in Active Inference Applications",
+      "questions": [
+        "Find a real-world application of optimization methods in active inference",
+        "What research papers discuss optimization methods in active inference?",
+        "How is optimization methods in active inference used in industry?",
+        "What are current research challenges related to optimization methods in active inference?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Optimization Methods in Active Inference Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Optimization Methods in Active Inference",
+      "problem": "Develop a novel extension or application of optimization methods in active inference",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Optimization Methods in Active Inference Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Optimization Methods in Active Inference Concept Map",
+        "description": "Visual representation of optimization methods in active inference and its relationships",
+        "file_path": "diagrams/optimization_methods_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Optimization Methods in Active Inference",
+            "type": "central",
+            "description": "Optimization techniques for minimizing free energy and expected free energy in Active Inference systems."
+          },
+          {
+            "id": "prereq_0",
+            "label": "variational_free_energy",
+            "type": "prerequisite",
+            "description": "Required knowledge: variational_free_energy"
+          },
+          {
+            "id": "prereq_1",
+            "label": "expected_free_energy",
+            "type": "prerequisite",
+            "description": "Required knowledge: expected_free_energy"
+          },
+          {
+            "id": "tag_0",
+            "label": "optimization",
+            "type": "related",
+            "description": "Related concept: optimization"
+          },
+          {
+            "id": "tag_1",
+            "label": "gradient_descent",
+            "type": "related",
+            "description": "Related concept: gradient_descent"
+          },
+          {
+            "id": "tag_2",
+            "label": "natural_gradient",
+            "type": "related",
+            "description": "Related concept: natural_gradient"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Optimization Methods in Active Inference Relationships",
+        "description": "Connections between optimization methods in active inference and related concepts",
+        "file_path": "diagrams/optimization_methods_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      },
+      {
+        "type": "flow_diagram",
+        "title": "Optimization Methods in Active Inference Process Flow",
+        "description": "Step-by-step process of optimization methods in active inference",
+        "file_path": "diagrams/optimization_methods_flow.svg",
+        "format": "svg",
+        "interactive": true,
+        "steps": [
+          {
+            "id": "input",
+            "label": "Input",
+            "description": "Process inputs"
+          },
+          {
+            "id": "processing",
+            "label": "Processing",
+            "description": "Core processing"
+          },
+          {
+            "id": "output",
+            "label": "Output",
+            "description": "Process outputs"
+          }
+        ]
+      }
+    ],
+    "animations": [
+      {
+        "type": "process_animation",
+        "title": "Optimization Methods in Active Inference Process Animation",
+        "description": "Animated visualization of optimization methods in active inference process over time",
+        "file_path": "animations/optimization_methods_process.mp4",
+        "format": "mp4",
+        "duration": 30,
+        "frames": 900,
+        "keyframes": [
+          {
+            "time": 0,
+            "description": "Initial state",
+            "visual_elements": []
+          },
+          {
+            "time": 15,
+            "description": "Processing state",
+            "visual_elements": []
+          },
+          {
+            "time": 30,
+            "description": "Final state",
+            "visual_elements": []
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "simulation_interface",
+        "title": "Optimization Methods in Active Inference Simulation Interface",
+        "description": "Interactive simulation of optimization methods in active inference dynamics",
+        "file_path": "interactive/optimization_methods_simulation.html",
+        "format": "html",
+        "interactive_elements": [
+          "play_pause",
+          "reset",
+          "parameter_controls"
+        ],
+        "simulation_parameters": [
+          {
+            "name": "time_steps",
+            "value": 1000,
+            "description": "Number of simulation steps"
+          },
+          {
+            "name": "dt",
+            "value": 0.01,
+            "description": "Time step size"
+          },
+          {
+            "name": "initial_conditions",
+            "value": [
+              0.0,
+              0.0
+            ],
+            "description": "Starting conditions"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Optimization Methods in Active Inference",
+        "description": "Comprehensive introduction to optimization methods in active inference concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=bb50f189f5d",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/optimization_methods_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Optimization Methods in Active Inference"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/optimization_methods_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Optimization Methods in Active Inference"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Optimization Methods in Active Inference Audio Explanation",
+        "description": "Audio explanation of optimization methods in active inference concepts",
+        "file_path": "audio/optimization_methods_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

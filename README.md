@@ -62,6 +62,276 @@ The Active Inference Knowledge Environment is the most comprehensive, accessible
 
 🖥️ **[Platform Documentation](platform/README.md)** | 🤖 **[Platform AGENTS.md](platform/AGENTS.md)**
 
+## 🏛️ Architecture Diagrams
+
+### System Architecture Overview
+```mermaid
+graph TB
+    subgraph "User Interface Layer"
+        UI[Web Interface<br/>CLI<br/>REST API]
+    end
+
+    subgraph "Application Layer"
+        subgraph "Knowledge System"
+            KR[Knowledge Repository]
+            LP[Learning Paths]
+            LL[LLM Integration]
+        end
+
+        subgraph "Research Framework"
+            EXP[Experiments]
+            SIM[Simulations]
+            ANA[Analysis Tools]
+            BEN[Benchmarks]
+        end
+
+        subgraph "Visualization Engine"
+            DIA[Interactive Diagrams]
+            DASH[Dashboards]
+            ANIM[Animations]
+            COMP[Comparative Analysis]
+        end
+    end
+
+    subgraph "Platform Infrastructure"
+        subgraph "Core Services"
+            KG[Knowledge Graph]
+            SEARCH[Intelligent Search]
+            COLLAB[Collaboration Hub]
+        end
+
+        subgraph "Data Management"
+            DB[(Knowledge Store)]
+            CACHE[(Cache Layer)]
+            FILES[(File Storage)]
+        end
+    end
+
+    subgraph "Quality & Development"
+        QA[Testing Framework]
+        DOC[Documentation Tools]
+        ORCH[Orchestrators]
+    end
+
+    UI --> KR
+    UI --> EXP
+    UI --> DIA
+
+    KR --> KG
+    EXP --> ANA
+    SIM --> BEN
+
+    KG --> DB
+    SEARCH --> DB
+    COLLAB --> CACHE
+
+    QA -.-> KR
+    QA -.-> EXP
+    QA -.-> DIA
+
+    DOC -.-> KR
+    DOC -.-> EXP
+    DOC -.-> DIA
+
+    ORCH -.-> KG
+    ORCH -.-> SEARCH
+    ORCH -.-> COLLAB
+
+    classDef primary fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef secondary fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef infrastructure fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef quality fill:#fff3e0,stroke:#e65100,stroke-width:2px
+
+    class UI,KR,EXP,DIA primary
+    class KG,SEARCH,COLLAB,DB,CACHE,FILES infrastructure
+    class QA,DOC,ORCH quality
+```
+
+### Component Relationship Flow
+```mermaid
+flowchart LR
+    subgraph "Input Sources"
+        API[REST API]
+        CLI[Command Line]
+        WEB[Web Interface]
+    end
+
+    subgraph "Core Processing"
+        KG[Knowledge Graph<br/>Engine]
+        SEARCH[Search &<br/>Retrieval]
+        LLM[LLM Integration<br/>Layer]
+    end
+
+    subgraph "Specialized Systems"
+        KNOWLEDGE[Knowledge<br/>Management]
+        RESEARCH[Research<br/>Framework]
+        VISUAL[Visualization<br/>Engine]
+        APPS[Applications<br/>Framework]
+    end
+
+    subgraph "Data & Storage"
+        DB[(Primary<br/>Database)]
+        CACHE[(Cache<br/>Layer)]
+        FILES[(File<br/>Storage)]
+    end
+
+    subgraph "Quality Assurance"
+        TESTS[Automated<br/>Testing]
+        VALIDATION[Content<br/>Validation]
+    end
+
+    API --> KG
+    CLI --> KG
+    WEB --> KG
+
+    KG --> SEARCH
+    SEARCH --> LLM
+    LLM --> KNOWLEDGE
+
+    KNOWLEDGE --> RESEARCH
+    RESEARCH --> VISUAL
+    VISUAL --> APPS
+
+    KNOWLEDGE --> DB
+    RESEARCH --> CACHE
+    APPS --> FILES
+
+    TESTS -.-> KNOWLEDGE
+    TESTS -.-> RESEARCH
+    TESTS -.-> VISUAL
+    TESTS -.-> APPS
+
+    VALIDATION -.-> DB
+    VALIDATION -.-> CACHE
+
+    classDef input fill:#bbdefb,stroke:#1976d2
+    classDef processing fill:#c8e6c9,stroke:#388e3c
+    classDef specialized fill:#fff3e0,stroke:#f57c00
+    classDef storage fill:#f3e5f5,stroke:#7b1fa2
+    classDef quality fill:#fce4ec,stroke:#c2185b
+
+    class API,CLI,WEB input
+    class KG,SEARCH,LLM processing
+    class KNOWLEDGE,RESEARCH,VISUAL,APPS specialized
+    class DB,CACHE,FILES storage
+    class TESTS,VALIDATION quality
+```
+
+### Learning Pathways Flow
+```mermaid
+graph TD
+    START([Begin Learning<br/>Journey]) --> ASSESSMENT{Assessment<br/>Level?}
+
+    ASSESSMENT -->|Beginner| FOUNDATIONS[Foundations Track<br/>40 hours]
+    ASSESSMENT -->|Intermediate| RESEARCH[Research Track<br/>35 hours]
+    ASSESSMENT -->|Advanced| APPLICATIONS[Applications Track<br/>30 hours]
+
+    FOUNDATIONS --> INFO[Information Theory<br/>Basics • 8h]
+    INFO --> BAYES[Bayesian<br/>Fundamentals • 10h]
+    BAYES --> FEP[Free Energy<br/>Principle • 15h]
+    FEP --> AIF[Active Inference<br/>Framework • 12h]
+
+    RESEARCH --> COMPUTE[Computational<br/>Models • 10h]
+    COMPUTE --> ADV_SIM[Advanced<br/>Simulation • 10h]
+    ADV_SIM --> STAT_ANALYSIS[Statistical<br/>Analysis • 10h]
+    STAT_ANALYSIS --> EXP_DESIGN[Experimental<br/>Design • 5h]
+
+    APPLICATIONS --> IMP_PATTERNS[Implementation<br/>Patterns • 8h]
+    IMP_PATTERNS --> INTEGRATION[Integration<br/>Strategies • 8h]
+    INTEGRATION --> PERF_OPT[Performance<br/>Optimization • 8h]
+    PERF_OPT --> DEPLOY[Production<br/>Deployment • 6h]
+
+    AIF --> ADVANCED_CERT[Advanced<br/>Certification]
+    EXP_DESIGN --> RESEARCH_CERT[Research<br/>Certification]
+    DEPLOY --> PRACTITIONER_CERT[Practitioner<br/>Certification]
+
+    ADVANCED_CERT --> MASTERS[Master Level<br/>Tracks]
+    RESEARCH_CERT --> MASTERS
+    PRACTITIONER_CERT --> MASTERS
+
+    MASTERS --> CONTRIBUTE[Contribute to<br/>Platform]
+
+    classDef start fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px
+    classDef track fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef module fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef certification fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef advanced fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+    class START start
+    class FOUNDATIONS,RESEARCH,APPLICATIONS track
+    class INFO,BAYES,FEP,AIF,COMPUTE,ADV_SIM,STAT_ANALYSIS,EXP_DESIGN,IMP_PATTERNS,INTEGRATION,PERF_OPT,DEPLOY module
+    class ADVANCED_CERT,RESEARCH_CERT,PRACTITIONER_CERT certification
+    class MASTERS,CONTRIBUTE advanced
+```
+
+### Data Flow Architecture
+```mermaid
+flowchart TD
+    subgraph "Data Sources"
+        K_CONTENT[Knowledge Content<br/>JSON Files]
+        R_DATA[Research Data<br/>HDF5/CSV]
+        U_INPUT[User Input<br/>API/CLI/Web]
+        EXT_DATA[External Systems<br/>APIs/Databases]
+    end
+
+    subgraph "Ingestion & Processing"
+        VALIDATOR[Content<br/>Validator]
+        PARSER[Data<br/>Parser]
+        ENRICHER[Data<br/>Enricher]
+        LLM_PROC[LLM<br/>Processing]
+    end
+
+    subgraph "Core Storage"
+        KG[(Knowledge<br/>Graph)]
+        VECTORS[(Vector<br/>Embeddings)]
+        METADATA[(Metadata<br/>Store)]
+    end
+
+    subgraph "Processing Engines"
+        SEARCH_ENG[Search<br/>Engine]
+        ANALYTICS[Analytics<br/>Engine]
+        VIS_ENG[Visualization<br/>Engine]
+    end
+
+    subgraph "Output & Delivery"
+        API_RESP[API<br/>Responses]
+        VIS_OUTPUT[Visual<br/>Outputs]
+        REPORTS[Reports &<br/>Exports]
+        RECOMMENDATIONS[Personalized<br/>Recommendations]
+    end
+
+    K_CONTENT --> VALIDATOR
+    R_DATA --> PARSER
+    U_INPUT --> ENRICHER
+    EXT_DATA --> LLM_PROC
+
+    VALIDATOR --> KG
+    PARSER --> VECTORS
+    ENRICHER --> METADATA
+    LLM_PROC --> KG
+
+    KG --> SEARCH_ENG
+    VECTORS --> ANALYTICS
+    METADATA --> VIS_ENG
+
+    SEARCH_ENG --> API_RESP
+    ANALYTICS --> REPORTS
+    VIS_ENG --> VIS_OUTPUT
+    KG --> RECOMMENDATIONS
+
+    classDef sources fill:#e8f5e8,stroke:#2e7d32
+    classDef processing fill:#fff3e0,stroke:#ef6c00
+    classDef storage fill:#e3f2fd,stroke:#1976d2
+    classDef engines fill:#f3e5f5,stroke:#7b1fa2
+    classDef output fill:#fce4ec,stroke:#c2185b
+
+    class K_CONTENT,R_DATA,U_INPUT,EXT_DATA sources
+    class VALIDATOR,PARSER,ENRICHER,LLM_PROC processing
+    class KG,VECTORS,METADATA storage
+    class SEARCH_ENG,ANALYTICS,VIS_ENG engines
+    class API_RESP,VIS_OUTPUT,REPORTS,RECOMMENDATIONS output
+```
+
 #### 🧪 Quality Assurance (`tests/`)
 **Testing & Validation**
 - **Unit Tests**: Individual component functionality
@@ -88,73 +358,243 @@ The Active Inference Knowledge Environment is the most comprehensive, accessible
 active_inference/
 ├── 📖 knowledge/                     # Educational content & learning paths
 │   ├── 🏗️ foundations/               # Core theoretical concepts
+│   │   ├── 📖 README.md              # Foundations overview & navigation
+│   │   └── 🤖 AGENTS.md              # Agent guidelines for foundations
 │   ├── 📐 mathematics/               # Mathematical formulations & derivations
+│   │   ├── 📖 README.md              # Mathematics overview & navigation
+│   │   └── 🤖 AGENTS.md              # Agent guidelines for mathematics
 │   ├── 💻 implementations/           # Code examples & tutorials
+│   │   ├── 📖 README.md              # Implementations overview & navigation
+│   │   └── 🤖 AGENTS.md              # Agent guidelines for implementations
 │   ├── 🌍 applications/              # Real-world use cases & domain content
-│   └── 🎯 learning_paths.json        # Structured learning tracks
+│   │   ├── 📖 README.md              # Applications overview & navigation
+│   │   └── 🤖 AGENTS.md              # Agent guidelines for applications
+│   ├── 🎯 learning_paths.json        # Structured learning tracks
+│   ├── 📖 README.md                  # Knowledge system overview
+│   └── 🤖 AGENTS.md                  # Knowledge agent guidelines
 │
 ├── 🔬 research/                      # Research tools & scientific methods
 │   ├── 🧪 experiments/               # Reproducible research pipelines
+│   │   ├── 📖 README.md              # Experiments overview
+│   │   └── 🤖 AGENTS.md              # Experiments agent guidelines
 │   ├── 🧮 simulations/               # Multi-scale modeling & simulation
+│   │   ├── 📖 README.md              # Simulations overview
+│   │   └── 🤖 AGENTS.md              # Simulations agent guidelines
 │   ├── 📊 analysis/                  # Statistical & information-theoretic analysis
-│   └── 🏆 benchmarks/                # Performance evaluation & comparison
+│   │   ├── 📖 README.md              # Analysis overview
+│   │   └── 🤖 AGENTS.md              # Analysis agent guidelines
+│   ├── 🏆 benchmarks/                # Performance evaluation & comparison
+│   │   ├── 📖 README.md              # Benchmarks overview
+│   │   └── 🤖 AGENTS.md              # Benchmarks agent guidelines
+│   ├── 📖 README.md                  # Research framework overview
+│   └── 🤖 AGENTS.md                  # Research agent guidelines
 │
 ├── 👁️ visualization/                # Interactive exploration & visualization
 │   ├── 📈 diagrams/                  # Concept diagrams & visual explanations
 │   ├── 📋 dashboards/                # Interactive exploration interfaces
 │   ├── 🎬 animations/                # Educational animations & demonstrations
-│   └── ⚖️ comparative/               # Model comparison & analysis tools
+│   ├── ⚖️ comparative/               # Model comparison & analysis tools
+│   ├── 📖 README.md                  # Visualization system overview
+│   └── 🤖 AGENTS.md                  # Visualization agent guidelines
 │
 ├── 🛠️ applications/                 # Practical applications & implementations
 │   ├── 📋 templates/                 # Ready-to-use implementation templates
+│   │   ├── 📖 README.md              # Templates overview
+│   │   └── 🤖 AGENTS.md              # Templates agent guidelines
 │   ├── 📚 case_studies/              # Real-world application examples
+│   │   ├── 📖 README.md              # Case studies overview
+│   │   └── 🤖 AGENTS.md              # Case studies agent guidelines
 │   ├── 🔗 integrations/              # External system connectors & APIs
+│   │   ├── 📖 README.md              # Integrations overview
+│   │   └── 🤖 AGENTS.md              # Integrations agent guidelines
 │   ├── 📖 best_practices/            # Architectural guidelines & patterns
-│   └── 🌍 domains/                   # Domain-specific applications
-│       ├── 🤖 artificial_intelligence
-│       ├── 🎓 education
-│       ├── ⚙️ engineering
-│       ├── 🧠 neuroscience
-│       ├── 🧑‍🤝‍🧑 psychology
-│       └── 🤖 robotics
+│   │   ├── 📖 README.md              # Best practices overview
+│   │   └── 🤖 AGENTS.md              # Best practices agent guidelines
+│   ├── 🌍 domains/                   # Domain-specific applications
+│   │   ├── 🤖 artificial_intelligence
+│   │   │   ├── 📖 README.md          # AI applications overview
+│   │   │   └── 🤖 AGENTS.md          # AI applications agent guidelines
+│   │   ├── 🎓 education
+│   │   │   ├── 📖 README.md          # Education applications overview
+│   │   │   └── 🤖 AGENTS.md          # Education applications agent guidelines
+│   │   ├── ⚙️ engineering
+│   │   │   ├── 📖 README.md          # Engineering applications overview
+│   │   │   └── 🤖 AGENTS.md          # Engineering applications agent guidelines
+│   │   ├── 🧠 neuroscience
+│   │   │   ├── 📖 README.md          # Neuroscience applications overview
+│   │   │   └── 🤖 AGENTS.md          # Neuroscience applications agent guidelines
+│   │   ├── 🧑‍🤝‍🧑 psychology
+│   │   │   ├── 📖 README.md          # Psychology applications overview
+│   │   │   └── 🤖 AGENTS.md          # Psychology applications agent guidelines
+│   │   └── 🤖 robotics
+│   │       ├── 📖 README.md          # Robotics applications overview
+│   │       └── 🤖 AGENTS.md          # Robotics applications agent guidelines
+│   ├── 📖 README.md                  # Applications framework overview
+│   └── 🤖 AGENTS.md                  # Applications agent guidelines
 │
 ├── 🖥️ platform/                     # Platform infrastructure & services
 │   ├── 🌐 serve.py                   # Main platform server
 │   ├── 🧠 knowledge_graph/           # Semantic knowledge representation
+│   │   ├── 📖 README.md              # Knowledge graph overview
+│   │   └── 🤖 AGENTS.md              # Knowledge graph agent guidelines
 │   ├── 🔍 search/                    # Intelligent search & retrieval
+│   │   ├── 📖 README.md              # Search system overview
+│   │   └── 🤖 AGENTS.md              # Search system agent guidelines
 │   ├── 🤝 collaboration/             # Multi-user collaboration features
-│   └── 🚀 deployment/                # Deployment & scaling infrastructure
+│   │   ├── 📖 README.md              # Collaboration features overview
+│   │   └── 🤖 AGENTS.md              # Collaboration agent guidelines
+│   ├── 🚀 deployment/                # Deployment & scaling infrastructure
+│   │   ├── 📖 README.md              # Deployment overview
+│   │   └── 🤖 AGENTS.md              # Deployment agent guidelines
+│   ├── 📖 README.md                  # Platform infrastructure overview
+│   └── 🤖 AGENTS.md                  # Platform agent guidelines
 │
 ├── 🧪 tests/                         # Comprehensive testing & validation
 │   ├── 🧪 unit/                      # Unit tests for components
+│   │   ├── 📖 README.md              # Unit testing overview
+│   │   └── 🤖 AGENTS.md              # Unit testing agent guidelines
 │   ├── 🔗 integration/               # Integration tests for systems
-│   └── 📚 knowledge/                 # Knowledge content validation
+│   │   ├── 📖 README.md              # Integration testing overview
+│   │   └── 🤖 AGENTS.md              # Integration testing agent guidelines
+│   ├── 📚 knowledge/                 # Knowledge content validation
+│   │   ├── 📖 README.md              # Knowledge testing overview
+│   │   └── 🤖 AGENTS.md              # Knowledge testing agent guidelines
+│   ├── ⚡ performance/                # Performance tests
+│   │   ├── 📖 README.md              # Performance testing overview
+│   │   └── 🤖 AGENTS.md              # Performance testing agent guidelines
+│   ├── 🔒 security/                  # Security tests
+│   │   ├── 📖 README.md              # Security testing overview
+│   │   └── 🤖 AGENTS.md              # Security testing agent guidelines
+│   ├── 🛠️ utilities/                 # Test utilities
+│   │   ├── 📖 README.md              # Test utilities overview
+│   │   └── 🤖 AGENTS.md              # Test utilities agent guidelines
+│   ├── 🧪 fixtures/                  # Test fixtures
+│   │   ├── 📖 README.md              # Test fixtures overview
+│   │   └── 🤖 AGENTS.md              # Test fixtures agent guidelines
+│   ├── 📖 README.md                  # Testing framework overview
+│   └── 🤖 AGENTS.md                  # Testing agent guidelines
 │
 ├── 🛠️ tools/                        # Development & orchestration tools
 │   ├── 📖 documentation/             # Documentation generation tools
+│   │   ├── 📖 README.md              # Documentation tools overview
+│   │   └── 🤖 AGENTS.md              # Documentation tools agent guidelines
 │   ├── 🎼 orchestrators/             # Thin orchestration components
+│   │   ├── 📖 README.md              # Orchestrators overview
+│   │   └── 🤖 AGENTS.md              # Orchestrators agent guidelines
 │   ├── 🧪 testing/                   # Testing frameworks & utilities
-│   └── 🔧 utilities/                 # Helper functions & development tools
+│   │   ├── 📖 README.md              # Testing tools overview
+│   │   └── 🤖 AGENTS.md              # Testing tools agent guidelines
+│   ├── 🔧 utilities/                 # Helper functions & development tools
+│   │   ├── 📖 README.md              # Utilities overview
+│   │   └── 🤖 AGENTS.md              # Utilities agent guidelines
+│   ├── 📖 README.md                  # Development tools overview
+│   └── 🤖 AGENTS.md                  # Development tools agent guidelines
 │
 ├── 📦 src/                          # Source code packages
 │   └── 🧠 active_inference/          # Main Python package
 │       ├── 💻 applications/          # Application framework implementations
+│       │   ├── 📖 README.md          # Applications implementation overview
+│       │   └── 🤖 AGENTS.md          # Applications implementation guidelines
 │       ├── 📚 knowledge/             # Knowledge management systems
+│       │   ├── 📖 README.md          # Knowledge systems overview
+│       │   └── 🤖 AGENTS.md          # Knowledge systems guidelines
 │       ├── 🖥️ platform/              # Platform service implementations
+│       │   ├── 📖 README.md          # Platform services overview
+│       │   └── 🤖 AGENTS.md          # Platform services guidelines
 │       ├── 🔬 research/              # Research tool implementations
+│       │   ├── 📖 README.md          # Research tools overview
+│       │   └── 🤖 AGENTS.md          # Research tools guidelines
 │       ├── 🛠️ tools/                 # Development tool implementations
-│       └── 👁️ visualization/         # Visualization system implementations
+│       │   ├── 📖 README.md          # Development tools overview
+│       │   └── 🤖 AGENTS.md          # Development tools guidelines
+│       ├── 👁️ visualization/         # Visualization system implementations
+│       │   ├── 📖 README.md          # Visualization systems overview
+│       │   └── 🤖 AGENTS.md          # Visualization systems guidelines
+│       ├── 📖 README.md              # Source code overview
+│       └── 🤖 AGENTS.md              # Source code agent guidelines
 │
 └── 📖 docs/                         # Comprehensive documentation
     ├── 🌐 _static/                   # Static documentation assets
     ├── 📋 _templates/                # Documentation templates
     ├── 🔌 api/                       # API reference documentation
+    │   ├── 📖 README.md              # API documentation overview
+    │   └── 🤖 AGENTS.md              # API documentation guidelines
     ├── 🛠️ applications/              # Applications documentation
+    │   ├── 📖 README.md              # Applications docs overview
+    │   └── 🤖 AGENTS.md              # Applications docs guidelines
     ├── 📚 knowledge/                 # Knowledge documentation
+    │   ├── 📖 foundations/           # Foundations documentation
+    │   │   ├── 📖 README.md          # Foundations docs overview
+    │   │   └── 🤖 AGENTS.md          # Foundations docs guidelines
+    │   ├── 📖 README.md              # Knowledge docs overview
+    │   └── 🤖 AGENTS.md              # Knowledge docs guidelines
     ├── 🖥️ platform/                  # Platform documentation
+    │   ├── 📖 README.md              # Platform docs overview
+    │   └── 🤖 AGENTS.md              # Platform docs guidelines
     ├── 🔬 research/                  # Research documentation
-    └── 👁️ visualization/             # Visualization documentation
+    │   ├── 📖 analysis/              # Analysis documentation
+    │   │   ├── 📖 README.md          # Analysis docs overview
+    │   │   └── 🤖 AGENTS.md          # Analysis docs guidelines
+    │   ├── 📖 README.md              # Research docs overview
+    │   └── 🤖 AGENTS.md              # Research docs guidelines
+    ├── 👁️ visualization/             # Visualization documentation
+    │   ├── 📖 README.md              # Visualization docs overview
+    │   └── 🤖 AGENTS.md              # Visualization docs guidelines
+    ├── 📖 index.rst                  # Main documentation index
+    ├── 📖 conf.py                    # Sphinx configuration
+    ├── 📖 README.md                  # Documentation overview
+    └── 🤖 AGENTS.md                  # Documentation agent guidelines
 ```
+
+## 🔗 Component Navigation & Cross-References
+
+### 📖 Knowledge System Navigation
+| Component | Overview | Implementation | Applications | Agent Guide |
+|-----------|----------|----------------|--------------|-------------|
+| **[Foundations](knowledge/foundations/)** | [Overview](knowledge/foundations/README.md) | [Source](src/active_inference/knowledge/foundations.py) | [Examples](knowledge/foundations/) | [Guidelines](knowledge/foundations/AGENTS.md) |
+| **[Mathematics](knowledge/mathematics/)** | [Overview](knowledge/mathematics/README.md) | [Source](src/active_inference/knowledge/mathematics.py) | [Examples](knowledge/mathematics/) | [Guidelines](knowledge/mathematics/AGENTS.md) |
+| **[Implementations](knowledge/implementations/)** | [Overview](knowledge/implementations/README.md) | [Source](src/active_inference/knowledge/implementations.py) | [Examples](knowledge/implementations/) | [Guidelines](knowledge/implementations/AGENTS.md) |
+| **[Applications](knowledge/applications/)** | [Overview](knowledge/applications/README.md) | [Source](src/active_inference/knowledge/applications.py) | [Examples](knowledge/applications/) | [Guidelines](knowledge/applications/AGENTS.md) |
+
+### 🔬 Research Framework Navigation
+| Component | Overview | Implementation | Tools | Agent Guide |
+|-----------|----------|----------------|-------|-------------|
+| **[Experiments](research/experiments/)** | [Overview](research/experiments/README.md) | [Source](src/active_inference/research/experiments.py) | [Tools](research/experiments/) | [Guidelines](research/experiments/AGENTS.md) |
+| **[Simulations](research/simulations/)** | [Overview](research/simulations/README.md) | [Source](src/active_inference/research/simulations.py) | [Tools](research/simulations/) | [Guidelines](research/simulations/AGENTS.md) |
+| **[Analysis](research/analysis/)** | [Overview](research/analysis/README.md) | [Source](src/active_inference/research/analysis.py) | [Tools](research/analysis/) | [Guidelines](research/analysis/AGENTS.md) |
+| **[Benchmarks](research/benchmarks/)** | [Overview](research/benchmarks/README.md) | [Source](src/active_inference/research/benchmarks.py) | [Tools](research/benchmarks/) | [Guidelines](research/benchmarks/AGENTS.md) |
+
+### 🖥️ Platform Infrastructure Navigation
+| Component | Overview | Implementation | Services | Agent Guide |
+|-----------|----------|----------------|----------|-------------|
+| **[Knowledge Graph](platform/knowledge_graph/)** | [Overview](platform/knowledge_graph/README.md) | [Source](src/active_inference/platform/knowledge_graph.py) | [API](platform/knowledge_graph/) | [Guidelines](platform/knowledge_graph/AGENTS.md) |
+| **[Search](platform/search/)** | [Overview](platform/search/README.md) | [Source](src/active_inference/platform/search.py) | [API](platform/search/) | [Guidelines](platform/search/AGENTS.md) |
+| **[Collaboration](platform/collaboration/)** | [Overview](platform/collaboration/README.md) | [Source](src/active_inference/platform/collaboration.py) | [API](platform/collaboration/) | [Guidelines](platform/collaboration/AGENTS.md) |
+| **[Deployment](platform/deployment/)** | [Overview](platform/deployment/README.md) | [Source](src/active_inference/platform/deployment.py) | [Tools](platform/deployment/) | [Guidelines](platform/deployment/AGENTS.md) |
+
+### 🛠️ Applications Framework Navigation
+| Component | Overview | Implementation | Templates | Agent Guide |
+|-----------|----------|----------------|-----------|-------------|
+| **[Templates](applications/templates/)** | [Overview](applications/templates/README.md) | [Source](src/active_inference/applications/templates.py) | [Library](applications/templates/) | [Guidelines](applications/templates/AGENTS.md) |
+| **[Case Studies](applications/case_studies/)** | [Overview](applications/case_studies/README.md) | [Source](src/active_inference/applications/case_studies.py) | [Examples](applications/case_studies/) | [Guidelines](applications/case_studies/AGENTS.md) |
+| **[Integrations](applications/integrations/)** | [Overview](applications/integrations/README.md) | [Source](src/active_inference/applications/integrations.py) | [APIs](applications/integrations/) | [Guidelines](applications/integrations/AGENTS.md) |
+| **[Best Practices](applications/best_practices/)** | [Overview](applications/best_practices/README.md) | [Source](src/active_inference/applications/best_practices.py) | [Guidelines](applications/best_practices/) | [Guidelines](applications/best_practices/AGENTS.md) |
+
+### 🧪 Testing Framework Navigation
+| Component | Overview | Implementation | Test Cases | Agent Guide |
+|-----------|----------|----------------|------------|-------------|
+| **[Unit Tests](tests/unit/)** | [Overview](tests/unit/README.md) | [Source](tests/unit/) | [Tests](tests/unit/) | [Guidelines](tests/unit/AGENTS.md) |
+| **[Integration Tests](tests/integration/)** | [Overview](tests/integration/README.md) | [Source](tests/integration/) | [Tests](tests/integration/) | [Guidelines](tests/integration/AGENTS.md) |
+| **[Knowledge Tests](tests/knowledge/)** | [Overview](tests/knowledge/README.md) | [Source](tests/knowledge/) | [Tests](tests/knowledge/) | [Guidelines](tests/knowledge/AGENTS.md) |
+| **[Performance Tests](tests/performance/)** | [Overview](tests/performance/README.md) | [Source](tests/performance/) | [Tests](tests/performance/) | [Guidelines](tests/performance/AGENTS.md) |
+
+### 📚 Documentation System Navigation
+| Component | Overview | Implementation | Content | Agent Guide |
+|-----------|----------|----------------|---------|-------------|
+| **[API Docs](docs/api/)** | [Overview](docs/api/README.md) | [Source](docs/api/) | [References](docs/api/) | [Guidelines](docs/api/AGENTS.md) |
+| **[Knowledge Docs](docs/knowledge/)** | [Overview](docs/knowledge/README.md) | [Source](docs/knowledge/) | [Guides](docs/knowledge/) | [Guidelines](docs/knowledge/AGENTS.md) |
+| **[Platform Docs](docs/platform/)** | [Overview](docs/platform/README.md) | [Source](docs/platform/) | [Guides](docs/platform/) | [Guidelines](docs/platform/AGENTS.md) |
+| **[Research Docs](docs/research/)** | [Overview](docs/research/README.md) | [Source](docs/research/) | [Guides](docs/research/) | [Guidelines](docs/research/AGENTS.md) |
 
 ## 📋 Development Standards & Guidelines
 

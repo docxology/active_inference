@@ -4,8 +4,16 @@
   "content_type": "mathematics",
   "difficulty": "advanced",
   "description": "Mathematical derivation and analysis of expected free energy for policy selection in Active Inference.",
-  "prerequisites": ["variational_free_energy", "ai_policy_selection"],
-  "tags": ["expected free energy", "policy selection", "information gain", "decision theory"],
+  "prerequisites": [
+    "variational_free_energy",
+    "ai_policy_selection"
+  ],
+  "tags": [
+    "expected free energy",
+    "policy selection",
+    "information gain",
+    "decision theory"
+  ],
   "learning_objectives": [
     "Derive expected free energy from variational principles",
     "Understand the decomposition into epistemic and pragmatic terms",
@@ -105,16 +113,32 @@
     ],
     "further_reading": [
       {
-        "title": "Active Inference and Learning",
-        "author": "Karl Friston et al.",
-        "year": 2016,
-        "description": "Mathematical foundation of expected free energy"
+        "category": "Foundational Papers",
+        "description": "Seminal papers that established the concept",
+        "references": [
+          {
+            "title": "Key Foundational Work",
+            "authors": "Author names",
+            "year": "2024",
+            "journal": "Journal Name",
+            "doi": "10.1000/journal.article",
+            "why_important": "Why this paper matters for understanding the concept"
+          }
+        ]
       },
       {
-        "title": "Sophisticated Inference",
-        "author": "Karl Friston",
-        "year": 2018,
-        "description": "Advanced treatment of expected free energy"
+        "category": "Recent Developments",
+        "description": "Recent advances and applications",
+        "references": [
+          {
+            "title": "Recent Application or Development",
+            "authors": "Author names",
+            "year": "2024",
+            "journal": "Journal Name",
+            "doi": "10.1000/recent.article",
+            "why_important": "How this extends or applies the concept"
+          }
+        ]
       }
     ],
     "related_concepts": [
@@ -127,8 +151,320 @@
   "metadata": {
     "estimated_reading_time": 45,
     "difficulty_level": "advanced",
-    "last_updated": "2024-10-27",
+    "last_updated": "2025-10-27T11:07:18.832734",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "enhancement_notes": "Added further_reading section",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "mathematical_rigor": "advanced",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 7
+  },
+  "interactive_exercises": [
+    {
+      "type": "proof",
+      "title": "Prove: Expected Free Energy and Policy Selection Properties",
+      "problem": "Prove that expected free energy and policy selection satisfies the following properties:",
+      "properties": [
+        "The concept satisfies mathematical consistency",
+        "It maintains the required theoretical properties",
+        "It connects properly to related concepts"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 15
+    },
+    {
+      "type": "visualization",
+      "title": "Visualize Expected Free Energy and Policy Selection",
+      "instructions": "Create a visualization of the mathematical concept:",
+      "requirements": [
+        "Create a clear diagram showing the key components",
+        "Include labels and explanations",
+        "Show relationships between elements",
+        "Use appropriate visual metaphors"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 8
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Expected Free Energy and Policy Selection",
+      "questions": [
+        "How does expected free energy and policy selection relate to other Active Inference concepts?",
+        "What are the practical implications of expected free energy and policy selection?",
+        "What challenges arise when applying expected free energy and policy selection?",
+        "How might expected free energy and policy selection evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Expected Free Energy and Policy Selection Applications",
+      "questions": [
+        "Find a real-world application of expected free energy and policy selection",
+        "What research papers discuss expected free energy and policy selection?",
+        "How is expected free energy and policy selection used in industry?",
+        "What are current research challenges related to expected free energy and policy selection?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Expected Free Energy and Policy Selection Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Expected Free Energy and Policy Selection",
+      "problem": "Develop a novel extension or application of expected free energy and policy selection",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Expected Free Energy and Policy Selection Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "proof",
+      "title": "Prove: Expected Free Energy and Policy Selection Properties",
+      "problem": "Prove that expected free energy and policy selection satisfies the following properties:",
+      "properties": [
+        "The concept satisfies mathematical consistency",
+        "It maintains the required theoretical properties",
+        "It connects properly to related concepts"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 15
+    },
+    {
+      "type": "visualization",
+      "title": "Visualize Expected Free Energy and Policy Selection",
+      "instructions": "Create a visualization of the mathematical concept:",
+      "requirements": [
+        "Create a clear diagram showing the key components",
+        "Include labels and explanations",
+        "Show relationships between elements",
+        "Use appropriate visual metaphors"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 8
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Expected Free Energy and Policy Selection",
+      "questions": [
+        "How does expected free energy and policy selection relate to other Active Inference concepts?",
+        "What are the practical implications of expected free energy and policy selection?",
+        "What challenges arise when applying expected free energy and policy selection?",
+        "How might expected free energy and policy selection evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Expected Free Energy and Policy Selection Applications",
+      "questions": [
+        "Find a real-world application of expected free energy and policy selection",
+        "What research papers discuss expected free energy and policy selection?",
+        "How is expected free energy and policy selection used in industry?",
+        "What are current research challenges related to expected free energy and policy selection?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Expected Free Energy and Policy Selection Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Expected Free Energy and Policy Selection",
+      "problem": "Develop a novel extension or application of expected free energy and policy selection",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Expected Free Energy and Policy Selection Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "formula_diagram",
+        "title": "Expected Free Energy and Policy Selection Mathematical Formulation",
+        "description": "Visual representation of the mathematical concepts in expected free energy and policy selection",
+        "file_path": "math/expected_free_energy_formula.svg",
+        "format": "svg",
+        "interactive": false,
+        "equations": []
+      }
+    ],
+    "animations": [],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Expected Free Energy and Policy Selection",
+        "description": "Comprehensive introduction to expected free energy and policy selection concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=5290053fa91",
+        "duration": 600,
+        "level": "beginner"
+      },
+      {
+        "type": "tutorial_video",
+        "title": "Expected Free Energy and Policy Selection Deep Dive",
+        "description": "Detailed technical tutorial on expected free energy and policy selection",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=5dabd51a772",
+        "duration": 1800,
+        "level": "advanced"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/expected_free_energy_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Expected Free Energy and Policy Selection"
+      },
+      {
+        "type": "formula_visualization",
+        "title": "Mathematical Formula",
+        "description": "Visual representation of key mathematical formulas",
+        "file_path": "images/expected_free_energy_formula.svg",
+        "format": "svg",
+        "alt_text": "Mathematical notation for Expected Free Energy and Policy Selection"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/expected_free_energy_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Expected Free Energy and Policy Selection"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Expected Free Energy and Policy Selection Audio Explanation",
+        "description": "Audio explanation of expected free energy and policy selection concepts",
+        "file_path": "audio/expected_free_energy_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

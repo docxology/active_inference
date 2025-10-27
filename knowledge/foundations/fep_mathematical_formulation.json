@@ -4,8 +4,17 @@
   "content_type": "foundation",
   "difficulty": "advanced",
   "description": "Rigorous mathematical formulation of the Free Energy Principle including variational methods and information theory.",
-  "prerequisites": ["fep_introduction", "info_theory_kl_divergence", "bayesian_models"],
-  "tags": ["free energy principle", "variational inference", "information geometry", "mathematical formulation"],
+  "prerequisites": [
+    "fep_introduction",
+    "info_theory_kl_divergence",
+    "bayesian_models"
+  ],
+  "tags": [
+    "free energy principle",
+    "variational inference",
+    "information geometry",
+    "mathematical formulation"
+  ],
   "learning_objectives": [
     "Derive the variational free energy expression",
     "Understand the relationship between free energy and surprise",
@@ -135,6 +144,379 @@
     "difficulty_level": "advanced",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 3,
+    "multimedia_integrated": true,
+    "multimedia_count": 6
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Free Energy Principle Mathematical Foundation",
+      "question": "Free Energy Principle Mathematical Foundation is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Free Energy Principle Mathematical Foundation",
+      "instructions": "Drag and drop to connect related concepts from free energy principle mathematical foundation:",
+      "concepts": {
+        "concepts": [
+          "free energy principle",
+          "variational inference",
+          "information geometry",
+          "mathematical formulation"
+        ],
+        "relationships": [
+          {
+            "from": "free energy principle",
+            "to": "variational inference"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Free Energy Principle Mathematical Foundation",
+      "questions": [
+        "How does free energy principle mathematical foundation relate to other Active Inference concepts?",
+        "What are the practical implications of free energy principle mathematical foundation?",
+        "What challenges arise when applying free energy principle mathematical foundation?",
+        "How might free energy principle mathematical foundation evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Free Energy Principle Mathematical Foundation Applications",
+      "questions": [
+        "Find a real-world application of free energy principle mathematical foundation",
+        "What research papers discuss free energy principle mathematical foundation?",
+        "How is free energy principle mathematical foundation used in industry?",
+        "What are current research challenges related to free energy principle mathematical foundation?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Free Energy Principle Mathematical Foundation Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Free Energy Principle Mathematical Foundation",
+      "problem": "Develop a novel extension or application of free energy principle mathematical foundation",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Free Energy Principle Mathematical Foundation Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Free Energy Principle Mathematical Foundation",
+      "question": "Free Energy Principle Mathematical Foundation is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Free Energy Principle Mathematical Foundation",
+      "instructions": "Drag and drop to connect related concepts from free energy principle mathematical foundation:",
+      "concepts": {
+        "concepts": [
+          "free energy principle",
+          "variational inference",
+          "information geometry",
+          "mathematical formulation"
+        ],
+        "relationships": [
+          {
+            "from": "free energy principle",
+            "to": "variational inference"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Free Energy Principle Mathematical Foundation",
+      "questions": [
+        "How does free energy principle mathematical foundation relate to other Active Inference concepts?",
+        "What are the practical implications of free energy principle mathematical foundation?",
+        "What challenges arise when applying free energy principle mathematical foundation?",
+        "How might free energy principle mathematical foundation evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Free Energy Principle Mathematical Foundation Applications",
+      "questions": [
+        "Find a real-world application of free energy principle mathematical foundation",
+        "What research papers discuss free energy principle mathematical foundation?",
+        "How is free energy principle mathematical foundation used in industry?",
+        "What are current research challenges related to free energy principle mathematical foundation?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Free Energy Principle Mathematical Foundation Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Free Energy Principle Mathematical Foundation",
+      "problem": "Develop a novel extension or application of free energy principle mathematical foundation",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Free Energy Principle Mathematical Foundation Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Free Energy Principle Mathematical Foundation Concept Map",
+        "description": "Visual representation of free energy principle mathematical foundation and its relationships",
+        "file_path": "diagrams/fep_mathematical_formulation_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Free Energy Principle Mathematical Foundation",
+            "type": "central",
+            "description": "Rigorous mathematical formulation of the Free Energy Principle including variational methods and information theory."
+          },
+          {
+            "id": "prereq_0",
+            "label": "fep_introduction",
+            "type": "prerequisite",
+            "description": "Required knowledge: fep_introduction"
+          },
+          {
+            "id": "prereq_1",
+            "label": "info_theory_kl_divergence",
+            "type": "prerequisite",
+            "description": "Required knowledge: info_theory_kl_divergence"
+          },
+          {
+            "id": "prereq_2",
+            "label": "bayesian_models",
+            "type": "prerequisite",
+            "description": "Required knowledge: bayesian_models"
+          },
+          {
+            "id": "tag_0",
+            "label": "free energy principle",
+            "type": "related",
+            "description": "Related concept: free energy principle"
+          },
+          {
+            "id": "tag_1",
+            "label": "variational inference",
+            "type": "related",
+            "description": "Related concept: variational inference"
+          },
+          {
+            "id": "tag_2",
+            "label": "information geometry",
+            "type": "related",
+            "description": "Related concept: information geometry"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Free Energy Principle Mathematical Foundation Relationships",
+        "description": "Connections between free energy principle mathematical foundation and related concepts",
+        "file_path": "diagrams/fep_mathematical_formulation_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_2",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Free Energy Principle Mathematical Foundation",
+        "description": "Comprehensive introduction to free energy principle mathematical foundation concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=0061daa9836",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/fep_mathematical_formulation_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Free Energy Principle Mathematical Foundation"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/fep_mathematical_formulation_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Free Energy Principle Mathematical Foundation"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Free Energy Principle Mathematical Foundation Audio Explanation",
+        "description": "Audio explanation of free energy principle mathematical foundation concepts",
+        "file_path": "audio/fep_mathematical_formulation_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

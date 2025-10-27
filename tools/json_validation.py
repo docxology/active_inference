@@ -29,7 +29,11 @@ class KnowledgeBaseValidator:
     def get_all_json_files(self) -> List[Path]:
         """Get all JSON files in the knowledge base"""
         json_files = []
+        skip_files = ['learning_paths.json', 'faq.json', 'glossary.json', 'success_metrics.json']
+
         for json_file in self.knowledge_base_path.rglob("*.json"):
+            if json_file.name in skip_files or 'metadata' in str(json_file):
+                continue  # Skip non-knowledge-node JSON files
             json_files.append(json_file)
         return json_files
 

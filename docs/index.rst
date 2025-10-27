@@ -1,11 +1,6 @@
 Active Inference Knowledge Environment
 =====================================
 
-.. image:: _static/logo.png
-   :alt: Active Inference Knowledge Environment
-   :width: 800px
-   :align: center
-
 A comprehensive integrated platform for Active Inference & Free Energy Principle education, research, visualization, and application development.
 
 .. raw:: html
@@ -258,4 +253,6 @@ Indices and Tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
 

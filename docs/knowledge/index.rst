@@ -87,3 +87,5 @@ Begin your Active Inference journey:
    For research tools, see :doc:`../research/index`.
    For visualization tools, see :doc:`../visualization/index`.
 
+
+

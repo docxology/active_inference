@@ -7,12 +7,12 @@
       "quantization": null,
       "context_window": 8192,
       "capabilities": [
-        "reasoning",
-        "mathematical_reasoning",
+        "text_generation",
+        "code_generation",
         "active_inference_explanation",
         "conversation",
-        "text_generation",
-        "code_generation"
+        "reasoning",
+        "mathematical_reasoning"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -25,14 +25,14 @@
       "quantization": null,
       "context_window": 8192,
       "capabilities": [
-        "reasoning",
-        "mathematical_reasoning",
+        "text_generation",
         "code_generation",
-        "research_analysis",
-        "educational_content",
         "active_inference_explanation",
+        "reasoning",
+        "educational_content",
+        "research_analysis",
         "conversation",
-        "text_generation"
+        "mathematical_reasoning"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -45,11 +45,11 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "research_analysis",
-        "reasoning",
-        "conversation",
         "text_generation",
-        "code_generation"
+        "research_analysis",
+        "code_generation",
+        "conversation",
+        "reasoning"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -62,14 +62,14 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "reasoning",
-        "mathematical_reasoning",
-        "code_generation",
-        "research_analysis",
-        "educational_content",
-        "conversation",
         "text_generation",
-        "complex_reasoning"
+        "code_generation",
+        "reasoning",
+        "educational_content",
+        "research_analysis",
+        "conversation",
+        "complex_reasoning",
+        "mathematical_reasoning"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -82,13 +82,13 @@
       "quantization": null,
       "context_window": 8192,
       "capabilities": [
-        "research_analysis",
-        "reasoning",
-        "mathematical_reasoning",
-        "educational_content",
-        "conversation",
         "text_generation",
-        "code_generation"
+        "research_analysis",
+        "code_generation",
+        "conversation",
+        "reasoning",
+        "educational_content",
+        "mathematical_reasoning"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -101,8 +101,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -132,8 +132,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -184,8 +184,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -199,10 +199,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -253,8 +253,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -268,10 +268,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -322,8 +322,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -337,10 +337,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -391,8 +391,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -406,10 +406,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -460,8 +460,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -475,10 +475,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -529,8 +529,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -544,10 +544,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -598,8 +598,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -613,10 +613,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -667,8 +667,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -682,10 +682,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -736,8 +736,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -751,10 +751,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -805,8 +805,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
         "capability_2",
+        "capability_1",
         "capability_0"
       ],
       "performance_metrics": {},
@@ -820,10 +820,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_1",
-        "capability_3",
         "capability_2",
-        "capability_0"
+        "capability_1",
+        "capability_0",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -836,8 +836,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -850,8 +850,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -864,8 +864,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -878,8 +878,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -892,8 +892,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -906,8 +906,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -920,8 +920,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -934,8 +934,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -948,8 +948,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -962,8 +962,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -976,8 +976,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -990,8 +990,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1004,8 +1004,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1018,8 +1018,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1032,8 +1032,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1046,8 +1046,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1060,8 +1060,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1074,8 +1074,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1088,8 +1088,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1102,8 +1102,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1116,8 +1116,414 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_efc9537d": {
+      "name": "test_model_efc9537d",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_3170a13d": {
+      "name": "test_model_3170a13d",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_fd42c87c": {
+      "name": "test_model_fd42c87c",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_846816de": {
+      "name": "test_model_846816de",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_f1b5eebb": {
+      "name": "test_model_f1b5eebb",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_62e73711": {
+      "name": "test_model_62e73711",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_c3dfa3b6": {
+      "name": "test_model_c3dfa3b6",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_a7d4cd2b": {
+      "name": "test_model_a7d4cd2b",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_cb8475e6": {
+      "name": "test_model_cb8475e6",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_31e41219": {
+      "name": "test_model_31e41219",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_5e23a171": {
+      "name": "test_model_5e23a171",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_9731b31a": {
+      "name": "test_model_9731b31a",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_5fc20fa2": {
+      "name": "test_model_5fc20fa2",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_e350c007": {
+      "name": "test_model_e350c007",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_52bc1b02": {
+      "name": "test_model_52bc1b02",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_3614408b": {
+      "name": "test_model_3614408b",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_f941d7ac": {
+      "name": "test_model_f941d7ac",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_1dbaf2df": {
+      "name": "test_model_1dbaf2df",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_017fbfac": {
+      "name": "test_model_017fbfac",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_1b5d4042": {
+      "name": "test_model_1b5d4042",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_e3716bba": {
+      "name": "test_model_e3716bba",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_61682380": {
+      "name": "test_model_61682380",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_1175dcdf": {
+      "name": "test_model_1175dcdf",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_b007e6a8": {
+      "name": "test_model_b007e6a8",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_8c70c8da": {
+      "name": "test_model_8c70c8da",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_558a21bf": {
+      "name": "test_model_558a21bf",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_cd98b14b": {
+      "name": "test_model_cd98b14b",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_0f6d75a4": {
+      "name": "test_model_0f6d75a4",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_5c022c0d": {
+      "name": "test_model_5c022c0d",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1210,6 +1616,35 @@
     "test_model_2161d578",
     "test_model_7bc05835",
     "test_model_b075cb83",
-    "test_model_52f766f9"
+    "test_model_52f766f9",
+    "test_model_efc9537d",
+    "test_model_3170a13d",
+    "test_model_fd42c87c",
+    "test_model_846816de",
+    "test_model_f1b5eebb",
+    "test_model_62e73711",
+    "test_model_c3dfa3b6",
+    "test_model_a7d4cd2b",
+    "test_model_cb8475e6",
+    "test_model_31e41219",
+    "test_model_5e23a171",
+    "test_model_9731b31a",
+    "test_model_5fc20fa2",
+    "test_model_e350c007",
+    "test_model_52bc1b02",
+    "test_model_3614408b",
+    "test_model_f941d7ac",
+    "test_model_1dbaf2df",
+    "test_model_017fbfac",
+    "test_model_1b5d4042",
+    "test_model_e3716bba",
+    "test_model_61682380",
+    "test_model_1175dcdf",
+    "test_model_b007e6a8",
+    "test_model_8c70c8da",
+    "test_model_558a21bf",
+    "test_model_cd98b14b",
+    "test_model_0f6d75a4",
+    "test_model_5c022c0d"
   ]
 }

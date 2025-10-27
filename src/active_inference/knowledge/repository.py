@@ -536,6 +536,325 @@ class KnowledgeRepository:
             # Could implement other formats like GraphML, GEXF
             return json.dumps(graph, indent=2)
 
+    def build_prerequisite_graph(self, node_id: str) -> Dict[str, Any]:
+        """
+        Build complete prerequisite dependency graph with cycle detection
+
+        Args:
+            node_id: Starting node ID
+
+        Returns:
+            Dictionary containing graph structure and validation
+        """
+        if node_id not in self._nodes:
+            return {'error': f'Node {node_id} not found'}
+
+        graph = {
+            'nodes': [],
+            'edges': [],
+            'cycles': [],
+            'depth': 0
+        }
+
+        visited = set()
+        path = []
+
+        def dfs(current_id, depth=0):
+            if current_id in path:
+                # Cycle detected
+                cycle_start = path.index(current_id)
+                cycle = path[cycle_start:] + [current_id]
+                graph['cycles'].append(cycle)
+                return
+
+            if current_id in visited:
+                return
+
+            visited.add(current_id)
+            path.append(current_id)
+            graph['depth'] = max(graph['depth'], depth)
+
+            # Add node to graph
+            node = self._nodes[current_id]
+            graph['nodes'].append({
+                'id': current_id,
+                'title': node.title,
+                'depth': depth
+            })
+
+            # Visit prerequisites
+            for prereq_id in node.prerequisites:
+                graph['edges'].append({
+                    'source': prereq_id,
+                    'target': current_id,
+                    'type': 'prerequisite'
+                })
+                dfs(prereq_id, depth + 1)
+
+            path.pop()
+
+        dfs(node_id)
+
+        return graph
+
+    def validate_content_integrity(self, node_id: str) -> Dict[str, Any]:
+        """
+        Validate content integrity including references and prerequisites
+
+        Args:
+            node_id: Node ID to validate
+
+        Returns:
+            Validation results dictionary
+        """
+        if node_id not in self._nodes:
+            return {'valid': False, 'error': f'Node {node_id} not found'}
+
+        node = self._nodes[node_id]
+        validation = {
+            'valid': True,
+            'issues': [],
+            'warnings': [],
+            'suggestions': []
+        }
+
+        # Check prerequisites exist
+        for prereq_id in node.prerequisites:
+            if prereq_id not in self._nodes:
+                validation['issues'].append(f'Missing prerequisite: {prereq_id}')
+                validation['valid'] = False
+
+        # Check content completeness
+        if not node.content:
+            validation['issues'].append('Empty content')
+            validation['valid'] = False
+
+        if not node.learning_objectives:
+            validation['warnings'].append('No learning objectives defined')
+
+        if not node.tags:
+            validation['suggestions'].append('Consider adding tags for better discoverability')
+
+        # Check for circular dependencies
+        graph = self.build_prerequisite_graph(node_id)
+        if graph.get('cycles'):
+            validation['issues'].append(f'Circular dependencies detected: {graph["cycles"]}')
+            validation['valid'] = False
+
+        return validation
+
+    def generate_learning_path_recommendations(self, user_profile: Dict[str, Any]) -> List[str]:
+        """
+        Generate personalized learning path recommendations
+
+        Args:
+            user_profile: User profile with preferences and background
+
+        Returns:
+            List of recommended learning path IDs
+        """
+        recommendations = []
+        user_difficulty = user_profile.get('difficulty', 'intermediate')
+        user_interests = user_profile.get('interests', [])
+        user_background = user_profile.get('background', [])
+
+        # Filter paths by difficulty
+        difficulty_paths = [
+            path_id for path_id, path in self._paths.items()
+            if path.difficulty.value == user_difficulty
+        ]
+
+        # Score paths based on user interests
+        scored_paths = []
+        for path_id in difficulty_paths:
+            path = self._paths[path_id]
+            score = 0
+
+            # Check if path covers user interests
+            path_tags = set()
+            for node_id in path.nodes:
+                if node_id in self._nodes:
+                    path_tags.update(self._nodes[node_id].tags)
+
+            interest_overlap = len(path_tags.intersection(set(user_interests)))
+            score += interest_overlap * 2
+
+            # Check if path builds on user background
+            background_overlap = len(set(path.nodes).intersection(set(user_background)))
+            score += background_overlap
+
+            scored_paths.append((path_id, score))
+
+        # Sort by score and return top recommendations
+        scored_paths.sort(key=lambda x: x[1], reverse=True)
+        recommendations = [path_id for path_id, score in scored_paths[:5]]
+
+        return recommendations
+
+    def export_knowledge_in_format(self, format_type: str, content_filter: Dict[str, Any]) -> Any:
+        """
+        Export knowledge content in various formats (JSON, XML, RDF, etc.)
+
+        Args:
+            format_type: Export format ('json', 'xml', 'rdf', 'csv')
+            content_filter: Filter criteria for content selection
+
+        Returns:
+            Exported content in specified format
+        """
+        # Apply filters
+        filtered_nodes = self._filter_nodes(content_filter)
+
+        if format_type == 'json':
+            return self._export_json(filtered_nodes)
+        elif format_type == 'xml':
+            return self._export_xml(filtered_nodes)
+        elif format_type == 'rdf':
+            return self._export_rdf(filtered_nodes)
+        elif format_type == 'csv':
+            return self._export_csv(filtered_nodes)
+        else:
+            raise ValueError(f'Unsupported export format: {format_type}')
+
+    def _filter_nodes(self, content_filter: Dict[str, Any]) -> Dict[str, KnowledgeNode]:
+        """Filter nodes based on criteria"""
+        filtered = dict(self._nodes)
+
+        if 'content_types' in content_filter:
+            content_types = set(content_filter['content_types'])
+            filtered = {k: v for k, v in filtered.items()
+                       if v.content_type.value in content_types}
+
+        if 'difficulties' in content_filter:
+            difficulties = set(content_filter['difficulties'])
+            filtered = {k: v for k, v in filtered.items()
+                       if v.difficulty.value in difficulties}
+
+        if 'tags' in content_filter:
+            required_tags = set(content_filter['tags'])
+            filtered = {k: v for k, v in filtered.items()
+                       if required_tags.issubset(set(v.tags))}
+
+        return filtered
+
+    def _export_json(self, nodes: Dict[str, KnowledgeNode]) -> str:
+        """Export nodes as JSON"""
+        import json
+        data = {
+            'nodes': [node.dict() for node in nodes.values()],
+            'metadata': {
+                'export_time': str(self._get_timestamp()),
+                'total_nodes': len(nodes),
+                'format': 'json'
+            }
+        }
+        return json.dumps(data, indent=2, default=str)
+
+    def _export_xml(self, nodes: Dict[str, KnowledgeNode]) -> str:
+        """Export nodes as XML"""
+        xml_parts = ['<?xml version="1.0" encoding="UTF-8"?>']
+        xml_parts.append('<knowledge_base>')
+
+        for node in nodes.values():
+            xml_parts.append(f'  <node id="{node.id}">')
+            xml_parts.append(f'    <title>{node.title}</title>')
+            xml_parts.append(f'    <content_type>{node.content_type.value}</content_type>')
+            xml_parts.append(f'    <difficulty>{node.difficulty.value}</difficulty>')
+            xml_parts.append(f'    <description>{node.description}</description>')
+            xml_parts.append('    <tags>')
+            for tag in node.tags:
+                xml_parts.append(f'      <tag>{tag}</tag>')
+            xml_parts.append('    </tags>')
+            xml_parts.append('  </node>')
+
+        xml_parts.append('</knowledge_base>')
+        return '\n'.join(xml_parts)
+
+    def _export_rdf(self, nodes: Dict[str, KnowledgeNode]) -> str:
+        """Export nodes as RDF/Turtle"""
+        rdf_parts = ['@prefix kb: <http://activeinference.org/knowledge#> .']
+        rdf_parts.append('@prefix dct: <http://purl.org/dc/terms/> .')
+        rdf_parts.append('')
+
+        for node in nodes.values():
+            rdf_parts.append(f'kb:{node.id} a kb:KnowledgeNode ;')
+            rdf_parts.append(f'  dct:title "{node.title}" ;')
+            rdf_parts.append(f'  kb:contentType "{node.content_type.value}" ;')
+            rdf_parts.append(f'  kb:difficulty "{node.difficulty.value}" ;')
+            rdf_parts.append(f'  dct:description "{node.description}" ;')
+            rdf_parts.append(f'  kb:prerequisites {list(node.prerequisites)} ;')
+            rdf_parts.append(f'  kb:tags {node.tags} .')
+            rdf_parts.append('')
+
+        return '\n'.join(rdf_parts)
+
+    def _export_csv(self, nodes: Dict[str, KnowledgeNode]) -> str:
+        """Export nodes as CSV"""
+        csv_lines = ['id,title,content_type,difficulty,description,tags,prerequisites']
+
+        for node in nodes.values():
+            tags_str = ';'.join(node.tags)
+            prereqs_str = ';'.join(node.prerequisites)
+            line = f'"{node.id}","{node.title}","{node.content_type.value}","{node.difficulty.value}","{node.description}","{tags_str}","{prereqs_str}"'
+            csv_lines.append(line)
+
+        return '\n'.join(csv_lines)
+
+    def create_content_backup(self) -> Path:
+        """
+        Create comprehensive content backup with metadata and relationships
+
+        Returns:
+            Path to backup file
+        """
+        import tempfile
+        import json
+        from datetime import datetime
+
+        # Create backup data
+        backup_data = {
+            'metadata': {
+                'backup_time': datetime.now().isoformat(),
+                'version': '1.0',
+                'total_nodes': len(self._nodes),
+                'total_paths': len(self._paths)
+            },
+            'nodes': {k: v.dict() for k, v in self._nodes.items()},
+            'paths': {k: v.dict() for k, v in self._paths.items()},
+            'relationships': self._extract_relationships()
+        }
+
+        # Save to temporary file
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(backup_data, f, indent=2, default=str)
+            backup_path = Path(f.name)
+
+        logger.info(f'Created content backup: {backup_path}')
+        return backup_path
+
+    def _extract_relationships(self) -> Dict[str, List[str]]:
+        """Extract all relationships between nodes"""
+        relationships = {}
+
+        for node_id, node in self._nodes.items():
+            relationships[node_id] = {
+                'prerequisites': node.prerequisites,
+                'dependents': []
+            }
+
+        # Add dependents
+        for node_id, node in self._nodes.items():
+            for prereq_id in node.prerequisites:
+                if prereq_id in relationships:
+                    relationships[prereq_id]['dependents'].append(node_id)
+
+        return relationships
+
+    def _get_timestamp(self):
+        """Get current timestamp"""
+        from datetime import datetime
+        return datetime.now()
+
     def get_statistics(self) -> Dict[str, Any]:
         """Get comprehensive statistics about the knowledge repository"""
         content_type_counts = {}

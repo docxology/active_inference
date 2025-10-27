@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mb-4">
+            <i class="fas fa-brain text-primary"></i><br>
+            Active Inference Knowledge Environment
+        </h1>
+        <p class="lead mb-4">
+            A comprehensive integrated platform for Active Inference & Free Energy Principle
+            education, research, visualization, and application development.
+        </p>
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book fa-2x text-primary mb-3"></i>
+                        <h5 class="card-title">📚 Knowledge</h5>
+                        <p class="card-text">{{ stats.total_nodes }} nodes, {{ stats.total_paths }} paths</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-microscope fa-2x text-success mb-3"></i>
+                        <h5 class="card-title">🔬 Research</h5>
+                        <p class="card-text">Tools & frameworks</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-eye fa-2x text-info mb-3"></i>
+                        <h5 class="card-title">👁️ Visualize</h5>
+                        <p class="card-text">Interactive diagrams</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-cogs fa-2x text-warning mb-3"></i>
+                        <h5 class="card-title">🛠️ Applications</h5>
+                        <p class="card-text">Real-world examples</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if learning_paths %}
+<div class="row mt-5">
+    <div class="col-12">
+        <h2 class="mb-4">🚀 Learning Paths</h2>
+        <div class="row g-3">
+            {% for path in learning_paths %}
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ path.name }}</h5>
+                        <p class="card-text">{{ path.description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> {{ path.estimated_hours }}h
+                                <i class="fas fa-signal ms-2"></i> {{ path.difficulty.value }}
+                            </small>
+                            <a href="/learn/{{ path.id }}" class="btn btn-primary btn-sm">Start</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row mt-5">
+    <div class="col-12 text-center">
+        <h3>Ready to Start Learning?</h3>
+        <p class="mb-3">Begin your Active Inference journey with our structured learning paths.</p>
+        <a href="/learn" class="btn btn-primary btn-lg me-2">
+            <i class="fas fa-graduation-cap"></i> Start Learning
+        </a>
+        <a href="/search" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-search"></i> Explore Content
+        </a>
+    </div>
+</div>
+{% endblock %}

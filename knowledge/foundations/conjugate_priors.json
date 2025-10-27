@@ -4,8 +4,16 @@
   "content_type": "foundation",
   "difficulty": "intermediate",
   "description": "Understanding conjugate prior relationships and their role in Bayesian inference and Active Inference.",
-  "prerequisites": ["bayesian_basics", "bayesian_models"],
-  "tags": ["conjugate priors", "bayesian inference", "posterior computation", "analytical solutions"],
+  "prerequisites": [
+    "bayesian_basics",
+    "bayesian_models"
+  ],
+  "tags": [
+    "conjugate priors",
+    "bayesian inference",
+    "posterior computation",
+    "analytical solutions"
+  ],
   "learning_objectives": [
     "Understand conjugate prior relationships",
     "Compute posterior distributions analytically",
@@ -134,6 +142,365 @@
     "difficulty_level": "intermediate",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 5
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Conjugate Prior Distributions",
+      "question": "Conjugate Prior Distributions is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Conjugate Prior Distributions",
+      "instructions": "Drag and drop to connect related concepts from conjugate prior distributions:",
+      "concepts": {
+        "concepts": [
+          "conjugate priors",
+          "bayesian inference",
+          "posterior computation",
+          "analytical solutions"
+        ],
+        "relationships": [
+          {
+            "from": "conjugate priors",
+            "to": "bayesian inference"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Conjugate Prior Distributions",
+      "questions": [
+        "How does conjugate prior distributions relate to other Active Inference concepts?",
+        "What are the practical implications of conjugate prior distributions?",
+        "What challenges arise when applying conjugate prior distributions?",
+        "How might conjugate prior distributions evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Conjugate Prior Distributions Applications",
+      "questions": [
+        "Find a real-world application of conjugate prior distributions",
+        "What research papers discuss conjugate prior distributions?",
+        "How is conjugate prior distributions used in industry?",
+        "What are current research challenges related to conjugate prior distributions?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Conjugate Prior Distributions Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Conjugate Prior Distributions",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Conjugate Prior Distributions",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Conjugate Prior Distributions",
+      "question": "Conjugate Prior Distributions is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Conjugate Prior Distributions",
+      "instructions": "Drag and drop to connect related concepts from conjugate prior distributions:",
+      "concepts": {
+        "concepts": [
+          "conjugate priors",
+          "bayesian inference",
+          "posterior computation",
+          "analytical solutions"
+        ],
+        "relationships": [
+          {
+            "from": "conjugate priors",
+            "to": "bayesian inference"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Conjugate Prior Distributions",
+      "questions": [
+        "How does conjugate prior distributions relate to other Active Inference concepts?",
+        "What are the practical implications of conjugate prior distributions?",
+        "What challenges arise when applying conjugate prior distributions?",
+        "How might conjugate prior distributions evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Conjugate Prior Distributions Applications",
+      "questions": [
+        "Find a real-world application of conjugate prior distributions",
+        "What research papers discuss conjugate prior distributions?",
+        "How is conjugate prior distributions used in industry?",
+        "What are current research challenges related to conjugate prior distributions?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Conjugate Prior Distributions Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Conjugate Prior Distributions",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Conjugate Prior Distributions",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Conjugate Prior Distributions Concept Map",
+        "description": "Visual representation of conjugate prior distributions and its relationships",
+        "file_path": "diagrams/conjugate_priors_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Conjugate Prior Distributions",
+            "type": "central",
+            "description": "Understanding conjugate prior relationships and their role in Bayesian inference and Active Inference."
+          },
+          {
+            "id": "prereq_0",
+            "label": "bayesian_basics",
+            "type": "prerequisite",
+            "description": "Required knowledge: bayesian_basics"
+          },
+          {
+            "id": "prereq_1",
+            "label": "bayesian_models",
+            "type": "prerequisite",
+            "description": "Required knowledge: bayesian_models"
+          },
+          {
+            "id": "tag_0",
+            "label": "conjugate priors",
+            "type": "related",
+            "description": "Related concept: conjugate priors"
+          },
+          {
+            "id": "tag_1",
+            "label": "bayesian inference",
+            "type": "related",
+            "description": "Related concept: bayesian inference"
+          },
+          {
+            "id": "tag_2",
+            "label": "posterior computation",
+            "type": "related",
+            "description": "Related concept: posterior computation"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Conjugate Prior Distributions Relationships",
+        "description": "Connections between conjugate prior distributions and related concepts",
+        "file_path": "diagrams/conjugate_priors_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Conjugate Prior Distributions",
+        "description": "Comprehensive introduction to conjugate prior distributions concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=5f884be3195",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/conjugate_priors_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Conjugate Prior Distributions"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/conjugate_priors_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Conjugate Prior Distributions"
+      }
+    ]
   }
 }

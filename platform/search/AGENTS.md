@@ -1,62 +1,66 @@
-# Platform Search - Agent Development Guide
+# Platform Search Engine - Agent Development Guide
 
-**Guidelines for AI agents working with intelligent search and retrieval systems.**
+**Guidelines for AI agents working with search and discovery systems in the Active Inference Knowledge Environment.**
 
 ## 🤖 Agent Role & Responsibilities
 
-**What agents should do when working with search systems:**
+**What agents should do when working with platform search systems:**
 
 ### Primary Responsibilities
-- **Search Engine Development**: Build intelligent search capabilities
-- **Query Processing**: Natural language and structured query understanding
-- **Indexing Systems**: Content indexing and retrieval optimization
-- **Ranking Algorithms**: Relevance scoring and result ranking
-- **Personalization**: User-specific search result customization
-- **Analytics**: Search performance and usage analytics
+- **Search Implementation**: Develop and maintain search and discovery capabilities
+- **Information Retrieval**: Implement advanced information retrieval and ranking algorithms
+- **Semantic Understanding**: Create systems for semantic search and concept understanding
+- **Recommendation Systems**: Build intelligent recommendation and personalization engines
+- **Search Analytics**: Implement search analytics and performance optimization
 
 ### Development Focus Areas
-1. **Search Infrastructure**: Build scalable search systems
-2. **Query Understanding**: Natural language processing for search
-3. **Content Indexing**: Efficient content indexing and retrieval
-4. **Result Ranking**: Machine learning for relevance ranking
-5. **Search Analytics**: Usage patterns and performance monitoring
+1. **Search Engine Development**: Implement core search functionality and indexing
+2. **Semantic Search**: Develop semantic understanding and natural language processing
+3. **Knowledge Graph Integration**: Build graph-based search and navigation
+4. **Recommendation Systems**: Create personalized recommendation algorithms
+5. **Search Analytics**: Implement search behavior analysis and optimization
 
 ## 🏗️ Architecture & Integration
 
-### Search Architecture
+### Search System Architecture
 
-**Understanding the search system structure:**
+**Understanding how search systems fit into the larger platform ecosystem:**
 
 ```
-Search Infrastructure
-├── Query Processing (NLP, parsing)
-├── Index Management (storage, updates)
-├── Ranking Engine (relevance, personalization)
-├── Result Formatting (highlighting, snippets)
-└── Analytics Engine (metrics, optimization)
+Platform Services Layer
+├── Search & Discovery (Text, semantic, graph, recommendations)
+├── Content Management (Indexing, processing, metadata)
+├── Knowledge Organization (Graph navigation, concept mapping)
+└── User Experience (Interface, personalization, analytics)
 ```
 
 ### Integration Points
 
-**Key integration points for search:**
+**Key integration points and dependencies:**
 
-#### Platform Integration
-- **Knowledge Repository**: Content indexing and search
-- **User Management**: Personalized search results
-- **Content Management**: Real-time content indexing
-- **Analytics**: Search usage and performance tracking
+#### Upstream Components
+- **Content Systems**: All platform content that needs to be indexed and searchable
+- **Knowledge Graph**: Semantic relationships and concept organization
+- **User Management**: User profiles and personalization data
+- **Analytics Systems**: Search behavior and performance data
+
+#### Downstream Components
+- **User Interfaces**: Search interface integration across all platform components
+- **Educational Systems**: Learning path discovery and content recommendation
+- **Research Tools**: Research discovery and literature search
+- **Community Features**: Social search and collaborative discovery
 
 #### External Systems
-- **Search Engines**: Elasticsearch, Solr, OpenSearch
-- **Vector Databases**: Pinecone, Weaviate, Chroma
-- **NLP Services**: Natural language processing APIs
-- **Analytics Platforms**: Search analytics and optimization tools
+- **Search Technologies**: Elasticsearch, Solr, OpenSearch, specialized search engines
+- **NLP Libraries**: spaCy, NLTK, Hugging Face transformers for natural language processing
+- **Vector Databases**: FAISS, Pinecone, Weaviate for semantic vector search
+- **Machine Learning**: TensorFlow, PyTorch for recommendation systems
 
-### Search Pipeline
+### Search Flow Patterns
 
 ```python
-# Search processing pipeline
-user_query → query_parsing → content_retrieval → relevance_ranking → result_formatting → user_results
+# Typical search system workflow
+content → indexing → search → ranking → personalization → presentation → feedback
 ```
 
 ## 💻 Development Patterns
@@ -65,675 +69,761 @@ user_query → query_parsing → content_retrieval → relevance_ranking → res
 
 **All search development must follow these patterns:**
 
-#### 1. Query Processing Pattern
+#### 1. Search Engine Factory Pattern (PREFERRED)
+
 ```python
-class QueryProcessor:
-    """Process and understand search queries"""
+def create_search_engine(search_type: str, config: Dict[str, Any]) -> BaseSearchEngine:
+    """Create search engine using factory pattern with validation"""
 
-    def __init__(self, config: Dict[str, Any]):
-        self.config = config
-        self.nlp_engine = NLPEngine(config)
-        self.query_parser = QueryParser(config)
+    search_factories = {
+        'full_text': create_full_text_search_engine,
+        'semantic': create_semantic_search_engine,
+        'graph': create_graph_search_engine,
+        'recommendation': create_recommendation_engine,
+        'hybrid': create_hybrid_search_engine,
+        'multimodal': create_multimodal_search_engine
+    }
 
-    async def process_query(self, query: str, context: Dict = None) -> ProcessedQuery:
-        """Process natural language query"""
-        # Parse query text
-        parsed_query = await self.parse_query_text(query)
+    if search_type not in search_factories:
+        raise ValueError(f"Unknown search type: {search_type}")
 
-        # Extract search intent
-        intent = await self.extract_search_intent(parsed_query)
+    # Validate search configuration
+    validate_search_config(config)
 
-        # Identify entities
-        entities = await self.identify_entities(parsed_query)
+    # Create search engine with error handling
+    try:
+        search_engine = search_factories[search_type](config)
+        validate_search_functionality(search_engine)
+        return search_engine
+    except Exception as e:
+        logger.error(f"Search engine creation failed: {e}")
+        raise SearchEngineError(f"Failed to create search engine: {search_type}") from e
 
-        # Determine query type
-        query_type = await self.classify_query_type(parsed_query)
+def validate_search_config(config: Dict[str, Any]) -> None:
+    """Validate search engine configuration"""
 
-        # Apply context
-        contextualized = await self.apply_context(parsed_query, context)
+    required_fields = ['search_type', 'content_sources', 'indexing_strategy']
 
-        return ProcessedQuery(
-            original=query,
-            parsed=parsed_query,
-            intent=intent,
-            entities=entities,
-            query_type=query_type,
-            context=contextualized
-        )
+    for field in required_fields:
+        if field not in config:
+            raise SearchConfigurationError(f"Missing required field: {field}")
 
-    async def expand_query(self, processed_query: ProcessedQuery) -> ExpandedQuery:
-        """Expand query with synonyms and related terms"""
-        # Find synonyms
-        synonyms = await self.find_synonyms(processed_query.entities)
+    # Type-specific validation
+    if config['search_type'] == 'semantic':
+        validate_semantic_config(config)
+    elif config['search_type'] == 'graph':
+        validate_graph_config(config)
+    elif config['search_type'] == 'recommendation':
+        validate_recommendation_config(config)
+```
+
+#### 2. Search Configuration Pattern (MANDATORY)
+
+```python
+from dataclasses import dataclass
+from typing import Dict, Any, List, Optional
+
+@dataclass
+class SearchEngineConfig:
+    """Configuration for search engine implementations"""
+
+    # Core search settings
+    search_type: str
+    content_sources: List[str]
+    indexing_strategy: str
+    ranking_algorithm: str
+
+    # Performance settings
+    max_results: int = 100
+    search_timeout: int = 30
+    caching_enabled: bool = True
+    parallel_processing: bool = True
+
+    # Quality settings
+    relevance_threshold: float = 0.7
+    diversity_factor: float = 0.3
+    personalization_enabled: bool = True
+    explanation_enabled: bool = True
+
+    # Integration settings
+    knowledge_graph_integration: bool = True
+    real_time_indexing: bool = False
+    cross_platform_search: bool = False
+
+    def validate_configuration(self) -> List[str]:
+        """Validate search configuration"""
+        errors = []
+
+        # Check required fields
+        required_fields = ['search_type', 'content_sources', 'indexing_strategy']
+        for field in required_fields:
+            if not getattr(self, field):
+                errors.append(f"Missing required field: {field}")
+
+        # Validate search type
+        valid_types = ['full_text', 'semantic', 'graph', 'recommendation', 'hybrid', 'multimodal']
+        if self.search_type not in valid_types:
+            errors.append(f"Invalid search type: {self.search_type}")
+
+        # Validate performance parameters
+        if self.max_results <= 0:
+            errors.append("max_results must be positive")
+
+        if self.search_timeout <= 0:
+            errors.append("search_timeout must be positive")
+
+        return errors
+
+    def to_search_parameters(self) -> Dict[str, Any]:
+        """Convert configuration to search parameters"""
+        return {
+            'search_type': self.search_type,
+            'content_sources': self.content_sources,
+            'indexing_strategy': self.indexing_strategy,
+            'ranking_algorithm': self.ranking_algorithm,
+            'max_results': self.max_results,
+            'search_timeout': self.search_timeout,
+            'caching_enabled': self.caching_enabled,
+            'parallel_processing': self.parallel_processing,
+            'relevance_threshold': self.relevance_threshold,
+            'diversity_factor': self.diversity_factor,
+            'personalization_enabled': self.personalization_enabled,
+            'explanation_enabled': self.explanation_enabled,
+            'knowledge_graph_integration': self.knowledge_graph_integration,
+            'real_time_indexing': self.real_time_indexing,
+            'cross_platform_search': self.cross_platform_search
+        }
+```
+
+#### 3. Search Result Pattern (MANDATORY)
+
+```python
+def create_search_result(query: str, results: List[Any], config: Dict[str, Any]) -> SearchResult:
+    """Create comprehensive search result with explanations"""
+
+    # Validate search results
+    result_validation = validate_search_results(results, config)
+    if not result_validation['valid']:
+        raise SearchResultError(f"Invalid search results: {result_validation['errors']}")
+
+    # Rank results by relevance
+    ranked_results = rank_search_results(results, query, config)
+
+    # Add explanations for each result
+    explained_results = add_result_explanations(ranked_results, query, config)
+
+    # Add personalization if enabled
+    if config.get('personalization_enabled', False):
+        personalized_results = personalize_results(explained_results, config)
+    else:
+        personalized_results = explained_results
+
+    # Add diversity if required
+    if config.get('diversity_factor', 0) > 0:
+        diversified_results = add_result_diversity(personalized_results, config)
+    else:
+        diversified_results = personalized_results
+
+    return SearchResult(
+        query=query,
+        results=diversified_results,
+        ranking_config=config,
+        validation=result_validation,
+        timestamp=datetime.now()
+    )
+
+def add_result_explanations(results: List[Any], query: str, config: Dict[str, Any]) -> List[ExplainedResult]:
+    """Add explanations for why each result was selected"""
+
+    explained_results = []
+
+    for result in results:
+        # Generate explanation
+        explanation = generate_result_explanation(result, query, config)
+
+        # Add confidence score
+        confidence = calculate_result_confidence(result, query, config)
 
         # Add related concepts
-        related_concepts = await self.find_related_concepts(processed_query)
+        related_concepts = find_related_concepts(result, config)
 
-        # Create expanded query
-        expanded_terms = set(processed_query.parsed.terms)
-        expanded_terms.update(synonyms)
-        expanded_terms.update(related_concepts)
-
-        return ExpandedQuery(
-            original=processed_query,
-            expanded_terms=list(expanded_terms),
-            expansion_confidence=self.calculate_expansion_confidence(synonyms, related_concepts)
-        )
-```
-
-#### 2. Search Engine Pattern
-```python
-class SearchEngine:
-    """Core search engine implementation"""
-
-    def __init__(self, config: Dict[str, Any]):
-        self.config = config
-        self.index_manager = IndexManager(config)
-        self.ranker = SearchRanker(config)
-        self.query_processor = QueryProcessor(config)
-
-    async def search(self, query: str, options: Dict = None) -> SearchResult:
-        """Execute search query"""
-        # Process query
-        processed_query = await self.query_processor.process_query(query)
-
-        # Expand query if enabled
-        if options.get("expand_query", True):
-            processed_query = await self.query_processor.expand_query(processed_query)
-
-        # Retrieve candidates
-        candidates = await self.index_manager.retrieve_candidates(processed_query)
-
-        # Rank results
-        ranked_results = await self.ranker.rank_results(candidates, processed_query)
-
-        # Apply filters
-        if options.get("filters"):
-            ranked_results = self.apply_filters(ranked_results, options["filters"])
-
-        # Format results
-        formatted_results = await self.format_search_results(ranked_results, query)
-
-        return SearchResult(
-            query=query,
-            results=formatted_results,
-            total_count=len(formatted_results),
-            search_time=self.measure_search_time(),
-            metadata=self.generate_search_metadata()
+        explained_result = ExplainedResult(
+            result=result,
+            explanation=explanation,
+            confidence=confidence,
+            related_concepts=related_concepts
         )
 
-    async def index_content(self, content: Dict, content_type: str = "document") -> bool:
-        """Index content for search"""
-        # Validate content
-        validation = await self.validate_content(content)
-        if not validation["valid"]:
-            raise ValueError(f"Invalid content: {validation['errors']}")
+        explained_results.append(explained_result)
 
-        # Extract searchable fields
-        searchable_fields = await self.extract_searchable_fields(content)
-
-        # Generate embeddings
-        embeddings = await self.generate_content_embeddings(content)
-
-        # Index in search backend
-        index_result = await self.index_manager.index_document({
-            "id": content["id"],
-            "type": content_type,
-            "fields": searchable_fields,
-            "embeddings": embeddings,
-            "metadata": content.get("metadata", {})
-        })
-
-        return index_result["success"]
+    return explained_results
 ```
 
-#### 3. Ranking Pattern
+## 🧪 Search Testing Standards
+
+### Search Testing Categories (MANDATORY)
+
+#### 1. Search Accuracy Testing
+**Test search accuracy and relevance:**
+
 ```python
-class SearchRanker:
-    """Rank search results by relevance"""
+def test_search_accuracy():
+    """Test search accuracy and relevance"""
+    # Test full-text search accuracy
+    text_queries = [
+        "active inference",
+        "belief updating",
+        "free energy principle",
+        "variational inference",
+        "predictive coding"
+    ]
 
-    async def rank_results(self, candidates: List[Document], query: ProcessedQuery) -> List[ScoredDocument]:
-        """Rank search results"""
-        # Calculate relevance scores
-        scored_candidates = []
-        for candidate in candidates:
-            score = await self.calculate_relevance_score(candidate, query)
-            scored_candidates.append(ScoredDocument(candidate, score))
+    for query in text_queries:
+        results = perform_text_search(query)
+        accuracy = measure_search_accuracy(results, query)
 
-        # Apply ranking algorithm
-        if query.query_type == "semantic":
-            ranked = await self.semantic_ranking(scored_candidates, query)
-        elif query.query_type == "keyword":
-            ranked = await self.keyword_ranking(scored_candidates, query)
-        else:
-            ranked = await self.hybrid_ranking(scored_candidates, query)
+        assert accuracy['precision'] > 0.8, f"Low precision for query: {query}"
+        assert accuracy['recall'] > 0.7, f"Low recall for query: {query}"
 
-        # Apply personalization
-        if query.context.get("user_id"):
-            ranked = await self.personalize_ranking(ranked, query.context["user_id"])
+def test_semantic_search():
+    """Test semantic search understanding"""
+    # Test semantic understanding
+    semantic_queries = [
+        ("decision making under uncertainty", "active inference decision theory"),
+        ("neural prediction", "predictive coding neuroscience"),
+        ("robot learning", "active inference robotics")
+    ]
 
-        return ranked
+    for query, expected_domain in semantic_queries:
+        results = perform_semantic_search(query)
+        relevance = measure_semantic_relevance(results, expected_domain)
 
-    async def calculate_relevance_score(self, document: Document, query: ProcessedQuery) -> float:
-        """Calculate relevance score for document"""
-        # Text similarity
-        text_score = self.calculate_text_similarity(document, query)
-
-        # Semantic similarity
-        semantic_score = await self.calculate_semantic_similarity(document, query)
-
-        # Contextual relevance
-        context_score = self.calculate_contextual_relevance(document, query)
-
-        # User preference score
-        preference_score = await self.calculate_user_preference_score(document, query)
-
-        # Combine scores
-        combined_score = self.combine_relevance_scores([
-            text_score, semantic_score, context_score, preference_score
-        ])
-
-        return combined_score
+        assert relevance['semantic_score'] > 0.75, f"Low semantic relevance for: {query}"
 ```
 
-## 🧪 Testing Standards
+#### 2. Search Performance Testing
+**Test search performance and scalability:**
 
-### Test Categories (MANDATORY)
-
-#### 1. Query Processing Testing
 ```python
-class TestQueryProcessing:
-    """Test query processing functionality"""
+def test_search_performance():
+    """Test search performance characteristics"""
+    # Test response time
+    queries = generate_performance_test_queries()
 
-    def test_natural_language_parsing(self):
-        """Test natural language query parsing"""
-        # Test query parsing
-        query = "What is active inference?"
-        parsed = self.query_processor.parse_query(query)
+    response_times = []
+    for query in queries:
+        start_time = time.perf_counter()
+        results = perform_search(query)
+        end_time = time.perf_counter()
 
-        assert parsed["entities"] == ["active inference"]
-        assert parsed["intent"] == "definition"
-        assert parsed["query_type"] == "informational"
+        response_time = end_time - start_time
+        response_times.append(response_time)
 
-    def test_query_expansion(self):
-        """Test query expansion with synonyms"""
-        query = ProcessedQuery("active inference", entities=["active inference"])
-        expanded = self.query_processor.expand_query(query)
+        # Validate performance requirements
+        assert response_time < 2.0, f"Search too slow: {response_time}s"
 
-        # Check expansion
-        assert "active inference" in expanded.expanded_terms
-        assert "active inference framework" in expanded.expanded_terms
-        assert expanded.expansion_confidence > 0.7
+    # Test throughput
+    concurrent_queries = 10
+    throughput_test = test_concurrent_search_performance(concurrent_queries)
+    assert throughput_test['queries_per_second'] > 5, "Insufficient search throughput"
 
-    def test_intent_classification(self):
-        """Test search intent classification"""
-        queries_and_intents = [
-            ("What is active inference?", "informational"),
-            ("How to implement active inference?", "procedural"),
-            ("Show me examples of active inference", "navigational"),
-            ("Compare active inference vs reinforcement learning", "comparative")
-        ]
+def test_search_scalability():
+    """Test search scalability with content size"""
+    # Test with different content sizes
+    content_sizes = [1000, 10000, 100000, 1000000]  # documents
 
-        for query_text, expected_intent in queries_and_intents:
-            intent = self.query_processor.classify_intent(query_text)
-            assert intent == expected_intent
+    for size in content_sizes:
+        # Index content of specified size
+        test_content = generate_test_content(size)
+        index_content(test_content)
+
+        # Test search performance
+        performance = measure_search_performance_with_size(size)
+
+        # Validate scalability
+        if size > 10000:
+            assert performance['response_time'] < 5.0, f"Performance degraded at size {size}"
+            assert performance['memory_usage'] < expected_memory_for_size(size)
 ```
 
-#### 2. Search Engine Testing
+#### 3. Recommendation System Testing
+**Test recommendation accuracy and personalization:**
+
 ```python
-class TestSearchEngine:
-    """Test search engine functionality"""
+def test_recommendation_accuracy():
+    """Test recommendation system accuracy"""
+    # Test user behavior simulation
+    test_users = create_test_user_profiles()
 
-    async def test_basic_search(self):
-        """Test basic search functionality"""
-        # Index test content
-        await self.index_test_content()
+    for user in test_users:
+        # Generate recommendations
+        recommendations = generate_user_recommendations(user)
 
-        # Execute search
-        results = await self.search_engine.search("active inference")
+        # Validate recommendation quality
+        quality_metrics = evaluate_recommendation_quality(recommendations, user)
+        assert quality_metrics['relevance_score'] > 0.8, f"Low recommendation relevance for user {user['id']}"
 
-        # Validate results
-        assert len(results) > 0
-        assert results[0]["relevance_score"] > 0.5
-        assert "active inference" in results[0]["title"].lower()
+        # Test personalization
+        personalization_test = test_recommendation_personalization(recommendations, user)
+        assert personalization_test['personalized'], f"Recommendations not personalized for user {user['id']}"
 
-    async def test_semantic_search(self):
-        """Test semantic search capabilities"""
-        # Index semantically related content
-        await self.index_semantic_content()
+def test_recommendation_diversity():
+    """Test recommendation diversity and novelty"""
+    # Test recommendation diversity
+    user_recommendations = generate_user_recommendations(test_user)
 
-        # Semantic search
-        results = await self.search_engine.semantic_search("brain decision making")
+    diversity_metrics = calculate_recommendation_diversity(user_recommendations)
+    assert diversity_metrics['diversity_score'] > 0.6, "Recommendations not diverse enough"
 
-        # Validate semantic understanding
-        assert len(results) > 0
-        assert any("neuroscience" in result["tags"] for result in results)
-
-    async def test_performance_under_load(self):
-        """Test search performance under concurrent load"""
-        # Generate load
-        load_tester = SearchLoadTester()
-
-        results = await load_tester.run_concurrent_search_test(
-            queries=["active inference", "bayesian inference", "free energy"],
-            concurrent_users=100,
-            duration=60
-        )
-
-        # Validate performance
-        assert results["avg_response_time"] < 100  # ms
-        assert results["throughput"] > 1000  # queries per second
-        assert results["error_rate"] < 0.01  # 1%
+    novelty_metrics = calculate_recommendation_novelty(user_recommendations, user)
+    assert novelty_metrics['novelty_score'] > 0.4, "Recommendations not novel enough"
 ```
 
-#### 3. Ranking Testing
-```python
-class TestRanking:
-    """Test search result ranking"""
+### Search Coverage Requirements
 
-    async def test_relevance_ranking(self):
-        """Test relevance-based ranking"""
-        # Create test documents with varying relevance
-        documents = await self.create_test_documents_with_relevance()
+- **Query Coverage**: Support for all types of search queries
+- **Content Coverage**: Search across all platform content types
+- **Integration Coverage**: Integration with all platform components
+- **Performance Coverage**: All search operations meet performance requirements
+- **Analytics Coverage**: Complete search behavior tracking and analysis
 
-        # Execute search
-        results = await self.search_engine.search("test query")
+### Search Testing Commands
 
-        # Validate ranking
-        assert results[0]["relevance_score"] > results[-1]["relevance_score"]
-        assert all(results[i]["score"] >= results[i+1]["score"] for i in range(len(results)-1))
+```bash
+# Test all search functionality
+make test-search-engine
 
-    async def test_personalization_ranking(self):
-        """Test personalized ranking"""
-        # Set up user preferences
-        user_preferences = {
-            "preferred_topics": ["neuroscience", "psychology"],
-            "difficulty_level": "advanced",
-            "content_types": ["research", "implementation"]
-        }
+# Test search accuracy
+pytest platform/search/tests/test_accuracy.py -v
 
-        await self.set_user_preferences("test_user", user_preferences)
+# Test search performance
+pytest platform/search/tests/test_performance.py -v
 
-        # Search with personalization
-        results = await self.search_engine.search("active inference", user_id="test_user")
+# Test recommendation systems
+pytest platform/search/tests/test_recommendations.py -v
 
-        # Validate personalization
-        assert all(result["topic"] in user_preferences["preferred_topics"] for result in results[:5])
+# Test search integration
+pytest platform/search/tests/test_integration.py -v
+
+# Validate search quality
+python platform/search/validate_search_quality.py
 ```
 
-## 📖 Documentation Standards
+## 📖 Search Documentation Standards
 
 ### Documentation Requirements (MANDATORY)
 
-#### 1. Search API Documentation
-**All search APIs must be documented:**
+#### 1. Search Interface Documentation
+**All search interfaces must have comprehensive documentation:**
 
 ```python
-async def search(query: str, options: Dict[str, Any] = None) -> SearchResult:
-    """
-    Execute intelligent search across knowledge repository.
+def document_search_interface(search_engine: BaseSearchEngine, config: Dict[str, Any]) -> str:
+    """Document search interface with comprehensive guidance"""
 
-    This function provides comprehensive search capabilities including
-    text search, semantic search, and personalized results.
+    interface_documentation = {
+        "api_overview": document_search_api_overview(search_engine, config),
+        "query_syntax": document_query_syntax(search_engine, config),
+        "filtering_options": document_filtering_options(search_engine, config),
+        "sorting_options": document_sorting_options(search_engine, config),
+        "result_format": document_result_format(search_engine, config),
+        "error_handling": document_error_handling(search_engine, config)
+    }
 
-    Args:
-        query: Search query string (natural language or structured)
-        options: Search options including filters, sorting, and pagination
-            - filters: Dictionary of field filters
-            - sort: Sorting criteria ("relevance", "date", "popularity")
-            - limit: Maximum number of results (default: 20)
-            - offset: Result offset for pagination (default: 0)
-            - include_snippets: Include highlighted snippets (default: True)
+    return format_interface_documentation(interface_documentation)
 
-    Returns:
-        SearchResult object containing results, metadata, and analytics
+def document_query_syntax(engine: BaseSearchEngine, config: Dict[str, Any]) -> str:
+    """Document query syntax and capabilities"""
 
-    Raises:
-        SearchError: If search execution fails
-        ValidationError: If query or options are invalid
-        PermissionError: If user lacks search permissions
+    # Document basic query syntax
+    basic_syntax = """
+# Basic Query Syntax
 
-    Examples:
-        >>> results = await search("active inference fundamentals")
-        >>> print(f"Found {len(results)} results")
+## Simple Queries
+- Single terms: `active inference`
+- Phrases: `"free energy principle"`
+- Boolean: `active AND inference`, `belief OR policy`
 
-        >>> results = await search("bayesian inference", {
-        ...     "filters": {"difficulty": "beginner"},
-        ...     "sort": "relevance",
-        ...     "limit": 10
-        ... })
-        >>> for result in results:
-        ...     print(f"{result.title}: {result.relevance_score}")
-    """
-    pass
+## Field Queries
+- Title: `title:active inference`
+- Author: `author:karl friston`
+- Type: `type:research_paper`
+- Date: `date:2024`
+
+## Advanced Queries
+- Wildcards: `inferen*` (matches inference, inferential, etc.)
+- Fuzzy: `inferense~2` (matches inference with 2 character difference)
+- Proximity: `"active inference"~5` (words within 5 positions)
+"""
+
+    # Document semantic query syntax
+    semantic_syntax = """
+# Semantic Queries
+- Concept search: `concept:active inference decision making`
+- Related concepts: `related to:active inference`
+- Similar content: `similar:active inference tutorial`
+- Learning path: `learning path:active inference`
+"""
+
+    return basic_syntax + semantic_syntax
 ```
 
-#### 2. Configuration Documentation
-**Search configuration must be documented:**
+#### 2. Search Algorithm Documentation
+**All search algorithms must be thoroughly documented:**
 
 ```python
-# Search engine configuration schema
-search_config_schema = {
-    "backend": {
-        "type": "string",
-        "enum": ["elasticsearch", "solr", "opensearch", "local"],
-        "default": "elasticsearch"
-    },
-    "indexing": {
-        "auto_index": {"type": "boolean", "default": True},
-        "batch_size": {"type": "integer", "default": 1000},
-        "refresh_interval": {"type": "string", "default": "30s"},
-        "embedding_model": {"type": "string", "default": "sentence_transformers"}
-    },
-    "ranking": {
-        "algorithm": {"type": "string", "default": "hybrid"},
-        "personalization": {"type": "boolean", "default": True},
-        "semantic_weight": {"type": "float", "default": 0.7},
-        "text_weight": {"type": "float", "default": 0.3}
+def document_search_algorithms(engine: BaseSearchEngine, config: Dict[str, Any]) -> str:
+    """Document search algorithms and ranking methods"""
+
+    algorithm_documentation = {
+        "ranking_algorithms": document_ranking_algorithms(engine, config),
+        "indexing_algorithms": document_indexing_algorithms(engine, config),
+        "semantic_algorithms": document_semantic_algorithms(engine, config),
+        "recommendation_algorithms": document_recommendation_algorithms(engine, config),
+        "performance_algorithms": document_performance_algorithms(engine, config)
     }
-}
+
+    return format_algorithm_documentation(algorithm_documentation)
+```
+
+#### 3. Integration Documentation
+**Search integration must be comprehensively documented:**
+
+```python
+def document_search_integration(engine: BaseSearchEngine, config: Dict[str, Any]) -> str:
+    """Document search integration with platform systems"""
+
+    integration_documentation = {
+        "content_integration": document_content_integration(engine, config),
+        "user_integration": document_user_integration(engine, config),
+        "knowledge_graph_integration": document_knowledge_graph_integration(engine, config),
+        "analytics_integration": document_analytics_integration(engine, config),
+        "performance_integration": document_performance_integration(engine, config)
+    }
+
+    return format_integration_documentation(integration_documentation)
 ```
 
 ## 🚀 Performance Optimization
 
-### Performance Requirements
+### Search Performance Requirements
 
-**Search system must meet these performance standards:**
+**Search systems must meet these performance standards:**
 
-- **Query Response Time**: <100ms for typical queries
-- **Indexing Throughput**: 1000+ documents per second
-- **Search Throughput**: 1000+ queries per second
-- **Index Size**: Support 10M+ documents efficiently
+- **Query Response Time**: <2 seconds for typical queries
+- **Indexing Speed**: Efficient indexing of new content
+- **Scalability**: Handle growing content and user base
+- **Memory Efficiency**: Efficient memory usage for large indices
+- **Concurrent Users**: Support multiple simultaneous users
 
 ### Optimization Techniques
 
-#### 1. Index Optimization
+#### 1. Search Index Optimization
+
 ```python
-class IndexOptimizer:
-    """Optimize search indexes"""
+def optimize_search_indexing(index_config: Dict[str, Any]) -> OptimizedIndex:
+    """Optimize search indexing for performance and efficiency"""
 
-    async def optimize_index_structure(self, index: SearchIndex) -> OptimizedIndex:
-        """Optimize index structure for performance"""
-        # Analyze query patterns
-        query_patterns = await self.analyze_query_patterns(index)
+    # Choose optimal indexing strategy
+    optimal_strategy = select_indexing_strategy(index_config)
 
-        # Optimize field mappings
-        optimized_mappings = self.optimize_field_mappings(query_patterns)
+    # Optimize index structure
+    optimized_structure = optimize_index_structure(optimal_strategy)
 
-        # Create compound indexes
-        compound_indexes = self.create_compound_indexes(query_patterns)
+    # Implement incremental indexing
+    incremental_indexing = implement_incremental_indexing(optimized_structure)
 
-        # Optimize analyzers
-        optimized_analyzers = self.optimize_text_analyzers(query_patterns)
+    # Add index caching
+    index_caching = implement_index_caching(incremental_indexing)
 
-        return OptimizedIndex(index, optimized_mappings, compound_indexes, optimized_analyzers)
+    # Validate optimization
+    optimization_validation = validate_indexing_optimization(index_caching, index_config)
 
-    async def implement_caching_strategy(self, index: SearchIndex) -> CacheStrategy:
-        """Implement intelligent caching"""
-        # Analyze access patterns
-        access_patterns = await self.analyze_access_patterns(index)
-
-        # Create multi-level cache
-        cache_strategy = self.create_multi_level_cache_strategy(access_patterns)
-
-        # Pre-warm popular queries
-        await self.prewarm_popular_queries(cache_strategy)
-
-        return cache_strategy
+    return OptimizedIndex(
+        strategy=optimal_strategy,
+        structure=optimized_structure,
+        incremental=incremental_indexing,
+        caching=index_caching,
+        validation=optimization_validation
+    )
 ```
 
-#### 2. Query Optimization
+#### 2. Query Processing Optimization
+
 ```python
-class QueryOptimizer:
-    """Optimize search queries"""
+def optimize_query_processing(query_config: Dict[str, Any]) -> OptimizedQueryProcessor:
+    """Optimize query processing for speed and relevance"""
 
-    async def optimize_query_execution(self, query: ProcessedQuery) -> OptimizedQuery:
-        """Optimize query execution"""
-        # Select optimal search strategy
-        strategy = self.select_search_strategy(query)
+    # Optimize query parsing
+    optimized_parsing = optimize_query_parsing(query_config)
 
-        # Optimize field selection
-        optimized_fields = self.optimize_field_selection(query, strategy)
+    # Optimize search execution
+    optimized_execution = optimize_search_execution(optimized_parsing)
 
-        # Create query plan
-        query_plan = self.create_query_execution_plan(query, optimized_fields)
+    # Optimize result ranking
+    optimized_ranking = optimize_result_ranking(optimized_execution)
 
-        return OptimizedQuery(query, strategy, optimized_fields, query_plan)
+    # Implement query caching
+    query_caching = implement_query_caching(optimized_ranking)
 
-    async def batch_optimize_queries(self, queries: List[ProcessedQuery]) -> List[OptimizedQuery]:
-        """Batch optimize multiple queries"""
-        # Group similar queries
-        query_groups = self.group_similar_queries(queries)
+    # Add parallel processing
+    parallel_processing = implement_parallel_query_processing(query_caching)
 
-        # Optimize each group
-        optimized_groups = []
-        for group in query_groups:
-            optimized_group = await self.optimize_query_group(group)
-            optimized_groups.append(optimized_group)
-
-        return [query for group in optimized_groups for query in group]
+    return OptimizedQueryProcessor(
+        parsing=optimized_parsing,
+        execution=optimized_execution,
+        ranking=optimized_ranking,
+        caching=query_caching,
+        parallel=parallel_processing
+    )
 ```
 
-## 🔒 Security Standards
+## 🔒 Search Security Standards
 
-### Security Requirements (MANDATORY)
+### Search Security Requirements (MANDATORY)
 
 #### 1. Query Security
+
 ```python
-class SearchSecurity:
-    """Secure search operations"""
+def validate_query_security(query: str, security_config: Dict[str, Any]) -> SecurityResult:
+    """Validate security of search queries"""
 
-    async def validate_query_security(self, query: str, user: User) -> SecurityValidation:
-        """Validate query for security threats"""
-        # SQL injection prevention
-        sql_check = self.prevent_sql_injection(query)
+    security_checks = {
+        "injection_prevention": prevent_query_injection(query),
+        "input_validation": validate_query_input(query),
+        "resource_limits": enforce_query_resource_limits(query),
+        "content_filtering": apply_content_filtering(query)
+    }
 
-        # Command injection prevention
-        cmd_check = self.prevent_command_injection(query)
+    return {
+        "secure": all(security_checks.values()),
+        "checks": security_checks,
+        "violations": [k for k, v in security_checks.items() if not v]
+    }
 
-        # Access control validation
-        access_check = await self.validate_query_access(query, user)
+def sanitize_search_query(raw_query: str) -> str:
+    """Sanitize search query for security"""
 
-        # Content filtering
-        content_check = self.validate_content_appropriateness(query)
+    # Remove potentially dangerous content
+    sanitized = remove_dangerous_query_content(raw_query)
 
-        return {
-            "sql_injection_safe": sql_check,
-            "command_injection_safe": cmd_check,
-            "access_authorized": access_check,
-            "content_appropriate": content_check
-        }
+    # Validate query structure
+    sanitized = validate_query_structure(sanitized)
 
-    async def sanitize_search_results(self, results: List[Document], user: User) -> List[Document]:
-        """Sanitize search results for user"""
-        # Filter sensitive content
-        filtered_results = self.filter_sensitive_content(results, user)
+    # Apply length limits
+    sanitized = apply_query_length_limits(sanitized)
 
-        # Apply access control
-        authorized_results = await self.apply_access_control(filtered_results, user)
+    # Add security logging
+    log_security_check(raw_query, sanitized)
 
-        # Sanitize content
-        sanitized_results = self.sanitize_content_data(authorized_results)
-
-        return sanitized_results
+    return sanitized
 ```
 
-#### 2. Index Security
+#### 2. Result Security
+
 ```python
-class IndexSecurity:
-    """Secure search index"""
+def validate_search_result_security(results: List[Any], security_config: Dict[str, Any]) -> SecurityResult:
+    """Validate security of search results"""
 
-    def secure_index_access(self, index: SearchIndex) -> SecureIndex:
-        """Secure index access"""
-        # Encrypt sensitive fields
-        encrypted_index = self.encrypt_sensitive_fields(index)
+    security_validation = {
+        "content_safety": validate_result_content_safety(results),
+        "access_control": validate_result_access_control(results),
+        "data_privacy": validate_result_data_privacy(results),
+        "information_disclosure": check_result_information_disclosure(results)
+    }
 
-        # Set up access controls
-        self.setup_index_access_controls(encrypted_index)
-
-        # Enable audit logging
-        self.enable_index_audit_logging(encrypted_index)
-
-        return encrypted_index
-
-    def validate_index_integrity(self, index: SearchIndex) -> IntegrityReport:
-        """Validate index integrity"""
-        # Check data consistency
-        consistency_check = self.check_index_consistency(index)
-
-        # Validate indexes
-        index_validation = self.validate_search_indexes(index)
-
-        # Check permissions
-        permission_check = self.validate_index_permissions(index)
-
-        return {
-            "consistent": consistency_check,
-            "indexes_valid": index_validation,
-            "permissions_valid": permission_check
-        }
+    return {
+        "secure": all(security_validation.values()),
+        "validation": security_validation,
+        "risks": [k for k, v in security_validation.items() if not v]
+    }
 ```
 
-## 🐛 Debugging & Troubleshooting
+## 🐛 Search Debugging & Troubleshooting
 
 ### Debug Configuration
 
 ```python
 # Enable search debugging
 debug_config = {
-    "debug_mode": True,
-    "log_level": "DEBUG",
-    "query_debug": True,
-    "index_debug": True,
-    "ranking_debug": True
+    "debug": True,
+    "query_debugging": True,
+    "indexing_debugging": True,
+    "ranking_debugging": True,
+    "performance_monitoring": True
 }
+
+# Debug search development
+debug_search_workflow(debug_config)
 ```
 
 ### Common Debugging Patterns
 
-#### 1. Query Debugging
+#### 1. Search Accuracy Debugging
+
 ```python
-class QueryDebugger:
-    """Debug search queries"""
+def debug_search_accuracy(engine: BaseSearchEngine, test_queries: List[str]) -> DebugResult:
+    """Debug search accuracy issues"""
 
-    async def trace_query_execution(self, query: str) -> QueryTrace:
-        """Trace query execution through system"""
-        # Process query with tracing
-        trace = await self.query_processor.process_with_trace(query)
+    # Test query processing
+    query_processing_debug = debug_query_processing(engine, test_queries)
+    if not query_processing_debug['correct']:
+        return {"type": "query_processing", "issues": query_processing_debug['issues']}
 
-        # Execute with execution tracing
-        execution_trace = await self.search_engine.execute_with_trace(trace)
+    # Test result ranking
+    ranking_debug = debug_result_ranking(engine, test_queries)
+    if not ranking_debug['accurate']:
+        return {"type": "ranking", "issues": ranking_debug['issues']}
 
-        # Analyze performance
-        performance_analysis = await self.analyze_query_performance(execution_trace)
+    # Test relevance scoring
+    relevance_debug = debug_relevance_scoring(engine, test_queries)
+    if not relevance_debug['relevant']:
+        return {"type": "relevance", "issues": relevance_debug['issues']}
 
-        return {
-            "query": query,
-            "processing_trace": trace,
-            "execution_trace": execution_trace,
-            "performance": performance_analysis
-        }
+    return {"status": "search_accurate"}
 
-    async def debug_no_results(self, query: str) -> DebugReport:
-        """Debug queries returning no results"""
-        # Check query processing
-        processed = await self.query_processor.process_query(query)
+def debug_relevance_scoring(engine: BaseSearchEngine, queries: List[str]) -> Dict[str, Any]:
+    """Debug relevance scoring issues"""
 
-        # Check index status
-        index_status = await self.check_index_status()
+    relevance_issues = []
 
-        # Test query components
-        component_tests = await self.test_query_components(processed)
+    for query in queries:
+        # Get search results
+        results = engine.search(query)
 
-        # Suggest improvements
-        suggestions = self.suggest_query_improvements(processed, index_status)
+        # Check result relevance
+        relevance_scores = []
+        for result in results[:10]:  # Check top 10 results
+            relevance = calculate_manual_relevance(result, query)
+            relevance_scores.append(relevance)
 
-        return {
-            "processed_query": processed,
-            "index_status": index_status,
-            "component_tests": component_tests,
-            "suggestions": suggestions
-        }
+        # Check if relevant results are ranked highly
+        if np.mean(relevance_scores[:3]) < 0.7:  # Top 3 should be relevant
+            relevance_issues.append({
+                "query": query,
+                "top_results_relevance": relevance_scores[:3],
+                "issue": "Top results not relevant"
+            })
+
+    return {
+        "relevant": len(relevance_issues) == 0,
+        "issues": relevance_issues,
+        "recommendations": generate_relevance_improvements(relevance_issues)
+    }
+```
+
+#### 2. Performance Debugging
+
+```python
+def debug_search_performance(engine: BaseSearchEngine, performance_config: Dict[str, Any]) -> DebugResult:
+    """Debug search performance issues"""
+
+    # Profile query processing time
+    query_time_profile = profile_query_processing_time(engine)
+
+    if query_time_profile['too_slow']:
+        return {"type": "query_time", "profile": query_time_profile}
+
+    # Profile indexing performance
+    indexing_profile = profile_indexing_performance(engine)
+
+    if indexing_profile['indexing_issues']:
+        return {"type": "indexing", "profile": indexing_profile}
+
+    # Profile memory usage
+    memory_profile = profile_search_memory_usage(engine)
+
+    if memory_profile['memory_issues']:
+        return {"type": "memory", "profile": memory_profile}
+
+    return {"status": "performance_ok"}
 ```
 
 ## 🔄 Development Workflow
 
 ### Agent Development Process
 
-1. **Task Assessment**
-   - Understand search requirements
-   - Analyze query patterns
-   - Consider performance constraints
+1. **Search System Assessment**
+   - Understand current search capabilities and limitations
+   - Identify search gaps and improvement opportunities
+   - Review existing search performance and user experience
 
-2. **Architecture Planning**
-   - Design search architecture
-   - Plan indexing strategy
-   - Consider scalability requirements
+2. **Search Architecture Planning**
+   - Design comprehensive search system architecture
+   - Plan integration with platform content systems
+   - Consider performance and scalability requirements
 
-3. **Test-Driven Development**
-   - Write search tests first
-   - Test query processing
-   - Validate ranking algorithms
+3. **Search Implementation Development**
+   - Implement robust search algorithms and indexing
+   - Create comprehensive semantic understanding
+   - Develop intelligent recommendation systems
 
-4. **Implementation**
-   - Implement search engine
-   - Add query processing
-   - Implement ranking system
+4. **Search Quality Assurance**
+   - Test search accuracy and relevance
+   - Validate performance and scalability
+   - Ensure security and privacy compliance
 
-5. **Quality Assurance**
-   - Test with realistic queries
-   - Validate performance requirements
-   - Security compliance testing
-
-6. **Integration**
-   - Test with knowledge platform
-   - Validate user experience
-   - Performance optimization
+5. **Integration and Optimization**
+   - Test integration with platform systems
+   - Optimize search performance and user experience
+   - Update documentation and user guidance
 
 ### Code Review Checklist
 
 **Before submitting search code for review:**
 
-- [ ] **Query Tests**: Comprehensive query processing tests
-- [ ] **Search Tests**: Search engine functionality tests
-- [ ] **Ranking Tests**: Result ranking and personalization tests
-- [ ] **Performance Tests**: Search performance under load
-- [ ] **Integration Tests**: Platform integration validation
-- [ ] **Documentation**: Complete API and configuration documentation
+- [ ] **Search Accuracy**: Search results are accurate and relevant
+- [ ] **Performance**: Search operations meet performance requirements
+- [ ] **Integration**: Search integrates properly with platform systems
+- [ ] **Security**: Search operations are secure and protect user privacy
+- [ ] **Documentation**: Comprehensive documentation for all search features
+- [ ] **Testing**: Thorough testing including edge cases and performance tests
+- [ ] **Standards Compliance**: Follows all development and quality standards
 
 ## 📚 Learning Resources
 
-### Search Resources
+### Search Development Resources
 
-- **[Search Engine Best Practices](https://example.com/search-engines)**: Search system design
-- **[Information Retrieval](https://example.com/ir)**: IR fundamentals
-- **[Natural Language Processing](https://example.com/nlp)**: Query understanding
-- **[Vector Search](https://example.com/vector-search)**: Semantic search
+- **[Search Engine AGENTS.md](AGENTS.md)**: Search development guidelines
+- **[Information Retrieval](https://example.com)**: Information retrieval fundamentals
+- **[Search Engine Design](https://example.com)**: Search system architecture
+- **[Natural Language Processing](https://example.com)**: NLP for search applications
 
-### Platform Integration
+### Technical References
 
-- **[Knowledge Platform](../../../knowledge/README.md)**: Knowledge architecture
-- **[Platform Services](../../platform/README.md)**: Platform integration
-- **[User Management](../../../src/active_inference/platform/README.md)**: User systems
+- **[Elasticsearch Documentation](https://example.com)**: Elasticsearch search engine
+- **[Vector Search](https://example.com)**: Semantic vector search techniques
+- **[Recommendation Systems](https://example.com)**: Recommendation algorithm design
+- **[Search Analytics](https://example.com)**: Search behavior analysis
+
+### Related Components
+
+Study these related components for integration patterns:
+
+- **[Knowledge Graph](../../../platform/knowledge_graph/)**: Semantic knowledge organization
+- **[Content Management](../../../platform/)**: Content indexing and management
+- **[User Analytics](../../../platform/)**: User behavior and personalization
+- **[Platform Services](../../../platform/)**: Platform infrastructure integration
 
 ## 🎯 Success Metrics
 
-### Quality Metrics
+### Search Quality Metrics
 
-- **Search Relevance**: >90% query result relevance
-- **Query Understanding**: >85% intent classification accuracy
-- **Performance**: <100ms query response time
-- **User Experience**: Intuitive search interface
+- **Search Accuracy**: >90% relevance for typical queries
+- **Response Time**: <2 seconds for 95% of queries
+- **User Satisfaction**: >85% user satisfaction with search results
+- **Content Coverage**: 100% of platform content searchable
+- **Recommendation Quality**: >80% recommendation acceptance rate
 
 ### Development Metrics
 
-- **Search Engine**: Efficient and scalable search implementation
-- **Query Processing**: Accurate natural language understanding
-- **Ranking System**: Effective relevance ranking
-- **Integration**: Seamless platform integration
+- **Implementation Speed**: Search features implemented within 2 months
+- **Quality Score**: Consistent high-quality search implementations
+- **Integration Success**: Seamless integration with platform systems
+- **Performance Achievement**: All performance requirements met
+- **Maintenance Efficiency**: Easy to update and optimize search systems
 
 ---
 
-**Component**: Platform Search | **Version**: 1.0.0 | **Last Updated**: October 2024
+**Platform Search Engine**: Agent Guide | **Version**: 1.0.0 | **Last Updated**: October 2024
 
-*"Active Inference for, with, by Generative AI"* - Intelligent discovery through semantic search.
+*"Active Inference for, with, by Generative AI"* - Enabling intelligent discovery through advanced search, semantic understanding, and personalized knowledge navigation in the Active Inference ecosystem.

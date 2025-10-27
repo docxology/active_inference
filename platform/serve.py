@@ -30,6 +30,8 @@ knowledge_config = KnowledgeRepositoryConfig(
     root_path=project_root / "knowledge",
     auto_index=True
 )
+# Ensure root_path is a Path object
+knowledge_config.root_path = Path(knowledge_config.root_path)
 knowledge_repo = KnowledgeRepository(knowledge_config)
 
 

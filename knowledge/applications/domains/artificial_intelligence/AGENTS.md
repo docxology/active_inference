@@ -6,6 +6,60 @@ This document provides comprehensive guidance for AI agents and contributors wor
 
 The Artificial Intelligence domain applies Active Inference principles to design more aligned, interpretable, and robust artificial intelligence systems. This includes AI alignment techniques, safety mechanisms, value learning systems, and interpretable decision-making frameworks that bridge theoretical Active Inference with practical AI applications.
 
+### AI Alignment System Architecture
+
+```mermaid
+graph TB
+    subgraph "AI Alignment System"
+        A[Human Values] --> B[Value Learning Model]
+        B --> C[Preference Inference]
+        C --> D[Reward Design]
+        D --> E[Policy Selection]
+
+        F[Safety Monitor] --> E
+        G[Uncertainty Quantifier] --> F
+        H[Interpretability Engine] --> E
+
+        I[Active Inference Core] --> B
+        I --> F
+        I --> G
+        I --> H
+    end
+
+    subgraph "External Integration"
+        J[Human Feedback] --> C
+        K[Environment] --> I
+        L[Ethical Guidelines] --> F
+        M[Performance Metrics] --> E
+    end
+
+    subgraph "Safety & Validation"
+        N[Alignment Validator] --> O[Quality Gates]
+        P[Safety Constraints] --> O
+        Q[Interpretability Check] --> O
+        O --> R[Deployment Ready]
+    end
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+    style I fill:#f9fbe7
+    style J fill:#fce4ec
+    style K fill:#f3e5f5
+    style L fill:#e8f5e8
+    style M fill:#fff3e0
+    style N fill:#f1f8e9
+    style O fill:#e1f5fe
+    style P fill:#fff8e1
+    style Q fill:#fce4ec
+    style R fill:#4caf50
+```
+
 ## Directory Structure
 
 ```
@@ -38,6 +92,41 @@ knowledge/applications/domains/artificial_intelligence/
 ## Development Workflows
 
 ### AI Application Development Process
+
+```mermaid
+flowchart TD
+    A[Problem Formulation] --> B[Value Specification]
+    B --> C[Model Design]
+    C --> D[Safety Integration]
+    D --> E[Implementation]
+    E --> F[Testing & Validation]
+    F --> G[Deployment]
+
+    A1[Define AI Challenge] --> A
+    A2[Map to Active Inference] --> A
+    B1[Identify Human Values] --> B
+    B2[Formalize Preferences] --> B
+    C1[Design Generative Models] --> C
+    C2[Capture Value Structures] --> C
+    D1[Implement Safety Mechanisms] --> D
+    D2[Add Uncertainty Handling] --> D
+    E1[Build AI System] --> E
+    E2[Integrate Components] --> E
+    F1[Alignment Testing] --> F
+    F2[Safety Validation] --> F
+    F3[Performance Testing] --> F
+    G1[Deploy with Monitoring] --> G
+    G2[Enable Safety Measures] --> G
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+```
+
 1. **Problem Formulation**: Define AI alignment or safety problem in Active Inference terms
 2. **Value Specification**: Identify and formalize human values and preferences
 3. **Model Design**: Design generative models that capture value structures
@@ -54,6 +143,42 @@ knowledge/applications/domains/artificial_intelligence/
 5. **Safety Verification**: Verify safety under value-aligned behavior
 
 ## Quality Standards
+
+### AI System Quality Assurance Pipeline
+
+```mermaid
+flowchart LR
+    A[AI Development] --> B[Alignment Validation]
+    B --> C[Safety Testing]
+    C --> D[Performance Validation]
+    D --> E[Interpretability Check]
+    E --> F[Ethical Review]
+    F --> G[Final Certification]
+    G --> H[Deployment]
+
+    B1[Value Alignment Score] --> B
+    B2[Preference Consistency] --> B
+    C1[Safety Constraint Tests] --> C
+    C2[Uncertainty Bounds] --> C
+    C3[Fallback System Tests] --> C
+    D1[Real-time Performance] --> D
+    D2[Scalability Tests] --> D
+    E1[Decision Explanation] --> E
+    E2[Model Transparency] --> E
+    F1[Ethical Guidelines] --> F
+    F2[Bias Assessment] --> F
+    G1[All Tests Pass] --> G
+    G2[Quality Score >95%] --> G
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#4caf50
+```
 
 ### AI Safety Standards
 - **Alignment Quality**: Systems must demonstrate alignment with specified values
@@ -457,6 +582,52 @@ class AISafetyMonitor:
 - **Latency**: Minimize latency in AI decision-making
 - **Reliability**: Maintain reliability under varying loads
 
+## Platform Integration
+
+### AI Domain Integration Architecture
+
+```mermaid
+graph TB
+    subgraph "AI Domain Module"
+        A[Value Learning] --> B[AI Alignment System]
+        C[Safety Monitor] --> B
+        D[Decision Engine] --> B
+        E[Interpretability Engine] --> B
+    end
+
+    subgraph "Platform Integration"
+        F[Knowledge Base] <--> A
+        G[Research Tools] <--> C
+        H[Testing Framework] <--> D
+        I[Visualization] <--> E
+        J[Application Framework] <--> B
+    end
+
+    subgraph "External Systems"
+        K[AI Safety Research] --> C
+        L[Ethics Guidelines] --> B
+        M[Industry Standards] --> D
+        N[Human Values] --> A
+        O[Performance Metrics] --> B
+    end
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+    style I fill:#f9fbe7
+    style J fill:#fce4ec
+    style K fill:#f3e5f5
+    style L fill:#e8f5e8
+    style M fill:#fff3e0
+    style N fill:#f1f8e9
+    style O fill:#e1f5fe
+```
+
 ## Getting Started as an Agent
 
 ### AI Domain Development Setup
@@ -515,13 +686,43 @@ class AISafetyMonitor:
 
 ## Related Documentation
 
-- **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines and standards
-- **[AI Domain README](./README.md)**: Artificial intelligence domain overview
-- **[Knowledge Foundations AGENTS.md](../../foundations/AGENTS.md)**: Foundation concepts development
-- **[Mathematics AGENTS.md](../../mathematics/AGENTS.md)**: Mathematical implementations
-- **[Applications AGENTS.md](../../applications/AGENTS.md)**: Application development guidelines
-- **[AI Alignment JSON](./ai_alignment.json)**: Detailed AI alignment implementation
-- **[AI Safety JSON](./ai_safety.json)**: AI safety mechanisms and implementation
+### 🔝 **Core Platform Documentation**
+- **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines and standards
+- **[Main README.md](../../../README.md)**: Active Inference Knowledge Environment overview
+- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes and guidelines
+
+### 🤖 **AI Domain Documentation**
+- **[AI Domain README](./README.md)**: Artificial intelligence domain overview and applications
+- **[AI Alignment JSON](./ai_alignment.json)**: Detailed AI alignment implementation and examples
+- **[AI Safety JSON](./ai_safety.json)**: AI safety mechanisms and implementation details
+
+### 📚 **Knowledge Foundations**
+- **[Knowledge Base AGENTS.md](../../../knowledge/AGENTS.md)**: Educational content development guidelines
+- **[Foundations AGENTS.md](../../../knowledge/foundations/AGENTS.md)**: Foundation concepts development guide
+- **[Mathematics AGENTS.md](../../../knowledge/mathematics/AGENTS.md)**: Mathematical formulations and derivations
+- **[Implementations AGENTS.md](../../../knowledge/implementations/AGENTS.md)**: Code examples and tutorials
+
+### 🌍 **Domain Applications**
+- **[Applications AGENTS.md](../../../applications/AGENTS.md)**: Application development guidelines
+- **[Climate Science AGENTS.md](../climate_science/AGENTS.md)**: Climate modeling and decision making
+- **[Neuroscience AGENTS.md](../neuroscience/AGENTS.md)**: Brain imaging and neural analysis
+- **[Robotics AGENTS.md](../robotics/AGENTS.md)**: Control systems and autonomous technologies
+
+### 🔧 **Development Tools Integration**
+- **[Tools AGENTS.md](../../../tools/AGENTS.md)**: Development tools and automation
+- **[Testing Framework AGENTS.md](../../../tests/AGENTS.md)**: Testing and validation guidelines
+- **[Platform Services AGENTS.md](../../../platform/AGENTS.md)**: Platform infrastructure development
+
+### 📖 **Navigation Breadcrumb**
+```
+📖 AGENTS.md > 🌍 Applications > 🤖 AI Domain > 🔒 AI Alignment & Safety
+```
+
+### 🔗 **Quick Links**
+- **[Active Inference Foundations](../../../knowledge/foundations/)** - Core theoretical concepts
+- **[Mathematical Framework](../../../knowledge/mathematics/)** - Rigorous mathematical treatment
+- **[Implementation Examples](../../../knowledge/implementations/)** - Code examples and algorithms
+- **[Research Methods](../../../research/)** - Scientific tools and validation methods
 
 ---
 

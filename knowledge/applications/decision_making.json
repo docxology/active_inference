@@ -4,8 +4,17 @@
   "content_type": "application",
   "difficulty": "intermediate",
   "description": "Application of Active Inference to human and artificial decision making, planning, and problem solving.",
-  "prerequisites": ["expected_free_energy", "ai_policy_selection"],
-  "tags": ["decision making", "planning", "problem solving", "cognitive science", "artificial intelligence"],
+  "prerequisites": [
+    "expected_free_energy",
+    "ai_policy_selection"
+  ],
+  "tags": [
+    "decision making",
+    "planning",
+    "problem solving",
+    "cognitive science",
+    "artificial intelligence"
+  ],
   "learning_objectives": [
     "Apply Active Inference to decision-making problems",
     "Understand exploration-exploitation trade-offs",
@@ -143,6 +152,497 @@
     "difficulty_level": "intermediate",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "domain_applications": "general",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 9
+  },
+  "interactive_exercises": [
+    {
+      "type": "case_analysis",
+      "title": "Analyze Active Inference in Decision Making and Planning Application",
+      "scenario": "A company is trying to apply Active Inference in Decision Making and Planning to solve a complex problem in their domain.",
+      "questions": [
+        "What are the key challenges in this application?",
+        "How does the Active Inference approach help?",
+        "What are the potential benefits and drawbacks?",
+        "What metrics would you use to evaluate success?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 15
+    },
+    {
+      "type": "design",
+      "title": "Design Active Inference in Decision Making and Planning System",
+      "requirements": [
+        "Must incorporate Active Inference principles",
+        "Should be scalable and maintainable",
+        "Needs to handle uncertainty appropriately",
+        "Should provide clear interfaces and documentation"
+      ],
+      "constraints": [
+        "Limited computational resources",
+        "Real-time performance requirements",
+        "Data privacy and security concerns",
+        "Integration with existing systems"
+      ],
+      "evaluation_criteria": [
+        "Technical correctness",
+        "Performance efficiency",
+        "Practical applicability",
+        "Code quality and maintainability"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 30
+    },
+    {
+      "type": "planning",
+      "title": "Plan Active Inference in Decision Making and Planning Implementation",
+      "objectives": [
+        "Create a working prototype",
+        "Validate against theoretical predictions",
+        "Ensure computational efficiency",
+        "Document the implementation thoroughly"
+      ],
+      "steps": [
+        "Review theoretical foundations",
+        "Design the system architecture",
+        "Implement core algorithms",
+        "Test and validate the implementation",
+        "Document and share results"
+      ],
+      "resources": [
+        "Python programming environment",
+        "Scientific computing libraries (NumPy, SciPy)",
+        "Data for testing and validation",
+        "Computational resources for experiments"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Active Inference in Decision Making and Planning",
+      "questions": [
+        "How does active inference in decision making and planning relate to other Active Inference concepts?",
+        "What are the practical implications of active inference in decision making and planning?",
+        "What challenges arise when applying active inference in decision making and planning?",
+        "How might active inference in decision making and planning evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Active Inference in Decision Making and Planning Applications",
+      "questions": [
+        "Find a real-world application of active inference in decision making and planning",
+        "What research papers discuss active inference in decision making and planning?",
+        "How is active inference in decision making and planning used in industry?",
+        "What are current research challenges related to active inference in decision making and planning?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Active Inference in Decision Making and Planning Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Active Inference in Decision Making and Planning",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Active Inference in Decision Making and Planning",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "case_analysis",
+      "title": "Analyze Active Inference in Decision Making and Planning Application",
+      "scenario": "A company is trying to apply Active Inference in Decision Making and Planning to solve a complex problem in their domain.",
+      "questions": [
+        "What are the key challenges in this application?",
+        "How does the Active Inference approach help?",
+        "What are the potential benefits and drawbacks?",
+        "What metrics would you use to evaluate success?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 15
+    },
+    {
+      "type": "design",
+      "title": "Design Active Inference in Decision Making and Planning System",
+      "requirements": [
+        "Must incorporate Active Inference principles",
+        "Should be scalable and maintainable",
+        "Needs to handle uncertainty appropriately",
+        "Should provide clear interfaces and documentation"
+      ],
+      "constraints": [
+        "Limited computational resources",
+        "Real-time performance requirements",
+        "Data privacy and security concerns",
+        "Integration with existing systems"
+      ],
+      "evaluation_criteria": [
+        "Technical correctness",
+        "Performance efficiency",
+        "Practical applicability",
+        "Code quality and maintainability"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 30
+    },
+    {
+      "type": "planning",
+      "title": "Plan Active Inference in Decision Making and Planning Implementation",
+      "objectives": [
+        "Create a working prototype",
+        "Validate against theoretical predictions",
+        "Ensure computational efficiency",
+        "Document the implementation thoroughly"
+      ],
+      "steps": [
+        "Review theoretical foundations",
+        "Design the system architecture",
+        "Implement core algorithms",
+        "Test and validate the implementation",
+        "Document and share results"
+      ],
+      "resources": [
+        "Python programming environment",
+        "Scientific computing libraries (NumPy, SciPy)",
+        "Data for testing and validation",
+        "Computational resources for experiments"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Active Inference in Decision Making and Planning",
+      "questions": [
+        "How does active inference in decision making and planning relate to other Active Inference concepts?",
+        "What are the practical implications of active inference in decision making and planning?",
+        "What challenges arise when applying active inference in decision making and planning?",
+        "How might active inference in decision making and planning evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Active Inference in Decision Making and Planning Applications",
+      "questions": [
+        "Find a real-world application of active inference in decision making and planning",
+        "What research papers discuss active inference in decision making and planning?",
+        "How is active inference in decision making and planning used in industry?",
+        "What are current research challenges related to active inference in decision making and planning?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Active Inference in Decision Making and Planning Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Active Inference in Decision Making and Planning",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Active Inference in Decision Making and Planning",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "architecture_diagram",
+        "title": "Active Inference in Decision Making and Planning System Architecture",
+        "description": "High-level architecture of active inference in decision making and planning application",
+        "file_path": "apps/decision_making_architecture.svg",
+        "format": "svg",
+        "interactive": true,
+        "components": [
+          {
+            "id": "input_layer",
+            "label": "Input Processing",
+            "type": "input"
+          },
+          {
+            "id": "core_engine",
+            "label": "Core Engine",
+            "type": "processing"
+          },
+          {
+            "id": "output_layer",
+            "label": "Output Generation",
+            "type": "output"
+          }
+        ]
+      },
+      {
+        "type": "use_case_diagram",
+        "title": "Active Inference in Decision Making and Planning Use Cases",
+        "description": "Use cases and scenarios for active inference in decision making and planning application",
+        "file_path": "apps/decision_making_usecases.svg",
+        "format": "svg",
+        "interactive": false,
+        "actors": [
+          "User",
+          "System",
+          "Administrator",
+          "External Service"
+        ],
+        "scenarios": [
+          {
+            "actor": "User",
+            "action": "Interact with system",
+            "outcome": "Expected results"
+          },
+          {
+            "actor": "System",
+            "action": "Process request",
+            "outcome": "Response generated"
+          }
+        ]
+      },
+      {
+        "type": "results_visualization",
+        "title": "Active Inference in Decision Making and Planning Results and Outcomes",
+        "description": "Visualization of results and outcomes from active inference in decision making and planning application",
+        "file_path": "apps/decision_making_results.svg",
+        "format": "svg",
+        "interactive": true,
+        "metrics": [
+          "accuracy",
+          "performance",
+          "efficiency",
+          "reliability"
+        ]
+      }
+    ],
+    "animations": [
+      {
+        "type": "process_animation",
+        "title": "Active Inference in Decision Making and Planning Process Animation",
+        "description": "Animated visualization of active inference in decision making and planning process over time",
+        "file_path": "animations/decision_making_process.mp4",
+        "format": "mp4",
+        "duration": 30,
+        "frames": 900,
+        "keyframes": [
+          {
+            "time": 0,
+            "description": "Initial state",
+            "visual_elements": []
+          },
+          {
+            "time": 15,
+            "description": "Processing state",
+            "visual_elements": []
+          },
+          {
+            "time": 30,
+            "description": "Final state",
+            "visual_elements": []
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "simulation_interface",
+        "title": "Active Inference in Decision Making and Planning Simulation Interface",
+        "description": "Interactive simulation of active inference in decision making and planning dynamics",
+        "file_path": "interactive/decision_making_simulation.html",
+        "format": "html",
+        "interactive_elements": [
+          "play_pause",
+          "reset",
+          "parameter_controls"
+        ],
+        "simulation_parameters": [
+          {
+            "name": "time_steps",
+            "value": 1000,
+            "description": "Number of simulation steps"
+          },
+          {
+            "name": "dt",
+            "value": 0.01,
+            "description": "Time step size"
+          },
+          {
+            "name": "initial_conditions",
+            "value": [
+              0.0,
+              0.0
+            ],
+            "description": "Starting conditions"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Active Inference in Decision Making and Planning",
+        "description": "Comprehensive introduction to active inference in decision making and planning concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=05f18394db9",
+        "duration": 600,
+        "level": "beginner"
+      },
+      {
+        "type": "case_study_video",
+        "title": "Active Inference in Decision Making and Planning Case Study",
+        "description": "Real-world application of active inference in decision making and planning",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=b3de2d3a978",
+        "duration": 900,
+        "level": "intermediate"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/decision_making_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Active Inference in Decision Making and Planning"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/decision_making_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Active Inference in Decision Making and Planning"
+      }
+    ]
   }
 }

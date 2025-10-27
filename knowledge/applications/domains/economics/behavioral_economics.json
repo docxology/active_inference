@@ -1,0 +1,591 @@
+{
+  "id": "behavioral_economics",
+  "title": "Behavioral Economics and Decision Making",
+  "content_type": "application",
+  "difficulty": "intermediate",
+  "description": "Behavioral economics studies how psychological, cognitive, and emotional factors affect economic decisions, providing insights into real human behavior.",
+  "prerequisites": [
+    "decision_theory",
+    "multi_agent_systems",
+    "expected_free_energy"
+  ],
+  "tags": [
+    "behavioral economics",
+    "decision making",
+    "cognitive biases",
+    "prospect theory",
+    "bounded rationality"
+  ],
+  "learning_objectives": [
+    "Understand deviations from rational choice theory",
+    "Recognize common cognitive biases in decision making",
+    "Apply behavioral economics to Active Inference",
+    "Design choice architectures that account for human behavior"
+  ],
+  "content": {
+    "overview": "Behavioral economics bridges psychology and economics, showing that human decision making systematically deviates from the rational choice model. It provides realistic models of how people actually make decisions under uncertainty, with direct applications to Active Inference.",
+    "foundational_concepts": {
+      "bounded_rationality": "Humans have limited cognitive resources",
+      "cognitive_biases": "Systematic deviations from rational judgment",
+      "dual_system_theory": "Fast intuitive vs slow deliberative thinking",
+      "prospect_theory": "Value function with loss aversion"
+    },
+    "key_behavioral_principles": {
+      "loss_aversion": "Losses loom larger than equivalent gains",
+      "reference_dependence": "Outcomes evaluated relative to reference point",
+      "diminishing_sensitivity": "Marginal impact decreases with scale",
+      "probability_weighting": "Nonlinear weighting of probabilities"
+    },
+    "cognitive_biases": {
+      "confirmation_bias": "Seeking information that confirms beliefs",
+      "anchoring": "Reliance on initial information",
+      "availability_heuristic": "Judging by ease of recall",
+      "framing_effects": "Decision influenced by problem presentation"
+    },
+    "connection_to_active_inference": {
+      "bounded_rationality": "Active Inference naturally models limited cognition",
+      "belief_updating": "Cognitive biases as approximate inference",
+      "expected_free_energy": "Behavioral economics as minimizing free energy",
+      "policy_selection": "Biased decision making as bounded optimization"
+    },
+    "decision_making_under_uncertainty": {
+      "ambiguity_aversion": "Preference for known over unknown probabilities",
+      "risk_attitudes": "Individual differences in risk preferences",
+      "intertemporal_choice": "Time preference and discounting",
+      "social_preferences": "Fairness, reciprocity, and social utility"
+    },
+    "applications": {
+      "policy_design": "Design policies that work with human behavior",
+      "financial_markets": "Understanding market anomalies and bubbles",
+      "health_behavior": "Promoting healthy choices",
+      "environmental_behavior": "Encouraging sustainable actions",
+      "technology_design": "User interface and choice architecture"
+    },
+    "examples": [
+      {
+        "name": "Loss Aversion in Investment",
+        "description": "People hold losing investments too long",
+        "behavior": "Reluctance to realize losses",
+        "active_inference": "Belief updating resistant to contradictory evidence",
+        "implication": "Design interventions that reset reference points"
+      },
+      {
+        "name": "Default Options",
+        "description": "Default choices heavily influence behavior",
+        "application": "Organ donation, retirement savings",
+        "mechanism": "Status quo bias and decision avoidance",
+        "policy_implication": "Set beneficial defaults"
+      },
+      {
+        "name": "Social Norms",
+        "description": "Social influence on individual behavior",
+        "mechanism": "Conformity and social proof",
+        "active_inference": "Multi-agent belief updating",
+        "application": "Design interventions using social influence"
+      }
+    ],
+    "nudging_and_choice_architecture": {
+      "libertarian_paternalism": "Guide choices without restricting options",
+      "choice_architecture": "How choices are presented affects decisions",
+      "default_rules": "Defaults as implicit recommendations",
+      "feedback_mechanisms": "Provide information at decision points"
+    },
+    "methodological_approaches": {
+      "experimental_economics": "Laboratory experiments with real stakes",
+      "field_experiments": "Natural experiments in real environments",
+      "neuroeconomics": "Neural basis of economic decisions",
+      "computational_modeling": "Formal models of decision processes"
+    },
+    "criticisms_and_limitations": {
+      "predictive_power": "Behavioral models may lack predictive accuracy",
+      "context_dependence": "Behavior varies across contexts",
+      "individual_differences": "Wide variation in behavioral tendencies",
+      "intervention_effectiveness": "Nudges may lose effectiveness over time"
+    },
+    "interactive_exercises": [
+      {
+        "id": "bias_identification",
+        "type": "analysis",
+        "description": "Identify cognitive biases in decision scenarios",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "prospect_theory_modeling",
+        "type": "calculation",
+        "description": "Model decisions using prospect theory value function",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Behavioral economics shows humans are irrational",
+        "clarification": "Humans are rational but with different goals and constraints"
+      },
+      {
+        "misconception": "All cognitive biases are bad",
+        "clarification": "Biases can be adaptive in certain environments"
+      },
+      {
+        "misconception": "Nudging manipulates people",
+        "clarification": "Nudging works with human psychology to achieve mutual benefits"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Thinking, Fast and Slow",
+        "author": "Daniel Kahneman",
+        "year": 2011,
+        "description": "Dual system theory and cognitive biases"
+      },
+      {
+        "title": "Nudge: Improving Decisions About Health, Wealth, and Happiness",
+        "author": "Richard Thaler and Cass Sunstein",
+        "year": 2008,
+        "description": "Application of behavioral economics to policy"
+      }
+    ],
+    "related_concepts": [
+      "decision_theory",
+      "multi_agent_systems",
+      "expected_free_energy",
+      "game_theory"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 28,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "domain_applications": "economics",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 3,
+    "multimedia_integrated": true,
+    "multimedia_count": 7
+  },
+  "interactive_exercises": [
+    {
+      "type": "case_analysis",
+      "title": "Analyze Behavioral Economics and Decision Making Application",
+      "scenario": "A company is trying to apply Behavioral Economics and Decision Making to solve a complex problem in their domain.",
+      "questions": [
+        "What are the key challenges in this application?",
+        "How does the Active Inference approach help?",
+        "What are the potential benefits and drawbacks?",
+        "What metrics would you use to evaluate success?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 15
+    },
+    {
+      "type": "design",
+      "title": "Design Behavioral Economics and Decision Making System",
+      "requirements": [
+        "Must incorporate Active Inference principles",
+        "Should be scalable and maintainable",
+        "Needs to handle uncertainty appropriately",
+        "Should provide clear interfaces and documentation"
+      ],
+      "constraints": [
+        "Limited computational resources",
+        "Real-time performance requirements",
+        "Data privacy and security concerns",
+        "Integration with existing systems"
+      ],
+      "evaluation_criteria": [
+        "Technical correctness",
+        "Performance efficiency",
+        "Practical applicability",
+        "Code quality and maintainability"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 30
+    },
+    {
+      "type": "planning",
+      "title": "Plan Behavioral Economics and Decision Making Implementation",
+      "objectives": [
+        "Create a working prototype",
+        "Validate against theoretical predictions",
+        "Ensure computational efficiency",
+        "Document the implementation thoroughly"
+      ],
+      "steps": [
+        "Review theoretical foundations",
+        "Design the system architecture",
+        "Implement core algorithms",
+        "Test and validate the implementation",
+        "Document and share results"
+      ],
+      "resources": [
+        "Python programming environment",
+        "Scientific computing libraries (NumPy, SciPy)",
+        "Data for testing and validation",
+        "Computational resources for experiments"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Behavioral Economics and Decision Making",
+      "questions": [
+        "How does behavioral economics and decision making relate to other Active Inference concepts?",
+        "What are the practical implications of behavioral economics and decision making?",
+        "What challenges arise when applying behavioral economics and decision making?",
+        "How might behavioral economics and decision making evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Behavioral Economics and Decision Making Applications",
+      "questions": [
+        "Find a real-world application of behavioral economics and decision making",
+        "What research papers discuss behavioral economics and decision making?",
+        "How is behavioral economics and decision making used in industry?",
+        "What are current research challenges related to behavioral economics and decision making?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Behavioral Economics and Decision Making Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Behavioral Economics and Decision Making",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Behavioral Economics and Decision Making",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "case_analysis",
+      "title": "Analyze Behavioral Economics and Decision Making Application",
+      "scenario": "A company is trying to apply Behavioral Economics and Decision Making to solve a complex problem in their domain.",
+      "questions": [
+        "What are the key challenges in this application?",
+        "How does the Active Inference approach help?",
+        "What are the potential benefits and drawbacks?",
+        "What metrics would you use to evaluate success?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 15
+    },
+    {
+      "type": "design",
+      "title": "Design Behavioral Economics and Decision Making System",
+      "requirements": [
+        "Must incorporate Active Inference principles",
+        "Should be scalable and maintainable",
+        "Needs to handle uncertainty appropriately",
+        "Should provide clear interfaces and documentation"
+      ],
+      "constraints": [
+        "Limited computational resources",
+        "Real-time performance requirements",
+        "Data privacy and security concerns",
+        "Integration with existing systems"
+      ],
+      "evaluation_criteria": [
+        "Technical correctness",
+        "Performance efficiency",
+        "Practical applicability",
+        "Code quality and maintainability"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 30
+    },
+    {
+      "type": "planning",
+      "title": "Plan Behavioral Economics and Decision Making Implementation",
+      "objectives": [
+        "Create a working prototype",
+        "Validate against theoretical predictions",
+        "Ensure computational efficiency",
+        "Document the implementation thoroughly"
+      ],
+      "steps": [
+        "Review theoretical foundations",
+        "Design the system architecture",
+        "Implement core algorithms",
+        "Test and validate the implementation",
+        "Document and share results"
+      ],
+      "resources": [
+        "Python programming environment",
+        "Scientific computing libraries (NumPy, SciPy)",
+        "Data for testing and validation",
+        "Computational resources for experiments"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Behavioral Economics and Decision Making",
+      "questions": [
+        "How does behavioral economics and decision making relate to other Active Inference concepts?",
+        "What are the practical implications of behavioral economics and decision making?",
+        "What challenges arise when applying behavioral economics and decision making?",
+        "How might behavioral economics and decision making evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Behavioral Economics and Decision Making Applications",
+      "questions": [
+        "Find a real-world application of behavioral economics and decision making",
+        "What research papers discuss behavioral economics and decision making?",
+        "How is behavioral economics and decision making used in industry?",
+        "What are current research challenges related to behavioral economics and decision making?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Behavioral Economics and Decision Making Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Behavioral Economics and Decision Making",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Behavioral Economics and Decision Making",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "architecture_diagram",
+        "title": "Behavioral Economics and Decision Making System Architecture",
+        "description": "High-level architecture of behavioral economics and decision making application",
+        "file_path": "apps/behavioral_economics_architecture.svg",
+        "format": "svg",
+        "interactive": true,
+        "components": [
+          {
+            "id": "input_layer",
+            "label": "Input Processing",
+            "type": "input"
+          },
+          {
+            "id": "core_engine",
+            "label": "Core Engine",
+            "type": "processing"
+          },
+          {
+            "id": "output_layer",
+            "label": "Output Generation",
+            "type": "output"
+          }
+        ]
+      },
+      {
+        "type": "use_case_diagram",
+        "title": "Behavioral Economics and Decision Making Use Cases",
+        "description": "Use cases and scenarios for behavioral economics and decision making application",
+        "file_path": "apps/behavioral_economics_usecases.svg",
+        "format": "svg",
+        "interactive": false,
+        "actors": [
+          "User",
+          "System",
+          "Administrator",
+          "External Service"
+        ],
+        "scenarios": [
+          {
+            "actor": "User",
+            "action": "Interact with system",
+            "outcome": "Expected results"
+          },
+          {
+            "actor": "System",
+            "action": "Process request",
+            "outcome": "Response generated"
+          }
+        ]
+      },
+      {
+        "type": "results_visualization",
+        "title": "Behavioral Economics and Decision Making Results and Outcomes",
+        "description": "Visualization of results and outcomes from behavioral economics and decision making application",
+        "file_path": "apps/behavioral_economics_results.svg",
+        "format": "svg",
+        "interactive": true,
+        "metrics": [
+          "accuracy",
+          "performance",
+          "efficiency",
+          "reliability"
+        ]
+      }
+    ],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Behavioral Economics and Decision Making",
+        "description": "Comprehensive introduction to behavioral economics and decision making concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=e925b9083c2",
+        "duration": 600,
+        "level": "beginner"
+      },
+      {
+        "type": "case_study_video",
+        "title": "Behavioral Economics and Decision Making Case Study",
+        "description": "Real-world application of behavioral economics and decision making",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=68947fec465",
+        "duration": 900,
+        "level": "intermediate"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/behavioral_economics_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Behavioral Economics and Decision Making"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/behavioral_economics_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Behavioral Economics and Decision Making"
+      }
+    ]
+  }
+}

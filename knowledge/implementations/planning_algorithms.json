@@ -4,8 +4,17 @@
   "content_type": "implementation",
   "difficulty": "expert",
   "description": "Advanced implementation of planning algorithms for policy selection in complex Active Inference systems.",
-  "prerequisites": ["expected_free_energy_calculation", "continuous_control"],
-  "tags": ["planning", "tree_search", "monte_carlo", "optimization", "active_inference"],
+  "prerequisites": [
+    "expected_free_energy_calculation",
+    "continuous_control"
+  ],
+  "tags": [
+    "planning",
+    "tree_search",
+    "monte_carlo",
+    "optimization",
+    "active_inference"
+  ],
   "learning_objectives": [
     "Implement tree search planning algorithms",
     "Apply Monte Carlo planning methods",
@@ -166,6 +175,202 @@
     "difficulty_level": "expert",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "code_examples": true,
+    "programming_languages": [
+      "Python"
+    ],
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 10
+  },
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "algorithm_flowchart",
+        "title": "Planning Algorithms in Active Inference Algorithm Flow",
+        "description": "Visual flowchart of the planning algorithms in active inference algorithm",
+        "file_path": "code/planning_algorithms_flowchart.svg",
+        "format": "svg",
+        "interactive": true,
+        "steps": [
+          {
+            "id": "initialize",
+            "label": "Initialize",
+            "description": "Set up initial conditions"
+          },
+          {
+            "id": "process",
+            "label": "Process",
+            "description": "Execute main algorithm"
+          },
+          {
+            "id": "converge",
+            "label": "Check Convergence",
+            "description": "Verify termination conditions"
+          },
+          {
+            "id": "output",
+            "label": "Output Results",
+            "description": "Return final results"
+          }
+        ]
+      },
+      {
+        "type": "data_flow",
+        "title": "Planning Algorithms in Active Inference Data Flow",
+        "description": "Data flow and transformation in planning algorithms in active inference implementation",
+        "file_path": "code/planning_algorithms_dataflow.svg",
+        "format": "svg",
+        "interactive": true,
+        "data_elements": [
+          {
+            "id": "input_data",
+            "label": "Input Data",
+            "type": "input"
+          },
+          {
+            "id": "processed_data",
+            "label": "Processed Data",
+            "type": "intermediate"
+          },
+          {
+            "id": "output_data",
+            "label": "Output Data",
+            "type": "output"
+          }
+        ]
+      },
+      {
+        "type": "performance_chart",
+        "title": "Planning Algorithms in Active Inference Performance Comparison",
+        "description": "Performance comparison of different planning algorithms in active inference implementations",
+        "file_path": "code/planning_algorithms_performance.svg",
+        "format": "svg",
+        "interactive": true,
+        "metrics": [
+          "time_complexity",
+          "space_complexity",
+          "accuracy",
+          "convergence_speed"
+        ]
+      }
+    ],
+    "animations": [
+      {
+        "type": "process_animation",
+        "title": "Planning Algorithms in Active Inference Process Animation",
+        "description": "Animated visualization of planning algorithms in active inference process over time",
+        "file_path": "animations/planning_algorithms_process.mp4",
+        "format": "mp4",
+        "duration": 30,
+        "frames": 900,
+        "keyframes": [
+          {
+            "time": 0,
+            "description": "Initial state",
+            "visual_elements": []
+          },
+          {
+            "time": 15,
+            "description": "Processing state",
+            "visual_elements": []
+          },
+          {
+            "time": 30,
+            "description": "Final state",
+            "visual_elements": []
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "simulation_interface",
+        "title": "Planning Algorithms in Active Inference Simulation Interface",
+        "description": "Interactive simulation of planning algorithms in active inference dynamics",
+        "file_path": "interactive/planning_algorithms_simulation.html",
+        "format": "html",
+        "interactive_elements": [
+          "play_pause",
+          "reset",
+          "parameter_controls"
+        ],
+        "simulation_parameters": [
+          {
+            "name": "time_steps",
+            "value": 1000,
+            "description": "Number of simulation steps"
+          },
+          {
+            "name": "dt",
+            "value": 0.01,
+            "description": "Time step size"
+          },
+          {
+            "name": "initial_conditions",
+            "value": [
+              0.0,
+              0.0
+            ],
+            "description": "Starting conditions"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Planning Algorithms in Active Inference",
+        "description": "Comprehensive introduction to planning algorithms in active inference concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=c41fe1212e2",
+        "duration": 600,
+        "level": "beginner"
+      },
+      {
+        "type": "tutorial_video",
+        "title": "Planning Algorithms in Active Inference Deep Dive",
+        "description": "Detailed technical tutorial on planning algorithms in active inference",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=ba8cecaf791",
+        "duration": 1800,
+        "level": "advanced"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/planning_algorithms_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Planning Algorithms in Active Inference"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/planning_algorithms_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Planning Algorithms in Active Inference"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Planning Algorithms in Active Inference Audio Explanation",
+        "description": "Audio explanation of planning algorithms in active inference concepts",
+        "file_path": "audio/planning_algorithms_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

@@ -1,0 +1,608 @@
+{
+  "id": "graphical_models",
+  "title": "Graphical Models and Probabilistic Reasoning",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Graphical models represent probabilistic relationships between variables using graphs, enabling efficient inference and learning in complex systems.",
+  "prerequisites": [
+    "bayesian_basics",
+    "bayesian_models",
+    "belief_updating"
+  ],
+  "tags": [
+    "graphical models",
+    "probabilistic graphical models",
+    "bayesian networks",
+    "markov random fields",
+    "inference"
+  ],
+  "learning_objectives": [
+    "Represent probabilistic relationships using directed and undirected graphs",
+    "Understand conditional independence and d-separation",
+    "Perform inference in graphical models",
+    "Connect graphical models to Active Inference"
+  ],
+  "content": {
+    "overview": "Graphical models provide a visual and computational framework for representing and reasoning about probabilistic relationships in complex systems. They make explicit the conditional independence relationships between variables, enabling efficient algorithms for inference and learning.",
+    "types_of_graphical_models": {
+      "bayesian_networks": "Directed acyclic graphs (DAGs) representing causal relationships",
+      "markov_random_fields": "Undirected graphs for symmetric relationships",
+      "factor_graphs": "Bipartite graphs representing factorization",
+      "dynamic_bayesian_networks": "Temporal graphical models for time series"
+    },
+    "graphical_representation": {
+      "nodes": "Variables (random variables in the model)",
+      "edges": "Direct probabilistic relationships",
+      "directed_edges": "Causal or conditional dependencies",
+      "undirected_edges": "Symmetric relationships or correlations"
+    },
+    "conditional_independence": {
+      "d_separation": "Criterion for conditional independence in directed graphs",
+      "markov_blanket": "Minimal set of variables for conditional independence",
+      "global_markov_property": "Independence based on graph separation",
+      "local_markov_property": "Node independent of non-neighbors given parents"
+    },
+    "inference_algorithms": {
+      "exact_inference": "Variable elimination, belief propagation for trees",
+      "approximate_inference": "Loopy belief propagation, sampling methods",
+      "variational_inference": "Mean-field and structured approximations",
+      "message_passing": "Sum-product and max-product algorithms"
+    },
+    "learning_graphical_models": {
+      "parameter_learning": "Estimate conditional probability tables",
+      "structure_learning": "Learn graph structure from data",
+      "score_based_methods": "Use information criteria for structure search",
+      "constraint_based_methods": "Test conditional independence"
+    },
+    "connection_to_active_inference": {
+      "generative_models": "Graphical models as generative models in Active Inference",
+      "belief_updating": "Inference in graphical models as belief updating",
+      "hierarchical_models": "Hierarchical graphical models for complex systems",
+      "variational_methods": "Variational inference for approximate belief updating"
+    },
+    "applications": {
+      "expert_systems": "Probabilistic expert systems and decision support",
+      "computer_vision": "Image understanding and object recognition",
+      "natural_language_processing": "Language modeling and parsing",
+      "bioinformatics": "Gene regulatory networks and protein interactions",
+      "robotics": "State estimation and planning under uncertainty"
+    },
+    "examples": [
+      {
+        "name": "Student Network",
+        "description": "Classic Bayesian network example",
+        "variables": "Difficulty, Intelligence, Grade, SAT, Letter",
+        "structure": "Intelligence → Grade ← Difficulty, Intelligence → SAT",
+        "inference": "Infer student intelligence from grades and test scores"
+      },
+      {
+        "name": "Hidden Markov Model",
+        "description": "Temporal graphical model for sequential data",
+        "structure": "Hidden states connected over time, observed states depend on hidden",
+        "application": "Speech recognition, time series analysis",
+        "inference": "Viterbi algorithm for most likely sequence"
+      },
+      {
+        "name": "Active Inference Agent",
+        "description": "Graphical model for Active Inference",
+        "variables": "Hidden states, observations, actions, policies",
+        "structure": "Hierarchical model with temporal dependencies",
+        "inference": "Infer beliefs about world state and select actions"
+      }
+    ],
+    "factor_graphs": {
+      "factorization": "Represent joint distribution as product of factors",
+      "message_passing": "Efficient inference using sum-product algorithm",
+      "applications": "Error-correcting codes, constraint satisfaction",
+      "advantages": "Unified framework for different graph types"
+    },
+    "causal_graphical_models": {
+      "causal_markov_condition": "Conditional independence reflects causal structure",
+      "intervention": "do-calculus for causal interventions",
+      "counterfactuals": "Reasoning about alternate scenarios",
+      "causal_discovery": "Learn causal structure from observational data"
+    },
+    "interactive_exercises": [
+      {
+        "id": "bayesian_network_construction",
+        "type": "design",
+        "description": "Design Bayesian network for simple problem",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "inference_computation",
+        "type": "calculation",
+        "description": "Perform exact inference in small graphical model",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Graphs represent data flow",
+        "clarification": "Graphs represent probabilistic dependencies, not data flow"
+      },
+      {
+        "misconception": "All conditional independencies are represented",
+        "clarification": "Only direct dependencies are shown; induced independencies exist"
+      },
+      {
+        "misconception": "Graphical models require complete knowledge",
+        "clarification": "Models can represent uncertainty about structure and parameters"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Probabilistic Graphical Models: Principles and Techniques",
+        "author": "Daphne Koller and Nir Friedman",
+        "year": 2009,
+        "description": "Comprehensive textbook on graphical models"
+      },
+      {
+        "title": "Pattern Recognition and Machine Learning",
+        "author": "Christopher Bishop",
+        "year": 2006,
+        "description": "Graphical models in machine learning context"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_models",
+      "belief_updating",
+      "hierarchical_models",
+      "variational_inference"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 32,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 3,
+    "multimedia_integrated": true,
+    "multimedia_count": 7
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Graphical Models and Probabilistic Reasoning",
+      "question": "Graphical Models and Probabilistic Reasoning is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Graphical Models and Probabilistic Reasoning",
+      "instructions": "Drag and drop to connect related concepts from graphical models and probabilistic reasoning:",
+      "concepts": {
+        "concepts": [
+          "graphical models",
+          "probabilistic graphical models",
+          "bayesian networks",
+          "markov random fields",
+          "inference"
+        ],
+        "relationships": [
+          {
+            "from": "graphical models",
+            "to": "probabilistic graphical models"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Graphical Models and Probabilistic Reasoning",
+      "questions": [
+        "How does graphical models and probabilistic reasoning relate to other Active Inference concepts?",
+        "What are the practical implications of graphical models and probabilistic reasoning?",
+        "What challenges arise when applying graphical models and probabilistic reasoning?",
+        "How might graphical models and probabilistic reasoning evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Graphical Models and Probabilistic Reasoning Applications",
+      "questions": [
+        "Find a real-world application of graphical models and probabilistic reasoning",
+        "What research papers discuss graphical models and probabilistic reasoning?",
+        "How is graphical models and probabilistic reasoning used in industry?",
+        "What are current research challenges related to graphical models and probabilistic reasoning?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Graphical Models and Probabilistic Reasoning Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Graphical Models and Probabilistic Reasoning",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Graphical Models and Probabilistic Reasoning",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Graphical Models and Probabilistic Reasoning",
+      "question": "Graphical Models and Probabilistic Reasoning is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Graphical Models and Probabilistic Reasoning",
+      "instructions": "Drag and drop to connect related concepts from graphical models and probabilistic reasoning:",
+      "concepts": {
+        "concepts": [
+          "graphical models",
+          "probabilistic graphical models",
+          "bayesian networks",
+          "markov random fields",
+          "inference"
+        ],
+        "relationships": [
+          {
+            "from": "graphical models",
+            "to": "probabilistic graphical models"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Graphical Models and Probabilistic Reasoning",
+      "questions": [
+        "How does graphical models and probabilistic reasoning relate to other Active Inference concepts?",
+        "What are the practical implications of graphical models and probabilistic reasoning?",
+        "What challenges arise when applying graphical models and probabilistic reasoning?",
+        "How might graphical models and probabilistic reasoning evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Graphical Models and Probabilistic Reasoning Applications",
+      "questions": [
+        "Find a real-world application of graphical models and probabilistic reasoning",
+        "What research papers discuss graphical models and probabilistic reasoning?",
+        "How is graphical models and probabilistic reasoning used in industry?",
+        "What are current research challenges related to graphical models and probabilistic reasoning?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Graphical Models and Probabilistic Reasoning Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Graphical Models and Probabilistic Reasoning",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Graphical Models and Probabilistic Reasoning",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Graphical Models and Probabilistic Reasoning Concept Map",
+        "description": "Visual representation of graphical models and probabilistic reasoning and its relationships",
+        "file_path": "diagrams/graphical_models_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Graphical Models and Probabilistic Reasoning",
+            "type": "central",
+            "description": "Graphical models represent probabilistic relationships between variables using graphs, enabling efficient inference and learning in complex systems."
+          },
+          {
+            "id": "prereq_0",
+            "label": "bayesian_basics",
+            "type": "prerequisite",
+            "description": "Required knowledge: bayesian_basics"
+          },
+          {
+            "id": "prereq_1",
+            "label": "bayesian_models",
+            "type": "prerequisite",
+            "description": "Required knowledge: bayesian_models"
+          },
+          {
+            "id": "prereq_2",
+            "label": "belief_updating",
+            "type": "prerequisite",
+            "description": "Required knowledge: belief_updating"
+          },
+          {
+            "id": "tag_0",
+            "label": "graphical models",
+            "type": "related",
+            "description": "Related concept: graphical models"
+          },
+          {
+            "id": "tag_1",
+            "label": "probabilistic graphical models",
+            "type": "related",
+            "description": "Related concept: probabilistic graphical models"
+          },
+          {
+            "id": "tag_2",
+            "label": "bayesian networks",
+            "type": "related",
+            "description": "Related concept: bayesian networks"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Graphical Models and Probabilistic Reasoning Relationships",
+        "description": "Connections between graphical models and probabilistic reasoning and related concepts",
+        "file_path": "diagrams/graphical_models_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_2",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "parameter_explorer",
+        "title": "Graphical Models and Probabilistic Reasoning Parameter Explorer",
+        "description": "Interactive exploration of graphical models and probabilistic reasoning parameters and their effects",
+        "file_path": "interactive/graphical_models_explorer.html",
+        "format": "html",
+        "interactive_elements": [
+          "sliders",
+          "dropdowns",
+          "plots"
+        ],
+        "parameters": [
+          {
+            "name": "learning_rate",
+            "type": "slider",
+            "range": [
+              0.001,
+              1.0
+            ],
+            "default": 0.01
+          },
+          {
+            "name": "iterations",
+            "type": "slider",
+            "range": [
+              10,
+              1000
+            ],
+            "default": 100
+          },
+          {
+            "name": "noise_level",
+            "type": "slider",
+            "range": [
+              0.0,
+              1.0
+            ],
+            "default": 0.1
+          }
+        ]
+      },
+      {
+        "type": "simulation_interface",
+        "title": "Graphical Models and Probabilistic Reasoning Simulation Interface",
+        "description": "Interactive simulation of graphical models and probabilistic reasoning dynamics",
+        "file_path": "interactive/graphical_models_simulation.html",
+        "format": "html",
+        "interactive_elements": [
+          "play_pause",
+          "reset",
+          "parameter_controls"
+        ],
+        "simulation_parameters": [
+          {
+            "name": "time_steps",
+            "value": 1000,
+            "description": "Number of simulation steps"
+          },
+          {
+            "name": "dt",
+            "value": 0.01,
+            "description": "Time step size"
+          },
+          {
+            "name": "initial_conditions",
+            "value": [
+              0.0,
+              0.0
+            ],
+            "description": "Starting conditions"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Graphical Models and Probabilistic Reasoning",
+        "description": "Comprehensive introduction to graphical models and probabilistic reasoning concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=ff0da29182c",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/graphical_models_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Graphical Models and Probabilistic Reasoning"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/graphical_models_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Graphical Models and Probabilistic Reasoning"
+      }
+    ]
+  }
+}

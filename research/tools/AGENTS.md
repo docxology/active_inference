@@ -1,794 +1,811 @@
-# Research Tools - Agent Development Guide
+# Research Tools Framework - Agent Development Guide
 
-**Guidelines for AI agents developing research tools in the Active Inference Knowledge Environment.**
+**Guidelines for AI agents working with research tools and utilities in the Active Inference Knowledge Environment.**
 
 ## 🤖 Agent Role & Responsibilities
 
-**What agents should do when developing research tools:**
+**What agents should do when working with research tools:**
 
 ### Primary Responsibilities
-- **Research Tool Development**: Create tools that support Active Inference research workflows
-- **Workflow Automation**: Develop automation for research processes and experiments
-- **Orchestration Systems**: Build thin orchestration components for research pipelines
-- **Testing Frameworks**: Create testing tools for research validation and reproducibility
-- **Development Utilities**: Build utilities that support research software development
+- **Research Automation**: Develop tools that automate research workflows and tasks
+- **Workflow Orchestration**: Build thin orchestration systems for managing research processes
+- **Testing Frameworks**: Create comprehensive testing and validation frameworks for research
+- **Utility Development**: Implement utility functions that support research efficiency
+- **Quality Assurance**: Ensure research tools maintain scientific rigor and reliability
 
 ### Development Focus Areas
-1. **Research Workflow Support**: Build tools that enhance research productivity
-2. **Reproducibility**: Ensure all tools support reproducible research practices
-3. **Integration**: Create seamless integration with research frameworks
-4. **Validation**: Develop comprehensive validation and testing tools
-5. **Performance**: Optimize tools for research workloads and data processing
+1. **Automation Tools**: Develop automation for research pipelines and repetitive tasks
+2. **Orchestration Systems**: Build lightweight orchestration for complex research workflows
+3. **Testing Frameworks**: Create testing systems for research implementation validation
+4. **Utility Libraries**: Develop utility functions for common research operations
+5. **Performance Optimization**: Optimize tools for research-scale computations and workflows
 
 ## 🏗️ Architecture & Integration
 
 ### Research Tools Architecture
 
-**Understanding how research tools fit into the research ecosystem:**
+**Understanding how research tools fit into the broader research ecosystem:**
 
 ```
-Research Layer
-├── Experiment Layer (experiments/, simulations/)
-├── Tool Layer ← Research Tools
-├── Analysis Layer (analysis/, benchmarks/)
-└── Integration Layer (platform/, applications/)
+Research Infrastructure Layer
+├── Automation Tools (Workflow automation, task scheduling, pipeline management)
+├── Orchestration Components (Thin orchestration, resource management, monitoring)
+├── Testing Frameworks (Unit testing, integration testing, validation testing)
+└── Utility Libraries (Data utilities, mathematical helpers, visualization aids)
 ```
 
 ### Integration Points
 
-**Research tools integrate with multiple platform components:**
+**Key integration points and dependencies:**
 
 #### Upstream Components
-- **Research Framework**: Provides core research functionality and APIs
-- **Knowledge Base**: Supplies domain knowledge and research context
-- **Experiment Definitions**: Provides experiment specifications and parameters
+- **Research Framework**: Core research methods that tools support and automate
+- **Experiment Framework**: Experimental workflows that tools orchestrate and test
+- **Analysis Tools**: Analysis processes that tools validate and optimize
+- **Platform Infrastructure**: Platform services that tools integrate with
 
 #### Downstream Components
-- **Analysis Tools**: Consumes processed data and results
-- **Visualization Systems**: Provides data for research visualization
-- **Platform Services**: Exposes tools through web interfaces and APIs
+- **Research Workflows**: Research processes that use automation and orchestration
+- **Quality Assurance**: Testing and validation that ensures research quality
+- **Documentation Systems**: Documentation generation that tools support
+- **Educational Materials**: Learning materials that demonstrate tool usage
 
 #### External Systems
-- **File Systems**: Manages research data and result storage
-- **Job Schedulers**: Integrates with HPC and distributed computing
-- **Data Repositories**: Connects with academic data sharing platforms
-- **Publication Systems**: Supports research publication workflows
+- **Workflow Engines**: Prefect, Airflow, custom orchestration systems
+- **Testing Frameworks**: pytest, unittest, specialized scientific testing
+- **Cloud Platforms**: AWS, GCP, Azure for scalable research computing
+- **Development Tools**: Git, Docker, CI/CD systems for research development
 
-### Research Workflow Integration
+### Tool Development Flow Patterns
 
 ```python
-# Typical research workflow supported by tools
-research_question → experiment_design → tool_selection → execution → analysis → validation → publication
+# Typical research tool development workflow
+requirement_analysis → design → implementation → testing → integration → documentation
 ```
 
 ## 💻 Development Patterns
 
 ### Required Implementation Patterns
 
-**All research tools must follow these patterns:**
+**All research tool development must follow these patterns:**
 
-#### 1. Research Tool Factory Pattern (PREFERRED)
+#### 1. Research Automation Factory Pattern (PREFERRED)
+
 ```python
-def create_research_tool(tool_type: str, config: Dict[str, Any]) -> ResearchTool:
-    """Create research tool using factory pattern with validation"""
+def create_research_automation_tool(automation_type: str, config: Dict[str, Any]) -> BaseAutomationTool:
+    """Create research automation tool using factory pattern"""
 
-    # Research tool registry
-    research_tools = {
-        'experiment_runner': ExperimentRunner,
-        'workflow_manager': WorkflowManager,
-        'data_processor': DataProcessor,
-        'result_validator': ResultValidator,
-        'benchmark_runner': BenchmarkRunner
+    automation_factories = {
+        'workflow_automation': create_workflow_automation_tool,
+        'data_processing_automation': create_data_processing_automation,
+        'model_training_automation': create_model_training_automation,
+        'analysis_automation': create_analysis_automation,
+        'reporting_automation': create_reporting_automation,
+        'validation_automation': create_validation_automation
     }
 
-    if tool_type not in research_tools:
-        raise ResearchError(f"Unknown research tool type: {tool_type}")
+    if automation_type not in automation_factories:
+        raise ValueError(f"Unknown automation type: {automation_type}")
 
-    # Validate research context
-    validate_research_context(config)
+    # Validate automation configuration
+    validate_automation_config(config)
 
-    # Create tool with research validation
-    tool = research_tools[tool_type](config)
+    # Create automation tool with research-specific features
+    automation_tool = automation_factories[automation_type](config)
 
-    # Validate tool functionality
-    validate_tool_capabilities(tool)
+    # Add research monitoring and logging
+    automation_tool = add_research_monitoring(automation_tool)
 
-    return tool
+    # Add error recovery for research workflows
+    automation_tool = add_research_error_recovery(automation_tool)
 
-def validate_research_context(config: Dict[str, Any]) -> None:
-    """Validate research context and requirements"""
-    required_fields = {'research_domain', 'experiment_path', 'output_dir'}
+    return automation_tool
+
+def validate_automation_config(config: Dict[str, Any]) -> None:
+    """Validate research automation configuration"""
+
+    required_fields = ['automation_type', 'research_context', 'validation_requirements']
 
     for field in required_fields:
         if field not in config:
-            raise ResearchError(f"Missing required research field: {field}")
+            raise AutomationConfigurationError(f"Missing required field: {field}")
 
-    # Validate research domain compatibility
-    if config['research_domain'] not in SUPPORTED_DOMAINS:
-        raise ResearchError(f"Unsupported research domain: {config['research_domain']}")
+    # Type-specific validation
+    if config['automation_type'] == 'workflow_automation':
+        validate_workflow_automation_config(config)
+    elif config['automation_type'] == 'data_processing_automation':
+        validate_data_processing_config(config)
 ```
 
-#### 2. Research Configuration Pattern (MANDATORY)
-```python
-from dataclasses import dataclass, field
-from typing import Optional, Dict, Any, List
-from enum import Enum
+#### 2. Research Orchestration Pattern (MANDATORY)
 
-class ResearchDomain(Enum):
-    """Supported research domains"""
-    ACTIVE_INFERENCE = "active_inference"
-    FREE_ENERGY = "free_energy"
-    BAYESIAN_INFERENCE = "bayesian_inference"
-    NEURAL_NETWORKS = "neural_networks"
-    COGNITIVE_SCIENCE = "cognitive_science"
+```python
+from dataclasses import dataclass
+from typing import Dict, Any, List, Optional
 
 @dataclass
-class ResearchToolConfig:
-    """Research tool configuration with validation"""
+class ResearchWorkflow:
+    """Research workflow definition for orchestration"""
 
-    # Required research fields
-    research_domain: ResearchDomain
-    experiment_path: str
-    output_dir: str
+    workflow_id: str
+    name: str
+    description: str
+    steps: List[Dict[str, Any]]
+    dependencies: Dict[str, List[str]]
 
-    # Optional research settings
-    validation_enabled: bool = True
-    reproducibility_mode: bool = True
-    performance_monitoring: bool = True
+    # Research-specific metadata
+    research_domain: str
+    scientific_objectives: List[str]
+    validation_requirements: List[str]
+    reproducibility_requirements: List[str]
 
-    # Advanced research settings
-    parallel_execution: Dict[str, Any] = field(default_factory=lambda: {
-        "enabled": False,
-        "max_workers": 4,
-        "timeout": 3600
-    })
-
-    # Research workflow settings
-    workflow: Dict[str, Any] = field(default_factory=lambda: {
-        "checkpointing": True,
-        "auto_save": True,
-        "notification_channels": ["console"]
-    })
-
-    def validate(self) -> List[str]:
-        """Validate research configuration"""
+    def validate_workflow(self) -> List[str]:
+        """Validate research workflow definition"""
         errors = []
 
-        # Validate research domain
-        if not isinstance(self.research_domain, ResearchDomain):
-            errors.append("research_domain must be a ResearchDomain enum")
+        # Check required fields
+        if not self.steps:
+            errors.append("Workflow must have at least one step")
 
-        # Validate paths
-        if not self.experiment_path or not self.experiment_path.strip():
-            errors.append("experiment_path cannot be empty")
+        if not self.research_domain:
+            errors.append("Research domain must be specified")
 
-        if not self.output_dir or not self.output_dir.strip():
-            errors.append("output_dir cannot be empty")
+        # Validate step dependencies
+        step_ids = {step['id'] for step in self.steps}
+        for step_id, deps in self.dependencies.items():
+            if step_id not in step_ids:
+                errors.append(f"Dependency references unknown step: {step_id}")
+            for dep in deps:
+                if dep not in step_ids:
+                    errors.append(f"Dependency references unknown step: {dep}")
 
-        # Validate parallel execution settings
-        if self.parallel_execution["enabled"]:
-            if self.parallel_execution["max_workers"] < 1:
-                errors.append("max_workers must be positive when parallel execution is enabled")
+        # Validate scientific requirements
+        if not self.scientific_objectives:
+            errors.append("Scientific objectives must be specified")
 
         return errors
 
-    def get_research_context(self) -> Dict[str, Any]:
-        """Get research context for tool initialization"""
+    def get_execution_plan(self) -> Dict[str, Any]:
+        """Generate execution plan for workflow"""
+        # Topological sort of steps based on dependencies
+        execution_order = self._topological_sort()
+
+        # Generate resource requirements
+        resource_requirements = self._calculate_resource_requirements()
+
+        # Generate monitoring plan
+        monitoring_plan = self._generate_monitoring_plan()
+
         return {
-            "domain": self.research_domain.value,
-            "experiment_base": self.experiment_path,
-            "output_base": self.output_dir,
-            "validation": self.validation_enabled,
-            "reproducibility": self.reproducibility_mode
+            'execution_order': execution_order,
+            'resource_requirements': resource_requirements,
+            'monitoring_plan': monitoring_plan,
+            'estimated_duration': self._estimate_duration(),
+            'failure_recovery_plan': self._generate_failure_recovery_plan()
         }
 ```
 
-#### 3. Research Error Handling Pattern (MANDATORY)
+#### 3. Research Testing Framework Pattern (MANDATORY)
+
 ```python
-import logging
-from typing import Callable, Any, Dict
-from contextlib import contextmanager
+def create_research_testing_framework(testing_domain: str, config: Dict[str, Any]) -> ResearchTestingFramework:
+    """Create comprehensive research testing framework"""
 
-logger = logging.getLogger(__name__)
-
-class ResearchError(Exception):
-    """Base exception for research tool errors"""
-    pass
-
-class ExperimentError(ResearchError):
-    """Experiment execution errors"""
-    pass
-
-class ValidationError(ResearchError):
-    """Research validation errors"""
-    pass
-
-@contextmanager
-def research_execution_context(operation: str, config: Dict[str, Any]):
-    """Context manager for research operation execution"""
-
-    research_context = {
-        "operation": operation,
-        "config": config,
-        "start_time": time.time(),
-        "status": "starting"
+    # Define testing domains and their requirements
+    testing_domains = {
+        'mathematical_correctness': {
+            'test_types': ['symbolic_verification', 'numerical_validation', 'mathematical_proof'],
+            'validation_criteria': ['algebraic_correctness', 'numerical_stability', 'mathematical_consistency']
+        },
+        'scientific_validity': {
+            'test_types': ['hypothesis_testing', 'method_validation', 'result_reproducibility'],
+            'validation_criteria': ['scientific_accuracy', 'methodological_soundness', 'result_reliability']
+        },
+        'performance_characteristics': {
+            'test_types': ['computational_efficiency', 'memory_usage', 'scalability_analysis'],
+            'validation_criteria': ['performance_requirements', 'resource_efficiency', 'scalability_limits']
+        },
+        'integration_testing': {
+            'test_types': ['component_interaction', 'workflow_integration', 'system_validation'],
+            'validation_criteria': ['interface_compatibility', 'workflow_correctness', 'system_stability']
+        }
     }
 
-    try:
-        logger.info(f"Starting research operation: {operation}", extra={
-            "research_context": research_context
-        })
+    if testing_domain not in testing_domains:
+        raise ValueError(f"Unknown testing domain: {testing_domain}")
 
-        research_context["status"] = "running"
-        yield research_context
+    domain_config = testing_domains[testing_domain]
 
-        research_context["status"] = "completed"
-        research_context["end_time"] = time.time()
-        research_context["duration"] = research_context["end_time"] - research_context["start_time"]
+    # Create domain-specific testing framework
+    testing_framework = ResearchTestingFramework(testing_domain, domain_config, config)
 
-        logger.info(f"Research operation completed: {operation}", extra={
-            "research_context": research_context
-        })
+    # Add research-specific testing capabilities
+    testing_framework = add_research_testing_capabilities(testing_framework, domain_config)
 
-    except ValidationError as e:
-        research_context["status"] = "validation_failed"
-        research_context["error"] = str(e)
-        logger.error(f"Research validation failed: {operation}", extra={
-            "research_context": research_context
-        })
-        raise
+    # Add automated test generation
+    testing_framework = add_automated_test_generation(testing_framework, domain_config)
 
-    except ExperimentError as e:
-        research_context["status"] = "experiment_failed"
-        research_context["error"] = str(e)
-        logger.error(f"Research experiment failed: {operation}", extra={
-            "research_context": research_context
-        })
-        raise
+    # Add result validation and interpretation
+    testing_framework = add_result_validation(testing_framework, domain_config)
 
-    except Exception as e:
-        research_context["status"] = "error"
-        research_context["error"] = str(e)
-        research_context["traceback"] = traceback.format_exc()
-        logger.error(f"Research operation error: {operation}", extra={
-            "research_context": research_context
-        })
-        raise ResearchError(f"Research operation failed: {operation}") from e
+    return testing_framework
 
-def execute_research_operation(operation_name: str, func: Callable, *args, **kwargs) -> Any:
-    """Execute research operation with comprehensive error handling"""
-    return research_execution_context(operation_name, kwargs.get('config', {}))
+def add_research_testing_capabilities(framework: ResearchTestingFramework, domain_config: Dict[str, Any]) -> ResearchTestingFramework:
+    """Add research-specific testing capabilities to framework"""
+
+    # Add scientific validation methods
+    framework.add_scientific_validation_methods(domain_config['validation_criteria'])
+
+    # Add reproducibility testing
+    framework.add_reproducibility_testing()
+
+    # Add benchmarking capabilities
+    framework.add_benchmarking_capabilities()
+
+    # Add statistical analysis of test results
+    framework.add_statistical_analysis_capabilities()
+
+    return framework
 ```
 
-## 🧪 Testing Standards
+## 🧪 Research Tools Testing Standards
 
-### Research Testing Categories (MANDATORY)
+### Testing Categories (MANDATORY)
 
-#### 1. Research Workflow Tests (`tests/test_research_workflows.py`)
-**Test complete research workflows and pipelines:**
+#### 1. Automation Testing
+**Test research automation tools and workflows:**
+
 ```python
-def test_experiment_workflow():
-    """Test complete experiment workflow from setup to completion"""
-    config = ResearchToolConfig(
-        research_domain=ResearchDomain.ACTIVE_INFERENCE,
-        experiment_path="tests/fixtures/experiments/test_experiment.yaml",
-        output_dir="tests/fixtures/results/"
-    )
+def test_research_automation():
+    """Test research automation tools and capabilities"""
+    # Test workflow automation
+    automation_tool = create_workflow_automation_tool(test_config)
+    test_workflow = create_test_workflow()
 
-    # Create and configure research tool
-    tool = create_research_tool('experiment_runner', config.to_dict())
+    automated_execution = automation_tool.execute_workflow(test_workflow)
+    assert automated_execution['success'], "Workflow automation failed"
 
-    # Execute complete workflow
-    results = tool.execute_all_experiments()
+    # Test data processing automation
+    data_automation = create_data_processing_automation(test_config)
+    test_data = generate_test_data()
 
-    # Validate workflow completion
-    assert results is not None
-    assert len(results) > 0
-    assert all("status" in result for result in results.values())
+    processed_data = data_automation.process_data(test_data)
+    assert validate_processed_data(processed_data), "Data processing automation failed"
 
-def test_reproducibility_workflow():
-    """Test research reproducibility across multiple runs"""
-    config = ResearchToolConfig(
-        research_domain=ResearchDomain.FREE_ENERGY,
-        experiment_path="tests/fixtures/experiments/reproducible_test.yaml",
-        output_dir="tests/fixtures/results/",
-        reproducibility_mode=True
-    )
+    # Test model training automation
+    model_automation = create_model_training_automation(test_config)
+    training_data = generate_training_data()
 
-    # Run experiment multiple times
-    tool = create_research_tool('experiment_runner', config.to_dict())
+    trained_model = model_automation.train_model(training_data)
+    assert validate_trained_model(trained_model), "Model training automation failed"
 
-    results1 = tool.execute_experiment("test_reproducibility")
-    results2 = tool.execute_experiment("test_reproducibility")
+def test_orchestration_capabilities():
+    """Test orchestration capabilities for research workflows"""
+    orchestrator = create_workflow_orchestrator(test_config)
+    complex_workflow = create_complex_research_workflow()
 
-    # Validate reproducible results
-    assert results1 == results2
-    assert tool.get_reproducibility_report() == "PASSED"
+    # Test workflow execution
+    execution_result = orchestrator.execute_workflow(complex_workflow)
+    assert execution_result['completed'], "Workflow execution failed"
+
+    # Test resource management
+    resource_usage = orchestrator.monitor_resources()
+    assert resource_usage['within_limits'], "Resource management failed"
+
+    # Test error handling
+    error_scenario = simulate_workflow_error()
+    error_handling = orchestrator.handle_error(error_scenario)
+    assert error_handling['recovered'], "Error handling failed"
 ```
 
-#### 2. Research Tool Integration Tests (`tests/test_tool_integration.py`)
-**Test research tool interactions and data flow:**
+#### 2. Testing Framework Validation
+**Test research testing frameworks and validation:**
+
 ```python
-def test_automation_orchestration_integration():
-    """Test integration between automation and orchestration tools"""
-    config = ResearchToolConfig(
-        research_domain=ResearchDomain.BAYESIAN_INFERENCE,
-        experiment_path="tests/fixtures/experiments/",
-        output_dir="tests/fixtures/results/"
-    )
+def test_research_testing_framework():
+    """Test research testing framework capabilities"""
+    testing_framework = create_research_testing_framework('mathematical_correctness', test_config)
+    test_implementation = create_test_research_implementation()
 
-    # Create integrated research system
-    automation = create_research_tool('experiment_runner', config.to_dict())
-    orchestration = create_research_tool('workflow_manager', config.to_dict())
+    # Test mathematical correctness validation
+    correctness_tests = testing_framework.validate_mathematical_correctness(test_implementation)
+    assert correctness_tests['passed'], "Mathematical correctness validation failed"
 
-    # Test integrated workflow
-    workflow_config = {
-        "name": "integrated_research_pipeline",
-        "stages": ["setup", "execution", "analysis", "validation"]
-    }
+    # Test scientific validity testing
+    validity_tests = testing_framework.validate_scientific_validity(test_implementation)
+    assert validity_tests['passed'], "Scientific validity testing failed"
 
-    success = orchestration.orchestrate_research_pipeline(workflow_config)
-    assert success is True
+    # Test performance testing
+    performance_tests = testing_framework.validate_performance_characteristics(test_implementation)
+    assert performance_tests['passed'], "Performance testing failed"
 
-    # Verify automation tool was used correctly
-    results = automation.get_execution_results()
-    assert len(results) > 0
+def test_integration_testing():
+    """Test integration testing capabilities"""
+    integration_tester = create_integration_testing_framework(test_config)
+    test_system = create_test_research_system()
 
-def test_validation_integration():
-    """Test integration with validation and testing tools"""
-    config = ResearchToolConfig(
-        research_domain=ResearchDomain.NEURAL_NETWORKS,
-        experiment_path="tests/fixtures/experiments/",
-        output_dir="tests/fixtures/results/",
-        validation_enabled=True
-    )
+    # Test component integration
+    component_integration = integration_tester.test_component_integration(test_system)
+    assert component_integration['integrated'], "Component integration testing failed"
 
-    # Create tools with validation
-    runner = create_research_tool('experiment_runner', config.to_dict())
-    validator = create_research_tool('result_validator', config.to_dict())
+    # Test workflow integration
+    workflow_integration = integration_tester.test_workflow_integration(test_system)
+    assert workflow_integration['integrated'], "Workflow integration testing failed"
 
-    # Execute and validate
-    results = runner.execute_experiments()
-    validation_report = validator.validate_results(results)
-
-    # Verify integration
-    assert validation_report["overall_status"] in ["valid", "failed"]
-    assert "validations" in validation_report
+    # Test system validation
+    system_validation = integration_tester.validate_system_integration(test_system)
+    assert system_validation['valid'], "System integration validation failed"
 ```
 
-#### 3. Research Performance Tests (`tests/test_performance.py`)
-**Test research tool performance under various conditions:**
+#### 3. Utility Function Testing
+**Test research utility functions and libraries:**
+
 ```python
-def test_large_dataset_processing():
-    """Test performance with large research datasets"""
-    config = ResearchToolConfig(
-        research_domain=ResearchDomain.COGNITIVE_SCIENCE,
-        experiment_path="tests/fixtures/large_dataset/",
-        output_dir="tests/fixtures/large_results/",
-        parallel_execution={"enabled": True, "max_workers": 8}
-    )
+def test_research_utilities():
+    """Test research utility functions and libraries"""
+    utility_toolkit = create_research_utility_toolkit(test_config)
 
-    tool = create_research_tool('data_processor', config.to_dict())
+    # Test data utilities
+    test_data = generate_test_dataset()
+    processed_data = utility_toolkit.process_data(test_data)
+    assert validate_data_processing(processed_data), "Data utility functions failed"
 
-    # Performance benchmarking
-    start_time = time.time()
-    results = tool.process_large_dataset("large_dataset.csv", "processed_output.csv")
-    end_time = time.time()
+    # Test mathematical utilities
+    test_equation = "x^2 + 2*x + 1"
+    derivative = utility_toolkit.compute_derivative(test_equation, 'x')
+    assert validate_derivative_computation(derivative), "Mathematical utilities failed"
 
-    # Validate performance requirements
-    processing_time = end_time - start_time
-    assert processing_time < 300  # Must complete within 5 minutes
+    # Test visualization utilities
+    test_results = generate_test_results()
+    visualization = utility_toolkit.create_visualization(test_results)
+    assert validate_visualization_creation(visualization), "Visualization utilities failed"
 
-    # Validate results
-    assert results["records_processed"] > 100000
-    assert results["processing_rate"] > 1000  # records per second
+def test_tool_integration():
+    """Test integration of research tools"""
+    integrated_tools = create_integrated_research_tools(test_config)
 
-def test_concurrent_research_workflows():
-    """Test performance under concurrent research workflows"""
-    config = ResearchToolConfig(
-        research_domain=ResearchDomain.ACTIVE_INFERENCE,
-        experiment_path="tests/fixtures/concurrent_experiments/",
-        output_dir="tests/fixtures/concurrent_results/",
-        parallel_execution={"enabled": True, "max_workers": 4}
-    )
+    # Test tool communication
+    tool_communication = integrated_tools.test_tool_communication()
+    assert tool_communication['functional'], "Tool communication failed"
 
-    # Simulate concurrent research workflows
-    workflows = [
-        {"name": f"workflow_{i}", "experiments": [f"exp_{j}" for j in range(5)]}
-        for i in range(3)
-    ]
+    # Test data flow between tools
+    data_flow = integrated_tools.test_data_flow()
+    assert data_flow['smooth'], "Data flow between tools failed"
 
-    start_time = time.time()
-
-    # Execute concurrent workflows
-    results = []
-    for workflow in workflows:
-        tool = create_research_tool('experiment_runner', config.to_dict())
-        result = tool.execute_workflow(workflow)
-        results.append(result)
-
-    end_time = time.time()
-
-    # Validate concurrent execution performance
-    total_time = end_time - start_time
-    expected_sequential_time = 30 * 3  # 30s per workflow sequentially
-
-    assert total_time < expected_sequential_time  # Must be faster than sequential
-    assert all(result["status"] == "completed" for result in results)
+    # Test coordinated tool execution
+    coordinated_execution = integrated_tools.test_coordinated_execution()
+    assert coordinated_execution['successful'], "Coordinated tool execution failed"
 ```
 
-### Research Test Coverage Requirements
+### Research Tools Coverage Requirements
 
-- **Research Workflows**: 100% coverage of research processes
-- **Error Scenarios**: 100% coverage of research failure modes
-- **Integration Points**: 95% coverage of tool interactions
-- **Performance Paths**: 90% coverage of performance-critical code
-- **Reproducibility**: 100% coverage of reproducibility features
+- **Automation Coverage**: All major research workflows support automation
+- **Orchestration Coverage**: Complex research pipelines can be orchestrated
+- **Testing Coverage**: All research components have comprehensive testing
+- **Utility Coverage**: Common research operations have utility support
+- **Integration Coverage**: Tools integrate seamlessly with research workflows
 
-### Research Testing Commands
+### Research Tools Testing Commands
 
 ```bash
-# Run all research tool tests
+# Test all research tools
 make test-research-tools
 
-# Run research workflow tests
-pytest research/tools/tests/test_research_workflows.py -v
+# Test automation tools
+pytest research/tools/tests/test_automation.py -v
 
-# Run integration tests
-pytest research/tools/tests/test_tool_integration.py -v --tb=short
+# Test orchestration capabilities
+pytest research/tools/tests/test_orchestration.py -v
 
-# Run performance tests
-pytest research/tools/tests/test_performance.py -v
+# Test utility functions
+pytest research/tools/tests/test_utilities.py -v
 
-# Check research test coverage
-pytest research/tools/ --cov=research/tools/ --cov-report=html --cov-fail-under=95
+# Validate tool integration
+python research/tools/validate_tool_integration.py
 ```
 
-## 📖 Documentation Standards
+## 📖 Research Tools Documentation Standards
 
-### Research Documentation Requirements (MANDATORY)
+### Documentation Requirements (MANDATORY)
 
-#### 1. Research Context Documentation
-**Every research tool must document its research context:**
+#### 1. Tool Usage Documentation
+**All research tools must have comprehensive usage documentation:**
+
 ```python
-def research_context_example():
-    """
-    Research Context: Active Inference Experiment Automation
+def document_research_tool_usage(tool: Any, usage_config: Dict[str, Any]) -> str:
+    """Document research tool usage comprehensively"""
 
-    This tool automates Active Inference experiments by executing predefined
-    experimental protocols and validating results against theoretical predictions.
+    usage_documentation = {
+        "tool_overview": document_tool_overview(tool, usage_config),
+        "installation_guide": document_installation_guide(tool, usage_config),
+        "configuration_options": document_configuration_options(tool, usage_config),
+        "usage_examples": document_usage_examples(tool, usage_config),
+        "troubleshooting_guide": document_troubleshooting_guide(tool, usage_config)
+    }
 
-    Research Domain: Active Inference
-    Scientific Context: Enables systematic exploration of Active Inference
-                      hypotheses through automated experimentation
-    Validation Method: Statistical comparison with theoretical predictions
-    Reproducibility: Full experiment state capture and reproduction support
-    """
-    pass
+    return format_tool_documentation(usage_documentation)
+
+def document_usage_examples(tool: Any, config: Dict[str, Any]) -> str:
+    """Document comprehensive usage examples for research tool"""
+
+    examples = []
+
+    # Basic usage example
+    basic_example = create_basic_usage_example(tool, config)
+    examples.append(("Basic Usage", basic_example))
+
+    # Advanced usage example
+    advanced_example = create_advanced_usage_example(tool, config)
+    examples.append(("Advanced Usage", advanced_example))
+
+    # Research workflow integration example
+    workflow_example = create_workflow_integration_example(tool, config)
+    examples.append(("Workflow Integration", workflow_example))
+
+    # Troubleshooting example
+    troubleshooting_example = create_troubleshooting_example(tool, config)
+    examples.append(("Troubleshooting", troubleshooting_example))
+
+    return format_examples_documentation(examples)
 ```
 
-#### 2. Research Workflow Documentation
-**All research workflows must be documented:**
+#### 2. Tool Architecture Documentation
+**All research tools must document their architecture and design:**
+
 ```python
-class DocumentedResearchWorkflow:
-    """
-    Documented Research Workflow: Bayesian Model Comparison
+def document_tool_architecture(tool: Any, architecture_config: Dict[str, Any]) -> str:
+    """Document research tool architecture and design"""
 
-    This workflow automates the process of comparing different Bayesian models
-    within the Active Inference framework, including model specification,
-    parameter estimation, and model comparison using information criteria.
+    architecture_documentation = {
+        "architectural_overview": document_architectural_overview(tool, architecture_config),
+        "component_design": document_component_design(tool, architecture_config),
+        "data_flow": document_data_flow(tool, architecture_config),
+        "integration_points": document_integration_points(tool, architecture_config),
+        "performance_characteristics": document_performance_characteristics(tool, architecture_config)
+    }
 
-    Workflow Steps:
-    1. Model Specification: Define competing models with different complexity
-    2. Parameter Estimation: Use variational inference for parameter fitting
-    3. Model Comparison: Calculate AIC/BIC for model selection
-    4. Validation: Cross-validation and robustness analysis
-    5. Reporting: Generate comprehensive comparison reports
-
-    Research Applications:
-    - Model selection in cognitive modeling
-    - Architecture optimization for neural networks
-    - Policy comparison in decision-making tasks
-
-    Expected Outcomes:
-    - Model ranking by information criteria
-    - Parameter uncertainty quantification
-    - Robustness analysis across different datasets
-    """
-    pass
+    return format_architecture_documentation(architecture_documentation)
 ```
 
-#### 3. Reproducibility Documentation
-**All tools must document reproducibility features:**
+#### 3. Research Integration Documentation
+**All tools must document research workflow integration:**
+
 ```python
-def reproducibility_features():
-    """
-    Reproducibility Features:
+def document_research_integration(tool: Any, integration_config: Dict[str, Any]) -> str:
+    """Document research workflow integration"""
 
-    This research tool implements comprehensive reproducibility measures:
+    integration_documentation = {
+        "research_workflow_integration": document_workflow_integration(tool, integration_config),
+        "scientific_method_support": document_scientific_method_support(tool, integration_config),
+        "validation_integration": document_validation_integration(tool, integration_config),
+        "collaboration_support": document_collaboration_support(tool, integration_config),
+        "scalability_considerations": document_scalability_considerations(tool, integration_config)
+    }
 
-    1. State Capture: Complete experiment state serialization
-    2. Random Seed Management: Controlled randomness for reproducibility
-    3. Environment Tracking: System and dependency version tracking
-    4. Result Validation: Automated result verification
-    5. Report Generation: Comprehensive reproducibility reports
-
-    Usage:
-        config = {
-            "reproducibility_mode": True,
-            "random_seed": 42,
-            "environment_capture": True
-        }
-    """
-    pass
+    return format_integration_documentation(integration_documentation)
 ```
 
 ## 🚀 Performance Optimization
 
-### Research Performance Requirements
+### Research Tools Performance Requirements
 
-**Research tools must meet scientific computing performance standards:**
+**Research tools must meet these performance standards:**
 
-- **Experiment Execution**: <10 minutes for typical research experiments
-- **Data Processing**: <1GB/minute for research data processing
-- **Workflow Orchestration**: <5% overhead for workflow management
-- **Memory Efficiency**: <2GB memory usage for typical research workloads
+- **Execution Speed**: Tools execute research tasks within reasonable timeframes
+- **Resource Efficiency**: Efficient use of computational resources for research-scale tasks
+- **Scalability**: Scale with research complexity and data sizes
+- **Reliability**: Robust operation without failures in research workflows
+- **Monitoring**: Comprehensive monitoring of tool performance and usage
 
-### Research-Specific Optimizations
+### Optimization Techniques
 
-#### 1. Parallel Research Execution
+#### 1. Automation Optimization
+
 ```python
-class ParallelExperimentRunner:
-    """Parallel experiment execution for research workflows"""
+def optimize_research_automation(automation_tool: Any, optimization_config: Dict[str, Any]) -> OptimizedAutomationTool:
+    """Optimize research automation for performance and efficiency"""
 
-    def __init__(self, config: Dict[str, Any]):
-        self.config = config
-        self.executor = ThreadPoolExecutor(max_workers=config["max_workers"])
-        self.semaphore = Semaphore(config["max_concurrent_experiments"])
+    # Optimize workflow execution
+    execution_optimization = optimize_workflow_execution(automation_tool, optimization_config)
 
-    async def run_parallel_experiments(self, experiments: List[Dict]) -> List[Dict]:
-        """Execute experiments in parallel with resource management"""
-        tasks = []
+    # Optimize resource utilization
+    resource_optimization = optimize_resource_utilization(execution_optimization)
 
-        for experiment in experiments:
-            # Acquire semaphore to limit concurrent experiments
-            await self.semaphore.acquire()
+    # Add intelligent caching
+    caching_optimization = add_intelligent_caching(resource_optimization)
 
-            # Create research task
-            task = asyncio.create_task(
-                self._execute_single_experiment_with_semaphore(experiment)
-            )
-            tasks.append(task)
+    # Implement parallel processing
+    parallel_optimization = implement_parallel_processing(caching_optimization)
 
-        # Execute all experiments
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+    # Add performance monitoring
+    monitoring_optimization = add_performance_monitoring(parallel_optimization)
 
-        # Process results
-        processed_results = []
-        for i, result in enumerate(results):
-            if isinstance(result, Exception):
-                self.log_experiment_failure(experiments[i], result)
-                processed_results.append({"error": str(result)})
-            else:
-                processed_results.append(result)
-
-        return processed_results
-
-    async def _execute_single_experiment_with_semaphore(self, experiment: Dict) -> Dict:
-        """Execute single experiment and release semaphore"""
-        try:
-            result = await self._execute_research_experiment(experiment)
-            return result
-        finally:
-            self.semaphore.release()
+    return OptimizedAutomationTool(
+        execution=execution_optimization,
+        resources=resource_optimization,
+        caching=caching_optimization,
+        parallel=parallel_optimization,
+        monitoring=monitoring_optimization
+    )
 ```
 
-#### 2. Research Data Streaming
+#### 2. Orchestration Optimization
+
 ```python
-class StreamingResearchProcessor:
-    """Streaming processor for large research datasets"""
+def optimize_research_orchestration(orchestrator: Any, optimization_config: Dict[str, Any]) -> OptimizedOrchestrator:
+    """Optimize research orchestration for efficiency"""
 
-    def __init__(self, config: Dict[str, Any]):
-        self.config = config
-        self.chunk_size = config.get("chunk_size", 10000)
+    # Optimize workflow scheduling
+    scheduling_optimization = optimize_workflow_scheduling(orchestrator, optimization_config)
 
-    def process_large_research_dataset(self, input_path: str, output_path: str) -> Dict[str, Any]:
-        """Process large research dataset using streaming"""
-        total_processed = 0
-        results = []
+    # Optimize resource allocation
+    allocation_optimization = optimize_resource_allocation(scheduling_optimization)
 
-        with open(input_path, 'r') as input_file, open(output_path, 'w') as output_file:
-            while True:
-                # Read chunk of research data
-                chunk = self._read_research_data_chunk(input_file)
-                if not chunk:
-                    break
+    # Implement intelligent load balancing
+    load_balancing = implement_load_balancing(allocation_optimization)
 
-                # Process research data chunk
-                processed_chunk = self._process_research_chunk(chunk)
-                results.append(processed_chunk)
+    # Add predictive scaling
+    predictive_scaling = add_predictive_scaling(load_balancing)
 
-                # Write processed results
-                self._write_research_results(output_file, processed_chunk)
+    # Optimize monitoring overhead
+    monitoring_optimization = optimize_monitoring_overhead(predictive_scaling)
 
-                total_processed += len(chunk)
-
-                # Progress logging for research workflow
-                if total_processed % 100000 == 0:
-                    logger.info(f"Processed {total_processed} research records")
-
-        return {
-            "total_processed": total_processed,
-            "chunks_processed": len(results),
-            "output_path": output_path,
-            "processing_time": time.time() - start_time
-        }
+    return OptimizedOrchestrator(
+        scheduling=scheduling_optimization,
+        allocation=allocation_optimization,
+        load_balancing=load_balancing,
+        scaling=predictive_scaling,
+        monitoring=monitoring_optimization
+    )
 ```
 
-## 🔒 Research Security Standards
+## 🔒 Research Tools Security Standards
 
-### Research Data Security (MANDATORY)
+### Security Requirements (MANDATORY)
 
-#### 1. Research Data Protection
+#### 1. Tool Security
+
 ```python
-def validate_research_data_access(self, user: str, data_path: str, operation: str) -> bool:
-    """Validate research data access permissions"""
-    # Check research project permissions
-    project_permissions = self.get_research_project_permissions(user)
+def validate_research_tool_security(tool: Any, security_config: Dict[str, Any]) -> SecurityResult:
+    """Validate security of research tools"""
 
-    if operation not in project_permissions["allowed_operations"]:
-        self.log_security_event("unauthorized_data_access", {
-            "user": user,
-            "data_path": data_path,
-            "operation": operation,
-            "reason": "Operation not permitted for research project"
-        })
-        return False
-
-    # Validate data sensitivity level
-    data_classification = self.get_data_classification(data_path)
-
-    if data_classification == "sensitive" and not project_permissions["sensitive_data_access"]:
-        self.log_security_event("sensitive_data_access_denied", {
-            "user": user,
-            "data_path": data_path,
-            "classification": data_classification
-        })
-        return False
-
-    return True
-```
-
-#### 2. Research Audit Logging
-```python
-def log_research_activity(self, activity: str, details: Dict[str, Any], user: str) -> None:
-    """Log research activities for audit and reproducibility"""
-
-    research_audit_event = {
-        "timestamp": datetime.utcnow().isoformat(),
-        "user": user,
-        "activity": activity,
-        "research_context": details,
-        "tool": "research_tools",
-        "reproducibility_hash": self.generate_reproducibility_hash(details)
+    security_checks = {
+        "input_validation": validate_tool_input_security(tool),
+        "access_control": validate_tool_access_control(tool),
+        "data_privacy": validate_data_privacy_protection(tool),
+        "audit_logging": validate_tool_audit_logging(tool)
     }
 
-    # Log to research audit trail
-    self.research_logger.info(f"Research activity: {activity}", extra={
-        "research_audit": research_audit_event
-    })
-
-    # Store in research database
-    self.research_db.store_audit_event(research_audit_event)
-
-def generate_reproducibility_hash(self, details: Dict[str, Any]) -> str:
-    """Generate hash for research reproducibility tracking"""
-    # Create deterministic representation of research activity
-    research_state = {
-        "parameters": details.get("parameters", {}),
-        "data_sources": details.get("data_sources", []),
-        "algorithms": details.get("algorithms", []),
-        "timestamp": details.get("timestamp", "")
+    return {
+        "secure": all(security_checks.values()),
+        "checks": security_checks,
+        "vulnerabilities": [k for k, v in security_checks.items() if not v]
     }
 
-    # Generate reproducible hash
-    import hashlib
-    state_json = json.dumps(research_state, sort_keys=True)
-    return hashlib.sha256(state_json.encode()).hexdigest()[:16]
+def secure_research_tool_development(tool: Any, security_config: Dict[str, Any]) -> SecureResearchTool:
+    """Develop research tools with comprehensive security measures"""
+
+    # Implement input validation
+    input_validation = implement_input_validation(tool)
+
+    # Add access control mechanisms
+    access_control = add_access_control_mechanisms(input_validation)
+
+    # Implement data encryption
+    data_encryption = implement_data_encryption(access_control)
+
+    # Add comprehensive logging
+    audit_logging = add_comprehensive_logging(data_encryption)
+
+    # Implement security monitoring
+    security_monitoring = implement_security_monitoring(audit_logging)
+
+    return SecureResearchTool(
+        input_validation=input_validation,
+        access_control=access_control,
+        encryption=data_encryption,
+        logging=audit_logging,
+        monitoring=security_monitoring
+    )
+```
+
+#### 2. Research Data Security
+
+```python
+def validate_research_data_security(data_handling: Any, security_config: Dict[str, Any]) -> SecurityResult:
+    """Validate security of research data handling"""
+
+    data_security_checks = {
+        "data_encryption": validate_data_encryption(data_handling),
+        "access_logging": validate_access_logging(data_handling),
+        "privacy_protection": validate_privacy_protection(data_handling),
+        "secure_deletion": validate_secure_deletion(data_handling)
+    }
+
+    return {
+        "secure": all(data_security_checks.values()),
+        "checks": data_security_checks,
+        "risks": [k for k, v in data_security_checks.items() if not v]
+    }
+```
+
+## 🐛 Research Tools Debugging & Troubleshooting
+
+### Debug Configuration
+
+```python
+# Enable research tools debugging
+debug_config = {
+    "debug": True,
+    "automation_debugging": True,
+    "orchestration_debugging": True,
+    "testing_debugging": True,
+    "performance_monitoring": True
+}
+
+# Debug research tool development
+debug_research_tools_workflow(debug_config)
+```
+
+### Common Debugging Patterns
+
+#### 1. Automation Debugging
+
+```python
+def debug_research_automation(automation_tool: Any, debug_config: Dict[str, Any]) -> DebugResult:
+    """Debug research automation issues"""
+
+    # Test automation workflow
+    workflow_debug = debug_automation_workflow(automation_tool)
+    if not workflow_debug['functional']:
+        return {"type": "workflow", "issues": workflow_debug['issues']}
+
+    # Test automation reliability
+    reliability_debug = debug_automation_reliability(automation_tool)
+    if not reliability_debug['reliable']:
+        return {"type": "reliability", "issues": reliability_debug['issues']}
+
+    # Test automation performance
+    performance_debug = debug_automation_performance(automation_tool)
+    if not performance_debug['performant']:
+        return {"type": "performance", "issues": performance_debug['issues']}
+
+    return {"status": "automation_ok"}
+
+def debug_automation_workflow(tool: Any) -> Dict[str, Any]:
+    """Debug automation workflow execution"""
+
+    # Test workflow initialization
+    init_test = test_workflow_initialization(tool)
+    if not init_test['successful']:
+        return {"functional": False, "issues": ["Workflow initialization failed"]}
+
+    # Test step execution
+    step_test = test_step_execution(tool)
+    if not step_test['successful']:
+        return {"functional": False, "issues": ["Step execution failed"]}
+
+    # Test workflow completion
+    completion_test = test_workflow_completion(tool)
+    if not completion_test['successful']:
+        return {"functional": False, "issues": ["Workflow completion failed"]}
+
+    return {"functional": True, "issues": []}
+```
+
+#### 2. Orchestration Debugging
+
+```python
+def debug_research_orchestration(orchestrator: Any, debug_config: Dict[str, Any]) -> DebugResult:
+    """Debug research orchestration issues"""
+
+    # Test orchestration setup
+    setup_debug = debug_orchestration_setup(orchestrator)
+    if not setup_debug['set_up_correctly']:
+        return {"type": "setup", "issues": setup_debug['issues']}
+
+    # Test workflow orchestration
+    workflow_debug = debug_workflow_orchestration(orchestrator)
+    if not workflow_debug['orchestrated_correctly']:
+        return {"type": "workflow", "issues": workflow_debug['issues']}
+
+    # Test resource orchestration
+    resource_debug = debug_resource_orchestration(orchestrator)
+    if not resource_debug['resources_managed']:
+        return {"type": "resources", "issues": resource_debug['issues']}
+
+    return {"status": "orchestration_ok"}
 ```
 
 ## 🔄 Development Workflow
 
-### Research Tool Development Process
+### Agent Development Process
 
-1. **Research Requirement Analysis**
-   - Understand research domain and scientific context
-   - Identify research workflow gaps and needs
-   - Analyze integration requirements with research frameworks
+1. **Research Tools Assessment**
+   - Understand current research tool capabilities and limitations
+   - Identify gaps in research automation, orchestration, and utilities
+   - Review existing tool performance and research workflow support
 
-2. **Research Architecture Design**
-   - Design tool following research software best practices
-   - Plan comprehensive testing for research validation
-   - Consider reproducibility and scientific computing requirements
+2. **Tool Architecture Planning**
+   - Design comprehensive research tool architecture and integration
+   - Plan automation capabilities and orchestration requirements
+   - Consider research workflow efficiency and quality assurance needs
 
-3. **Research-Focused TDD**
-   - Write tests covering research workflows and edge cases
-   - Implement minimal functionality for research use cases
-   - Validate against research requirements and scientific accuracy
+3. **Research Tools Implementation**
+   - Implement automation tools for research workflows
+   - Create orchestration systems for complex research processes
+   - Develop testing frameworks for research validation
+   - Build utility libraries for research efficiency
 
-4. **Research Implementation**
-   - Follow research software development standards
-   - Implement comprehensive research data validation
-   - Add reproducibility features and audit trails
+4. **Quality Assurance Implementation**
+   - Implement comprehensive testing for tool reliability
+   - Validate automation and orchestration effectiveness
+   - Ensure tools meet research performance and scalability requirements
 
-5. **Research Quality Assurance**
-   - Validate research workflow integration
-   - Test with real research data and scenarios
-   - Verify reproducibility and scientific accuracy
+5. **Integration and Research Validation**
+   - Test integration with research workflows and platforms
+   - Validate tools against real research use cases
+   - Update related documentation and educational materials
 
-6. **Research Integration**
-   - Integrate with research frameworks and tools
-   - Validate performance with research workloads
-   - Update research documentation and examples
+### Code Review Checklist
 
-### Research Tool Review Checklist
+**Before submitting research tools code for review:**
 
-**Before submitting research tools for review:**
-
-- [ ] **Research Context**: Tool addresses real research needs
-- [ ] **Scientific Accuracy**: Implementation follows scientific principles
-- [ ] **Reproducibility**: Full reproducibility support implemented
-- [ ] **Research Testing**: Comprehensive research workflow testing
-- [ ] **Performance**: Meets research computing performance requirements
-- [ ] **Integration**: Seamless integration with research frameworks
-- [ ] **Documentation**: Clear research context and usage examples
-- [ ] **Standards**: Follows research software development standards
+- [ ] **Research Focus**: Tools specifically support and enhance research workflows
+- [ ] **Automation Effectiveness**: Automation tools reduce manual research effort
+- [ ] **Orchestration Efficiency**: Orchestration adds minimal overhead while providing value
+- [ ] **Testing Coverage**: Comprehensive testing for all tool capabilities
+- [ ] **Documentation**: Clear documentation for research tool usage and integration
+- [ ] **Performance**: Tools meet research-scale performance and scalability requirements
+- [ ] **Integration**: Tools integrate seamlessly with research and platform systems
+- [ ] **Standards Compliance**: Follow all development and research standards
 
 ## 📚 Learning Resources
 
-### Research Tool Resources
+### Research Tools Development Resources
 
-- **[Research Framework](../../README.md)**: Core research functionality
-- **[Research Experiments](../../experiments/README.md)**: Experiment definitions
-- **[Research Analysis](../../analysis/README.md)**: Analysis methodologies
-- **[.cursorrules](../../../.cursorrules)**: Development standards
+- **[Research Tools AGENTS.md](AGENTS.md)**: Research tools development guidelines
+- **[Workflow Automation](https://example.com)**: Research workflow automation techniques
+- **[Scientific Computing](https://example.com)**: Scientific computing and research tools
+- **[Orchestration Patterns](https://example.com)**: Workflow orchestration and management
 
-### Scientific Computing References
+### Technical References
 
-- **[Research Software Engineering](https://researchsoftware.org)**: Best practices
-- **[Reproducible Research](https://reproducibleresearch.net)**: Reproducibility guidelines
-- **[Scientific Python](https://scientific-python.org)**: Scientific computing standards
-- **[Research Data Management](https://rdm.org)**: Data management best practices
+- **[Prefect Documentation](https://example.com)**: Workflow orchestration framework
+- **[pytest Documentation](https://example.com)**: Testing framework for research tools
+- **[Scientific Python](https://example.com)**: Scientific computing libraries
+- **[Parallel Computing](https://example.com)**: Parallel processing for research
 
-### Research Domain Knowledge
+### Related Components
 
-Study these research areas for tool development:
+Study these related components for integration patterns:
 
-- **[Active Inference Research](https://activeinference.org)**: Domain expertise
-- **[Bayesian Methods](https://bayesian.org)**: Statistical foundations
-- **[Neural Computation](https://neuralcomputation.org)**: Computational neuroscience
-- **[Scientific Computing](https://scipy.org)**: Computing methodologies
+- **[Research Framework](../../)**: Research methods that tools support
+- **[Experiment Framework](../../experiments/)**: Experimental workflows that tools orchestrate
+- **[Analysis Framework](../../analysis/)**: Analysis processes that tools automate
+- **[Platform Tools](../../../../tools/)**: General development tools integration
+- **[Testing Framework](../../../../tests/)**: Testing infrastructure for tools
 
 ## 🎯 Success Metrics
 
-### Research Impact Metrics
+### Research Tools Quality Metrics
 
-- **Research Productivity**: Tools accelerate research workflows
-- **Reproducibility Rate**: High reproducibility in research processes
-- **Research Quality**: Improved research validation and accuracy
-- **Integration Success**: Seamless adoption by research community
-- **Scientific Impact**: Contributions to Active Inference research
+- **Automation Efficiency**: >80% reduction in manual research workflow effort
+- **Orchestration Reliability**: >99% successful workflow orchestration completion
+- **Testing Coverage**: >95% coverage of research implementation testing
+- **Utility Adoption**: >70% adoption of utility functions in research workflows
+- **Performance Efficiency**: Research tools operate within performance requirements
 
 ### Development Metrics
 
-- **Research Tool Quality**: Maintains high scientific computing standards
-- **Performance**: Meets research computing performance requirements
-- **Reliability**: Zero failures in research workflows
-- **Maintainability**: Clean, well-documented research code
-- **Community Adoption**: Research community usage and feedback
+- **Implementation Speed**: Research tools implemented within 1 month
+- **Quality Score**: Consistent high-quality research tool implementations
+- **Integration Success**: Seamless integration with research workflows
+- **Research Impact**: Measurable improvement in research efficiency and quality
+- **Maintenance Efficiency**: Easy to update and maintain research tools
 
 ---
 
-**Research Tools**: Version 1.0.0 | **Last Updated**: October 2024
+**Research Tools Framework**: Agent Guide | **Version**: 1.0.0 | **Last Updated**: October 2024
 
-*"Active Inference for, with, by Generative AI"* - Advancing research through intelligent tool development and comprehensive research support.
+*"Active Inference for, with, by Generative AI"* - Providing comprehensive automation, orchestration, testing, and utility tools to enhance research efficiency, ensure scientific rigor, and accelerate Active Inference research workflows.

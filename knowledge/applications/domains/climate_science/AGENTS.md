@@ -6,6 +6,61 @@ This document provides comprehensive guidance for AI agents and contributors wor
 
 The Climate Science domain applies Active Inference principles to address complex environmental challenges including climate system modeling, decision making under deep uncertainty, and sustainability planning. This domain tackles the fundamental challenges of making robust decisions in complex, multi-scale environmental systems with significant uncertainties and long-term consequences.
 
+### Climate System Modeling Architecture
+
+```mermaid
+graph TB
+    subgraph "Multi-Scale Climate System"
+        A[Global Climate] --> B[Regional Systems]
+        B --> C[Local Processes]
+        C --> D[Human Systems]
+
+        E[Atmosphere] --> A
+        F[Ocean] --> A
+        G[Land Surface] --> B
+        H[Biosphere] --> B
+        I[Human Activity] --> D
+    end
+
+    subgraph "Active Inference Framework"
+        J[Generative Models] --> K[Uncertainty Quantification]
+        K --> L[Decision Making]
+        L --> M[Policy Selection]
+
+        J --> N[Data Assimilation]
+        N --> O[Model Validation]
+        O --> P[Risk Assessment]
+    end
+
+    subgraph "External Integration"
+        Q[Climate Data] --> N
+        R[Research Literature] --> J
+        S[Policy Requirements] --> M
+        T[Stakeholder Values] --> L
+    end
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+    style I fill:#f9fbe7
+    style J fill:#fce4ec
+    style K fill:#f3e5f5
+    style L fill:#e8f5e8
+    style M fill:#fff3e0
+    style N fill:#f1f8e9
+    style O fill:#e1f5fe
+    style P fill:#fff8e1
+    style Q fill:#f9fbe7
+    style R fill:#fce4ec
+    style S fill:#f3e5f5
+    style T fill:#e8f5e8
+```
+
 ## Directory Structure
 
 ```
@@ -38,6 +93,41 @@ knowledge/applications/domains/climate_science/
 ## Development Workflows
 
 ### Climate Application Development Process
+
+```mermaid
+flowchart TD
+    A[Problem Formulation] --> B[System Analysis]
+    B --> C[Model Design]
+    C --> D[Uncertainty Integration]
+    D --> E[Implementation]
+    E --> F[Validation]
+    F --> G[Application]
+
+    A1[Define Climate Challenge] --> A
+    A2[Map to Active Inference] --> A
+    B1[Analyze System Structure] --> B
+    B2[Identify Uncertainties] --> B
+    C1[Design Generative Models] --> C
+    C2[Specify Process Dynamics] --> C
+    D1[Multi-Level Uncertainty] --> D
+    D2[Deep Uncertainty Methods] --> D
+    E1[Build Climate System] --> E
+    E2[Implement Decision Framework] --> E
+    F1[Validate Against Data] --> F
+    F2[Expert Review] --> F
+    F3[Robustness Testing] --> F
+    G1[Deploy for Research] --> G
+    G2[Enable Decision Support] --> G
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+```
+
 1. **Problem Formulation**: Define climate science problem in Active Inference terms
 2. **System Analysis**: Analyze climate system structure and uncertainties
 3. **Model Design**: Design generative models for climate processes
@@ -54,6 +144,41 @@ knowledge/applications/domains/climate_science/
 5. **Validation**: Validate model against independent climate observations
 
 ## Quality Standards
+
+### Climate Uncertainty Quantification Pipeline
+
+```mermaid
+flowchart LR
+    A[Climate Data] --> B[Data Preprocessing]
+    B --> C[Aleatoric Uncertainty]
+    C --> D[Epistemic Uncertainty]
+    D --> E[Total Uncertainty]
+    E --> F[Decision Framework]
+    F --> G[Risk Assessment]
+    G --> H[Policy Selection]
+
+    C1[Statistical Variability] --> C
+    C2[Measurement Error] --> C
+    D1[Model Limitations] --> D
+    D2[Parameter Uncertainty] --> D
+    E1[Combine Uncertainties] --> E
+    E2[Confidence Intervals] --> E
+    F1[Robust Decision Making] --> F
+    F2[Scenario Analysis] --> F
+    G1[Risk Metrics] --> G
+    G2[Impact Assessment] --> G
+    H1[Optimal Policy] --> H
+    H2[Adaptation Strategy] --> H
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+```
 
 ### Climate Modeling Standards
 - **Physical Consistency**: Models must be physically and mathematically consistent
@@ -614,6 +739,52 @@ class ClimateDecisionSystem:
 - **Monte Carlo Methods**: Optimized sampling for uncertainty analysis
 - **Ensemble Methods**: Efficient ensemble generation and analysis
 - **Parallel Processing**: Utilize parallel processing for large-scale analysis
+
+## Platform Integration
+
+### Climate Science Integration Architecture
+
+```mermaid
+graph TB
+    subgraph "Climate Domain Module"
+        A[Climate Models] --> B[Decision Systems]
+        C[Risk Assessment] --> B
+        D[Uncertainty Analysis] --> C
+        E[Scenario Planning] --> B
+    end
+
+    subgraph "Platform Integration"
+        F[Knowledge Base] <--> A
+        G[Research Tools] <--> D
+        H[Testing Framework] <--> B
+        I[Visualization] <--> E
+        J[Application Framework] <--> B
+    end
+
+    subgraph "External Systems"
+        K[Climate Data Centers] --> A
+        L[Research Communities] --> D
+        M[Policy Organizations] --> B
+        N[Stakeholder Groups] --> E
+        O[Environmental Agencies] --> C
+    end
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+    style I fill:#f9fbe7
+    style J fill:#fce4ec
+    style K fill:#f3e5f5
+    style L fill:#e8f5e8
+    style M fill:#fff3e0
+    style N fill:#f1f8e9
+    style O fill:#e1f5fe
+```
 
 ## Getting Started as an Agent
 

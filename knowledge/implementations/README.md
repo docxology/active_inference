@@ -15,6 +15,20 @@ This section provides hands-on implementations of Active Inference concepts. Eac
 - **MCMC Sampling** (`mcmc_sampling.json`): Markov Chain Monte Carlo methods
 - **Neural Networks** (`neural_network_implementation.json`): Deep learning implementations
 
+### Advanced Machine Learning Integration
+- **Reinforcement Learning** (`reinforcement_learning.json`): RL algorithms using Active Inference framework
+- **Deep Generative Models** (`deep_generative_models.json`): Hierarchical VAEs, GANs, and normalizing flows
+- **Graph Neural Networks** (`graph_neural_networks_active_inference.json`): GNNs with Active Inference for graph-structured data
+- **Active Inference Transformers** (`active_inference_transformers.json`): Integration with large language models and attention mechanisms
+- **Federated Active Inference** (`federated_active_inference.json`): Distributed and privacy-preserving Active Inference systems
+
+### Control and Optimization
+- **Planning Algorithms** (`planning_algorithms.json`): Advanced planning methods for policy selection
+- **Control Systems** (`control_systems.json`): Active Inference for continuous control
+- **Benchmarking** (`benchmarking.json`): Performance evaluation and comparison frameworks
+- **Simulation Methods** (`simulation_methods.json`): Multi-scale modeling and simulation
+- **Uncertainty Quantification** (`uncertainty_quantification.json`): Advanced uncertainty modeling and propagation
+
 ## Implementation Focus
 
 Each tutorial provides:

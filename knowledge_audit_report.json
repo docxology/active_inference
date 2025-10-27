@@ -1,0 +1,1553 @@
+{
+  "audit_timestamp": "2025-10-27T12:13:33.218935",
+  "summary": {
+    "total_files": 76,
+    "valid_files": 76,
+    "validation_rate": 1.0,
+    "total_errors": 0,
+    "total_warnings": 948,
+    "average_score": 0.8880000000000002,
+    "knowledge_nodes": 75
+  },
+  "cross_reference_analysis": {
+    "total_nodes": 75,
+    "total_ids": 75,
+    "orphaned_nodes": [
+      "autonomous_systems",
+      "ai_safety",
+      "fisher_information",
+      "mcmc_sampling",
+      "decision_making",
+      "cognitive_science",
+      "brain_imaging",
+      "robotics_control",
+      "graphical_models",
+      "posterior_inference",
+      "information_bottleneck",
+      "climate_decision_making",
+      "behavioral_economics",
+      "policy_gradient",
+      "game_theory",
+      "deep_generative_models",
+      "neuroscience_perception",
+      "personalized_learning",
+      "differential_geometry",
+      "planning_algorithms",
+      "validation",
+      "optimal_control",
+      "reinforcement_learning",
+      "value_alignment",
+      "perception",
+      "optimal_transport",
+      "clinical_applications",
+      "cross_entropy",
+      "empirical_bayes",
+      "market_behavior",
+      "causal_inference",
+      "natural_gradient",
+      "advanced_variational_methods",
+      "kalman_filtering",
+      "neural_networks",
+      "intelligent_tutoring"
+    ],
+    "highly_connected_nodes": [],
+    "isolated_nodes": [
+      "bayesian_basics",
+      "info_theory_entropy"
+    ],
+    "reference_statistics": {
+      "avg_prerequisites": 2.1066666666666665,
+      "max_prerequisites": 3,
+      "min_prerequisites": 0,
+      "zero_prerequisite_nodes": 2
+    }
+  },
+  "content_quality": {
+    "schema_compliance": 1.0,
+    "content_completeness": 0.8880000000000002,
+    "metadata_quality": 0.009210526315789471
+  },
+  "critical_issues": [],
+  "detailed_results": {
+    "mathematics/advanced_probability.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'measure_theoretic_probability' is very short",
+        "Content section 'stochastic_processes_advanced' is very short",
+        "Content section 'martingale_theory' is very short",
+        "Content section 'brownian_motion' is very short",
+        "Content section 'stochastic_differential_equations' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'probability_in_function_spaces' is very short",
+        "Content section 'ergodic_theory' is very short",
+        "Content section 'computational_methods' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/information_geometry.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'statistical_manifolds' is very short",
+        "Content section 'fisher_information_metric' is very short",
+        "Content section 'natural_gradient_descent' is very short",
+        "Content section 'geodesics_and_curvature' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/advanced_variational_methods.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mean_field_approximation' is very short",
+        "Content section 'structured_variational_approximation' is very short",
+        "Content section 'expectation_propagation' is very short",
+        "Content section 'variational_autoencoders' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'stochastic_variational_inference' is very short",
+        "Content section 'black_box_variational_inference' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'theoretical_analysis' is very short",
+        "Content section 'numerical_methods' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/predictive_coding.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_formulation' is very short",
+        "Content section 'message_passing' is very short",
+        "Content section 'continuous_time_dynamics' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'neural_implementation' is very short",
+        "Content section 'connections_to_machine_learning' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/dynamical_systems.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'continuous_dynamical_systems' is very short",
+        "Content section 'stability_theory' is very short",
+        "Content section 'bifurcation_theory' is very short",
+        "Content section 'attractor_landscape' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'stochastic_dynamical_systems' is very short",
+        "Content section 'chaos_and_complexity' is very short",
+        "Content section 'control_of_dynamical_systems' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'numerical_methods' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/stochastic_processes.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'markov_processes' is very short",
+        "Content section 'continuous_time_processes' is very short",
+        "Content section 'filtering_and_smoothing' is very short",
+        "Content section 'temporal_generative_models' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'information_theoretic_analysis' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/expected_free_energy.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_derivation' is very short",
+        "Content section 'decomposition' is very short",
+        "Content section 'information_gain' is very short",
+        "Content section 'temporal_formulation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'optimization_methods' is very short",
+        "Content section 'connections_to_decision_theory' is very short",
+        "Content section 'neural_implementation' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/fisher_information.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_definition' is very short",
+        "Content section 'cramer_rao_bound' is very short",
+        "Content section 'information_geometry_connection' is very short",
+        "Content section 'computation_methods' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'properties_and_inequalities' is very short",
+        "Content section 'geometric_interpretation' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/natural_gradient.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_definition' is very short",
+        "Content section 'information_geometry_connection' is very short",
+        "Content section 'computation_methods' is very short",
+        "Content section 'applications_in_ml' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'advantages_over_standard_gradient' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'implementation_considerations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/markov_chain_monte_carlo.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'markov_chain_fundamentals' is very short",
+        "Content section 'common_mcmc_algorithms' is very short",
+        "Content section 'convergence_diagnostics' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'practical_considerations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/optimal_transport.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'optimal_transport_fundamentals' is very short",
+        "Content section 'wasserstein_distance' is very short",
+        "Content section 'benamou_brenier_formula' is very short",
+        "Content section 'connections_to_information_geometry' is very short",
+        "Content section 'applications_in_active_inference' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'numerical_methods' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/differential_geometry.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'manifolds_and_tangent_spaces' is very short",
+        "Content section 'riemannian_geometry' is very short",
+        "Content section 'connections_and_covariant_derivatives' is very short",
+        "Content section 'curvature_tensors' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'information_geometry' is very short",
+        "Content section 'geometric_mechanics' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'numerical_methods' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "mathematics/variational_free_energy.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_derivation' is very short",
+        "Content section 'variational_free_energy_components' is very short",
+        "Content section 'kl_divergence_formulation' is very short",
+        "Content section 'gradient_flows' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'information_geometric_interpretation' is very short",
+        "Content section 'convergence_and_optimality' is very short",
+        "Content section 'connections_to_other_frameworks' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/ai_generative_models.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'generative_model_definition' is very short",
+        "Content section 'hierarchical_generative_models' is very short",
+        "Content section 'temporal_models' is very short",
+        "Content section 'model_learning' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'model_evaluation' is very short",
+        "Content section 'approximate_inference' is very short",
+        "Content section 'connections_to_machine_learning' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/fep_introduction.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'core_principle' is very short",
+        "Content section 'free_energy_definition' is very short",
+        "Content section 'key_components' is very short",
+        "Content section 'perception_as_inference' is very short",
+        "Content section 'action_as_inference' is very short",
+        "Content section 'biological_implications' is very short",
+        "Content section 'mathematical_connections' is very short",
+        "Content section 'detailed_mathematical_connections' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'hierarchical_structure' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'philosophical_implications' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'implementation_considerations' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/hierarchical_models.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_structure' is very short",
+        "Content section 'types_of_hierarchies' is very short",
+        "Content section 'benefits_of_hierarchical_modeling' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'inference_methods' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'design_principles' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/causal_inference.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'causal_models' is very short",
+        "Content section 'causal_hierarchy' is very short",
+        "Content section 'do_calculus' is very short",
+        "Content section 'causal_discovery' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'computational_examples' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'graphical_models' is very short",
+        "Content section 'identification_and_estimation' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'advanced_topics' is very short",
+        "Content section 'challenges_and_limitations' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/cross_entropy.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_definition' is very short",
+        "Content section 'properties' is very short",
+        "Content section 'machine_learning_applications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'optimization' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/posterior_inference.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'exact_inference_methods' is very short",
+        "Content section 'approximate_inference_methods' is very short",
+        "Content section 'monte_carlo_methods' is very short",
+        "Content section 'variational_methods' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'model_comparison' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'computational_considerations' is very short",
+        "Content section 'diagnostics_and_validation' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/active_inference_introduction.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'core_principle' is very short",
+        "Content section 'key_components' is very short",
+        "Content section 'perception_action_cycle' is very short",
+        "Content section 'expected_free_energy_decomposition' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/bayesian_basics.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'bayes_theorem' is very short",
+        "Content section 'conditional_probability' is very short",
+        "Content section 'probability_interpretations' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'updating_beliefs' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/fep_mathematical_formulation.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'variational_free_energy' is very short",
+        "Content section 'hierarchical_formulation' is very short",
+        "Content section 'information_geometric_interpretation' is very short",
+        "Content section 'gradient_flows' is very short",
+        "Content section 'equilibrium_and_steady_states' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'connections_to_other_frameworks' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/graphical_models.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'types_of_graphical_models' is very short",
+        "Content section 'graphical_representation' is very short",
+        "Content section 'conditional_independence' is very short",
+        "Content section 'inference_algorithms' is very short",
+        "Content section 'learning_graphical_models' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'factor_graphs' is very short",
+        "Content section 'causal_graphical_models' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/ai_policy_selection.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'expected_free_energy' is very short",
+        "Content section 'policy_representation' is very short",
+        "Content section 'planning_algorithms' is very short",
+        "Content section 'exploration_exploitation_tradeoff' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'reward_and_preferences' is very short",
+        "Content section 'stochastic_policy_selection' is very short",
+        "Content section 'connections_to_neuroscience' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/belief_updating.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'sequential_bayes' is very short",
+        "Content section 'filtering_methods' is very short",
+        "Content section 'evidence_accumulation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'uncertainty_management' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/multi_agent_systems.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'theoretical_foundation' is very short",
+        "Content section 'belief_modeling' is very short",
+        "Content section 'social_coordination' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'mathematical_formulation' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'challenges' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/policy_gradient.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'policy_gradient_theorem' is very short",
+        "Content section 'policy_representations' is very short",
+        "Content section 'gradient_estimation' is very short",
+        "Content section 'variance_reduction_techniques' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'advanced_methods' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'implementation_considerations' is very short",
+        "Content section 'advantages_and_limitations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/bayesian_inference.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'bayes_theorem' is very short",
+        "Content section 'inference_process' is very short",
+        "Content section 'types_of_inference' is very short",
+        "Content section 'computational_methods' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'prior_specifications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'advantages_and_limitations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/continuous_control.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'continuous_state_spaces' is very short",
+        "Content section 'continuous_dynamics' is very short",
+        "Content section 'continuous_policies' is very short",
+        "Content section 'expected_free_energy_for_continuous_systems' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'numerical_methods' is very short",
+        "Content section 'connections_to_control_theory' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/decision_theory.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'expected_utility_theory' is very short",
+        "Content section 'subjective_expected_utility' is very short",
+        "Content section 'prospect_theory' is very short",
+        "Content section 'active_inference_decision_making' is very short",
+        "Content section 'detailed_mathematical_formulation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'bounded_rationality' is very short",
+        "Content section 'multi_agent_decision_theory' is very short",
+        "Content section 'advanced_decision_frameworks' is very short",
+        "Content section 'practical_applications' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/optimal_control.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'problem_formulation' is very short",
+        "Content section 'classical_approaches' is very short",
+        "Content section 'linear_quadratic_regulator' is very short",
+        "Content section 'dynamic_programming' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'stochastic_optimal_control' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'numerical_methods' is very short",
+        "Content section 'constraints_and_limitations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/info_theory_entropy.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_definition' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/kalman_filtering.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'problem_formulation' is very short",
+        "Content section 'kalman_filter_algorithm' is very short",
+        "Content section 'optimality_properties' is very short",
+        "Content section 'extensions_and_variants' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'implementation_considerations' is very short",
+        "Content section 'limitations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/empirical_bayes.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'methodological_approach' is very short",
+        "Content section 'types_of_empirical_bayes' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'advantages_and_disadvantages' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'computational_methods' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/perception.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'perception_as_inference' is very short",
+        "Content section 'mathematical_formulation' is very short",
+        "Content section 'generative_model_role' is very short",
+        "Content section 'perception_action_cycle' is very short",
+        "Content section 'connection_to_predictive_coding' is very short",
+        "Content section 'types_of_perceptual_inference' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'perceptual_uncertainty' is very short",
+        "Content section 'neurobiological_implementation' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/fep_biological_systems.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'homeostatic_regulation' is very short",
+        "Content section 'physiological_systems' is very short",
+        "Content section 'evolutionary_perspective' is very short",
+        "Content section 'neural_implementation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'levels_of_organization' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/optimization_methods.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'gradient_based_methods' is very short",
+        "Content section 'natural_gradient_methods' is very short",
+        "Content section 'second_order_methods' is very short",
+        "Content section 'coordinate_descent' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'computational_examples' is very short",
+        "Content section 'stochastic_optimization' is very short",
+        "Content section 'constrained_optimization' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'numerical_considerations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'advanced_topics' is very short",
+        "Content section 'challenges_in_active_inference' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/information_bottleneck.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'information_bottleneck_principle' is very short",
+        "Content section 'variational_information_bottleneck' is very short",
+        "Content section 'sufficient_statistics_interpretation' is very short",
+        "Content section 'connection_to_rate_distortion' is very short",
+        "Content section 'detailed_mathematical_formulation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'computational_implementation' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'applications_in_machine_learning' is very short",
+        "Content section 'advanced_topics' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'practical_applications' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'implementation_challenges' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/neural_dynamics.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'population_coding' is very short",
+        "Content section 'synaptic_dynamics' is very short",
+        "Content section 'dynamical_equations' is very short",
+        "Content section 'hierarchical_organization' is very short",
+        "Content section 'neuromodulatory_systems' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'computational_examples' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'pathophysiology' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'advanced_topics' is very short",
+        "Content section 'computational_challenges' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/bayesian_models.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'bayesian_networks' is very short",
+        "Content section 'graphical_model_types' is very short",
+        "Content section 'inference_methods' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'model_design_principles' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/info_theory_mutual_information.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_definition' is very short",
+        "Content section 'interpretation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'conditional_mutual_information' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/conjugate_priors.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_definition' is very short",
+        "Content section 'common_conjugate_pairs' is very short",
+        "Content section 'role_in_active_inference' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'computational_benefits' is very short",
+        "Content section 'limitations_and_extensions' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "foundations/info_theory_kl_divergence.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mathematical_definition' is very short",
+        "Content section 'interpretation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'connections_to_active_inference' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/robotics_control.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'robotics_applications' is very short",
+        "Content section 'generative_models_for_robotics' is very short",
+        "Content section 'planning_and_control' is very short",
+        "Content section 'case_studies' is very short",
+        "Content section 'sensorimotor_integration' is very short",
+        "Content section 'challenges_and_solutions' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/neuroscience_perception.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'neural_implementation' is very short",
+        "Content section 'perception_and_attention' is very short",
+        "Content section 'motor_control' is very short",
+        "Content section 'case_studies' is very short",
+        "Content section 'practical_examples' is very short",
+        "Content section 'neural_dynamics' is very short",
+        "Content section 'experimental_predictions' is very short",
+        "Content section 'connections_to_psychology' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'clinical_applications' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/decision_making.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'decision_making_framework' is very short",
+        "Content section 'exploration_exploitation_tradeoff' is very short",
+        "Content section 'planning_algorithms' is very short",
+        "Content section 'case_studies' is very short",
+        "Content section 'cognitive_biases' is very short",
+        "Content section 'group_decision_making' is very short",
+        "Content section 'applications_in_ai' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/planning_algorithms.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'tree_search_planning' is very short",
+        "Content section 'monte_carlo_planning' is very short",
+        "Content section 'gradient_based_planning' is very short",
+        "Content section 'hierarchical_planning' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'multi_agent_planning' is very short",
+        "Content section 'real_time_planning' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'scalability_techniques' is very short",
+        "Content section 'evaluation_and_benchmarking' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/expected_free_energy_calculation.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'expected_free_energy_components' is very short",
+        "Content section 'mathematical_implementation' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'optimization_and_efficiency' is very short",
+        "Content section 'validation_and_testing' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/uncertainty_quantification.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'types_of_uncertainty' is very short",
+        "Content section 'uncertainty_representation' is very short",
+        "Content section 'bayesian_uncertainty' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'robust_optimization' is very short",
+        "Content section 'uncertainty_communication' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'calibration_and_validation' is very short",
+        "Content section 'deep_uncertainty' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/neural_network_implementation.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'neural_generative_models' is very short",
+        "Content section 'neural_inference' is very short",
+        "Content section 'frameworks_and_libraries' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'advanced_techniques' is very short",
+        "Content section 'performance_optimization' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/variational_inference.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'variational_inference_fundamentals' is very short",
+        "Content section 'coordinate_ascent_vi' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'numerical_stability' is very short",
+        "Content section 'validation_and_diagnostics' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/deep_generative_models.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'hierarchical_variational_autoencoders' is very short",
+        "Content section 'normalizing_flows' is very short",
+        "Content section 'generative_adversarial_networks' is very short",
+        "Content section 'attention_mechanisms' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'advanced_techniques' is very short",
+        "Content section 'scalability_and_efficiency' is very short",
+        "Content section 'evaluation_metrics' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/simulation_methods.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'simulation_environments' is very short",
+        "Content section 'agent_simulation' is very short",
+        "Content section 'environment_modeling' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'multi_agent_simulations' is very short",
+        "Content section 'parameter_studies' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'validation_methods' is very short",
+        "Content section 'real_world_applications' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/benchmarking.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'benchmark_design' is very short",
+        "Content section 'evaluation_metrics' is very short",
+        "Content section 'standard_benchmarks' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'statistical_analysis' is very short",
+        "Content section 'reproducibility' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'scalability_testing' is very short",
+        "Content section 'robustness_evaluation' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/control_systems.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'control_theory_fundamentals' is very short",
+        "Content section 'active_inference_control' is very short",
+        "Content section 'linear_quadratic_control' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'model_predictive_control' is very short",
+        "Content section 'nonlinear_control' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'safety_and_constraints' is very short",
+        "Content section 'real_time_implementation' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/validation.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'validation_types' is very short",
+        "Content section 'mathematical_correctness' is very short",
+        "Content section 'numerical_methods' is very short",
+        "Content section 'generative_model_validation' is very short",
+        "Content section 'implementation_testing' is very short",
+        "Content section 'empirical_validation' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'validation_frameworks' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'quality_metrics' is very short",
+        "Content section 'common_validation_issues' is very short",
+        "Content section 'best_practices' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/mcmc_sampling.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'mcmc_fundamentals' is very short",
+        "Content section 'metropolis_hastings_implementation' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'performance_optimization' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/neural_networks.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'network_architecture' is very short",
+        "Content section 'training_process' is very short",
+        "Content section 'backpropagation_algorithm' is very short",
+        "Content section 'optimization_methods' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'architectural_variants' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'implementation_considerations' is very short",
+        "Content section 'common_challenges' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/active_inference_basic.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'agent_architecture' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_tutorial' is very short",
+        "Content section 'complete_example' is very short",
+        "Content section 'debugging_and_testing' is very short",
+        "Content section 'extensions' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_mistakes' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "implementations/reinforcement_learning.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'active_inference_vs_reinforcement_learning' is very short",
+        "Content section 'expected_free_energy_for_rl' is very short",
+        "Content section 'model_based_active_inference' is very short",
+        "Content section 'python_implementation' is very short",
+        "Content section 'step_by_step_implementation' is very short",
+        "Content section 'algorithms_comparison' is very short",
+        "Content section 'continuous_control' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'advanced_topics' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_implementation_issues' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/neuroscience/brain_imaging.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'functional_magnetic_resonance_imaging' is very short",
+        "Content section 'electroencephalography' is very short",
+        "Content section 'magnetoencephalography' is very short",
+        "Content section 'predictive_coding_analysis' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'connectivity_analysis' is very short",
+        "Content section 'multimodal_integration' is very short",
+        "Content section 'statistical_methods' is very short",
+        "Content section 'experimental_design' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'data_preprocessing' is very short",
+        "Content section 'interpretation_challenges' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/psychology/cognitive_science.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'perception_and_attention' is very short",
+        "Content section 'memory_systems' is very short",
+        "Content section 'decision_making' is very short",
+        "Content section 'cognitive_control' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'cognitive_development' is very short",
+        "Content section 'cognitive_aging' is very short",
+        "Content section 'individual_differences' is very short",
+        "Content section 'psychopathology' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/psychology/clinical_applications.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'computational_psychiatry' is very short",
+        "Content section 'schizophrenia' is very short",
+        "Content section 'anxiety_disorders' is very short",
+        "Content section 'depressive_disorders' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'autism_spectrum_disorders' is very short",
+        "Content section 'personality_disorders' is very short",
+        "Content section 'addiction_and_compulsive_disorders' is very short",
+        "Content section 'therapeutic_implications' is very short",
+        "Content section 'neural_mechanisms' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'research_methods' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/education/adaptive_learning.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'student_modeling' is very short",
+        "Content section 'adaptive_instruction' is very short",
+        "Content section 'curriculum_design' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'assessment_and_feedback' is very short",
+        "Content section 'learning_analytics' is very short",
+        "Content section 'implementation_challenges' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/education/personalized_learning.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'student_modeling' is very short",
+        "Content section 'active_inference_approach' is very short",
+        "Content section 'content_adaptation' is very short",
+        "Content section 'assessment_and_feedback' is very short",
+        "Content section 'learning_analytics' is very short",
+        "Content section 'implementation_approaches' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'challenges_and_considerations' is very short",
+        "Content section 'evaluation_methods' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/education/intelligent_tutoring.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'student_modeling' is very short",
+        "Content section 'pedagogical_strategies' is very short",
+        "Content section 'dialogue_management' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'adaptive_assessment' is very short",
+        "Content section 'multimodal_interaction' is very short",
+        "Content section 'learning_analytics' is very short",
+        "Content section 'social_and_collaborative_learning' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'evaluation_and_research' is very short",
+        "Content section 'scalability_and_deployment' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/artificial_intelligence/ai_alignment.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'alignment_challenges' is very short",
+        "Content section 'active_inference_approach' is very short",
+        "Content section 'preference_learning' is very short",
+        "Content section 'safety_mechanisms' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'mathematical_formulation' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/artificial_intelligence/value_alignment.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'alignment_problem' is very short",
+        "Content section 'preference_modeling' is very short",
+        "Content section 'active_inference_approach' is very short",
+        "Content section 'learning_from_demonstration' is very short",
+        "Content section 'safety_mechanisms' is very short",
+        "Content section 'connection_to_multi_agent_systems' is very short",
+        "Content section 'implementation_challenges' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'evaluation_metrics' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'regulatory_approaches' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/artificial_intelligence/ai_safety.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'ai_safety_challenges' is very short",
+        "Content section 'active_inference_solutions' is very short",
+        "Content section 'value_learning' is very short",
+        "Content section 'robust_and_safe_behavior' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'interpretability_and_explainability' is very short",
+        "Content section 'scalable_oversight' is very short",
+        "Content section 'formal_verification' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/economics/game_theory.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'normal_form_games' is very short",
+        "Content section 'extensive_form_games' is very short",
+        "Content section 'learning_in_games' is very short",
+        "Content section 'cooperative_games' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'evolutionary_game_theory' is very short",
+        "Content section 'mechanism_design' is very short",
+        "Content section 'behavioral_game_theory' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/economics/behavioral_economics.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'foundational_concepts' is very short",
+        "Content section 'key_behavioral_principles' is very short",
+        "Content section 'cognitive_biases' is very short",
+        "Content section 'connection_to_active_inference' is very short",
+        "Content section 'decision_making_under_uncertainty' is very short",
+        "Content section 'applications' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'nudging_and_choice_architecture' is very short",
+        "Content section 'methodological_approaches' is very short",
+        "Content section 'criticisms_and_limitations' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/economics/market_behavior.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'agent_based_market_modeling' is very short",
+        "Content section 'price_formation' is very short",
+        "Content section 'market_dynamics' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'behavioral_finance' is very short",
+        "Content section 'market_efficiency' is very short",
+        "Content section 'risk_and_uncertainty' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/climate_science/climate_modeling.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'climate_system_modeling' is very short",
+        "Content section 'uncertainty_quantification' is very short",
+        "Content section 'adaptive_policies' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'methodological_approaches' is very short",
+        "Content section 'decision_making_under_deep_uncertainty' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'policy_implications' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/climate_science/climate_decision_making.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'decision_making_under_deep_uncertainty' is very short",
+        "Content section 'robust_decision_making' is very short",
+        "Content section 'adaptive_management' is very short",
+        "Content section 'international_climate_cooperation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'policy_evaluation' is very short",
+        "Content section 'stakeholder_engagement' is very short",
+        "Content section 'implementation_challenges' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'ethical_considerations' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/engineering/control_systems.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'control_system_design' is very short",
+        "Content section 'robust_control' is very short",
+        "Content section 'autonomous_systems' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'implementation_considerations' is very short",
+        "Content section 'advanced_techniques' is very short",
+        "Content section 'safety_and_certification' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'industry_applications' is very short",
+        "Content section 'future_directions' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    },
+    "applications/domains/engineering/autonomous_systems.json": {
+      "is_valid": true,
+      "score": 0.8880000000000001,
+      "errors": [],
+      "warnings": [
+        "Content section 'perception_and_localization' is very short",
+        "Content section 'planning_and_decision_making' is very short",
+        "Content section 'control_and_actuation' is very short",
+        "Content section 'examples' is very short",
+        "Content section 'multi_vehicle_systems' is very short",
+        "Content section 'safety_and_certification' is very short",
+        "Content section 'human_factors' is very short",
+        "Content section 'real_world_challenges' is very short",
+        "Content section 'interactive_exercises' is very short",
+        "Content section 'testing_and_validation' is very short",
+        "Content section 'deployment_considerations' is very short",
+        "Content section 'common_misconceptions' is very short",
+        "Content section 'further_reading' is very short",
+        "Content section 'related_concepts' is very short"
+      ]
+    }
+  }
+}

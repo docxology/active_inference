@@ -191,6 +191,24 @@
       "related_terms": ["brownian_motion", "diffusion_process", "langevin_equation"],
       "mathematical_form": "dX_t = μ(X_t) dt + σ(X_t) dW_t",
       "key_references": ["Øksendal 2003"]
+    },
+    "learning_path": {
+      "definition": "A structured curriculum guiding learners through related concepts with prerequisites and learning outcomes",
+      "related_terms": ["curriculum", "prerequisites", "learning_outcomes", "progression"],
+      "structure": "Contains tracks with nodes, estimated hours, difficulty levels, and metadata",
+      "purpose": "Provides guided learning progression from beginner to expert levels"
+    },
+    "knowledge_graph": {
+      "definition": "A network of interconnected knowledge nodes representing relationships between concepts",
+      "related_terms": ["cross_references", "semantic_network", "concept_map"],
+      "implementation": "Built through related_concepts and prerequisite fields in content nodes",
+      "benefits": ["Enables navigation between related ideas", "Supports adaptive learning", "Reveals concept dependencies"]
+    },
+    "progressive_disclosure": {
+      "definition": "Educational strategy of presenting information at increasing levels of complexity",
+      "related_terms": ["scaffolded_learning", "layered_information", "adaptive_content"],
+      "implementation": "From intuitive analogies to formal mathematics, basic concepts to advanced applications",
+      "benefits": ["Reduces cognitive load", "Supports diverse learners", "Enables self-paced learning"]
     }
   },
   "mathematical_notation": {
@@ -216,7 +234,9 @@
       "G(π)": "Expected free energy for policy π",
       "π*": "Optimal policy",
       "ε": "Prediction error",
-      "μ": "Mean of belief distribution"
+      "μ": "Mean of belief distribution",
+      "Q(π)": "Prior preference over policies",
+      "P(o_τ, s_τ)": "Generative model probability"
     },
     "neural_networks": {
       "θ": "Neural network parameters",
@@ -229,6 +249,12 @@
       "x_t": "State at time t",
       "y_t": "Observation at time t",
       "K": "Control gain matrix"
+    },
+    "learning_paths": {
+      "τ": "Time horizon for policy evaluation",
+      "E_Q[⋅]": "Expectation under approximate posterior Q",
+      "ln": "Natural logarithm",
+      "∇": "Gradient operator"
     }
   },
   "key_equations": {

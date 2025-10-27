@@ -1,0 +1,557 @@
+{
+  "id": "optimal_control",
+  "title": "Optimal Control Theory",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Optimal control theory provides mathematical methods for finding control policies that optimize a performance criterion subject to system dynamics.",
+  "prerequisites": [
+    "continuous_control",
+    "optimization_methods",
+    "dynamical_systems"
+  ],
+  "tags": [
+    "optimal control",
+    "control theory",
+    "dynamic optimization",
+    "hamilton_jacobi_bellman",
+    "pontryagin"
+  ],
+  "learning_objectives": [
+    "Formulate optimal control problems mathematically",
+    "Solve linear quadratic regulator problems",
+    "Understand dynamic programming and HJB equations",
+    "Apply optimal control to Active Inference"
+  ],
+  "content": {
+    "overview": "Optimal control theory develops systematic methods for determining control policies that optimize a performance measure while satisfying system dynamics and constraints. It provides the foundation for modern control design and decision making under uncertainty.",
+    "problem_formulation": {
+      "system_dynamics": "ẋ(t) = f(x(t), u(t), t)",
+      "cost_functional": "J = ∫_0^T L(x(t), u(t), t) dt + Φ(x(T))",
+      "constraints": "Initial conditions, state constraints, control bounds",
+      "goal": "Find control u*(t) that minimizes J"
+    },
+    "classical_approaches": {
+      "calculus_of_variations": "Euler-Lagrange equations for unconstrained problems",
+      "pontryagin_maximum_principle": "Necessary conditions for constrained problems",
+      "hamilton_jacobi_bellman": "Sufficient conditions via dynamic programming",
+      "linear_quadratic_regulator": "Optimal control for linear systems"
+    },
+    "linear_quadratic_regulator": {
+      "system": "ẋ = Ax + Bu, y = Cx",
+      "cost": "J = ∫_0^∞ (xᵀQx + uᵀRu) dt",
+      "riccati_equation": "Ṗ = -PA - AᵀP + PBR⁻¹BᵀP - Q",
+      "optimal_control": "u* = -R⁻¹BᵀPx",
+      "closed_loop_stability": "Guaranteed stability for appropriate Q, R"
+    },
+    "dynamic_programming": {
+      "value_function": "V(x,t) = min_u J(x,u,t)",
+      "hjb_equation": "∂V/∂t + min_u [H(x, ∇_x V, u, t)] = 0",
+      "optimal_policy": "u*(x,t) = argmin_u H(x, ∇_x V, u, t)",
+      "curse_of_dimensionality": "Exponential growth in state space"
+    },
+    "connection_to_active_inference": {
+      "expected_free_energy": "Optimal control interpretation of Active Inference",
+      "policy_selection": "Control as minimizing expected free energy",
+      "stochastic_control": "Handling uncertainty in control design",
+      "information_seeking": "Control for information gathering"
+    },
+    "stochastic_optimal_control": {
+      "system_uncertainty": "Process noise in system dynamics",
+      "measurement_noise": "Uncertainty in observations",
+      "risk_sensitive_control": "Control design for risk minimization",
+      "robust_control": "Control robust to model uncertainty"
+    },
+    "examples": [
+      {
+        "name": "Linear Quadratic Regulator",
+        "description": "Optimal control for linear system",
+        "application": "Satellite attitude control, vibration damping",
+        "solution": "Linear state feedback control",
+        "properties": "Guaranteed stability and optimality"
+      },
+      {
+        "name": "Inverted Pendulum",
+        "description": "Balance pendulum in upright position",
+        "dynamics": "Nonlinear dynamics with unstable equilibrium",
+        "control": "LQR for linearization, nonlinear control for full system",
+        "challenge": "Stabilizing unstable equilibrium"
+      },
+      {
+        "name": "Active Inference Control",
+        "description": "Optimal control interpretation of Active Inference",
+        "interpretation": "Policy selection as optimal control",
+        "benefit": "Natural handling of uncertainty and exploration"
+      }
+    ],
+    "numerical_methods": {
+      "trajectory_optimization": "Direct optimization of control trajectories",
+      "collocation_methods": "Convert to finite-dimensional optimization",
+      "model_predictive_control": "Receding horizon optimal control",
+      "reinforcement_learning": "Learning optimal control from experience"
+    },
+    "constraints_and_limitations": {
+      "state_constraints": "Keep states within bounds",
+      "control_constraints": "Control saturation and rate limits",
+      "computational_complexity": "Scalability issues in high dimensions",
+      "model_accuracy": "Performance depends on model quality"
+    },
+    "interactive_exercises": [
+      {
+        "id": "lqr_design",
+        "type": "design",
+        "description": "Design LQR controller for simple system",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "hjb_derivation",
+        "type": "calculation",
+        "description": "Derive HJB equation for simple optimal control problem",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Optimal control always requires perfect model",
+        "clarification": "Robust and adaptive methods handle model uncertainty"
+      },
+      {
+        "misconception": "LQR is only for linear systems",
+        "clarification": "LQR optimal for linearization around operating point"
+      },
+      {
+        "misconception": "Dynamic programming requires discretization",
+        "clarification": "HJB provides continuous formulation"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Optimal Control Theory: An Introduction",
+        "author": "Donald Kirk",
+        "year": 1970,
+        "description": "Classic introduction to optimal control"
+      },
+      {
+        "title": "Nonlinear Systems",
+        "author": "Hassan Khalil",
+        "year": 2002,
+        "description": "Optimal control in nonlinear systems context"
+      }
+    ],
+    "related_concepts": [
+      "continuous_control",
+      "optimization_methods",
+      "dynamical_systems",
+      "ai_policy_selection"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 35,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 3,
+    "multimedia_integrated": true,
+    "multimedia_count": 7
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Optimal Control Theory",
+      "question": "Optimal Control Theory is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Optimal Control Theory",
+      "instructions": "Drag and drop to connect related concepts from optimal control theory:",
+      "concepts": {
+        "concepts": [
+          "optimal control",
+          "control theory",
+          "dynamic optimization",
+          "hamilton_jacobi_bellman",
+          "pontryagin"
+        ],
+        "relationships": [
+          {
+            "from": "optimal control",
+            "to": "control theory"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Optimal Control Theory",
+      "questions": [
+        "How does optimal control theory relate to other Active Inference concepts?",
+        "What are the practical implications of optimal control theory?",
+        "What challenges arise when applying optimal control theory?",
+        "How might optimal control theory evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Optimal Control Theory Applications",
+      "questions": [
+        "Find a real-world application of optimal control theory",
+        "What research papers discuss optimal control theory?",
+        "How is optimal control theory used in industry?",
+        "What are current research challenges related to optimal control theory?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Optimal Control Theory Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Optimal Control Theory",
+      "problem": "Develop a novel extension or application of optimal control theory",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Optimal Control Theory Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Optimal Control Theory",
+      "question": "Optimal Control Theory is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "advanced",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Optimal Control Theory",
+      "instructions": "Drag and drop to connect related concepts from optimal control theory:",
+      "concepts": {
+        "concepts": [
+          "optimal control",
+          "control theory",
+          "dynamic optimization",
+          "hamilton_jacobi_bellman",
+          "pontryagin"
+        ],
+        "relationships": [
+          {
+            "from": "optimal control",
+            "to": "control theory"
+          }
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Optimal Control Theory",
+      "questions": [
+        "How does optimal control theory relate to other Active Inference concepts?",
+        "What are the practical implications of optimal control theory?",
+        "What challenges arise when applying optimal control theory?",
+        "How might optimal control theory evolve in the future?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Optimal Control Theory Applications",
+      "questions": [
+        "Find a real-world application of optimal control theory",
+        "What research papers discuss optimal control theory?",
+        "How is optimal control theory used in industry?",
+        "What are current research challenges related to optimal control theory?"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Optimal Control Theory Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "advanced",
+      "estimated_time": 12
+    },
+    {
+      "type": "research_challenge",
+      "title": "Research Challenge: Extend Optimal Control Theory",
+      "problem": "Develop a novel extension or application of optimal control theory",
+      "requirements": [
+        "Identify a novel application or extension",
+        "Develop a theoretical foundation",
+        "Create computational implementation",
+        "Validate against existing results",
+        "Document findings and implications"
+      ],
+      "difficulty": "expert",
+      "estimated_time": 40
+    },
+    {
+      "type": "critical_analysis",
+      "title": "Critique: Optimal Control Theory Assumptions",
+      "questions": [
+        "What are the underlying assumptions?",
+        "How robust is the approach to violations of assumptions?",
+        "What are the limitations and edge cases?",
+        "How does this compare to alternative approaches?"
+      ],
+      "alternative_views": [
+        "Connectionist perspective",
+        "Symbolic AI approach",
+        "Bayesian statistical viewpoint",
+        "Neuroscience-based interpretation"
+      ],
+      "difficulty": "advanced",
+      "estimated_time": 25
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Optimal Control Theory Concept Map",
+        "description": "Visual representation of optimal control theory and its relationships",
+        "file_path": "diagrams/optimal_control_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Optimal Control Theory",
+            "type": "central",
+            "description": "Optimal control theory provides mathematical methods for finding control policies that optimize a performance criterion subject to system dynamics."
+          },
+          {
+            "id": "prereq_0",
+            "label": "continuous_control",
+            "type": "prerequisite",
+            "description": "Required knowledge: continuous_control"
+          },
+          {
+            "id": "prereq_1",
+            "label": "optimization_methods",
+            "type": "prerequisite",
+            "description": "Required knowledge: optimization_methods"
+          },
+          {
+            "id": "prereq_2",
+            "label": "dynamical_systems",
+            "type": "prerequisite",
+            "description": "Required knowledge: dynamical_systems"
+          },
+          {
+            "id": "tag_0",
+            "label": "optimal control",
+            "type": "related",
+            "description": "Related concept: optimal control"
+          },
+          {
+            "id": "tag_1",
+            "label": "control theory",
+            "type": "related",
+            "description": "Related concept: control theory"
+          },
+          {
+            "id": "tag_2",
+            "label": "dynamic optimization",
+            "type": "related",
+            "description": "Related concept: dynamic optimization"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Optimal Control Theory Relationships",
+        "description": "Connections between optimal control theory and related concepts",
+        "file_path": "diagrams/optimal_control_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_2",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "animations": [
+      {
+        "type": "process_animation",
+        "title": "Optimal Control Theory Process Animation",
+        "description": "Animated visualization of optimal control theory process over time",
+        "file_path": "animations/optimal_control_process.mp4",
+        "format": "mp4",
+        "duration": 30,
+        "frames": 900,
+        "keyframes": [
+          {
+            "time": 0,
+            "description": "Initial state",
+            "visual_elements": []
+          },
+          {
+            "time": 15,
+            "description": "Processing state",
+            "visual_elements": []
+          },
+          {
+            "time": 30,
+            "description": "Final state",
+            "visual_elements": []
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Optimal Control Theory",
+        "description": "Comprehensive introduction to optimal control theory concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=26b27bb863f",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/optimal_control_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Optimal Control Theory"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/optimal_control_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Optimal Control Theory"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Optimal Control Theory Audio Explanation",
+        "description": "Audio explanation of optimal control theory concepts",
+        "file_path": "audio/optimal_control_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
+  }
+}

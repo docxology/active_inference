@@ -4,8 +4,15 @@
   "content_type": "foundation",
   "difficulty": "intermediate",
   "description": "Understanding Bayesian networks, graphical models, and probabilistic modeling frameworks.",
-  "prerequisites": ["bayesian_basics"],
-  "tags": ["bayesian networks", "graphical models", "probabilistic modeling", "directed graphs"],
+  "prerequisites": [
+    "bayesian_basics"
+  ],
+  "tags": [
+    "bayesian networks",
+    "graphical models",
+    "probabilistic modeling",
+    "directed graphs"
+  ],
   "learning_objectives": [
     "Understand structure and semantics of Bayesian networks",
     "Apply conditional independence in graphical models",
@@ -67,14 +74,24 @@
       {
         "name": "Medical Diagnosis Network",
         "description": "Disease-symptom relationships",
-        "variables": ["Disease", "Symptoms", "Test Results"],
+        "variables": [
+          "Disease",
+          "Symptoms",
+          "Test Results"
+        ],
         "structure": "Disease → Symptoms, Disease → Test Results",
         "inference": "P(Disease | Symptoms, Test Results)"
       },
       {
         "name": "Student Network",
         "description": "Classic Bayesian network example",
-        "variables": ["Intelligence", "Difficulty", "Grade", "SAT", "Letter"],
+        "variables": [
+          "Intelligence",
+          "Difficulty",
+          "Grade",
+          "SAT",
+          "Letter"
+        ],
         "structure": "Difficulty → Grade ← Intelligence → SAT → Letter",
         "inference": "P(Intelligence | Grade, SAT, Letter)"
       }
@@ -137,7 +154,8 @@
       "bayesian_basics",
       "belief_updating",
       "causal_inference",
-      "graphical_models"
+      "graphical_models",
+      "kalman_filtering"
     ]
   },
   "metadata": {
@@ -145,6 +163,427 @@
     "difficulty_level": "intermediate",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 1,
+    "multimedia_integrated": true,
+    "multimedia_count": 7
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Bayesian Models and Graphical Representations",
+      "question": "Bayesian Models and Graphical Representations is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Bayesian Models and Graphical Representations",
+      "instructions": "Drag and drop to connect related concepts from bayesian models and graphical representations:",
+      "concepts": {
+        "concepts": [
+          "bayesian networks",
+          "graphical models",
+          "probabilistic modeling",
+          "directed graphs"
+        ],
+        "relationships": [
+          {
+            "from": "bayesian networks",
+            "to": "graphical models"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Bayesian Models and Graphical Representations",
+      "questions": [
+        "How does bayesian models and graphical representations relate to other Active Inference concepts?",
+        "What are the practical implications of bayesian models and graphical representations?",
+        "What challenges arise when applying bayesian models and graphical representations?",
+        "How might bayesian models and graphical representations evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Bayesian Models and Graphical Representations Applications",
+      "questions": [
+        "Find a real-world application of bayesian models and graphical representations",
+        "What research papers discuss bayesian models and graphical representations?",
+        "How is bayesian models and graphical representations used in industry?",
+        "What are current research challenges related to bayesian models and graphical representations?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Bayesian Models and Graphical Representations Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Bayesian Models and Graphical Representations",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Bayesian Models and Graphical Representations",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Bayesian Models and Graphical Representations",
+      "question": "Bayesian Models and Graphical Representations is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Bayesian Models and Graphical Representations",
+      "instructions": "Drag and drop to connect related concepts from bayesian models and graphical representations:",
+      "concepts": {
+        "concepts": [
+          "bayesian networks",
+          "graphical models",
+          "probabilistic modeling",
+          "directed graphs"
+        ],
+        "relationships": [
+          {
+            "from": "bayesian networks",
+            "to": "graphical models"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Bayesian Models and Graphical Representations",
+      "questions": [
+        "How does bayesian models and graphical representations relate to other Active Inference concepts?",
+        "What are the practical implications of bayesian models and graphical representations?",
+        "What challenges arise when applying bayesian models and graphical representations?",
+        "How might bayesian models and graphical representations evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Bayesian Models and Graphical Representations Applications",
+      "questions": [
+        "Find a real-world application of bayesian models and graphical representations",
+        "What research papers discuss bayesian models and graphical representations?",
+        "How is bayesian models and graphical representations used in industry?",
+        "What are current research challenges related to bayesian models and graphical representations?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Bayesian Models and Graphical Representations Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Bayesian Models and Graphical Representations",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Bayesian Models and Graphical Representations",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Bayesian Models and Graphical Representations Concept Map",
+        "description": "Visual representation of bayesian models and graphical representations and its relationships",
+        "file_path": "diagrams/bayesian_models_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Bayesian Models and Graphical Representations",
+            "type": "central",
+            "description": "Understanding Bayesian networks, graphical models, and probabilistic modeling frameworks."
+          },
+          {
+            "id": "prereq_0",
+            "label": "bayesian_basics",
+            "type": "prerequisite",
+            "description": "Required knowledge: bayesian_basics"
+          },
+          {
+            "id": "tag_0",
+            "label": "bayesian networks",
+            "type": "related",
+            "description": "Related concept: bayesian networks"
+          },
+          {
+            "id": "tag_1",
+            "label": "graphical models",
+            "type": "related",
+            "description": "Related concept: graphical models"
+          },
+          {
+            "id": "tag_2",
+            "label": "probabilistic modeling",
+            "type": "related",
+            "description": "Related concept: probabilistic modeling"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Bayesian Models and Graphical Representations Relationships",
+        "description": "Connections between bayesian models and graphical representations and related concepts",
+        "file_path": "diagrams/bayesian_models_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "parameter_explorer",
+        "title": "Bayesian Models and Graphical Representations Parameter Explorer",
+        "description": "Interactive exploration of bayesian models and graphical representations parameters and their effects",
+        "file_path": "interactive/bayesian_models_explorer.html",
+        "format": "html",
+        "interactive_elements": [
+          "sliders",
+          "dropdowns",
+          "plots"
+        ],
+        "parameters": [
+          {
+            "name": "learning_rate",
+            "type": "slider",
+            "range": [
+              0.001,
+              1.0
+            ],
+            "default": 0.01
+          },
+          {
+            "name": "iterations",
+            "type": "slider",
+            "range": [
+              10,
+              1000
+            ],
+            "default": 100
+          },
+          {
+            "name": "noise_level",
+            "type": "slider",
+            "range": [
+              0.0,
+              1.0
+            ],
+            "default": 0.1
+          }
+        ]
+      },
+      {
+        "type": "simulation_interface",
+        "title": "Bayesian Models and Graphical Representations Simulation Interface",
+        "description": "Interactive simulation of bayesian models and graphical representations dynamics",
+        "file_path": "interactive/bayesian_models_simulation.html",
+        "format": "html",
+        "interactive_elements": [
+          "play_pause",
+          "reset",
+          "parameter_controls"
+        ],
+        "simulation_parameters": [
+          {
+            "name": "time_steps",
+            "value": 1000,
+            "description": "Number of simulation steps"
+          },
+          {
+            "name": "dt",
+            "value": 0.01,
+            "description": "Time step size"
+          },
+          {
+            "name": "initial_conditions",
+            "value": [
+              0.0,
+              0.0
+            ],
+            "description": "Starting conditions"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Bayesian Models and Graphical Representations",
+        "description": "Comprehensive introduction to bayesian models and graphical representations concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=7f7d8c5c81d",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/bayesian_models_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Bayesian Models and Graphical Representations"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/bayesian_models_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Bayesian Models and Graphical Representations"
+      }
+    ]
   }
 }

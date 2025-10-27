@@ -23,16 +23,16 @@ class TestSearchResult:
             node_id="test_node",
             title="Test Node",
             content_type="foundation",
-            relevance_score=0.85,
-            snippet="This is a test snippet",
+            score=0.85,
+            highlights=["This is a test highlight"],
             metadata={"difficulty": "beginner", "tags": ["test"]}
         )
 
         assert result.node_id == "test_node"
         assert result.title == "Test Node"
         assert result.content_type == "foundation"
-        assert result.relevance_score == 0.85
-        assert result.snippet == "This is a test snippet"
+        assert result.score == 0.85
+        assert result.highlights == ["This is a test highlight"]
         assert result.metadata["difficulty"] == "beginner"
 
     def test_search_result_post_init(self):
@@ -41,11 +41,12 @@ class TestSearchResult:
             node_id="test_node",
             title="Test Node",
             content_type="foundation",
-            relevance_score=0.75
+            score=0.75
         )
 
-        # Metadata should be initialized if None
+        # Metadata and highlights should be initialized if None
         assert result.metadata == {}
+        assert result.highlights == []
 
 
 class TestQueryProcessor:
@@ -54,7 +55,8 @@ class TestQueryProcessor:
     @pytest.fixture
     def query_processor(self):
         """Create QueryProcessor instance for testing"""
-        return QueryProcessor()
+        config = {'stop_words': {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'}}
+        return QueryProcessor(config)
 
     def test_query_processor_initialization(self, query_processor):
         """Test QueryProcessor initialization"""
@@ -519,3 +521,5 @@ class TestSearchEngine:
 
 if __name__ == "__main__":
     pytest.main([__file__])
+
+

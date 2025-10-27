@@ -4,8 +4,16 @@
   "content_type": "foundation",
   "difficulty": "intermediate",
   "description": "Understanding mutual information as a measure of dependence between random variables.",
-  "prerequisites": ["info_theory_entropy", "info_theory_kl_divergence"],
-  "tags": ["information theory", "mutual information", "dependence", "correlation"],
+  "prerequisites": [
+    "info_theory_entropy",
+    "info_theory_kl_divergence"
+  ],
+  "tags": [
+    "information theory",
+    "mutual information",
+    "dependence",
+    "correlation"
+  ],
   "learning_objectives": [
     "Define mutual information mathematically",
     "Understand mutual information as shared information",
@@ -133,6 +141,365 @@
     "difficulty_level": "intermediate",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 5
+  },
+  "interactive_exercises": [
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Mutual Information",
+      "question": "Mutual Information is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Mutual Information",
+      "instructions": "Drag and drop to connect related concepts from mutual information:",
+      "concepts": {
+        "concepts": [
+          "information theory",
+          "mutual information",
+          "dependence",
+          "correlation"
+        ],
+        "relationships": [
+          {
+            "from": "information theory",
+            "to": "mutual information"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Mutual Information",
+      "questions": [
+        "How does mutual information relate to other Active Inference concepts?",
+        "What are the practical implications of mutual information?",
+        "What challenges arise when applying mutual information?",
+        "How might mutual information evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Mutual Information Applications",
+      "questions": [
+        "Find a real-world application of mutual information",
+        "What research papers discuss mutual information?",
+        "How is mutual information used in industry?",
+        "What are current research challenges related to mutual information?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Mutual Information Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Mutual Information",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Mutual Information",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Mutual Information",
+      "question": "Mutual Information is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "intermediate",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Mutual Information",
+      "instructions": "Drag and drop to connect related concepts from mutual information:",
+      "concepts": {
+        "concepts": [
+          "information theory",
+          "mutual information",
+          "dependence",
+          "correlation"
+        ],
+        "relationships": [
+          {
+            "from": "information theory",
+            "to": "mutual information"
+          }
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Mutual Information",
+      "questions": [
+        "How does mutual information relate to other Active Inference concepts?",
+        "What are the practical implications of mutual information?",
+        "What challenges arise when applying mutual information?",
+        "How might mutual information evolve in the future?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Mutual Information Applications",
+      "questions": [
+        "Find a real-world application of mutual information",
+        "What research papers discuss mutual information?",
+        "How is mutual information used in industry?",
+        "What are current research challenges related to mutual information?"
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Mutual Information Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Mutual Information",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Mutual Information",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Mutual Information Concept Map",
+        "description": "Visual representation of mutual information and its relationships",
+        "file_path": "diagrams/info_theory_mutual_information_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Mutual Information",
+            "type": "central",
+            "description": "Understanding mutual information as a measure of dependence between random variables."
+          },
+          {
+            "id": "prereq_0",
+            "label": "info_theory_entropy",
+            "type": "prerequisite",
+            "description": "Required knowledge: info_theory_entropy"
+          },
+          {
+            "id": "prereq_1",
+            "label": "info_theory_kl_divergence",
+            "type": "prerequisite",
+            "description": "Required knowledge: info_theory_kl_divergence"
+          },
+          {
+            "id": "tag_0",
+            "label": "information theory",
+            "type": "related",
+            "description": "Related concept: information theory"
+          },
+          {
+            "id": "tag_1",
+            "label": "mutual information",
+            "type": "related",
+            "description": "Related concept: mutual information"
+          },
+          {
+            "id": "tag_2",
+            "label": "dependence",
+            "type": "related",
+            "description": "Related concept: dependence"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Mutual Information Relationships",
+        "description": "Connections between mutual information and related concepts",
+        "file_path": "diagrams/info_theory_mutual_information_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": [
+          {
+            "source": "prereq_0",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          },
+          {
+            "source": "prereq_1",
+            "target": "main_concept",
+            "type": "prerequisite",
+            "label": "requires"
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Mutual Information",
+        "description": "Comprehensive introduction to mutual information concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=bba866d8b33",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/info_theory_mutual_information_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Mutual Information"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/info_theory_mutual_information_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Mutual Information"
+      }
+    ]
   }
 }

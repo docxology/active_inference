@@ -8,6 +8,7 @@ of model dynamics and learning processes.
 
 import logging
 import json
+import numpy as np
 from typing import Dict, List, Optional, Any, Callable
 from pathlib import Path
 from dataclasses import dataclass
@@ -163,4 +164,60 @@ class Dashboard:
                 for comp in self.components.values()
             ]
         }, indent=2)
+
+
+class ActiveInferenceMonitor(RealTimeMonitor):
+    """Specialized monitor for Active Inference metrics"""
+
+    def __init__(self, component_id: str, config: Dict[str, Any] = None):
+        ai_metrics = [
+            "free_energy", "prediction_error", "belief_entropy",
+            "expected_free_energy", "policy_entropy", "learning_rate",
+            "model_confidence", "information_gain"
+        ]
+        super().__init__(component_id, ai_metrics, config)
+
+        # Active Inference specific tracking
+        self.ai_state = {
+            "current_phase": "perception",
+            "belief_precision": 1.0,
+            "prediction_confidence": 0.0,
+            "action_selection": None
+        }
+
+    def update_ai_state(self, phase: str, belief_precision: float = None,
+                       prediction_confidence: float = None, action: str = None):
+        """Update Active Inference specific state"""
+        self.ai_state["current_phase"] = phase
+        if belief_precision is not None:
+            self.ai_state["belief_precision"] = belief_precision
+        if prediction_confidence is not None:
+            self.ai_state["prediction_confidence"] = prediction_confidence
+        if action is not None:
+            self.ai_state["action_selection"] = action
+
+        # Update data with AI state
+        self.data["ai_state"] = self.ai_state.copy()
+        self.update_data(self.data)
+
+    def compute_information_theoretic_metrics(self) -> Dict[str, float]:
+        """Compute information-theoretic metrics from current state"""
+        metrics = {}
+
+        # Entropy of current beliefs (simplified)
+        if "belief_history" in self.history and self.history["belief_history"]:
+            beliefs = self.history["belief_history"][-1]  # Most recent beliefs
+            if isinstance(beliefs, list) and len(beliefs) > 0:
+                # Compute entropy of belief distribution
+                belief_entropy = -sum(b * np.log(b + 1e-10) for b in beliefs if b > 0)
+                metrics["belief_entropy"] = belief_entropy
+
+        # Information gain (change in entropy)
+        if "belief_entropy_history" in self.history and len(self.history["belief_entropy_history"]) > 1:
+            recent_entropy = self.history["belief_entropy_history"][-1]
+            previous_entropy = self.history["belief_entropy_history"][-2]
+            metrics["information_gain"] = previous_entropy - recent_entropy
+
+        return metrics
+
 

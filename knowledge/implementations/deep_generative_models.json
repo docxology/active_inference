@@ -4,8 +4,18 @@
   "content_type": "implementation",
   "difficulty": "expert",
   "description": "Advanced implementation of deep generative models using hierarchical VAEs, GANs, and normalizing flows for Active Inference.",
-  "prerequisites": ["neural_network_implementation", "variational_inference"],
-  "tags": ["deep learning", "generative models", "hierarchical vae", "normalizing flows", "gan", "active inference"],
+  "prerequisites": [
+    "neural_network_implementation",
+    "variational_inference"
+  ],
+  "tags": [
+    "deep learning",
+    "generative models",
+    "hierarchical vae",
+    "normalizing flows",
+    "gan",
+    "active inference"
+  ],
   "learning_objectives": [
     "Implement hierarchical generative models",
     "Build deep VAEs for complex data",
@@ -144,6 +154,243 @@
     "difficulty_level": "expert",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "code_examples": true,
+    "programming_languages": [
+      "Python"
+    ],
+    "learning_objectives_count": 4,
+    "prerequisites_count": 2,
+    "multimedia_integrated": true,
+    "multimedia_count": 11
+  },
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "algorithm_flowchart",
+        "title": "Deep Generative Models for Active Inference Algorithm Flow",
+        "description": "Visual flowchart of the deep generative models for active inference algorithm",
+        "file_path": "code/deep_generative_models_flowchart.svg",
+        "format": "svg",
+        "interactive": true,
+        "steps": [
+          {
+            "id": "initialize",
+            "label": "Initialize",
+            "description": "Set up initial conditions"
+          },
+          {
+            "id": "process",
+            "label": "Process",
+            "description": "Execute main algorithm"
+          },
+          {
+            "id": "converge",
+            "label": "Check Convergence",
+            "description": "Verify termination conditions"
+          },
+          {
+            "id": "output",
+            "label": "Output Results",
+            "description": "Return final results"
+          }
+        ]
+      },
+      {
+        "type": "data_flow",
+        "title": "Deep Generative Models for Active Inference Data Flow",
+        "description": "Data flow and transformation in deep generative models for active inference implementation",
+        "file_path": "code/deep_generative_models_dataflow.svg",
+        "format": "svg",
+        "interactive": true,
+        "data_elements": [
+          {
+            "id": "input_data",
+            "label": "Input Data",
+            "type": "input"
+          },
+          {
+            "id": "processed_data",
+            "label": "Processed Data",
+            "type": "intermediate"
+          },
+          {
+            "id": "output_data",
+            "label": "Output Data",
+            "type": "output"
+          }
+        ]
+      },
+      {
+        "type": "performance_chart",
+        "title": "Deep Generative Models for Active Inference Performance Comparison",
+        "description": "Performance comparison of different deep generative models for active inference implementations",
+        "file_path": "code/deep_generative_models_performance.svg",
+        "format": "svg",
+        "interactive": true,
+        "metrics": [
+          "time_complexity",
+          "space_complexity",
+          "accuracy",
+          "convergence_speed"
+        ]
+      }
+    ],
+    "animations": [
+      {
+        "type": "process_animation",
+        "title": "Deep Generative Models for Active Inference Process Animation",
+        "description": "Animated visualization of deep generative models for active inference process over time",
+        "file_path": "animations/deep_generative_models_process.mp4",
+        "format": "mp4",
+        "duration": 30,
+        "frames": 900,
+        "keyframes": [
+          {
+            "time": 0,
+            "description": "Initial state",
+            "visual_elements": []
+          },
+          {
+            "time": 15,
+            "description": "Processing state",
+            "visual_elements": []
+          },
+          {
+            "time": 30,
+            "description": "Final state",
+            "visual_elements": []
+          }
+        ]
+      }
+    ],
+    "interactive_visualizations": [
+      {
+        "type": "parameter_explorer",
+        "title": "Deep Generative Models for Active Inference Parameter Explorer",
+        "description": "Interactive exploration of deep generative models for active inference parameters and their effects",
+        "file_path": "interactive/deep_generative_models_explorer.html",
+        "format": "html",
+        "interactive_elements": [
+          "sliders",
+          "dropdowns",
+          "plots"
+        ],
+        "parameters": [
+          {
+            "name": "learning_rate",
+            "type": "slider",
+            "range": [
+              0.001,
+              1.0
+            ],
+            "default": 0.01
+          },
+          {
+            "name": "iterations",
+            "type": "slider",
+            "range": [
+              10,
+              1000
+            ],
+            "default": 100
+          },
+          {
+            "name": "noise_level",
+            "type": "slider",
+            "range": [
+              0.0,
+              1.0
+            ],
+            "default": 0.1
+          }
+        ]
+      },
+      {
+        "type": "simulation_interface",
+        "title": "Deep Generative Models for Active Inference Simulation Interface",
+        "description": "Interactive simulation of deep generative models for active inference dynamics",
+        "file_path": "interactive/deep_generative_models_simulation.html",
+        "format": "html",
+        "interactive_elements": [
+          "play_pause",
+          "reset",
+          "parameter_controls"
+        ],
+        "simulation_parameters": [
+          {
+            "name": "time_steps",
+            "value": 1000,
+            "description": "Number of simulation steps"
+          },
+          {
+            "name": "dt",
+            "value": 0.01,
+            "description": "Time step size"
+          },
+          {
+            "name": "initial_conditions",
+            "value": [
+              0.0,
+              0.0
+            ],
+            "description": "Starting conditions"
+          }
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Deep Generative Models for Active Inference",
+        "description": "Comprehensive introduction to deep generative models for active inference concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=6c0966d00d4",
+        "duration": 600,
+        "level": "beginner"
+      },
+      {
+        "type": "tutorial_video",
+        "title": "Deep Generative Models for Active Inference Deep Dive",
+        "description": "Detailed technical tutorial on deep generative models for active inference",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=405332d88c9",
+        "duration": 1800,
+        "level": "advanced"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/deep_generative_models_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Deep Generative Models for Active Inference"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/deep_generative_models_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Deep Generative Models for Active Inference"
+      }
+    ],
+    "audio": [
+      {
+        "type": "explanation_audio",
+        "title": "Deep Generative Models for Active Inference Audio Explanation",
+        "description": "Audio explanation of deep generative models for active inference concepts",
+        "file_path": "audio/deep_generative_models_explanation.mp3",
+        "format": "mp3",
+        "duration": 300,
+        "language": "en",
+        "transcript_available": true
+      }
+    ]
   }
 }

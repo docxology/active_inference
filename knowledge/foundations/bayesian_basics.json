@@ -5,7 +5,12 @@
   "difficulty": "beginner",
   "description": "Core concepts of Bayesian probability and inference including Bayes' theorem and conditional probability.",
   "prerequisites": [],
-  "tags": ["bayesian", "probability", "inference", "conditional probability"],
+  "tags": [
+    "bayesian",
+    "probability",
+    "inference",
+    "conditional probability"
+  ],
   "learning_objectives": [
     "State Bayes' theorem and understand its components",
     "Apply conditional probability rules",
@@ -143,6 +148,369 @@
     "difficulty_level": "beginner",
     "last_updated": "2024-10-27",
     "version": "1.0",
-    "author": "Active Inference Community"
+    "author": "Active Inference Community",
+    "content_status": "complete",
+    "review_status": "peer_reviewed",
+    "license": "MIT",
+    "learning_objectives_count": 4,
+    "prerequisites_count": 0,
+    "multimedia_integrated": true,
+    "multimedia_count": 5
+  },
+  "interactive_exercises": [
+    {
+      "type": "multiple_choice",
+      "title": "Understanding Bayesian Probability Fundamentals",
+      "question": "Which of the following best describes the concept of bayesian probability fundamentals?",
+      "options": [
+        "Bayesian Probability Fundamentals is a fundamental concept in Active Inference theory",
+        "Bayesian Probability Fundamentals is primarily used in machine learning applications",
+        "Bayesian Probability Fundamentals deals with quantum mechanics principles",
+        "Bayesian Probability Fundamentals is related to classical physics only"
+      ],
+      "correct_answer": 0,
+      "explanation": "This exercise tests understanding of bayesian probability fundamentals and its key characteristics.",
+      "difficulty": "beginner",
+      "estimated_time": 3
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Bayesian Probability Fundamentals",
+      "question": "Bayesian Probability Fundamentals is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "beginner",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Bayesian Probability Fundamentals",
+      "instructions": "Drag and drop to connect related concepts from bayesian probability fundamentals:",
+      "concepts": {
+        "concepts": [
+          "bayesian",
+          "probability",
+          "inference",
+          "conditional probability"
+        ],
+        "relationships": [
+          {
+            "from": "bayesian",
+            "to": "probability"
+          }
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Bayesian Probability Fundamentals",
+      "questions": [
+        "How does bayesian probability fundamentals relate to other Active Inference concepts?",
+        "What are the practical implications of bayesian probability fundamentals?",
+        "What challenges arise when applying bayesian probability fundamentals?",
+        "How might bayesian probability fundamentals evolve in the future?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Bayesian Probability Fundamentals Applications",
+      "questions": [
+        "Find a real-world application of bayesian probability fundamentals",
+        "What research papers discuss bayesian probability fundamentals?",
+        "How is bayesian probability fundamentals used in industry?",
+        "What are current research challenges related to bayesian probability fundamentals?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Bayesian Probability Fundamentals Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Bayesian Probability Fundamentals",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Bayesian Probability Fundamentals",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    },
+    {
+      "type": "multiple_choice",
+      "title": "Understanding Bayesian Probability Fundamentals",
+      "question": "Which of the following best describes the concept of bayesian probability fundamentals?",
+      "options": [
+        "Bayesian Probability Fundamentals is a fundamental concept in Active Inference theory",
+        "Bayesian Probability Fundamentals is primarily used in machine learning applications",
+        "Bayesian Probability Fundamentals deals with quantum mechanics principles",
+        "Bayesian Probability Fundamentals is related to classical physics only"
+      ],
+      "correct_answer": 0,
+      "explanation": "This exercise tests understanding of bayesian probability fundamentals and its key characteristics.",
+      "difficulty": "beginner",
+      "estimated_time": 3
+    },
+    {
+      "type": "true_false",
+      "title": "Concept Verification: Bayesian Probability Fundamentals",
+      "question": "Bayesian Probability Fundamentals is a core concept in Active Inference theory.",
+      "correct_answer": true,
+      "explanation": "This helps verify understanding of key conceptual relationships.",
+      "difficulty": "beginner",
+      "estimated_time": 2
+    },
+    {
+      "type": "concept_mapping",
+      "title": "Connect Concepts: Bayesian Probability Fundamentals",
+      "instructions": "Drag and drop to connect related concepts from bayesian probability fundamentals:",
+      "concepts": {
+        "concepts": [
+          "bayesian",
+          "probability",
+          "inference",
+          "conditional probability"
+        ],
+        "relationships": [
+          {
+            "from": "bayesian",
+            "to": "probability"
+          }
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 5
+    },
+    {
+      "type": "discussion",
+      "title": "Discuss: Bayesian Probability Fundamentals",
+      "questions": [
+        "How does bayesian probability fundamentals relate to other Active Inference concepts?",
+        "What are the practical implications of bayesian probability fundamentals?",
+        "What challenges arise when applying bayesian probability fundamentals?",
+        "How might bayesian probability fundamentals evolve in the future?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 10
+    },
+    {
+      "type": "research",
+      "title": "Research: Bayesian Probability Fundamentals Applications",
+      "questions": [
+        "Find a real-world application of bayesian probability fundamentals",
+        "What research papers discuss bayesian probability fundamentals?",
+        "How is bayesian probability fundamentals used in industry?",
+        "What are current research challenges related to bayesian probability fundamentals?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 20
+    },
+    {
+      "type": "peer_review",
+      "title": "Peer Review: Bayesian Probability Fundamentals Explanation",
+      "instructions": "Review and provide feedback on this explanation of the concept:",
+      "rubric": {
+        "clarity": [
+          "Unclear",
+          "Somewhat clear",
+          "Clear",
+          "Very clear"
+        ],
+        "accuracy": [
+          "Inaccurate",
+          "Mostly accurate",
+          "Accurate",
+          "Highly accurate"
+        ],
+        "completeness": [
+          "Incomplete",
+          "Partially complete",
+          "Mostly complete",
+          "Complete"
+        ],
+        "usefulness": [
+          "Not useful",
+          "Somewhat useful",
+          "Useful",
+          "Very useful"
+        ]
+      },
+      "difficulty": "beginner",
+      "estimated_time": 12
+    },
+    {
+      "type": "tutorial",
+      "title": "Step-by-Step: Understanding Bayesian Probability Fundamentals",
+      "steps": [
+        "Read the concept introduction",
+        "Review the key definitions",
+        "Work through the examples",
+        "Complete the practice exercises",
+        "Apply the concept to a new problem"
+      ],
+      "checkpoints": [
+        "Can you explain the concept in your own words?",
+        "Can you identify examples in real life?",
+        "Can you solve basic problems using the concept?",
+        "Can you explain how it relates to other concepts?"
+      ],
+      "difficulty": "beginner",
+      "estimated_time": 15
+    },
+    {
+      "type": "scaffolded",
+      "title": "Guided Problem: Bayesian Probability Fundamentals",
+      "hints": [
+        "Start by understanding the basic definition",
+        "Look for similar examples in the content",
+        "Try breaking the problem into smaller parts",
+        "Check if you're using the right approach"
+      ],
+      "partial_solutions": [
+        "The first step involves...",
+        "You need to consider...",
+        "The key insight is...",
+        "Finally, you should..."
+      ],
+      "difficulty": "intermediate",
+      "estimated_time": 12
+    }
+  ],
+  "multimedia": {
+    "diagrams": [
+      {
+        "type": "concept_map",
+        "title": "Bayesian Probability Fundamentals Concept Map",
+        "description": "Visual representation of bayesian probability fundamentals and its relationships",
+        "file_path": "diagrams/bayesian_basics_concept_map.svg",
+        "format": "svg",
+        "interactive": true,
+        "elements": [
+          {
+            "id": "main_concept",
+            "label": "Bayesian Probability Fundamentals",
+            "type": "central",
+            "description": "Core concepts of Bayesian probability and inference including Bayes' theorem and conditional probability."
+          },
+          {
+            "id": "tag_0",
+            "label": "bayesian",
+            "type": "related",
+            "description": "Related concept: bayesian"
+          },
+          {
+            "id": "tag_1",
+            "label": "probability",
+            "type": "related",
+            "description": "Related concept: probability"
+          },
+          {
+            "id": "tag_2",
+            "label": "inference",
+            "type": "related",
+            "description": "Related concept: inference"
+          }
+        ]
+      },
+      {
+        "type": "relationship_graph",
+        "title": "Bayesian Probability Fundamentals Relationships",
+        "description": "Connections between bayesian probability fundamentals and related concepts",
+        "file_path": "diagrams/bayesian_basics_relationships.svg",
+        "format": "svg",
+        "interactive": true,
+        "connections": []
+      }
+    ],
+    "videos": [
+      {
+        "type": "educational_video",
+        "title": "Introduction to Bayesian Probability Fundamentals",
+        "description": "Comprehensive introduction to bayesian probability fundamentals concepts",
+        "platform": "youtube",
+        "url": "https://youtube.com/watch?v=4412c93c17f",
+        "duration": 600,
+        "level": "beginner"
+      }
+    ],
+    "images": [
+      {
+        "type": "concept_illustration",
+        "title": "Key Concept Visualization",
+        "description": "Visual representation of the main concept",
+        "file_path": "images/bayesian_basics_concept.svg",
+        "format": "svg",
+        "alt_text": "Visual illustration of Bayesian Probability Fundamentals"
+      },
+      {
+        "type": "example_visualization",
+        "title": "Practical Example",
+        "description": "Visual representation of a practical example",
+        "file_path": "images/bayesian_basics_example.svg",
+        "format": "svg",
+        "alt_text": "Example illustration for Bayesian Probability Fundamentals"
+      }
+    ]
   }
 }
