@@ -1,0 +1,142 @@
+{
+  "id": "neuroscience_perception",
+  "title": "Active Inference in Neuroscience and Perception",
+  "content_type": "application",
+  "difficulty": "advanced",
+  "description": "Application of Active Inference to understanding brain function, perception, and neural processing.",
+  "prerequisites": ["predictive_coding", "fep_biological_systems"],
+  "tags": ["neuroscience", "perception", "brain function", "neural processing", "predictive coding"],
+  "learning_objectives": [
+    "Understand how Active Inference explains brain function",
+    "Apply predictive coding to perceptual processes",
+    "Analyze neural implementations of Active Inference",
+    "Connect theory to experimental neuroscience"
+  ],
+  "content": {
+    "overview": "Active Inference provides a unifying framework for understanding brain function. It explains how the brain minimizes free energy through hierarchical predictive coding, unifying perception, action, and learning.",
+    "neural_implementation": {
+      "cortical_hierarchy": "Different cortical areas implement different levels of hierarchy",
+      "predictive_coding": "Neural dynamics minimize prediction errors",
+      "attention": "Precision weighting of sensory information",
+      "learning": "Synaptic plasticity reduces free energy over time"
+    },
+    "perception_and_attention": {
+      "perceptual_inference": "Perception as Bayesian inference",
+      "visual_perception": "Hierarchical processing from V1 to IT cortex",
+      "auditory_perception": "Predictive coding in auditory pathways",
+      "multisensory_integration": "Combining information from multiple senses"
+    },
+    "motor_control": {
+      "forward_models": "Internal models of motor commands",
+      "inverse_models": "Inferring motor commands from desired outcomes",
+      "sensorimotor_integration": "Coordination of sensory and motor systems",
+      "motor_learning": "Updating internal models through experience"
+    },
+    "case_studies": [
+      {
+        "name": "Visual Object Recognition",
+        "description": "How the brain recognizes objects",
+        "mechanism": "Hierarchical predictive coding in visual cortex",
+        "evidence": "fMRI, EEG, and single-unit recordings",
+        "predictions": "Top-down predictions and bottom-up errors",
+        "experimental_tests": "Mismatch negativity, repetition suppression"
+      },
+      {
+        "name": "Motor Control and Learning",
+        "description": "How the brain learns and controls movements",
+        "mechanism": "Internal forward models predict sensory consequences",
+        "evidence": "Motor cortex, cerebellum, basal ganglia",
+        "predictions": "Prediction errors drive motor learning",
+        "experimental_tests": "Adaptation to force fields, visuomotor rotation"
+      }
+    ],
+    "neural_dynamics": {
+      "oscillatory_activity": "Gamma oscillations and predictive coding",
+      "synchrony": "Neural synchrony reflects prediction confidence",
+      "plasticity": "Synaptic changes minimize free energy",
+      "homeostasis": "Maintaining neural activity within bounds"
+    },
+    "experimental_predictions": {
+      "prediction_errors": "Neural responses to unexpected stimuli",
+      "attention_effects": "Modulation of prediction error responses",
+      "learning_effects": "Changes in predictive responses with experience",
+      "pathology": "Disrupted predictive coding in mental disorders"
+    },
+    "connections_to_psychology": {
+      "perceptual_illusions": "Illusions as false inference",
+      "cognitive_biases": "Biases as prior beliefs",
+      "consciousness": "Consciousness as high-level prediction",
+      "mental_health": "Psychopathology as disrupted inference"
+    },
+    "interactive_exercises": [
+      {
+        "id": "neural_simulation",
+        "type": "simulation",
+        "description": "Simulate neural dynamics in predictive coding model",
+        "difficulty": "advanced",
+        "model": "Neural network implementing predictive coding",
+        "task": "Predict sensory input and learn from errors"
+      },
+      {
+        "id": "experimental_design",
+        "type": "design",
+        "description": "Design experiments to test Active Inference predictions",
+        "difficulty": "advanced",
+        "predictions": "Specific neural responses predicted by theory"
+      }
+    ],
+    "clinical_applications": {
+      "psychiatry": "Understanding mental disorders as inference problems",
+      "neurology": "Motor disorders and disrupted control",
+      "rehabilitation": "Therapy based on restoring predictive function",
+      "pharmacology": "Drugs that modulate prediction precision"
+    },
+    "future_directions": {
+      "neural_imaging": "Advanced imaging of predictive coding dynamics",
+      "optogenetics": "Causal manipulation of predictive processes",
+      "computational_psychiatry": "Mathematical models of mental disorders",
+      "brain_machine_interfaces": "Reading and writing neural predictions"
+    },
+    "common_misconceptions": [
+      {
+        "misconception": "Active Inference is just predictive coding",
+        "clarification": "Predictive coding is one implementation of Active Inference"
+      },
+      {
+        "misconception": "Brain function requires consciousness",
+        "clarification": "Active Inference operates at subconscious levels too"
+      },
+      {
+        "misconception": "Neural predictions are perfect",
+        "clarification": "Brain works with approximate, uncertain predictions"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "The functional anatomy of attention",
+        "author": "Feldman and Friston",
+        "year": 2010,
+        "description": "Predictive coding and attention in the brain"
+      },
+      {
+        "title": "Active Inference and learning",
+        "author": "Friston et al.",
+        "year": 2016,
+        "description": "Neural implementation of Active Inference"
+      }
+    ],
+    "related_concepts": [
+      "predictive_coding",
+      "fep_biological_systems",
+      "neural_dynamics",
+      "perception"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 55,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

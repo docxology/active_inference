@@ -1,0 +1,133 @@
+{
+  "id": "robotics_control",
+  "title": "Active Inference in Robotics and Control",
+  "content_type": "application",
+  "difficulty": "advanced",
+  "description": "Application of Active Inference to robotics, motor control, and autonomous systems.",
+  "prerequisites": ["active_inference_introduction", "ai_policy_selection"],
+  "tags": ["robotics", "control systems", "autonomous systems", "motor control", "planning"],
+  "learning_objectives": [
+    "Apply Active Inference to robot control problems",
+    "Design generative models for robotic systems",
+    "Implement planning algorithms for robot navigation",
+    "Understand sensorimotor integration in Active Inference"
+  ],
+  "content": {
+    "overview": "Active Inference provides a principled framework for robot control by treating robots as active agents that minimize expected free energy. This unifies perception, planning, and control under a single objective.",
+    "robotics_applications": {
+      "navigation": "Path planning and obstacle avoidance",
+      "manipulation": "Object grasping and manipulation",
+      "locomotion": "Bipedal and quadrupedal walking",
+      "human_robot_interaction": "Natural interaction with humans",
+      "multi_robot_systems": "Coordinated behavior in robot teams"
+    },
+    "generative_models_for_robotics": {
+      "state_representation": "Joint angles, positions, velocities",
+      "observation_models": "Camera, lidar, proprioception",
+      "transition_models": "Kinematic and dynamic models",
+      "preferences": "Goal states, safety constraints, efficiency"
+    },
+    "planning_and_control": {
+      "trajectory_optimization": "Optimal paths that minimize expected free energy",
+      "model_predictive_control": "Receding horizon control with Active Inference",
+      "hierarchical_control": "Multiple time scales for different behaviors",
+      "reactive_control": "Fast responses to unexpected events"
+    },
+    "case_studies": [
+      {
+        "name": "Robot Arm Control",
+        "description": "Controlling a robotic manipulator",
+        "task": "Reach target position while avoiding obstacles",
+        "generative_model": "Forward kinematics and dynamics",
+        "policies": "Joint trajectories and grasping strategies",
+        "expected_free_energy": "Low for smooth, accurate movements",
+        "implementation": "Real-time control with sensor feedback"
+      },
+      {
+        "name": "Autonomous Navigation",
+        "description": "Mobile robot navigation in unknown environments",
+        "task": "Navigate to goal while mapping environment",
+        "generative_model": "SLAM-like model with uncertainty",
+        "policies": "Exploration strategies and path planning",
+        "expected_free_energy": "Low for efficient paths, low for uncertain areas",
+        "implementation": "Simultaneous localization and mapping"
+      }
+    ],
+    "sensorimotor_integration": {
+      "proprioception": "Internal state estimation",
+      "exteroception": "External world perception",
+      "prediction_errors": "Sensory prediction errors drive control",
+      "motor_commands": "Actions selected to minimize predicted errors"
+    },
+    "challenges_and_solutions": {
+      "real_time_constraints": "Efficient inference algorithms",
+      "model_uncertainty": "Robustness to model mismatch",
+      "safety_constraints": "Hard constraints on dangerous actions",
+      "learning": "Online adaptation to changing environments"
+    },
+    "interactive_exercises": [
+      {
+        "id": "robot_arm_simulation",
+        "type": "simulation",
+        "description": "Simulate robot arm control with Active Inference",
+        "difficulty": "advanced",
+        "environment": "Physics simulation with robot model",
+        "task": "Reach target positions with obstacle avoidance"
+      },
+      {
+        "id": "navigation_planning",
+        "type": "planning",
+        "description": "Plan optimal paths using expected free energy",
+        "difficulty": "advanced",
+        "environment": "Grid world with unknown obstacles",
+        "task": "Navigate to goal with minimal uncertainty"
+      }
+    ],
+    "future_directions": {
+      "learning_from_demonstration": "Learn preferences from human examples",
+      "multi_modal_integration": "Combining vision, touch, and proprioception",
+      "human_robot_collaboration": "Shared control and intention recognition",
+      "robust_control": "Control with uncertain and changing models"
+    },
+    "common_misconceptions": [
+      {
+        "misconception": "Active Inference requires perfect models",
+        "clarification": "Works with approximate models and uncertainty"
+      },
+      {
+        "misconception": "Planning is too slow for real-time control",
+        "clarification": "Efficient algorithms enable real-time operation"
+      },
+      {
+        "misconception": "Only applicable to simple systems",
+        "clarification": "Scales to complex multi-joint robotic systems"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference and Robotics",
+        "author": "Karl Friston et al.",
+        "year": 2016,
+        "description": "Application of Active Inference to robotics"
+      },
+      {
+        "title": "Active Inference in Robotics and Artificial Agents",
+        "author": "Community Review",
+        "description": "Recent developments in Active Inference robotics"
+      }
+    ],
+    "related_concepts": [
+      "ai_policy_selection",
+      "expected_free_energy_calculation",
+      "control_systems",
+      "autonomous_systems"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 50,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

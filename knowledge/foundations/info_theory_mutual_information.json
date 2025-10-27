@@ -1,0 +1,138 @@
+{
+  "id": "info_theory_mutual_information",
+  "title": "Mutual Information",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Understanding mutual information as a measure of dependence between random variables.",
+  "prerequisites": ["info_theory_entropy", "info_theory_kl_divergence"],
+  "tags": ["information theory", "mutual information", "dependence", "correlation"],
+  "learning_objectives": [
+    "Define mutual information mathematically",
+    "Understand mutual information as shared information",
+    "Calculate mutual information for simple distributions",
+    "Interpret mutual information in various contexts"
+  ],
+  "content": {
+    "overview": "Mutual information measures the amount of information shared between two random variables. It quantifies how much knowing one variable reduces uncertainty about the other.",
+    "mathematical_definition": {
+      "discrete_form": "I(X;Y) = H(X) + H(Y) - H(X,Y)",
+      "kl_form": "I(X;Y) = D_KL(P(X,Y) || P(X)P(Y))",
+      "properties": [
+        "I(X;Y) ≥ 0 (non-negativity)",
+        "I(X;Y) = 0 iff X and Y are independent",
+        "I(X;Y) = I(Y;X) (symmetry)",
+        "I(X;Y) ≤ min(H(X), H(Y)) (upper bound)"
+      ]
+    },
+    "interpretation": {
+      "shared_information": "Information common to both variables",
+      "dependence_measure": "Quantifies statistical dependence",
+      "information_flow": "Measures how much X tells us about Y",
+      "dimensionality_reduction": "Useful for feature selection"
+    },
+    "examples": [
+      {
+        "name": "Independent Variables",
+        "description": "Two fair dice rolls",
+        "calculation": "I(X;Y) = 0 (no mutual information)",
+        "interpretation": "Knowledge of one die tells nothing about the other"
+      },
+      {
+        "name": "Perfect Dependence",
+        "description": "Y = X (identical variables)",
+        "calculation": "I(X;Y) = H(X) = H(Y)",
+        "interpretation": "Complete information sharing"
+      },
+      {
+        "name": "Noisy Channel",
+        "description": "Input X, output Y = X + noise",
+        "application": "Mutual information measures channel capacity",
+        "interpretation": "Quantifies how much input information survives noise"
+      }
+    ],
+    "applications": [
+      {
+        "domain": "Machine Learning",
+        "description": "Feature selection, clustering, independence testing"
+      },
+      {
+        "domain": "Neuroscience",
+        "description": "Neural coding, information flow analysis"
+      },
+      {
+        "domain": "Genetics",
+        "description": "Gene regulation, epistasis detection"
+      },
+      {
+        "domain": "Signal Processing",
+        "description": "Channel capacity, source separation"
+      }
+    ],
+    "connections_to_active_inference": {
+      "expected_free_energy": "Mutual information in expected free energy calculations",
+      "information_gain": "Measures expected information gain from actions",
+      "policy_selection": "Mutual information guides exploration vs exploitation",
+      "model_comparison": "Compares generative models based on information"
+    },
+    "conditional_mutual_information": {
+      "definition": "I(X;Y|Z) = H(X|Z) + H(Y|Z) - H(X,Y|Z)",
+      "interpretation": "Mutual information conditioned on third variable",
+      "application": "Partial correlations, conditional independence tests"
+    },
+    "interactive_exercises": [
+      {
+        "id": "mutual_information_calculation",
+        "type": "calculation",
+        "description": "Calculate mutual information for joint distributions",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "mutual_information_interpretation",
+        "type": "interpretation",
+        "description": "Interpret mutual information in different scenarios",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Mutual information measures linear correlation",
+        "clarification": "Measures general statistical dependence, not just linear"
+      },
+      {
+        "misconception": "Higher mutual information always means stronger dependence",
+        "clarification": "Context matters - compare to individual entropies"
+      },
+      {
+        "misconception": "Mutual information is symmetric in effect",
+        "clarification": "While I(X;Y) = I(Y;X), the causal direction may differ"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "A Mathematical Theory of Communication",
+        "author": "Claude Shannon",
+        "year": 1948,
+        "description": "Foundation of mutual information concept"
+      },
+      {
+        "title": "Elements of Information Theory",
+        "author": "Thomas Cover and Joy Thomas",
+        "year": 2006,
+        "description": "Detailed treatment of mutual information"
+      }
+    ],
+    "related_concepts": [
+      "info_theory_entropy",
+      "info_theory_kl_divergence",
+      "conditional_mutual_information",
+      "information_bottleneck"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 20,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

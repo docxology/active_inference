@@ -1,0 +1,136 @@
+{
+  "id": "belief_updating",
+  "title": "Belief Updating and Sequential Learning",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Mechanisms for updating probabilistic beliefs as new evidence arrives over time.",
+  "prerequisites": ["bayesian_basics", "bayesian_models"],
+  "tags": ["belief updating", "sequential learning", "evidence accumulation", "bayesian filtering"],
+  "learning_objectives": [
+    "Understand sequential Bayesian updating",
+    "Apply filtering and prediction in dynamic systems",
+    "Implement belief updating algorithms",
+    "Handle uncertainty in sequential decision making"
+  ],
+  "content": {
+    "overview": "Belief updating describes how rational agents modify their beliefs about the world as they receive new evidence. Sequential learning allows agents to accumulate knowledge over time while maintaining uncertainty quantification.",
+    "sequential_bayes": {
+      "principle": "Today's posterior becomes tomorrow's prior",
+      "mathematical_form": "P(θ | x₁, x₂, ..., xₜ) ∝ P(xₜ | θ, x₁, ..., xₜ₋₁) * P(θ | x₁, ..., xₜ₋₁)",
+      "interpretation": "Update beliefs using new evidence and previous posterior"
+    },
+    "filtering_methods": [
+      {
+        "method": "Kalman Filter",
+        "description": "Optimal filtering for linear Gaussian systems",
+        "equations": [
+          "Prediction: μₜ₋ = Aμₜ₋₁ + B uₜ",
+          "Update: μₜ = μₜ₋ + Kₜ (zₜ - H μₜ₋)"
+        ],
+        "applications": "Navigation, control systems, econometrics"
+      },
+      {
+        "method": "Particle Filter",
+        "description": "Monte Carlo approximation for nonlinear systems",
+        "process": "Represent posterior as weighted particle set",
+        "applications": "Robotics, computer vision, tracking"
+      },
+      {
+        "method": "Bayesian Filter",
+        "description": "General framework for recursive state estimation",
+        "predict_step": "P(xₜ | z₁:ₜ₋₁) = ∫ P(xₜ | xₜ₋₁) P(xₜ₋₁ | z₁:ₜ₋₁) dxₜ₋₁",
+        "update_step": "P(xₜ | z₁:ₜ) ∝ P(zₜ | xₜ) P(xₜ | z₁:ₜ₋₁)"
+      }
+    ],
+    "evidence_accumulation": {
+      "likelihood_ratio": "Update beliefs by multiplying likelihood ratios",
+      "log_odds": "Convert to log space for numerical stability",
+      "confidence_buildup": "Evidence strength increases with sample size",
+      "conflicting_evidence": "Handle contradictory observations"
+    },
+    "examples": [
+      {
+        "name": "Coin Flipping Experiment",
+        "description": "Learning bias of a coin through repeated flips",
+        "prior": "Beta(1,1) - uniform prior",
+        "likelihood": "Binomial likelihood for each flip",
+        "posterior": "Beta(1 + heads, 1 + tails)",
+        "interpretation": "Beta distribution naturally updates with binary outcomes"
+      },
+      {
+        "name": "Sensor Fusion",
+        "description": "Combining multiple noisy sensor measurements",
+        "sensors": "GPS, IMU, vision sensors",
+        "fusion": "Bayesian combination of sensor likelihoods",
+        "result": "Optimal estimate with uncertainty quantification"
+      }
+    ],
+    "uncertainty_management": {
+      "aleatoric_uncertainty": "Inherent randomness in the world",
+      "epistemic_uncertainty": "Lack of knowledge about parameters",
+      "model_uncertainty": "Uncertainty about model structure",
+      "out_of_distribution": "Handling unexpected observations"
+    },
+    "connections_to_active_inference": {
+      "perceptual_inference": "Continuous belief updating from sensory input",
+      "learning": "Model parameter updates through experience",
+      "exploration": "Uncertainty drives information-seeking behavior",
+      "prediction": "Predictive models updated through prediction errors"
+    },
+    "interactive_exercises": [
+      {
+        "id": "sequential_updating",
+        "type": "simulation",
+        "description": "Simulate belief updating with sequential evidence",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "filtering_comparison",
+        "type": "comparison",
+        "description": "Compare different filtering methods on example problems",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "More evidence always reduces uncertainty",
+        "clarification": "Only if evidence is informative about the hypothesis"
+      },
+      {
+        "misconception": "Bayesian updating requires complete information",
+        "clarification": "Can handle partial and noisy observations"
+      },
+      {
+        "misconception": "All uncertainty is the same",
+        "clarification": "Different types of uncertainty require different handling"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Sequential Analysis",
+        "author": "Abraham Wald",
+        "year": 1947,
+        "description": "Foundational work on sequential decision making"
+      },
+      {
+        "title": "Bayesian Filtering and Smoothing",
+        "author": "Simo Särkkä",
+        "year": 2013,
+        "description": "Comprehensive treatment of Bayesian filtering"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_basics",
+      "bayesian_models",
+      "kalman_filtering",
+      "particle_filters"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 25,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

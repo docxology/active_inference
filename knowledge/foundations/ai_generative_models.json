@@ -1,0 +1,144 @@
+{
+  "id": "ai_generative_models",
+  "title": "Generative Models in Active Inference",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding generative models as internal simulations of the world in Active Inference agents.",
+  "prerequisites": ["active_inference_introduction", "bayesian_models"],
+  "tags": ["generative models", "internal simulation", "world models", "prediction", "inference"],
+  "learning_objectives": [
+    "Define generative models in Active Inference context",
+    "Design hierarchical generative models",
+    "Implement temporal models for sequential prediction",
+    "Understand model learning and adaptation"
+  ],
+  "content": {
+    "overview": "Generative models in Active Inference are internal simulations that agents use to predict the consequences of their actions. They encode beliefs about how observations are generated and guide both perception and behavior.",
+    "generative_model_definition": {
+      "mathematical_form": "p(x, θ) = p(x|θ) p(θ)",
+      "components": [
+        "Likelihood: p(x|θ) - how observations depend on hidden states",
+        "Prior: p(θ) - beliefs about hidden states",
+        "Posterior: p(θ|x) - updated beliefs after observations"
+      ],
+      "hierarchical_structure": "Multiple levels of abstraction and time scales"
+    },
+    "hierarchical_generative_models": {
+      "levels": "From sensory data to abstract concepts",
+      "temporal_hierarchy": "Different time scales at different levels",
+      "empirical_priors": "Higher levels provide constraints on lower levels",
+      "top_down_bottom_up": "Bidirectional flow of predictions and errors"
+    },
+    "temporal_models": {
+      "state_space_models": "Hidden states evolve over time",
+      "transition_models": "p(s_t | s_{t-1}, a_t) - state transitions",
+      "observation_models": "p(o_t | s_t) - how states generate observations",
+      "control_models": "p(a_t | π) - policy-based action generation"
+    },
+    "model_learning": {
+      "structure_learning": "Learning model structure from data",
+      "parameter_learning": "Updating model parameters through experience",
+      "variational_learning": "Minimizing free energy updates model",
+      "online_learning": "Continuous adaptation to changing environment"
+    },
+    "examples": [
+      {
+        "name": "Grid World Navigation",
+        "description": "Agent navigating a simple environment",
+        "states": "Agent position, goal location, obstacles",
+        "transitions": "Move actions change position",
+        "observations": "Visual input of current location",
+        "preferences": "High probability on goal states"
+      },
+      {
+        "name": "Visual Object Recognition",
+        "description": "Recognizing objects in visual scenes",
+        "states": "Object category, position, orientation",
+        "hierarchy": "Pixels → edges → shapes → objects",
+        "observations": "Retinal input",
+        "priors": "Natural scene statistics"
+      },
+      {
+        "name": "Language Processing",
+        "description": "Understanding and generating language",
+        "states": "Phonemes, words, sentences, meanings",
+        "hierarchy": "Acoustics → phonetics → syntax → semantics",
+        "observations": "Audio waveform or text",
+        "priors": "Statistical regularities of language"
+      }
+    ],
+    "model_evaluation": {
+      "model_evidence": "Log likelihood of data under model",
+      "free_energy": "Variational bound on model evidence",
+      "model_comparison": "Compare models using free energy",
+      "cross_validation": "Test generalization to new data"
+    },
+    "approximate_inference": {
+      "variational_methods": "Approximate posterior with simpler distribution",
+      "sampling_methods": "Monte Carlo approximation of posterior",
+      "linearization": "Local linear approximation for nonlinear models",
+      "filtering": "Recursive state estimation for temporal models"
+    },
+    "connections_to_machine_learning": {
+      "deep_generative_models": "Hierarchical VAEs and GANs",
+      "world_models": "Internal environment models in reinforcement learning",
+      "predictive_learning": "Learning through prediction",
+      "simulation_based_inference": "Using simulations for parameter inference"
+    },
+    "interactive_exercises": [
+      {
+        "id": "model_design",
+        "type": "design",
+        "description": "Design generative models for different problem domains",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "inference_implementation",
+        "type": "implementation",
+        "description": "Implement inference in simple generative models",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Generative models must be perfect",
+        "clarification": "Active Inference works with approximate models"
+      },
+      {
+        "misconception": "More complex models are always better",
+        "clarification": "Model complexity must be balanced against data"
+      },
+      {
+        "misconception": "Generative models are static",
+        "clarification": "Models continuously adapt through learning"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Generative models for Active Inference",
+        "author": "Karl Friston",
+        "year": 2019,
+        "description": "Technical paper on generative models in Active Inference"
+      },
+      {
+        "title": "Deep generative models in neuroscience",
+        "author": "Jakob Macke and David Blei",
+        "year": 2019,
+        "description": "Connection between deep learning and generative models"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_introduction",
+      "ai_policy_selection",
+      "hierarchical_models",
+      "variational_inference"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 40,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

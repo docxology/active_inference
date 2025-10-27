@@ -1,0 +1,152 @@
+{
+  "id": "active_inference_introduction",
+  "title": "Active Inference Framework",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Comprehensive introduction to the Active Inference framework as a theory of behavior and brain function.",
+  "prerequisites": ["fep_biological_systems", "belief_updating"],
+  "tags": ["active inference", "behavioral control", "brain theory", "planning", "decision making"],
+  "learning_objectives": [
+    "Understand the basic components of Active Inference",
+    "Explain how perception and action are unified in Active Inference",
+    "Apply Active Inference to simple decision-making problems",
+    "Connect Active Inference to the Free Energy Principle"
+  ],
+  "content": {
+    "overview": "Active Inference is a framework that explains behavior as the process of minimizing expected free energy. It unifies perception, action, and planning under a single principle: agents act to confirm their predictions about the world.",
+    "core_principle": {
+      "expected_free_energy": "G(π) = ∑_τ E_Q[log Q(π) - log P(o_τ, s_τ)]",
+      "interpretation": "Expected free energy combines epistemic and pragmatic value",
+      "policy_selection": "Choose policies that minimize expected free energy",
+      "unified_framework": "Perception and action both minimize free energy"
+    },
+    "key_components": [
+      {
+        "component": "Generative Model",
+        "description": "Internal model of how observations are generated",
+        "role": "Predicts sensory input and outcomes of actions",
+        "types": "Hierarchical, temporal, with preferences"
+      },
+      {
+        "component": "Recognition Density",
+        "description": "Approximate posterior beliefs about hidden states",
+        "role": "Current understanding of the world",
+        "updates": "Updated through variational inference"
+      },
+      {
+        "component": "Preferences",
+        "description": "Prior beliefs about desired outcomes",
+        "role": "Guide behavior toward preferred states",
+        "form": "Prior probabilities over future states"
+      },
+      {
+        "component": "Policies",
+        "description": "Sequences of actions or control states",
+        "role": "Options for how to act in the world",
+        "evaluation": "Evaluated by expected free energy"
+      }
+    ],
+    "perception_action_cycle": {
+      "perception": "Infer hidden states from sensory input (minimize variational free energy)",
+      "planning": "Evaluate policies by expected free energy",
+      "action": "Select and execute policy with minimal expected free energy",
+      "learning": "Update generative model based on outcomes"
+    },
+    "expected_free_energy_decomposition": {
+      "pragmatic_term": "-E[log P(o_τ | s_τ)] (expected utility)",
+      "epistemic_term": "E[H[P(s_τ | o_τ)]] (information gain)",
+      "interpretation": "Balance between exploitation and exploration",
+      "policy_evaluation": "Lower expected free energy = better policy"
+    },
+    "examples": [
+      {
+        "name": "Foraging Behavior",
+        "description": "Animal searching for food",
+        "preferences": "High probability on food locations",
+        "policies": "Move to likely food locations",
+        "expected_free_energy": "Low when food is found, high when uncertain"
+      },
+      {
+        "name": "Visual Search",
+        "description": "Looking for target in cluttered scene",
+        "preferences": "High probability on target location",
+        "policies": "Saccade to locations that reduce uncertainty",
+        "expected_free_energy": "Low when target found, when uncertainty about location"
+      },
+      {
+        "name": "Social Interaction",
+        "description": "Communicating with others",
+        "preferences": "High probability on successful communication",
+        "policies": "Actions that clarify intentions or reduce ambiguity",
+        "expected_free_energy": "Low when mutual understanding achieved"
+      }
+    ],
+    "planning_and_control": {
+      "policy_space": "Set of all possible action sequences",
+      "tree_search": "Evaluate future consequences of actions",
+      "stochastic_policies": "Probabilistic action selection",
+      "habitual_behavior": "Cached policies for common situations"
+    },
+    "connections_to_neuroscience": {
+      "dopamine": "Encodes prediction errors and expected free energy",
+      "prefrontal_cortex": "Planning and policy evaluation",
+      "basal_ganglia": "Action selection and policy switching",
+      "anterior_cingulate": "Conflict monitoring and uncertainty"
+    },
+    "interactive_exercises": [
+      {
+        "id": "active_inference_simulation",
+        "type": "simulation",
+        "description": "Simulate simple Active Inference agent in grid world",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "policy_evaluation",
+        "type": "calculation",
+        "description": "Calculate expected free energy for different policies",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Active Inference is only about motor control",
+        "clarification": "Active Inference explains all adaptive behavior, including perception"
+      },
+      {
+        "misconception": "Active Inference requires perfect knowledge",
+        "clarification": "Works with approximate models and bounded rationality"
+      },
+      {
+        "misconception": "Expected free energy is the same as reward",
+        "clarification": "Includes both utility and information-seeking components"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference: The Free Energy Principle in Mind, Brain, and Behavior",
+        "author": "Thomas Parr, Giovanni Pezzulo, Karl Friston",
+        "year": 2022,
+        "description": "Comprehensive book on Active Inference"
+      },
+      {
+        "title": "Planning and Navigation as Active Inference",
+        "author": "Karl Friston et al.",
+        "year": 2017,
+        "description": "Original paper on Active Inference framework"
+      }
+    ],
+    "related_concepts": [
+      "fep_biological_systems",
+      "ai_generative_models",
+      "ai_policy_selection",
+      "expected_free_energy"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 35,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

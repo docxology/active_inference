@@ -1,0 +1,139 @@
+{
+  "id": "active_inference_basic",
+  "title": "Basic Active Inference Implementation",
+  "content_type": "implementation",
+  "difficulty": "intermediate",
+  "description": "Step-by-step implementation of a basic Active Inference agent in Python with detailed explanations.",
+  "prerequisites": ["active_inference_introduction", "bayesian_basics"],
+  "tags": ["active inference", "python", "implementation", "tutorial", "agent"],
+  "learning_objectives": [
+    "Implement basic Active Inference agent from scratch",
+    "Understand the core components and their interactions",
+    "Apply Active Inference to simple decision-making tasks",
+    "Debug and extend basic implementations"
+  ],
+  "content": {
+    "overview": "This tutorial provides a complete implementation of a basic Active Inference agent. We'll build the agent step by step, explaining each component and how they work together to minimize expected free energy.",
+    "agent_architecture": {
+      "generative_model": "Internal model of how observations are generated",
+      "recognition_model": "Variational posterior over hidden states",
+      "policy_selection": "Choose actions to minimize expected free energy",
+      "learning": "Update model parameters based on experience"
+    },
+    "python_implementation": {
+      "imports": "import numpy as np\nfrom scipy.special import softmax, logsumexp",
+      "agent_class": "Basic class structure for Active Inference agent",
+      "key_methods": [
+        "__init__: Initialize agent with parameters",
+        "infer_states: Update beliefs about current state",
+        "evaluate_policies: Calculate expected free energy for policies",
+        "select_action: Choose action based on policy evaluation",
+        "update_model: Learn from experience"
+      ]
+    },
+    "step_by_step_tutorial": [
+      {
+        "step": 1,
+        "title": "Define the Generative Model",
+        "description": "Create the internal model that predicts observations",
+        "code_snippet": "class GenerativeModel:\n    def __init__(self, num_states, num_obs, A, B, C, D):\n        self.num_states = num_states\n        self.num_obs = num_obs\n        self.A = A  # Likelihood matrix P(o|s)\n        self.B = B  # Transition matrix P(s'|s,a)\n        self.C = C  # Prior preferences P(o)\n        self.D = D  # Prior over initial states P(s)",
+        "explanation": "Generative model contains all probabilistic relationships"
+      },
+      {
+        "step": 2,
+        "title": "Implement State Inference",
+        "description": "Update beliefs about hidden states given observations",
+        "code_snippet": "def infer_states(self, obs, qs_current):\n    # Variational inference to update posterior beliefs\n    qs_new = self.variational_inference(obs, qs_current)\n    return qs_new",
+        "explanation": "Core inference step minimizes variational free energy"
+      },
+      {
+        "step": 3,
+        "title": "Evaluate Policies",
+        "description": "Calculate expected free energy for each policy",
+        "code_snippet": "def evaluate_policies(self, policies, qs_current):\n    G = np.zeros(len(policies))\n    for i, policy in enumerate(policies):\n        G[i] = self.expected_free_energy(policy, qs_current)\n    return G",
+        "explanation": "Policy evaluation drives action selection"
+      },
+      {
+        "step": 4,
+        "title": "Select Actions",
+        "description": "Choose actions based on expected free energy",
+        "code_snippet": "def select_action(self, G):\n    # Softmax selection based on negative expected free energy\n    probabilities = softmax(-G / self.beta)\n    action_idx = np.random.choice(len(G), p=probabilities)\n    return action_idx",
+        "explanation": "Stochastic action selection balances exploration and exploitation"
+      }
+    ],
+    "complete_example": {
+      "grid_world": "Simple navigation task implementation",
+      "agent_setup": "Initialize agent in 2D grid world",
+      "task": "Navigate to goal while avoiding obstacles",
+      "learning": "Agent learns optimal path through experience"
+    },
+    "debugging_and_testing": {
+      "unit_tests": "Test individual components in isolation",
+      "integration_tests": "Test complete agent behavior",
+      "visualization": "Plot belief updates and policy evaluations",
+      "common_issues": "Numerical stability, local minima, convergence"
+    },
+    "extensions": {
+      "hierarchical_models": "Multi-level generative models",
+      "continuous_states": "Gaussian beliefs for continuous variables",
+      "multi_agent": "Multiple agents with social inference",
+      "online_learning": "Continuous model updates"
+    },
+    "interactive_exercises": [
+      {
+        "id": "implement_basic_agent",
+        "type": "coding",
+        "description": "Implement basic Active Inference agent",
+        "difficulty": "intermediate",
+        "starter_code": "Provided template with key methods",
+        "expected_output": "Working agent that solves simple task"
+      },
+      {
+        "id": "debug_inference",
+        "type": "debugging",
+        "description": "Debug belief updating in inference step",
+        "difficulty": "intermediate",
+        "test_cases": "Multiple scenarios with known correct outputs"
+      }
+    ],
+    "common_implementation_mistakes": [
+      {
+        "mistake": "Incorrect matrix dimensions",
+        "solution": "Carefully check tensor shapes and broadcasting"
+      },
+      {
+        "mistake": "Numerical instability",
+        "solution": "Use log probabilities and stable softmax"
+      },
+      {
+        "mistake": "Not normalizing probabilities",
+        "solution": "Always ensure distributions sum to 1"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference Tutorial",
+        "author": "Active Inference Lab",
+        "description": "Online tutorial with code examples"
+      },
+      {
+        "title": "Implementing Active Inference",
+        "author": "Community contributions",
+        "description": "Various implementations and frameworks"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_introduction",
+      "ai_generative_models",
+      "variational_inference",
+      "python_implementation"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 60,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

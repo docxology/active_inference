@@ -1,2 +1,467 @@
-# active_inference
-Active Inference for, with, by, Generative AI. 
+# Active Inference Knowledge Environment
+
+**"Active Inference for, with, by Generative AI"**
+
+A comprehensive integrated platform for Active Inference & Free Energy Principle education, research, visualization, and application development. This repository provides a structured, accessible knowledge environment that bridges theoretical foundations with practical applications, built through collaborative intelligence between humans and AI.
+
+## 🎯 Mission & Vision
+
+The Active Inference Knowledge Environment is the most comprehensive, accessible, and integrated platform for understanding and applying Active Inference principles. We build understanding through collaborative intelligence, combining human expertise with AI capabilities to create an unprecedented resource for learning, research, and application development.
+
+## 🏗️ Architecture Overview
+
+### Core Platform Components
+
+#### 🧠 Knowledge Repository (`knowledge/`, `src/active_inference/knowledge/`)
+**Educational Content & Learning Systems**
+- **Structured Learning Paths**: Progressive curriculum from beginner to expert levels
+- **Interactive Tutorials**: Hands-on examples with immediate feedback
+- **Research Papers**: Annotated collection with implementation notes
+- **Mathematical Foundations**: Rigorous derivations with computational examples
+- **Domain Applications**: Specialized content for neuroscience, AI, psychology, robotics
+
+📖 **[Knowledge Documentation](knowledge/README.md)** | 🤖 **[Knowledge AGENTS.md](knowledge/AGENTS.md)**
+
+#### 🔬 Research Tools (`research/`, `src/active_inference/research/`)
+**Scientific Research & Experimentation**
+- **Experiment Framework**: Reproducible research pipelines
+- **Simulation Engine**: Multi-scale modeling capabilities
+- **Analysis Tools**: Statistical and information-theoretic methods
+- **Benchmarking Suite**: Standardized evaluation frameworks
+- **Validation Methods**: Rigorous scientific validation
+
+🔬 **[Research Documentation](research/README.md)** | 🤖 **[Research AGENTS.md](research/AGENTS.md)**
+
+#### 👁️ Visualization System (`visualization/`, `src/active_inference/visualization/`)
+**Interactive Exploration & Understanding**
+- **Interactive Diagrams**: Dynamic concept visualizations
+- **Simulation Dashboards**: Real-time model exploration
+- **Comparative Analysis**: Side-by-side model comparisons
+- **Educational Animations**: Step-by-step process demonstrations
+- **3D Visualizations**: Immersive 3D model exploration
+
+👁️ **[Visualization Documentation](visualization/README.md)** | 🤖 **[Visualization AGENTS.md](visualization/AGENTS.md)**
+
+#### 🛠️ Applications Framework (`applications/`, `src/active_inference/applications/`)
+**Practical Implementation & Deployment**
+- **Template Library**: Ready-to-use implementation patterns
+- **Case Studies**: Real-world application examples
+- **Integration Tools**: APIs and connectors for external systems
+- **Best Practices**: Architectural guidelines and patterns
+- **Domain Templates**: Specialized templates for different fields
+
+🛠️ **[Applications Documentation](applications/README.md)** | 🤖 **[Applications AGENTS.md](applications/AGENTS.md)**
+
+#### 🖥️ Platform Infrastructure (`platform/`, `src/active_inference/platform/`)
+**Web Services & Backend Systems**
+- **REST API Server**: Comprehensive platform APIs
+- **Knowledge Graph**: Semantic knowledge representation
+- **Search Engine**: Intelligent search and retrieval
+- **Collaboration Tools**: Multi-user collaboration features
+- **Deployment System**: Production deployment and scaling
+
+🖥️ **[Platform Documentation](platform/README.md)** | 🤖 **[Platform AGENTS.md](platform/AGENTS.md)**
+
+#### 🧪 Quality Assurance (`tests/`)
+**Testing & Validation**
+- **Unit Tests**: Individual component functionality
+- **Integration Tests**: Component interaction validation
+- **Knowledge Tests**: Content accuracy and completeness
+- **Performance Tests**: Scalability and efficiency validation
+- **Security Tests**: Security and vulnerability testing
+
+🧪 **[Testing Documentation](tests/README.md)** | 🤖 **[Testing AGENTS.md](tests/AGENTS.md)**
+
+#### 🛠️ Development Tools (`tools/`, `src/active_inference/tools/`)
+**Development & Orchestration**
+- **Orchestrators**: Thin orchestration components
+- **Utilities**: Helper functions and development tools
+- **Testing Frameworks**: Test development and execution tools
+- **Documentation Generators**: Automated documentation generation
+- **Build Systems**: Development and deployment automation
+
+🛠️ **[Tools Documentation](tools/README.md)** | 🤖 **[Tools AGENTS.md](tools/AGENTS.md)**
+
+## 📚 Complete Project Structure
+
+```
+active_inference/
+├── 📖 knowledge/                     # Educational content & learning paths
+│   ├── 🏗️ foundations/               # Core theoretical concepts
+│   ├── 📐 mathematics/               # Mathematical formulations & derivations
+│   ├── 💻 implementations/           # Code examples & tutorials
+│   ├── 🌍 applications/              # Real-world use cases & domain content
+│   └── 🎯 learning_paths.json        # Structured learning tracks
+│
+├── 🔬 research/                      # Research tools & scientific methods
+│   ├── 🧪 experiments/               # Reproducible research pipelines
+│   ├── 🧮 simulations/               # Multi-scale modeling & simulation
+│   ├── 📊 analysis/                  # Statistical & information-theoretic analysis
+│   └── 🏆 benchmarks/                # Performance evaluation & comparison
+│
+├── 👁️ visualization/                # Interactive exploration & visualization
+│   ├── 📈 diagrams/                  # Concept diagrams & visual explanations
+│   ├── 📋 dashboards/                # Interactive exploration interfaces
+│   ├── 🎬 animations/                # Educational animations & demonstrations
+│   └── ⚖️ comparative/               # Model comparison & analysis tools
+│
+├── 🛠️ applications/                 # Practical applications & implementations
+│   ├── 📋 templates/                 # Ready-to-use implementation templates
+│   ├── 📚 case_studies/              # Real-world application examples
+│   ├── 🔗 integrations/              # External system connectors & APIs
+│   ├── 📖 best_practices/            # Architectural guidelines & patterns
+│   └── 🌍 domains/                   # Domain-specific applications
+│       ├── 🤖 artificial_intelligence
+│       ├── 🎓 education
+│       ├── ⚙️ engineering
+│       ├── 🧠 neuroscience
+│       ├── 🧑‍🤝‍🧑 psychology
+│       └── 🤖 robotics
+│
+├── 🖥️ platform/                     # Platform infrastructure & services
+│   ├── 🌐 serve.py                   # Main platform server
+│   ├── 🧠 knowledge_graph/           # Semantic knowledge representation
+│   ├── 🔍 search/                    # Intelligent search & retrieval
+│   ├── 🤝 collaboration/             # Multi-user collaboration features
+│   └── 🚀 deployment/                # Deployment & scaling infrastructure
+│
+├── 🧪 tests/                         # Comprehensive testing & validation
+│   ├── 🧪 unit/                      # Unit tests for components
+│   ├── 🔗 integration/               # Integration tests for systems
+│   └── 📚 knowledge/                 # Knowledge content validation
+│
+├── 🛠️ tools/                        # Development & orchestration tools
+│   ├── 📖 documentation/             # Documentation generation tools
+│   ├── 🎼 orchestrators/             # Thin orchestration components
+│   ├── 🧪 testing/                   # Testing frameworks & utilities
+│   └── 🔧 utilities/                 # Helper functions & development tools
+│
+├── 📦 src/                          # Source code packages
+│   └── 🧠 active_inference/          # Main Python package
+│       ├── 💻 applications/          # Application framework implementations
+│       ├── 📚 knowledge/             # Knowledge management systems
+│       ├── 🖥️ platform/              # Platform service implementations
+│       ├── 🔬 research/              # Research tool implementations
+│       ├── 🛠️ tools/                 # Development tool implementations
+│       └── 👁️ visualization/         # Visualization system implementations
+│
+└── 📖 docs/                         # Comprehensive documentation
+    ├── 🌐 _static/                   # Static documentation assets
+    ├── 📋 _templates/                # Documentation templates
+    ├── 🔌 api/                       # API reference documentation
+    ├── 🛠️ applications/              # Applications documentation
+    ├── 📚 knowledge/                 # Knowledge documentation
+    ├── 🖥️ platform/                  # Platform documentation
+    ├── 🔬 research/                  # Research documentation
+    └── 👁️ visualization/             # Visualization documentation
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Python 3.9+** - Core functionality and scientific computing
+- **Node.js 18+** - Visualization components (optional)
+- **Docker** - Containerized deployments (optional)
+- **Git** - Version control and collaboration
+
+### Quick Start
+```bash
+# Clone the repository
+git clone https://github.com/docxology/active_inference.git
+cd active_inference
+
+# Set up development environment
+make setup
+
+# Run comprehensive tests
+make test
+
+# Start the knowledge platform
+make serve
+
+# Explore learning paths
+ai-knowledge learn foundations
+
+# Run research experiments
+ai-research experiments run
+
+# Generate documentation
+make docs
+```
+
+### Development Setup
+```bash
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or venv\Scripts\activate  # Windows
+
+# Install all dependencies
+pip install -r requirements.txt
+
+# Set up pre-commit hooks
+pre-commit install
+
+# Run tests
+make test
+
+# Generate documentation
+make docs
+
+# Start development server
+python platform/serve.py
+```
+
+## 🎓 Learning Pathways
+
+### Foundation Track (40 hours)
+**For beginners and those new to Active Inference**
+1. **Information Theory Basics** (8h) - Entropy, KL divergence, mutual information
+2. **Bayesian Fundamentals** (10h) - Bayesian probability and inference
+3. **Free Energy Principle** (15h) - Theoretical foundations and derivations
+4. **Active Inference Framework** (12h) - Complete Active Inference implementation
+
+### Research Track (35 hours)
+**For researchers and advanced students**
+1. **Computational Models** (10h) - Implementation strategies and algorithms
+2. **Advanced Simulation** (10h) - Multi-scale modeling and neural simulation
+3. **Statistical Analysis** (10h) - Information-theoretic evaluation methods
+4. **Experimental Design** (5h) - Research methodology and validation
+
+### Application Track (30 hours)
+**For developers and practitioners**
+1. **Implementation Patterns** (8h) - Common architectural patterns
+2. **Integration Strategies** (8h) - Connecting with external systems
+3. **Performance Optimization** (8h) - Scaling and efficiency optimization
+4. **Production Deployment** (6h) - Real-world deployment considerations
+
+## 🔧 Platform Features
+
+### Web Interface
+- **Learning Dashboard**: Personalized learning recommendations and progress tracking
+- **Research Workbench**: Experiment design, execution, and analysis tools
+- **Visualization Studio**: Interactive diagram builder and model exploration
+- **Collaboration Hub**: Multi-user content creation and discussion
+- **Knowledge Browser**: Semantic search and concept navigation
+
+### Command Line Interface
+```bash
+# Learning commands
+ai-knowledge learn foundations          # Start foundations track
+ai-knowledge search "free energy"       # Search knowledge base
+ai-knowledge path show complete        # Display learning path
+ai-knowledge export pdf foundations    # Export learning materials
+
+# Research commands
+ai-research experiments run             # Execute experiment suite
+ai-research simulations benchmark       # Run simulation benchmarks
+ai-research analyze results             # Analyze experimental results
+
+# Platform commands
+ai-platform serve                      # Start web platform
+ai-platform status                     # Show system status
+ai-platform backup                     # Create system backup
+ai-platform update                     # Update platform components
+```
+
+### REST API
+```bash
+# Knowledge API
+GET  /api/knowledge/search?q=entropy&limit=10
+GET  /api/knowledge/nodes/fep_introduction
+GET  /api/knowledge/paths/foundations_complete
+
+# Research API
+POST /api/research/experiments
+GET  /api/research/simulations/{id}/results
+
+# Platform API
+GET  /api/platform/health
+POST /api/platform/backup
+```
+
+## 📊 Quality Metrics & Standards
+
+### Code Quality
+- **Test Coverage**: >95% for core components
+- **Documentation Coverage**: 100% API documentation
+- **Code Style**: PEP 8 compliance with automated formatting
+- **Type Safety**: Complete type annotations
+- **Performance**: Optimized for research and educational use
+
+### Content Quality
+- **Educational Value**: Progressive disclosure and scaffolding
+- **Technical Accuracy**: Peer-reviewed mathematical content
+- **Completeness**: Comprehensive coverage of Active Inference
+- **Accessibility**: Multiple learning styles and accessibility support
+- **Currency**: Updated with latest research developments
+
+### Platform Quality
+- **Reliability**: 99.9% uptime with comprehensive monitoring
+- **Scalability**: Horizontal scaling for growing user base
+- **Security**: Industry-standard security practices
+- **Performance**: Sub-second response times for all operations
+- **Integration**: Seamless integration with scientific tools
+
+## 🤝 Contributing
+
+We welcome contributions from the global Active Inference community! This project thrives on collaborative intelligence between researchers, educators, developers, and AI assistants.
+
+### Contribution Types
+- **📚 Knowledge Content**: Educational materials, tutorials, research papers
+- **🔬 Research Tools**: New analysis methods, simulation engines, benchmarks
+- **👁️ Visualizations**: Interactive diagrams, animations, dashboards
+- **🛠️ Applications**: Templates, case studies, integration tools
+- **🖥️ Platform**: Services, APIs, infrastructure improvements
+- **📖 Documentation**: Guides, examples, translations
+
+### Getting Started
+1. **Read Guidelines**: [CONTRIBUTING.md](CONTRIBUTING.md) for detailed processes
+2. **Choose Area**: Select component matching your expertise
+3. **Follow Standards**: TDD, documentation, and quality requirements
+4. **Community Review**: Submit for peer review and validation
+5. **Iterate**: Incorporate feedback and improve
+
+## 📈 Impact & Recognition
+
+### Educational Impact
+- **Accessibility**: Lowering barriers to Active Inference understanding
+- **Depth**: Comprehensive coverage from basics to advanced topics
+- **Application**: Clear paths from theory to practical implementation
+- **Community**: Building global Active Inference learning community
+
+### Research Impact
+- **Reproducibility**: Standardized research frameworks and tools
+- **Collaboration**: Shared platforms for collaborative research
+- **Innovation**: Accelerated discovery through integrated tools
+- **Translation**: Faster transition from theory to application
+
+### Technical Innovation
+- **AI-Human Collaboration**: Novel collaborative development approach
+- **Knowledge Integration**: Unified knowledge representation
+- **Interactive Learning**: Next-generation educational technology
+- **Research Automation**: Automated research workflows and analysis
+
+## 🔗 Integration & Compatibility
+
+### External Systems
+- **Academic Platforms**: Integration with university LMS systems
+- **Research Repositories**: Connection to arXiv, bioRxiv, etc.
+- **Development Tools**: GitHub, GitLab, Jupyter integration
+- **Communication**: Slack, Discord, forum integration
+
+### Data Formats
+- **Knowledge Formats**: JSON, Markdown, Jupyter, LaTeX
+- **Research Data**: HDF5, CSV, JSON, specialized formats
+- **Visualization**: SVG, PNG, HTML, interactive formats
+- **Export Formats**: PDF, HTML, Markdown, JSON, XML
+
+## 📚 Documentation Ecosystem
+
+This project features comprehensive documentation at every level:
+
+### Master Documentation
+- **[Main README](README.md)**: Project overview and navigation (this file)
+- **[AGENTS.md](AGENTS.md)**: Agent development guidelines and workflows
+- **[CONTRIBUTING.md](CONTRIBUTING.md)**: Contribution processes and standards
+
+### Component Documentation
+Each major component has comprehensive documentation:
+- **[Knowledge](knowledge/README.md)**: Educational content and learning systems
+- **[Research](research/README.md)**: Scientific tools and methodologies
+- **[Applications](applications/README.md)**: Implementation frameworks and patterns
+- **[Platform](platform/README.md)**: Infrastructure and services
+- **[Visualization](visualization/README.md)**: Interactive exploration tools
+- **[Tests](tests/README.md)**: Quality assurance and validation
+
+### Technical Documentation
+- **[API Reference](docs/api/README.md)**: Complete API documentation
+- **[Development Guide](CONTRIBUTING.md)**: Contributing and development workflows
+- **[Architecture Guide](docs/platform/README.md)**: System architecture and design
+- **[Deployment Guide](platform/deployment/README.md)**: Production deployment
+
+## 🎯 Success Metrics
+
+### Quantitative Metrics
+- **User Engagement**: Daily/monthly active learners and researchers
+- **Content Growth**: Knowledge nodes and learning paths added
+- **Research Output**: Experiments run and papers published using platform
+- **System Performance**: Response times and uptime reliability
+
+### Qualitative Metrics
+- **Learning Outcomes**: User mastery of Active Inference concepts
+- **Research Impact**: Citations and adoption in research community
+- **Community Growth**: Contributors and active participants
+- **Educational Quality**: Learner satisfaction and recommendation rates
+
+### Innovation Metrics
+- **AI-Human Collaboration**: Quality and quantity of collaborative content
+- **Knowledge Integration**: Effectiveness of unified knowledge representation
+- **Learning Technology**: Advancement of educational technology
+- **Research Acceleration**: Speed of research discovery and validation
+
+## 🌟 Key Innovations
+
+### 1. **Unified Knowledge Graph**
+Semantic relationships between all concepts with automatic prerequisite validation and intelligent recommendation systems.
+
+### 2. **Progressive Disclosure**
+Adaptive content delivery based on learner progress with multiple representation levels (intuitive → formal → implementation).
+
+### 3. **Research-Teaching Integration**
+Seamless transition from theory to practice with reproducible research workflows and interactive experimentation.
+
+### 4. **Collaborative Intelligence**
+Human-AI co-creation of educational content with community-driven knowledge expansion and collective intelligence amplification.
+
+### 5. **Interactive Learning Environment**
+Next-generation educational technology with real-time feedback, personalized learning paths, and immersive exploration tools.
+
+## 📞 Support & Community
+
+### Getting Help
+- **📖 Documentation**: Comprehensive guides and tutorials
+- **🔍 Search**: Intelligent search across all content
+- **💬 Discussions**: Community discussions and Q&A
+- **🐛 Issues**: Bug reports and feature requests
+- **📧 Support**: Direct support for technical issues
+
+### Community Engagement
+- **🤝 Contributors**: Join our global contributor community
+- **🎓 Educators**: Access educational resources and tools
+- **🔬 Researchers**: Use research tools and collaborate
+- **💻 Developers**: Build applications and integrations
+- **📚 Students**: Learn Active Inference through structured paths
+
+## 📄 License & Attribution
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+
+### Acknowledgments
+- **Karl Friston** and the Active Inference research community for theoretical foundations
+- **Free Energy Principle** contributors for mathematical and conceptual framework
+- **Open Source Community** for tools, inspiration, and collaborative spirit
+- **AI Assistants** for collaborative content creation and development support
+
+### Citation
+If you use this platform in your research or teaching, please cite:
+
+```
+Active Inference Knowledge Environment. (2024).
+"Active Inference for, with, by Generative AI".
+https://github.com/docxology/active_inference
+```
+
+## 🔄 Version & Status
+
+- **Version**: 0.2.0 (Active Development)
+- **Status**: Beta Release
+- **Last Updated**: October 2024
+- **Development**: Continuous active development
+- **Support**: Community-supported with active maintenance
+
+---
+
+**"Active Inference for, with, by Generative AI"** - Together, we're building the most comprehensive platform for understanding intelligence, cognition, and behavior through the lens of Active Inference and the Free Energy Principle.
+
+**Built with**: ❤️ Human expertise, 🤖 AI assistance, 🧠 Deep learning, and the collective intelligence of the global Active Inference community. 

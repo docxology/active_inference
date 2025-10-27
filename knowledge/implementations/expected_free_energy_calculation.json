@@ -1,0 +1,150 @@
+{
+  "id": "expected_free_energy_calculation",
+  "title": "Expected Free Energy Calculation and Policy Selection",
+  "content_type": "implementation",
+  "difficulty": "advanced",
+  "description": "Implementation of expected free energy calculation for policy evaluation and selection in Active Inference.",
+  "prerequisites": ["expected_free_energy", "active_inference_basic"],
+  "tags": ["expected free energy", "policy selection", "python", "implementation", "planning"],
+  "learning_objectives": [
+    "Implement expected free energy calculation",
+    "Build policy evaluation and selection algorithms",
+    "Apply to sequential decision-making problems",
+    "Optimize for exploration-exploitation trade-off"
+  ],
+  "content": {
+    "overview": "This tutorial covers the implementation of expected free energy calculation for policy selection. We'll build efficient algorithms for computing the epistemic and pragmatic terms that guide Active Inference behavior.",
+    "expected_free_energy_components": {
+      "pragmatic_term": "Expected utility or value of outcomes",
+      "epistemic_term": "Expected information gain or uncertainty reduction",
+      "total": "G(π) = Risk(π) + Ambiguity(π)",
+      "interpretation": "Balance between exploitation and exploration"
+    },
+    "mathematical_implementation": {
+      "risk_calculation": "Risk(π) = -∑_τ E_Q[log P(o_τ | s_τ, π)]",
+      "ambiguity_calculation": "Ambiguity(π) = ∑_τ H_Q[s_τ | o_τ, π]",
+      "monte_carlo_estimation": "Sample-based approximation for complex models",
+      "analytical_computation": "Closed-form for simple models"
+    },
+    "python_implementation": {
+      "policy_evaluation_class": "Class for computing expected free energy",
+      "key_methods": [
+        "evaluate_policy: Compute G(π) for single policy",
+        "evaluate_policies: Vectorized evaluation for multiple policies",
+        "select_policy: Choose policy with minimal expected free energy",
+        "expected_utility: Compute pragmatic term",
+        "expected_information_gain: Compute epistemic term"
+      ]
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Implement Basic Policy Evaluation",
+        "description": "Compute expected free energy for simple policies",
+        "code_snippet": "def evaluate_policy(self, policy, current_beliefs):\n    # Simulate future states and observations\n    predicted_states = self.predict_states(policy, current_beliefs)\n    predicted_obs = self.predict_observations(predicted_states)\n    \n    # Calculate expected free energy\n    G = self.expected_utility(predicted_obs) + self.information_gain(predicted_states, predicted_obs)\n    return G",
+        "explanation": "Core algorithm for policy evaluation"
+      },
+      {
+        "step": 2,
+        "title": "Implement Risk Calculation",
+        "description": "Compute pragmatic term (expected utility)",
+        "code_snippet": "def expected_utility(self, predicted_obs):\n    # Expected log probability of preferred outcomes\n    utility = 0\n    for t, obs in enumerate(predicted_obs):\n        utility += np.sum(self.C * np.log(predicted_obs[t] + 1e-16))\n    return -utility  # Negative for minimization",
+        "explanation": "Pragmatic term measures expected value of outcomes"
+      },
+      {
+        "step": 3,
+        "title": "Implement Ambiguity Calculation",
+        "description": "Compute epistemic term (information gain)",
+        "code_snippet": "def information_gain(self, predicted_states, predicted_obs):\n    # Expected entropy of posterior beliefs\n    ambiguity = 0\n    for t in range(len(predicted_states)):\n        for i in range(self.num_states):\n            prob_state = predicted_states[t][i]\n            ambiguity += prob_state * self.entropy(predicted_obs[t])\n    return ambiguity",
+        "explanation": "Epistemic term measures expected uncertainty reduction"
+      }
+    ],
+    "examples": [
+      {
+        "name": "Two-Armed Bandit",
+        "description": "Optimal policy selection for exploration-exploitation",
+        "setup": "Two arms with unknown reward probabilities",
+        "policies": "Choose arm 1 or arm 2 for multiple trials",
+        "expected_free_energy": "G(π) = -E[reward] + H[beliefs about arm]",
+        "solution": "Balance between known good arm and uncertain arm"
+      },
+      {
+        "name": "Grid World Planning",
+        "description": "Path planning with uncertainty about goal location",
+        "setup": "Agent in grid world with hidden goal",
+        "policies": "Different sequences of moves",
+        "expected_free_energy": "G(π) = -P(reach goal) + H[goal location]",
+        "solution": "Paths that efficiently reduce uncertainty about goal"
+      }
+    ],
+    "optimization_and_efficiency": {
+      "vectorization": "Compute for multiple policies simultaneously",
+      "caching": "Cache intermediate computations",
+      "parallelization": "Parallel evaluation of policies",
+      "pruning": "Eliminate obviously bad policies early"
+    },
+    "validation_and_testing": {
+      "unit_tests": "Test individual components",
+      "integration_tests": "Test complete policy selection",
+      "benchmarking": "Compare with optimal solutions",
+      "visualization": "Plot expected free energy landscapes"
+    },
+    "interactive_exercises": [
+      {
+        "id": "implement_policy_evaluation",
+        "type": "coding",
+        "description": "Implement expected free energy calculation",
+        "difficulty": "advanced",
+        "starter_code": "Template with model and policy structure",
+        "expected_output": "Policy evaluation that selects reasonable actions"
+      },
+      {
+        "id": "optimize_bandit",
+        "type": "optimization",
+        "description": "Solve two-armed bandit using expected free energy",
+        "difficulty": "advanced",
+        "test_cases": "Multiple bandit problems with known solutions"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "Numerical instability in log probabilities",
+        "solution": "Add small epsilon to avoid log(0)"
+      },
+      {
+        "issue": "Expensive computation for long horizons",
+        "solution": "Use approximation methods or limit planning horizon"
+      },
+      {
+        "issue": "Poor exploration-exploitation balance",
+        "solution": "Tune temperature parameter in softmax"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference Tutorial",
+        "author": "Active Inference Lab",
+        "description": "Implementation examples and tutorials"
+      },
+      {
+        "title": "Planning and Navigation as Active Inference",
+        "author": "Karl Friston et al.",
+        "year": 2017,
+        "description": "Theoretical foundation for policy selection"
+      }
+    ],
+    "related_concepts": [
+      "expected_free_energy",
+      "ai_policy_selection",
+      "active_inference_basic",
+      "decision_theory"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 60,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

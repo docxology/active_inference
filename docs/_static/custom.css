@@ -1,0 +1,301 @@
+/*
+Active Inference Knowledge Environment - Custom CSS
+Enhanced styling for documentation with scientific and educational themes
+*/
+
+/* Import Google Fonts for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Root variables for consistent theming */
+:root {
+  --ai-primary: #2980B9;
+  --ai-secondary: #3498DB;
+  --ai-accent: #E74C3C;
+  --ai-success: #27AE60;
+  --ai-warning: #F39C12;
+  --ai-info: #8E44AD;
+
+  --ai-bg-primary: #FFFFFF;
+  --ai-bg-secondary: #F8F9FA;
+  --ai-bg-tertiary: #E9ECEF;
+  --ai-text-primary: #212529;
+  --ai-text-secondary: #6C757D;
+  --ai-text-muted: #868E96;
+  --ai-border: #DEE2E6;
+
+  --ai-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --ai-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --ai-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  --ai-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ai-font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+
+  --ai-border-radius: 8px;
+  --ai-border-radius-lg: 12px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ai-bg-primary: #1A1A1A;
+    --ai-bg-secondary: #2D2D2D;
+    --ai-bg-tertiary: #404040;
+    --ai-text-primary: #FFFFFF;
+    --ai-text-secondary: #B0B0B0;
+    --ai-text-muted: #808080;
+    --ai-border: #404040;
+  }
+}
+
+/* Base typography improvements */
+body {
+  font-family: var(--ai-font-family);
+  line-height: 1.6;
+  color: var(--ai-text-primary);
+  background-color: var(--ai-bg-primary);
+}
+
+/* Code styling improvements */
+.highlight {
+  background-color: var(--ai-bg-secondary);
+  border-radius: var(--ai-border-radius);
+  border: 1px solid var(--ai-border);
+}
+
+.highlight pre {
+  font-family: var(--ai-font-mono);
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+/* Navigation improvements */
+.wy-menu-vertical a:hover {
+  background-color: var(--ai-bg-secondary);
+}
+
+.wy-menu-vertical .current-page > .reference {
+  color: var(--ai-primary);
+  font-weight: 600;
+}
+
+/* Content cards and callouts */
+.admonition {
+  border-radius: var(--ai-border-radius);
+  border: 1px solid var(--ai-border);
+  box-shadow: var(--ai-shadow-sm);
+}
+
+.admonition-title {
+  font-weight: 600;
+  color: var(--ai-primary);
+}
+
+.note {
+  border-left: 4px solid var(--ai-info);
+}
+
+.warning {
+  border-left: 4px solid var(--ai-warning);
+}
+
+.danger {
+  border-left: 4px solid var(--ai-accent);
+}
+
+.tip {
+  border-left: 4px solid var(--ai-success);
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: var(--ai-border-radius);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--ai-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--ai-secondary);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--ai-bg-secondary);
+  color: var(--ai-text-primary);
+  border: 1px solid var(--ai-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--ai-bg-tertiary);
+}
+
+/* Interactive elements */
+.interactive-demo {
+  background-color: var(--ai-bg-secondary);
+  border: 1px solid var(--ai-border);
+  border-radius: var(--ai-border-radius);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.interactive-demo:hover {
+  box-shadow: var(--ai-shadow);
+}
+
+/* Learning path styling */
+.learning-path {
+  background: linear-gradient(135deg, var(--ai-primary), var(--ai-secondary));
+  color: white;
+  padding: 1rem;
+  border-radius: var(--ai-border-radius-lg);
+  margin: 1rem 0;
+}
+
+.difficulty-beginner {
+  border-left: 4px solid var(--ai-success);
+}
+
+.difficulty-intermediate {
+  border-left: 4px solid var(--ai-warning);
+}
+
+.difficulty-advanced {
+  border-left: 4px solid var(--ai-accent);
+}
+
+.difficulty-expert {
+  border-left: 4px solid var(--ai-info);
+}
+
+/* Knowledge graph styling */
+.knowledge-graph {
+  background-color: var(--ai-bg-secondary);
+  border-radius: var(--ai-border-radius);
+  padding: 1rem;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--ai-border);
+}
+
+/* API documentation styling */
+.api-module {
+  background-color: var(--ai-bg-secondary);
+  border: 1px solid var(--ai-border);
+  border-radius: var(--ai-border-radius);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.api-class, .api-function {
+  border-left: 3px solid var(--ai-primary);
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+.api-parameter {
+  font-family: var(--ai-font-mono);
+  background-color: var(--ai-bg-tertiary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+
+  .learning-path {
+    padding: 0.75rem;
+  }
+
+  .knowledge-graph {
+    min-height: 300px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .btn, .interactive-demo, .knowledge-graph {
+    display: none;
+  }
+
+  body {
+    background-color: white;
+    color: black;
+  }
+
+  .admonition {
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus indicators */
+a:focus, button:focus, input:focus {
+  outline: 2px solid var(--ai-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --ai-border: #000000;
+    --ai-text-secondary: #000000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ai-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ai-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ai-text-secondary);
+}

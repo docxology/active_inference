@@ -1,0 +1,153 @@
+{
+  "id": "fep_biological_systems",
+  "title": "Free Energy Principle in Biological Systems",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Application of the Free Energy Principle to biological self-organization, homeostasis, and evolution.",
+  "prerequisites": ["fep_mathematical_formulation", "active_inference_introduction"],
+  "tags": ["biological systems", "homeostasis", "evolution", "self-organization", "physiology"],
+  "learning_objectives": [
+    "Apply FEP to homeostatic regulation",
+    "Understand FEP in evolutionary context",
+    "Connect FEP to physiological systems",
+    "Analyze biological self-organization through FEP lens"
+  ],
+  "content": {
+    "overview": "The Free Energy Principle provides a unifying framework for understanding how biological systems maintain their structural and functional integrity. This section explores applications to physiological regulation, evolution, and biological self-organization.",
+    "homeostatic_regulation": {
+      "principle": "Homeostasis as free energy minimization",
+      "set_points": "Reference states that systems try to maintain",
+      "control_mechanisms": "Negative feedback loops minimize prediction errors",
+      "allostatic_regulation": "Adaptive set points based on environmental demands"
+    },
+    "physiological_systems": [
+      {
+        "system": "Thermoregulation",
+        "description": "Body temperature control through free energy minimization",
+        "mechanism": "Hypothalamus predicts and controls core temperature",
+        "prediction_errors": "Deviation from set point temperature",
+        "corrective_actions": "Shivering, sweating, vasoconstriction"
+      },
+      {
+        "system": "Glucose Regulation",
+        "description": "Blood glucose homeostasis",
+        "mechanism": "Pancreas and liver predict and regulate glucose levels",
+        "prediction_errors": "Hyperglycemia or hypoglycemia signals",
+        "corrective_actions": "Insulin release, glucagon release, feeding behavior"
+      },
+      {
+        "system": "Cardiovascular System",
+        "description": "Blood pressure and flow regulation",
+        "mechanism": "Baroreceptors predict and maintain pressure set points",
+        "prediction_errors": "Pressure deviations from optimal range",
+        "corrective_actions": "Heart rate, vessel dilation, fluid retention"
+      }
+    ],
+    "evolutionary_perspective": {
+      "natural_selection": "Organisms that minimize free energy are more likely to survive",
+      "niche_construction": "Organisms modify environment to reduce free energy",
+      "adaptive_fitness": "Fitness landscapes as free energy landscapes",
+      "evolutionary_stability": "Evolution toward free energy minimizing strategies"
+    },
+    "neural_implementation": {
+      "predictive_coding": "Neural hierarchy minimizes prediction errors",
+      "attention": "Precision weighting of prediction errors",
+      "learning": "Synaptic plasticity reduces free energy over time",
+      "development": "Neural development as free energy minimization"
+    },
+    "examples": [
+      {
+        "name": "Single-Cell Organism",
+        "description": "Bacteria maintaining internal state",
+        "mechanism": "Chemotaxis toward favorable environments",
+        "principle": "Move to minimize prediction errors about optimal conditions"
+      },
+      {
+        "name": "Plant Tropisms",
+        "description": "Plants growing toward light and nutrients",
+        "mechanism": "Phototropism and gravitropism",
+        "principle": "Growth patterns minimize free energy in environment"
+      },
+      {
+        "name": "Immune System",
+        "description": "Pathogen detection and response",
+        "mechanism": "Immune cells predict and eliminate threats",
+        "principle": "Inflammation as response to prediction errors"
+      }
+    ],
+    "levels_of_organization": {
+      "molecular": "Protein folding, enzyme kinetics",
+      "cellular": "Cell membrane potential, ion channels",
+      "organ": "Organ function and coordination",
+      "organism": "Behavior and physiological regulation",
+      "population": "Social behavior and group dynamics"
+    },
+    "connections_to_active_inference": {
+      "perception_action_cycle": "FEP unifies perception and action in biological systems",
+      "interoception": "Internal state prediction and regulation",
+      "allostasis": "Predictive regulation of physiological set points",
+      "niche_construction": "Active modification of environment to minimize free energy"
+    },
+    "interactive_exercises": [
+      {
+        "id": "homeostatic_modeling",
+        "type": "modeling",
+        "description": "Model homeostatic systems using FEP framework",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "biological_analogy",
+        "type": "analysis",
+        "description": "Analyze biological systems through FEP lens",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "FEP only applies to brain function",
+        "clarification": "FEP applies to all biological self-organization processes"
+      },
+      {
+        "misconception": "Homeostasis requires consciousness",
+        "clarification": "FEP operates at all levels from cells to conscious organisms"
+      },
+      {
+        "misconception": "Evolution contradicts FEP",
+        "clarification": "Natural selection favors free energy minimizing organisms"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Life as we know it",
+        "author": "Karl Friston",
+        "year": 2013,
+        "description": "FEP applied to origins of life and evolution"
+      },
+      {
+        "title": "The free-energy principle: a unified brain theory?",
+        "author": "Karl Friston",
+        "year": 2010,
+        "description": "Neural implementation of FEP"
+      },
+      {
+        "title": "Allostasis: a neural computational perspective",
+        "author": "Lisa Feldman Barrett",
+        "year": 2017,
+        "description": "Allostatic regulation and predictive brain"
+      }
+    ],
+    "related_concepts": [
+      "fep_introduction",
+      "fep_mathematical_formulation",
+      "homeostasis",
+      "allostasis"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 30,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": "decision_making",
+  "title": "Active Inference in Decision Making and Planning",
+  "content_type": "application",
+  "difficulty": "intermediate",
+  "description": "Application of Active Inference to human and artificial decision making, planning, and problem solving.",
+  "prerequisites": ["expected_free_energy", "ai_policy_selection"],
+  "tags": ["decision making", "planning", "problem solving", "cognitive science", "artificial intelligence"],
+  "learning_objectives": [
+    "Apply Active Inference to decision-making problems",
+    "Understand exploration-exploitation trade-offs",
+    "Design planning algorithms based on expected free energy",
+    "Analyze human decision making through Active Inference lens"
+  ],
+  "content": {
+    "overview": "Active Inference provides a normative theory of decision making that explains how agents balance exploration and exploitation. It treats decision making as planning to minimize expected free energy over future time steps.",
+    "decision_making_framework": {
+      "sequential_decision_making": "Make decisions over multiple time steps",
+      "uncertainty_reduction": "Gather information to reduce uncertainty",
+      "goal_achievement": "Take actions to achieve desired outcomes",
+      "adaptive_behavior": "Change strategies based on new information"
+    },
+    "exploration_exploitation_tradeoff": {
+      "epistemic_value": "Value of information and uncertainty reduction",
+      "pragmatic_value": "Value of immediate rewards and goal achievement",
+      "adaptive_balance": "Balance changes with experience and context",
+      "individual_differences": "Different exploration strategies for different agents"
+    },
+    "planning_algorithms": {
+      "tree_search": "Enumerate possible future paths",
+      "monte_carlo_planning": "Sample-based planning for large spaces",
+      "gradient_based_planning": "Optimize continuous decision variables",
+      "hierarchical_planning": "Planning at multiple time scales"
+    },
+    "case_studies": [
+      {
+        "name": "Foraging Decisions",
+        "description": "Animal foraging for food in uncertain environments",
+        "problem": "Decide where and how long to search for food",
+        "active_inference_solution": "Plan paths that balance food acquisition with information about food locations",
+        "human_analog": "Human foraging in supermarkets or online shopping",
+        "implementation": "Multi-armed bandit with spatial component"
+      },
+      {
+        "name": "Career Planning",
+        "description": "Making long-term career decisions",
+        "problem": "Choose career path with uncertain outcomes",
+        "active_inference_solution": "Explore different options to reduce uncertainty about fit and success",
+        "human_analog": "Job search and career transitions",
+        "implementation": "Sequential decision making with learning"
+      },
+      {
+        "name": "Medical Diagnosis",
+        "description": "Sequential diagnostic decision making",
+        "problem": "Order tests to diagnose patient condition",
+        "active_inference_solution": "Select tests that maximize information about diagnosis",
+        "human_analog": "Doctor's diagnostic process",
+        "implementation": "Active learning for medical diagnosis"
+      }
+    ],
+    "cognitive_biases": {
+      "confirmation_bias": "Seeking information that confirms existing beliefs",
+      "availability_heuristic": "Overweighting recent or salient information",
+      "loss_aversion": "Stronger preferences against losses than for gains",
+      "active_inference_explanation": "Biases as suboptimal inference or prior beliefs"
+    },
+    "group_decision_making": {
+      "social_influence": "How others' decisions affect our own",
+      "collective_intelligence": "Group performance and information sharing",
+      "consensus_formation": "How groups reach agreement",
+      "wisdom_of_crowds": "When group decisions outperform individuals"
+    },
+    "applications_in_ai": {
+      "reinforcement_learning": "Active Inference as alternative to RL",
+      "planning_algorithms": "Expected free energy for planning",
+      "exploration_strategies": "Information-seeking exploration policies",
+      "meta_learning": "Learning to learn and adapt"
+    },
+    "interactive_exercises": [
+      {
+        "id": "foraging_simulation",
+        "type": "simulation",
+        "description": "Simulate optimal foraging with Active Inference",
+        "difficulty": "intermediate",
+        "environment": "Grid world with hidden food sources",
+        "task": "Find food efficiently while learning environment"
+      },
+      {
+        "id": "sequential_decision_making",
+        "type": "planning",
+        "description": "Solve sequential decision problems",
+        "difficulty": "intermediate",
+        "problems": "Multi-step planning tasks with uncertainty"
+      }
+    ],
+    "ethical_considerations": {
+      "decision_transparency": "Making Active Inference decisions interpretable",
+      "value_alignment": "Incorporating human values into preferences",
+      "autonomy": "Balance between agent autonomy and human oversight",
+      "fairness": "Ensure equitable outcomes across different agents"
+    },
+    "future_directions": {
+      "meta_decision_making": "Deciding how to make decisions",
+      "collaborative_decision_making": "Joint decision making with other agents",
+      "emotional_decision_making": "Incorporating emotions into decision process",
+      "real_time_decision_making": "Fast decisions under time pressure"
+    },
+    "common_misconceptions": [
+      {
+        "misconception": "Active Inference ignores rewards",
+        "clarification": "Expected free energy includes both rewards and information"
+      },
+      {
+        "misconception": "Always explores when uncertain",
+        "clarification": "Exploration depends on context and preferences"
+      },
+      {
+        "misconception": "Optimal for all decision problems",
+        "clarification": "One framework among many, with specific strengths"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Decision Making Under Uncertainty",
+        "author": "Active Inference perspective",
+        "description": "Comprehensive treatment of decision making in Active Inference"
+      },
+      {
+        "title": "Planning as Inference",
+        "author": "Community literature",
+        "description": "Planning algorithms based on inference principles"
+      }
+    ],
+    "related_concepts": [
+      "expected_free_energy",
+      "ai_policy_selection",
+      "decision_theory",
+      "cognitive_science"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 45,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "learning_paths": [
+    {
+      "id": "foundations_complete",
+      "name": "Complete Foundations Track",
+      "description": "Comprehensive introduction to the theoretical foundations of Active Inference and the Free Energy Principle",
+      "nodes": [
+        "info_theory_entropy",
+        "info_theory_kl_divergence",
+        "info_theory_mutual_information",
+        "bayesian_basics",
+        "bayesian_models",
+        "belief_updating",
+        "fep_introduction",
+        "fep_mathematical_formulation",
+        "fep_biological_systems",
+        "active_inference_introduction",
+        "ai_generative_models",
+        "ai_policy_selection"
+      ],
+      "estimated_hours": 50,
+      "difficulty": "intermediate",
+      "metadata": {
+        "target_audience": "researchers, students, developers",
+        "prerequisites": "basic probability and calculus",
+        "learning_outcomes": [
+          "Understand theoretical foundations of Active Inference",
+          "Apply mathematical concepts to practical problems",
+          "Implement basic Active Inference models",
+          "Critically evaluate research in the field"
+        ]
+      }
+    },
+    {
+      "id": "information_theory_basics",
+      "name": "Information Theory Basics",
+      "description": "Essential information theory concepts for understanding Active Inference",
+      "nodes": [
+        "info_theory_entropy",
+        "info_theory_kl_divergence",
+        "info_theory_mutual_information"
+      ],
+      "estimated_hours": 8,
+      "difficulty": "beginner",
+      "metadata": {
+        "target_audience": "beginners, self-learners",
+        "prerequisites": "basic mathematics",
+        "learning_outcomes": [
+          "Calculate entropy for probability distributions",
+          "Understand KL divergence as distribution distance",
+          "Apply mutual information to measure dependence"
+        ]
+      }
+    },
+    {
+      "id": "bayesian_fundamentals",
+      "name": "Bayesian Fundamentals",
+      "description": "Core concepts of Bayesian probability and inference",
+      "nodes": [
+        "bayesian_basics",
+        "bayesian_models",
+        "belief_updating"
+      ],
+      "estimated_hours": 10,
+      "difficulty": "beginner",
+      "metadata": {
+        "target_audience": "students, developers",
+        "prerequisites": "basic probability",
+        "learning_outcomes": [
+          "Apply Bayes' theorem to real problems",
+          "Design Bayesian probabilistic models",
+          "Implement belief updating algorithms"
+        ]
+      }
+    },
+    {
+      "id": "fep_theory",
+      "name": "Free Energy Principle Theory",
+      "description": "Deep dive into the theoretical foundations of the Free Energy Principle",
+      "nodes": [
+        "fep_introduction",
+        "fep_mathematical_formulation",
+        "fep_biological_systems"
+      ],
+      "estimated_hours": 15,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "researchers, advanced students",
+        "prerequisites": "information theory, Bayesian inference",
+        "learning_outcomes": [
+          "Derive free energy expressions mathematically",
+          "Apply FEP to biological systems",
+          "Connect FEP to other theoretical frameworks"
+        ]
+      }
+    },
+    {
+      "id": "active_inference_framework",
+      "name": "Active Inference Framework",
+      "description": "Complete Active Inference framework from theory to implementation",
+      "nodes": [
+        "active_inference_introduction",
+        "ai_generative_models",
+        "ai_policy_selection"
+      ],
+      "estimated_hours": 12,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "researchers, developers",
+        "prerequisites": "FEP theory, Bayesian models",
+        "learning_outcomes": [
+          "Design Active Inference agents",
+          "Implement policy selection mechanisms",
+          "Apply Active Inference to real problems"
+        ]
+      }
+    },
+    {
+      "id": "mathematics_advanced",
+      "name": "Advanced Mathematics Track",
+      "description": "Rigorous mathematical treatment of Active Inference concepts for advanced learners",
+      "nodes": [
+        "variational_free_energy",
+        "information_geometry",
+        "expected_free_energy",
+        "predictive_coding"
+      ],
+      "estimated_hours": 30,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "mathematicians, theoretical physicists, advanced researchers",
+        "prerequisites": "strong background in calculus, linear algebra, probability theory",
+        "learning_outcomes": [
+          "Derive key mathematical results in Active Inference",
+          "Understand geometric interpretations of probability",
+          "Analyze convergence properties of algorithms",
+          "Connect Active Inference to other mathematical frameworks"
+        ]
+      }
+    },
+    {
+      "id": "implementations_practical",
+      "name": "Practical Implementation Track",
+      "description": "Hands-on implementation of Active Inference algorithms and systems",
+      "nodes": [
+        "active_inference_basic",
+        "variational_inference",
+        "expected_free_energy_calculation"
+      ],
+      "estimated_hours": 25,
+      "difficulty": "intermediate",
+      "metadata": {
+        "target_audience": "developers, engineers, applied researchers",
+        "prerequisites": "Python programming, basic machine learning",
+        "learning_outcomes": [
+          "Implement Active Inference agents from scratch",
+          "Build variational inference algorithms",
+          "Create policy selection systems",
+          "Debug and optimize Active Inference code"
+        ]
+      }
+    },
+    {
+      "id": "applications_comprehensive",
+      "name": "Applications Track",
+      "description": "Real-world applications of Active Inference across different domains",
+      "nodes": [
+        "robotics_control",
+        "neuroscience_perception",
+        "decision_making"
+      ],
+      "estimated_hours": 20,
+      "difficulty": "intermediate",
+      "metadata": {
+        "target_audience": "domain experts, interdisciplinary researchers",
+        "prerequisites": "foundations of Active Inference",
+        "learning_outcomes": [
+          "Apply Active Inference to specific problem domains",
+          "Design generative models for real applications",
+          "Understand domain-specific constraints and requirements",
+          "Evaluate Active Inference solutions in practice"
+        ]
+      }
+    },
+    {
+      "id": "complete_curriculum",
+      "name": "Complete Active Inference Curriculum",
+      "description": "Comprehensive learning path covering all aspects of Active Inference from theory to practice",
+      "nodes": [
+        "info_theory_entropy",
+        "info_theory_kl_divergence",
+        "info_theory_mutual_information",
+        "bayesian_basics",
+        "bayesian_models",
+        "belief_updating",
+        "fep_introduction",
+        "fep_mathematical_formulation",
+        "fep_biological_systems",
+        "active_inference_introduction",
+        "ai_generative_models",
+        "ai_policy_selection",
+        "variational_free_energy",
+        "information_geometry",
+        "expected_free_energy",
+        "predictive_coding",
+        "active_inference_basic",
+        "variational_inference",
+        "expected_free_energy_calculation",
+        "robotics_control",
+        "neuroscience_perception",
+        "decision_making"
+      ],
+      "estimated_hours": 120,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "comprehensive learners, researchers, educators",
+        "prerequisites": "mathematics, probability, programming",
+        "learning_outcomes": [
+          "Master complete Active Inference framework",
+          "Understand theoretical foundations and practical applications",
+          "Implement and deploy Active Inference systems",
+          "Conduct research in Active Inference",
+          "Teach and communicate Active Inference concepts"
+        ]
+      }
+    },
+    {
+      "id": "quick_start",
+      "name": "Quick Start Guide",
+      "description": "Fast introduction to Active Inference for immediate understanding",
+      "nodes": [
+        "fep_introduction",
+        "active_inference_introduction",
+        "active_inference_basic"
+      ],
+      "estimated_hours": 8,
+      "difficulty": "beginner",
+      "metadata": {
+        "target_audience": "curious learners, managers, decision makers",
+        "prerequisites": "basic science background",
+        "learning_outcomes": [
+          "Understand what Active Inference is",
+          "Grasp the basic principles and framework",
+          "See how it can be implemented",
+          "Identify potential applications"
+        ]
+      }
+    }
+  ]
+}

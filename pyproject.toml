@@ -1,0 +1,185 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "active-inference-knowledge"
+dynamic = ["version"]
+description = "Comprehensive integrated knowledge environment for Active Inference & Free Energy Principle"
+authors = [
+    {name = "Active Inference Community", email = "community@activeinference.org"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Education",
+]
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.4.0",
+    "jupyterlab>=3.4.0",
+    "torch>=1.9.0",
+    "plotly>=5.0.0",
+    "dash>=2.0.0",
+    "streamlit>=1.0.0",
+    "networkx>=2.6.0",
+    "pymc>=4.0.0",
+    "arviz>=0.12.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.2.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.3.0",
+    "flake8>=4.0.0",
+    "mypy>=0.910.0",
+    "isort>=5.10.0",
+    "pre-commit>=2.17.0",
+]
+research = [
+    "pymc3>=3.11.0",
+    "information-bottleneck>=0.1.0",
+    "mne>=1.0.0",
+    "nibabel>=3.2.0",
+    "brian2>=2.5.0",
+]
+visualization = [
+    "altair>=4.2.0",
+    "bokeh>=2.4.0",
+    "pyvis>=0.1.9",
+    "igraph>=0.9.0",
+    "graph-tool>=2.45",
+]
+platform = [
+    "fastapi>=0.68.0",
+    "uvicorn>=0.15.0",
+    "sqlalchemy>=1.4.0",
+    "redis>=4.0.0",
+    "elasticsearch>=8.0.0",
+]
+all = [
+    "active-inference-knowledge[dev,research,visualization,platform]",
+]
+
+[project.scripts]
+active-inference = "active_inference.cli:main"
+ai-knowledge = "active_inference.knowledge:main"
+ai-research = "active_inference.research:main"
+ai-visualize = "active_inference.visualization:main"
+
+[project.urls]
+Homepage = "https://github.com/docxology/active_inference"
+Documentation = "https://active-inference.readthedocs.io/"
+Repository = "https://github.com/docxology/active_inference"
+Issues = "https://github.com/docxology/active_inference/issues"
+Discussions = "https://github.com/docxology/active_inference/discussions"
+
+[tool.setuptools]
+packages = ["active_inference"]
+package-dir = {"" = "src"}
+
+[tool.setuptools_scm]
+write_to = "src/active_inference/_version.py"
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | __pycache__
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["active_inference"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "knowledge: marks tests as knowledge repository tests",
+    "research: marks tests as research tool tests",
+    "visualization: marks tests as visualization tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["active_inference"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "tests.*",
+    "test_*",
+]
+ignore_errors = true

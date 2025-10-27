@@ -1,0 +1,102 @@
+{
+  "id": "info_theory_entropy",
+  "title": "Entropy and Information",
+  "content_type": "foundation",
+  "difficulty": "beginner",
+  "description": "Understanding entropy as a measure of uncertainty and information content in probability distributions.",
+  "prerequisites": [],
+  "tags": ["information theory", "entropy", "uncertainty", "probability"],
+  "learning_objectives": [
+    "Define entropy mathematically",
+    "Understand entropy as a measure of uncertainty",
+    "Calculate entropy for simple discrete distributions",
+    "Interpret entropy in information-theoretic terms"
+  ],
+  "content": {
+    "overview": "Entropy is a fundamental concept in information theory that quantifies the uncertainty or unpredictability of a random variable. It measures the average amount of information required to encode the outcomes of a random variable.",
+    "mathematical_definition": {
+      "discrete_entropy": "H(X) = -∑ p(x) log p(x)",
+      "continuous_entropy": "h(X) = -∫ f(x) log f(x) dx",
+      "properties": [
+        "H(X) ≥ 0 (non-negativity)",
+        "H(X) = 0 iff X is deterministic",
+        "H(X) is maximized for uniform distribution",
+        "H(X|Y) ≤ H(X) (conditioning reduces uncertainty)"
+      ]
+    },
+    "examples": [
+      {
+        "name": "Binary Random Variable",
+        "description": "Coin flip with p(heads) = 0.5",
+        "calculation": "H(X) = -[0.5 log₂ 0.5 + 0.5 log₂ 0.5] = 1 bit",
+        "interpretation": "Maximum uncertainty, requires 1 bit to encode outcome"
+      },
+      {
+        "name": "Biased Coin",
+        "description": "Coin flip with p(heads) = 0.9",
+        "calculation": "H(X) = -[0.9 log₂ 0.9 + 0.1 log₂ 0.1] ≈ 0.47 bits",
+        "interpretation": "Lower uncertainty due to bias, less information needed"
+      },
+      {
+        "name": "Deterministic Variable",
+        "description": "Always heads, p(heads) = 1.0",
+        "calculation": "H(X) = -[1.0 log₂ 1.0 + 0 log₂ 0] = 0 bits",
+        "interpretation": "No uncertainty, no information needed"
+      }
+    ],
+    "applications": [
+      {
+        "domain": "Data Compression",
+        "description": "Entropy sets the theoretical limit for lossless compression"
+      },
+      {
+        "domain": "Machine Learning",
+        "description": "Used in decision trees, feature selection, and model evaluation"
+      },
+      {
+        "domain": "Cryptography",
+        "description": "High entropy sources are desirable for generating random keys"
+      }
+    ],
+    "interactive_exercises": [
+      {
+        "id": "entropy_calculation",
+        "type": "calculation",
+        "description": "Calculate entropy for different probability distributions",
+        "difficulty": "beginner"
+      },
+      {
+        "id": "entropy_interpretation",
+        "type": "interpretation",
+        "description": "Interpret entropy values for different scenarios",
+        "difficulty": "beginner"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "A Mathematical Theory of Communication",
+        "author": "Claude Shannon",
+        "year": 1948,
+        "description": "Original paper introducing entropy in information theory"
+      },
+      {
+        "title": "Elements of Information Theory",
+        "author": "Thomas Cover and Joy Thomas",
+        "year": 2006,
+        "description": "Comprehensive textbook on information theory"
+      }
+    ],
+    "related_concepts": [
+      "mutual_information",
+      "kl_divergence",
+      "cross_entropy"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 15,
+    "difficulty_level": "beginner",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

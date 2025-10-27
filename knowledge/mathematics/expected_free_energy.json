@@ -1,0 +1,134 @@
+{
+  "id": "expected_free_energy",
+  "title": "Expected Free Energy and Policy Selection",
+  "content_type": "mathematics",
+  "difficulty": "advanced",
+  "description": "Mathematical derivation and analysis of expected free energy for policy selection in Active Inference.",
+  "prerequisites": ["variational_free_energy", "ai_policy_selection"],
+  "tags": ["expected free energy", "policy selection", "information gain", "decision theory"],
+  "learning_objectives": [
+    "Derive expected free energy from variational principles",
+    "Understand the decomposition into epistemic and pragmatic terms",
+    "Apply expected free energy to policy evaluation",
+    "Analyze the exploration-exploitation trade-off mathematically"
+  ],
+  "content": {
+    "overview": "Expected free energy provides a mathematical framework for policy selection in Active Inference. It quantifies the expected cost of pursuing a policy in terms of both goal achievement and information gain.",
+    "mathematical_derivation": {
+      "variational_principle": "Minimize expected free energy over policies",
+      "expected_free_energy": "G(π) = E_Q[ln Q(π) - ln P(o_τ, s_τ)]",
+      "policy_distribution": "Q(π) = softmax(-G(π)/β)",
+      "interpretation": "Softmax policy selection based on negative expected free energy"
+    },
+    "decomposition": {
+      "pragmatic_term": "E[ln P(o_τ)] - E[ln Q(o_τ)]",
+      "epistemic_term": "H[P(s_τ | o_τ)]",
+      "total_free_energy": "G(π) = Risk + Ambiguity",
+      "risk": "-E[ln P(o_τ)] (expected negative utility)",
+      "ambiguity": "H[P(s_τ | o_τ)] (expected uncertainty)"
+    },
+    "information_gain": {
+      "mutual_information": "I(s_τ; o_τ) = H[s_τ] - H[s_τ | o_τ]",
+      "epistemic_value": "Expected reduction in uncertainty",
+      "value_of_information": "Information gain drives exploration",
+      "bayesian_surprise": "Negative log probability of observations"
+    },
+    "temporal_formulation": {
+      "multi_step_planning": "G(π) = ∑_τ G_τ(π)",
+      "discounted_future": "G(π) = ∑_τ γ^τ G_τ(π)",
+      "finite_horizon": "Planning over T time steps",
+      "infinite_horizon": "Stationary policies for ongoing tasks"
+    },
+    "examples": [
+      {
+        "name": "Two-Armed Bandit",
+        "description": "Optimal policy for exploration-exploitation",
+        "states": "Reward probabilities for each arm",
+        "policies": "Choose arm 1 or arm 2",
+        "expected_free_energy": "G(π) = -∑ p(r|s) ln p(r|s) + H[s]",
+        "solution": "Balance between known good arm and uncertain arm"
+      },
+      {
+        "name": "Grid World Navigation",
+        "description": "Path planning with uncertainty",
+        "states": "Agent position, goal location",
+        "policies": "Sequences of moves",
+        "expected_free_energy": "G(π) = -E[ln P(goal)] + H[position]",
+        "solution": "Paths that reach goal with minimal uncertainty"
+      }
+    ],
+    "optimization_methods": {
+      "gradient_based": "∇_π G(π) = -E[∇_π ln P(o_τ, s_τ | π)]",
+      "sampling_based": "Monte Carlo estimation of expected values",
+      "tree_search": "Enumerate and evaluate policy tree",
+      "dynamic_programming": "Backward induction for optimal policies"
+    },
+    "connections_to_decision_theory": {
+      "expected_utility": "Pragmatic term corresponds to expected utility",
+      "bayesian_decision_theory": "Decision making under uncertainty",
+      "information_economics": "Value of information in decision making",
+      "risk_sensitivity": "Different risk attitudes through utility functions"
+    },
+    "neural_implementation": {
+      "dopamine_system": "Encodes expected free energy and prediction errors",
+      "prefrontal_cortex": "Planning and policy evaluation",
+      "basal_ganglia": "Action selection based on expected free energy",
+      "anterior_cingulate": "Conflict monitoring between policies"
+    },
+    "interactive_exercises": [
+      {
+        "id": "expected_free_energy_calculation",
+        "type": "calculation",
+        "description": "Calculate expected free energy for simple policies",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "policy_optimization",
+        "type": "optimization",
+        "description": "Optimize policies using expected free energy",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Expected free energy is the same as expected reward",
+        "clarification": "Includes both utility and information-seeking components"
+      },
+      {
+        "misconception": "Lower expected free energy always means better policy",
+        "clarification": "Depends on the specific context and goals"
+      },
+      {
+        "misconception": "Epistemic term is always beneficial",
+        "clarification": "Information seeking must be balanced with goal achievement"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference and Learning",
+        "author": "Karl Friston et al.",
+        "year": 2016,
+        "description": "Mathematical foundation of expected free energy"
+      },
+      {
+        "title": "Sophisticated Inference",
+        "author": "Karl Friston",
+        "year": 2018,
+        "description": "Advanced treatment of expected free energy"
+      }
+    ],
+    "related_concepts": [
+      "ai_policy_selection",
+      "variational_free_energy",
+      "information_gain",
+      "decision_theory"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 45,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

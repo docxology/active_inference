@@ -1,0 +1,148 @@
+{
+  "id": "bayesian_basics",
+  "title": "Bayesian Probability Fundamentals",
+  "content_type": "foundation",
+  "difficulty": "beginner",
+  "description": "Core concepts of Bayesian probability and inference including Bayes' theorem and conditional probability.",
+  "prerequisites": [],
+  "tags": ["bayesian", "probability", "inference", "conditional probability"],
+  "learning_objectives": [
+    "State Bayes' theorem and understand its components",
+    "Apply conditional probability rules",
+    "Calculate posterior probabilities from prior and likelihood",
+    "Understand the Bayesian interpretation of probability"
+  ],
+  "content": {
+    "overview": "Bayesian probability provides a framework for updating beliefs based on new evidence. It treats probability as a measure of uncertainty about the world, which can be updated as new information becomes available.",
+    "bayes_theorem": {
+      "mathematical_form": "P(A|B) = P(B|A) * P(A) / P(B)",
+      "components": [
+        {
+          "name": "Prior",
+          "symbol": "P(A)",
+          "description": "Initial belief about hypothesis A"
+        },
+        {
+          "name": "Likelihood",
+          "symbol": "P(B|A)",
+          "description": "Probability of evidence given hypothesis"
+        },
+        {
+          "name": "Posterior",
+          "symbol": "P(A|B)",
+          "description": "Updated belief after seeing evidence"
+        },
+        {
+          "name": "Marginal Likelihood",
+          "symbol": "P(B)",
+          "description": "Total probability of evidence"
+        }
+      ]
+    },
+    "conditional_probability": {
+      "definition": "P(A|B) = P(A∩B) / P(B)",
+      "interpretation": "Probability of A given B has occurred",
+      "product_rule": "P(A∩B) = P(A|B) * P(B)",
+      "chain_rule": "P(A∩B∩C) = P(A|B∩C) * P(B|C) * P(C)"
+    },
+    "probability_interpretations": [
+      {
+        "type": "Frequentist",
+        "description": "Probability as long-run frequency",
+        "example": "Probability of heads is 0.5 based on many coin flips"
+      },
+      {
+        "type": "Bayesian",
+        "description": "Probability as degree of belief",
+        "example": "Probability of rain is 0.7 based on current evidence"
+      }
+    ],
+    "examples": [
+      {
+        "name": "Medical Diagnosis",
+        "description": "Testing for disease given symptoms",
+        "prior": "P(disease) = 0.01",
+        "likelihood": "P(symptoms|disease) = 0.9",
+        "false_positive": "P(symptoms|no_disease) = 0.1",
+        "calculation": "P(disease|symptoms) = 0.9 * 0.01 / (0.9 * 0.01 + 0.1 * 0.99) ≈ 0.083",
+        "interpretation": "8.3% chance of disease given symptoms"
+      },
+      {
+        "name": "Spam Filtering",
+        "description": "Classifying email as spam",
+        "prior": "P(spam) = 0.2",
+        "likelihood": "P('free'|spam) = 0.8",
+        "evidence": "P('free'|ham) = 0.01",
+        "calculation": "P(spam|'free') = 0.8 * 0.2 / (0.8 * 0.2 + 0.01 * 0.8) ≈ 0.952",
+        "interpretation": "95.2% chance email is spam given word 'free'"
+      }
+    ],
+    "updating_beliefs": {
+      "sequential_learning": "Today's posterior becomes tomorrow's prior",
+      "evidence_accumulation": "Multiple pieces of evidence multiply likelihoods",
+      "prior_selection": "Prior encodes domain knowledge and assumptions",
+      "sensitivity_analysis": "Test robustness to prior assumptions"
+    },
+    "connections_to_active_inference": {
+      "belief_updating": "Core mechanism for inference in Active Inference",
+      "perception": "Sensory data updates beliefs via Bayesian inference",
+      "learning": "Model parameters updated through Bayesian learning",
+      "decision_making": "Action selection based on posterior beliefs"
+    },
+    "interactive_exercises": [
+      {
+        "id": "bayes_theorem_practice",
+        "type": "calculation",
+        "description": "Practice applying Bayes' theorem to various problems",
+        "difficulty": "beginner"
+      },
+      {
+        "id": "conditional_probability",
+        "type": "calculation",
+        "description": "Calculate conditional probabilities in different scenarios",
+        "difficulty": "beginner"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Prior probabilities are subjective",
+        "clarification": "Priors can be subjective beliefs or objective frequencies"
+      },
+      {
+        "misconception": "Bayesian methods always require priors",
+        "clarification": "Objective priors exist (uniform, Jeffreys, etc.)"
+      },
+      {
+        "misconception": "Frequentist and Bayesian methods are incompatible",
+        "clarification": "They answer different questions but can complement each other"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "An Essay towards solving a Problem in the Doctrine of Chances",
+        "author": "Thomas Bayes",
+        "year": 1763,
+        "description": "Original formulation of Bayes' theorem"
+      },
+      {
+        "title": "Probability Theory: The Logic of Science",
+        "author": "E.T. Jaynes",
+        "year": 2003,
+        "description": "Comprehensive treatment of Bayesian probability"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_models",
+      "belief_updating",
+      "prior_distributions",
+      "posterior_inference"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 25,
+    "difficulty_level": "beginner",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

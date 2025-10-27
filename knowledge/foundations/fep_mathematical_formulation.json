@@ -1,0 +1,140 @@
+{
+  "id": "fep_mathematical_formulation",
+  "title": "Free Energy Principle Mathematical Foundation",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Rigorous mathematical formulation of the Free Energy Principle including variational methods and information theory.",
+  "prerequisites": ["fep_introduction", "info_theory_kl_divergence", "bayesian_models"],
+  "tags": ["free energy principle", "variational inference", "information geometry", "mathematical formulation"],
+  "learning_objectives": [
+    "Derive the variational free energy expression",
+    "Understand the relationship between free energy and surprise",
+    "Apply FEP to hierarchical generative models",
+    "Connect FEP to information theory and Bayesian inference"
+  ],
+  "content": {
+    "overview": "The Free Energy Principle provides a mathematical framework for understanding how biological systems maintain their integrity. This section develops the rigorous mathematical foundation including variational methods and information-theoretic interpretations.",
+    "variational_free_energy": {
+      "definition": "F = D_KL[q(θ) || p(θ|x)] - log p(x)",
+      "surprise_bound": "F ≥ -log p(x) (free energy bounds surprise)",
+      "interpretation": "Free energy combines complexity and accuracy terms",
+      "components": [
+        {
+          "term": "Accuracy: -log p(x)",
+          "description": "Negative log likelihood of observations"
+        },
+        {
+          "term": "Complexity: D_KL[q(θ) || p(θ)]",
+          "description": "KL divergence between variational and prior distributions"
+        }
+      ]
+    },
+    "hierarchical_formulation": {
+      "general_form": "F = ∑ᵢ D_KL[q(θᵢ) || p(θᵢ | θᵢ₊₁)] + ∑ᵢ H[q(θᵢ)] - log p(x)",
+      "hierarchical_kl": "D_KL[q(θᵢ) || p(θᵢ | θᵢ₊₁)] measures mismatch at each level",
+      "information_flow": "Higher levels predict lower levels",
+      "prediction_errors": "Residuals between levels drive learning"
+    },
+    "information_geometric_interpretation": {
+      "statistical_manifold": "Space of probability distributions with Fisher metric",
+      "natural_gradient": "Gradient flow on statistical manifold",
+      "geodesic_flow": "Shortest paths in probability space",
+      "connection_to_wasserstein": "Optimal transport interpretation"
+    },
+    "gradient_flows": {
+      "free_energy_gradient": "∂F/∂μ = - (∇_μ log q(μ) + ∇_μ log p(x|μ))",
+      "natural_gradient_descent": "Update in the direction of steepest descent",
+      "continuous_time_limit": "dμ/dt = -∇_μ F (gradient flow)",
+      "stochastic_gradient": "Handle large-scale systems with sampling"
+    },
+    "equilibrium_and_steady_states": {
+      "minimum_free_energy": "Equilibrium at F = 0 (perfect model)",
+      "steady_state": "dF/dt = 0 when predictions match observations",
+      "local_minima": "Free energy landscape may have multiple minima",
+      "basins_of_attraction": "Different initial conditions converge to different states"
+    },
+    "examples": [
+      {
+        "name": "Linear Gaussian System",
+        "description": "Exact inference in linear Gaussian models",
+        "model": "x = θ + ε, ε ~ N(0,σ²)",
+        "prior": "θ ~ N(0,τ²)",
+        "posterior": "θ|x ~ N(μ, Σ) with μ = (τ²x)/(σ² + τ²)",
+        "free_energy": "F = (x²)/(2(σ² + τ²)) + (1/2)log(2π(σ² + τ²))"
+      },
+      {
+        "name": "Neural Mass Models",
+        "description": "Application to neural dynamics",
+        "equations": "Neural activity minimizes variational free energy",
+        "interpretation": "Neural dynamics as gradient descent on free energy"
+      }
+    ],
+    "connections_to_other_frameworks": {
+      "predictive_coding": "Prediction errors as free energy gradients",
+      "information_bottleneck": "Minimal sufficient statistics minimize free energy",
+      "maximum_entropy": "MaxEnt as special case of free energy minimization",
+      "statistical_physics": "Connection to thermodynamic free energy"
+    },
+    "interactive_exercises": [
+      {
+        "id": "variational_derivation",
+        "type": "derivation",
+        "description": "Derive variational free energy from first principles",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "hierarchical_computation",
+        "type": "calculation",
+        "description": "Compute free energy in hierarchical models",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Free energy is minimized to zero",
+        "clarification": "Free energy approaches minimum but never reaches zero in complex systems"
+      },
+      {
+        "misconception": "FEP requires perfect models",
+        "clarification": "FEP works with approximate models and bounded rationality"
+      },
+      {
+        "misconception": "Variational free energy is the same as thermodynamic free energy",
+        "clarification": "They are analogous but arise in different contexts"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "The Free Energy Principle: A Rough Guide to the Brain?",
+        "author": "Karl Friston",
+        "year": 2009,
+        "description": "Original mathematical formulation"
+      },
+      {
+        "title": "A Free Energy Principle for Biological Systems",
+        "author": "Karl Friston",
+        "year": 2012,
+        "description": "Comprehensive theoretical treatment"
+      },
+      {
+        "title": "Variational Inference: A Review for Statisticians",
+        "author": "David Blei et al.",
+        "year": 2017,
+        "description": "Connection between variational methods and FEP"
+      }
+    ],
+    "related_concepts": [
+      "fep_introduction",
+      "fep_biological_systems",
+      "variational_inference",
+      "information_geometry"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 35,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

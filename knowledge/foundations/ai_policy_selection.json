@@ -1,0 +1,159 @@
+{
+  "id": "ai_policy_selection",
+  "title": "Policy Selection and Planning in Active Inference",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding how Active Inference agents select actions and plan sequences of behavior to minimize expected free energy.",
+  "prerequisites": ["ai_generative_models", "active_inference_introduction"],
+  "tags": ["policy selection", "planning", "decision making", "expected free energy", "control"],
+  "learning_objectives": [
+    "Calculate expected free energy for different policies",
+    "Understand the exploration-exploitation trade-off in Active Inference",
+    "Implement planning algorithms for policy selection",
+    "Design reward functions and preferences in Active Inference"
+  ],
+  "content": {
+    "overview": "Policy selection in Active Inference is the process of choosing sequences of actions that minimize expected free energy. This unifies goal-directed behavior, information seeking, and motor control under a single principle.",
+    "expected_free_energy": {
+      "mathematical_form": "G(π) = E_Q[ln Q(π) - ln P(o_τ, s_τ)]",
+      "decomposition": "G(π) = Risk + Ambiguity - Expected Reward",
+      "risk": "Expected cost of outcomes (pragmatic)",
+      "ambiguity": "Expected uncertainty about outcomes (epistemic)",
+      "interpretation": "Balance between exploitation and exploration"
+    },
+    "policy_representation": {
+      "discrete_policies": "Finite set of action sequences",
+      "continuous_policies": "Parameterized control trajectories",
+      "hierarchical_policies": "Nested temporal scales",
+      "contextual_policies": "Policies conditioned on current state"
+    },
+    "planning_algorithms": [
+      {
+        "algorithm": "Tree Search",
+        "description": "Enumerate and evaluate possible futures",
+        "method": "Depth-limited search with pruning",
+        "complexity": "Exponential in planning horizon",
+        "use_case": "Short-term planning with small action spaces"
+      },
+      {
+        "algorithm": "Gradient-based Planning",
+        "description": "Optimize policy parameters using gradients",
+        "method": "Natural gradient ascent on negative expected free energy",
+        "complexity": "Linear in number of parameters",
+        "use_case": "Continuous control and long-term planning"
+      },
+      {
+        "algorithm": "Sampling-based Planning",
+        "description": "Sample policies and evaluate expected free energy",
+        "method": "Monte Carlo estimation of policy values",
+        "complexity": "Linear in number of samples",
+        "use_case": "Large action spaces, stochastic environments"
+      }
+    ],
+    "exploration_exploitation_tradeoff": {
+      "epistemic_value": "Value of information - reducing uncertainty",
+      "pragmatic_value": "Value of outcomes - achieving goals",
+      "intrinsic_motivation": "Curiosity drives exploration",
+      "adaptive_behavior": "Balance changes with context and experience"
+    },
+    "examples": [
+      {
+        "name": "Optimal Foraging",
+        "description": "Animal deciding where to search for food",
+        "policies": "Search in different patches",
+        "preferences": "High value on food locations",
+        "expected_free_energy": "Low for known good patches, low for uncertain patches",
+        "planning": "Multi-step path planning to food sources"
+      },
+      {
+        "name": "Visual Search Task",
+        "description": "Finding target in cluttered environment",
+        "policies": "Saccade to different locations",
+        "preferences": "High value on target location",
+        "expected_free_energy": "Low when looking at target, low when uncertain about location",
+        "planning": "Sequence of eye movements to minimize search time"
+      },
+      {
+        "name": "Motor Control",
+        "description": "Reaching for an object",
+        "policies": "Different reaching trajectories",
+        "preferences": "High value on object contact",
+        "expected_free_energy": "Low for smooth, accurate trajectories",
+        "planning": "Trajectory optimization with obstacle avoidance"
+      }
+    ],
+    "reward_and_preferences": {
+      "prior_preferences": "Prior distribution over desired outcomes",
+      "reward_function": "Negative log probability of preferred outcomes",
+      "intrinsic_rewards": "Information-seeking as intrinsic motivation",
+      "social_preferences": "Preferences influenced by other agents"
+    },
+    "stochastic_policy_selection": {
+      "boltzmann_distribution": "P(π) ∝ exp(-β G(π))",
+      "temperature": "β controls exploration vs exploitation",
+      "habitual_policies": "Cached policies for familiar situations",
+      "policy_switching": "Change policies when expected free energy increases"
+    },
+    "connections_to_neuroscience": {
+      "basal_ganglia": "Action selection and policy competition",
+      "prefrontal_cortex": "Planning and policy evaluation",
+      "dopamine": "Encodes expected free energy and prediction errors",
+      "anterior_cingulate": "Conflict monitoring between competing policies"
+    },
+    "interactive_exercises": [
+      {
+        "id": "policy_evaluation",
+        "type": "calculation",
+        "description": "Calculate expected free energy for different policies",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "planning_algorithm",
+        "type": "implementation",
+        "description": "Implement planning algorithm for simple control task",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Active Inference only does exploitation",
+        "clarification": "Epistemic term drives exploration and information seeking"
+      },
+      {
+        "misconception": "Planning requires perfect model of world",
+        "clarification": "Planning works with approximate models and uncertainty"
+      },
+      {
+        "misconception": "Policy selection is deterministic",
+        "clarification": "Stochastic selection allows for behavioral variability"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference and Robotics",
+        "author": "Karl Friston et al.",
+        "year": 2016,
+        "description": "Application of Active Inference to robotics and control"
+      },
+      {
+        "title": "Sophisticated Inference",
+        "author": "Karl Friston",
+        "year": 2018,
+        "description": "Advanced treatment of planning in Active Inference"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_introduction",
+      "ai_generative_models",
+      "expected_free_energy",
+      "planning_algorithms"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 40,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

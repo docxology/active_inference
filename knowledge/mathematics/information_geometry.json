@@ -1,0 +1,133 @@
+{
+  "id": "information_geometry",
+  "title": "Information Geometry and Riemannian Manifolds",
+  "content_type": "mathematics",
+  "difficulty": "expert",
+  "description": "Advanced treatment of information geometry, Fisher metric, and Riemannian geometry of probability distributions.",
+  "prerequisites": ["variational_free_energy", "info_theory_kl_divergence"],
+  "tags": ["information geometry", "riemannian geometry", "fisher metric", "statistical manifolds"],
+  "learning_objectives": [
+    "Understand statistical manifolds and their geometry",
+    "Compute Fisher information metric",
+    "Apply natural gradient methods",
+    "Analyze curvature and geodesics in probability space"
+  ],
+  "content": {
+    "overview": "Information geometry studies the geometric structure of probability distributions. It provides a Riemannian geometric framework for understanding statistical inference and information theory.",
+    "statistical_manifolds": {
+      "definition": "Space of probability distributions with Riemannian structure",
+      "parameterization": "θ → p(x;θ) maps parameters to distributions",
+      "tangent_space": "Space of score functions ∂_θ log p(x;θ)",
+      "metric_structure": "Riemannian metric defined by Fisher information"
+    },
+    "fisher_information_metric": {
+      "definition": "g_ij(θ) = E[∂_i log p(x;θ) ∂_j log p(x;θ)]",
+      "properties": [
+        "Positive semi-definite",
+        "Invariant under reparameterization",
+        "Measures local curvature of statistical manifold"
+      ],
+      "interpretation": "Fisher information quantifies information about parameters in data",
+      "cramer_rao_bound": "Var(θ̂) ≥ (g^ij)^(-1) - lower bound on estimator variance"
+    },
+    "natural_gradient_descent": {
+      "standard_gradient": "∇_θ L = ∂_θ L",
+      "natural_gradient": "∇̃_θ L = G^(-1) ∇_θ L",
+      "invariance": "Natural gradient is invariant under reparameterization",
+      "convergence": "Faster convergence than standard gradient descent",
+      "application": "Optimization in probability space"
+    },
+    "geodesics_and_curvature": {
+      "geodesic_equation": "d²θ^i/dτ² + Γ^i_jk (dθ^j/dτ)(dθ^k/dτ) = 0",
+      "christoffel_symbols": "Γ^i_jk = (1/2) g^il (∂_j g_kl + ∂_k g_jl - ∂_l g_jk)",
+      "exponential_map": "Maps tangent vectors to points on manifold",
+      "logarithmic_map": "Inverse of exponential map",
+      "sectional_curvature": "Measures curvature of 2D subspaces"
+    },
+    "examples": [
+      {
+        "name": "Gaussian Family",
+        "description": "Geometry of multivariate Gaussian distributions",
+        "parameterization": "θ = (μ, Σ)",
+        "fisher_metric": "g_μμ = Σ^(-1), g_μΣ = 0, g_ΣΣ = (1/2) Σ^(-1) ⊗ Σ^(-1)",
+        "geodesics": "Straight lines in mean, scaling in covariance",
+        "interpretation": "Flat geometry for location, curved for scale"
+      },
+      {
+        "name": "Exponential Family",
+        "description": "General exponential family distributions",
+        "natural_parameters": "η = T(x), sufficient statistics T(x)",
+        "fisher_metric": "g_ij = E[∂_i log p ∂_j log p] = Cov(T_i, T_j)",
+        "duality": "Convex conjugate relationship between parameters",
+        "legendre_transform": "Maps between natural and expectation parameters"
+      }
+    ],
+    "connections_to_active_inference": {
+      "natural_gradient_flow": "Brain dynamics as gradient flow on statistical manifold",
+      "variational_inference": "Natural gradient methods for efficient inference",
+      "policy_optimization": "Natural gradients in policy space",
+      "neural_geometry": "Neural representations as points on statistical manifold"
+    },
+    "applications": {
+      "machine_learning": "Natural gradient methods in deep learning",
+      "statistical_mechanics": "Connection to thermodynamic geometry",
+      "quantum_information": "Quantum state geometry",
+      "signal_processing": "Optimal filtering and estimation"
+    },
+    "interactive_exercises": [
+      {
+        "id": "fisher_metric_computation",
+        "type": "calculation",
+        "description": "Compute Fisher metric for common distributions",
+        "difficulty": "expert"
+      },
+      {
+        "id": "natural_gradient",
+        "type": "implementation",
+        "description": "Implement natural gradient descent algorithm",
+        "difficulty": "expert"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Statistical manifolds are Euclidean",
+        "clarification": "Generally curved Riemannian manifolds"
+      },
+      {
+        "misconception": "Fisher metric is the only possible metric",
+        "clarification": "Other metrics exist (Wasserstein, Hellinger, etc.)"
+      },
+      {
+        "misconception": "Information geometry is only theoretical",
+        "clarification": "Has practical applications in optimization and inference"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Methods of Information Geometry",
+        "author": "Shun-ichi Amari and Hiroshi Nagaoka",
+        "year": 2000,
+        "description": "Foundational text on information geometry"
+      },
+      {
+        "title": "Information Geometry and Its Applications",
+        "author": "Shun-ichi Amari",
+        "year": 2016,
+        "description": "Applications and recent developments"
+      }
+    ],
+    "related_concepts": [
+      "variational_free_energy",
+      "fisher_information",
+      "riemannian_geometry",
+      "natural_gradient"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 50,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "id": "info_theory_kl_divergence",
+  "title": "Kullback-Leibler Divergence",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Understanding KL divergence as a measure of difference between probability distributions.",
+  "prerequisites": ["info_theory_entropy"],
+  "tags": ["information theory", "kl divergence", "probability distributions", "distance measure"],
+  "learning_objectives": [
+    "Define KL divergence mathematically",
+    "Understand KL divergence as a measure of distribution difference",
+    "Calculate KL divergence for simple distributions",
+    "Interpret KL divergence in information-theoretic terms"
+  ],
+  "content": {
+    "overview": "Kullback-Leibler (KL) divergence measures how much one probability distribution differs from another reference distribution. It quantifies the information loss when using one distribution to approximate another.",
+    "mathematical_definition": {
+      "discrete_form": "D_KL(P||Q) = ∑ p(x) log(p(x)/q(x))",
+      "continuous_form": "D_KL(P||Q) = ∫ p(x) log(p(x)/q(x)) dx",
+      "properties": [
+        "D_KL(P||Q) ≥ 0 (non-negativity)",
+        "D_KL(P||Q) = 0 iff P = Q (almost everywhere)",
+        "D_KL(P||Q) ≠ D_KL(Q||P) (asymmetry)",
+        "D_KL(P||Q) is infinite if Q(x) = 0 where P(x) > 0"
+      ]
+    },
+    "interpretation": {
+      "information_loss": "Expected log-likelihood ratio between distributions",
+      "relative_entropy": "KL divergence is also called relative entropy",
+      "approximation_error": "Measures how well Q approximates P",
+      "coding_efficiency": "Extra bits needed when using Q instead of P"
+    },
+    "examples": [
+      {
+        "name": "Gaussian Distributions",
+        "description": "Two Gaussians with different means",
+        "setup": "P ~ N(0,1), Q ~ N(1,1)",
+        "calculation": "D_KL(P||Q) = 0.5 * (1² + 0 - 1 - log(1)) = 0.5",
+        "interpretation": "Symmetric case shows mean difference penalty"
+      },
+      {
+        "name": "Bernoulli Distributions",
+        "description": "Biased vs fair coin",
+        "setup": "P(heads=1) = 0.8, Q(heads=1) = 0.5",
+        "calculation": "D_KL(P||Q) = 0.8 log₂(0.8/0.5) + 0.2 log₂(0.2/0.5) ≈ 0.279 bits",
+        "interpretation": "Information loss from using fair coin model for biased coin"
+      },
+      {
+        "name": "Model Selection",
+        "description": "Choosing between two models for data",
+        "application": "KL divergence helps select best approximating model",
+        "interpretation": "Lower KL means better model fit to true distribution"
+      }
+    ],
+    "applications": [
+      {
+        "domain": "Machine Learning",
+        "description": "Model selection, variational inference, GAN training"
+      },
+      {
+        "domain": "Statistics",
+        "description": "Hypothesis testing, confidence regions"
+      },
+      {
+        "domain": "Signal Processing",
+        "description": "Source coding, rate distortion theory"
+      },
+      {
+        "domain": "Neuroscience",
+        "description": "Neural coding, population coding analysis"
+      }
+    ],
+    "connections_to_active_inference": {
+      "variational_free_energy": "KL term in variational free energy",
+      "model_evidence": "KL divergence relates to log model evidence",
+      "posterior_approximation": "Measures quality of approximate posteriors"
+    },
+    "interactive_exercises": [
+      {
+        "id": "kl_calculation",
+        "type": "calculation",
+        "description": "Calculate KL divergence between different distributions",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "kl_interpretation",
+        "type": "interpretation",
+        "description": "Interpret KL divergence values in different contexts",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "KL divergence is symmetric",
+        "clarification": "D_KL(P||Q) ≠ D_KL(Q||P) in general"
+      },
+      {
+        "misconception": "KL divergence is a metric",
+        "clarification": "Does not satisfy triangle inequality, not a true metric"
+      },
+      {
+        "misconception": "Lower KL means better approximation",
+        "clarification": "Depends on direction: D_KL(P||Q) measures how well Q approximates P"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "A Mathematical Theory of Communication",
+        "author": "Claude Shannon",
+        "year": 1948,
+        "description": "Original work on information theory"
+      },
+      {
+        "title": "Elements of Information Theory",
+        "author": "Thomas Cover and Joy Thomas",
+        "year": 2006,
+        "description": "Comprehensive treatment of KL divergence"
+      }
+    ],
+    "related_concepts": [
+      "info_theory_entropy",
+      "info_theory_mutual_information",
+      "variational_free_energy",
+      "cross_entropy"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 20,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

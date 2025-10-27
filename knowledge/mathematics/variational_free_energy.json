@@ -1,0 +1,133 @@
+{
+  "id": "variational_free_energy",
+  "title": "Variational Free Energy and Information Theory",
+  "content_type": "mathematics",
+  "difficulty": "advanced",
+  "description": "Mathematical derivation and analysis of variational free energy from information theory and probability theory.",
+  "prerequisites": ["fep_mathematical_formulation", "info_theory_kl_divergence"],
+  "tags": ["variational free energy", "information theory", "bayesian inference", "optimization"],
+  "learning_objectives": [
+    "Derive variational free energy from first principles",
+    "Understand the relationship between free energy and surprise",
+    "Apply variational methods to approximate inference",
+    "Analyze convergence properties of variational algorithms"
+  ],
+  "content": {
+    "overview": "Variational free energy provides a tractable objective for approximate Bayesian inference. It bounds the log model evidence and enables efficient computation in complex probabilistic models.",
+    "mathematical_derivation": {
+      "surprise_definition": "Surprise = -log p(x)",
+      "log_evidence": "log p(x) = log ∫ p(x,θ) dθ",
+      "jensen_inequality": "log E[f(X)] ≥ E[log f(X)]",
+      "variational_lower_bound": "log p(x) ≥ E_q[log p(x,θ) - log q(θ)] = -F[q]"
+    },
+    "variational_free_energy_components": {
+      "expected_energy": "E_q[log p(x,θ)] = expected log joint probability",
+      "entropy": "H[q] = -E_q[log q(θ)] = entropy of variational distribution",
+      "free_energy": "F[q] = E_q[log p(x,θ)] + H[q] ≤ log p(x)",
+      "interpretation": "Free energy balances model fit and model complexity"
+    },
+    "kl_divergence_formulation": {
+      "rearrangement": "log p(x) - F[q] = D_KL[q(θ) || p(θ|x)]",
+      "interpretation": "Difference between log evidence and free energy equals KL divergence",
+      "minimization": "min_q F[q] = max_q log p(x) - D_KL[q || p(θ|x)]",
+      "optimality": "Optimal q(θ) = p(θ|x) when F[q] = log p(x)"
+    },
+    "gradient_flows": {
+      "natural_gradient": "∂F/∂μ = - (∇_μ log q(μ) + ∇_μ log p(x|μ))",
+      "fixed_form": "For fixed q form, update natural parameters",
+      "mean_field": "Assume independence between variables",
+      "convergence": "Gradient descent converges to local minimum"
+    },
+    "examples": [
+      {
+        "name": "Gaussian Variational Approximation",
+        "description": "Approximate posterior with Gaussian distribution",
+        "model": "p(x|θ) = N(θ, σ²), p(θ) = N(0, τ²)",
+        "variational_family": "q(θ) = N(μ, Σ)",
+        "free_energy": "F = (1/2)log|Σ| + (1/2)tr(Σ⁻¹(μ² + σ² + τ²)) - (1/2)log(2πσ²τ²/(σ² + τ²))",
+        "solution": "μ = (τ²/(σ² + τ²))x, Σ = τ²σ²/(σ² + τ²)"
+      },
+      {
+        "name": "Mean Field Approximation",
+        "description": "Factorize joint distribution",
+        "joint_distribution": "p(x₁, x₂, ..., xₙ)",
+        "approximation": "q(x₁, x₂, ..., xₙ) = ∏ q_i(x_i)",
+        "free_energy": "F = ∑ E[log p(x_i | x_{-i})] + ∑ H[q_i]",
+        "iteration": "Update each q_i while holding others fixed"
+      }
+    ],
+    "information_geometric_interpretation": {
+      "statistical_manifold": "Space of probability distributions",
+      "fisher_metric": "g_ij = E[∂_i log p ∂_j log p]",
+      "natural_gradient": "∇̃ θ = G⁻¹ ∇θ (preconditioned gradient)",
+      "geodesic_flow": "Gradient flow in probability space"
+    },
+    "convergence_and_optimality": {
+      "local_optimality": "Variational methods find local optima",
+      "global_optimality": "Convex problems have global solutions",
+      "rate_of_convergence": "Depends on curvature of free energy landscape",
+      "coordinate_ascent": "Block coordinate ascent for factorized approximations"
+    },
+    "connections_to_other_frameworks": {
+      "expectation_maximization": "EM as variational inference for latent variable models",
+      "variational_autoencoders": "Neural implementation of variational inference",
+      "expectation_propagation": "Alternative approach to approximate inference",
+      "integrated_nested_laplace": "Bayesian inference with Laplace approximation"
+    },
+    "interactive_exercises": [
+      {
+        "id": "variational_derivation",
+        "type": "derivation",
+        "description": "Derive variational free energy from Jensen's inequality",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "gradient_computation",
+        "type": "calculation",
+        "description": "Compute gradients of free energy for simple models",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Variational free energy equals log evidence",
+        "clarification": "Free energy bounds log evidence, equality only at optimum"
+      },
+      {
+        "misconception": "More flexible q always gives better approximation",
+        "clarification": "More parameters can lead to overfitting and higher variance"
+      },
+      {
+        "misconception": "Variational methods always find global optimum",
+        "clarification": "Only guaranteed for convex optimization problems"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Variational Inference: A Review for Statisticians",
+        "author": "David Blei et al.",
+        "year": 2017,
+        "description": "Comprehensive review of variational inference"
+      },
+      {
+        "title": "Pattern Recognition and Machine Learning",
+        "author": "Christopher Bishop",
+        "year": 2006,
+        "description": "Variational methods in machine learning"
+      }
+    ],
+    "related_concepts": [
+      "fep_mathematical_formulation",
+      "information_geometry",
+      "bayesian_inference",
+      "expectation_maximization"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 45,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

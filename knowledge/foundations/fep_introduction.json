@@ -1,0 +1,157 @@
+{
+  "id": "fep_introduction",
+  "title": "Free Energy Principle Overview",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Introduction to the Free Energy Principle as a unifying theory of brain function, perception, and action.",
+  "prerequisites": ["info_theory_entropy", "bayesian_basics"],
+  "tags": ["free energy principle", "theory", "unification", "brain", "perception"],
+  "learning_objectives": [
+    "State the Free Energy Principle mathematically",
+    "Understand free energy as prediction error",
+    "Connect FEP to information theory and Bayesian inference",
+    "Explain how FEP unifies perception and action"
+  ],
+  "content": {
+    "overview": "The Free Energy Principle (FEP) is a theoretical framework that explains how biological systems maintain their integrity by minimizing a quantity called 'free energy'. It provides a unifying account of brain function, perception, learning, and behavior.",
+    "core_principle": {
+      "statement": "All biological systems minimize their free energy to maintain their structural and functional integrity.",
+      "mathematical_form": "dF/dt ≤ 0",
+      "interpretation": "Free energy decreases over time (or stays constant in equilibrium)"
+    },
+    "free_energy_definition": {
+      "variational_free_energy": "F = D_KL[q(θ)||p(θ|x)] - log p(x)",
+      "prediction_error": "Free energy bounds surprise: F ≥ -log p(x)",
+      "interpretation": "Free energy is an upper bound on surprise (negative log likelihood)"
+    },
+    "key_components": [
+      {
+        "name": "Generative Models",
+        "description": "Internal models that predict sensory inputs",
+        "role": "Generate predictions about the world"
+      },
+      {
+        "name": "Variational Density",
+        "description": "Approximate posterior distribution over model parameters",
+        "role": "Represents current beliefs about the world"
+      },
+      {
+        "name": "Prediction Errors",
+        "description": "Difference between predictions and observations",
+        "role": "Drive belief updating and behavior"
+      }
+    ],
+    "perception_as_inference": {
+      "principle": "Perception is the process of inferring the causes of sensory input",
+      "mechanism": "Update internal model to minimize free energy",
+      "outcome": "Beliefs converge to posterior distribution"
+    },
+    "action_as_inference": {
+      "principle": "Action is the process of selecting actions to fulfill predictions",
+      "mechanism": "Select actions that minimize expected free energy",
+      "outcome": "Actions change the world to match predictions"
+    },
+    "biological_implications": [
+      {
+        "domain": "Brain Function",
+        "description": "Brain minimizes free energy through hierarchical predictive coding"
+      },
+      {
+        "domain": "Homeostasis",
+        "description": "Physiological regulation maintains internal states"
+      },
+      {
+        "domain": "Evolution",
+        "description": "Natural selection favors free energy minimizing organisms"
+      },
+      {
+        "domain": "Consciousness",
+        "description": "Phenomenal experience arises from free energy minimization"
+      }
+    ],
+    "mathematical_connections": {
+      "information_theory": "Free energy bounds surprise and information gain",
+      "bayesian_inference": "Free energy minimization implements Bayesian updating",
+      "variational_methods": "FEP uses variational approximation for inference",
+      "statistical_physics": "Connection to thermodynamic free energy"
+    },
+    "examples": [
+      {
+        "name": "Visual Perception",
+        "description": "Brain predicts visual input and updates beliefs based on errors",
+        "process": "Retinal signals → prediction errors → belief updating → refined predictions"
+      },
+      {
+        "name": "Motor Control",
+        "description": "Motor commands selected to minimize predicted proprioceptive errors",
+        "process": "Intended movement → predicted sensations → action → error correction"
+      },
+      {
+        "name": "Homeostatic Regulation",
+        "description": "Body maintains temperature by minimizing physiological prediction errors",
+        "process": "Set point → prediction → deviation → corrective action"
+      }
+    ],
+    "interactive_exercises": [
+      {
+        "id": "fep_simulation",
+        "type": "simulation",
+        "description": "Interactive simulation of free energy minimization",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "prediction_error_calculation",
+        "type": "calculation",
+        "description": "Calculate prediction errors for simple generative models",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Free energy is the same as thermodynamic free energy",
+        "clarification": "Variational free energy is information-theoretic, not thermodynamic"
+      },
+      {
+        "misconception": "FEP only applies to brain function",
+        "clarification": "FEP applies to all biological self-organization"
+      },
+      {
+        "misconception": "Free energy minimization requires consciousness",
+        "clarification": "FEP operates at all levels, from cells to conscious brains"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "The Free Energy Principle: A Rough Guide to the Brain?",
+        "author": "Karl Friston",
+        "year": 2009,
+        "description": "Seminal paper introducing the Free Energy Principle"
+      },
+      {
+        "title": "A Free Energy Principle for Biological Systems",
+        "author": "Karl Friston",
+        "year": 2012,
+        "description": "Comprehensive theoretical treatment"
+      },
+      {
+        "title": "Active Inference: The Free Energy Principle in Mind, Brain, and Behavior",
+        "author": "Thomas Parr, Giovanni Pezzulo, Karl Friston",
+        "year": 2022,
+        "description": "Book on Active Inference framework"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_introduction",
+      "variational_free_energy",
+      "predictive_coding",
+      "generative_models"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 25,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "id": "bayesian_models",
+  "title": "Bayesian Models and Graphical Representations",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Understanding Bayesian networks, graphical models, and probabilistic modeling frameworks.",
+  "prerequisites": ["bayesian_basics"],
+  "tags": ["bayesian networks", "graphical models", "probabilistic modeling", "directed graphs"],
+  "learning_objectives": [
+    "Understand structure and semantics of Bayesian networks",
+    "Apply conditional independence in graphical models",
+    "Perform inference in Bayesian networks",
+    "Design Bayesian models for real problems"
+  ],
+  "content": {
+    "overview": "Bayesian networks provide a graphical language for representing probabilistic relationships between variables. They make complex joint probability distributions manageable through conditional independence assumptions.",
+    "bayesian_networks": {
+      "definition": "Directed acyclic graph where nodes are random variables and edges represent conditional dependencies",
+      "joint_probability": "P(X₁, X₂, ..., Xₙ) = ∏ P(Xᵢ | Parents(Xᵢ))",
+      "conditional_independence": "Variables are independent given their Markov blanket",
+      "markov_blanket": "Parents, children, and co-parents of a node"
+    },
+    "graphical_model_types": [
+      {
+        "type": "Bayesian Networks",
+        "description": "Directed graphs for causal relationships",
+        "use_case": "Modeling causal systems with known directionality"
+      },
+      {
+        "type": "Markov Random Fields",
+        "description": "Undirected graphs for symmetric relationships",
+        "use_case": "Spatial statistics, image processing"
+      },
+      {
+        "type": "Dynamic Bayesian Networks",
+        "description": "Temporal graphs for time series",
+        "use_case": "Temporal processes, sequential data"
+      }
+    ],
+    "inference_methods": {
+      "exact_inference": [
+        {
+          "method": "Variable Elimination",
+          "description": "Systematically eliminate variables from joint distribution",
+          "complexity": "Exponential in treewidth"
+        },
+        {
+          "method": "Belief Propagation",
+          "description": "Message passing in tree-structured graphs",
+          "complexity": "Linear in number of edges for trees"
+        }
+      ],
+      "approximate_inference": [
+        {
+          "method": "Monte Carlo Methods",
+          "description": "Sampling-based approximation",
+          "examples": "Metropolis-Hastings, Gibbs sampling"
+        },
+        {
+          "method": "Variational Inference",
+          "description": "Optimize variational lower bound",
+          "examples": "Mean-field approximation"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "name": "Medical Diagnosis Network",
+        "description": "Disease-symptom relationships",
+        "variables": ["Disease", "Symptoms", "Test Results"],
+        "structure": "Disease → Symptoms, Disease → Test Results",
+        "inference": "P(Disease | Symptoms, Test Results)"
+      },
+      {
+        "name": "Student Network",
+        "description": "Classic Bayesian network example",
+        "variables": ["Intelligence", "Difficulty", "Grade", "SAT", "Letter"],
+        "structure": "Difficulty → Grade ← Intelligence → SAT → Letter",
+        "inference": "P(Intelligence | Grade, SAT, Letter)"
+      }
+    ],
+    "model_design_principles": {
+      "causality": "Edges represent causal relationships when possible",
+      "modularity": "Local relationships easier to specify and understand",
+      "sparsity": "Fewer edges mean simpler inference",
+      "domain_expertise": "Incorporate expert knowledge in structure"
+    },
+    "connections_to_active_inference": {
+      "generative_models": "Bayesian networks as generative models of world",
+      "hierarchical_models": "Multi-level Bayesian networks for complex systems",
+      "temporal_models": "Dynamic Bayesian networks for sequential inference",
+      "active_learning": "Models that guide information gathering"
+    },
+    "interactive_exercises": [
+      {
+        "id": "network_construction",
+        "type": "design",
+        "description": "Design Bayesian networks for different problems",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "inference_calculation",
+        "type": "calculation",
+        "description": "Perform inference in simple Bayesian networks",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Bayesian networks require complete causal knowledge",
+        "clarification": "Can represent associations even without causal understanding"
+      },
+      {
+        "misconception": "All conditional independencies must be specified",
+        "clarification": "d-separation automatically identifies independencies"
+      },
+      {
+        "misconception": "Bayesian networks are only for discrete variables",
+        "clarification": "Can handle continuous variables with appropriate distributions"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Probabilistic Reasoning in Intelligent Systems",
+        "author": "Judea Pearl",
+        "year": 1988,
+        "description": "Foundational work on Bayesian networks"
+      },
+      {
+        "title": "Bayesian Networks and Decision Graphs",
+        "author": "Finn Jensen and Thomas Nielsen",
+        "year": 2007,
+        "description": "Comprehensive treatment of Bayesian networks"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_basics",
+      "belief_updating",
+      "causal_inference",
+      "graphical_models"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 30,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

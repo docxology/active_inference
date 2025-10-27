@@ -1,0 +1,121 @@
+{
+  "id": "predictive_coding",
+  "title": "Predictive Coding and Hierarchical Inference",
+  "content_type": "mathematics",
+  "difficulty": "advanced",
+  "description": "Mathematical foundation of predictive coding as a neural implementation of hierarchical Bayesian inference.",
+  "prerequisites": ["fep_mathematical_formulation", "information_geometry"],
+  "tags": ["predictive coding", "hierarchical inference", "neural networks", "perception"],
+  "learning_objectives": [
+    "Derive predictive coding equations from free energy minimization",
+    "Understand hierarchical message passing",
+    "Implement predictive coding algorithms",
+    "Connect predictive coding to neural dynamics"
+  ],
+  "content": {
+    "overview": "Predictive coding provides a mathematical framework for understanding how the brain implements hierarchical Bayesian inference through local message passing between neural populations.",
+    "mathematical_formulation": {
+      "hierarchical_model": "p(x, θ) = ∏_i p(x_i | θ_i) p(θ_i | θ_{i+1})",
+      "variational_distribution": "q(θ) = ∏_i q(θ_i | θ_{i+1})",
+      "free_energy": "F = ∑_i D_KL[q(θ_i) || p(θ_i | θ_{i+1})] - ∑_i E[log p(x_i | θ_i)]",
+      "prediction_errors": "ε_i = x_i - E[θ_i] (bottom-up errors)"
+    },
+    "message_passing": {
+      "bottom_up": "Prediction errors: ε_i = x_i - g(θ_i)",
+      "top_down": "Predictions: μ_i = f(θ_{i+1})",
+      "precision": "Π_i = precision of prediction errors",
+      "update_rules": "dθ_i/dt = -∂F/∂θ_i = Π_i ε_i + ∇_θ_i log p(θ_i | θ_{i+1})"
+    },
+    "continuous_time_dynamics": {
+      "gradient_flow": "dθ_i/dt = -∇_θ_i F",
+      "prediction_error_dynamics": "dε_i/dt = -Π_i ε_i + ∇_ε_i (something)",
+      "equilibrium": "Fixed point when prediction errors are minimized",
+      "stability": "Asymptotic stability under mild conditions"
+    },
+    "examples": [
+      {
+        "name": "Linear Predictive Coding",
+        "description": "Simple linear prediction model",
+        "equations": "x_t = a x_{t-1} + ε_t",
+        "prediction": "x̂_t = a x_{t-1}",
+        "error": "ε_t = x_t - x̂_t",
+        "update": "da/dt = -πε_t x_{t-1}"
+      },
+      {
+        "name": "Hierarchical Gaussian Model",
+        "description": "Two-level Gaussian hierarchy",
+        "model": "x ~ N(θ₁, σ₁²), θ₁ ~ N(θ₂, σ₂²)",
+        "inference": "θ₁ = (σ₁² θ₂ + σ₂² x)/(σ₁² + σ₂²)",
+        "prediction_error": "ε₁ = x - θ₁, ε₂ = θ₁ - θ₂"
+      }
+    ],
+    "neural_implementation": {
+      "cortical_hierarchy": "Different cortical areas implement different levels",
+      "feedforward_connections": "Carry prediction errors",
+      "feedback_connections": "Carry predictions",
+      "neuromodulation": "Precision encoded by neuromodulatory systems",
+      "attention": "Precision weighting implements attention"
+    },
+    "connections_to_machine_learning": {
+      "autoencoders": "Predictive coding as denoising autoencoder",
+      "variational_autoencoders": "Hierarchical VAEs implement predictive coding",
+      "recurrent_neural_networks": "Temporal predictive coding",
+      "deep_belief_networks": "Stacked RBMs as predictive coding"
+    },
+    "interactive_exercises": [
+      {
+        "id": "predictive_coding_simulation",
+        "type": "simulation",
+        "description": "Simulate predictive coding in hierarchical model",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "message_passing",
+        "type": "implementation",
+        "description": "Implement message passing algorithm",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Predictive coding is only for perception",
+        "clarification": "Also explains action and motor control"
+      },
+      {
+        "misconception": "Prediction errors always flow bottom-up",
+        "clarification": "Bidirectional flow in hierarchical models"
+      },
+      {
+        "misconception": "Predictive coding requires perfect predictions",
+        "clarification": "Works with approximate predictions and learning"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "A theory of cortical responses",
+        "author": "Rao and Ballard",
+        "year": 1999,
+        "description": "Original predictive coding theory"
+      },
+      {
+        "title": "The functional anatomy of attention",
+        "author": "Feldman and Friston",
+        "year": 2010,
+        "description": "Predictive coding and attention"
+      }
+    ],
+    "related_concepts": [
+      "fep_mathematical_formulation",
+      "hierarchical_inference",
+      "neural_dynamics",
+      "perception"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 40,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}
