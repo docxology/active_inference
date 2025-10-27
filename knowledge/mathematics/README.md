@@ -15,6 +15,9 @@ This section provides comprehensive mathematical treatments of Active Inference 
 
 ### Neural and Computational
 - **Predictive Coding** (`predictive_coding.json`): Hierarchical inference and neural dynamics
+- **Stochastic Processes** (`stochastic_processes.json`): Temporal dynamics and filtering
+- **Optimal Transport** (`optimal_transport.json`): Transport theory and information geometry
+- **Markov Chain Monte Carlo** (`markov_chain_monte_carlo.json`): Sampling methods for Bayesian inference
 
 ## Mathematical Focus
 

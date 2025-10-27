@@ -1,0 +1,133 @@
+{
+  "id": "climate_modeling",
+  "title": "Active Inference in Climate Science and Modeling",
+  "content_type": "application",
+  "difficulty": "expert",
+  "description": "Application of Active Inference to climate system modeling, prediction, and decision making under uncertainty.",
+  "prerequisites": ["stochastic_processes", "hierarchical_models"],
+  "tags": ["climate science", "environmental modeling", "uncertainty quantification", "decision making"],
+  "learning_objectives": [
+    "Model complex climate systems using Active Inference",
+    "Handle deep uncertainty in climate predictions",
+    "Design adaptive climate policies",
+    "Quantify uncertainty in climate projections"
+  ],
+  "content": {
+    "overview": "Climate systems are complex, high-dimensional, and deeply uncertain. Active Inference provides a framework for modeling climate dynamics, making predictions under uncertainty, and designing adaptive policies that account for our limited understanding of these systems.",
+    "climate_system_modeling": {
+      "multi_scale_dynamics": "Atmosphere, ocean, land, and ice interactions",
+      "feedback_loops": "Positive and negative feedback mechanisms",
+      "tipping_points": "Critical thresholds and regime shifts",
+      "deep_uncertainty": "Fundamental uncertainty about system behavior"
+    },
+    "uncertainty_quantification": {
+      "model_uncertainty": "Different model structures and parameterizations",
+      "scenario_uncertainty": "Future emissions and socio-economic pathways",
+      "observation_uncertainty": "Measurement errors and data limitations",
+      "structural_uncertainty": "Unknown unknowns in system dynamics"
+    },
+    "adaptive_policies": {
+      "robust_decision_making": "Policies that perform well across scenarios",
+      "learning_policies": "Policies that adapt as we learn more",
+      "precautionary_principles": "Conservative approach when uncertainty is high",
+      "iterative_risk_management": "Update policies as new information arrives"
+    },
+    "examples": [
+      {
+        "name": "Sea Level Rise Planning",
+        "description": "Coastal planning under uncertain sea level projections",
+        "uncertainty": "Range of possible sea level rise scenarios",
+        "policies": "Adaptable coastal defenses and retreat strategies",
+        "decision_making": "Balance cost, risk, and flexibility"
+      },
+      {
+        "name": "Climate Mitigation",
+        "description": "Design emission reduction strategies",
+        "models": "Multiple climate models with different sensitivities",
+        "objectives": "Temperature targets, economic costs, equity considerations",
+        "adaptation": "Adjust strategies based on observed climate response"
+      }
+    ],
+    "methodological_approaches": {
+      "ensemble_modeling": "Multiple models to quantify structural uncertainty",
+      "bayesian_calibration": "Update model parameters with new observations",
+      "scenario_discovery": "Find scenarios where policies fail",
+      "decision_scaling": "Evaluate policies under different climate conditions"
+    },
+    "decision_making_under_deep_uncertainty": {
+      "info_gap_theory": "Decision making when probability distributions are unknown",
+      "robust_optimization": "Find policies that work in worst-case scenarios",
+      "exploratory_modeling": "Discover key uncertainties and their impacts",
+      "adaptive_pathways": "Sequential decision making with learning"
+    },
+    "interactive_exercises": [
+      {
+        "id": "climate_policy_design",
+        "type": "design",
+        "description": "Design climate adaptation policy under uncertainty",
+        "difficulty": "expert",
+        "scenario": "Coastal city planning with uncertain sea level rise",
+        "task": "Balance protection, cost, and flexibility"
+      },
+      {
+        "id": "uncertainty_analysis",
+        "type": "analysis",
+        "description": "Analyze uncertainty in climate projections",
+        "difficulty": "expert",
+        "data": "Multiple climate model outputs and scenarios",
+        "task": "Quantify and communicate uncertainty ranges"
+      }
+    ],
+    "policy_implications": {
+      "precautionary_principle": "Act conservatively when uncertainty is high",
+      "adaptive_management": "Monitor and adjust policies over time",
+      "robust_strategies": "Design for wide range of possible futures",
+      "learning_investment": "Value of reducing uncertainty through research"
+    },
+    "future_directions": {
+      "earth_system_modeling": "More comprehensive climate models",
+      "tipping_point_detection": "Early warning systems for critical transitions",
+      "integrated_assessment": "Coupled human-natural system models",
+      "global_collaboration": "International climate decision making"
+    },
+    "common_misconceptions": [
+      {
+        "misconception": "Climate uncertainty means we can't act",
+        "clarification": "Uncertainty requires robust, adaptive strategies"
+      },
+      {
+        "misconception": "All climate models are equally uncertain",
+        "clarification": "Different types of uncertainty require different approaches"
+      },
+      {
+        "misconception": "More data eliminates uncertainty",
+        "clarification": "Some uncertainties are fundamental and irreducible"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Decision Making Under Deep Uncertainty",
+        "author": "Various authors",
+        "description": "Framework for decision making with unknown unknowns"
+      },
+      {
+        "title": "Climate Uncertainty and Risk",
+        "author": "Various authors",
+        "description": "Quantifying and managing climate uncertainty"
+      }
+    ],
+    "related_concepts": [
+      "stochastic_processes",
+      "hierarchical_models",
+      "decision_making",
+      "uncertainty_quantification"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 55,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

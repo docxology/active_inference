@@ -1,0 +1,123 @@
+{
+  "id": "multi_agent_systems",
+  "title": "Multi-Agent Active Inference",
+  "content_type": "foundation",
+  "difficulty": "expert",
+  "description": "Understanding how Active Inference extends to multi-agent systems and social interaction.",
+  "prerequisites": ["active_inference_introduction", "ai_policy_selection"],
+  "tags": ["multi-agent systems", "social inference", "theory of mind", "collective behavior"],
+  "learning_objectives": [
+    "Understand Active Inference in multi-agent contexts",
+    "Model other agents' beliefs and intentions",
+    "Apply Active Inference to social coordination",
+    "Design multi-agent Active Inference systems"
+  ],
+  "content": {
+    "overview": "Multi-agent Active Inference extends the framework to systems where multiple agents interact, each trying to minimize their expected free energy while accounting for the presence and behavior of other agents. This enables modeling of social behavior, coordination, and collective intelligence.",
+    "theoretical_foundation": {
+      "nested_inference": "Agents infer about other agents' beliefs and intentions",
+      "theory_of_mind": "Recursive belief modeling: I believe you believe I believe...",
+      "social_generative_models": "Models that include other agents as part of the world",
+      "collective_free_energy": "Joint minimization across multiple agents"
+    },
+    "belief_modeling": {
+      "first_order": "Model other agents as having fixed beliefs",
+      "second_order": "Model other agents as having beliefs about your beliefs",
+      "higher_order": "Recursive modeling of beliefs about beliefs",
+      "bounded_recursion": "Practical limits on depth of belief modeling"
+    },
+    "social_coordination": {
+      "joint_policies": "Policies that account for other agents' actions",
+      "communication": "Signaling intentions and coordinating behavior",
+      "cooperation": "Mutual benefit through coordinated action",
+      "competition": "Conflicting goals and strategic interaction"
+    },
+    "examples": [
+      {
+        "name": "Communication Game",
+        "description": "Agents trying to communicate successfully",
+        "scenario": "Speaker and listener with shared vocabulary",
+        "active_inference": "Both agents minimize free energy over communication",
+        "outcome": "Converge on shared understanding"
+      },
+      {
+        "name": "Collective Foraging",
+        "description": "Multiple agents foraging for resources",
+        "scenario": "Agents share information about resource locations",
+        "active_inference": "Balance individual goals with information sharing",
+        "outcome": "Emergent division of labor and coordination"
+      }
+    ],
+    "mathematical_formulation": {
+      "joint_generative_model": "p(o¹, o², s¹, s², θ¹, θ²) includes both agents",
+      "nested_beliefs": "q(θ²|θ¹) - beliefs about other agent's parameters",
+      "social_expected_free_energy": "G(π¹, π²) accounts for both agents' preferences",
+      "nash_equilibrium": "Fixed point where no agent can improve unilaterally"
+    },
+    "applications": {
+      "human_robot_interaction": "Robots that understand human intentions",
+      "social_psychology": "Modeling social behavior and influence",
+      "economics": "Game theory and market behavior",
+      "collective_intelligence": "Group decision making and problem solving"
+    },
+    "challenges": {
+      "computational_complexity": "Exponential growth in state space",
+      "infinite_recursion": "Practical limits on belief modeling depth",
+      "uncertainty_about_others": "Modeling uncertainty about other agents",
+      "scalability": "Large numbers of interacting agents"
+    },
+    "interactive_exercises": [
+      {
+        "id": "communication_modeling",
+        "type": "modeling",
+        "description": "Model communication between Active Inference agents",
+        "difficulty": "expert"
+      },
+      {
+        "id": "coordination_task",
+        "type": "simulation",
+        "description": "Simulate multi-agent coordination task",
+        "difficulty": "expert"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Multi-agent Active Inference requires perfect knowledge of others",
+        "clarification": "Works with uncertain beliefs about other agents"
+      },
+      {
+        "misconception": "Always leads to cooperation",
+        "clarification": "Can model competition and conflict as well"
+      },
+      {
+        "misconception": "Computationally intractable",
+        "clarification": "Approximate methods make it practical"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference and Social Cognition",
+        "author": "Community literature",
+        "description": "Applications to social psychology and behavior"
+      },
+      {
+        "title": "Multi-Agent Active Inference",
+        "author": "Research papers",
+        "description": "Recent developments in multi-agent systems"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_introduction",
+      "ai_policy_selection",
+      "theory_of_mind",
+      "collective_intelligence"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 35,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

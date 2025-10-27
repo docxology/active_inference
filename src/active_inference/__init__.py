@@ -24,6 +24,18 @@ from .visualization import VisualizationEngine
 from .applications import ApplicationFramework
 from .tools import Orchestrator, Utilities
 from .platform import Platform
+from .llm import (
+    OllamaClient,
+    LLMConfig,
+    PromptTemplate,
+    PromptBuilder,
+    PromptManager,
+    ModelManager,
+    ModelInfo,
+    ModelRegistry,
+    ConversationManager,
+    Conversation
+)
 
 __all__ = [
     "KnowledgeRepository",
@@ -33,5 +45,15 @@ __all__ = [
     "Orchestrator",
     "Utilities",
     "Platform",
+    "OllamaClient",
+    "LLMConfig",
+    "PromptTemplate",
+    "PromptBuilder",
+    "PromptManager",
+    "ModelManager",
+    "ModelInfo",
+    "ModelRegistry",
+    "ConversationManager",
+    "Conversation",
     "PROJECT_ROOT",
 ]

@@ -208,9 +208,28 @@
         "expected_free_energy_calculation",
         "robotics_control",
         "neuroscience_perception",
-        "decision_making"
+        "decision_making",
+        "conjugate_priors",
+        "hierarchical_models",
+        "empirical_bayes",
+        "cross_entropy",
+        "multi_agent_systems",
+        "continuous_control",
+        "variational_free_energy",
+        "information_geometry",
+        "expected_free_energy",
+        "predictive_coding",
+        "stochastic_processes",
+        "optimal_transport",
+        "markov_chain_monte_carlo",
+        "mcmc_sampling",
+        "neural_network_implementation",
+        "ai_alignment",
+        "adaptive_learning",
+        "control_systems",
+        "climate_modeling"
       ],
-      "estimated_hours": 120,
+      "estimated_hours": 180,
       "difficulty": "advanced",
       "metadata": {
         "target_audience": "comprehensive learners, researchers, educators",
@@ -243,6 +262,90 @@
           "Grasp the basic principles and framework",
           "See how it can be implemented",
           "Identify potential applications"
+        ]
+      }
+    },
+    {
+      "id": "ai_alignment",
+      "name": "AI Alignment Track",
+      "description": "Understanding AI alignment and safety through Active Inference",
+      "nodes": [
+        "multi_agent_systems",
+        "ai_alignment"
+      ],
+      "estimated_hours": 12,
+      "difficulty": "expert",
+      "metadata": {
+        "target_audience": "AI researchers, safety engineers, policy makers",
+        "prerequisites": "Active Inference foundations, multi-agent systems",
+        "learning_outcomes": [
+          "Understand AI alignment challenges",
+          "Design value-aligned AI systems",
+          "Implement safety mechanisms",
+          "Apply Active Inference to AI safety"
+        ]
+      }
+    },
+    {
+      "id": "adaptive_learning",
+      "name": "Adaptive Learning Track",
+      "description": "Building adaptive educational systems using Active Inference",
+      "nodes": [
+        "belief_updating",
+        "adaptive_learning"
+      ],
+      "estimated_hours": 15,
+      "difficulty": "intermediate",
+      "metadata": {
+        "target_audience": "educational technologists, learning scientists, teachers",
+        "prerequisites": "Active Inference foundations, probability",
+        "learning_outcomes": [
+          "Design student models for adaptive learning",
+          "Implement personalized instruction systems",
+          "Understand learning analytics and assessment",
+          "Apply Active Inference to education"
+        ]
+      }
+    },
+    {
+      "id": "control_engineering",
+      "name": "Control Engineering Track",
+      "description": "Active Inference applications in control systems and autonomous engineering",
+      "nodes": [
+        "continuous_control",
+        "control_systems"
+      ],
+      "estimated_hours": 18,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "control engineers, robotics engineers, systems engineers",
+        "prerequisites": "control theory, Active Inference foundations",
+        "learning_outcomes": [
+          "Design Active Inference control systems",
+          "Implement robust autonomous systems",
+          "Handle uncertainty in engineering applications",
+          "Apply to real-time control problems"
+        ]
+      }
+    },
+    {
+      "id": "climate_decision_making",
+      "name": "Climate Decision Making Track",
+      "description": "Decision making under deep uncertainty for climate applications",
+      "nodes": [
+        "stochastic_processes",
+        "climate_modeling"
+      ],
+      "estimated_hours": 20,
+      "difficulty": "expert",
+      "metadata": {
+        "target_audience": "climate scientists, environmental policy makers, risk analysts",
+        "prerequisites": "stochastic processes, decision theory",
+        "learning_outcomes": [
+          "Model complex climate systems",
+          "Make decisions under deep uncertainty",
+          "Design adaptive climate policies",
+          "Quantify climate uncertainty"
         ]
       }
     }

@@ -1,0 +1,125 @@
+{
+  "id": "optimal_transport",
+  "title": "Optimal Transport and Information Geometry",
+  "content_type": "mathematics",
+  "difficulty": "expert",
+  "description": "Understanding optimal transport theory and its connections to information geometry and Active Inference.",
+  "prerequisites": ["information_geometry", "variational_free_energy"],
+  "tags": ["optimal transport", "wasserstein distance", "information geometry", "gradient flows"],
+  "learning_objectives": [
+    "Understand optimal transport and Wasserstein distance",
+    "Connect optimal transport to information geometry",
+    "Apply optimal transport in Active Inference",
+    "Understand gradient flows in probability space"
+  ],
+  "content": {
+    "overview": "Optimal transport theory studies how to move mass from one distribution to another in the most efficient way. It provides geometric tools for comparing probability distributions and understanding gradient flows in probability space.",
+    "optimal_transport_fundamentals": {
+      "transport_problem": "Minimize ∫ c(x,y) dπ(x,y) over joint distributions π with marginals μ, ν",
+      "transport_plan": "π(x,y) represents how much mass moves from x to y",
+      "cost_function": "c(x,y) measures cost of moving from x to y",
+      "optimal_transport": "π* that minimizes total transport cost"
+    },
+    "wasserstein_distance": {
+      "definition": "W_p(μ,ν) = (inf_π ∫ ∥x-y∥^p dπ(x,y))^{1/p}",
+      "interpretation": "Minimum cost to transform μ into ν",
+      "properties": "Metric on probability space, geodesic distance",
+      "convergence": "Weak convergence plus W_1 convergence implies strong convergence"
+    },
+    "benamou_brenier_formula": {
+      "fluid_dynamics": "W_2(μ,ν) = inf ∫_0^1 ∫ (∂_t φ)^2 / ρ dxdt",
+      "continuity_equation": "∂_t ρ + ∇ · (ρ v) = 0",
+      "gradient_flow": "Optimal transport as gradient flow of energy",
+      "connection_to_fisher": "Fisher-Rao vs Wasserstein geometry"
+    },
+    "connections_to_information_geometry": {
+      "statistical_manifolds": "Probability distributions as manifold points",
+      "riemannian_metrics": "Fisher metric vs Wasserstein metric",
+      "gradient_flows": "Natural gradient flow vs Wasserstein gradient flow",
+      "information_divergences": "KL divergence vs Wasserstein distance"
+    },
+    "applications_in_active_inference": {
+      "belief_updating": "Updating beliefs via optimal transport",
+      "policy_optimization": "Optimal policies as transport between distributions",
+      "model_interpolation": "Interpolating between different models",
+      "uncertainty_quantification": "Measuring distance between belief states"
+    },
+    "examples": [
+      {
+        "name": "Gaussian Transport",
+        "description": "Transport between two Gaussian distributions",
+        "solution": "W_2(μ₁, μ₂) = ∥μ₁ - μ₂∥ for equal variance",
+        "interpretation": "Distance equals difference in means",
+        "computation": "Closed form solution for Gaussians"
+      },
+      {
+        "name": "Heat Equation",
+        "description": "Heat diffusion as optimal transport",
+        "equation": "∂_t ρ = Δρ (heat equation)",
+        "interpretation": "Gradient flow of entropy with respect to Wasserstein metric",
+        "application": "Brownian motion as optimal transport"
+      }
+    ],
+    "numerical_methods": {
+      "linear_programming": "Solve discrete optimal transport as LP",
+      "sinkhorn_algorithm": "Entropic regularization for fast computation",
+      "gradient_flows": "Simulate gradient flows in probability space",
+      "sampling_methods": "Monte Carlo methods for continuous transport"
+    },
+    "interactive_exercises": [
+      {
+        "id": "transport_computation",
+        "type": "calculation",
+        "description": "Compute optimal transport between simple distributions",
+        "difficulty": "expert"
+      },
+      {
+        "id": "gradient_flow_simulation",
+        "type": "simulation",
+        "description": "Simulate gradient flows in probability space",
+        "difficulty": "expert"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Optimal transport is only about physical transport",
+        "clarification": "Also applies to abstract spaces and probability distributions"
+      },
+      {
+        "misconception": "Wasserstein distance equals KL divergence",
+        "clarification": "Different metrics measuring different types of distance"
+      },
+      {
+        "misconception": "Computationally expensive",
+        "clarification": "Efficient algorithms exist for many cases"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Optimal Transport: Old and New",
+        "author": "Cédric Villani",
+        "year": 2009,
+        "description": "Comprehensive treatment of optimal transport"
+      },
+      {
+        "title": "Gradient Flows in Metric Spaces",
+        "author": "Luigi Ambrosio et al.",
+        "year": 2008,
+        "description": "Gradient flows and optimal transport"
+      }
+    ],
+    "related_concepts": [
+      "information_geometry",
+      "variational_free_energy",
+      "gradient_flows",
+      "probability_metrics"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 45,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

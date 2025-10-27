@@ -16,32 +16,38 @@ knowledge/
 ## Foundations
 
 Core theoretical concepts including:
-- **Information Theory**: Entropy, KL divergence, mutual information
-- **Bayesian Fundamentals**: Bayes' theorem, probabilistic modeling, belief updating
+- **Information Theory**: Entropy, KL divergence, mutual information, cross-entropy
+- **Bayesian Fundamentals**: Bayes' theorem, probabilistic modeling, belief updating, conjugate priors, hierarchical models, empirical Bayes
 - **Free Energy Principle**: Mathematical formulation, biological applications
-- **Active Inference**: Framework overview, generative models, policy selection
+- **Active Inference**: Framework overview, generative models, policy selection, multi-agent systems, continuous control
 
 ## Mathematics
 
 Rigorous mathematical treatments:
-- **Variational Free Energy**: Derivation and optimization
-- **Information Geometry**: Riemannian geometry of probability distributions
-- **Expected Free Energy**: Policy selection and planning mathematics
-- **Predictive Coding**: Hierarchical inference and neural dynamics
+- **Variational Methods**: Variational free energy, information geometry, expected free energy
+- **Computational Methods**: Predictive coding, stochastic processes, optimal transport, Markov Chain Monte Carlo
+- **Advanced Topics**: Neural dynamics, filtering, sampling methods
 
 ## Implementations
 
 Practical code examples and tutorials:
-- **Basic Active Inference**: Step-by-step agent implementation
-- **Variational Inference**: Algorithms for approximate Bayesian computation
-- **Expected Free Energy**: Policy evaluation and selection algorithms
+- **Core Algorithms**: Basic Active Inference, variational inference, expected free energy calculation
+- **Advanced Methods**: MCMC sampling, neural network implementations
+- **Development Tools**: Frameworks, optimization, performance tuning
 
 ## Applications
 
 Real-world applications across domains:
-- **Robotics**: Control systems and autonomous navigation
-- **Neuroscience**: Brain function and perceptual processing
-- **Decision Making**: Human and artificial decision processes
+- **Engineering**: Robotics, control systems, autonomous technologies
+- **Scientific**: Neuroscience, perceptual processing, cognitive science
+- **Decision Making**: Human and artificial decision processes, game theory
+- **Domain-Specific**:
+  - **Artificial Intelligence**: Alignment, safety, machine learning applications
+  - **Education**: Adaptive learning systems, personalized instruction
+  - **Engineering**: Control systems, robust design, safety-critical systems
+  - **Psychology**: Cognitive modeling, behavioral science, mental health
+  - **Economics**: Market behavior, strategic interaction, decision theory
+  - **Climate Science**: Environmental modeling, uncertainty quantification, policy
 
 ## Usage
 

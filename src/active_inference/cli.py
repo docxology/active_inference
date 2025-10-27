@@ -14,6 +14,15 @@ from .knowledge import KnowledgeRepository, KnowledgeRepositoryConfig
 from .visualization import VisualizationEngine
 from .research import ResearchFramework
 from .applications import ApplicationFramework
+from .llm import (
+    OllamaClient,
+    LLMConfig,
+    PromptManager,
+    ModelManager,
+    ConversationManager,
+    ActiveInferencePromptBuilder,
+    ActiveInferenceTemplates
+)
 
 
 class ActiveInferenceCLI:
@@ -25,6 +34,10 @@ class ActiveInferenceCLI:
         self.visualization_engine = None
         self.research_framework = None
         self.application_framework = None
+        self.llm_client = None
+        self.prompt_manager = None
+        self.model_manager = None
+        self.conversation_manager = None
 
         # Initialize components
         self._initialize_components()
@@ -38,6 +51,13 @@ class ActiveInferenceCLI:
                 auto_index=True
             )
             self.knowledge_repo = KnowledgeRepository(config)
+
+            # Initialize LLM components
+            llm_config = LLMConfig()
+            self.llm_client = OllamaClient(llm_config)
+            self.prompt_manager = PromptManager()
+            self.model_manager = ModelManager()
+            self.conversation_manager = ConversationManager()
 
             # Initialize other components (placeholder for now)
             # self.visualization_engine = VisualizationEngine()
@@ -115,6 +135,46 @@ Examples:
         app_subparsers.add_parser('templates', help='Generate application templates')
         app_subparsers.add_parser('examples', help='Run example applications')
 
+        # LLM commands
+        llm_parser = subparsers.add_parser('llm', help='LLM and AI assistant operations')
+        llm_subparsers = llm_parser.add_subparsers(dest='llm_command')
+
+        # Chat command
+        chat_parser = llm_subparsers.add_parser('chat', help='Chat with AI assistant')
+        chat_parser.add_argument('message', nargs='?', help='Message to send (if not provided, starts interactive chat)')
+        chat_parser.add_argument('--model', help='Model to use for chat')
+        chat_parser.add_argument('--template', choices=['explanation', 'research', 'implementation', 'education'],
+                               help='Use conversation template')
+
+        # Generate command
+        generate_parser = llm_subparsers.add_parser('generate', help='Generate text from prompt')
+        generate_parser.add_argument('prompt', help='Prompt for text generation')
+        generate_parser.add_argument('--model', help='Model to use')
+        generate_parser.add_argument('--template', choices=['active_inference_explanation', 'research_question', 'code_implementation'],
+                                   help='Use prompt template')
+        generate_parser.add_argument('--concept', help='Concept for explanation template')
+        generate_parser.add_argument('--audience-level', choices=['beginner', 'intermediate', 'advanced', 'expert'],
+                                   default='intermediate', help='Audience level for explanations')
+
+        # Model management commands
+        model_parser = llm_subparsers.add_parser('models', help='Model management')
+        model_subparsers = model_parser.add_subparsers(dest='model_command')
+
+        model_subparsers.add_parser('list', help='List available models')
+        model_subparsers.add_parser('info', help='Show model information').add_argument('model', help='Model name')
+
+        pull_parser = model_subparsers.add_parser('pull', help='Pull model from registry')
+        pull_parser.add_argument('model', help='Model to pull')
+
+        # Conversation management
+        conv_parser = llm_subparsers.add_parser('conversation', help='Conversation management')
+        conv_subparsers = conv_parser.add_subparsers(dest='conv_command')
+
+        conv_subparsers.add_parser('list', help='List conversations')
+        conv_subparsers.add_parser('create', help='Create new conversation').add_argument('title', help='Conversation title')
+        conv_subparsers.add_parser('delete', help='Delete conversation').add_argument('conversation_id', help='Conversation ID')
+        conv_subparsers.add_parser('export', help='Export conversation').add_argument('conversation_id', help='Conversation ID')
+
         # Platform commands
         platform_parser = subparsers.add_parser('platform', help='Platform operations')
         platform_subparsers = platform_parser.add_subparsers(dest='platform_command')
@@ -153,6 +213,8 @@ Examples:
             return self._handle_visualization_command(args)
         elif args.command == 'applications':
             return self._handle_applications_command(args)
+        elif args.command == 'llm':
+            return self._handle_llm_command(args)
         elif args.command == 'platform':
             return self._handle_platform_command(args)
         else:
@@ -367,6 +429,253 @@ Examples:
         """Handle platform commands (placeholder)"""
         print("🚀 Platform tools coming soon!")
         print("This will include server management, monitoring, and deployment tools.")
+        return 0
+
+    def _handle_llm_command(self, args) -> int:
+        """Handle LLM commands"""
+        if not self.llm_client or not self.prompt_manager:
+            print("LLM components not available. Please ensure Ollama is installed and running.")
+            print("Run: ollama serve")
+            return 1
+
+        if args.llm_command == 'chat':
+            return self._handle_chat_command(args)
+        elif args.llm_command == 'generate':
+            return self._handle_generate_command(args)
+        elif args.llm_command == 'models':
+            return self._handle_models_command(args)
+        elif args.llm_command == 'conversation':
+            return self._handle_conversation_command(args)
+        else:
+            print(f"Unknown LLM command: {args.llm_command}")
+            return 1
+
+    def _handle_chat_command(self, args) -> int:
+        """Handle chat command"""
+        import asyncio
+
+        async def chat():
+            try:
+                # Initialize client if needed
+                if not self.llm_client._is_initialized:
+                    await self.llm_client.initialize()
+
+                model = args.model or "gemma3:2b"
+
+                # Use template if specified
+                if args.template:
+                    if args.template == 'explanation':
+                        template = ActiveInferenceTemplates.get_explanation_template()
+                    elif args.template == 'research':
+                        template = ActiveInferenceTemplates.get_research_template()
+                    elif args.template == 'implementation':
+                        template = ActiveInferenceTemplates.get_implementation_template()
+                    elif args.template == 'education':
+                        template = ActiveInferenceTemplates.get_education_template()
+
+                    conversation = template.create_conversation(f"AI Chat - {args.template.title()}", self.conversation_manager)
+                    print(f"💬 Started conversation with {args.template} template")
+                else:
+                    # Create simple conversation
+                    conversation = self.conversation_manager.create_conversation("AI Chat")
+                    print(f"💬 Started new conversation")
+
+                if args.message:
+                    # Single message chat
+                    print(f"🤖 Generating response for: {args.message}")
+                    print()
+
+                    response = await self.llm_client.generate(args.message, model=model)
+                    print(response)
+
+                    # Save to conversation
+                    self.conversation_manager.add_message(conversation.id, "user", args.message)
+                    self.conversation_manager.add_message(conversation.id, "assistant", response)
+
+                else:
+                    # Interactive chat
+                    print(f"💬 Interactive chat with {model}")
+                    print("Type 'quit' or 'exit' to end conversation")
+                    print()
+
+                    while True:
+                        try:
+                            user_input = input("You: ").strip()
+                            if user_input.lower() in ['quit', 'exit', 'bye']:
+                                print("👋 Goodbye!")
+                                break
+
+                            if not user_input:
+                                continue
+
+                            print("🤖 Thinking...")
+                            response = await self.llm_client.generate(user_input, model=model)
+                            print(f"Assistant: {response}")
+                            print()
+
+                            # Save to conversation
+                            self.conversation_manager.add_message(conversation.id, "user", user_input)
+                            self.conversation_manager.add_message(conversation.id, "assistant", response)
+
+                        except KeyboardInterrupt:
+                            print("\n👋 Chat interrupted. Goodbye!")
+                            break
+                        except Exception as e:
+                            print(f"❌ Error: {e}")
+
+            except Exception as e:
+                print(f"❌ Chat failed: {e}")
+                return 1
+
+        asyncio.run(chat())
+        return 0
+
+    def _handle_generate_command(self, args) -> int:
+        """Handle generate command"""
+        import asyncio
+
+        async def generate():
+            try:
+                # Initialize client if needed
+                if not self.llm_client._is_initialized:
+                    await self.llm_client.initialize()
+
+                model = args.model or "gemma3:2b"
+                prompt = args.prompt
+
+                # Use template if specified
+                if args.template:
+                    if args.template == 'active_inference_explanation':
+                        variables = {
+                            "concept": args.concept or "Active Inference",
+                            "context": "general explanation",
+                            "audience_level": args.audience_level,
+                            "key_points": "core concepts, mathematical formulation, applications",
+                            "response_type": "comprehensive explanation"
+                        }
+                        prompt = self.prompt_manager.generate_prompt(args.template, variables)
+
+                    elif args.template == 'research_question':
+                        variables = {
+                            "topic": args.concept or "Active Inference",
+                            "domain": "artificial intelligence",
+                            "current_knowledge": "established foundations",
+                            "research_gap": "practical applications",
+                            "methodology": "theoretical and computational",
+                            "num_questions": "5"
+                        }
+                        prompt = self.prompt_manager.generate_prompt(args.template, variables)
+
+                    elif args.template == 'code_implementation':
+                        variables = {
+                            "algorithm": args.concept or "Active Inference",
+                            "language": "Python",
+                            "problem_description": "Implementation request",
+                            "requirements": "comprehensive, well-documented",
+                            "constraints": "educational, practical",
+                            "codebase_context": "Active Inference platform"
+                        }
+                        prompt = self.prompt_manager.generate_prompt(args.template, variables)
+
+                print(f"🤖 Generating with model: {model}")
+                print(f"📝 Prompt: {prompt[:100]}{'...' if len(prompt) > 100 else ''}")
+                print()
+
+                response = await self.llm_client.generate(prompt, model=model)
+                print(response)
+
+            except Exception as e:
+                print(f"❌ Generation failed: {e}")
+                return 1
+
+        asyncio.run(generate())
+        return 0
+
+    def _handle_models_command(self, args) -> int:
+        """Handle model management commands"""
+        import asyncio
+
+        async def handle_models():
+            try:
+                if not self.llm_client._is_initialized:
+                    await self.llm_client.initialize()
+
+                if args.model_command == 'list':
+                    models = await self.llm_client.list_models()
+                    if models:
+                        print("🧠 Available Models:")
+                        print()
+                        for model in models:
+                            print(f"• {model}")
+                    else:
+                        print("No models available.")
+                        print("Pull a model with: ai-knowledge llm models pull <model_name>")
+                        print("Recommended: gemma3:2b, gemma3:4b")
+
+                elif args.model_command == 'info':
+                    info = await self.llm_client.get_model_info(args.model)
+                    if info:
+                        print(f"🧠 Model Information: {args.model}")
+                        print("-" * 40)
+                        for key, value in info.items():
+                            print(f"{key}: {value}")
+                    else:
+                        print(f"Model {args.model} not found")
+
+                elif args.model_command == 'pull':
+                    print(f"📥 Pulling model: {args.model}")
+                    success = await self.llm_client.pull_model(args.model)
+                    if success:
+                        print(f"✅ Successfully pulled {args.model}")
+                    else:
+                        print(f"❌ Failed to pull {args.model}")
+                        return 1
+
+            except Exception as e:
+                print(f"❌ Model command failed: {e}")
+                return 1
+
+        asyncio.run(handle_models())
+        return 0
+
+    def _handle_conversation_command(self, args) -> int:
+        """Handle conversation management commands"""
+        if args.conv_command == 'list':
+            conversations = self.conversation_manager.list_conversations()
+            if conversations:
+                print("💬 Conversations:")
+                print()
+                for conv in conversations:
+                    print(f"• {conv.title} (ID: {conv.id[:8]}...)")
+                    print(f"  Messages: {len(conv.messages)} | Updated: {conv.updated_at.strftime('%Y-%m-%d %H:%M')}")
+                    if conv.metadata:
+                        print(f"  Type: {conv.metadata.get('type', 'general')}")
+                    print()
+            else:
+                print("No conversations found.")
+                print("Create one with: ai-knowledge llm conversation create 'My Chat'")
+
+        elif args.conv_command == 'create':
+            conversation = self.conversation_manager.create_conversation(args.title)
+            print(f"✅ Created conversation: {conversation.title}")
+            print(f"ID: {conversation.id}")
+
+        elif args.conv_command == 'delete':
+            success = self.conversation_manager.delete_conversation(args.conversation_id)
+            if success:
+                print(f"🗑️  Deleted conversation: {args.conversation_id[:8]}...")
+            else:
+                print(f"❌ Conversation not found: {args.conversation_id}")
+
+        elif args.conv_command == 'export':
+            export_data = self.conversation_manager.export_conversation(args.conversation_id, "markdown")
+            if export_data:
+                print("📄 Conversation Export:")
+                print("=" * 50)
+                print(export_data)
+            else:
+                print(f"❌ Conversation not found: {args.conversation_id}")
+
         return 0
 
 

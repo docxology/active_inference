@@ -1,0 +1,139 @@
+{
+  "id": "hierarchical_models",
+  "title": "Hierarchical Bayesian Models",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding hierarchical Bayesian models and their role in modeling complex systems with multiple levels of abstraction.",
+  "prerequisites": ["bayesian_models", "conjugate_priors"],
+  "tags": ["hierarchical models", "bayesian inference", "multi-level modeling", "partial pooling"],
+  "learning_objectives": [
+    "Design hierarchical Bayesian models",
+    "Understand partial pooling and shrinkage",
+    "Apply hierarchical models to complex data",
+    "Implement inference in hierarchical structures"
+  ],
+  "content": {
+    "overview": "Hierarchical Bayesian models organize parameters into multiple levels, allowing information to be shared across groups while accounting for individual variation. They provide a natural framework for modeling complex systems with multiple levels of abstraction.",
+    "mathematical_structure": {
+      "hierarchical_form": "p(θ, φ | x) = p(x | θ) p(θ | φ) p(φ)",
+      "levels": "Data level → Parameters level → Hyperparameters level",
+      "partial_pooling": "θ_i drawn from population distribution with parameters φ",
+      "shrinkage": "Individual estimates pulled toward population mean"
+    },
+    "types_of_hierarchies": [
+      {
+        "type": "Exchangeable hierarchies",
+        "description": "Parameters drawn i.i.d. from population distribution",
+        "example": "Student test scores across multiple schools",
+        "model": "θ_j ~ N(μ, σ²), μ ~ N(μ₀, σ₀²)"
+      },
+      {
+        "type": "Nested hierarchies",
+        "description": "Multiple levels of grouping",
+        "example": "Students within classes within schools",
+        "model": "θ_{ijk} ~ N(θ_{jk}, σ₁²), θ_{jk} ~ N(θ_k, σ₂²), θ_k ~ N(μ, σ₃²)"
+      },
+      {
+        "type": "Crossed hierarchies",
+        "description": "Multiple grouping factors",
+        "example": "Patients treated by different doctors in different hospitals",
+        "model": "Multiple factors affecting same observations"
+      }
+    ],
+    "benefits_of_hierarchical_modeling": {
+      "information_sharing": "Information flows between groups through hyperparameters",
+      "uncertainty_quantification": "Proper uncertainty at all levels",
+      "flexibility": "Models adapt to different levels of variation",
+      "regularization": "Prevents overfitting through partial pooling"
+    },
+    "examples": [
+      {
+        "name": "School Performance Modeling",
+        "description": "Estimate school quality while accounting for uncertainty",
+        "data": "Test scores from students in multiple schools",
+        "model": "y_{ij} ~ N(θ_j, σ²), θ_j ~ N(μ, τ²), μ ~ N(μ₀, σ₀²)",
+        "interpretation": "School effects partially pooled toward population mean"
+      },
+      {
+        "name": "Clinical Trial Analysis",
+        "description": "Multi-center clinical trials with varying effects",
+        "data": "Treatment effects across different hospitals",
+        "model": "Treatment effect varies by hospital but shares population parameters",
+        "interpretation": "Account for hospital-specific effects while estimating overall treatment"
+      }
+    ],
+    "inference_methods": {
+      "analytical_methods": "When conjugate priors available at all levels",
+      "numerical_methods": "MCMC sampling for complex hierarchies",
+      "variational_inference": "Mean-field approximations for large hierarchies",
+      "empirical_bayes": "Estimate hyperparameters from data"
+    },
+    "connections_to_active_inference": {
+      "hierarchical_generative_models": "Active Inference uses hierarchical structure",
+      "empirical_priors": "Higher levels provide constraints on lower levels",
+      "information_flow": "Top-down predictions and bottom-up errors",
+      "learning": "Hierarchical belief updating and structure learning"
+    },
+    "design_principles": {
+      "level_identification": "Identify natural groupings in data",
+      "prior_specification": "Choose appropriate priors at each level",
+      "identifiability": "Ensure model parameters are identifiable",
+      "model_comparison": "Compare hierarchical vs non-hierarchical models"
+    },
+    "interactive_exercises": [
+      {
+        "id": "hierarchical_design",
+        "type": "design",
+        "description": "Design hierarchical models for different datasets",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "shrinkage_analysis",
+        "type": "analysis",
+        "description": "Analyze shrinkage effects in hierarchical models",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Hierarchical models are always better",
+        "clarification": "Only when data supports multiple levels of variation"
+      },
+      {
+        "misconception": "Partial pooling always improves estimates",
+        "clarification": "Depends on the amount of data per group"
+      },
+      {
+        "misconception": "Hierarchical models require complex inference",
+        "clarification": "Can use analytical methods when appropriate"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Bayesian Data Analysis",
+        "author": "Andrew Gelman et al.",
+        "year": 2013,
+        "description": "Comprehensive treatment of hierarchical models"
+      },
+      {
+        "title": "Hierarchical Modeling and Analysis for Spatial Data",
+        "author": "Sudipto Banerjee et al.",
+        "year": 2014,
+        "description": "Advanced hierarchical modeling techniques"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_models",
+      "conjugate_priors",
+      "empirical_bayes",
+      "variational_inference"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 30,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

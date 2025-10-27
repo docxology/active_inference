@@ -17,6 +17,14 @@ This section demonstrates how Active Inference principles are applied to solve r
 ### Cognitive Applications
 - **Decision Making** (`decision_making.json`): Human and artificial decision processes
 
+### Domain-Specific Applications
+- **Artificial Intelligence** (`domains/artificial_intelligence/`): AI alignment, safety, and machine learning applications
+- **Education** (`domains/education/`): Adaptive learning systems and educational technology
+- **Engineering** (`domains/engineering/`): Control systems and autonomous technologies
+- **Psychology** (`domains/psychology/`): Cognitive science and behavioral modeling
+- **Economics** (`domains/economics/`): Market behavior and game theory
+- **Climate Science** (`domains/climate_science/`): Environmental modeling and decision making under uncertainty
+
 ## Application Focus
 
 Each application covers:
@@ -39,7 +47,12 @@ Applications span multiple fields:
 - **Robotics**: Control theory, mechanical engineering
 - **Neuroscience**: Cognitive science, psychology, biology
 - **Decision Making**: Economics, psychology, artificial intelligence
-- **Future domains**: Climate science, social systems, economics
+- **Artificial Intelligence**: Machine learning, safety, alignment
+- **Education**: Learning science, educational technology, pedagogy
+- **Engineering**: Systems design, optimization, real-time constraints
+- **Psychology**: Cognitive processes, behavior, mental health
+- **Economics**: Market behavior, game theory, decision theory
+- **Climate Science**: Environmental modeling, uncertainty quantification, policy
 
 ## Implementation Considerations
 

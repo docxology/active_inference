@@ -1,336 +1,276 @@
-# Artificial Intelligence Domain
+# Artificial Intelligence Applications
 
-This directory contains Active Inference implementations and interfaces specifically designed for artificial intelligence, machine learning, and generative model applications.
+This directory contains Active Inference applications for artificial intelligence and machine learning, including reinforcement learning alternatives, planning systems, natural language processing, computer vision, and generative AI implementations using Active Inference principles.
 
 ## Overview
 
-The artificial intelligence domain provides specialized tools and interfaces for applying Active Inference to:
-
-- **Generative models** and deep learning architectures
-- **Reinforcement learning** and decision-making systems
-- **World modeling** and planning algorithms
-- **AI safety** and alignment research
-
-These implementations bridge Active Inference with modern AI techniques, providing tools for building intelligent systems with robust uncertainty handling and goal-directed behavior.
-
-## Directory Structure
-
-```
-artificial_intelligence/
-├── interfaces/           # Domain-specific Active Inference interfaces
-│   ├── generative_models.py # Generative model architectures
-│   ├── reinforcement.py     # Reinforcement learning integration
-│   ├── world_models.py      # World modeling and planning
-│   └── safety_alignment.py  # AI safety and alignment
-├── implementations/      # Complete AI applications
-│   ├── language_models.py   # Large language model integration
-│   ├── vision_systems.py    # Computer vision applications
-│   ├── robotics_ai.py       # AI for robotics
-│   └── multimodal.py        # Multimodal AI systems
-├── examples/            # Usage examples and tutorials
-│   ├── basic_generative.py  # Basic generative modeling
-│   ├── rl_integration.py    # RL integration examples
-│   ├── world_modeling.py    # World modeling tutorials
-│   └── safety_systems.py    # AI safety implementations
-├── models/              # Pre-trained models and architectures
-│   ├── pretrained_generative.py # Pre-trained generative models
-│   └── model_zoo.py            # Collection of AI models
-└── tests/               # AI-specific tests
-    ├── test_generative.py
-    ├── test_reinforcement.py
-    └── test_safety.py
-```
+The Artificial Intelligence domain demonstrates how Active Inference can serve as a unifying framework for AI systems, providing alternatives to traditional machine learning approaches while offering more interpretable, biologically-inspired, and theoretically grounded AI solutions.
 
 ## Core Components
 
-### 🤖 Generative Models
-Active Inference implementations for generative AI:
+### 🤖 Reinforcement Learning Alternatives
+- **Active Inference Agents**: AI agents using Active Inference for decision making
+- **Policy Selection**: Active Inference approaches to policy optimization
+- **Value Learning**: Learning value functions through Active Inference
+- **Multi-Agent Systems**: Multi-agent scenarios with Active Inference
+- **Hierarchical Control**: Hierarchical AI control systems
 
-- **Variational Autoencoders**: VAE implementations with Active Inference
-- **Generative Adversarial Networks**: GAN architectures with AIF objectives
-- **Diffusion Models**: Integration with diffusion-based generative models
-- **Large Language Models**: Active Inference for language generation and understanding
+### 🧠 Planning and Decision Making
+- **Active Inference Planners**: Planning systems based on Active Inference
+- **Decision Theory**: Decision making under uncertainty with Active Inference
+- **Sequential Decision Making**: Sequential decision processes
+- **Planning Under Uncertainty**: Robust planning in uncertain environments
+- **Goal-Directed Behavior**: Goal achievement through Active Inference
 
-### 🎯 Reinforcement Learning
-Integration of Active Inference with RL frameworks:
+### 💬 Natural Language Processing
+- **Language Understanding**: Natural language understanding with Active Inference
+- **Text Generation**: Text generation using Active Inference models
+- **Semantic Processing**: Semantic analysis and representation
+- **Dialogue Systems**: Conversational AI with Active Inference
+- **Language Acquisition**: Models of language learning and acquisition
 
-- **Model-based RL**: Active Inference as a model-based RL method
-- **Policy Optimization**: AIF-based policy improvement algorithms
-- **Exploration Strategies**: Information-seeking exploration policies
-- **Multi-agent RL**: Multi-agent systems with Active Inference
+### 👁️ Computer Vision
+- **Visual Perception**: Active Inference models of visual perception
+- **Object Recognition**: Object recognition and categorization
+- **Scene Understanding**: Scene interpretation and understanding
+- **Visual Attention**: Attention mechanisms in computer vision
+- **Active Vision**: Active visual exploration and information seeking
 
-### 🌍 World Models
-World modeling and planning systems:
-
-- **Predictive World Models**: Models that predict future states
-- **Planning Algorithms**: AIF-based planning and decision-making
-- **Model Learning**: Learning world models from interaction
-- **Transfer Learning**: Transfer of learned models across tasks
-
-### 🛡️ AI Safety and Alignment
-Safety and alignment research tools:
-
-- **Value Alignment**: Aligning AI systems with human values
-- **Robustness**: Building robust AI systems under uncertainty
-- **Interpretability**: Making AI systems more interpretable
-- **Safety Constraints**: Enforcing safety in AI decision-making
+### 🎨 Generative AI
+- **Generative Models**: Active Inference for generative modeling
+- **Content Creation**: Creative content generation
+- **Style Transfer**: Artistic style transfer with Active Inference
+- **Data Synthesis**: Synthetic data generation
+- **Creative AI**: AI systems for creative applications
 
 ## Getting Started
 
-### Generative Modeling
+### For AI Researchers
+1. **Explore Alternatives**: Study Active Inference alternatives to traditional ML
+2. **Implementation Study**: Review AI implementation examples
+3. **Theoretical Understanding**: Understand Active Inference in AI context
+4. **Experimental Design**: Design AI experiments with Active Inference
+5. **Performance Comparison**: Compare with traditional AI approaches
 
+### For AI Developers
+1. **Choose Application**: Select AI application area
+2. **Review Implementations**: Study existing AI implementations
+3. **Adapt Patterns**: Modify patterns for your AI needs
+4. **Integration**: Integrate with existing AI systems
+5. **Deployment**: Deploy Active Inference AI systems
+
+## Usage Examples
+
+### Active Inference RL Agent
 ```python
-from active_inference.applications.domains.artificial_intelligence.interfaces.generative_models import AIFGenerativeModel
+from active_inference.applications.domains import AIDomainTemplate
 
-# Create generative model with Active Inference
-model_config = {
-    'architecture': 'vae',
-    'latent_dim': 128,
-    'observation_dim': 784,  # MNIST
-    'inference_method': 'variational',
-    'free_energy': 'expected'
-}
+class ActiveInferenceRLAgent(AIDomainTemplate):
+    """Active Inference agent for reinforcement learning tasks"""
 
-generative_model = AIFGenerativeModel(model_config)
+    def __init__(self, environment_config):
+        super().__init__(environment_config)
+        self.setup_rl_components()
 
-# Training process
-training_data = load_mnist_data()
-optimizer = torch.optim.Adam(generative_model.parameters())
+    def setup_rl_components(self):
+        """Set up reinforcement learning components"""
+        # Environment model
+        self.environment_model = EnvironmentModel(
+            state_space=self.config['state_space'],
+            action_space=self.config['action_space'],
+            transition_model=self.config['transition_model']
+        )
 
-for epoch in range(num_epochs):
-    for batch in training_data:
-        # Active Inference training step
-        reconstruction, kl_divergence = generative_model(batch)
-        free_energy = reconstruction + kl_divergence
-        loss = free_energy.mean()
+        # Reward model
+        self.reward_model = RewardModel(
+            reward_function=self.config['reward_function'],
+            shaping=self.config['reward_shaping']
+        )
 
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        # Active Inference controller
+        self.ai_controller = AIController(
+            generative_model=self.create_generative_model(),
+            policy_selection=self.create_policy_selector()
+        )
+
+    def create_generative_model(self):
+        """Create generative model for RL"""
+        return RLGenerativeModel(
+            state_model=self.environment_model,
+            observation_model=self.create_observation_model(),
+            preference_model=self.reward_model
+        )
+
+    def create_policy_selector(self):
+        """Create policy selection for RL"""
+        return RLPolicySelector(
+            model=self.ai_controller.generative_model,
+            planning_horizon=self.config['planning_horizon'],
+            selection_criterion='expected_free_energy'
+        )
+
+    def act(self, observation):
+        """Select action using Active Inference"""
+        # Update beliefs
+        beliefs = self.ai_controller.inference_engine.update(observation)
+
+        # Select policy
+        policy = self.ai_controller.policy_selector.select(beliefs)
+
+        # Execute action
+        action = self.execute_policy(policy)
+
+        return action, beliefs
 ```
 
-### Reinforcement Learning Integration
-
+### AI Planning System
 ```python
-from active_inference.applications.domains.artificial_intelligence.interfaces.reinforcement import AIFReinforcementAgent
+from active_inference.applications.domains import AIPlanningTemplate
 
-# Create RL agent with Active Inference
-agent_config = {
-    'state_dim': 4,
-    'action_dim': 2,
-    'policy_type': 'stochastic',
-    'planning_horizon': 20,
-    'discount_factor': 0.99,
-    'exploration_bonus': 0.1
-}
+class ActiveInferencePlanner(AIPlanningTemplate):
+    """AI planning system using Active Inference"""
 
-agent = AIFReinforcementAgent(agent_config)
+    def __init__(self, planning_config):
+        super().__init__(planning_config)
+        self.setup_planning_system()
 
-# Environment interaction
-env = gym.make('CartPole-v1')
-state = env.reset()
+    def setup_planning_system(self):
+        """Set up planning system components"""
+        # Planning domain model
+        self.planning_domain = PlanningDomain(
+            states=self.config['planning_states'],
+            actions=self.config['planning_actions'],
+            goals=self.config['planning_goals']
+        )
 
-for episode in range(num_episodes):
-    trajectory = []
+        # Active Inference planner
+        self.ai_planner = AIPlanner(
+            domain=self.planning_domain,
+            generative_model=self.create_planning_model(),
+            inference_engine=self.create_inference_engine()
+        )
 
-    while not done:
-        # Active Inference planning
-        preferred_outcome = {'balance': 1.0, 'efficiency': 0.3}
-        action = agent.select_action(state, preferred_outcome)
+    def create_planning_model(self):
+        """Create generative model for planning"""
+        return PlanningGenerativeModel(
+            state_space=self.planning_domain.states,
+            action_space=self.planning_domain.actions,
+            goal_space=self.planning_domain.goals,
+            dynamics_model=self.config['dynamics_model']
+        )
 
-        next_state, reward, done, info = env.step(action)
-        trajectory.append((state, action, reward, next_state))
+    def plan(self, current_state, goal_state):
+        """Generate plan using Active Inference"""
+        # Set goal
+        self.ai_planner.set_goal(goal_state)
 
-        state = next_state
+        # Generate plan
+        plan = self.ai_planner.generate_plan(current_state)
 
-    # Update agent with experience
-    agent.update_policy(trajectory)
+        # Validate plan
+        validation = self.validate_plan(plan)
+
+        return plan, validation
 ```
 
-### World Modeling
+## AI Research Areas
 
-```python
-from active_inference.applications.domains.artificial_intelligence.interfaces.world_models import WorldModel
+### Current Applications
+- **Reinforcement Learning**: Alternatives to traditional RL algorithms
+- **Planning Systems**: Novel planning approaches using Active Inference
+- **Decision Making**: Decision theory and rational choice modeling
+- **Language Processing**: Natural language understanding and generation
+- **Computer Vision**: Visual perception and scene understanding
 
-# Set up world model
-world_config = {
-    'state_dim': 10,
-    'action_dim': 3,
-    'prediction_horizon': 50,
-    'model_type': 'recurrent',
-    'uncertainty': 'epistemic'
-}
+### Emerging Applications
+- **Multi-Agent Systems**: Coordination and cooperation between AI agents
+- **Meta-Learning**: Learning to learn with Active Inference
+- **Explainable AI**: Interpretable AI systems using Active Inference
+- **Causal AI**: Causal reasoning and discovery with Active Inference
+- **Ethical AI**: Value alignment and ethical decision making
 
-world_model = WorldModel(world_config)
+## Integration with AI Ecosystem
 
-# Learn world model from interaction
-interaction_data = collect_interaction_data(environment)
+### Machine Learning Frameworks
+- **TensorFlow Integration**: Active Inference layers and models for TensorFlow
+- **PyTorch Integration**: Active Inference implementations for PyTorch
+- **JAX Integration**: High-performance Active Inference with JAX
+- **Scikit-Learn**: Active Inference utilities for scikit-learn
+- **OpenAI Gym**: Active Inference agents for Gym environments
 
-for sequence in interaction_data:
-    states, actions, outcomes = sequence
-
-    # Update world model
-    predictions = world_model.predict_sequence(states, actions)
-    errors = outcomes - predictions
-    world_model.update(errors)
-```
-
-## Key Features
-
-### Modern AI Integration
-- **Deep Learning**: Integration with PyTorch and TensorFlow
-- **Large Models**: Support for large-scale AI models and datasets
-- **Distributed Training**: Multi-GPU and distributed training support
-- **Model Optimization**: Automatic differentiation and optimization
-
-### Uncertainty Quantification
-- **Epistemic Uncertainty**: Modeling uncertainty about the world
-- **Aleatoric Uncertainty**: Inherent noise in observations
-- **Active Learning**: Information-seeking behavior for uncertainty reduction
-- **Risk Assessment**: Quantifying and managing AI system risks
-
-### Safety and Alignment
-- **Value Learning**: Learning human values and preferences
-- **Robust Decision Making**: Decision-making under worst-case scenarios
-- **Interpretability**: Making AI decision processes transparent
-- **Safety Constraints**: Hard constraints on AI behavior
-
-## Applications
-
-### Research Applications
-- **AI Safety Research**: Safe and aligned AI system development
-- **World Modeling**: Understanding and predicting complex environments
-- **Meta-learning**: Learning to learn with Active Inference
-- **Multi-modal Learning**: Integration of vision, language, and action
-
-### Industry Applications
-- **Autonomous Systems**: Safe autonomous vehicles and robots
-- **Healthcare AI**: Medical diagnosis and treatment planning
-- **Financial AI**: Risk-aware trading and portfolio management
-- **Recommendation Systems**: Personalized recommendation with uncertainty
-
-### Creative Applications
-- **Content Generation**: Creative writing and art generation
-- **Game AI**: Intelligent game characters and environments
-- **Music Generation**: Composing music with Active Inference
-- **Design Automation**: Automated design and optimization
-
-## Integration with Core Framework
-
-```python
-from active_inference.core import GenerativeModel, PolicySelection
-from active_inference.applications.domains.artificial_intelligence.interfaces import AIInterface
-
-# Configure core components for AI applications
-generative_model = GenerativeModel({
-    'model_type': 'deep_generative',
-    'architecture': 'hierarchical_vae',
-    'latent_dim': 256,
-    'device': 'cuda'
-})
-
-policy_selection = PolicySelection({
-    'method': 'active_inference',
-    'planning_horizon': 100,
-    'optimization': 'gradient_based'
-})
-
-# Create AI-specific interface
-ai_interface = AIInterface({
-    'domain': 'generative_ai',
-    'model_complexity': 'high',
-    'safety_constraints': True,
-    'generative_model': generative_model,
-    'policy_selection': policy_selection
-})
-
-# Deploy AI system
-deployment_config = {
-    'environment': 'production',
-    'monitoring': True,
-    'safety_checks': True
-}
-
-ai_system = ai_interface.deploy(deployment_config)
-```
-
-## Performance Characteristics
-
-### Scalability
-- **Large Models**: Support for models with billions of parameters
-- **High Throughput**: Optimized for high-frequency inference
-- **Memory Efficiency**: Efficient memory usage for large models
-- **Distributed Computing**: Multi-node and multi-GPU support
-
-### Reliability
-- **Robustness**: Stable performance under varying conditions
-- **Safety**: Built-in safety mechanisms and constraints
-- **Interpretability**: Clear decision processes and explanations
-- **Uncertainty Handling**: Proper quantification and handling of uncertainty
-
-### Validation Metrics
-- **Predictive Performance**: Accuracy in prediction tasks
-- **Uncertainty Calibration**: Well-calibrated uncertainty estimates
-- **Safety Compliance**: Adherence to safety constraints
-- **Alignment Quality**: Alignment with intended goals and values
-
-## AI Safety and Ethics
-
-### Safety Mechanisms
-- **Constraint Satisfaction**: Hard constraints on AI behavior
-- **Risk Assessment**: Continuous risk monitoring and assessment
-- **Fail-safes**: Backup systems and safe fallback behaviors
-- **Transparency**: Clear explanation of AI decision processes
-
-### Ethical Considerations
-- **Value Alignment**: Ensuring AI systems respect human values
-- **Bias Mitigation**: Reducing harmful biases in AI systems
-- **Privacy Protection**: Protecting user privacy and data security
-- **Accountability**: Clear responsibility and accountability mechanisms
+### AI Tools and Platforms
+- **Robotics Platforms**: Integration with ROS and robotic systems
+- **Simulation Environments**: Active Inference in simulation platforms
+- **Data Science Tools**: Integration with pandas, numpy, scipy
+- **Visualization Tools**: Active Inference visualization with matplotlib, plotly
+- **Cloud Platforms**: Deployment on AWS, GCP, Azure
 
 ## Contributing
 
-We welcome contributions to the artificial intelligence domain! Priority areas include:
+We welcome AI domain contributions! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for detailed guidelines.
 
-### Implementation Contributions
-- **New AI Architectures**: Novel AI architectures using Active Inference
-- **Integration Libraries**: Better integration with popular AI frameworks
-- **Safety Tools**: Tools for building safe and aligned AI systems
-- **Performance Optimizations**: Improvements in computational efficiency
-
-### Research Contributions
-- **Safety Research**: Research on safe and beneficial AI development
-- **Alignment Studies**: Studies on AI alignment and value learning
-- **Benchmark Development**: New benchmarks for Active Inference in AI
-- **Application Studies**: Real-world AI applications and case studies
+### Contribution Types
+- **AI Algorithms**: New Active Inference algorithms for AI
+- **Applications**: Novel AI applications using Active Inference
+- **Integrations**: Integration with existing AI frameworks
+- **Benchmarks**: AI performance benchmarks and comparisons
+- **Research**: AI research and theoretical developments
 
 ### Quality Standards
-- **Safety First**: All implementations must prioritize safety and alignment
-- **Empirical Validation**: Validation against established AI benchmarks
-- **Reproducibility**: Reproducible implementations and results
-- **Documentation**: Clear documentation for AI researchers and practitioners
+- **AI Performance**: Competitive performance with existing AI methods
+- **Theoretical Soundness**: Mathematically and theoretically correct
+- **Reproducibility**: Reproducible results and implementations
+- **Documentation**: Comprehensive AI-specific documentation
+- **Community Validation**: Validation by AI research community
 
 ## Learning Resources
 
-### Tutorials and Examples
-- **AI Integration**: Integrating Active Inference with modern AI techniques
-- **Safety Implementation**: Building safe AI systems with Active Inference
-- **World Modeling**: Creating predictive world models for AI
-- **Meta-learning**: Learning to learn with Active Inference
+- **AI Literature**: Study Active Inference in AI research literature
+- **Implementation Examples**: Review AI implementation examples
+- **Research Papers**: Read domain-specific research papers
+- **Community Networks**: Connect with AI research communities
+- **Tutorials**: Follow AI-specific tutorials and guides
 
-### Research Literature
-- **AI Safety**: Active Inference applications in AI safety research
-- **World Models**: World modeling and predictive processing in AI
-- **Value Learning**: Learning human values and preferences
-- **Reinforcement Learning**: Active Inference in reinforcement learning
+## Related Documentation
 
-## Related Domains
+- **[Domain Applications README](../README.md)**: Domain applications overview
+- **[AI AGENTS.md](./AGENTS.md)**: AI domain development guidelines
+- **[Main README](../../../README.md)**: Project overview and getting started
+- **[Research Tools](../../../research/README.md)**: Research methodologies
+- **[Applications README](../../README.md)**: Applications module overview
 
-- **[Robotics Domain](../robotics/)**: AI applications in autonomous systems
-- **[Engineering Domain](../engineering/)**: AI in control and optimization
-- **[Education Domain](../education/)**: AI in learning and teaching systems
-- **[Knowledge Repository](../../../knowledge/)**: Theoretical foundations
+## AI Performance Benchmarks
+
+### Standard AI Benchmarks
+- **RL Benchmarks**: Atari, MuJoCo, OpenAI Gym environments
+- **Planning Benchmarks**: Planning domain benchmarks and competitions
+- **Language Benchmarks**: GLUE, SuperGLUE, language understanding tasks
+- **Vision Benchmarks**: ImageNet, COCO, visual recognition tasks
+- **Reasoning Benchmarks**: ARC, bAbI, reasoning and inference tasks
+
+### Active Inference Specific
+- **Interpretability**: Model interpretability and explainability metrics
+- **Biological Plausibility**: Alignment with biological and neural systems
+- **Uncertainty Handling**: Performance under uncertainty and ambiguity
+- **Transfer Learning**: Knowledge transfer and generalization capabilities
+- **Robustness**: Robustness to distributional shift and adversarial examples
+
+## Future Directions
+
+### Research Directions
+- **Scaling Active Inference**: Large-scale Active Inference systems
+- **Multi-Modal Integration**: Integration of vision, language, and action
+- **Lifelong Learning**: Continual learning with Active Inference
+- **Meta-Active Inference**: Active Inference about Active Inference
+- **Neural Active Inference**: Biologically detailed neural implementations
+
+### Application Directions
+- **Autonomous Systems**: Self-driving cars and autonomous robots
+- **Intelligent Assistants**: AI assistants using Active Inference
+- **Creative AI**: Creative applications and artistic expression
+- **Scientific Discovery**: AI for scientific research and hypothesis generation
+- **Social AI**: Social interaction and multi-agent coordination
 
 ---
 
-*"Active Inference for, with, by Generative AI"* - AI implementations built through collaborative intelligence and comprehensive artificial intelligence research.
+*"Active Inference for, with, by Generative AI"* - Advancing artificial intelligence through Active Inference's unified framework for perception, learning, and decision making.

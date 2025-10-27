@@ -1,0 +1,123 @@
+{
+  "id": "continuous_control",
+  "title": "Continuous Control in Active Inference",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding how Active Inference handles continuous state spaces and continuous control problems.",
+  "prerequisites": ["active_inference_introduction", "ai_policy_selection"],
+  "tags": ["continuous control", "optimal control", "continuous states", "dynamical systems"],
+  "learning_objectives": [
+    "Understand continuous state space modeling",
+    "Design continuous control policies",
+    "Apply Active Inference to dynamical systems",
+    "Implement continuous Active Inference agents"
+  ],
+  "content": {
+    "overview": "Continuous control extends Active Inference to systems with continuous state spaces and continuous actions. This involves modeling continuous dynamics, designing continuous policies, and optimizing expected free energy over continuous trajectories.",
+    "continuous_state_spaces": {
+      "gaussian_beliefs": "Represent beliefs as Gaussian distributions",
+      "mean_and_covariance": "Track mean and uncertainty of state estimates",
+      "kalman_filtering": "Recursive estimation for linear systems",
+      "nonlinear_filtering": "Extended Kalman filter, particle filters"
+    },
+    "continuous_dynamics": {
+      "stochastic_differential_equations": "ds/dt = f(s, a) + w(t)",
+      "transition_densities": "p(s_{t+1} | s_t, a_t) from continuous dynamics",
+      "linear_systems": "Linear dynamics with Gaussian noise",
+      "nonlinear_systems": "Approximation methods for nonlinear dynamics"
+    },
+    "continuous_policies": {
+      "parametric_policies": "π_θ(a_t | s_t) with parameters θ",
+      "trajectory_optimization": "Optimize entire paths, not just single actions",
+      "model_predictive_control": "Receding horizon optimization",
+      "stochastic_policies": "Gaussian policies for exploration"
+    },
+    "expected_free_energy_for_continuous_systems": {
+      "path_integrals": "Expected free energy over continuous trajectories",
+      "variational_principles": "Optimize policies using variational methods",
+      "gradient_flow": "Policy updates as gradient descent on expected free energy",
+      "natural_gradients": "Preconditioned gradients for policy optimization"
+    },
+    "examples": [
+      {
+        "name": "Linear Quadratic Regulator",
+        "description": "Optimal control of linear systems",
+        "dynamics": "dx/dt = Ax + Bu + w",
+        "cost": "Quadratic cost on states and controls",
+        "solution": "Linear feedback policy minimizing expected free energy"
+      },
+      {
+        "name": "Robot Arm Control",
+        "description": "Continuous control of robotic manipulator",
+        "states": "Joint angles, velocities, torques",
+        "policies": "Smooth trajectories to target positions",
+        "constraints": "Joint limits, obstacle avoidance"
+      }
+    ],
+    "numerical_methods": {
+      "discretization": "Convert continuous problems to discrete approximations",
+      "monte_carlo": "Sample-based evaluation of continuous policies",
+      "quadrature": "Numerical integration for continuous expectations",
+      "optimization": "Gradient-based optimization of policy parameters"
+    },
+    "connections_to_control_theory": {
+      "optimal_control": "Active Inference as generalized optimal control",
+      "stochastic_control": "Control under uncertainty",
+      "adaptive_control": "Learning and adapting control policies",
+      "robust_control": "Control with model uncertainty"
+    },
+    "interactive_exercises": [
+      {
+        "id": "continuous_policy_optimization",
+        "type": "optimization",
+        "description": "Optimize continuous control policies",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "trajectory_planning",
+        "type": "planning",
+        "description": "Plan optimal trajectories in continuous space",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Active Inference only works for discrete systems",
+        "clarification": "Extends naturally to continuous systems"
+      },
+      {
+        "misconception": "Continuous control requires perfect models",
+        "clarification": "Works with uncertain, approximate models"
+      },
+      {
+        "misconception": "Computationally more expensive than discrete",
+        "clarification": "Can be more efficient with appropriate approximations"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Active Inference for Continuous Control",
+        "author": "Research literature",
+        "description": "Applications to continuous control problems"
+      },
+      {
+        "title": "Stochastic Optimal Control",
+        "author": "Dimitri Bertsekas",
+        "description": "Foundations of continuous stochastic control"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_introduction",
+      "ai_policy_selection",
+      "optimal_control",
+      "dynamical_systems"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 30,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

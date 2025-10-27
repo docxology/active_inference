@@ -1,0 +1,138 @@
+{
+  "id": "markov_chain_monte_carlo",
+  "title": "Markov Chain Monte Carlo Methods",
+  "content_type": "mathematics",
+  "difficulty": "advanced",
+  "description": "Understanding MCMC methods for sampling from complex posterior distributions in Active Inference.",
+  "prerequisites": ["bayesian_models", "variational_free_energy"],
+  "tags": ["mcmc", "sampling", "bayesian inference", "monte carlo methods"],
+  "learning_objectives": [
+    "Understand MCMC sampling algorithms",
+    "Design Markov chains with desired stationary distributions",
+    "Apply MCMC in Active Inference contexts",
+    "Diagnose and improve MCMC convergence"
+  ],
+  "content": {
+    "overview": "Markov Chain Monte Carlo methods generate samples from complex probability distributions by constructing Markov chains with the target distribution as their stationary distribution. They enable exact Bayesian inference when analytical methods are not available.",
+    "markov_chain_fundamentals": {
+      "stationary_distribution": "π such that πP = π",
+      "detailed_balance": "π_i p_{ij} = π_j p_{ji}",
+      "irreducibility": "Can reach any state from any other state",
+      "aperiodicity": "Chain is not periodic",
+      "ergodic_theorem": "Sample averages converge to expectations"
+    },
+    "common_mcmc_algorithms": [
+      {
+        "algorithm": "Metropolis-Hastings",
+        "description": "General MCMC algorithm using acceptance-rejection",
+        "proposal": "q(θ'|θ) proposal distribution",
+        "acceptance": "α = min(1, (p(θ')q(θ|θ')) / (p(θ)q(θ'|θ)))",
+        "implementation": "Propose new state, accept with probability α"
+      },
+      {
+        "algorithm": "Gibbs Sampling",
+        "description": "Sample each variable conditional on others",
+        "method": "For each i, sample θ_i ~ p(θ_i | θ_{-i}, x)",
+        "advantage": "No rejection step, always accepts",
+        "application": "When full conditionals are available"
+      },
+      {
+        "algorithm": "Hamiltonian Monte Carlo",
+        "description": "Uses Hamiltonian dynamics for efficient exploration",
+        "hamiltonian": "H(θ, p) = U(θ) + K(p)",
+        "dynamics": "Molecular dynamics simulation in parameter space",
+        "advantage": "Explores parameter space more efficiently"
+      }
+    ],
+    "convergence_diagnostics": {
+      "trace_plots": "Visual inspection of sample paths",
+      "autocorrelation": "Measure dependence between samples",
+      "effective_sample_size": "Number of independent samples",
+      "r_hat_statistic": "Potential scale reduction factor",
+      "geweke_test": "Compare means from different parts of chain"
+    },
+    "examples": [
+      {
+        "name": "Beta-Binomial Posterior",
+        "description": "Sample from Beta posterior distribution",
+        "target": "p(θ|x) ∝ θ^{α+x-1} (1-θ)^{β+n-x-1}",
+        "metropolis_hastings": "Use Beta proposal distribution",
+        "gibbs": "Direct sampling if α, β are integers"
+      },
+      {
+        "name": "Hierarchical Model",
+        "description": "Sample from multi-level Bayesian model",
+        "structure": "Multiple levels with different parameters",
+        "sampling": "Block Gibbs or Metropolis-within-Gibbs",
+        "application": "Complex Active Inference models"
+      }
+    ],
+    "connections_to_active_inference": {
+      "posterior_sampling": "Sample from approximate posteriors",
+      "model_comparison": "Estimate model evidence via MCMC",
+      "uncertainty_quantification": "Full posterior distributions",
+      "variational_alternatives": "MCMC vs variational inference trade-offs"
+    },
+    "practical_considerations": {
+      "burn_in": "Initial samples to discard",
+      "thinning": "Take every k-th sample to reduce autocorrelation",
+      "parallel_chains": "Run multiple chains for better diagnostics",
+      "adaptive_methods": "Adapt proposal distributions during sampling"
+    },
+    "interactive_exercises": [
+      {
+        "id": "mcmc_implementation",
+        "type": "implementation",
+        "description": "Implement Metropolis-Hastings algorithm",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "convergence_analysis",
+        "type": "analysis",
+        "description": "Analyze MCMC convergence and diagnostics",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "MCMC provides exact samples",
+        "clarification": "Samples are asymptotically exact, not exactly exact"
+      },
+      {
+        "misconception": "All MCMC algorithms are equally efficient",
+        "clarification": "Efficiency depends on target distribution and algorithm choice"
+      },
+      {
+        "misconception": "MCMC is always better than variational methods",
+        "clarification": "Each has advantages in different situations"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Monte Carlo Statistical Methods",
+        "author": "Christian Robert and George Casella",
+        "year": 2004,
+        "description": "Comprehensive treatment of MCMC methods"
+      },
+      {
+        "title": "Bayesian Data Analysis",
+        "author": "Andrew Gelman et al.",
+        "year": 2013,
+        "description": "MCMC in Bayesian modeling"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_models",
+      "variational_free_energy",
+      "posterior_inference",
+      "sampling_methods"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 40,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "mcmc_sampling",
+  "title": "MCMC Sampling Implementation",
+  "content_type": "implementation",
+  "difficulty": "advanced",
+  "description": "Complete implementation of Markov Chain Monte Carlo methods for sampling from complex posterior distributions.",
+  "prerequisites": ["markov_chain_monte_carlo", "bayesian_models"],
+  "tags": ["mcmc", "python", "sampling", "bayesian inference", "implementation"],
+  "learning_objectives": [
+    "Implement MCMC sampling algorithms",
+    "Design effective proposal distributions",
+    "Diagnose and improve MCMC convergence",
+    "Apply MCMC to Active Inference problems"
+  ],
+  "content": {
+    "overview": "This tutorial covers the implementation of MCMC methods for sampling from complex posterior distributions. We'll implement Metropolis-Hastings, Gibbs sampling, and Hamiltonian Monte Carlo algorithms with practical examples.",
+    "mcmc_fundamentals": {
+      "target_distribution": "Sample from p(θ|x) ∝ p(x|θ)p(θ)",
+      "markov_chain": "Sequence of samples where each depends only on previous",
+      "stationary_distribution": "Chain converges to target distribution",
+      "burn_in": "Discard initial samples before convergence"
+    },
+    "metropolis_hastings_implementation": {
+      "algorithm": "Propose new state, accept with computed probability",
+      "proposal_distribution": "q(θ'|θ) - how to propose new samples",
+      "acceptance_ratio": "α = min(1, (p(θ')q(θ|θ')) / (p(θ)q(θ'|θ)))",
+      "implementation": "Iterate: propose, compute α, accept/reject"
+    },
+    "python_implementation": {
+      "base_class": "Abstract MCMC sampler class",
+      "metropolis_hastings": "Complete MH implementation",
+      "gibbs_sampler": "Gibbs sampling for conjugate models",
+      "diagnostics": "Convergence diagnostics and trace analysis"
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Implement Base MCMC Class",
+        "description": "Create abstract base class for MCMC samplers",
+        "code_snippet": "class MCMC:\n    def __init__(self, log_target, initial_state):\n        self.log_target = log_target\n        self.current_state = initial_state\n        self.samples = []\n        self.acceptance_count = 0\n        \n    def sample(self, n_samples, burn_in=1000):\n        # Main sampling loop\n        pass",
+        "explanation": "Base class provides common interface and state management"
+      },
+      {
+        "step": 2,
+        "title": "Implement Metropolis-Hastings",
+        "description": "Complete MH algorithm implementation",
+        "code_snippet": "class MetropolisHastings(MCMC):\n    def __init__(self, log_target, proposal, initial_state):\n        super().__init__(log_target, initial_state)\n        self.proposal = proposal\n        \n    def step(self):\n        # Propose new state\n        proposed = self.proposal.sample(self.current_state)\n        \n        # Compute acceptance probability\n        log_acceptance = (self.log_target(proposed) - self.log_target(self.current_state) +\n                         self.proposal.log_prob(self.current_state, proposed) -\n                         self.proposal.log_prob(proposed, self.current_state))\n        \n        # Accept or reject\n        if np.log(np.random.uniform()) < log_acceptance:\n            self.current_state = proposed\n            self.acceptance_count += 1",
+        "explanation": "Core MH algorithm with proper log-probability calculations"
+      },
+      {
+        "step": 3,
+        "title": "Implement Convergence Diagnostics",
+        "description": "Tools for assessing MCMC convergence",
+        "code_snippet": "def trace_plot(self, samples, parameter_names):\n    # Plot sample traces for visual inspection\n    fig, axes = plt.subplots(len(parameter_names), 1)\n    for i, name in enumerate(parameter_names):\n        axes[i].plot(samples[:, i])\n        axes[i].set_ylabel(name)\n    return fig\n    \n    \ndef autocorrelation(self, samples, lags=50):\n    # Compute autocorrelation function\n    return np.array([np.corrcoef(samples[:-lag], samples[lag:])[0, 1] \n                     for lag in range(lags)])",
+        "explanation": "Visual and quantitative convergence diagnostics"
+      }
+    ],
+    "examples": [
+      {
+        "name": "Beta-Binomial Posterior",
+        "description": "Sample from Beta posterior using MH",
+        "target": "Beta(θ|α+x, β+n-x)",
+        "proposal": "Beta proposal centered at current value",
+        "implementation": "Adaptive proposal width for optimal acceptance rate"
+      },
+      {
+        "name": "Hierarchical Model",
+        "description": "Sample from multi-level Bayesian model",
+        "structure": "Multiple groups with shared hyperparameters",
+        "sampling": "Block updates for efficiency",
+        "application": "Complex Active Inference model parameters"
+      }
+    ],
+    "performance_optimization": {
+      "adaptive_proposals": "Adapt proposal distribution during sampling",
+      "parallel_chains": "Run multiple independent chains",
+      "blocking_strategies": "Update multiple parameters together",
+      "gradient_guided": "Use gradients to guide proposals"
+    },
+    "interactive_exercises": [
+      {
+        "id": "implement_mh",
+        "type": "coding",
+        "description": "Implement Metropolis-Hastings for simple distributions",
+        "difficulty": "advanced",
+        "starter_code": "Template with target distribution",
+        "expected_output": "Converged samples from target distribution"
+      },
+      {
+        "id": "diagnose_convergence",
+        "type": "analysis",
+        "description": "Diagnose MCMC convergence issues",
+        "difficulty": "advanced",
+        "test_cases": "Chains with known convergence properties"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "Poor mixing",
+        "solution": "Adjust proposal distribution or use different algorithm"
+      },
+      {
+        "issue": "Low acceptance rate",
+        "solution": "Make proposal distribution more conservative"
+      },
+      {
+        "issue": "High autocorrelation",
+        "solution": "Thin samples or use better proposal mechanism"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Markov Chain Monte Carlo in Practice",
+        "author": "W.R. Gilks et al.",
+        "year": 1996,
+        "description": "Practical guide to MCMC implementation"
+      },
+      {
+        "title": "Bayesian Computation with R",
+        "author": "Jim Albert",
+        "year": 2009,
+        "description": "MCMC implementation examples"
+      }
+    ],
+    "related_concepts": [
+      "markov_chain_monte_carlo",
+      "bayesian_models",
+      "posterior_sampling",
+      "convergence_diagnostics"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 55,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

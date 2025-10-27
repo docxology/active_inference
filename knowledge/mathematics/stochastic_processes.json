@@ -1,0 +1,125 @@
+{
+  "id": "stochastic_processes",
+  "title": "Stochastic Processes and Active Inference",
+  "content_type": "mathematics",
+  "difficulty": "expert",
+  "description": "Mathematical treatment of stochastic processes and their role in modeling temporal dynamics in Active Inference.",
+  "prerequisites": ["predictive_coding", "expected_free_energy"],
+  "tags": ["stochastic processes", "temporal dynamics", "markov processes", "filtering"],
+  "learning_objectives": [
+    "Understand stochastic processes in Active Inference",
+    "Model temporal dependencies in generative models",
+    "Apply filtering and smoothing algorithms",
+    "Design temporal Active Inference models"
+  ],
+  "content": {
+    "overview": "Stochastic processes provide the mathematical foundation for modeling temporal dynamics in Active Inference. They describe how system states evolve over time and enable prediction, filtering, and control in dynamic environments.",
+    "markov_processes": {
+      "definition": "Future state depends only on current state: p(s_{t+1} | s_t, s_{t-1}, ...) = p(s_{t+1} | s_t)",
+      "transition_matrix": "P(s_{t+1} = j | s_t = i) = p_{ij}",
+      "stationary_distribution": "π such that π = πP",
+      "ergodicity": "Long-term behavior independent of initial conditions"
+    },
+    "continuous_time_processes": {
+      "stochastic_differential_equations": "dX_t = μ(X_t)dt + σ(X_t)dW_t",
+      "wiener_process": "Brownian motion as continuous limit of random walk",
+      "ornstein_uhlenbeck": "Mean-reverting stochastic process",
+      "diffusion_processes": "General class of continuous Markov processes"
+    },
+    "filtering_and_smoothing": {
+      "kalman_filter": "Optimal filtering for linear Gaussian systems",
+      "extended_kalman": "Nonlinear systems via linearization",
+      "unscented_kalman": "Nonlinear systems via unscented transform",
+      "particle_filter": "Monte Carlo approximation for general systems"
+    },
+    "temporal_generative_models": {
+      "hidden_markov_models": "Discrete states with observations",
+      "linear_dynamical_systems": "Continuous states with linear dynamics",
+      "nonlinear_dynamical_systems": "General nonlinear temporal models",
+      "switching_models": "Multiple regimes or modes"
+    },
+    "examples": [
+      {
+        "name": "Random Walk",
+        "description": "Simple discrete-time stochastic process",
+        "transition": "p(s_{t+1} = s_t + 1) = p, p(s_{t+1} = s_t - 1) = 1-p",
+        "stationary": "Binomial distribution for large times",
+        "application": "Simple foraging or search behavior"
+      },
+      {
+        "name": "Ornstein-Uhlenbeck Process",
+        "description": "Mean-reverting continuous process",
+        "sde": "dX_t = θ(μ - X_t)dt + σ dW_t",
+        "interpretation": "Pulls toward mean μ with strength θ",
+        "application": "Neural activity, stock prices, temperature regulation"
+      }
+    ],
+    "connections_to_active_inference": {
+      "temporal_inference": "Belief updating over time sequences",
+      "predictive_control": "Control policies for temporal processes",
+      "learning_dynamics": "Learning transition models from data",
+      "uncertainty_propagation": "How uncertainty evolves over time"
+    },
+    "information_theoretic_analysis": {
+      "entropy_rate": "Entropy production rate in stationary processes",
+      "mutual_information_rate": "Information flow in temporal sequences",
+      "predictive_information": "How much future can be predicted from past",
+      "transfer_entropy": "Directed information flow between processes"
+    },
+    "interactive_exercises": [
+      {
+        "id": "process_simulation",
+        "type": "simulation",
+        "description": "Simulate different types of stochastic processes",
+        "difficulty": "expert"
+      },
+      {
+        "id": "filtering_implementation",
+        "type": "implementation",
+        "description": "Implement filtering algorithms for temporal models",
+        "difficulty": "expert"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "All temporal processes are Markov",
+        "clarification": "Markov assumption simplifies but may not always hold"
+      },
+      {
+        "misconception": "Filtering requires linear models",
+        "clarification": "Nonlinear filtering methods exist for general systems"
+      },
+      {
+        "misconception": "Stochastic processes are unpredictable",
+        "clarification": "Have statistical regularities that can be exploited"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Stochastic Processes",
+        "author": "Sheldon Ross",
+        "year": 2014,
+        "description": "Comprehensive introduction to stochastic processes"
+      },
+      {
+        "title": "Bayesian Filtering and Smoothing",
+        "author": "Simo Särkkä",
+        "year": 2013,
+        "description": "Modern treatment of filtering algorithms"
+      }
+    ],
+    "related_concepts": [
+      "predictive_coding",
+      "expected_free_energy",
+      "kalman_filtering",
+      "dynamical_systems"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 40,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

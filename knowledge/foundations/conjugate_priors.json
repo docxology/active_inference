@@ -1,0 +1,139 @@
+{
+  "id": "conjugate_priors",
+  "title": "Conjugate Prior Distributions",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Understanding conjugate prior relationships and their role in Bayesian inference and Active Inference.",
+  "prerequisites": ["bayesian_basics", "bayesian_models"],
+  "tags": ["conjugate priors", "bayesian inference", "posterior computation", "analytical solutions"],
+  "learning_objectives": [
+    "Understand conjugate prior relationships",
+    "Compute posterior distributions analytically",
+    "Apply conjugate priors in Active Inference models",
+    "Design Bayesian models with tractable inference"
+  ],
+  "content": {
+    "overview": "Conjugate priors are prior distributions that, when combined with the likelihood, produce a posterior distribution of the same family. This property enables analytical computation of posterior distributions, making inference tractable in many Bayesian models.",
+    "mathematical_definition": {
+      "conjugate_relationship": "If p(θ) is conjugate to p(x|θ), then p(θ|x) ∝ p(x|θ) p(θ) is same family as p(θ)",
+      "posterior_form": "p(θ|x) = p(θ|α', β') where (α', β') = (α, β) + sufficient statistics",
+      "sufficient_statistics": "Summary statistics that capture all information about θ in data"
+    },
+    "common_conjugate_pairs": [
+      {
+        "likelihood": "Bernoulli: p(x|θ) = θ^x (1-θ)^(1-x)",
+        "prior": "Beta: p(θ) = Beta(θ|α, β)",
+        "posterior": "Beta(θ|α+x, β+1-x)",
+        "interpretation": "Beta prior represents pseudo-counts of successes and failures"
+      },
+      {
+        "likelihood": "Gaussian: p(x|θ) = N(θ, σ²) with known σ²",
+        "prior": "Gaussian: p(θ) = N(μ₀, σ₀²)",
+        "posterior": "N(μₙ, σₙ²) with μₙ = (σ₀²μ₀ + σ²x)/(σ₀² + σ²)",
+        "interpretation": "Posterior mean is precision-weighted average"
+      },
+      {
+        "likelihood": "Poisson: p(x|λ) = (λ^x e^(-λ))/x!",
+        "prior": "Gamma: p(λ) = Gamma(λ|α, β)",
+        "posterior": "Gamma(λ|α+x, β+1)",
+        "interpretation": "Gamma prior represents pseudo-counts and exposure time"
+      },
+      {
+        "likelihood": "Exponential: p(x|λ) = λ e^(-λx)",
+        "prior": "Gamma: p(λ) = Gamma(λ|α, β)",
+        "posterior": "Gamma(λ|α+1, β+x)",
+        "interpretation": "Gamma prior as conjugate for rate parameters"
+      }
+    ],
+    "role_in_active_inference": {
+      "generative_models": "Conjugate priors enable tractable inference in hierarchical models",
+      "belief_updating": "Analytical updates maintain computational efficiency",
+      "empirical_bayes": "Learning hyperparameters through conjugate relationships",
+      "variational_inference": "Conjugate forms simplify variational optimization"
+    },
+    "examples": [
+      {
+        "name": "Coin Flipping with Beta-Bernoulli",
+        "description": "Learning bias of a coin",
+        "prior": "Beta(1,1) - uniform prior",
+        "data": "10 heads, 5 tails",
+        "posterior": "Beta(11, 6)",
+        "interpretation": "Posterior mean = 11/17 ≈ 0.647"
+      },
+      {
+        "name": "Normal-Normal Conjugate Analysis",
+        "description": "Estimating mean of Gaussian data",
+        "prior": "N(0, 1)",
+        "data": "Sample mean = 2.5, sample size = 10",
+        "posterior": "N(μₙ, σₙ²) with μₙ = (1*0 + 1*2.5)/(1+1) = 1.25",
+        "interpretation": "Posterior shrinks toward prior mean"
+      }
+    ],
+    "computational_benefits": {
+      "analytical_updates": "No need for numerical integration or sampling",
+      "memory_efficiency": "Store only hyperparameters, not full distributions",
+      "online_learning": "Sequential updates without storing all data",
+      "predictive_distributions": "Easy computation of posterior predictive distributions"
+    },
+    "limitations_and_extensions": {
+      "inflexibility": "Limited to specific likelihood-prior pairs",
+      "approximations": "When exact conjugacy doesn't hold",
+      "hierarchical_models": "Conjugate priors in multi-level models",
+      "nonparametric_alternatives": "When conjugate priors are too restrictive"
+    },
+    "interactive_exercises": [
+      {
+        "id": "conjugate_computation",
+        "type": "calculation",
+        "description": "Compute posterior distributions for conjugate pairs",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "model_design",
+        "type": "design",
+        "description": "Design Bayesian models using conjugate priors",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "All Bayesian models need conjugate priors",
+        "clarification": "Conjugate priors are convenient but not necessary"
+      },
+      {
+        "misconception": "Conjugate posteriors are always simple",
+        "clarification": "Posterior parameters may still be complex even if family is conjugate"
+      },
+      {
+        "misconception": "Conjugate priors are always non-informative",
+        "clarification": "Can encode strong prior beliefs while maintaining conjugacy"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Bayesian Data Analysis",
+        "author": "Andrew Gelman et al.",
+        "year": 2013,
+        "description": "Comprehensive treatment of conjugate priors"
+      },
+      {
+        "title": "Conjugate Bayesian Analysis of the Gaussian Distribution",
+        "author": "Kevin Murphy",
+        "description": "Detailed examples of conjugate relationships"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_basics",
+      "bayesian_models",
+      "empirical_bayes",
+      "variational_inference"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 25,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

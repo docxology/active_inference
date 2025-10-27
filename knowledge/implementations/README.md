@@ -12,6 +12,8 @@ This section provides hands-on implementations of Active Inference concepts. Eac
 - **Basic Active Inference** (`active_inference_basic.json`): Complete agent implementation from scratch
 - **Variational Inference** (`variational_inference.json`): Algorithms for approximate Bayesian computation
 - **Expected Free Energy** (`expected_free_energy_calculation.json`): Policy evaluation and selection
+- **MCMC Sampling** (`mcmc_sampling.json`): Markov Chain Monte Carlo methods
+- **Neural Networks** (`neural_network_implementation.json`): Deep learning implementations
 
 ## Implementation Focus
 

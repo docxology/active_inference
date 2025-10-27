@@ -1,0 +1,120 @@
+{
+  "id": "cross_entropy",
+  "title": "Cross-Entropy and Information Theory",
+  "content_type": "foundation",
+  "difficulty": "intermediate",
+  "description": "Understanding cross-entropy as a measure of difference between distributions and its applications in machine learning.",
+  "prerequisites": ["info_theory_entropy", "info_theory_kl_divergence"],
+  "tags": ["cross entropy", "information theory", "loss functions", "classification"],
+  "learning_objectives": [
+    "Define cross-entropy mathematically",
+    "Understand relationship between cross-entropy and KL divergence",
+    "Apply cross-entropy in machine learning",
+    "Interpret cross-entropy in classification tasks"
+  ],
+  "content": {
+    "overview": "Cross-entropy measures the average number of bits needed to encode data from one distribution when using a code optimized for another distribution. It plays a central role in machine learning as a loss function and in understanding model performance.",
+    "mathematical_definition": {
+      "cross_entropy": "H(P, Q) = E_P[-log Q(x)] = -∑ p(x) log q(x)",
+      "relationship_to_kl": "D_KL(P||Q) = H(P, Q) - H(P)",
+      "symmetric_version": "H_sym(P, Q) = H(P, Q) + H(Q, P)",
+      "interpretation": "Expected surprise when using Q to encode P"
+    },
+    "properties": {
+      "non_negativity": "H(P, Q) ≥ 0 with equality iff P = Q",
+      "asymmetry": "H(P, Q) ≠ H(Q, P) in general",
+      "bounds": "H(P) ≤ H(P, Q) ≤ H(P, Uniform)",
+      "self_entropy": "H(P, P) = H(P)"
+    },
+    "machine_learning_applications": {
+      "classification_loss": "Cross-entropy loss for classification tasks",
+      "binary_classification": "H(P, Q) = -[y log p + (1-y) log (1-p)]",
+      "multi_class": "H(P, Q) = -∑_i y_i log p_i",
+      "connection_to_likelihood": "Negative log-likelihood up to additive constant"
+    },
+    "examples": [
+      {
+        "name": "Binary Classification",
+        "description": "Cross-entropy for binary prediction",
+        "true_distribution": "P = [1, 0] (true class is 1)",
+        "predicted": "Q = [0.7, 0.3]",
+        "cross_entropy": "H(P, Q) = -[1*log(0.7) + 0*log(0.3)] = -log(0.7) ≈ 0.357",
+        "interpretation": "Bits needed to encode true labels using predicted probabilities"
+      },
+      {
+        "name": "Language Modeling",
+        "description": "Cross-entropy in next-word prediction",
+        "true_distribution": "Empirical distribution of next words",
+        "model_distribution": "Model's predicted word probabilities",
+        "interpretation": "Average surprise of true sequence under model"
+      }
+    ],
+    "connections_to_active_inference": {
+      "variational_free_energy": "Cross-entropy term in variational free energy",
+      "model_fitting": "Minimizing cross-entropy improves model fit",
+      "prediction_accuracy": "Lower cross-entropy means better predictions",
+      "belief_updating": "Gradient of cross-entropy drives learning"
+    },
+    "optimization": {
+      "gradient_descent": "∂H/∂θ = -∑ (y_i/p_i) ∂p_i/∂θ",
+      "natural_gradient": "Preconditioned gradients for faster convergence",
+      "stochastic_gradient": "Sample-based optimization for large datasets",
+      "regularization": "Add penalty terms to prevent overfitting"
+    },
+    "interactive_exercises": [
+      {
+        "id": "cross_entropy_calculation",
+        "type": "calculation",
+        "description": "Calculate cross-entropy for different distributions",
+        "difficulty": "intermediate"
+      },
+      {
+        "id": "classification_loss",
+        "type": "optimization",
+        "description": "Minimize cross-entropy loss in classification task",
+        "difficulty": "intermediate"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Cross-entropy equals KL divergence",
+        "clarification": "KL divergence = cross-entropy - entropy"
+      },
+      {
+        "misconception": "Lower cross-entropy always means better model",
+        "clarification": "Depends on whether distributions are properly normalized"
+      },
+      {
+        "misconception": "Only used in classification",
+        "clarification": "Also used in regression, density estimation, etc."
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Deep Learning",
+        "author": "Ian Goodfellow et al.",
+        "year": 2016,
+        "description": "Cross-entropy in neural networks"
+      },
+      {
+        "title": "Elements of Information Theory",
+        "author": "Thomas Cover and Joy Thomas",
+        "year": 2006,
+        "description": "Information-theoretic foundations"
+      }
+    ],
+    "related_concepts": [
+      "info_theory_entropy",
+      "info_theory_kl_divergence",
+      "variational_free_energy",
+      "classification"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 20,
+    "difficulty_level": "intermediate",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

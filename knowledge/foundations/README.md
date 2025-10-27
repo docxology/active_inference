@@ -12,11 +12,15 @@ This section covers the fundamental theoretical concepts that form the basis of 
 - **Entropy and Information** (`info_theory_entropy.json`): Basic concepts of entropy and information content
 - **KL Divergence** (`info_theory_kl_divergence.json`): Measure of difference between probability distributions
 - **Mutual Information** (`info_theory_mutual_information.json`): Shared information between random variables
+- **Cross-Entropy** (`cross_entropy.json`): Information theory and loss functions
 
 ### Bayesian Fundamentals
 - **Bayesian Basics** (`bayesian_basics.json`): Core concepts of Bayesian probability and inference
 - **Bayesian Models** (`bayesian_models.json`): Graphical models and probabilistic modeling
 - **Belief Updating** (`belief_updating.json`): Sequential learning and evidence accumulation
+- **Conjugate Priors** (`conjugate_priors.json`): Analytical posterior computation
+- **Hierarchical Models** (`hierarchical_models.json`): Multi-level Bayesian modeling
+- **Empirical Bayes** (`empirical_bayes.json`): Data-driven hyperparameter estimation
 
 ### Free Energy Principle
 - **FEP Introduction** (`fep_introduction.json`): Overview of the Free Energy Principle
@@ -27,6 +31,8 @@ This section covers the fundamental theoretical concepts that form the basis of 
 - **Active Inference Introduction** (`active_inference_introduction.json`): Complete framework overview
 - **Generative Models** (`ai_generative_models.json`): Internal simulations and world models
 - **Policy Selection** (`ai_policy_selection.json`): Planning and decision making
+- **Multi-Agent Systems** (`multi_agent_systems.json`): Social interaction and coordination
+- **Continuous Control** (`continuous_control.json`): Control in continuous state spaces
 
 ## Learning Progression
 

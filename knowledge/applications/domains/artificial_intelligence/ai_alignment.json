@@ -1,0 +1,133 @@
+{
+  "id": "ai_alignment",
+  "title": "Active Inference for AI Alignment",
+  "content_type": "application",
+  "difficulty": "expert",
+  "description": "Using Active Inference principles to design aligned artificial intelligence systems.",
+  "prerequisites": ["active_inference_introduction", "multi_agent_systems"],
+  "tags": ["ai alignment", "value alignment", "artificial intelligence", "safety", "ethics"],
+  "learning_objectives": [
+    "Understand AI alignment through Active Inference lens",
+    "Design preference learning systems",
+    "Implement value-aligned Active Inference agents",
+    "Address alignment challenges and solutions"
+  ],
+  "content": {
+    "overview": "AI alignment seeks to ensure that artificial intelligence systems pursue goals that are beneficial to humanity. Active Inference provides a principled framework for building AI systems that learn and pursue human values while maintaining safety and interpretability.",
+    "alignment_challenges": {
+      "specification_problem": "How to specify what we want AI to do",
+      "learning_problem": "How AI learns correct objectives",
+      "robustness_problem": "How AI remains safe under uncertainty",
+      "interpretability_problem": "How to understand AI decision making"
+    },
+    "active_inference_approach": {
+      "preference_learning": "Learn human preferences through interaction",
+      "uncertainty_awareness": "Quantify and communicate uncertainty",
+      "value_preservation": "Maintain values under distributional shift",
+      "iterative_refinement": "Continuously improve alignment through feedback"
+    },
+    "preference_learning": {
+      "inverse_reinforcement_learning": "Learn reward functions from demonstrations",
+      "active_learning": "Query humans for preference information",
+      "cooperative_irl": "Interactive preference learning",
+      "uncertainty_sampling": "Query examples that reduce uncertainty most"
+    },
+    "safety_mechanisms": {
+      "uncertainty_quantification": "Predict when system is uncertain",
+      "conservative_policies": "Safe fallback behaviors",
+      "human_oversight": "Human-in-the-loop decision making",
+      "value_drift_detection": "Monitor for changes in learned values"
+    },
+    "examples": [
+      {
+        "name": "Value Learning Agent",
+        "description": "AI that learns human values through interaction",
+        "implementation": "Preference model + uncertainty quantification",
+        "feedback_loop": "Human provides corrections and guidance",
+        "safety": "Conservative behavior when uncertain about values"
+      },
+      {
+        "name": "Aligned Assistant",
+        "description": "AI assistant with interpretable decision making",
+        "preferences": "Helpful, honest, harmless behaviors",
+        "uncertainty": "Clear communication of confidence levels",
+        "correction": "Accept and learn from human feedback"
+      }
+    ],
+    "mathematical_formulation": {
+      "preference_model": "p(preferences|demonstrations, queries)",
+      "expected_value": "G(π) includes human preference satisfaction",
+      "uncertainty": "H[preferences] measures alignment uncertainty",
+      "iterative_update": "Bayesian updating of preference model"
+    },
+    "ethical_considerations": {
+      "value_pluralism": "Multiple valid value systems",
+      "cultural_adaptation": "Adapt to different cultural contexts",
+      "autonomy_respect": "Respect human autonomy and agency",
+      "transparency": "Clear explanation of AI reasoning"
+    },
+    "interactive_exercises": [
+      {
+        "id": "preference_learning",
+        "type": "implementation",
+        "description": "Implement preference learning system",
+        "difficulty": "expert",
+        "scenario": "AI learning human preferences through interaction",
+        "task": "Design queries to efficiently learn preferences"
+      },
+      {
+        "id": "alignment_evaluation",
+        "type": "evaluation",
+        "description": "Evaluate AI alignment in different scenarios",
+        "difficulty": "expert",
+        "scenarios": "Multiple alignment challenges and edge cases"
+      }
+    ],
+    "future_directions": {
+      "scalable_oversight": "Alignment for large AI systems",
+      "multi_stakeholder": "Alignment with diverse human values",
+      "long_term_safety": "Maintaining alignment over extended time periods",
+      "theoretical_foundations": "Deeper understanding of alignment principles"
+    },
+    "common_misconceptions": [
+      {
+        "misconception": "Alignment is just about following instructions",
+        "clarification": "Requires understanding intent and values, not just commands"
+      },
+      {
+        "misconception": "Active Inference guarantees alignment",
+        "clarification": "Provides framework but requires careful design and validation"
+      },
+      {
+        "misconception": "Alignment is a solved problem",
+        "clarification": "Active area of research with many open challenges"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Concrete Problems in AI Safety",
+        "author": "Various authors",
+        "year": 2016,
+        "description": "Key challenges in AI alignment"
+      },
+      {
+        "title": "AI Alignment: Why It's Hard, and Where to Start",
+        "author": "Various authors",
+        "description": "Comprehensive introduction to alignment challenges"
+      }
+    ],
+    "related_concepts": [
+      "multi_agent_systems",
+      "active_inference_introduction",
+      "value_alignment",
+      "ai_safety"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 50,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

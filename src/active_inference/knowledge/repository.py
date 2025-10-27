@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 
 import yaml
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +48,7 @@ class KnowledgeNode(BaseModel):
     description: str
     prerequisites: List[str] = Field(default_factory=list)
     content_path: Optional[str] = None
+    content: Dict[str, Any] = Field(default_factory=dict)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     tags: List[str] = Field(default_factory=list)
     learning_objectives: List[str] = Field(default_factory=list)
@@ -62,6 +63,66 @@ class LearningPath(BaseModel):
     estimated_hours: Optional[int] = None
     difficulty: DifficultyLevel = DifficultyLevel.BEGINNER
     metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class KnowledgeNodeSchema:
+    """JSON schema validation for knowledge nodes"""
+
+    REQUIRED_FIELDS = {
+        "id", "title", "content_type", "difficulty", "description",
+        "prerequisites", "tags", "learning_objectives", "content", "metadata"
+    }
+
+    FIELD_TYPES = {
+        "id": str,
+        "title": str,
+        "content_type": str,
+        "difficulty": str,
+        "description": str,
+        "prerequisites": list,
+        "tags": list,
+        "learning_objectives": list,
+        "content": dict,
+        "metadata": dict
+    }
+
+    CONTENT_TYPE_VALUES = {"foundation", "mathematics", "implementation", "application"}
+    DIFFICULTY_VALUES = {"beginner", "intermediate", "advanced", "expert"}
+
+    @classmethod
+    def validate_json_structure(cls, data: Dict[str, Any]) -> List[str]:
+        """Validate JSON structure against schema"""
+        errors = []
+
+        # Check required fields
+        missing_fields = cls.REQUIRED_FIELDS - set(data.keys())
+        if missing_fields:
+            errors.append(f"Missing required fields: {missing_fields}")
+
+        # Check field types
+        for field, expected_type in cls.FIELD_TYPES.items():
+            if field in data:
+                if not isinstance(data[field], expected_type):
+                    errors.append(f"Field '{field}' must be of type {expected_type.__name__}")
+
+        # Check content_type values
+        if "content_type" in data:
+            if data["content_type"] not in cls.CONTENT_TYPE_VALUES:
+                errors.append(f"content_type must be one of: {cls.CONTENT_TYPE_VALUES}")
+
+        # Check difficulty values
+        if "difficulty" in data:
+            if data["difficulty"] not in cls.DIFFICULTY_VALUES:
+                errors.append(f"difficulty must be one of: {cls.DIFFICULTY_VALUES}")
+
+        # Check that lists contain strings
+        for list_field in ["prerequisites", "tags", "learning_objectives"]:
+            if list_field in data and isinstance(data[list_field], list):
+                non_string_items = [item for item in data[list_field] if not isinstance(item, str)]
+                if non_string_items:
+                    errors.append(f"Field '{list_field}' must contain only strings")
+
+        return errors
 
 
 @dataclass

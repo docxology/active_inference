@@ -156,6 +156,27 @@ active_inference/
     └── 👁️ visualization/             # Visualization documentation
 ```
 
+## 📋 Development Standards & Guidelines
+
+This project follows comprehensive development standards documented in **[.cursorrules](.cursorrules)** - the complete guide for AI agents and contributors. All development must adhere to these standards:
+
+### Key Standards
+- **🧪 Test-Driven Development (TDD)**: All code must follow TDD with comprehensive test coverage (>95% for core components)
+- **📚 Documentation-First**: Complete documentation before implementation
+- **🎯 Type Safety**: 100% type annotations with no `Any` types without justification
+- **📖 Structured Content**: All knowledge content follows strict JSON schema
+- **🔄 Modular Architecture**: Clean interfaces and dependency management
+- **🚀 Performance Optimization**: Efficient algorithms and data structures
+
+### Quality Gates
+- **Test Coverage**: >95% for core components, >80% overall
+- **Code Quality**: PEP 8 compliance with automated formatting
+- **Security**: Industry-standard security practices
+- **Performance**: Sub-second response times for user interactions
+- **Documentation**: 100% API and interface documentation coverage
+
+**📖 [Complete Development Standards](.cursorrules)** - Required reading for all contributors.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -307,6 +328,12 @@ POST /api/platform/backup
 
 We welcome contributions from the global Active Inference community! This project thrives on collaborative intelligence between researchers, educators, developers, and AI assistants.
 
+### 📋 Required Reading for Contributors
+1. **[.cursorrules](.cursorrules)** - Complete development standards and agent guidelines (MANDATORY)
+2. **[CONTRIBUTING.md](CONTRIBUTING.md)** - Detailed contribution processes and workflows
+3. **[AGENTS.md](AGENTS.md)** - Master agent development guidelines
+4. **Component Documentation** - README.md and AGENTS.md in relevant directories
+
 ### Contribution Types
 - **📚 Knowledge Content**: Educational materials, tutorials, research papers
 - **🔬 Research Tools**: New analysis methods, simulation engines, benchmarks
@@ -316,9 +343,9 @@ We welcome contributions from the global Active Inference community! This projec
 - **📖 Documentation**: Guides, examples, translations
 
 ### Getting Started
-1. **Read Guidelines**: [CONTRIBUTING.md](CONTRIBUTING.md) for detailed processes
+1. **Read Guidelines**: [.cursorrules](.cursorrules) and [CONTRIBUTING.md](CONTRIBUTING.md) for detailed processes
 2. **Choose Area**: Select component matching your expertise
-3. **Follow Standards**: TDD, documentation, and quality requirements
+3. **Follow Standards**: TDD, documentation, and quality requirements (see .cursorrules)
 4. **Community Review**: Submit for peer review and validation
 5. **Iterate**: Incorporate feedback and improve
 
@@ -465,3 +492,20 @@ https://github.com/docxology/active_inference
 **"Active Inference for, with, by Generative AI"** - Together, we're building the most comprehensive platform for understanding intelligence, cognition, and behavior through the lens of Active Inference and the Free Energy Principle.
 
 **Built with**: ❤️ Human expertise, 🤖 AI assistance, 🧠 Deep learning, and the collective intelligence of the global Active Inference community. 
+
+Starting on October 27, 2025
+https://www.youtube.com/live/ZWF8wXxKXlI
+CodeStream #004.1 ~ Active Inference for, with, by Generative AI (An Experiment)
+https://github.com/docxology/active_inference
+
+Cursor 2.0.14
+"Free" use of code-supernova-1-million
+???????
+
+What might happen when starting "from scratch" with large language models?
+
+For learning/documenting functionality, and building, and seeing what happens when we "do it live". 
+
+Starting with initial prompt: 
+
+Comprehensively plan for creating the most comprehensive integrated knowledge environment for Active Inference & Free Energy Principle education, research, visualization, and application. You have maximum agentic capacities for technical work. Start and proceed for considering all nested structures, documentation, tests, thin orchestrators, and including rigorous accessible structured educational knowledge repository.  

@@ -1,0 +1,135 @@
+{
+  "id": "empirical_bayes",
+  "title": "Empirical Bayes Methods",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding empirical Bayes methods for estimating hyperparameters from data in hierarchical models.",
+  "prerequisites": ["hierarchical_models", "conjugate_priors"],
+  "tags": ["empirical bayes", "hyperparameter estimation", "hierarchical modeling", "evidence maximization"],
+  "learning_objectives": [
+    "Understand the empirical Bayes approach",
+    "Estimate hyperparameters from data",
+    "Apply empirical Bayes in Active Inference",
+    "Compare empirical vs full Bayesian methods"
+  ],
+  "content": {
+    "overview": "Empirical Bayes methods estimate hyperparameters from the data itself, rather than specifying them as fixed prior beliefs. This approach combines the benefits of hierarchical modeling with data-driven parameter estimation.",
+    "methodological_approach": {
+      "evidence_maximization": "Maximize marginal likelihood: φ* = argmax_φ p(x|φ)",
+      "hierarchical_structure": "p(x|φ) = ∫ p(x|θ) p(θ|φ) dθ",
+      "two_step_procedure": "1. Estimate φ from data, 2. Use φ to compute posterior p(θ|x, φ*)",
+      "connection_to_ml": "Related to maximum likelihood estimation"
+    },
+    "types_of_empirical_bayes": [
+      {
+        "type": "Parametric empirical Bayes",
+        "description": "Assume parametric form for hyperparameter distribution",
+        "method": "Maximize marginal likelihood analytically or numerically",
+        "example": "Beta-binomial model with Beta hyperparameters"
+      },
+      {
+        "type": "Nonparametric empirical Bayes",
+        "description": "Estimate hyperparameter distribution from data",
+        "method": "Use kernel density estimation or other smoothing methods",
+        "example": "Estimate prior distribution from empirical distribution"
+      }
+    ],
+    "examples": [
+      {
+        "name": "Beta-Binomial Model",
+        "description": "Estimate Beta parameters from binomial data",
+        "data": "Success counts from multiple binomial experiments",
+        "estimation": "α*, β* = argmax p(x|α, β) = ∏_i Beta-binomial(x_i|α, β)",
+        "posterior": "p(θ_i|x) = Beta(θ_i|α* + x_i, β* + n_i - x_i)"
+      },
+      {
+        "name": "Normal-Normal Model",
+        "description": "Estimate variance parameters from Gaussian data",
+        "data": "Multiple groups with Gaussian observations",
+        "estimation": "σ* = argmax p(x|σ) across all groups",
+        "posterior": "θ_j|x ~ N(μ_j*, σ_j*) where σ_j* incorporates estimated σ*"
+      }
+    ],
+    "advantages_and_disadvantages": {
+      "advantages": [
+        "Automatic hyperparameter selection",
+        "Often more efficient than full Bayesian methods",
+        "Can provide good default hyperparameters",
+        "Computationally tractable for large datasets"
+      ],
+      "disadvantages": [
+        "Underestimates uncertainty in hyperparameters",
+        "Can overfit if data is limited",
+        "Not fully Bayesian - doesn't account for hyperparameter uncertainty",
+        "May not be appropriate when hyperparameters are of interest"
+      ]
+    },
+    "connections_to_active_inference": {
+      "empirical_priors": "Higher-level priors learned from data",
+      "variational_empirical_bayes": "Variational methods for empirical Bayes",
+      "model_learning": "Learning model structure and parameters",
+      "adaptive_systems": "Systems that learn their own priors"
+    },
+    "computational_methods": {
+      "analytical_solutions": "When marginal likelihood has closed form",
+      "numerical_optimization": "Gradient-based optimization of marginal likelihood",
+      "expectation_maximization": "EM algorithm for empirical Bayes",
+      "cross_validation": "Select hyperparameters using CV"
+    },
+    "interactive_exercises": [
+      {
+        "id": "empirical_bayes_estimation",
+        "type": "calculation",
+        "description": "Estimate hyperparameters using empirical Bayes",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "comparison_study",
+        "type": "comparison",
+        "description": "Compare empirical Bayes vs full Bayesian methods",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Empirical Bayes is not truly Bayesian",
+        "clarification": "It's Bayesian at the data level but not at hyperparameter level"
+      },
+      {
+        "misconception": "Always better than fixed hyperparameters",
+        "clarification": "Depends on amount of data and model complexity"
+      },
+      {
+        "misconception": "Equivalent to maximum likelihood",
+        "clarification": "Related but operates in hierarchical framework"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Empirical Bayes Methods",
+        "author": "Bradley Efron",
+        "year": 2010,
+        "description": "Classic treatment of empirical Bayes"
+      },
+      {
+        "title": "Large-Scale Inference: Empirical Bayes Methods for Estimation, Testing, and Prediction",
+        "author": "Bradley Efron",
+        "year": 2012,
+        "description": "Modern applications of empirical Bayes"
+      }
+    ],
+    "related_concepts": [
+      "hierarchical_models",
+      "conjugate_priors",
+      "variational_inference",
+      "maximum_likelihood"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 25,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

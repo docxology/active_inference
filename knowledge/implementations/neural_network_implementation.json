@@ -1,0 +1,146 @@
+{
+  "id": "neural_network_implementation",
+  "title": "Neural Network Implementation of Active Inference",
+  "content_type": "implementation",
+  "difficulty": "advanced",
+  "description": "Implementation of Active Inference using neural networks and deep learning frameworks.",
+  "prerequisites": ["active_inference_basic", "variational_inference"],
+  "tags": ["neural networks", "deep learning", "tensorflow", "pytorch", "active inference"],
+  "learning_objectives": [
+    "Implement Active Inference using neural networks",
+    "Build variational autoencoders for generative models",
+    "Train neural Active Inference agents",
+    "Scale to complex, high-dimensional problems"
+  ],
+  "content": {
+    "overview": "Neural networks provide a powerful framework for implementing Active Inference at scale. This tutorial covers how to build neural implementations of generative models, inference networks, and policy evaluation using modern deep learning frameworks.",
+    "neural_generative_models": {
+      "variational_autoencoders": "Neural implementation of generative models",
+      "encoder_network": "q_φ(θ|x) - approximate posterior",
+      "decoder_network": "p_θ(x|θ) - generative model",
+      "reparameterization_trick": "Enable backpropagation through sampling"
+    },
+    "neural_inference": {
+      "inference_network": "Neural network approximating posterior",
+      "variational_objective": "ELBO = E[log p(x|θ) - log q(θ|x)]",
+      "amortized_inference": "Single network for all data points",
+      "recurrent_inference": "Sequential belief updating"
+    },
+    "frameworks_and_libraries": {
+      "tensorflow": "Static computation graphs, production deployment",
+      "pytorch": "Dynamic graphs, research flexibility",
+      "jax": "Functional programming, automatic differentiation",
+      "numpy": "Pure Python for educational implementations"
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Build Neural Generative Model",
+        "description": "Create VAE-style generative model",
+        "code_snippet": "class GenerativeModel(nn.Module):\n    def __init__(self, input_dim, hidden_dim, latent_dim):\n        super().__init__()\n        self.encoder = nn.Sequential(\n            nn.Linear(input_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, latent_dim * 2)  # mean and logvar\n        )\n        self.decoder = nn.Sequential(\n            nn.Linear(latent_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, input_dim)\n        )\n        \n    def forward(self, x):\n        # Encode\n        encoded = self.encoder(x)\n        mean, logvar = encoded.chunk(2, dim=-1)\n        \n        # Sample latent\n        std = torch.exp(0.5 * logvar)\n        eps = torch.randn_like(std)\n        z = mean + eps * std\n        \n        # Decode\n        reconstructed = self.decoder(z)\n        return reconstructed, mean, logvar",
+        "explanation": "Complete VAE implementation for generative modeling"
+      },
+      {
+        "step": 2,
+        "title": "Implement Variational Training",
+        "description": "Train the model using variational objective",
+        "code_snippet": "def train_step(self, x):\n    # Forward pass\n    reconstructed, mean, logvar = self.model(x)\n    \n    # Reconstruction loss\n    recon_loss = F.mse_loss(reconstructed, x, reduction='sum')\n    \n    # KL divergence\n    kl_loss = -0.5 * torch.sum(1 + logvar - mean.pow(2) - logvar.exp())\n    \n    # Total loss (negative ELBO)\n    total_loss = recon_loss + kl_loss\n    \n    return total_loss",
+        "explanation": "Variational training objective combining reconstruction and regularization"
+      },
+      {
+        "step": 3,
+        "title": "Add Policy Network",
+        "description": "Implement policy evaluation using neural networks",
+        "code_snippet": "class PolicyNetwork(nn.Module):\n    def __init__(self, state_dim, action_dim, hidden_dim):\n        super().__init__()\n        self.network = nn.Sequential(\n            nn.Linear(state_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, hidden_dim),\n            nn.ReLU(),\n            nn.Linear(hidden_dim, action_dim)\n        )\n        \n    def forward(self, state):\n        # Compute expected free energy for each action\n        action_values = self.network(state)\n        return action_values\n        \n    def select_action(self, state):\n        # Softmax selection based on negative expected free energy\n        action_logits = self(state)\n        action_probs = F.softmax(-action_logits, dim=-1)\n        action = torch.multinomial(action_probs, 1)\n        return action.item()",
+        "explanation": "Neural network for policy evaluation and action selection"
+      }
+    ],
+    "examples": [
+      {
+        "name": "Neural Active Inference Agent",
+        "description": "Complete neural implementation for simple environment",
+        "components": "Generative model + inference network + policy network",
+        "training": "End-to-end training with reinforcement learning",
+        "application": "Grid world navigation with visual input"
+      },
+      {
+        "name": "Deep Generative Models",
+        "description": "Complex generative models for high-dimensional data",
+        "architecture": "Deep VAEs with hierarchical latent variables",
+        "inference": "Variational inference in deep hierarchies",
+        "application": "Image generation and manipulation"
+      }
+    ],
+    "advanced_techniques": {
+      "normalizing_flows": "More flexible approximate posteriors",
+      "hierarchical_vae": "Multi-level generative models",
+      "attention_mechanisms": "Attention in generative models",
+      "meta_learning": "Learning to learn Active Inference models"
+    },
+    "performance_optimization": {
+      "gpu_acceleration": "Leverage GPU computing",
+      "distributed_training": "Scale to large models and datasets",
+      "model_compression": "Reduce model size for deployment",
+      "quantization": "Lower precision for faster inference"
+    },
+    "interactive_exercises": [
+      {
+        "id": "build_neural_vae",
+        "type": "coding",
+        "description": "Build neural VAE for generative modeling",
+        "difficulty": "advanced",
+        "starter_code": "Template with data loading and basic architecture",
+        "expected_output": "Trained VAE that generates realistic samples"
+      },
+      {
+        "id": "neural_policy_optimization",
+        "type": "optimization",
+        "description": "Train neural policy network for Active Inference",
+        "difficulty": "advanced",
+        "environment": "Custom environment with reward structure",
+        "task": "Learn optimal policy using neural Active Inference"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "KL divergence collapse",
+        "solution": "Adjust β parameter in β-VAE or use annealing"
+      },
+      {
+        "issue": "Gradient vanishing/exploding",
+        "solution": "Use gradient clipping and proper initialization"
+      },
+      {
+        "issue": "Mode collapse in generative models",
+        "solution": "Use diverse training data and regularization"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Deep Learning",
+        "author": "Ian Goodfellow et al.",
+        "year": 2016,
+        "description": "Neural network fundamentals"
+      },
+      {
+        "title": "Auto-Encoding Variational Bayes",
+        "author": "Diederik Kingma and Max Welling",
+        "year": 2013,
+        "description": "VAE paper and implementation details"
+      }
+    ],
+    "related_concepts": [
+      "active_inference_basic",
+      "variational_inference",
+      "neural_networks",
+      "deep_learning"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 60,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}
