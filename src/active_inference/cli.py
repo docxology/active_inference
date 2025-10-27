@@ -119,6 +119,20 @@ Examples:
         # Statistics command
         knowledge_subparsers.add_parser('stats', help='Show repository statistics')
 
+        # Implementations command
+        implementations_parser = knowledge_subparsers.add_parser('implementations', help='Implementation examples and tutorials')
+        impl_subparsers = implementations_parser.add_subparsers(dest='impl_command')
+        impl_subparsers.add_parser('list', help='List available implementations')
+        impl_subparsers.add_parser('show', help='Show implementation details').add_argument('impl_id', help='Implementation ID')
+        impl_subparsers.add_parser('validate', help='Validate implementation').add_argument('impl_id', help='Implementation ID')
+
+        # Applications command
+        applications_parser = knowledge_subparsers.add_parser('applications', help='Domain applications and case studies')
+        app_subparsers = applications_parser.add_subparsers(dest='app_command')
+        app_subparsers.add_parser('list', help='List available applications')
+        app_subparsers.add_parser('show', help='Show application details').add_argument('app_id', help='Application ID')
+        app_subparsers.add_parser('domains', help='List applications by domain')
+
         # Research commands
         research_parser = subparsers.add_parser('research', help='Research tools and experiments')
         research_subparsers = research_parser.add_subparsers(dest='research_command')
@@ -126,6 +140,15 @@ Examples:
         research_subparsers.add_parser('experiments', help='Run experiments')
         research_subparsers.add_parser('simulations', help='Run simulations')
         research_subparsers.add_parser('analyze', help='Analyze results')
+        research_subparsers.add_parser('benchmarks', help='Run benchmarks')
+
+        # Data management commands
+        data_parser = research_subparsers.add_parser('data', help='Data management and collection')
+        data_subparsers = data_parser.add_subparsers(dest='data_command')
+        data_subparsers.add_parser('collect', help='Collect research data')
+        data_subparsers.add_parser('list', help='List available datasets')
+        data_subparsers.add_parser('validate', help='Validate dataset integrity').add_argument('dataset_id', help='Dataset ID')
+        data_subparsers.add_parser('backup', help='Backup dataset').add_argument('dataset_id', help='Dataset ID')
 
         # Visualization commands
         viz_parser = subparsers.add_parser('visualize', help='Visualization tools')
@@ -242,6 +265,10 @@ Examples:
             return self._handle_path_command(args)
         elif args.knowledge_command == 'stats':
             return self._handle_stats_command(args)
+        elif args.knowledge_command == 'implementations':
+            return self._handle_implementations_command(args)
+        elif args.knowledge_command == 'applications':
+            return self._handle_knowledge_applications_command(args)
         else:
             print(f"Unknown knowledge command: {args.knowledge_command}")
             return 1
@@ -415,9 +442,21 @@ Examples:
         return 0
 
     def _handle_research_command(self, args) -> int:
-        """Handle research commands (placeholder)"""
-        print("🔬 Research tools coming soon!")
-        print("This will include experiment management, simulation tools, and analysis frameworks.")
+        """Handle research commands"""
+        if args.research_command == 'experiments':
+            print("🧪 Experiments coming soon!")
+        elif args.research_command == 'simulations':
+            print("🧮 Simulations coming soon!")
+        elif args.research_command == 'analyze':
+            print("📊 Analysis tools coming soon!")
+        elif args.research_command == 'benchmarks':
+            print("🏆 Benchmarks coming soon!")
+        elif args.research_command == 'data':
+            return self._handle_data_command(args)
+        else:
+            print(f"Unknown research command: {args.research_command}")
+            return 1
+
         return 0
 
     def _handle_visualization_command(self, args) -> int:

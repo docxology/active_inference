@@ -1,0 +1,145 @@
+{
+  "models": {
+    "gemma3:2b": {
+      "name": "gemma3:2b",
+      "family": "gemma",
+      "size": "2b",
+      "quantization": null,
+      "context_window": 8192,
+      "capabilities": [
+        "mathematical_reasoning",
+        "text_generation",
+        "reasoning",
+        "code_generation",
+        "active_inference_explanation",
+        "conversation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "gemma3:4b": {
+      "name": "gemma3:4b",
+      "family": "gemma",
+      "size": "4b",
+      "quantization": null,
+      "context_window": 8192,
+      "capabilities": [
+        "mathematical_reasoning",
+        "text_generation",
+        "educational_content",
+        "reasoning",
+        "research_analysis",
+        "code_generation",
+        "active_inference_explanation",
+        "conversation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "llama2:7b": {
+      "name": "llama2:7b",
+      "family": "llama",
+      "size": "7b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "reasoning",
+        "text_generation",
+        "research_analysis",
+        "code_generation",
+        "conversation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "llama2:13b": {
+      "name": "llama2:13b",
+      "family": "llama",
+      "size": "13b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "mathematical_reasoning",
+        "text_generation",
+        "complex_reasoning",
+        "educational_content",
+        "reasoning",
+        "research_analysis",
+        "code_generation",
+        "conversation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "mistral:7b": {
+      "name": "mistral:7b",
+      "family": "mistral",
+      "size": "7b",
+      "quantization": null,
+      "context_window": 8192,
+      "capabilities": [
+        "mathematical_reasoning",
+        "text_generation",
+        "reasoning",
+        "research_analysis",
+        "code_generation",
+        "educational_content",
+        "conversation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "custom_model:1b": {
+      "name": "custom_model:1b",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "performance_test": {
+      "name": "performance_test",
+      "family": "test",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "test"
+      ],
+      "performance_metrics": {
+        "reasoning_score": 0.85,
+        "generation_speed": 50.0,
+        "memory_efficiency": 0.9
+      },
+      "requirements": {},
+      "metadata": {}
+    }
+  },
+  "preferred_models": [
+    "gemma3:2b",
+    "gemma3:4b",
+    "mistral:7b",
+    "llama2:7b",
+    "llama2:13b"
+  ],
+  "fallback_chain": [
+    "gemma3:2b",
+    "gemma3:4b",
+    "llama2:7b",
+    "llama2:13b",
+    "mistral:7b",
+    "custom_model:1b",
+    "performance_test"
+  ]
+}

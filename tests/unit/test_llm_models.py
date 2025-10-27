@@ -186,7 +186,7 @@ class TestModelRegistry:
         assert best_model.name == "gemma3:4b"  # Only model with mathematical capability
 
         # Test with memory constraint
-        best_model = registry.get_best_model_for_task({"reasoning"}, max_memory_gb=5.0)
+        best_model = registry.get_best_model_for_task({"reasoning"}, max_memory=5.0)
         assert best_model is not None
         # Should select smaller model that fits memory constraint
 
