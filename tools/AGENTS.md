@@ -6,6 +6,54 @@ This document provides comprehensive guidance for AI agents and contributors wor
 
 The Development Tools module provides a comprehensive toolkit for Active Inference development, automation, and quality assurance. It includes documentation generation tools, workflow orchestration components, advanced testing frameworks, and development utilities that support the entire development lifecycle. This module enables efficient, high-quality development through automation and standardization.
 
+### Development Tools Architecture
+
+```mermaid
+graph TB
+    subgraph "Development Tools Ecosystem"
+        A[Documentation Tools] --> B[Orchestration Layer]
+        C[Testing Framework] --> B
+        D[Utilities] --> B
+        E[Quality Assurance] --> B
+
+        A1[Generator] --> A
+        A2[Validator] --> A
+        A3[Analyzer] --> A
+
+        C1[Unit Tests] --> C
+        C2[Integration Tests] --> C
+        C3[Performance Tests] --> C
+
+        D1[Code Formatters] --> D
+        D2[Analyzers] --> D
+        D3[Optimizers] --> D
+    end
+
+    subgraph "Platform Integration"
+        F[Development Workflow] <--> B
+        G[CI/CD Pipeline] <--> B
+        H[Quality Gates] <--> B
+        I[Deployment System] <--> B
+    end
+
+    subgraph "External Tools"
+        J[IDE Integration] --> A1
+        K[Version Control] --> B
+        L[Package Managers] --> D1
+        M[Code Quality Tools] --> E
+    end
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#ffebee
+    style H fill:#f3e5f5
+    style I fill:#e8f5e8
+```
+
 ## Directory Structure
 
 ```
@@ -45,6 +93,40 @@ tools/
 ## Development Workflows
 
 ### Tool Creation Process
+
+```mermaid
+flowchart TD
+    A[Requirements Analysis] --> B[Architecture Design]
+    B --> C[Implementation]
+    C --> D[Integration]
+    D --> E[Validation]
+    E --> F[Documentation]
+    F --> G[Deployment]
+
+    A1[Identify Workflow Gaps] --> A
+    A2[Analyze Tool Requirements] --> A
+    B1[Design Tool Architecture] --> B
+    B2[Follow Established Patterns] --> B
+    C1[Test-Driven Development] --> C
+    C2[Comprehensive Test Coverage] --> C
+    D1[Ecosystem Integration] --> D
+    D2[Workflow Integration] --> D
+    E1[Functionality Validation] --> E
+    E2[Performance Validation] --> E
+    F1[Usage Documentation] --> F
+    F2[API Documentation] --> F
+    G1[Tool Deployment] --> G
+    G2[Environment Updates] --> G
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+```
+
 1. **Requirements Analysis**: Identify development workflow gaps and tool requirements
 2. **Architecture Design**: Design tool architecture following established patterns
 3. **Implementation**: Develop tools using TDD with comprehensive test coverage
@@ -69,6 +151,42 @@ tools/
 5. **Documentation Validation**: Ensure tool documentation is complete and accurate
 
 ## Quality Standards
+
+### Tool Quality Assurance Pipeline
+
+```mermaid
+flowchart LR
+    A[Tool Development] --> B[Code Quality Gates]
+    B --> C[Integration Testing]
+    C --> D[Performance Validation]
+    D --> E[Security Review]
+    E --> F[Documentation Check]
+    F --> G[Final Validation]
+    G --> H[Deployment Ready]
+
+    B1[95% Test Coverage] --> B
+    B2[Type Safety] --> B
+    B3[Code Style] --> B
+    C1[Integration Tests] --> C
+    C2[API Compatibility] --> C
+    D1[Performance Benchmarks] --> D
+    D2[Memory Efficiency] --> D
+    E1[Security Audit] --> E
+    E2[Vulnerability Scan] --> E
+    F1[Documentation Complete] --> F
+    F2[Usage Examples] --> F
+    G1[Quality Score >90%] --> G
+    G2[All Checks Pass] --> G
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+```
 
 ### Code Quality
 - **Test Coverage**: Maintain >95% test coverage for all tool implementations

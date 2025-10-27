@@ -6,6 +6,51 @@ This document provides comprehensive guidance for AI agents and contributors wor
 
 The Knowledge Base module serves as the comprehensive educational repository for Active Inference and the Free Energy Principle. It provides structured learning paths, interactive content, and progressive disclosure of concepts from foundational theory through advanced applications. This module bridges theoretical foundations with practical understanding through carefully curated educational materials.
 
+### Knowledge Base Architecture
+
+```mermaid
+graph TB
+    subgraph "Knowledge Base Module"
+        A[Learning Paths] --> B[Knowledge Repository]
+        B --> C[Foundations]
+        B --> D[Mathematics]
+        B --> E[Implementations]
+        B --> F[Applications]
+
+        C --> G[Information Theory]
+        C --> H[Bayesian Methods]
+        C --> I[Free Energy Principle]
+        C --> J[Active Inference]
+
+        D --> K[Variational Methods]
+        D --> L[Dynamical Systems]
+        D --> M[Information Geometry]
+
+        E --> N[Algorithms]
+        E --> O[Neural Networks]
+        E --> P[Control Systems]
+
+        F --> Q[AI Applications]
+        F --> R[Neuroscience]
+        F --> S[Robotics]
+        F --> T[Climate Science]
+    end
+
+    subgraph "Platform Integration"
+        U[Search Engine] --> B
+        V[Visualization] --> B
+        W[Research Tools] --> B
+        X[Quality Validation] --> B
+    end
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+```
+
 ## Directory Structure
 
 ```
@@ -46,6 +91,36 @@ knowledge/
 ## Development Workflows
 
 ### Content Creation Process
+
+```mermaid
+flowchart TD
+    A[Gap Analysis] --> B[Research & Validation]
+    B --> C[Structure Design]
+    C --> D[Content Development]
+    D --> E[Interactive Elements]
+    E --> F[Peer Review]
+    F --> G[Integration]
+    G --> H[Quality Validation]
+
+    A1[Identify Missing Topics] --> A
+    B1[Gather Authoritative Sources] --> B
+    C1[Learning Objectives & Prerequisites] --> C
+    D1[Write Comprehensive Explanations] --> D
+    E1[Add Exercises & Examples] --> E
+    F1[Technical & Educational Review] --> F
+    G1[Connect to Knowledge Graph] --> G
+    H1[Validate Quality Standards] --> H
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+```
+
 1. **Gap Analysis**: Identify missing or inadequate coverage in knowledge domains
 2. **Research and Validation**: Gather information from authoritative sources and validate accuracy
 3. **Structure Design**: Create detailed content outline with learning objectives and prerequisites
@@ -53,6 +128,7 @@ knowledge/
 5. **Interactive Elements**: Add exercises, examples, and interactive components
 6. **Peer Review**: Submit for technical and educational review
 7. **Integration**: Connect with existing knowledge graph and learning paths
+8. **Quality Validation**: Ensure content meets educational and technical standards
 
 ### Learning Path Development
 1. **Audience Analysis**: Define target audiences and their learning objectives
@@ -70,6 +146,37 @@ knowledge/
 5. **Retirement Planning**: Identify and properly archive outdated content
 
 ## Quality Standards
+
+### Knowledge Quality Assurance Pipeline
+
+```mermaid
+flowchart LR
+    A[Content Creation] --> B[Structure Validation]
+    B --> C[Technical Review]
+    C --> D[Educational Review]
+    D --> E[Integration Testing]
+    E --> F[Quality Gates]
+    F --> G[Publication]
+
+    B1[JSON Schema] --> B
+    C1[Mathematical Accuracy] --> C
+    C2[Code Functionality] --> C
+    D1[Learning Objectives] --> D
+    D2[Progressive Disclosure] --> D
+    E1[Cross-References] --> E
+    E2[Learning Paths] --> E
+    F1[95% Technical Score] --> F
+    F2[90% Educational Score] --> F
+    F3[100% Integration] --> F
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+```
 
 ### Educational Quality
 - **Progressive Disclosure**: Information presented at appropriate complexity levels
@@ -332,6 +439,46 @@ class ProgressiveDisclosure:
 
 ### Challenge: Learning Assessment
 **Solution**: Include formative assessments throughout content and validate alignment with learning objectives.
+
+## Platform Integration
+
+### Knowledge Base Integration Architecture
+
+```mermaid
+graph TB
+    subgraph "Knowledge Module"
+        A[Learning Paths] --> B[Knowledge Repository]
+        C[Content Creation] --> B
+        D[Quality Validation] --> B
+        E[Search & Discovery] --> B
+    end
+
+    subgraph "Platform Services"
+        F[Search Engine] <--> B
+        G[Visualization Engine] <--> B
+        H[Research Tools] <--> B
+        I[Application Framework] <--> B
+        J[Collaboration Hub] <--> B
+    end
+
+    subgraph "External Systems"
+        K[Academic Sources] --> C
+        L[Research Communities] --> D
+        M[Industry Partners] --> I
+        N[Open Source Tools] --> B
+    end
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#ffebee
+    style H fill:#f3e5f5
+    style I fill:#e8f5e8
+    style J fill:#fff3e0
+```
 
 ## Collaboration Guidelines
 

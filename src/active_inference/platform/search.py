@@ -25,7 +25,7 @@ class SearchResult:
     content_type: str
     relevance_score: float
     snippet: str
-    metadata: Dict[str, Any] = None
+    metadata: Optional[Dict[str, Any]] = None
 
     def __post_init__(self):
         if self.metadata is None:

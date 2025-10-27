@@ -30,13 +30,37 @@
       "do_operator": "do(X = x) represents intervention on X",
       "backdoor_criterion": "Identify confounders for adjustment",
       "frontdoor_criterion": "Alternative identification strategies",
-      "rules": "Three rules for causal graph manipulation"
+      "rules": "Three rules for causal graph manipulation",
+      "mathematical_formulation": {
+        "intervention_distribution": "P(Y | do(X = x)) = P(Y | X = x, pa(X)) where pa(X) are parents of X",
+        "adjustment_formula": "P(Y | do(X = x)) = Σ_z P(Y | X = x, Z = z) P(Z = z)",
+        "ignorability_condition": "Y ⊥⊥ X | Z for all variables Z in the backdoor path",
+        "exchangeability": "Treatment assignment independent of potential outcomes"
+      },
+      "identification_strategies": {
+        "randomized_controlled_trials": "Gold standard for causal identification",
+        "instrumental_variables": "Use variables that affect treatment but not outcome",
+        "regression_discontinuity": "Exploit discontinuous treatment assignment",
+        "difference_in_differences": "Compare changes over time between groups"
+      }
     },
     "causal_discovery": {
       "constraint_based": "Test conditional independence relationships",
       "score_based": "Search for best-scoring causal graphs",
       "functional_causal_models": "Assume causal relationships are functions",
-      "active_inference_discovery": "Learn causal structure through action"
+      "active_inference_discovery": "Learn causal structure through action",
+      "algorithms": {
+        "pc_algorithm": "Peter-Clark algorithm for constraint-based discovery",
+        "ges_algorithm": "Greedy equivalence search for score-based discovery",
+        "fcd_algorithm": "Fast causal discovery for large-scale problems",
+        "lingam": "Linear non-Gaussian acyclic model for functional discovery"
+      },
+      "evaluation_metrics": {
+        "structural_hamming_distance": "Measure difference between true and estimated graphs",
+        "true_positive_rate": "Fraction of correctly identified causal relationships",
+        "false_positive_rate": "Fraction of incorrectly identified causal relationships",
+        "structural_interventional_distance": "Measure based on interventional equivalence"
+      }
     },
     "examples": [
       {
@@ -44,14 +68,62 @@
         "description": "Infer causal effects of treatments on outcomes",
         "problem": "Distinguish treatment effects from confounding factors",
         "solution": "Use do-calculus to identify causal effects",
-        "active_inference": "Treatment selection based on expected outcomes"
+        "active_inference": "Treatment selection based on expected outcomes",
+        "mathematical_model": "P(Recovery | do(Treatment = 1)) vs P(Recovery | Treatment = 1)",
+        "confounding_example": "Age affects both treatment assignment and recovery",
+        "adjustment_method": "Stratify by age or use backdoor criterion"
       },
       {
         "name": "Policy Evaluation",
         "description": "Evaluate causal effects of policy interventions",
         "problem": "Estimate what would happen if policy were implemented",
         "solution": "Counterfactual reasoning using causal models",
-        "active_inference": "Policy selection using expected free energy"
+        "active_inference": "Policy selection using expected free energy",
+        "counterfactual_query": "What would unemployment be if minimum wage increased?",
+        "identification_strategy": "Difference-in-differences using control states",
+        "potential_outcomes": "Y(1) - Y(0) where Y(1) is outcome with policy, Y(0) without"
+      },
+      {
+        "name": "Simpson's Paradox Resolution",
+        "description": "Resolving apparent contradictions in causal relationships",
+        "problem": "Treatment appears harmful overall but beneficial in subgroups",
+        "solution": "Identify and adjust for confounding variables",
+        "mathematical_example": "P(Recovery | Treatment) < P(Recovery | No Treatment) but P(Recovery | Treatment, Age<65) > P(Recovery | No Treatment, Age<65)",
+        "causal_interpretation": "Age is a confounder affecting both treatment and outcome",
+        "active_inference_perspective": "Hierarchical models account for different causal strengths at different levels"
+      }
+    ],
+    "computational_examples": [
+      {
+        "name": "Causal Graph Analysis with Python",
+        "description": "Using causal inference libraries to analyze causal relationships",
+        "library": "causalgraphicalmodels or DoWhy",
+        "code_structure": {
+          "graph_definition": "Define causal graph with nodes and edges",
+          "identify_backdoors": "Find backdoor paths between treatment and outcome",
+          "estimate_effect": "Compute causal effect using adjustment formula",
+          "validate_assumptions": "Test ignorability and other identification conditions"
+        },
+        "practical_application": "Analyze treatment effects in observational healthcare data",
+        "interpretation": "Causal graphs help identify which variables to control for in analysis"
+      },
+      {
+        "name": "Instrumental Variable Analysis",
+        "description": "Using instrumental variables to identify causal effects",
+        "research_question": "Does education cause higher income?",
+        "instrument": "Geographic proximity to college (affects education but not income directly)",
+        "two_stage_least_squares": "First stage: Education = f(Distance to College), Second stage: Income = f(Predicted Education)",
+        "active_inference_connection": "Similar to using policies as instruments in Active Inference planning",
+        "interpretation": "IV methods help identify causal effects when randomization is not possible"
+      },
+      {
+        "name": "Counterfactual Reasoning in Active Inference",
+        "description": "How causal models enable planning in Active Inference",
+        "counterfactual_query": "What would happen if I took action A instead of B?",
+        "structural_equation_model": "Y = f(X, U) where X is action, U is unobserved confounders",
+        "abduction_action_prediction": "Infer what action would lead to desired outcome",
+        "planning_as_counterfactual": "Evaluate policies by simulating their counterfactual consequences",
+        "computational_implementation": "Use Pearl's do-calculus in Active Inference planning algorithms"
       }
     ],
     "connections_to_active_inference": {

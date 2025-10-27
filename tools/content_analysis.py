@@ -339,26 +339,31 @@ class ContentAnalyzer:
         print("="*90)
 
         summary = report['summary']
-        print("
-📊 SUMMARY:"        print(f"   Total content nodes: {summary['total_content_nodes']}")
+        print("\n📊 SUMMARY:")
+        print(f"   Total content nodes: {summary['total_content_nodes']}")
         print(f"   Category distribution: {summary['category_distribution']}")
         print(f"   Average quality score: {summary['overall_quality_metrics']['average_quality_score']:.2f}")
         print(f"   Quality distribution: {summary['overall_quality_metrics']['quality_distribution']}")
 
         opportunities = report['enhancement_opportunities']
-        print("
-🔍 ENHANCEMENT OPPORTUNITIES:"        print(f"   Shallow content areas: {len(opportunities['shallow_content'])}")
+        print("\n🔍 ENHANCEMENT OPPORTUNITIES:")
+        print(f"   Shallow content areas: {len(opportunities['shallow_content'])}")
         print(f"   Missing examples: {len(opportunities['missing_examples'])}")
         print(f"   Missing exercises: {len(opportunities['missing_exercises'])}")
         print(f"   Missing references: {len(opportunities['missing_references'])}")
         print(f"   Incomplete concepts: {len(opportunities['incomplete_concepts'])}")
 
-        print("
-💡 SPECIFIC RECOMMENDATIONS:"        for i, rec in enumerate(report['recommendations'], 1):
+        print("\n💡 SPECIFIC RECOMMENDATIONS:")
+        for i, rec in enumerate(report['recommendations'], 1):
             print(f"   {i}. {rec}")
 
-        print("
-🎯 PRIORITY AREAS:"        print("   1. Enhance shallow content with deeper explanations and examples"        print("   2. Add practical examples and case studies"        print("   3. Develop interactive exercises and tutorials"        print("   4. Expand reference sections with current research"        print("   5. Complete underdeveloped concepts with comprehensive coverage"        print("   6. Add emerging topics and advanced applications"
+        print("\n🎯 PRIORITY AREAS:")
+        print("   1. Enhance shallow content with deeper explanations and examples")
+        print("   2. Add practical examples and case studies")
+        print("   3. Develop interactive exercises and tutorials")
+        print("   4. Expand reference sections with current research")
+        print("   5. Complete underdeveloped concepts with comprehensive coverage")
+        print("   6. Add emerging topics and advanced applications")
 
         print("\n" + "="*90)
 

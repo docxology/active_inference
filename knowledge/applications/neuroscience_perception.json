@@ -50,6 +50,77 @@
         "experimental_tests": "Adaptation to force fields, visuomotor rotation"
       }
     ],
+    "practical_examples": [
+      {
+        "name": "EEG Prediction Error Analysis",
+        "description": "Analyzing EEG data to test predictive coding hypotheses",
+        "research_question": "Do prediction errors elicit stronger neural responses?",
+        "implementation": {
+          "data": "EEG recordings during oddball paradigm",
+          "preprocessing": "Bandpass filter 1-40 Hz, artifact rejection",
+          "analysis": "Event-related potentials (ERPs) for expected vs unexpected stimuli",
+          "prediction": "Unexpected stimuli should elicit larger N2/P3 components",
+          "active_inference_interpretation": "Larger responses reflect higher prediction errors"
+        },
+        "code_example": {
+          "language": "python",
+          "framework": "MNE-Python for EEG analysis",
+          "key_steps": [
+            "Load and preprocess EEG data",
+            "Extract epochs for expected/unexpected conditions",
+            "Compute ERPs and compare amplitudes",
+            "Statistical testing of prediction error effects"
+          ]
+        },
+        "interpretation": "Results supporting predictive coding would show systematic differences in neural responses to expected vs unexpected stimuli"
+      },
+      {
+        "name": "fMRI Effective Connectivity",
+        "description": "Testing hierarchical predictive coding using dynamic causal modeling",
+        "research_question": "Does visual cortex show hierarchical prediction error signaling?",
+        "implementation": {
+          "data": "fMRI during visual stimulation with predictable sequences",
+          "model": "Dynamic causal model with hierarchical structure",
+          "connections": "Bottom-up: V1→V2→V4 | Top-down: V4→V2→V1",
+          "modulation": "Prediction errors modulate bottom-up connections",
+          "predictions": "Precision on top-down connections, prediction errors on bottom-up"
+        },
+        "code_example": {
+          "language": "matlab",
+          "framework": "SPM toolbox for DCM",
+          "key_steps": [
+            "Preprocess fMRI data and extract time series",
+            "Define DCM with hierarchical structure",
+            "Estimate model parameters",
+            "Compare models with different connectivity patterns"
+          ]
+        },
+        "interpretation": "Effective connectivity patterns revealing top-down prediction and bottom-up error signaling would support Active Inference"
+      },
+      {
+        "name": "Neural Decoding with Active Inference",
+        "description": "Using Active Inference to decode intended movements from neural activity",
+        "research_question": "Can Active Inference improve neural decoding performance?",
+        "implementation": {
+          "data": "Neural recordings from motor cortex during movement tasks",
+          "generative_model": "Intended movement → predicted neural activity",
+          "inference": "Invert model to decode intended movement from neural activity",
+          "comparison": "Compare decoding accuracy with traditional methods",
+          "validation": "Cross-validation across different movement types"
+        },
+        "code_example": {
+          "language": "python",
+          "framework": "PyTorch or TensorFlow for neural networks",
+          "key_steps": [
+            "Train generative model on neural-movement pairs",
+            "Implement variational inference for decoding",
+            "Evaluate decoding accuracy on held-out data",
+            "Compare with standard regression methods"
+          ]
+        },
+        "interpretation": "Active Inference framework may provide better decoding by incorporating uncertainty and hierarchical structure"
+      }
+    ],
     "neural_dynamics": {
       "oscillatory_activity": "Gamma oscillations and predictive coding",
       "synchrony": "Neural synchrony reflects prediction confidence",
