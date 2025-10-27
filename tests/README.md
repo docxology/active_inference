@@ -1,88 +1,195 @@
-# Test Suite
+# Testing Framework
 
-This directory contains comprehensive test suites for the Active Inference Knowledge Environment, including unit tests, integration tests, knowledge validation tests, and performance tests. The test suite ensures code quality, functionality, and reliability across all components.
+Comprehensive testing infrastructure for the Active Inference Knowledge Environment. Provides multi-layered testing with unit tests, integration tests, knowledge validation, performance testing, and security testing.
 
 ## Overview
 
-The Test Suite module provides comprehensive testing frameworks and utilities for validating all aspects of the Active Inference Knowledge Environment. Tests cover unit functionality, component integration, knowledge content validation, performance characteristics, and system reliability.
+The testing framework ensures code quality, functionality, and reliability across all components of the Active Inference Knowledge Environment. Tests are organized by type and component, with comprehensive fixtures, utilities, and reporting.
 
 ## Directory Structure
 
 ```
 tests/
-├── unit/                 # Unit tests for individual components
-├── integration/          # Integration tests for component interaction
-├── knowledge/            # Knowledge content validation tests
-├── performance/          # Performance and scalability tests
-├── fixtures/             # Test data and fixtures
-└── utilities/            # Testing utilities and helpers
+├── __init__.py              # Test suite initialization
+├── README.md                # This file
+├── run_tests.py             # Comprehensive test runner
+├── coverage_config.py       # Coverage configuration and analysis
+├── fixtures/                # Test fixtures and data
+│   ├── __init__.py
+│   └── test_data.py         # Sample test data and utilities
+├── utilities/               # Testing utilities and helpers
+│   ├── __init__.py
+│   └── test_helpers.py      # Test helper functions and mocks
+├── unit/                    # Unit tests for individual components (124 tests)
+│   ├── test_knowledge_*.py  # Knowledge system unit tests
+│   ├── test_llm_*.py        # LLM integration unit tests
+│   ├── test_research_*.py   # Research tools unit tests
+│   ├── test_applications_*.py # Application framework unit tests
+│   └── test_platform_*.py   # Platform services unit tests
+├── integration/             # Integration tests for component interaction (10 tests)
+│   └── test_*.py            # End-to-end integration tests
+├── knowledge/               # Knowledge content validation tests (23 tests)
+│   ├── test_content_accuracy.py     # Mathematical and conceptual accuracy validation
+│   ├── test_educational_quality.py  # Educational effectiveness testing
+│   └── README.md                     # Knowledge testing documentation
+├── performance/             # Performance and scalability tests (5 tests)
+│   ├── test_knowledge_repository_performance.py # Repository performance testing
+│   ├── README.md                     # Performance testing documentation
+│   └── __init__.py                   # Performance testing module
+└── security/                # Security and vulnerability tests (8 tests)
+    ├── test_knowledge_security.py   # Knowledge repository security testing
+    ├── README.md                     # Security testing documentation
+    └── __init__.py                   # Security testing module
 ```
 
-## Core Components
+## Test Categories
 
 ### 🧪 Unit Tests
-- **Component Tests**: Individual function and method testing
-- **Class Tests**: Complete class functionality testing
-- **Utility Tests**: Helper function and utility testing
-- **Edge Case Tests**: Boundary condition and error case testing
-- **Mock Tests**: Testing with mocked dependencies
+Individual component functionality testing with comprehensive edge case coverage.
+
+**Location**: `tests/unit/`
+**Test Files**:
+- `test_knowledge_*.py` - Knowledge system unit tests (repository, implementations, applications)
+- `test_llm_*.py` - LLM integration unit tests (client, conversations, models, prompts)
+- `test_research_*.py` - Research tools unit tests (data management)
+- `test_applications_*.py` - Application framework unit tests (best practices, templates, case studies)
+**Markers**: `unit`, `knowledge`, `llm`, `research`, `platform`, `visualization`, `applications`
+**Coverage Target**: >95% for core components, >80% overall
+**Tests**: 124 comprehensive unit tests covering all major components
 
 ### 🔗 Integration Tests
-- **Component Integration**: Testing component interactions
-- **API Integration**: Testing API endpoints and services
-- **Data Flow**: Testing data flow between components
-- **System Integration**: End-to-end system functionality
-- **External Integration**: Testing external system integration
+Component interaction validation and data flow testing across system boundaries.
+
+**Location**: `tests/integration/`
+**Test Files**:
+- `test_llm_integration.py` - LLM system integration testing
+**Markers**: `integration`
+**Coverage Target**: >80% for integration points
+**Tests**: 10 comprehensive integration tests covering component interactions
 
 ### 📚 Knowledge Tests
-- **Content Validation**: Knowledge content accuracy testing
-- **Prerequisite Testing**: Learning path prerequisite validation
-- **Cross-Reference Testing**: Internal link and reference validation
-- **Format Testing**: Content format and structure validation
-- **Completeness Testing**: Content completeness assessment
+Content accuracy, completeness, educational quality validation, and learning path validation.
+
+**Location**: `tests/knowledge/`
+**Test Files**:
+- `test_content_accuracy.py` - Mathematical and conceptual accuracy validation
+- `test_educational_quality.py` - Educational effectiveness and accessibility testing
+**Markers**: `knowledge`
+**Coverage Target**: 100% for knowledge content
+**Tests**: 23 comprehensive knowledge validation tests
 
 ### ⚡ Performance Tests
-- **Load Testing**: System performance under load
-- **Stress Testing**: System limits and failure modes
-- **Scalability Testing**: Performance scaling characteristics
-- **Memory Testing**: Memory usage and leak testing
-- **Timing Tests**: Execution time and latency testing
+Scalability, efficiency, and performance characteristics validation.
 
-## Getting Started
+**Location**: `tests/performance/`
+**Test Files**:
+- `test_knowledge_repository_performance.py` - Repository performance under load
+- `README.md` - Performance testing documentation
+**Markers**: `performance`
+**Coverage Target**: Critical path performance validation
+**Tests**: 5 performance benchmark tests with memory and timing validation
 
-### For Developers
-1. **Run Test Suite**: Execute comprehensive test suite
-2. **Write Tests**: Follow Test-Driven Development (TDD) approach
-3. **Test Coverage**: Ensure adequate test coverage
-4. **Continuous Integration**: Set up automated testing
-5. **Debugging**: Use test suite for debugging and validation
+### 🔒 Security Tests
+Vulnerability assessment and security validation including injection attacks, XSS protection, and path traversal.
 
-### For Contributors
-1. **Understand Testing Framework**: Learn testing patterns and conventions
-2. **Test Requirements**: Understand testing requirements for contributions
-3. **Test Implementation**: Implement comprehensive tests for new features
-4. **Test Maintenance**: Maintain and update existing tests
-5. **Quality Assurance**: Ensure code quality through testing
+**Location**: `tests/security/`
+**Test Files**:
+- `test_knowledge_security.py` - Knowledge repository security testing
+- `README.md` - Security testing documentation
+**Markers**: `security`
+**Coverage Target**: Complete security validation
+**Tests**: 8 security vulnerability tests covering common attack vectors
 
-## Usage Examples
+## Quick Start
 
-### Running Tests
+### Using Make (Recommended)
 ```bash
 # Run all tests
 make test
 
-# Run specific test types
+# Run all tests with coverage
+make test-coverage
+
+# Run only unit tests
 make test-unit
+
+# Run only integration tests
 make test-integration
+
+# Run knowledge validation tests
 make test-knowledge
 
-# Run tests with coverage
-pytest tests/ --cov=src/ --cov-report=html
+# Run performance tests
+make test-performance
 
-# Run specific test files
-pytest tests/unit/test_knowledge_repository.py -v
-pytest tests/integration/test_api_integration.py -v
+# Run security tests
+make test-security
+
+# Run tests in parallel
+make test-parallel
+
+# Run tests quickly (stop on first failure)
+make test-fast
+
+# Run specific test file
+make test-specific FILE=tests/unit/test_knowledge_repository.py
 ```
+
+### Using uv directly
+```bash
+# Install test dependencies
+uv sync --extra test
+
+# Run all tests
+uv run python -m pytest tests/ -v
+
+# Run with coverage
+uv run python -m pytest tests/ --cov=src/ --cov-report=html
+
+# Run specific test types
+uv run python -m pytest tests/unit/ -m "unit" -v
+uv run python -m pytest tests/integration/ -m "integration" -v
+uv run python -m pytest tests/knowledge/ -m "knowledge" -v
+uv run python -m pytest tests/performance/ -m "performance" -v
+uv run python -m pytest tests/security/ -m "security" -v
+```
+
+### Using the test runner
+```bash
+# Run all tests
+python tests/run_tests.py
+
+# Run unit tests only
+python tests/run_tests.py unit
+
+# Run with coverage
+python tests/run_tests.py coverage
+
+# Run specific component tests
+python tests/run_tests.py component knowledge
+python tests/run_tests.py component llm
+
+# Run specific test file
+python tests/run_tests.py --file tests/unit/test_knowledge_repository.py
+```
+
+## Test Configuration
+
+### Pytest Configuration
+The project uses comprehensive pytest configuration in `pytest.ini`:
+- **Async Support**: Auto-detects async tests
+- **Markers**: Organized test categories with markers
+- **Warnings**: Configured to ignore common warnings
+- **Output**: Clean, informative test output
+
+### Coverage Configuration
+Coverage requirements and reporting configured in `tests/coverage_config.py`:
+- **Overall Target**: 85% coverage
+- **Component Targets**: Knowledge (90%), LLM (88%), Research (80%)
+- **HTML Reports**: Generated in `htmlcov/` directory
+- **XML Reports**: For CI integration
+
+## Test Development
 
 ### Writing Unit Tests
 ```python
@@ -94,13 +201,8 @@ class TestKnowledgeRepository:
 
     def setup_method(self):
         """Set up test environment"""
-        self.repo_config = {'root_path': './test_knowledge'}
-        self.repo = KnowledgeRepository(self.repo_config)
-
-    def teardown_method(self):
-        """Clean up test environment"""
-        # Clean up test files
-        pass
+        self.config = {'root_path': './test_knowledge', 'test_mode': True}
+        self.repo = KnowledgeRepository(self.config)
 
     def test_search_knowledge(self):
         """Test knowledge search functionality"""
@@ -115,35 +217,9 @@ class TestKnowledgeRepository:
         assert len(results) <= expected_results
         assert all('id' in result for result in results)
         assert all('title' in result for result in results)
-
-    def test_add_knowledge_node(self):
-        """Test adding knowledge node"""
-        # Arrange
-        node_data = {
-            'id': 'test_node',
-            'title': 'Test Node',
-            'content': 'Test content',
-            'type': 'concept'
-        }
-
-        # Act
-        result = self.repo.add_node(node_data)
-
-        # Assert
-        assert result is not None
-        assert self.repo.get_node('test_node') is not None
-
-    def test_invalid_search_query(self):
-        """Test error handling for invalid search"""
-        # Arrange
-        invalid_query = ""
-
-        # Act & Assert
-        with pytest.raises(ValueError):
-            self.repo.search(invalid_query)
 ```
 
-### Integration Testing
+### Writing Integration Tests
 ```python
 import pytest
 from active_inference.platform import PlatformServer
@@ -157,10 +233,6 @@ class TestPlatformIntegration:
         self.server_config = {'test_mode': True, 'port': 8001}
         self.server = PlatformServer(self.server_config)
         self.knowledge_repo = KnowledgeRepository({'test_mode': True})
-
-    def teardown_method(self):
-        """Clean up integration test environment"""
-        self.server.shutdown()
 
     def test_knowledge_api_integration(self):
         """Test knowledge API integration"""
@@ -178,61 +250,210 @@ class TestPlatformIntegration:
         # Assert
         assert api_response['id'] == test_node['id']
         assert api_response['title'] == test_node['title']
-
-    def test_search_api_integration(self):
-        """Test search API integration"""
-        # Arrange
-        test_content = "Active Inference entropy information theory"
-
-        # Act
-        search_results = self.server.search_knowledge(test_content, limit=5)
-
-        # Assert
-        assert 'results' in search_results
-        assert len(search_results['results']) <= 5
 ```
 
-## Testing Standards
+### Test Fixtures
+Use comprehensive test fixtures from `tests/fixtures/test_data.py`:
+```python
+import pytest
+from tests.fixtures.test_data import (
+    create_test_knowledge_node,
+    create_test_learning_path,
+    SAMPLE_KNOWLEDGE_NODES
+)
 
-### Test Coverage
-- **Unit Tests**: >95% coverage for core functionality
-- **Integration Tests**: >80% coverage for component interactions
-- **Knowledge Tests**: 100% coverage for knowledge content
-- **Performance Tests**: Critical path performance validation
-- **Edge Cases**: Comprehensive edge case coverage
+@pytest.fixture
+def sample_knowledge_node():
+    """Sample knowledge node for testing"""
+    return create_test_knowledge_node({
+        'id': 'test_node',
+        'title': 'Test Node',
+        'difficulty': 'beginner'
+    })
 
-### Test Quality
-- **Clear Tests**: Descriptive test names and assertions
-- **Isolated Tests**: Independent tests with proper setup/teardown
-- **Fast Tests**: Efficient test execution
-- **Reliable Tests**: Deterministic and repeatable tests
-- **Maintainable Tests**: Well-organized and documented tests
+def test_knowledge_node_validation(sample_knowledge_node):
+    """Test knowledge node validation"""
+    from tests.utilities.test_helpers import assert_knowledge_node_structure
+
+    assert_knowledge_node_structure(sample_knowledge_node)
+    assert sample_knowledge_node['difficulty'] == 'beginner'
+```
+
+## Test Utilities
+
+### Mock Utilities
+```python
+from tests.utilities.test_helpers import (
+    create_mock_ollama_response,
+    create_async_mock_client,
+    patch_llm_client_success
+)
+
+# Mock successful LLM responses
+def test_llm_integration():
+    with patch_llm_client_success() as mock_client:
+        # Test LLM integration code
+        response = make_llm_request("test prompt")
+        assert response == "Test response"
+```
+
+### Test Data Generation
+```python
+from tests.utilities.test_helpers import (
+    generate_unique_test_id,
+    create_temp_file_with_content
+)
+
+def test_data_processing():
+    # Generate unique test data
+    test_id = generate_unique_test_id("experiment")
+    assert "experiment_" in test_id
+
+    # Create temporary files for testing
+    with create_temp_file_with_content('{"test": "data"}') as temp_file:
+        assert temp_file.exists()
+        # Test file processing
+```
+
+## Coverage Reporting
+
+### Generate Coverage Reports
+```bash
+# Basic coverage report
+make test-coverage
+
+# Detailed coverage analysis
+uv run python tests/coverage_config.py
+
+# Coverage gap analysis
+uv run python -c "from tests.coverage_config import analyze_coverage_gaps; print(analyze_coverage_gaps())"
+```
+
+### Coverage Targets
+- **Overall**: 85% minimum coverage
+- **Knowledge Module**: 90% minimum coverage
+- **LLM Module**: 88% minimum coverage
+- **Research Module**: 80% minimum coverage
+- **Platform Module**: 75% minimum coverage
+
+## CI/CD Integration
+
+The project includes comprehensive GitHub Actions workflow (`.github/workflows/ci.yml`):
+- **Multi-Python Testing**: Tests on Python 3.9, 3.10, 3.11, 3.12
+- **Code Quality**: Linting, formatting, and type checking
+- **Security Scanning**: Vulnerability assessment and dependency checking
+- **Documentation**: Automated documentation building and deployment
+- **Coverage Reporting**: Integration with Codecov for coverage tracking
+
+### Local CI Simulation
+```bash
+# Run full CI pipeline locally
+make check-all
+
+# Test documentation build
+make docs
+
+# Run security checks
+uv run python -m pytest tests/security/ -v
+```
+
+## Performance Testing
+
+### Load Testing
+```python
+def test_knowledge_search_performance():
+    """Test knowledge search under load"""
+    repo = KnowledgeRepository(test_config)
+
+    # Measure search performance
+    import time
+    start_time = time.time()
+
+    for _ in range(1000):
+        results = repo.search("entropy", limit=10)
+
+    end_time = time.time()
+    avg_time = (end_time - start_time) / 1000
+
+    assert avg_time < 0.1  # Should complete within 100ms on average
+```
+
+### Memory Testing
+```python
+def test_memory_usage():
+    """Test memory usage doesn't leak"""
+    import psutil
+    import os
+
+    process = psutil.Process(os.getpid())
+    initial_memory = process.memory_info().rss
+
+    # Run memory-intensive operations
+    for _ in range(100):
+        repo = KnowledgeRepository(test_config)
+        # ... perform operations ...
+
+    final_memory = process.memory_info().rss
+    memory_increase = final_memory - initial_memory
+
+    assert memory_increase < 100 * 1024 * 1024  # Less than 100MB increase
+```
+
+## Best Practices
+
+### Test Organization
+1. **Arrange-Act-Assert**: Structure tests clearly with setup, execution, and validation
+2. **Descriptive Names**: Use descriptive test method names that explain the test purpose
+3. **Independent Tests**: Ensure tests don't depend on each other
+4. **Fast Tests**: Keep unit tests fast (<1 second each)
+5. **Comprehensive Coverage**: Test both success and failure scenarios
+
+### Test Data
+1. **Realistic Data**: Use realistic test data that represents actual usage
+2. **Edge Cases**: Test boundary conditions and edge cases
+3. **Data Isolation**: Ensure test data doesn't interfere between tests
+4. **Cleanup**: Properly clean up test data and resources
+
+### Mocking Strategy
+1. **External Dependencies**: Mock external APIs and services
+2. **Time Dependencies**: Mock time and date functions
+3. **File System**: Mock file operations for predictable testing
+4. **Network**: Mock network requests for reliable testing
+
+## Troubleshooting
+
+### Common Issues
+1. **Import Errors**: Ensure all dependencies are installed with `uv sync --extra test`
+2. **Async Issues**: Use proper async/await patterns and pytest-asyncio
+3. **Mock Issues**: Verify mock setup matches actual API calls
+4. **Fixture Issues**: Check fixture scope and dependencies
+
+### Debugging Tests
+```bash
+# Run single test with detailed output
+uv run python -m pytest tests/unit/test_knowledge_repository.py::TestKnowledgeRepository::test_search_knowledge -v -s
+
+# Run with debugger
+uv run python -m pytest tests/unit/test_knowledge_repository.py::TestKnowledgeRepository::test_search_knowledge -v -s --pdb
+
+# Run with coverage debugging
+uv run python -m pytest tests/unit/test_knowledge_repository.py --cov=src/active_inference/knowledge --cov-report=term-missing
+```
 
 ## Contributing
 
-We welcome contributions to the test suite! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+### Adding New Tests
+1. **Follow Patterns**: Follow existing test patterns and conventions
+2. **Add Fixtures**: Create reusable fixtures for common test data
+3. **Update Coverage**: Ensure new code has adequate test coverage
+4. **Document Tests**: Add comprehensive docstrings and comments
 
-### Contribution Types
-- **New Tests**: Add tests for new functionality
-- **Test Improvements**: Enhance existing test coverage
-- **Test Utilities**: Create testing utilities and helpers
-- **Performance Tests**: Add performance and scalability tests
-- **Integration Tests**: Add integration and system tests
-
-### Quality Standards
-- **Test Completeness**: Tests must cover all functionality
-- **Test Clarity**: Tests must be clear and understandable
-- **Test Reliability**: Tests must be reliable and repeatable
-- **Test Performance**: Tests must execute efficiently
-- **Test Documentation**: Tests must be well-documented
-
-## Learning Resources
-
-- **Testing Framework**: Learn pytest and testing best practices
-- **TDD Principles**: Study Test-Driven Development methodologies
-- **Testing Patterns**: Learn established testing patterns
-- **Code Coverage**: Understand test coverage analysis
-- **Integration Testing**: Master integration testing techniques
+### Test Review Checklist
+- [ ] **Test Completeness**: Tests cover all functionality
+- [ ] **Edge Cases**: Tests include boundary conditions and error cases
+- [ ] **Performance**: Tests validate performance characteristics
+- [ ] **Documentation**: Tests are well-documented and understandable
+- [ ] **Integration**: Tests integrate properly with existing test suite
 
 ## Related Documentation
 
@@ -241,55 +462,6 @@ We welcome contributions to the test suite! See [CONTRIBUTING.md](../../CONTRIBU
 - **[Code Quality](../../applications/best_practices/)**: Code quality standards
 - **[Platform Documentation](../../platform/)**: Platform testing
 - **[Knowledge Testing](../../tests/knowledge/)**: Knowledge validation
-
-## Testing Infrastructure
-
-### Test Configuration
-```python
-# pytest.ini configuration
-[tool:pytest]
-minversion = 6.0
-addopts = -ra -q --strict-markers --strict-config
-testpaths = tests
-python_files = test_*.py *_test.py
-python_classes = Test*
-python_functions = test_*
-markers =
-    slow: marks tests as slow (deselect with '-m "not slow"')
-    integration: marks tests as integration tests
-    unit: marks tests as unit tests
-    knowledge: marks tests as knowledge repository tests
-    performance: marks tests as performance tests
-filterwarnings =
-    ignore::DeprecationWarning
-    ignore::PendingDeprecationWarning
-```
-
-### Test Fixtures
-```python
-import pytest
-from active_inference.knowledge import KnowledgeRepository
-
-@pytest.fixture
-def knowledge_repository():
-    """Fixture for knowledge repository testing"""
-    config = {'root_path': './test_knowledge', 'test_mode': True}
-    repo = KnowledgeRepository(config)
-    yield repo
-    # Cleanup after test
-    repo.cleanup()
-
-@pytest.fixture
-def sample_knowledge_data():
-    """Fixture for sample knowledge data"""
-    return {
-        'id': 'test_concept',
-        'title': 'Test Concept',
-        'content': 'Test content for testing',
-        'type': 'concept',
-        'difficulty': 'beginner'
-    }
-```
 
 ---
 

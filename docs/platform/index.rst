@@ -245,3 +245,4 @@ Set up the platform infrastructure:
    For development setup, see :doc:`../contributing/development_setup`.
    For API documentation, see :doc:`../api/platform`.
    For deployment guides, see :doc:`deployment/index`.
+

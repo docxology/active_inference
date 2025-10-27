@@ -1,0 +1,171 @@
+{
+  "id": "planning_algorithms",
+  "title": "Planning Algorithms in Active Inference",
+  "content_type": "implementation",
+  "difficulty": "expert",
+  "description": "Advanced implementation of planning algorithms for policy selection in complex Active Inference systems.",
+  "prerequisites": ["expected_free_energy_calculation", "continuous_control"],
+  "tags": ["planning", "tree_search", "monte_carlo", "optimization", "active_inference"],
+  "learning_objectives": [
+    "Implement tree search planning algorithms",
+    "Apply Monte Carlo planning methods",
+    "Optimize continuous policies using gradients",
+    "Scale planning to high-dimensional problems"
+  ],
+  "content": {
+    "overview": "Planning in Active Inference involves searching through policy space to find actions that minimize expected free energy. Different planning algorithms are appropriate for different problem types, from discrete tree search to continuous optimization.",
+    "tree_search_planning": {
+      "depth_limited_search": "Search up to fixed depth horizon",
+      "branch_and_bound": "Prune branches with high expected free energy",
+      "alpha_beta_pruning": "Minimax-style pruning for expected free energy",
+      "uct": "Upper Confidence Bound applied to Trees for exploration"
+    },
+    "monte_carlo_planning": {
+      "sample_based_evaluation": "Estimate expected free energy using samples",
+      "cross_entropy_method": "Iterative improvement of sampling distribution",
+      "cma_es": "Covariance Matrix Adaptation Evolution Strategy",
+      "random_shooting": "Sample random action sequences and evaluate"
+    },
+    "gradient_based_planning": {
+      "policy_gradient": "∇_π G(π) = -E[∇_π log π(a|s) A(s,a)]",
+      "natural_policy_gradient": "Use Fisher information for policy updates",
+      "trust_region_methods": "TRPO, PPO for stable policy optimization",
+      "path_integral_control": "Stochastic optimal control via path integrals"
+    },
+    "hierarchical_planning": {
+      "temporal_abstraction": "Plan at multiple time scales",
+      "options_framework": "Skills or sub-policies as building blocks",
+      "feudal_reinforcement_learning": "Hierarchical value functions",
+      "meta_learning": "Learning to plan efficiently"
+    },
+    "python_implementation": {
+      "base_planner": "Abstract base class for planning algorithms",
+      "tree_search": "Complete tree search implementation",
+      "monte_carlo": "Sample-based planning methods",
+      "gradient_planner": "Gradient-based policy optimization"
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Tree Search Planner",
+        "description": "Implement depth-limited tree search for discrete actions",
+        "code_snippet": "class TreeSearchPlanner:\n    def __init__(self, model, max_depth=10, branching_factor=5):\n        self.model = model\n        self.max_depth = max_depth\n        self.branching_factor = branching_factor\n        \n    def plan(self, current_belief, goal_state=None):\n        # Root node\n        root = Node(state=current_belief, depth=0)\n        \n        # Expand tree using breadth-first or depth-first\n        frontier = [root]\n        best_policy = None\n        best_G = float('inf')\n        \n        while frontier:\n            node = frontier.pop(0)\n            \n            if node.depth >= self.max_depth:\n                continue\n                \n            # Generate child nodes for different actions\n            for action in self.get_actions(node.state):\n                child_state = self.model.transition(node.state, action)\n                child_obs = self.model.observation(child_state)\n                \n                # Update beliefs\n                child_belief = self.model.update_belief(node.state, action, child_obs)\n                \n                # Compute expected free energy\n                G = self.expected_free_energy(child_belief, goal_state)\n                \n                child = Node(state=child_belief, action=action, \n                           parent=node, G=G, depth=node.depth + 1)\n                node.children.append(child)\n                frontier.append(child)\n                \n                if G < best_G:\n                    best_G = G\n                    best_policy = self.extract_policy(child)\n                    \n        return best_policy",
+        "explanation": "Tree search finds optimal policy by exploring action sequences"
+      },
+      {
+        "step": 2,
+        "title": "Monte Carlo Planner",
+        "description": "Sample-based planning for continuous or large action spaces",
+        "code_snippet": "class MonteCarloPlanner:\n    def __init__(self, model, num_samples=1000, horizon=20):\n        self.model = model\n        self.num_samples = num_samples\n        self.horizon = horizon\n        \n    def plan(self, current_belief, goal_state=None):\n        best_policy = None\n        best_G = float('inf')\n        \n        for _ in range(self.num_samples):\n            # Sample random policy\n            policy = self.sample_policy()\n            \n            # Simulate trajectory\n            G = self.evaluate_policy(policy, current_belief, goal_state)\n            \n            if G < best_G:\n                best_G = G\n                best_policy = policy\n                \n        return best_policy\n        \n    def evaluate_policy(self, policy, start_belief, goal_state):\n        total_G = 0\n        belief = start_belief.copy()\n        \n        for t in range(self.horizon):\n            # Get action from policy\n            action = policy.get_action(belief, t)\n            \n            # Simulate step\n            next_state = self.model.step(belief, action)\n            obs = self.model.observe(next_state)\n            \n            # Update belief\n            belief = self.model.update_belief(belief, action, obs)\n            \n            # Compute expected free energy components\n            pragmatic = self.pragmatic_value(belief, goal_state)\n            epistemic = self.epistemic_value(belief)\n            \n            total_G += self.model.gamma**t * (pragmatic + epistemic)\n            \n        return total_G",
+        "explanation": "Monte Carlo planning samples policies and evaluates them through simulation"
+      },
+      {
+        "step": 3,
+        "title": "Gradient-Based Planner",
+        "description": "Optimize continuous policies using gradients",
+        "code_snippet": "class GradientPlanner:\n    def __init__(self, model, policy_network, optimizer='adam'):\n        self.model = model\n        self.policy_network = policy_network\n        self.optimizer = self.get_optimizer(optimizer)\n        \n    def optimize_policy(self, current_belief, goal_state, num_iterations=100):\n        # Initialize policy parameters\n        policy_params = self.policy_network.parameters()\n        \n        for iteration in range(num_iterations):\n            # Compute expected free energy\n            G = self.compute_expected_free_energy(policy_params, \n                                                current_belief, goal_state)\n            \n            # Compute gradients\n            self.optimizer.zero_grad()\n            G.backward()\n            \n            # Update policy\n            self.optimizer.step()\n            \n        return self.policy_network\n        \n    def compute_expected_free_energy(self, policy_params, belief, goal):\n        # Sample trajectories using current policy\n        trajectories = self.sample_trajectories(policy_params, belief)\n        \n        # Compute expected free energy for each trajectory\n        G_values = []\n        for trajectory in trajectories:\n            G = self.evaluate_trajectory(trajectory, goal)\n            G_values.append(G)\n            \n        # Return expected value\n        return torch.mean(torch.stack(G_values))",
+        "explanation": "Gradient-based optimization of continuous policy parameters"
+      }
+    ],
+    "multi_agent_planning": {
+      "game_theoretic_planning": "Planning in multi-agent environments",
+      "opponent_modeling": "Infer other agents' policies and beliefs",
+      "cooperative_planning": "Joint optimization of team policies",
+      "competitive_planning": "Best response to other agents"
+    },
+    "real_time_planning": {
+      "model_predictive_control": "Receding horizon planning",
+      "anytime_algorithms": "Planning that can be interrupted at any time",
+      "incremental_planning": "Plan incrementally as time progresses",
+      "parallel_planning": "Parallel evaluation of policy options"
+    },
+    "examples": [
+      {
+        "name": "Robot Path Planning",
+        "description": "Plan optimal path through unknown environment",
+        "environment": "Grid world with obstacles and goals",
+        "planning": "Multi-step planning with expected free energy",
+        "uncertainty": "Unknown obstacle locations",
+        "solution": "Information-seeking path that explores efficiently"
+      },
+      {
+        "name": "Game Playing",
+        "description": "Play games using Active Inference planning",
+        "games": "Chess, Go, or simple grid games",
+        "planning": "Tree search with expected free energy evaluation",
+        "opponent": "Model opponent as another Active Inference agent",
+        "strategy": "Balance material advantage with information"
+      }
+    ],
+    "scalability_techniques": {
+      "state_abstraction": "Reduce state space through abstraction",
+      "action_abstraction": "Hierarchical action spaces",
+      "parallel_computation": "GPU acceleration for planning",
+      "approximation_methods": "Use approximate models for fast planning"
+    },
+    "evaluation_and_benchmarking": {
+      "planning_efficiency": "Time and memory requirements",
+      "solution_quality": "How close to optimal planning solution",
+      "robustness": "Performance under model uncertainty",
+      "adaptability": "Planning in changing environments"
+    },
+    "interactive_exercises": [
+      {
+        "id": "implement_tree_search",
+        "type": "coding",
+        "description": "Implement tree search planning algorithm",
+        "difficulty": "expert",
+        "environment": "Simple grid world or game",
+        "task": "Find optimal policy using tree search"
+      },
+      {
+        "id": "optimize_continuous_policy",
+        "type": "optimization",
+        "description": "Optimize continuous control policy",
+        "difficulty": "expert",
+        "system": "Linear quadratic system or robot arm",
+        "task": "Learn optimal control policy using gradients"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "Exponential growth in tree search",
+        "solution": "Use pruning, depth limits, or alternative algorithms"
+      },
+      {
+        "issue": "High variance in Monte Carlo planning",
+        "solution": "Use variance reduction techniques or more samples"
+      },
+      {
+        "issue": "Local optima in gradient planning",
+        "solution": "Use multiple initializations or global optimization"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Planning Algorithms",
+        "author": "Steven LaValle",
+        "year": 2006,
+        "description": "Comprehensive treatment of planning algorithms"
+      },
+      {
+        "title": "Monte Carlo Planning in Stochastic Domains",
+        "author": "Community literature",
+        "description": "Monte Carlo methods for planning under uncertainty"
+      }
+    ],
+    "related_concepts": [
+      "expected_free_energy_calculation",
+      "continuous_control",
+      "policy_gradient",
+      "tree_search"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 80,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

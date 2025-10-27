@@ -184,3 +184,4 @@ class ResearchFramework:
 
         logger.info(f"Research study completed: {results['summary']}")
         return results
+

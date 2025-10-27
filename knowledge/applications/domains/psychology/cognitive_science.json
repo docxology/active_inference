@@ -1,0 +1,150 @@
+{
+  "id": "cognitive_science",
+  "title": "Cognitive Science and Active Inference",
+  "content_type": "application",
+  "difficulty": "advanced",
+  "description": "Application of Active Inference to cognitive science, including perception, attention, memory, and decision making.",
+  "prerequisites": ["neural_dynamics", "predictive_coding"],
+  "tags": ["cognitive science", "perception", "attention", "memory", "decision making"],
+  "learning_objectives": [
+    "Apply Active Inference to cognitive processes",
+    "Model perception and attention mechanisms",
+    "Understand memory formation and retrieval",
+    "Analyze decision making in cognitive tasks"
+  ],
+  "content": {
+    "overview": "Active Inference provides a unifying framework for understanding cognitive processes. It explains how the brain implements perception, attention, memory, and decision making through hierarchical predictive coding and free energy minimization.",
+    "perception_and_attention": {
+      "predictive_coding": "Perception as hypothesis testing",
+      "attention": "Precision-weighted prediction errors",
+      "perceptual_inference": "Bayesian updating of perceptual beliefs",
+      "multisensory_integration": "Combining information from multiple senses"
+    },
+    "memory_systems": {
+      "working_memory": "Active maintenance of information",
+      "long_term_memory": "Consolidation and retrieval",
+      "episodic_memory": "Memory for specific events",
+      "semantic_memory": "General knowledge and concepts",
+      "procedural_memory": "Skills and habits"
+    },
+    "decision_making": {
+      "value_based_choice": "Decisions based on expected value",
+      "probabilistic_reasoning": "Reasoning under uncertainty",
+      "exploration_exploitation": "Balancing novelty and familiarity",
+      "metacognition": "Thinking about thinking"
+    },
+    "cognitive_control": {
+      "executive_function": "Goal-directed behavior",
+      "task_switching": "Switching between different tasks",
+      "inhibition": "Suppressing irrelevant information",
+      "conflict_monitoring": "Detecting response conflicts"
+    },
+    "examples": [
+      {
+        "name": "Visual Perception",
+        "description": "Object recognition and visual search",
+        "process": "Hierarchical predictive coding in visual cortex",
+        "evidence": "fMRI, EEG, and behavioral studies",
+        "predictions": "Illusions as prediction failures",
+        "applications": "Computer vision and image understanding"
+      },
+      {
+        "name": "Decision Making Under Risk",
+        "description": "Risky choice and probability judgment",
+        "process": "Expected free energy calculation for options",
+        "evidence": "Behavioral experiments and neural recordings",
+        "predictions": "Risk preferences reflect epistemic preferences",
+        "applications": "Economic decision making and policy"
+      },
+      {
+        "name": "Language Processing",
+        "description": "Understanding and producing language",
+        "process": "Predictive coding in language networks",
+        "evidence": "ERP studies and language experiments",
+        "predictions": "Language comprehension as prediction",
+        "applications": "Natural language processing"
+      }
+    ],
+    "cognitive_development": {
+      "learning_progression": "Development of cognitive abilities",
+      "critical_periods": "Sensitive periods for learning",
+      "active_inference": "Children as active learners minimizing free energy",
+      "scaffolding": "Adult support for learning"
+    },
+    "cognitive_aging": {
+      "decline_patterns": "Changes in cognitive function with age",
+      "compensation": "Neural compensation for declining function",
+      "wisdom": "Improved decision making in older adults",
+      "active_inference": "Adaptation of inference strategies"
+    },
+    "individual_differences": {
+      "cognitive_styles": "Different approaches to problem solving",
+      "personality": "Stable patterns of thought and behavior",
+      "intelligence": "General cognitive ability",
+      "creativity": "Novel idea generation and insight"
+    },
+    "psychopathology": {
+      "anxiety_disorders": "Overactive threat prediction",
+      "depressive_disorders": "Impaired reward prediction",
+      "psychotic_disorders": "Aberrant precision and belief updating",
+      "autism_spectrum": "Altered predictive coding"
+    },
+    "interactive_exercises": [
+      {
+        "id": "perception_experiment",
+        "type": "experiment",
+        "description": "Design experiment to test predictive coding in perception",
+        "difficulty": "advanced",
+        "task": "Predict neural and behavioral responses to stimuli"
+      },
+      {
+        "id": "cognitive_model",
+        "type": "modeling",
+        "description": "Model cognitive process using Active Inference",
+        "difficulty": "advanced",
+        "process": "Choose perception, memory, or decision making",
+        "task": "Build computational model and test predictions"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Cognition is rule-based and logical",
+        "clarification": "Active Inference shows probabilistic, prediction-based cognition"
+      },
+      {
+        "misconception": "Cognitive processes are independent",
+        "clarification": "Active Inference shows unified predictive processing"
+      },
+      {
+        "misconception": "Consciousness is required for cognition",
+        "clarification": "Most cognitive processes are unconscious"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "The Predictive Mind",
+        "author": "Jakob Hohwy",
+        "year": 2013,
+        "description": "Predictive processing in cognitive science"
+      },
+      {
+        "title": "Active Inference in Cognitive Science",
+        "author": "Community literature",
+        "description": "Applications to cognitive processes"
+      }
+    ],
+    "related_concepts": [
+      "neural_dynamics",
+      "predictive_coding",
+      "perception",
+      "decision_theory"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 55,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

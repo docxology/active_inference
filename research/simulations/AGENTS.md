@@ -386,3 +386,4 @@ python benchmarks/simulation_benchmarks.py
 ---
 
 *"Active Inference for, with, by Generative AI"* - Advancing research through comprehensive simulation capabilities, multi-scale modeling tools, and collaborative computational research.
+

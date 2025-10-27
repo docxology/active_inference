@@ -348,6 +348,260 @@
           "Quantify climate uncertainty"
         ]
       }
+    },
+    {
+      "id": "neuroscience_research",
+      "name": "Neuroscience Research Track",
+      "description": "Specialized track for neuroscientists applying Active Inference to brain and behavior research",
+      "nodes": [
+        "fep_biological_systems",
+        "neural_dynamics",
+        "predictive_coding",
+        "neuroscience_perception",
+        "cognitive_science",
+        "neural_network_implementation",
+        "information_bottleneck"
+      ],
+      "estimated_hours": 40,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "neuroscientists, cognitive scientists, brain researchers",
+        "prerequisites": "neuroscience background, basic probability",
+        "learning_outcomes": [
+          "Apply Active Inference to neural data analysis",
+          "Design experiments testing predictive coding",
+          "Model brain dynamics and connectivity",
+          "Connect theory to empirical neuroscience"
+        ]
+      }
+    },
+    {
+      "id": "ai_practitioner",
+      "name": "AI Practitioner Track",
+      "description": "Practical track for AI engineers and researchers implementing Active Inference systems",
+      "nodes": [
+        "active_inference_basic",
+        "variational_inference",
+        "expected_free_energy_calculation",
+        "reinforcement_learning",
+        "deep_generative_models",
+        "control_systems",
+        "neural_network_implementation",
+        "ai_alignment"
+      ],
+      "estimated_hours": 60,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "AI engineers, machine learning practitioners, robotics engineers",
+        "prerequisites": "Python programming, machine learning fundamentals",
+        "learning_outcomes": [
+          "Implement Active Inference in production systems",
+          "Build generative models for complex environments",
+          "Design control systems using expected free energy",
+          "Apply to real-world AI problems"
+        ]
+      }
+    },
+    {
+      "id": "policy_maker",
+      "name": "Policy Maker Track",
+      "description": "Track for policy makers and decision makers applying Active Inference to public policy and governance",
+      "nodes": [
+        "decision_theory",
+        "multi_agent_systems",
+        "expected_free_energy",
+        "climate_decision_making",
+        "market_behavior",
+        "game_theory",
+        "adaptive_learning"
+      ],
+      "estimated_hours": 35,
+      "difficulty": "intermediate",
+      "metadata": {
+        "target_audience": "policy makers, public administrators, decision analysts",
+        "prerequisites": "basic quantitative skills, policy background",
+        "learning_outcomes": [
+          "Apply Active Inference to policy design",
+          "Understand uncertainty in policy decisions",
+          "Design adaptive and robust policies",
+          "Model complex stakeholder interactions"
+        ]
+      }
+    },
+    {
+      "id": "mathematician_researcher",
+      "name": "Mathematical Research Track",
+      "description": "Advanced mathematical track for researchers developing new theory and algorithms",
+      "nodes": [
+        "information_geometry",
+        "variational_free_energy",
+        "expected_free_energy",
+        "stochastic_processes",
+        "optimal_transport",
+        "markov_chain_monte_carlo",
+        "predictive_coding",
+        "information_bottleneck"
+      ],
+      "estimated_hours": 80,
+      "difficulty": "expert",
+      "metadata": {
+        "target_audience": "mathematicians, theoretical physicists, advanced researchers",
+        "prerequisites": "advanced mathematics, probability theory, differential geometry",
+        "learning_outcomes": [
+          "Develop new mathematical formulations",
+          "Analyze convergence and complexity properties",
+          "Connect Active Inference to other mathematical frameworks",
+          "Prove theoretical results and derive algorithms"
+        ]
+      }
+    },
+    {
+      "id": "educator",
+      "name": "Educator Track",
+      "description": "Track for educators teaching Active Inference and related concepts",
+      "nodes": [
+        "fep_introduction",
+        "active_inference_introduction",
+        "bayesian_basics",
+        "belief_updating",
+        "adaptive_learning",
+        "cognitive_science",
+        "decision_theory"
+      ],
+      "estimated_hours": 45,
+      "difficulty": "intermediate",
+      "metadata": {
+        "target_audience": "university professors, teachers, educational researchers",
+        "prerequisites": "teaching experience, basic probability",
+        "learning_outcomes": [
+          "Teach Active Inference effectively",
+          "Design curricula and learning paths",
+          "Assess student understanding",
+          "Connect concepts across disciplines"
+        ]
+      }
+    },
+    {
+      "id": "psychologist_clinician",
+      "name": "Psychology and Clinical Applications Track",
+      "description": "Track for psychologists and clinicians applying Active Inference to mental health and behavior",
+      "nodes": [
+        "neural_dynamics",
+        "predictive_coding",
+        "cognitive_science",
+        "decision_theory",
+        "multi_agent_systems",
+        "belief_updating"
+      ],
+      "estimated_hours": 40,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "clinical psychologists, psychiatrists, behavioral scientists",
+        "prerequisites": "psychology background, basic neuroscience",
+        "learning_outcomes": [
+          "Apply Active Inference to mental health disorders",
+          "Understand cognitive processes through predictive coding",
+          "Design therapeutic interventions",
+          "Model patient behavior and treatment response"
+        ]
+      }
+    },
+    {
+      "id": "engineer_practitioner",
+      "name": "Engineering Applications Track",
+      "description": "Track for engineers applying Active Inference to control systems, robotics, and autonomous technologies",
+      "nodes": [
+        "continuous_control",
+        "control_systems",
+        "robotics_control",
+        "reinforcement_learning",
+        "stochastic_processes",
+        "hierarchical_models"
+      ],
+      "estimated_hours": 50,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "control engineers, robotics engineers, systems engineers",
+        "prerequisites": "engineering background, control theory",
+        "learning_outcomes": [
+          "Design Active Inference control systems",
+          "Implement autonomous systems",
+          "Handle uncertainty in engineering applications",
+          "Apply to real-time control problems"
+        ]
+      }
+    },
+    {
+      "id": "philosopher",
+      "name": "Philosophy of Mind Track",
+      "description": "Track for philosophers interested in philosophy of mind, consciousness, and theoretical foundations",
+      "nodes": [
+        "fep_biological_systems",
+        "neural_dynamics",
+        "information_bottleneck",
+        "multi_agent_systems",
+        "predictive_coding",
+        "decision_theory"
+      ],
+      "estimated_hours": 45,
+      "difficulty": "advanced",
+      "metadata": {
+        "target_audience": "philosophers of mind, cognitive scientists, theoretical researchers",
+        "prerequisites": "philosophy background, basic cognitive science",
+        "learning_outcomes": [
+          "Understand philosophical implications of Active Inference",
+          "Analyze theories of consciousness and cognition",
+          "Connect to traditional philosophical problems",
+          "Evaluate theoretical foundations critically"
+        ]
+      }
+    },
+    {
+      "id": "interdisciplinary_research",
+      "name": "Interdisciplinary Research Track",
+      "description": "Comprehensive track for researchers applying Active Inference across multiple disciplines",
+      "nodes": [
+        "fep_biological_systems",
+        "neural_dynamics",
+        "multi_agent_systems",
+        "information_geometry",
+        "variational_free_energy",
+        "expected_free_energy",
+        "predictive_coding",
+        "stochastic_processes",
+        "causal_inference",
+        "optimization_methods",
+        "advanced_variational_methods",
+        "differential_geometry",
+        "dynamical_systems",
+        "advanced_probability",
+        "planning_algorithms",
+        "uncertainty_quantification",
+        "benchmarking",
+        "simulation_methods",
+        "ai_safety",
+        "brain_imaging",
+        "clinical_applications",
+        "autonomous_systems",
+        "intelligent_tutoring",
+        "climate_decision_making",
+        "market_behavior",
+        "game_theory"
+      ],
+      "estimated_hours": 200,
+      "difficulty": "expert",
+      "metadata": {
+        "target_audience": "interdisciplinary researchers, advanced graduate students, postdocs",
+        "prerequisites": "strong background in mathematics, probability, and at least one application domain",
+        "learning_outcomes": [
+          "Conduct cutting-edge research in Active Inference",
+          "Develop novel theoretical formulations",
+          "Apply Active Inference to new domains",
+          "Collaborate across disciplinary boundaries",
+          "Mentor students and junior researchers",
+          "Publish in top-tier interdisciplinary journals"
+        ]
+      }
     }
   ]
 }

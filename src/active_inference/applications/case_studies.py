@@ -120,11 +120,11 @@ class ExampleApplications:
 
         return sorted(studies, key=lambda x: x.title)
 
-    def generate_example_code(self, study_id: str) -> Optional[str]:
+    def generate_example_code(self, study_id: str) -> str:
         """Generate example code for a case study"""
         study = self.get_case_study(study_id)
         if not study:
-            return None
+            return f"# Case study '{study_id}' not found - Implementation pending"
 
         if study_id == "perceptual_inference":
             return self._generate_perceptual_inference_code()

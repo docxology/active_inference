@@ -1,0 +1,131 @@
+{
+  "id": "causal_inference",
+  "title": "Causal Inference and Active Inference",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Understanding causal relationships and how Active Inference incorporates causality in modeling and decision making.",
+  "prerequisites": ["bayesian_models", "belief_updating"],
+  "tags": ["causal inference", "causality", "intervention", "counterfactuals"],
+  "learning_objectives": [
+    "Understand causal modeling in Active Inference",
+    "Distinguish correlation from causation",
+    "Apply causal inference methods",
+    "Connect causality to decision making"
+  ],
+  "content": {
+    "overview": "Causal inference is the process of determining cause-and-effect relationships from data. Active Inference provides a framework for causal modeling where agents learn causal structures and use them for prediction and control.",
+    "causal_models": {
+      "structural_equations": "x = f(pa(x), u) where pa(x) are direct causes",
+      "directed_acyclic_graphs": "DAGs represent causal relationships",
+      "interventions": "do(x) operations to simulate external manipulation",
+      "counterfactuals": "What if questions about alternative scenarios"
+    },
+    "causal_hierarchy": {
+      "association": "Statistical dependence between variables",
+      "intervention": "Effects of manipulating variables",
+      "counterfactual": "Hypothetical scenarios and what-ifs",
+      "active_inference": "Planning as counterfactual simulation"
+    },
+    "do_calculus": {
+      "do_operator": "do(X = x) represents intervention on X",
+      "backdoor_criterion": "Identify confounders for adjustment",
+      "frontdoor_criterion": "Alternative identification strategies",
+      "rules": "Three rules for causal graph manipulation"
+    },
+    "causal_discovery": {
+      "constraint_based": "Test conditional independence relationships",
+      "score_based": "Search for best-scoring causal graphs",
+      "functional_causal_models": "Assume causal relationships are functions",
+      "active_inference_discovery": "Learn causal structure through action"
+    },
+    "examples": [
+      {
+        "name": "Medical Treatment Effects",
+        "description": "Infer causal effects of treatments on outcomes",
+        "problem": "Distinguish treatment effects from confounding factors",
+        "solution": "Use do-calculus to identify causal effects",
+        "active_inference": "Treatment selection based on expected outcomes"
+      },
+      {
+        "name": "Policy Evaluation",
+        "description": "Evaluate causal effects of policy interventions",
+        "problem": "Estimate what would happen if policy were implemented",
+        "solution": "Counterfactual reasoning using causal models",
+        "active_inference": "Policy selection using expected free energy"
+      }
+    ],
+    "connections_to_active_inference": {
+      "generative_models": "Causal models as generative models",
+      "planning": "Counterfactual simulation for planning",
+      "learning": "Causal structure learning through experience",
+      "decision_making": "Causal reasoning for policy selection"
+    },
+    "graphical_models": {
+      "bayesian_networks": "Directed graphs for causal relationships",
+      "causal_bayesian_networks": "BNs with causal interpretation",
+      "structural_causal_models": "SCMs with functional relationships",
+      "pearl_causal_hierarchy": "Three levels of causal reasoning"
+    },
+    "identification_and_estimation": {
+      "ignorability": "No unobserved confounding",
+      "positivity": "All treatment levels are possible",
+      "consistency": "Potential outcomes are well-defined",
+      "no_interference": "Units don't affect each other"
+    },
+    "interactive_exercises": [
+      {
+        "id": "causal_graph_analysis",
+        "type": "analysis",
+        "description": "Analyze causal graphs and identify confounders",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "treatment_effect_estimation",
+        "type": "estimation",
+        "description": "Estimate causal effects from observational data",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Correlation implies causation",
+        "clarification": "Causal inference requires additional assumptions and methods"
+      },
+      {
+        "misconception": "Causal models are just statistical models",
+        "clarification": "Causal models support interventions and counterfactuals"
+      },
+      {
+        "misconception": "Causality is subjective",
+        "clarification": "Causal relationships can be objectively tested through interventions"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Causality",
+        "author": "Judea Pearl",
+        "year": 2009,
+        "description": "Comprehensive treatment of causal inference"
+      },
+      {
+        "title": "The Book of Why",
+        "author": "Judea Pearl and Dana Mackenzie",
+        "year": 2018,
+        "description": "Accessible introduction to causal reasoning"
+      }
+    ],
+    "related_concepts": [
+      "bayesian_models",
+      "belief_updating",
+      "structural_equations",
+      "counterfactuals"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 40,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

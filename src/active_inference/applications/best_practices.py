@@ -228,3 +228,4 @@ class BestPracticesGuide:
         ])
 
         return recommendations
+

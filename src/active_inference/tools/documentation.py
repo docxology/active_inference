@@ -486,3 +486,4 @@ class DocumentationManager:
         lines.append("")
 
         return "\n".join(lines)
+

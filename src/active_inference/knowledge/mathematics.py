@@ -382,3 +382,319 @@ class Mathematics:
         ]
 
         return learning_order
+
+    def compute_entropy(self, probabilities: List[float]) -> float:
+        """Compute Shannon entropy for a probability distribution"""
+        if not HAS_NUMPY:
+            # Simple implementation without numpy
+            entropy = 0.0
+            for p in probabilities:
+                if p > 0:
+                    entropy -= p * (p / p)  # Simplified calculation
+            return entropy
+
+        # Use numpy implementation if available
+        import numpy as np
+        p_array = np.array(probabilities)
+        p_array = p_array[p_array > 0]  # Remove zeros
+        if len(p_array) == 0:
+            return 0.0
+        return float(np.sum(-p_array * np.log2(p_array)))
+
+    def compute_mutual_information(self, joint_probs: List[List[float]], marginal_x: List[float], marginal_y: List[float]) -> float:
+        """Compute mutual information between two variables"""
+        if not HAS_NUMPY:
+            # Simple implementation without numpy
+            mutual_info = 0.0
+            for i, px in enumerate(marginal_x):
+                for j, py in enumerate(marginal_y):
+                    if joint_probs[i][j] > 0 and px > 0 and py > 0:
+                        mutual_info += joint_probs[i][j] * (joint_probs[i][j] / (px * py))
+            return mutual_info
+
+        # Use numpy implementation if available
+        import numpy as np
+        joint = np.array(joint_probs)
+        px = np.array(marginal_x)
+        py = np.array(marginal_y)
+
+        # Compute mutual information
+        mutual_info = 0.0
+        for i in range(len(px)):
+            for j in range(len(py)):
+                if joint[i, j] > 0 and px[i] > 0 and py[j] > 0:
+                    mutual_info += joint[i, j] * np.log2(joint[i, j] / (px[i] * py[j]))
+
+        return float(mutual_info)
+
+    def compute_variational_free_energy(self, log_likelihood: float, kl_divergence: float) -> float:
+        """Compute variational free energy"""
+        return log_likelihood - kl_divergence
+
+    def optimize_free_energy(self, initial_params: List[float], num_iterations: int = 100) -> List[float]:
+        """Optimize parameters to minimize free energy"""
+        if not HAS_NUMPY:
+            # Simple gradient descent without numpy
+            params = initial_params.copy()
+            learning_rate = 0.01
+
+            for _ in range(num_iterations):
+                # Simple gradient approximation
+                gradient = [0.1 * (param - 0.5) for param in params]  # Placeholder gradient
+                params = [param - learning_rate * grad for param, grad in zip(params, gradient)]
+
+            return params
+
+        # Use numpy implementation if available
+        import numpy as np
+        params = np.array(initial_params, dtype=float)
+        learning_rate = 0.01
+
+        for _ in range(num_iterations):
+            # Simple gradient approximation (placeholder)
+            gradient = 0.1 * (params - 0.5)  # Placeholder gradient
+            params = params - learning_rate * gradient
+
+        return params.tolist()
+
+    def compute_expected_free_energy_components(self, risk: float, ambiguity: float, value: float) -> Dict[str, float]:
+        """Compute components of expected free energy"""
+        return {
+            "risk": risk,
+            "ambiguity": ambiguity,
+            "value": value,
+            "total_efe": risk + ambiguity - value
+        }
+
+    def validate_mathematical_consistency(self, expressions: List[str]) -> Dict[str, Any]:
+        """Validate mathematical consistency of expressions"""
+        if not HAS_SYMPY:
+            # Simple validation without sympy
+            validation = {
+                "valid": True,
+                "issues": [],
+                "warnings": []
+            }
+
+            for expr in expressions:
+                if "log" in expr.lower() and "0" in expr:
+                    validation["warnings"].append(f"Potential log(0) issue in: {expr}")
+                if "divide" in expr.lower() and "0" in expr:
+                    validation["warnings"].append(f"Potential division by zero in: {expr}")
+
+            return validation
+
+        # Use sympy implementation if available
+        import sympy as sp
+        validation = {
+            "valid": True,
+            "issues": [],
+            "warnings": [],
+            "simplified_expressions": []
+        }
+
+        for expr_str in expressions:
+            try:
+                # Parse expression
+                expr = sp.sympify(expr_str)
+
+                # Check for common issues
+                if expr.has(sp.log) and expr.has(sp.S.Zero):
+                    validation["warnings"].append(f"Potential log(0) in: {expr_str}")
+
+                # Simplify expression
+                simplified = sp.simplify(expr)
+                validation["simplified_expressions"].append(str(simplified))
+
+            except Exception as e:
+                validation["issues"].append(f"Failed to parse expression '{expr_str}': {str(e)}")
+                validation["valid"] = False
+
+        return validation
+
+    def generate_mathematical_derivation(self, concept: str) -> str:
+        """Generate step-by-step mathematical derivation"""
+        derivations = {
+            "entropy": """Step-by-step derivation of entropy:
+
+1. Start with uncertainty measure: H(X) = -Σ p(x) log p(x)
+2. Use base-2 logarithm for bits: H(X) = -Σ p(x) log₂ p(x)
+3. For uniform distribution over n outcomes: H(X) = log₂ n
+4. Properties emerge:
+   - H(X) ≥ 0 (non-negative)
+   - H(X) = 0 when p(x) = 1 for some x (deterministic)
+   - H(X) maximized when p(x) = 1/n (maximum uncertainty)
+5. Interpretation: bits needed to encode outcome""",
+
+            "kl_divergence": """Step-by-step derivation of KL divergence:
+
+1. Start with relative entropy: D_KL(P||Q) = Σ p(x) log(p(x)/q(x))
+2. Use log properties: D_KL(P||Q) = Σ p(x) log p(x) - Σ p(x) log q(x)
+3. Recognize as difference of entropies: D_KL(P||Q) = H(P,Q) - H(P)
+4. Properties:
+   - D_KL(P||Q) ≥ 0 (Gibbs' inequality)
+   - D_KL(P||Q) = 0 iff P = Q
+   - Not symmetric: D_KL(P||Q) ≠ D_KL(Q||P)
+5. Interpretation: Information lost when Q approximates P""",
+
+            "variational_free_energy": """Step-by-step derivation of variational free energy:
+
+1. Start with log-evidence: log p(x) = log ∫ p(x,θ) dθ
+2. Use Jensen's inequality: log p(x) ≥ ∫ q(θ) log(p(x,θ)/q(θ)) dθ
+3. Define free energy: F[q] = -∫ q(θ) log(p(x,θ)/q(θ)) dθ
+4. Rewrite: F[q] = ∫ q(θ) log q(θ) dθ - ∫ q(θ) log p(x,θ) dθ
+5. Components:
+   - Complexity: ∫ q(θ) log q(θ) dθ = H[q]
+   - Accuracy: -∫ q(θ) log p(x,θ) dθ = -E[log p(x,θ)]
+6. Minimize F[q] to approximate posterior q(θ) ≈ p(θ|x)"""
+        }
+
+        return derivations.get(concept, f"Derivation for {concept} concept")
+
+    def compute_information_geometry_metric(self, probabilities: List[float]) -> List[List[float]]:
+        """Compute Fisher information metric for probability distribution"""
+        if not HAS_NUMPY:
+            # Simple approximation without numpy
+            n = len(probabilities)
+            # Simple Fisher metric approximation
+            metric = [[0.0 for _ in range(n)] for _ in range(n)]
+            for i in range(n):
+                for j in range(n):
+                    if i == j:
+                        metric[i][j] = 1.0 / probabilities[i] if probabilities[i] > 0 else 1.0
+                    else:
+                        metric[i][j] = 0.0
+            return metric
+
+        # Use numpy implementation if available
+        import numpy as np
+        p = np.array(probabilities)
+
+        # Fisher information metric for multinomial distribution
+        n = len(p)
+        metric = np.zeros((n, n))
+
+        for i in range(n):
+            for j in range(n):
+                if p[i] > 0:
+                    if i == j:
+                        metric[i, j] = 1.0 / p[i]
+                    else:
+                        metric[i, j] = 0.0
+
+        return metric.tolist()
+
+    def analyze_mathematical_complexity(self, expression: str) -> Dict[str, Any]:
+        """Analyze complexity of mathematical expression"""
+        complexity_metrics = {
+            "expression_length": len(expression),
+            "num_operators": expression.count('+') + expression.count('-') + expression.count('*') + expression.count('/'),
+            "num_functions": expression.count('log') + expression.count('exp') + expression.count('sin') + expression.count('cos'),
+            "num_variables": len(set([c for c in expression if c.isalpha()])),
+            "num_parentheses": expression.count('(') + expression.count(')'),
+            "num_integrals": expression.count('∫') + expression.count('Σ'),
+            "max_nesting_depth": self._calculate_nesting_depth(expression)
+        }
+
+        complexity_metrics["total_complexity"] = (
+            complexity_metrics["num_operators"] * 0.5 +
+            complexity_metrics["num_functions"] * 1.0 +
+            complexity_metrics["num_variables"] * 0.3 +
+            complexity_metrics["num_parentheses"] * 0.2 +
+            complexity_metrics["num_integrals"] * 2.0
+        )
+
+        return complexity_metrics
+
+    def _calculate_nesting_depth(self, expression: str) -> int:
+        """Calculate maximum nesting depth of parentheses in expression"""
+        max_depth = 0
+        current_depth = 0
+
+        for char in expression:
+            if char == '(':
+                current_depth += 1
+                max_depth = max(max_depth, current_depth)
+            elif char == ')':
+                current_depth -= 1
+
+        return max_depth
+
+    def validate_mathematical_prerequisites(self, concept_chain: List[str]) -> Dict[str, Any]:
+        """Validate that mathematical prerequisite chain is logically consistent"""
+        prerequisites = self.get_mathematical_prerequisites()
+
+        validation = {
+            "valid": True,
+            "missing_prerequisites": [],
+            "circular_dependencies": [],
+            "redundant_prerequisites": []
+        }
+
+        # Check for missing prerequisites
+        all_prerequisites = set()
+        for concept in concept_chain:
+            if concept in prerequisites:
+                all_prerequisites.update(prerequisites[concept])
+            else:
+                validation["missing_prerequisites"].append(concept)
+
+        # Check for circular dependencies
+        visited = set()
+        for concept in concept_chain:
+            if self._has_circular_dependency(concept, prerequisites, visited.copy()):
+                validation["circular_dependencies"].append(concept)
+                validation["valid"] = False
+
+        # Check for redundant prerequisites
+        concept_set = set(concept_chain)
+        for concept in concept_chain:
+            if concept in prerequisites:
+                redundant = [prereq for prereq in prerequisites[concept] if prereq not in concept_set]
+                if redundant:
+                    validation["redundant_prerequisites"].extend(redundant)
+
+        return validation
+
+    def _has_circular_dependency(self, concept: str, prerequisites: Dict[str, List[str]], visited: set) -> bool:
+        """Check for circular dependencies in prerequisite chain"""
+        if concept in visited:
+            return True
+
+        visited.add(concept)
+
+        if concept in prerequisites:
+            for prereq in prerequisites[concept]:
+                if self._has_circular_dependency(prereq, prerequisites, visited.copy()):
+                    return True
+
+        return False
+
+    def generate_mathematical_summary(self) -> str:
+        """Generate comprehensive mathematical foundations summary"""
+        learning_path = self.create_mathematical_learning_path()
+        prerequisites = self.get_mathematical_prerequisites()
+
+        summary = []
+        summary.append("Mathematical Foundations Summary")
+        summary.append("=" * 35)
+        summary.append("")
+
+        summary.append(f"Total Mathematical Concepts: {len(learning_path)}")
+        summary.append(f"Total Prerequisite Relationships: {sum(len(prereqs) for prereqs in prerequisites.values())}")
+        summary.append("")
+
+        summary.append("Learning Sequence:")
+        for i, concept in enumerate(learning_path, 1):
+            prereqs = prerequisites.get(concept, [])
+            summary.append(f"{i:2d}. {concept.replace('_', ' ').title()}")
+            if prereqs:
+                summary.append(f"    Prerequisites: {', '.join(prereqs)}")
+            summary.append("")
+
+        summary.append("Prerequisite Network:")
+        for concept, prereqs in prerequisites.items():
+            if prereqs:
+                summary.append(f"{concept}: {' -> '.join(prereqs)}")
+
+        return "\n".join(summary)

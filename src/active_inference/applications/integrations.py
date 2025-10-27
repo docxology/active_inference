@@ -122,3 +122,4 @@ class IntegrationManager:
             } for name, conn in self.connectors.items()},
             "active_connections": list(self.active_connections.keys())
         }
+

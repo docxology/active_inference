@@ -1,0 +1,246 @@
+{
+  "glossary": {
+    "active_inference": {
+      "definition": "A framework that explains behavior as the process of minimizing expected free energy, unifying perception, action, and learning under a single principle",
+      "related_terms": ["free_energy_principle", "expected_free_energy", "policy_selection"],
+      "mathematical_form": "π* = argmin_π G(π) where G(π) = E_Q[ln Q(π) - ln P(o_τ, s_τ)]",
+      "key_references": ["Friston et al. 2016", "Parr et al. 2022"]
+    },
+    "free_energy_principle": {
+      "definition": "A theory that all biological systems minimize a quantity called free energy to maintain their structural and functional integrity",
+      "related_terms": ["variational_free_energy", "surprise", "prediction_error"],
+      "mathematical_form": "dF/dt ≤ 0",
+      "key_references": ["Friston 2009", "Friston 2012"]
+    },
+    "variational_free_energy": {
+      "definition": "An upper bound on surprise that can be minimized through variational inference",
+      "related_terms": ["evidence_lower_bound", "elbo", "kl_divergence"],
+      "mathematical_form": "F = D_KL[q(θ)||p(θ|x)] - log p(x)",
+      "key_references": ["Blei et al. 2017"]
+    },
+    "expected_free_energy": {
+      "definition": "Expected cost of a policy that combines pragmatic (reward) and epistemic (information) value",
+      "related_terms": ["policy_selection", "planning", "decision_theory"],
+      "mathematical_form": "G(π) = Risk(π) + Ambiguity(π)",
+      "key_references": ["Friston et al. 2015"]
+    },
+    "predictive_coding": {
+      "definition": "A theory of neural processing where the brain minimizes prediction errors through hierarchical message passing",
+      "related_terms": ["prediction_error", "hierarchical_inference", "neural_dynamics"],
+      "mathematical_form": "ε_i = x_i - g(θ_i) (bottom-up errors)",
+      "key_references": ["Rao and Ballard 1999", "Friston 2005"]
+    },
+    "prediction_error": {
+      "definition": "The difference between predicted and observed sensory input",
+      "related_terms": ["surprise", "innovation", "residual"],
+      "mathematical_form": "ε = x - μ",
+      "key_references": ["Friston 2009"]
+    },
+    "generative_model": {
+      "definition": "An internal model that describes how observations are generated from hidden states",
+      "related_terms": ["world_model", "internal_model", "forward_model"],
+      "mathematical_form": "p(x, θ) = p(x|θ) p(θ)",
+      "key_references": ["Friston 2010"]
+    },
+    "belief_updating": {
+      "definition": "The process of updating probabilistic beliefs based on new evidence",
+      "related_terms": ["bayesian_inference", "posterior_update", "learning"],
+      "mathematical_form": "p(θ|x) ∝ p(x|θ) p(θ)",
+      "key_references": ["Jaynes 2003"]
+    },
+    "information_geometry": {
+      "definition": "The study of the geometric structure of probability distributions using Riemannian geometry",
+      "related_terms": ["fisher_metric", "statistical_manifold", "natural_gradient"],
+      "mathematical_form": "g_ij(θ) = E[∂_i log p(x;θ) ∂_j log p(x;θ)]",
+      "key_references": ["Amari 1985"]
+    },
+    "variational_inference": {
+      "definition": "A method for approximate Bayesian inference by optimizing a variational lower bound",
+      "related_terms": ["mean_field", "evidence_lower_bound", "approximate_inference"],
+      "mathematical_form": "q*(θ) = argmin_q D_KL[q(θ)||p(θ|x)]",
+      "key_references": ["Jordan et al. 1999"]
+    },
+    "surprise": {
+      "definition": "Negative log probability of an observation, measuring how unexpected an outcome is",
+      "related_terms": ["self_information", "informativeness", "novelty"],
+      "mathematical_form": "-log p(x)",
+      "key_references": ["Shannon 1948"]
+    },
+    "kl_divergence": {
+      "definition": "A measure of the difference between two probability distributions",
+      "related_terms": ["relative_entropy", "information_divergence", "cross_entropy"],
+      "mathematical_form": "D_KL(P||Q) = ∑ p(x) log(p(x)/q(x))",
+      "key_references": ["Kullback and Leibler 1951"]
+    },
+    "mutual_information": {
+      "definition": "A measure of the mutual dependence between two random variables",
+      "related_terms": ["information_flow", "dependence", "correlation"],
+      "mathematical_form": "I(X;Y) = H(X) + H(Y) - H(X,Y)",
+      "key_references": ["Shannon 1948"]
+    },
+    "entropy": {
+      "definition": "A measure of the uncertainty or randomness of a random variable",
+      "related_terms": ["uncertainty", "information_content", "diversity"],
+      "mathematical_form": "H(X) = -∑ p(x) log p(x)",
+      "key_references": ["Shannon 1948"]
+    },
+    "policy_selection": {
+      "definition": "The process of choosing actions or control sequences to achieve desired outcomes",
+      "related_terms": ["planning", "decision_making", "control"],
+      "mathematical_form": "π* = argmin_π G(π)",
+      "key_references": ["Friston et al. 2017"]
+    },
+    "precision": {
+      "definition": "The inverse of variance, representing the reliability or confidence in a signal",
+      "related_terms": ["confidence", "reliability", "attention"],
+      "mathematical_form": "π = 1/σ²",
+      "key_references": ["Feldman and Friston 2010"]
+    },
+    "attention": {
+      "definition": "The process of selectively processing information by modulating precision",
+      "related_terms": ["selective_attention", "precision_weighting", "gain_control"],
+      "mathematical_form": "Precision-weighted prediction errors",
+      "key_references": ["Feldman and Friston 2010"]
+    },
+    "hierarchical_inference": {
+      "definition": "Multi-level belief updating where higher levels constrain lower levels",
+      "related_terms": ["empirical_priors", "top_down", "context"],
+      "mathematical_form": "p(θ_i | θ_{i+1}) - higher level constraints",
+      "key_references": ["Friston 2008"]
+    },
+    "markov_blanket": {
+      "definition": "The minimal set of variables that separates a system from its environment",
+      "related_terms": ["sufficient_statistics", "autonomy", "boundaries"],
+      "mathematical_form": "Markov blanket of θ includes parents, children, and co-parents",
+      "key_references": ["Pearl 1988"]
+    },
+    "neural_dynamics": {
+      "definition": "The temporal evolution of neural activity implementing Active Inference",
+      "related_terms": ["neural_mass", "population_coding", "synaptic_plasticity"],
+      "mathematical_form": "dθ/dt = -∇_θ F (gradient flow)",
+      "key_references": ["Friston et al. 2017"]
+    },
+    "synaptic_plasticity": {
+      "definition": "The ability of synapses to strengthen or weaken over time, implementing learning",
+      "related_terms": ["hebbian_learning", "spike_timing_dependent_plasticity", "learning_rule"],
+      "mathematical_form": "Δw ∝ ε_pre ε_post (three-factor rule)",
+      "key_references": ["Hebb 1949", "Friston 2010"]
+    },
+    "information_bottleneck": {
+      "definition": "A method for finding compressed representations that preserve relevant information",
+      "related_terms": ["sufficient_statistics", "dimensionality_reduction", "representation_learning"],
+      "mathematical_form": "max I(Y;Z) - β I(X;Z)",
+      "key_references": ["Tishby et al. 1999"]
+    },
+    "multi_agent_systems": {
+      "definition": "Systems where multiple agents interact, each minimizing their own expected free energy",
+      "related_terms": ["game_theory", "social_inference", "theory_of_mind"],
+      "mathematical_form": "Joint expected free energy minimization",
+      "key_references": ["Friston and Frith 2015"]
+    },
+    "theory_of_mind": {
+      "definition": "The ability to attribute mental states to oneself and others",
+      "related_terms": ["social_cognition", "recursive_belief", "perspective_taking"],
+      "mathematical_form": "Recursive belief modeling: I believe you believe I believe...",
+      "key_references": ["Premack and Woodruff 1978"]
+    },
+    "evidence_lower_bound": {
+      "definition": "A lower bound on the log marginal likelihood used in variational inference",
+      "related_terms": ["elbo", "variational_objective", "negative_free_energy"],
+      "mathematical_form": "ELBO = E_q[log p(x,θ)] + H[q]",
+      "key_references": ["Jordan et al. 1999"]
+    },
+    "reparameterization_trick": {
+      "definition": "A method for backpropagating through stochastic nodes in neural networks",
+      "related_terms": ["stochastic_gradient", "variational_autoencoder", "pathwise_derivative"],
+      "mathematical_form": "z = μ + σ ⊙ ε where ε ~ N(0,I)",
+      "key_references": ["Kingma and Welling 2013"]
+    },
+    "natural_gradient": {
+      "definition": "Gradient computed using the Riemannian metric of the parameter space",
+      "related_terms": ["fisher_metric", "information_geometry", "preconditioned_gradient"],
+      "mathematical_form": "∇̃_θ L = G^{-1} ∇_θ L",
+      "key_references": ["Amari 1998"]
+    },
+    "stochastic_optimal_control": {
+      "definition": "Optimal control in the presence of uncertainty and noise",
+      "related_terms": ["lqg_control", "kalman_filtering", "risk_sensitive_control"],
+      "mathematical_form": "Minimize expected cost with state uncertainty",
+      "key_references": ["Stengel 1994"]
+    },
+    "bayesian_filtering": {
+      "definition": "Recursive estimation of hidden states from noisy observations",
+      "related_terms": ["kalman_filter", "particle_filter", "recursive_estimation"],
+      "mathematical_form": "p(x_t | y_{1:t}) = p(y_t | x_t) p(x_t | y_{1:t-1}) / p(y_t | y_{1:t-1})",
+      "key_references": ["Särkkä 2013"]
+    },
+    "markov_chain_monte_carlo": {
+      "definition": "A class of algorithms for sampling from probability distributions using Markov chains",
+      "related_terms": ["metropolis_hastings", "gibbs_sampling", "hamiltonian_monte_carlo"],
+      "mathematical_form": "Stationary distribution π with πP = π",
+      "key_references": ["Metropolis et al. 1953"]
+    },
+    "optimal_transport": {
+      "definition": "The study of optimal ways to transport mass from one distribution to another",
+      "related_terms": ["wasserstein_distance", "earth_mover_distance", "transport_plan"],
+      "mathematical_form": "W_p(μ,ν) = inf_π (∫ ||x-y||^p dπ(x,y))^{1/p}",
+      "key_references": ["Villani 2009"]
+    },
+    "stochastic_differential_equation": {
+      "definition": "A differential equation driven by random noise",
+      "related_terms": ["brownian_motion", "diffusion_process", "langevin_equation"],
+      "mathematical_form": "dX_t = μ(X_t) dt + σ(X_t) dW_t",
+      "key_references": ["Øksendal 2003"]
+    }
+  },
+  "mathematical_notation": {
+    "probability_distributions": {
+      "p(x)": "Probability density/mass function",
+      "p(x,y)": "Joint probability distribution",
+      "p(x|y)": "Conditional probability distribution",
+      "q(x)": "Variational/approximate distribution"
+    },
+    "information_theory": {
+      "H(X)": "Entropy of random variable X",
+      "I(X;Y)": "Mutual information between X and Y",
+      "D_KL(P||Q)": "KL divergence from P to Q",
+      "H(P,Q)": "Cross-entropy between P and Q"
+    },
+    "variational_inference": {
+      "F[q]": "Variational free energy",
+      "ELBO": "Evidence lower bound",
+      "D_KL[q||p]": "KL divergence between distributions",
+      "H[q]": "Entropy of variational distribution"
+    },
+    "active_inference": {
+      "G(π)": "Expected free energy for policy π",
+      "π*": "Optimal policy",
+      "ε": "Prediction error",
+      "μ": "Mean of belief distribution"
+    },
+    "neural_networks": {
+      "θ": "Neural network parameters",
+      "φ": "Variational parameters",
+      "z": "Latent variables",
+      "x": "Input/observed variables"
+    },
+    "control_theory": {
+      "u_t": "Control input at time t",
+      "x_t": "State at time t",
+      "y_t": "Observation at time t",
+      "K": "Control gain matrix"
+    }
+  },
+  "key_equations": {
+    "free_energy_minimization": "dF/dt ≤ 0",
+    "expected_free_energy": "G(π) = E_Q[ln Q(π) - ln P(o_τ, s_τ)]",
+    "variational_free_energy": "F = D_KL[q(θ)||p(θ|x)] - log p(x)",
+    "prediction_error": "ε = x - μ",
+    "bayes_rule": "p(θ|x) = p(x|θ)p(θ)/p(x)",
+    "kl_divergence": "D_KL(P||Q) = ∑ p(x) log(p(x)/q(x))",
+    "entropy": "H(X) = -∑ p(x) log p(x)",
+    "mutual_information": "I(X;Y) = H(X) + H(Y) - H(X,Y)",
+    "policy_gradient": "∇_π G(π) = -E[∇_π log π(a|s) A(s,a)]",
+    "kalman_filter": "x̂_t = x̂_t⁻ + K_t (y_t - C x̂_t⁻)"
+  }
+}

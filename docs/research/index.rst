@@ -156,3 +156,4 @@ Begin research with templates:
    For theoretical background, see :doc:`../knowledge/index`.
    For implementation examples, see :doc:`../implementations/index`.
    For visualization tools, see :doc:`../visualization/index`.
+

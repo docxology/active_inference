@@ -1,0 +1,143 @@
+{
+  "id": "game_theory",
+  "title": "Game Theory and Strategic Interaction",
+  "content_type": "application",
+  "difficulty": "advanced",
+  "description": "Application of Active Inference to game theory, strategic decision making, and multi-agent interactions.",
+  "prerequisites": ["multi_agent_systems", "expected_free_energy"],
+  "tags": ["game theory", "strategic interaction", "nash equilibrium", "multi-agent systems"],
+  "learning_objectives": [
+    "Model strategic games using Active Inference",
+    "Understand equilibrium concepts from Active Inference perspective",
+    "Analyze learning in games",
+    "Design mechanisms for cooperative behavior"
+  ],
+  "content": {
+    "overview": "Game theory studies strategic interaction between rational agents. Active Inference provides a framework for modeling how agents learn, adapt, and coordinate in game-theoretic settings through belief updating and expected free energy minimization.",
+    "normal_form_games": {
+      "payoff_matrix": "A_ij = payoff for player i when players choose actions j",
+      "nash_equilibrium": "No player can improve payoff by unilateral deviation",
+      "active_inference": "Agents choose actions to minimize expected free energy",
+      "beliefs_about_others": "Players form beliefs about opponents' strategies"
+    },
+    "extensive_form_games": {
+      "game_tree": "Sequential decision making with perfect information",
+      "backward_induction": "Solving games by working backwards from end",
+      "subgame_perfection": "Nash equilibrium in every subgame",
+      "active_inference_planning": "Multi-step planning with expected free energy"
+    },
+    "learning_in_games": {
+      "fictitious_play": "Players believe opponents play stationary mixed strategies",
+      "reinforcement_learning": "Learn through trial and error",
+      "active_inference_learning": "Learn opponents' strategies through belief updating",
+      "convergence": "Learning dynamics and equilibrium convergence"
+    },
+    "cooperative_games": {
+      "coalition_formation": "Players form groups to improve outcomes",
+      "shapley_value": "Fair distribution of coalition benefits",
+      "core": "Set of stable payoff distributions",
+      "active_inference_cooperation": "Joint expected free energy minimization"
+    },
+    "examples": [
+      {
+        "name": "Prisoner's Dilemma",
+        "description": "Classic cooperation vs defection game",
+        "payoffs": "Cooperate: (3,3), Defect: (5,0) or (0,5), Both defect: (1,1)",
+        "nash_equilibrium": "Both defect (mutually worst outcome)",
+        "active_inference": "Cooperation when epistemic benefits outweigh defection gains",
+        "repeated_game": "Cooperation can emerge through learning"
+      },
+      {
+        "name": "Coordination Games",
+        "description": "Multiple equilibria requiring coordination",
+        "payoffs": "Coordination: (2,2), Miscoordination: (0,0)",
+        "equilibria": "Multiple pure strategy Nash equilibria",
+        "active_inference": "Convergence to focal points through belief alignment",
+        "communication": "Cheap talk helps coordination"
+      },
+      {
+        "name": "Market Entry Game",
+        "description": "Deciding whether to enter competitive market",
+        "setup": "Two players decide simultaneously to enter or stay out",
+        "payoffs": "Both enter: (0,0), One enters: (1,0), Neither: (0,0)",
+        "active_inference": "Players form beliefs about opponent's entry probability",
+        "mixed_equilibrium": "Mixed strategy equilibrium"
+      }
+    ],
+    "evolutionary_game_theory": {
+      "replicator_dynamics": "dx_i/dt = x_i (π_i - π̄) where π_i is payoff for strategy i",
+      "evolutionarily_stable_strategy": "Strategy that cannot be invaded by mutants",
+      "active_inference_evolution": "Strategy evolution as belief dynamics",
+      "cultural_evolution": "Social learning and cultural transmission"
+    },
+    "mechanism_design": {
+      "incentive_compatibility": "Agents' interests aligned with mechanism goals",
+      "individual_rationality": "Agents prefer to participate",
+      "active_inference_design": "Design mechanisms that minimize collective free energy",
+      "implementation": "Practical mechanism implementation"
+    },
+    "behavioral_game_theory": {
+      "bounded_rationality": "Players have cognitive limitations",
+      "social_preferences": "Players care about others' outcomes",
+      "active_inference": "Explains deviations from perfect rationality",
+      "level_k_reasoning": "Players reason about opponents' reasoning"
+    },
+    "interactive_exercises": [
+      {
+        "id": "game_simulation",
+        "type": "simulation",
+        "description": "Simulate game with Active Inference players",
+        "difficulty": "advanced",
+        "games": "Prisoner's dilemma, coordination games, market entry",
+        "task": "Observe equilibrium emergence and learning dynamics"
+      },
+      {
+        "id": "mechanism_design",
+        "type": "design",
+        "description": "Design mechanism using Active Inference principles",
+        "difficulty": "advanced",
+        "objective": "Achieve desired outcomes with strategic agents"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Game theory assumes perfect rationality",
+        "clarification": "Active Inference provides models of bounded rationality"
+      },
+      {
+        "misconception": "Nash equilibrium is unique",
+        "clarification": "Games often have multiple equilibria"
+      },
+      {
+        "misconception": "Cooperation requires altruism",
+        "clarification": "Active Inference shows cooperation can emerge from self-interest"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Game Theory",
+        "author": "Drew Fudenberg and Jean Tirole",
+        "year": 1991,
+        "description": "Comprehensive game theory textbook"
+      },
+      {
+        "title": "Active Inference in Games",
+        "author": "Community literature",
+        "description": "Applications of Active Inference to game theory"
+      }
+    ],
+    "related_concepts": [
+      "multi_agent_systems",
+      "expected_free_energy",
+      "decision_theory",
+      "strategic_interaction"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 50,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

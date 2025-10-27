@@ -228,6 +228,12 @@ class TestModelRegistry:
         assert new_registry.preferred_models == ["gemma3:2b", "gemma3:4b"]
         assert set(new_registry.fallback_chain) == set(registry.fallback_chain)
 
+    @pytest.fixture
+    def temp_templates_dir(self):
+        """Create temporary templates directory"""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            yield Path(temp_dir)
+
 
 class TestModelManager:
     """Test cases for ModelManager class"""
@@ -292,20 +298,26 @@ class TestModelManager:
         """Test adding custom model"""
         manager = ModelManager()
 
-        initial_count = len(manager.registry.models)
+        # Use a unique model name for this test
+        import uuid
+        unique_name = f"test_model_{uuid.uuid4().hex[:8]}"
+
+        # Check that the model doesn't exist before adding
+        assert unique_name not in manager.registry.models
 
         model = manager.add_custom_model(
-            name="custom_model:1b",
+            name=unique_name,
             family="custom",
             size="1b",
             capabilities=["text_generation", "custom_capability"],
             context_window=2048
         )
 
-        assert len(manager.registry.models) == initial_count + 1
-        assert "custom_model:1b" in manager.registry.models
+        # Check that the model was added
+        assert unique_name in manager.registry.models
         assert model.family == "custom"
         assert model.has_capability("custom_capability")
+        assert model.context_window == 2048
 
     def test_remove_model(self):
         """Test removing model"""

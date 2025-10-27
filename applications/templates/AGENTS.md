@@ -547,3 +547,4 @@ class TemplateConfig:
 ---
 
 *"Active Inference for, with, by Generative AI"* - Accelerating development through comprehensive templates and proven implementation patterns.
+

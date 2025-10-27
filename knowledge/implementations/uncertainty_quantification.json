@@ -1,0 +1,166 @@
+{
+  "id": "uncertainty_quantification",
+  "title": "Uncertainty Quantification in Active Inference",
+  "content_type": "implementation",
+  "difficulty": "expert",
+  "description": "Advanced methods for quantifying, representing, and propagating uncertainty in Active Inference systems.",
+  "prerequisites": ["variational_inference", "stochastic_processes"],
+  "tags": ["uncertainty quantification", "epistemic uncertainty", "aleatoric uncertainty", "bayesian methods"],
+  "learning_objectives": [
+    "Quantify different types of uncertainty",
+    "Implement uncertainty propagation methods",
+    "Design robust systems under uncertainty",
+    "Communicate uncertainty to users"
+  ],
+  "content": {
+    "overview": "Uncertainty quantification is essential for Active Inference systems to make robust decisions, communicate confidence, and handle novel situations. This tutorial covers methods for representing, measuring, and propagating uncertainty through complex systems.",
+    "types_of_uncertainty": {
+      "aleatoric_uncertainty": "Inherent randomness in the world",
+      "epistemic_uncertainty": "Lack of knowledge about parameters or models",
+      "model_uncertainty": "Uncertainty about model structure",
+      "distributional_shift": "When data distribution changes"
+    },
+    "uncertainty_representation": {
+      "probability_distributions": "Parametric and nonparametric distributions",
+      "belief_functions": "Dempster-Shafer theory of evidence",
+      "fuzzy_sets": "Representing vagueness and imprecision",
+      "possibility_theory": "Alternative to probability theory"
+    },
+    "bayesian_uncertainty": {
+      "posterior_distributions": "Full representation of parameter uncertainty",
+      "credible_intervals": "Bayesian confidence intervals",
+      "predictive_distributions": "Uncertainty in predictions",
+      "posterior_predictive_checks": "Validate model fit"
+    },
+    "python_implementation": {
+      "uncertainty_tools": "Library for uncertainty quantification",
+      "distribution_fitting": "Fit distributions to data",
+      "propagation_methods": "Monte Carlo and analytical propagation",
+      "visualization": "Plot uncertainty representations"
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Distribution Fitting",
+        "description": "Fit probability distributions to uncertain data",
+        "code_snippet": "class DistributionFitter:\n    def __init__(self):\n        self.distributions = {\n            'normal': stats.norm,\n            'beta': stats.beta,\n            'gamma': stats.gamma,\n            'lognormal': stats.lognorm\n        }\n        \n    def fit_distribution(self, data, distribution_name='normal'):\n        if distribution_name not in self.distributions:\n            raise ValueError(f'Unknown distribution: {distribution_name}')\n            \n        dist = self.distributions[distribution_name]\n        \n        # Fit parameters\n        if distribution_name == 'normal':\n            mu, std = stats.norm.fit(data)\n            params = {'loc': mu, 'scale': std}\n        elif distribution_name == 'beta':\n            a, b, loc, scale = stats.beta.fit(data, floc=0, fscale=1)\n            params = {'a': a, 'b': b}\n        else:\n            params = dist.fit(data)\n            \n        # Create fitted distribution\n        fitted_dist = dist(**params)\n        \n        # Compute goodness of fit\n        log_likelihood = np.sum(fitted_dist.logpdf(data))\n        aic = 2 * len(params) - 2 * log_likelihood\n        \n        return {\n            'distribution': fitted_dist,\n            'parameters': params,\n            'log_likelihood': log_likelihood,\n            'aic': aic\n        }\n        \n    def compare_distributions(self, data, distributions=['normal', 'beta', 'gamma']):\n        results = {}\n        for dist_name in distributions:\n            try:\n                results[dist_name] = self.fit_distribution(data, dist_name)\n            except:\n                continue\n                \n        # Select best distribution by AIC\n        best_dist = min(results.keys(), key=lambda k: results[k]['aic'])\n        \n        return results, best_dist",
+        "explanation": "Fit and compare probability distributions to uncertain data"
+      },
+      {
+        "step": 2,
+        "title": "Uncertainty Propagation",
+        "description": "Propagate uncertainty through computational models",
+        "code_snippet": "class UncertaintyPropagator:\n    def __init__(self, model_function):\n        self.model = model_function\n        \n    def monte_carlo_propagation(self, input_distributions, n_samples=10000):\n        # Sample from input distributions\n        samples = {}\n        for param, dist in input_distributions.items():\n            samples[param] = dist.rvs(n_samples)\n            \n        # Propagate through model\n        outputs = []\n        for i in range(n_samples):\n            inputs = {param: samples[param][i] for param in samples}\n            output = self.model(**inputs)\n            outputs.append(output)\n            \n        # Analyze output distribution\n        output_array = np.array(outputs)\n        mean = np.mean(output_array)\n        std = np.std(output_array)\n        quantiles = np.percentile(output_array, [2.5, 25, 75, 97.5])\n        \n        return {\n            'mean': mean,\n            'std': std,\n            'confidence_interval': (quantiles[0], quantiles[-1]),\n            'iqr': (quantiles[1], quantiles[2]),\n            'samples': output_array\n        }\n        \n    def analytical_propagation(self, input_means, input_covariance):\n        # Linearize model around mean\n        jacobian = self.compute_jacobian(input_means)\n        \n        # Propagate mean\n        output_mean = self.model(**input_means)\n        \n        # Propagate covariance\n        output_covariance = jacobian @ input_covariance @ jacobian.T\n        \n        return {\n            'mean': output_mean,\n            'covariance': output_covariance,\n            'std': np.sqrt(np.diag(output_covariance))\n        }\n        \n    def compute_jacobian(self, input_values, epsilon=1e-8):\n        # Compute Jacobian using finite differences\n        jacobian = []\n        baseline = self.model(**input_values)\n        \n        for param in input_values:\n            jacobian_row = []\n            \n            for i in range(len(input_values[param]) if hasattr(input_values[param], '__len__') else 1):\n                # Perturb parameter\n                perturbed = input_values.copy()\n                if hasattr(input_values[param], '__len__'):\n                    perturbed[param] = input_values[param].copy()\n                    perturbed[param][i] += epsilon\n                else:\n                    perturbed[param] = input_values[param] + epsilon\n                    \n                # Compute derivative\n                derivative = (self.model(**perturbed) - baseline) / epsilon\n                jacobian_row.append(derivative)\n                \n            jacobian.append(jacobian_row)\n            \n        return np.array(jacobian)",
+        "explanation": "Propagate uncertainty through models using Monte Carlo and analytical methods"
+      },
+      {
+        "step": 3,
+        "title": "Conformal Prediction",
+        "description": "Distribution-free uncertainty quantification",
+        "code_snippet": "class ConformalPredictor:\n    def __init__(self, model, confidence_level=0.95):\n        self.model = model\n        self.confidence_level = confidence_level\n        self.calibration_scores = []\n        \n    def calibrate(self, calibration_data, calibration_labels):\n        # Compute nonconformity scores on calibration data\n        predictions = self.model.predict(calibration_data)\n        \n        for i in range(len(predictions)):\n            # Nonconformity score (higher means more unusual)\n            score = self.nonconformity_score(predictions[i], calibration_labels[i])\n            self.calibration_scores.append(score)\n            \n        # Compute quantile for desired confidence level\n        self.quantile = np.quantile(self.calibration_scores, self.confidence_level)\n        \n    def predict_with_interval(self, test_input):\n        # Make prediction\n        prediction = self.model.predict(test_input)\n        \n        # For regression, prediction interval is centered at prediction\n        # Width determined by calibration quantile\n        interval_width = self.quantile  # Simplified\n        \n        return {\n            'prediction': prediction,\n            'lower_bound': prediction - interval_width,\n            'upper_bound': prediction + interval_width,\n            'confidence': self.confidence_level\n        }\n        \n    def nonconformity_score(self, predicted, actual):\n        # Absolute error for regression\n        return abs(predicted - actual)",
+        "explanation": "Conformal prediction provides distribution-free uncertainty quantification"
+      }
+    ],
+    "robust_optimization": {
+      "worst_case_analysis": "Optimize for worst-case scenarios",
+      "distributionally_robust": "Optimize against worst-case distributions",
+      "chance_constraints": "Probabilistic constraints on optimization",
+      "risk_measures": "Value at Risk, Conditional Value at Risk"
+    },
+    "uncertainty_communication": {
+      "visualization": "Plot distributions, confidence intervals, uncertainty bands",
+      "natural_language": "Explain uncertainty in understandable terms",
+      "decision_support": "Help users make decisions under uncertainty",
+      "calibration": "Ensure uncertainty estimates are well-calibrated"
+    },
+    "examples": [
+      {
+        "name": "Medical Diagnosis Uncertainty",
+        "description": "Quantify uncertainty in medical diagnoses",
+        "inputs": "Patient symptoms, test results, medical history",
+        "model": "Bayesian network for disease diagnosis",
+        "uncertainty": "Diagnostic confidence, treatment outcome uncertainty",
+        "communication": "Explain confidence to doctors and patients"
+      },
+      {
+        "name": "Financial Risk Management",
+        "description": "Quantify uncertainty in financial predictions",
+        "inputs": "Market data, economic indicators, company fundamentals",
+        "model": "Stochastic financial model",
+        "uncertainty": "Risk measures, confidence intervals for returns",
+        "communication": "Risk reports for investors and regulators"
+      }
+    ],
+    "calibration_and_validation": {
+      "probability_calibration": "Ensure predicted probabilities match frequencies",
+      "coverage_guarantees": "Confidence intervals have correct coverage",
+      "sharpness": "Width of uncertainty intervals",
+      "reliability_diagrams": "Visualize calibration quality"
+    },
+    "deep_uncertainty": {
+      "unknown_unknowns": "Uncertainty about what we don't know",
+      "model_ambiguity": "Multiple plausible models",
+      "scenario_analysis": "Consider multiple future scenarios",
+      "robust_decision_making": "Make decisions that work across scenarios"
+    },
+    "interactive_exercises": [
+      {
+        "id": "uncertainty_analysis",
+        "type": "analysis",
+        "description": "Analyze uncertainty in complex system",
+        "difficulty": "expert",
+        "system": "Choose medical diagnosis, financial model, or robot control",
+        "task": "Quantify and communicate uncertainty appropriately"
+      },
+      {
+        "id": "robust_design",
+        "type": "design",
+        "description": "Design robust system under uncertainty",
+        "difficulty": "expert",
+        "scenario": "System with multiple sources of uncertainty",
+        "task": "Design system that performs well across uncertain conditions"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "Overconfident predictions",
+        "solution": "Use proper calibration methods and regularization"
+      },
+      {
+        "issue": "Computational complexity",
+        "solution": "Use efficient sampling and approximation methods"
+      },
+      {
+        "issue": "Poor uncertainty communication",
+        "solution": "Design clear visualizations and explanations"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Uncertainty Quantification",
+        "author": "Ralph Smith",
+        "year": 2013,
+        "description": "Comprehensive treatment of uncertainty quantification"
+      },
+      {
+        "title": "Conformal Prediction for Reliable Machine Learning",
+        "author": "Various authors",
+        "year": 2014,
+        "description": "Distribution-free uncertainty quantification"
+      }
+    ],
+    "related_concepts": [
+      "variational_inference",
+      "stochastic_processes",
+      "bayesian_inference",
+      "risk_management"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 80,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

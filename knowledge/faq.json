@@ -1,0 +1,224 @@
+{
+  "faq": [
+    {
+      "category": "Basic Concepts",
+      "questions": [
+        {
+          "question": "What is Active Inference?",
+          "answer": "Active Inference is a framework that explains behavior as the process of minimizing expected free energy. It unifies perception, action, and learning under a single principle: agents act to confirm their predictions about the world while minimizing uncertainty.",
+          "related_concepts": ["expected_free_energy", "free_energy_principle", "policy_selection"]
+        },
+        {
+          "question": "What is the Free Energy Principle?",
+          "answer": "The Free Energy Principle states that all biological systems minimize a quantity called free energy to maintain their structural and functional integrity. This principle explains how organisms stay alive by minimizing the discrepancy between their internal models and sensory data.",
+          "related_concepts": ["variational_free_energy", "surprise", "prediction_error"]
+        },
+        {
+          "question": "How does Active Inference differ from reinforcement learning?",
+          "answer": "While both frameworks involve learning and decision making, they differ in fundamental ways: Active Inference minimizes expected free energy (combining rewards and information gain), while RL maximizes expected reward. Active Inference naturally includes exploration through epistemic terms, whereas RL requires separate exploration mechanisms.",
+          "related_concepts": ["expected_free_energy", "reinforcement_learning", "exploration_exploitation"]
+        },
+        {
+          "question": "What is predictive coding?",
+          "answer": "Predictive coding is a theory of neural processing where the brain minimizes prediction errors through hierarchical message passing between different levels of cortical areas. It's considered a neural implementation of Active Inference.",
+          "related_concepts": ["prediction_error", "hierarchical_inference", "neural_dynamics"]
+        }
+      ]
+    },
+    {
+      "category": "Mathematical Foundations",
+      "questions": [
+        {
+          "question": "What is variational free energy?",
+          "answer": "Variational free energy is an upper bound on surprise (negative log likelihood) that can be minimized through variational inference. It decomposes into accuracy (how well the model fits the data) and complexity (how complex the model is).",
+          "related_concepts": ["variational_inference", "evidence_lower_bound", "kl_divergence"],
+          "mathematical_form": "F = D_KL[q(θ)||p(θ|x)] - log p(x)"
+        },
+        {
+          "question": "What is expected free energy?",
+          "answer": "Expected free energy is the expected cost of a policy that combines pragmatic value (expected rewards) and epistemic value (expected information gain). It's used for policy selection in Active Inference.",
+          "related_concepts": ["policy_selection", "planning", "decision_theory"],
+          "mathematical_form": "G(π) = Risk(π) + Ambiguity(π)"
+        },
+        {
+          "question": "How does Active Inference handle uncertainty?",
+          "answer": "Active Inference naturally handles uncertainty through probabilistic representations and Bayesian inference. It distinguishes between different types of uncertainty: aleatoric (inherent randomness) and epistemic (lack of knowledge), and uses precision weighting to modulate attention.",
+          "related_concepts": ["precision", "attention", "bayesian_inference", "belief_updating"]
+        },
+        {
+          "question": "What is the relationship between Active Inference and information theory?",
+          "answer": "Active Inference is deeply rooted in information theory. Key connections include: entropy measures uncertainty, KL divergence measures model fit, mutual information quantifies information gain, and cross-entropy relates to prediction errors.",
+          "related_concepts": ["entropy", "kl_divergence", "mutual_information", "cross_entropy"]
+        }
+      ]
+    },
+    {
+      "category": "Implementation",
+      "questions": [
+        {
+          "question": "How do I implement Active Inference in code?",
+          "answer": "Start with a basic implementation using probabilistic programming or build from scratch using NumPy/SciPy. Key components include: (1) generative model, (2) belief updating (variational inference), (3) policy evaluation (expected free energy), and (4) action selection.",
+          "related_concepts": ["generative_model", "variational_inference", "expected_free_energy_calculation"],
+          "implementation_steps": [
+            "Define your generative model p(o,s,a|θ)",
+            "Implement belief updating q(s|o,a)",
+            "Compute expected free energy G(π) for policies",
+            "Select actions using softmax over -G(π)"
+          ]
+        },
+        {
+          "question": "What programming languages are used for Active Inference?",
+          "answer": "Python is the most common language, with implementations using NumPy, SciPy, PyTorch, and TensorFlow. MATLAB implementations also exist, and some theoretical work uses Mathematica. The SPM toolbox provides MATLAB implementations.",
+          "related_concepts": ["python_implementation", "neural_network_implementation", "variational_inference"]
+        },
+        {
+          "question": "How do I handle continuous states and actions?",
+          "answer": "For continuous systems, use Gaussian beliefs and linear quadratic control methods. Extended Kalman filtering handles nonlinear dynamics, while particle filters work for highly nonlinear systems. Continuous policies can be parameterized using neural networks.",
+          "related_concepts": ["continuous_control", "kalman_filtering", "particle_filters", "neural_network_implementation"]
+        },
+        {
+          "question": "How do I debug Active Inference implementations?",
+          "answer": "Common issues include numerical instability (use log probabilities), poor exploration (adjust temperature in softmax), slow convergence (check gradients), and model misspecification (validate generative model). Always check that beliefs are properly normalized and prediction errors decrease over time.",
+          "related_concepts": ["numerical_stability", "policy_selection", "belief_updating", "prediction_error"]
+        }
+      ]
+    },
+    {
+      "category": "Applications",
+      "questions": [
+        {
+          "question": "How is Active Inference applied to robotics?",
+          "answer": "In robotics, Active Inference provides a framework for autonomous control where robots minimize expected free energy to achieve goals while learning about their environment. It naturally handles uncertainty in sensor data and motor commands.",
+          "related_concepts": ["robotics_control", "continuous_control", "sensorimotor_integration"],
+          "applications": ["autonomous navigation", "manipulation", "human-robot interaction"]
+        },
+        {
+          "question": "What are the clinical applications of Active Inference?",
+          "answer": "Active Inference is applied in computational psychiatry to understand mental disorders as disruptions in predictive processing. It provides models for understanding symptoms and designing treatments based on restoring normal inference processes.",
+          "related_concepts": ["neural_dynamics", "predictive_coding", "cognitive_science"],
+          "applications": ["schizophrenia", "autism", "anxiety disorders", "depression"]
+        },
+        {
+          "question": "How does Active Inference relate to artificial intelligence?",
+          "answer": "Active Inference provides an alternative to traditional AI approaches by emphasizing probabilistic reasoning, uncertainty quantification, and information-seeking behavior. It's particularly relevant for AI safety, alignment, and robust decision making.",
+          "related_concepts": ["ai_alignment", "reinforcement_learning", "deep_generative_models"],
+          "applications": ["AI safety", "explainable AI", "robust AI systems"]
+        },
+        {
+          "question": "What are the applications to economics and decision making?",
+          "answer": "Active Inference models economic agents as minimizing expected free energy, providing insights into market behavior, game theory, and decision making under uncertainty. It explains behavioral economics phenomena and provides normative models of rational choice.",
+          "related_concepts": ["decision_theory", "game_theory", "market_behavior", "behavioral_economics"],
+          "applications": ["financial markets", "strategic interaction", "policy design"]
+        }
+      ]
+    },
+    {
+      "category": "Learning and Education",
+      "questions": [
+        {
+          "question": "How should I learn Active Inference?",
+          "answer": "Start with the foundations: information theory, Bayesian inference, and the Free Energy Principle. Then move to Active Inference implementation. Choose a learning path based on your background: mathematics, neuroscience, AI, or applications.",
+          "related_concepts": ["foundations_complete", "mathematical_research_track", "ai_practitioner"],
+          "suggested_path": [
+            "Information theory basics (8 hours)",
+            "Bayesian fundamentals (10 hours)",
+            "Free Energy Principle theory (15 hours)",
+            "Active Inference framework (12 hours)",
+            "Implementation track (25+ hours)"
+          ]
+        },
+        {
+          "question": "What mathematical background is needed?",
+          "answer": "Basic requirements include probability theory, linear algebra, and calculus. Advanced topics require information theory, Bayesian statistics, and optimization. The mathematical research track requires differential geometry and advanced probability.",
+          "related_concepts": ["bayesian_basics", "information_geometry", "variational_inference"],
+          "prerequisites": "Probability, linear algebra, calculus, basic statistics"
+        },
+        {
+          "question": "What are common misconceptions about Active Inference?",
+          "answer": "Common misconceptions include: (1) It's only for motor control (it explains all adaptive behavior), (2) It requires perfect knowledge (it works with uncertainty), (3) It's the same as predictive coding (predictive coding is one implementation), (4) It's only theoretical (it has practical applications).",
+          "related_concepts": ["predictive_coding", "belief_updating", "expected_free_energy", "neural_dynamics"]
+        },
+        {
+          "question": "How does Active Inference relate to other theories?",
+          "answer": "Active Inference connects to many fields: reinforcement learning (alternative to RL), Bayesian brain hypothesis (implementation), information theory (formal foundation), control theory (generalized optimal control), and cognitive science (unified theory of cognition).",
+          "related_concepts": ["reinforcement_learning", "bayesian_brain", "optimal_control", "cognitive_science"],
+          "connections": {
+            "RL": "Alternative framework emphasizing information-seeking",
+            "Bayesian brain": "Neural implementation through predictive coding",
+            "Control theory": "Generalization of optimal control",
+            "Information theory": "Formal foundation and mathematical tools"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Research and Development",
+      "questions": [
+        {
+          "question": "What are current research directions in Active Inference?",
+          "answer": "Active research areas include: neural implementations, multi-agent systems, applications to AI safety, clinical applications in psychiatry, connections to information geometry, and scaling to large systems. There's growing interest in quantum information theory and non-equilibrium thermodynamics.",
+          "related_concepts": ["multi_agent_systems", "ai_alignment", "information_geometry", "neural_dynamics"],
+          "hot_topics": ["neural implementations", "AI safety", "clinical applications", "multi-scale modeling"]
+        },
+        {
+          "question": "How do I contribute to Active Inference research?",
+          "answer": "Contribute by: (1) developing new theoretical formulations, (2) implementing algorithms and software, (3) applying to new domains, (4) conducting empirical studies, (5) writing educational materials, and (6) organizing community events.",
+          "related_concepts": ["neural_network_implementation", "variational_inference", "deep_generative_models"],
+          "contribution_areas": [
+            "Theory development",
+            "Algorithm implementation",
+            "Application to new domains",
+            "Empirical validation",
+            "Educational materials",
+            "Community building"
+          ]
+        },
+        {
+          "question": "What are the challenges in Active Inference research?",
+          "answer": "Major challenges include: (1) computational complexity for large systems, (2) parameter identifiability, (3) validation against empirical data, (4) connecting different levels of analysis, and (5) developing standardized benchmarks and evaluation metrics.",
+          "related_concepts": ["numerical_stability", "model_validation", "benchmarking", "scalability"],
+          "challenges": [
+            "Computational complexity",
+            "Empirical validation",
+            "Multi-scale integration",
+            "Standardization"
+          ]
+        },
+        {
+          "question": "What are the limitations of Active Inference?",
+          "answer": "Active Inference is not a complete theory of everything. Limitations include: (1) assumes probabilistic reasoning (may not capture all cognitive processes), (2) can be computationally intensive, (3) requires specifying generative models, and (4) works best when uncertainty is well-characterized.",
+          "related_concepts": ["generative_model", "belief_updating", "uncertainty_quantification"],
+          "limitations": [
+            "Assumes probabilistic reasoning",
+            "Computationally intensive",
+            "Requires model specification",
+            "Works best with well-characterized uncertainty"
+          ]
+        }
+      ]
+    }
+  ],
+  "quick_reference": {
+    "key_equations": {
+      "free_energy_minimization": "dF/dt ≤ 0",
+      "expected_free_energy": "G(π) = E_Q[ln Q(π) - ln P(o_τ, s_τ)]",
+      "variational_free_energy": "F = D_KL[q(θ)||p(θ|x)] - log p(x)",
+      "prediction_error": "ε = x - μ",
+      "bayes_rule": "p(θ|x) = p(x|θ)p(θ)/p(x)",
+      "policy_gradient": "∇_π G(π) = -E[∇_π log π(a|s) A(s,a)]"
+    },
+    "key_concepts_hierarchy": {
+      "level_1": ["information_theory", "bayesian_inference", "free_energy_principle"],
+      "level_2": ["active_inference", "predictive_coding", "variational_inference"],
+      "level_3": ["expected_free_energy", "policy_selection", "neural_dynamics"],
+      "level_4": ["applications", "implementations", "advanced_theory"]
+    },
+    "common_mistakes": [
+      "Confusing free energy with thermodynamic free energy",
+      "Thinking Active Inference only applies to motor control",
+      "Assuming perfect rationality in all agents",
+      "Ignoring the role of attention and precision",
+      "Not accounting for hierarchical structure"
+    ]
+  }
+}

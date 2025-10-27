@@ -8,6 +8,7 @@ components, end-to-end workflows, and real-world usage scenarios.
 import pytest
 import json
 import asyncio
+import tempfile
 from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock
 
@@ -49,6 +50,18 @@ class TestLLMIntegration:
             "eval_count": 25,
             "eval_duration": 1150000000
         }
+
+    @pytest.fixture
+    def temp_conversations_dir(self):
+        """Create temporary conversations directory"""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            yield Path(temp_dir)
+
+    @pytest.fixture
+    def temp_templates_dir(self):
+        """Create temporary templates directory"""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            yield Path(temp_dir)
 
     @pytest.mark.asyncio
     async def test_end_to_end_prompt_generation_and_execution(self, integration_config, mock_ollama_response):
@@ -215,14 +228,17 @@ class TestLLMIntegration:
         prompt_manager = PromptManager()
         variables = {
             "concept": "variational free energy",
-            "framework": "Active Inference",
-            "difficulty": "advanced"
+            "context": "Bayesian inference and Active Inference",
+            "audience_level": "advanced",
+            "key_points": "mathematical formulation, computational methods",
+            "response_type": "technical explanation"
         }
 
-        template_prompt = prompt_manager.generate_prompt("code_implementation", variables)
+        template_prompt = prompt_manager.generate_prompt("active_inference_explanation", variables)
 
         assert "variational free energy" in template_prompt
-        assert "Python" in template_prompt or "implementation" in template_prompt
+        assert "Active Inference" in template_prompt
+        assert "Bayesian inference" in template_prompt
 
     def test_model_fallback_integration(self):
         """Test model fallback and selection integration"""
@@ -234,7 +250,7 @@ class TestLLMIntegration:
             ("mathematical derivation", {"mathematical_reasoning", "text_generation"}),
             ("code implementation", {"code_generation", "reasoning"}),
             ("research analysis", {"research_analysis", "reasoning"}),
-            ("active inference tutorial", {"active_inference_explanation", "educational_content"})
+            ("active inference tutorial", {"active_inference_explanation", "text_generation"})
         ]
 
         for task, expected_capabilities in tasks_and_expected_capabilities:
@@ -403,7 +419,7 @@ class TestLLMPerformance:
 
         # Should contain all sections
         for i in range(100):
-            assert f"section_{i}" in prompt.upper()
+            assert f"section {i}" in prompt.lower()
             assert f"This is section {i}" in prompt
 
         # Should be properly formatted

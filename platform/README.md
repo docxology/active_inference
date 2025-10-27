@@ -229,3 +229,4 @@ We welcome contributions to the platform infrastructure! See [CONTRIBUTING.md](.
 ---
 
 *"Active Inference for, with, by Generative AI"* - Building robust platform infrastructure through scalable services, comprehensive APIs, and collaborative features.
+

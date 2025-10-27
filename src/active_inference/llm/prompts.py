@@ -392,7 +392,7 @@ Follow these coding standards:
         with open(file_path, 'r') as f:
             data = json.load(f)
 
-        return PromptTemplate(
+        template = PromptTemplate(
             name=data["name"],
             description=data["description"],
             template=data["template"],
@@ -400,6 +400,11 @@ Follow these coding standards:
             examples=data.get("examples", []),
             metadata=data.get("metadata", {})
         )
+
+        # Add to templates dictionary
+        self.templates[template.name] = template
+
+        return template
 
     def get_template_info(self, name: str) -> Optional[Dict[str, Any]]:
         """Get detailed information about a template"""
@@ -434,10 +439,24 @@ class ActiveInferencePromptBuilder(PromptBuilder):
         content = f"Explain {concept} in Active Inference context"
         if context:
             content += f"\n\nContext: {context}"
+        if audience_level:
+            content += f"\n\nAudience level: {audience_level}"
         if include_math:
             content += "\n\nInclude mathematical formulation where applicable."
 
         return self.add_section("concept_explanation", content)
+
+    def add_learning_objective(
+        self,
+        objectives: List[str],
+        difficulty: str = "intermediate"
+    ) -> 'ActiveInferencePromptBuilder':
+        """Add learning objectives section"""
+        content = f"Learning Objectives ({difficulty.capitalize()} level):\n"
+        for i, obj in enumerate(objectives, 1):
+            content += f"{i}. {obj}\n"
+
+        return self.add_section("learning_objectives", content)
 
     def add_research_question(
         self,

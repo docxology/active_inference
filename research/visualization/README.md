@@ -389,3 +389,4 @@ pytest tests/integration/test_visualization_integration.py -v
 ---
 
 *"Active Inference for, with, by Generative AI"* - Advancing research through comprehensive visualization, effective communication, and accessible knowledge representation.
+

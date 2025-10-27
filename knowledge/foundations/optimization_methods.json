@@ -1,0 +1,139 @@
+{
+  "id": "optimization_methods",
+  "title": "Optimization Methods in Active Inference",
+  "content_type": "foundation",
+  "difficulty": "advanced",
+  "description": "Optimization techniques for minimizing free energy and expected free energy in Active Inference systems.",
+  "prerequisites": ["variational_free_energy", "expected_free_energy"],
+  "tags": ["optimization", "gradient_descent", "natural_gradient", "convex_optimization"],
+  "learning_objectives": [
+    "Understand optimization methods used in Active Inference",
+    "Apply gradient-based optimization to free energy minimization",
+    "Use natural gradients for information geometry",
+    "Implement optimization algorithms for practical problems"
+  ],
+  "content": {
+    "overview": "Active Inference relies heavily on optimization methods to minimize variational free energy and expected free energy. Different optimization techniques are appropriate for different types of models and computational constraints.",
+    "gradient_based_methods": {
+      "gradient_descent": "x_{t+1} = x_t - α ∇f(x_t)",
+      "stochastic_gradient_descent": "Use noisy gradients for efficiency",
+      "momentum": "Add momentum term to accelerate convergence",
+      "adaptive_methods": "Adam, RMSprop, AdaGrad for adaptive learning rates"
+    },
+    "natural_gradient_methods": {
+      "fisher_information": "g_ij = E[∂_i log p ∂_j log p]",
+      "natural_gradient": "∇̃f = G^{-1} ∇f",
+      "invariance": "Natural gradient is invariant to parameterization",
+      "information_geometry": "Gradient flow on statistical manifold"
+    },
+    "second_order_methods": {
+      "newton_method": "x_{t+1} = x_t - H^{-1} ∇f(x_t)",
+      "quasi_newton": "BFGS, L-BFGS approximate Hessian",
+      "advantages": "Faster convergence near optimum",
+      "disadvantages": "Hessian computation expensive"
+    },
+    "coordinate_descent": {
+      "block_coordinate_descent": "Optimize one block of variables at a time",
+      "mean_field_updates": "Variational inference as coordinate descent",
+      "convergence": "Monotonic improvement guarantees",
+      "parallelization": "Independent blocks can be optimized in parallel"
+    },
+    "examples": [
+      {
+        "name": "Variational Inference Optimization",
+        "description": "Optimize variational free energy",
+        "objective": "min_φ F[q_φ] = min_φ D_KL[q_φ || p(x,θ)] - log p(x)",
+        "method": "Coordinate ascent or gradient descent",
+        "convergence": "ELBO increases monotonically",
+        "implementation": "Natural gradients for probabilistic parameters"
+      },
+      {
+        "name": "Policy Optimization",
+        "description": "Optimize expected free energy over policies",
+        "objective": "min_π G(π) = min_π Risk(π) + Ambiguity(π)",
+        "method": "Policy gradient with natural gradients",
+        "convergence": "Converges to locally optimal policy",
+        "implementation": "REINFORCE or A3C-style updates"
+      }
+    ],
+    "stochastic_optimization": {
+      "monte_carlo_gradients": "Estimate gradients using samples",
+      "variance_reduction": "Control variates, baseline subtraction",
+      "minibatch_training": "Stochastic gradients from data batches",
+      "convergence_analysis": "Almost sure convergence under conditions"
+    },
+    "constrained_optimization": {
+      "lagrangian_duality": "Handle equality and inequality constraints",
+      "penalty_methods": "Add penalty terms for constraint violation",
+      "barrier_methods": "Interior point methods",
+      "projected_gradient": "Project onto feasible set"
+    },
+    "connections_to_active_inference": {
+      "free_energy_minimization": "Optimization objective in Active Inference",
+      "belief_updating": "Inference as optimization of variational free energy",
+      "policy_selection": "Planning as optimization of expected free energy",
+      "learning": "Parameter updates as optimization"
+    },
+    "numerical_considerations": {
+      "gradient_computation": "Automatic differentiation and manual gradients",
+      "numerical_stability": "Log probabilities, stable softmax",
+      "convergence_criteria": "Gradient norms, parameter changes",
+      "step_size_selection": "Line search, adaptive methods"
+    },
+    "interactive_exercises": [
+      {
+        "id": "gradient_optimization",
+        "type": "implementation",
+        "description": "Implement gradient descent for free energy minimization",
+        "difficulty": "advanced"
+      },
+      {
+        "id": "natural_gradient",
+        "type": "calculation",
+        "description": "Compute natural gradients for probabilistic models",
+        "difficulty": "advanced"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "All optimization methods work equally well",
+        "clarification": "Different methods suit different problem types"
+      },
+      {
+        "misconception": "Natural gradients are always better",
+        "clarification": "Computationally more expensive, benefits depend on parameterization"
+      },
+      {
+        "misconception": "Optimization always finds global optimum",
+        "clarification": "Only for convex problems or with good initialization"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Convex Optimization",
+        "author": "Stephen Boyd and Lieven Vandenberghe",
+        "year": 2004,
+        "description": "Comprehensive treatment of convex optimization"
+      },
+      {
+        "title": "Numerical Optimization",
+        "author": "Jorge Nocedal and Stephen Wright",
+        "year": 2006,
+        "description": "Practical optimization algorithms"
+      }
+    ],
+    "related_concepts": [
+      "variational_free_energy",
+      "expected_free_energy",
+      "natural_gradient",
+      "information_geometry"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 45,
+    "difficulty_level": "advanced",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "id": "ai_safety",
+  "title": "AI Safety and Alignment with Active Inference",
+  "content_type": "application",
+  "difficulty": "expert",
+  "description": "Using Active Inference for AI safety, alignment, and ensuring beneficial AI behavior.",
+  "prerequisites": ["multi_agent_systems", "expected_free_energy"],
+  "tags": ["ai safety", "ai alignment", "value learning", "robust ai", "beneficial ai"],
+  "learning_objectives": [
+    "Understand AI safety challenges",
+    "Apply Active Inference to AI alignment",
+    "Design safe and robust AI systems",
+    "Handle uncertainty in AI decision making"
+  ],
+  "content": {
+    "overview": "AI safety concerns ensuring that artificial intelligence systems behave beneficially and safely. Active Inference provides a framework for building AI systems that are interpretable, robust, and aligned with human values through uncertainty quantification and information-seeking behavior.",
+    "ai_safety_challenges": {
+      "specification_problem": "Precisely defining what we want AI to do",
+      "robustness": "AI behavior under distribution shifts and adversarial inputs",
+      "interpretability": "Understanding AI decision making",
+      "alignment": "Ensuring AI pursues human-compatible goals",
+      "corrigibility": "AI systems that allow human oversight and correction"
+    },
+    "active_inference_solutions": {
+      "uncertainty_awareness": "Natural handling of uncertainty and ambiguity",
+      "information_seeking": "AI explores to reduce uncertainty about goals",
+      "hierarchical_models": "Multiple levels of value and preference representation",
+      "robustness": "Graceful degradation under uncertainty"
+    },
+    "value_learning": {
+      "inverse_reinforcement_learning": "Infer human values from behavior",
+      "preference_elicitation": "Learn preferences through interaction",
+      "value_alignment": "Align AI values with human values",
+      "ambiguity_resolution": "Clarify unclear or conflicting preferences"
+    },
+    "robust_and_safe_behavior": {
+      "worst_case_planning": "Consider worst-case scenarios",
+      "conformal_prediction": "Uncertainty quantification for predictions",
+      "safe_exploration": "Explore without causing harm",
+      "recovery_mechanisms": "Safe fallback behaviors"
+    },
+    "examples": [
+      {
+        "name": "Autonomous Vehicle Safety",
+        "description": "Safe navigation in uncertain environments",
+        "challenges": "Rare events, human interaction, system failures",
+        "active_inference": "Model uncertainty about human behavior and environment",
+        "safety": "Conservative behavior when uncertain",
+        "validation": "Formal safety verification methods"
+      },
+      {
+        "name": "Medical AI Assistant",
+        "description": "AI system for medical diagnosis and treatment",
+        "challenges": "High stakes decisions, rare conditions, patient variability",
+        "active_inference": "Quantify uncertainty in diagnoses and treatments",
+        "safety": "Request human oversight for uncertain cases",
+        "ethics": "Balance patient autonomy and safety"
+      },
+      {
+        "name": "Financial Trading AI",
+        "description": "Automated trading with risk management",
+        "challenges": "Market volatility, black swan events, regulatory compliance",
+        "active_inference": "Model market uncertainty and systemic risk",
+        "safety": "Risk limits and circuit breakers",
+        "robustness": "Handle market regime changes"
+      }
+    ],
+    "interpretability_and_explainability": {
+      "model_transparency": "Clear generative models of AI decision making",
+      "uncertainty_communication": "Explain confidence in predictions",
+      "counterfactual_explanations": "What if explanations for decisions",
+      "attention_analysis": "Understand what information AI uses"
+    },
+    "scalable_oversight": {
+      "human_ai_collaboration": "Effective human oversight of AI systems",
+      "deferred_decisions": "Escalate uncertain decisions to humans",
+      "value_clarification": "Ask for clarification when values are ambiguous",
+      "learning_from_feedback": "Improve from human corrections"
+    },
+    "formal_verification": {
+      "specification": "Formal specification of safety properties",
+      "verification_methods": "Model checking, theorem proving",
+      "runtime_monitoring": "Monitor safety constraints during execution",
+      "certification": "Formal safety certification"
+    },
+    "interactive_exercises": [
+      {
+        "id": "safety_specification",
+        "type": "design",
+        "description": "Design safety specifications for AI system",
+        "difficulty": "expert",
+        "system": "Autonomous vehicle or medical AI",
+        "task": "Define safety constraints and verification methods"
+      },
+      {
+        "id": "robustness_analysis",
+        "type": "analysis",
+        "description": "Analyze AI robustness to distribution shifts",
+        "difficulty": "expert",
+        "scenarios": "Various failure modes and edge cases",
+        "task": "Identify vulnerabilities and design mitigations"
+      }
+    ],
+    "ethical_considerations": {
+      "value_pluralism": "Multiple valid sets of human values",
+      "trade_offs": "Balance competing values and interests",
+      "accountability": "Clear responsibility for AI decisions",
+      "democratic_control": "Public oversight of AI systems"
+    },
+    "future_directions": {
+      "comprehensive_ai_services": "CAIS framework for beneficial AI",
+      "ai_governance": "Global coordination for AI safety",
+      "technical_ai_safety": "Formal methods and verification",
+      "societal_impact": "Broader implications of advanced AI"
+    },
+    "common_misconceptions": [
+      {
+        "misconception": "AI safety is just about preventing bad outcomes",
+        "clarification": "Also about ensuring beneficial outcomes and human flourishing"
+      },
+      {
+        "misconception": "Safety can be added after building AI",
+        "clarification": "Safety must be designed in from the beginning"
+      },
+      {
+        "misconception": "More capable AI is automatically safer",
+        "clarification": "Capability and safety are orthogonal; misaligned intelligence is dangerous"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Concrete Problems in AI Safety",
+        "author": "Various authors",
+        "year": 2016,
+        "description": "Key technical challenges in AI safety"
+      },
+      {
+        "title": "The Alignment Problem",
+        "author": "Brian Christian",
+        "year": 2020,
+        "description": "Machine learning and human values"
+      }
+    ],
+    "related_concepts": [
+      "multi_agent_systems",
+      "expected_free_energy",
+      "uncertainty_quantification",
+      "value_alignment"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 60,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

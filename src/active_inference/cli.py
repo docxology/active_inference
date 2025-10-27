@@ -79,6 +79,20 @@ Examples:
   ai-knowledge search "entropy"           # Search knowledge base
   ai-knowledge path show complete        # Show complete learning path
   ai-knowledge stats                     # Show repository statistics
+  ai-knowledge implementations list       # List implementation examples
+  ai-knowledge applications list          # List domain applications
+
+  ai-knowledge research data collect      # Collect research data
+  ai-knowledge research data list         # List available datasets
+  ai-knowledge research experiments       # Run research experiments
+  ai-knowledge research simulations       # Run multi-scale simulations
+
+  ai-knowledge visualize concepts         # Visualize Active Inference concepts
+  ai-knowledge visualize models           # Compare different models
+  ai-knowledge visualize dashboard        # Start visualization dashboard
+
+  ai-knowledge applications templates     # Generate implementation templates
+  ai-knowledge applications examples      # Run example applications
 
   ai-knowledge llm chat "Explain Active Inference"  # Chat with AI
   ai-knowledge llm chat --template explanation    # Use explanation template
@@ -86,6 +100,9 @@ Examples:
   ai-knowledge llm models list           # List available models
   ai-knowledge llm models pull gemma3:2b # Pull model from registry
   ai-knowledge llm conversation list     # List saved conversations
+
+  ai-knowledge platform serve            # Start platform server
+  ai-knowledge platform status           # Show platform status
             """
         )
 
@@ -249,6 +266,7 @@ Examples:
             return self._handle_platform_command(args)
         else:
             print(f"Unknown command: {args.command}")
+            print("Available commands: knowledge, research, visualize, applications, llm, platform")
             return 1
 
     def _handle_knowledge_command(self, args) -> int:
@@ -295,7 +313,7 @@ Examples:
                     for i, node_id in enumerate(path.nodes, 1):
                         node = self.knowledge_repo.get_node(node_id)
                         if node:
-                            print(f"  {i"2d"}. {node.title}")
+                            print(f"  {i:2d}. {node.title}")
                             print(f"      {node.description}")
                             print(f"      Type: {node.content_type.value} | Difficulty: {node.difficulty.value}")
                             print()
@@ -386,7 +404,7 @@ Examples:
             for i, node_id in enumerate(path.nodes, 1):
                 node = self.knowledge_repo.get_node(node_id)
                 if node:
-                    print(f"  {i"2d"}. {node.title}")
+                    print(f"  {i:2d}. {node.title}")
                     print(f"      {node.description}")
                     print(f"      Prerequisites: {', '.join(node.prerequisites) if node.prerequisites else 'None'}")
                     print()
@@ -721,6 +739,129 @@ Examples:
                 print(export_data)
             else:
                 print(f"❌ Conversation not found: {args.conversation_id}")
+
+        return 0
+
+    def _handle_implementations_command(self, args) -> int:
+        """Handle implementation commands"""
+        if not self.knowledge_repo:
+            print("Knowledge repository not available")
+            return 1
+
+        if args.impl_command == 'list':
+            print("📚 Available Implementations:")
+            print()
+
+            implementations = self.knowledge_repo.search("implementation", content_types=["implementation"])
+            if not implementations:
+                print("No implementations found.")
+                return 0
+
+            for i, impl in enumerate(implementations, 1):
+                print(f"{i}. {impl.title}")
+                print(f"   Type: {impl.content_type.value} | Difficulty: {impl.difficulty.value}")
+                print(f"   Description: {impl.description}")
+                if impl.tags:
+                    print(f"   Tags: {', '.join(impl.tags)}")
+                print()
+
+        elif args.impl_command == 'show':
+            impl = self.knowledge_repo.get_node(args.impl_id)
+            if not impl:
+                print(f"Implementation '{args.impl_id}' not found")
+                return 1
+
+            print(f"🔧 Implementation: {impl.title}")
+            print(f"📖 {impl.description}")
+            print(f"🎯 Difficulty: {impl.difficulty.value}")
+            print(f"🏷️  Tags: {', '.join(impl.tags) if impl.tags else 'None'}")
+            print()
+            print("📋 Content:")
+            for section in impl.content.get("sections", []):
+                print(f"  • {section.get('title', 'Untitled')}")
+            print()
+
+        elif args.impl_command == 'validate':
+            validation = self.knowledge_repo.validate_content_integrity(args.impl_id)
+            print(f"✅ Validation for '{args.impl_id}':")
+            print(f"   Valid: {validation.get('valid', 'Unknown')}")
+            if validation.get('issues'):
+                print(f"   Issues: {', '.join(validation['issues'])}")
+            if validation.get('warnings'):
+                print(f"   Warnings: {', '.join(validation['warnings'])}")
+
+        return 0
+
+    def _handle_knowledge_applications_command(self, args) -> int:
+        """Handle knowledge applications commands"""
+        if not self.knowledge_repo:
+            print("Knowledge repository not available")
+            return 1
+
+        if args.app_command == 'list':
+            print("🌍 Available Applications:")
+            print()
+
+            applications = self.knowledge_repo.search("application", content_types=["application"])
+            if not applications:
+                print("No applications found.")
+                return 0
+
+            for i, app in enumerate(applications, 1):
+                domain = app.metadata.get("domain", "general") if app.metadata else "general"
+                print(f"{i}. {app.title}")
+                print(f"   Domain: {domain} | Difficulty: {app.difficulty.value}")
+                print(f"   Description: {app.description}")
+                print()
+
+        elif args.app_command == 'show':
+            app = self.knowledge_repo.get_node(args.app_id)
+            if not app:
+                print(f"Application '{args.app_id}' not found")
+                return 1
+
+            print(f"🌍 Application: {app.title}")
+            print(f"📖 {app.description}")
+            print(f"🎯 Difficulty: {app.difficulty.value}")
+            domain = app.metadata.get("domain", "general") if app.metadata else "general"
+            print(f"🏷️  Domain: {domain}")
+            print()
+            print("📋 Content:")
+            for section in app.content.get("sections", []):
+                print(f"  • {section.get('title', 'Untitled')}")
+            print()
+
+        elif args.app_command == 'domains':
+            print("🌍 Applications by Domain:")
+            print()
+
+            # Get applications organized by domain
+            domains = ["artificial_intelligence", "neuroscience", "engineering",
+                      "psychology", "education", "climate_science", "economics"]
+
+            for domain in domains:
+                apps = self.knowledge_repo.search(f"application {domain}", content_types=["application"])
+                if apps:
+                    print(f"• {domain.title().replace('_', ' ')}:")
+                    for app in apps:
+                        print(f"  - {app.title}")
+                    print()
+
+        return 0
+
+    def _handle_data_command(self, args) -> int:
+        """Handle data management commands (placeholder)"""
+        print("📊 Data management tools coming soon!")
+        print("This will include data collection, preprocessing, validation, and storage.")
+
+        if args.data_command == 'list':
+            print("Available datasets: (none yet)")
+        elif args.data_command == 'collect':
+            print("Data collection from various sources")
+        elif args.data_command == 'validate':
+            print(f"Validating dataset: {args.dataset_id}")
+        elif args.data_command == 'backup':
+            print(f"Creating backup of dataset: {args.dataset_id}")
 
         return 0
 

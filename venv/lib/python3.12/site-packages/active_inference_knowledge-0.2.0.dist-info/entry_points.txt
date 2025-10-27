@@ -1,0 +1,5 @@
+[console_scripts]
+active-inference = active_inference.cli:main
+ai-knowledge = active_inference.knowledge:main
+ai-research = active_inference.research:main
+ai-visualize = active_inference.visualization:main

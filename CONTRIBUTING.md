@@ -404,3 +404,4 @@ This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.
 Your contributions help build a comprehensive, accessible knowledge environment for Active Inference and the Free Energy Principle. Every contribution, no matter how small, helps advance our collective understanding and application of these powerful theoretical frameworks.
 
 *"Active Inference for, with, by Generative AI"* - Together, we're building the future of intelligent systems understanding!
+

@@ -79,14 +79,14 @@ class {config.name.replace(' ', '').replace('-', '_')}:
 
     def __init__(self, config: Dict[str, Any]):
         self.config = config
-        self.n_states = config.get("n_states", 4)
-        self.n_observations = config.get("n_observations", 8)
-        self.time_horizon = config.get("time_horizon", 1000)
+        self.n_states = config.parameters.get("n_states", 4)
+        self.n_observations = config.parameters.get("n_observations", 8)
+        self.time_horizon = config.parameters.get("time_horizon", 1000)
 
         # Initialize generative model parameters
         self.initialize_model()
 
-        logger.info(f"Initialized {config.name} with {self.n_states} states and {self.n_observations} observations")
+        logger.info(f"Initialized {config.name} with {config.parameters.get('n_states', 4)} states and {config.parameters.get('n_observations', 8)} observations")
 
     def initialize_model(self) -> None:
         """Initialize the generative model parameters"""

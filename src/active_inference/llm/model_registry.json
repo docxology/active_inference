@@ -7,11 +7,11 @@
       "quantization": null,
       "context_window": 8192,
       "capabilities": [
-        "mathematical_reasoning",
-        "text_generation",
-        "reasoning",
         "code_generation",
+        "reasoning",
         "active_inference_explanation",
+        "text_generation",
+        "mathematical_reasoning",
         "conversation"
       ],
       "performance_metrics": {},
@@ -25,14 +25,14 @@
       "quantization": null,
       "context_window": 8192,
       "capabilities": [
-        "mathematical_reasoning",
-        "text_generation",
-        "educational_content",
-        "reasoning",
-        "research_analysis",
         "code_generation",
+        "research_analysis",
+        "conversation",
+        "mathematical_reasoning",
+        "reasoning",
         "active_inference_explanation",
-        "conversation"
+        "text_generation",
+        "educational_content"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -45,10 +45,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "reasoning",
-        "text_generation",
-        "research_analysis",
         "code_generation",
+        "reasoning",
+        "research_analysis",
+        "text_generation",
         "conversation"
       ],
       "performance_metrics": {},
@@ -62,14 +62,14 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "mathematical_reasoning",
-        "text_generation",
-        "complex_reasoning",
-        "educational_content",
-        "reasoning",
-        "research_analysis",
         "code_generation",
-        "conversation"
+        "research_analysis",
+        "conversation",
+        "mathematical_reasoning",
+        "reasoning",
+        "text_generation",
+        "educational_content",
+        "complex_reasoning"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -82,13 +82,13 @@
       "quantization": null,
       "context_window": 8192,
       "capabilities": [
-        "mathematical_reasoning",
-        "text_generation",
+        "code_generation",
         "reasoning",
         "research_analysis",
-        "code_generation",
-        "educational_content",
-        "conversation"
+        "text_generation",
+        "mathematical_reasoning",
+        "conversation",
+        "educational_content"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -101,8 +101,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "text_generation",
-        "custom_capability"
+        "custom_capability",
+        "text_generation"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -124,6 +124,948 @@
       },
       "requirements": {},
       "metadata": {}
+    },
+    "new_custom_model:1b": {
+      "name": "new_custom_model:1b",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_0": {
+      "name": "test_model_0",
+      "family": "test",
+      "size": "0b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_1": {
+      "name": "test_model_1",
+      "family": "test",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_2": {
+      "name": "test_model_2",
+      "family": "test",
+      "size": "2b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_3": {
+      "name": "test_model_3",
+      "family": "test",
+      "size": "3b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_4": {
+      "name": "test_model_4",
+      "family": "test",
+      "size": "4b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_5": {
+      "name": "test_model_5",
+      "family": "test",
+      "size": "5b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_6": {
+      "name": "test_model_6",
+      "family": "test",
+      "size": "6b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_7": {
+      "name": "test_model_7",
+      "family": "test",
+      "size": "7b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_8": {
+      "name": "test_model_8",
+      "family": "test",
+      "size": "8b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_9": {
+      "name": "test_model_9",
+      "family": "test",
+      "size": "9b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_10": {
+      "name": "test_model_10",
+      "family": "test",
+      "size": "0b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_11": {
+      "name": "test_model_11",
+      "family": "test",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_12": {
+      "name": "test_model_12",
+      "family": "test",
+      "size": "2b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_13": {
+      "name": "test_model_13",
+      "family": "test",
+      "size": "3b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_14": {
+      "name": "test_model_14",
+      "family": "test",
+      "size": "4b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_15": {
+      "name": "test_model_15",
+      "family": "test",
+      "size": "5b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_16": {
+      "name": "test_model_16",
+      "family": "test",
+      "size": "6b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_17": {
+      "name": "test_model_17",
+      "family": "test",
+      "size": "7b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_18": {
+      "name": "test_model_18",
+      "family": "test",
+      "size": "8b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_19": {
+      "name": "test_model_19",
+      "family": "test",
+      "size": "9b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_20": {
+      "name": "test_model_20",
+      "family": "test",
+      "size": "0b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_21": {
+      "name": "test_model_21",
+      "family": "test",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_22": {
+      "name": "test_model_22",
+      "family": "test",
+      "size": "2b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_23": {
+      "name": "test_model_23",
+      "family": "test",
+      "size": "3b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_24": {
+      "name": "test_model_24",
+      "family": "test",
+      "size": "4b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_25": {
+      "name": "test_model_25",
+      "family": "test",
+      "size": "5b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_26": {
+      "name": "test_model_26",
+      "family": "test",
+      "size": "6b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_27": {
+      "name": "test_model_27",
+      "family": "test",
+      "size": "7b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_28": {
+      "name": "test_model_28",
+      "family": "test",
+      "size": "8b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_29": {
+      "name": "test_model_29",
+      "family": "test",
+      "size": "9b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_30": {
+      "name": "test_model_30",
+      "family": "test",
+      "size": "0b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_31": {
+      "name": "test_model_31",
+      "family": "test",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_32": {
+      "name": "test_model_32",
+      "family": "test",
+      "size": "2b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_33": {
+      "name": "test_model_33",
+      "family": "test",
+      "size": "3b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_34": {
+      "name": "test_model_34",
+      "family": "test",
+      "size": "4b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_35": {
+      "name": "test_model_35",
+      "family": "test",
+      "size": "5b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_36": {
+      "name": "test_model_36",
+      "family": "test",
+      "size": "6b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_37": {
+      "name": "test_model_37",
+      "family": "test",
+      "size": "7b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_38": {
+      "name": "test_model_38",
+      "family": "test",
+      "size": "8b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_39": {
+      "name": "test_model_39",
+      "family": "test",
+      "size": "9b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_40": {
+      "name": "test_model_40",
+      "family": "test",
+      "size": "0b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_41": {
+      "name": "test_model_41",
+      "family": "test",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_42": {
+      "name": "test_model_42",
+      "family": "test",
+      "size": "2b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_43": {
+      "name": "test_model_43",
+      "family": "test",
+      "size": "3b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_44": {
+      "name": "test_model_44",
+      "family": "test",
+      "size": "4b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_45": {
+      "name": "test_model_45",
+      "family": "test",
+      "size": "5b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_46": {
+      "name": "test_model_46",
+      "family": "test",
+      "size": "6b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_47": {
+      "name": "test_model_47",
+      "family": "test",
+      "size": "7b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_0",
+        "capability_1"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_48": {
+      "name": "test_model_48",
+      "family": "test",
+      "size": "8b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_49": {
+      "name": "test_model_49",
+      "family": "test",
+      "size": "9b",
+      "quantization": null,
+      "context_window": 4096,
+      "capabilities": [
+        "capability_3",
+        "capability_1",
+        "capability_0",
+        "capability_2"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_unique_model:1b": {
+      "name": "test_unique_model:1b",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_2aa142e5": {
+      "name": "test_model_2aa142e5",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_eb7f2e1a": {
+      "name": "test_model_eb7f2e1a",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_ec189675": {
+      "name": "test_model_ec189675",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_b1079174": {
+      "name": "test_model_b1079174",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_5bbe2eea": {
+      "name": "test_model_5bbe2eea",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_68ba0ffe": {
+      "name": "test_model_68ba0ffe",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_49205107": {
+      "name": "test_model_49205107",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_274cf8a8": {
+      "name": "test_model_274cf8a8",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_5ab88404": {
+      "name": "test_model_5ab88404",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_b640d0a0": {
+      "name": "test_model_b640d0a0",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_2b26466f": {
+      "name": "test_model_2b26466f",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_75e3d904": {
+      "name": "test_model_75e3d904",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_e9947595": {
+      "name": "test_model_e9947595",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_6adfce47": {
+      "name": "test_model_6adfce47",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_3e71b9c7": {
+      "name": "test_model_3e71b9c7",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_b5a3b8ac": {
+      "name": "test_model_b5a3b8ac",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "custom_capability",
+        "text_generation"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
     }
   },
   "preferred_models": [
@@ -140,6 +1082,74 @@
     "llama2:13b",
     "mistral:7b",
     "custom_model:1b",
-    "performance_test"
+    "performance_test",
+    "new_custom_model:1b",
+    "test_model_0",
+    "test_model_1",
+    "test_model_2",
+    "test_model_3",
+    "test_model_4",
+    "test_model_5",
+    "test_model_6",
+    "test_model_7",
+    "test_model_8",
+    "test_model_9",
+    "test_model_10",
+    "test_model_11",
+    "test_model_12",
+    "test_model_13",
+    "test_model_14",
+    "test_model_15",
+    "test_model_16",
+    "test_model_17",
+    "test_model_18",
+    "test_model_19",
+    "test_model_20",
+    "test_model_21",
+    "test_model_22",
+    "test_model_23",
+    "test_model_24",
+    "test_model_25",
+    "test_model_26",
+    "test_model_27",
+    "test_model_28",
+    "test_model_29",
+    "test_model_30",
+    "test_model_31",
+    "test_model_32",
+    "test_model_33",
+    "test_model_34",
+    "test_model_35",
+    "test_model_36",
+    "test_model_37",
+    "test_model_38",
+    "test_model_39",
+    "test_model_40",
+    "test_model_41",
+    "test_model_42",
+    "test_model_43",
+    "test_model_44",
+    "test_model_45",
+    "test_model_46",
+    "test_model_47",
+    "test_model_48",
+    "test_model_49",
+    "test_unique_model:1b",
+    "test_model_2aa142e5",
+    "test_model_eb7f2e1a",
+    "test_model_ec189675",
+    "test_model_b1079174",
+    "test_model_5bbe2eea",
+    "test_model_68ba0ffe",
+    "test_model_49205107",
+    "test_model_274cf8a8",
+    "test_model_5ab88404",
+    "test_model_b640d0a0",
+    "test_model_2b26466f",
+    "test_model_75e3d904",
+    "test_model_e9947595",
+    "test_model_6adfce47",
+    "test_model_3e71b9c7",
+    "test_model_b5a3b8ac"
   ]
 }

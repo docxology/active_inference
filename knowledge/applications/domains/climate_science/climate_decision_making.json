@@ -1,0 +1,159 @@
+{
+  "id": "climate_decision_making",
+  "title": "Climate Decision Making and Policy",
+  "content_type": "application",
+  "difficulty": "expert",
+  "description": "Decision making frameworks for climate policy using Active Inference under deep uncertainty.",
+  "prerequisites": ["climate_modeling", "multi_agent_systems"],
+  "tags": ["climate policy", "decision making under uncertainty", "adaptive management", "international cooperation"],
+  "learning_objectives": [
+    "Design climate policies using Active Inference",
+    "Handle deep uncertainty in climate decisions",
+    "Model international climate cooperation",
+    "Evaluate policy robustness and adaptability"
+  ],
+  "content": {
+    "overview": "Climate decision making involves making policy choices under deep uncertainty about future climate change, socio-economic development, and technological progress. Active Inference provides tools for designing robust, adaptive policies that learn and adjust as new information becomes available.",
+    "decision_making_under_deep_uncertainty": {
+      "multiple_futures": "Wide range of possible climate and socio-economic scenarios",
+      "unknown_unknowns": "Surprises and tipping points",
+      "irreducible_uncertainty": "Limits to predictability",
+      "adaptive_strategies": "Policies that evolve with new information"
+    },
+    "robust_decision_making": {
+      "scenario_discovery": "Find scenarios where policies fail",
+      "vulnerability_analysis": "Identify key uncertainties and their impacts",
+      "satisficing": "Find policies that meet minimum requirements across scenarios",
+      "regret_minimization": "Minimize worst-case regret"
+    },
+    "adaptive_management": {
+      "monitoring_systems": "Continuous observation of climate and policy outcomes",
+      "trigger_points": "Decision points for policy adjustment",
+      "learning_loops": "Update models and policies based on new data",
+      "flexibility": "Maintain options for future decisions"
+    },
+    "international_climate_cooperation": {
+      "global_public_goods": "Climate as shared resource requiring cooperation",
+      "free_riding": "Incentives to benefit without contributing",
+      "burden_sharing": "Fair distribution of costs and benefits",
+      "active_inference": "Countries as agents minimizing national expected free energy"
+    },
+    "examples": [
+      {
+        "name": "Paris Agreement Implementation",
+        "description": "Implementing nationally determined contributions",
+        "challenges": "Coordination, verification, ambition ratcheting",
+        "active_inference": "Countries update contributions based on others' actions",
+        "cooperation": "Building trust and mutual understanding",
+        "outcomes": "Collective action toward temperature goals"
+      },
+      {
+        "name": "Coastal Adaptation Planning",
+        "description": "Planning for sea level rise in coastal communities",
+        "uncertainties": "Rate of sea level rise, storm frequency, economic growth",
+        "policies": "Hard protection, soft adaptation, managed retreat",
+        "active_inference": "Update plans as new observations arrive",
+        "stakeholders": "Multiple actors with different preferences"
+      },
+      {
+        "name": "Energy Transition",
+        "description": "Transition to low-carbon energy systems",
+        "technologies": "Solar, wind, nuclear, carbon capture",
+        "investments": "Large upfront costs with uncertain returns",
+        "learning": "Technology improvement and cost reduction over time",
+        "policy": "Support policies, carbon pricing, research investment"
+      }
+    ],
+    "policy_evaluation": {
+      "multi_criteria_analysis": "Multiple objectives: mitigation, adaptation, development",
+      "cost_benefit_analysis": "Monetize climate impacts and policy costs",
+      "cost_effectiveness": "Achieve targets at minimum cost",
+      "distributional_impacts": "Effects on different groups and regions"
+    },
+    "stakeholder_engagement": {
+      "participatory_processes": "Include diverse perspectives in decision making",
+      "expert_elicitation": "Gather subjective probabilities from experts",
+      "public_communication": "Communicate uncertainty and risk clearly",
+      "conflict_resolution": "Manage competing interests and values"
+    },
+    "implementation_challenges": {
+      "political_constraints": "Short-term political cycles vs long-term climate goals",
+      "institutional_barriers": "Coordination across government agencies",
+      "resource_limitations": "Limited funding and technical capacity",
+      "behavioral_barriers": "Resistance to change and policy implementation"
+    },
+    "interactive_exercises": [
+      {
+        "id": "policy_robustness_analysis",
+        "type": "analysis",
+        "description": "Analyze policy robustness under climate uncertainty",
+        "difficulty": "expert",
+        "policies": "Multiple climate policy options",
+        "scenarios": "Range of climate and socio-economic futures",
+        "task": "Identify robust policies and key vulnerabilities"
+      },
+      {
+        "id": "international_cooperation_model",
+        "type": "modeling",
+        "description": "Model international climate cooperation",
+        "difficulty": "expert",
+        "agents": "Countries with different capabilities and preferences",
+        "game": "Climate cooperation game with learning",
+        "task": "Design mechanisms for effective cooperation"
+      }
+    ],
+    "ethical_considerations": {
+      "intergenerational_equity": "Fairness across generations",
+      "international_justice": "Developed vs developing country responsibilities",
+      "precautionary_principle": "Act when consequences are potentially severe",
+      "participation": "Include affected communities in decisions"
+    },
+    "future_directions": {
+      "artificial_intelligence": "AI tools for climate decision support",
+      "big_data_analytics": "Machine learning for climate prediction",
+      "blockchain": "Transparent monitoring and verification",
+      "virtual_reality": "Immersive climate impact visualization"
+    },
+    "common_misconceptions": [
+      {
+        "misconception": "Climate uncertainty justifies inaction",
+        "clarification": "Uncertainty requires more urgent and robust action"
+      },
+      {
+        "misconception": "Climate decisions are purely technical",
+        "clarification": "Deeply political and value-laden"
+      },
+      {
+        "misconception": "One optimal climate policy exists",
+        "clarification": "Multiple valid approaches depending on values and context"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Decision Making Under Deep Uncertainty",
+        "author": "Vincent Marchau et al.",
+        "year": 2019,
+        "description": "Framework for complex decision problems"
+      },
+      {
+        "title": "Climate Policy Foundations",
+        "author": "David Victor",
+        "year": 2011,
+        "description": "Science and politics of climate policy"
+      }
+    ],
+    "related_concepts": [
+      "climate_modeling",
+      "multi_agent_systems",
+      "decision_theory",
+      "uncertainty_quantification"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 60,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

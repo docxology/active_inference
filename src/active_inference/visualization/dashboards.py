@@ -163,3 +163,4 @@ class Dashboard:
                 for comp in self.components.values()
             ]
         }, indent=2)
+

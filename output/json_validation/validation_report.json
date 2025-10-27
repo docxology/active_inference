@@ -1,0 +1,63 @@
+{
+  "total_files": 65,
+  "total_ids": 61,
+  "schema_issues": [
+    {
+      "file": "knowledge/faq.json",
+      "errors": [
+        "Missing required field: id",
+        "Missing required field: title",
+        "Missing required field: content_type",
+        "Missing required field: difficulty",
+        "Missing required field: description",
+        "Missing required field: prerequisites",
+        "Missing required field: tags",
+        "Missing required field: learning_objectives",
+        "Missing required field: content",
+        "Missing required field: metadata"
+      ]
+    },
+    {
+      "file": "knowledge/glossary.json",
+      "errors": [
+        "Missing required field: id",
+        "Missing required field: title",
+        "Missing required field: content_type",
+        "Missing required field: difficulty",
+        "Missing required field: description",
+        "Missing required field: prerequisites",
+        "Missing required field: tags",
+        "Missing required field: learning_objectives",
+        "Missing required field: content",
+        "Missing required field: metadata"
+      ]
+    },
+    {
+      "file": "knowledge/learning_paths.json",
+      "errors": [
+        "Missing required field: id",
+        "Missing required field: title",
+        "Missing required field: content_type",
+        "Missing required field: difficulty",
+        "Missing required field: description",
+        "Missing required field: prerequisites",
+        "Missing required field: tags",
+        "Missing required field: learning_objectives",
+        "Missing required field: content",
+        "Missing required field: metadata"
+      ]
+    },
+    {
+      "file": "knowledge/mathematics/differential_geometry.json",
+      "errors": [
+        "Missing required field: learning_objectives"
+      ]
+    }
+  ],
+  "missing_references": [],
+  "validation_summary": {
+    "files_with_schema_errors": 4,
+    "missing_prerequisites": 0,
+    "missing_related_concepts": 0
+  }
+}

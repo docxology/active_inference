@@ -29,37 +29,56 @@ help:
 	@echo "  run-simulations   - Run simulation benchmarks"
 	@echo "  analyze-results   - Analyze experimental results"
 
-# Environment setup
+# Environment setup with uv
 setup:
 	@echo "Setting up Active Inference Knowledge Environment..."
-	@python3 -m venv venv
-	@source venv/bin/activate && pip install --upgrade pip
-	@make install-deps
+	@uv sync --dev
+	@uv sync --extra test
 	@make docs
 	@echo "Setup complete! Run 'make serve' to start the platform."
 
 install-deps:
 	@echo "Installing dependencies..."
-	@source venv/bin/activate && pip install -r requirements.txt
-	@npm install -g jupyterlab matplotlib plotly dash streamlit
+	@uv sync --dev
+	@uv sync --extra test
 	@echo "Dependencies installed."
 
-# Testing
+# Testing with uv
 test:
-	@echo "Running tests..."
-	@source venv/bin/activate && python -m pytest tests/ -v --cov=src/ --cov-report=html
+	@echo "Running all tests..."
+	@uv run python -m pytest tests/ -v --tb=short --durations=10
+
+test-all:
+	@echo "Running comprehensive test suite..."
+	@uv run python -m pytest tests/ -v --cov=src/ --cov-report=html --cov-report=term-missing --cov-fail-under=80
 
 test-unit:
 	@echo "Running unit tests..."
-	@source venv/bin/activate && python -m pytest tests/unit/ -v
+	@uv run python -m pytest tests/unit/ -v --tb=short
 
 test-integration:
 	@echo "Running integration tests..."
-	@source venv/bin/activate && python -m pytest tests/integration/ -v
+	@uv run python -m pytest tests/integration/ -v --tb=short
 
 test-knowledge:
 	@echo "Testing knowledge repository..."
-	@source venv/bin/activate && python -m pytest tests/knowledge/ -v
+	@uv run python -m pytest tests/knowledge/ -v --tb=short
+
+test-fast:
+	@echo "Running tests quickly..."
+	@uv run python -m pytest tests/ -q --tb=no -x
+
+test-parallel:
+	@echo "Running tests in parallel..."
+	@uv run python -m pytest tests/ -n auto -q --tb=short
+
+test-coverage:
+	@echo "Running tests with coverage..."
+	@uv run python -m pytest tests/ --cov=src/ --cov-report=html:htmlcov --cov-report=term-missing --cov-fail-under=85
+
+test-specific:
+	@echo "Usage: make test-specific FILE=path/to/test_file.py"
+	@uv run python -m pytest $(FILE) -v --tb=short
 
 # Documentation
 docs:

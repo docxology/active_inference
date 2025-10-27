@@ -111,6 +111,9 @@ markers = [
     "knowledge: marks tests as knowledge repository tests",
     "research: marks tests as research tool tests",
     "visualization: marks tests as visualization tests",
+    "performance: marks tests as performance tests",
+    "security: marks tests as security tests",
+    "applications: marks tests as applications framework tests",
 ]
 filterwarnings = [
     "ignore::DeprecationWarning",
@@ -161,3 +164,8 @@ module = [
     "test_*",
 ]
 ignore_errors = true
+
+[dependency-groups]
+dev = [
+    "psutil>=7.1.2",
+]

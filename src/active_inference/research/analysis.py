@@ -153,3 +153,4 @@ class AnalysisTools:
                 self.statistical_analysis.significance_test(accuracy_values[:1], accuracy_values[1:])
 
         return comparison
+

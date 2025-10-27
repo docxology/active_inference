@@ -132,3 +132,4 @@ Once you've mastered the foundations:
 
    For mathematical details, see :doc:`../mathematics/index`.
    For code examples, see :doc:`../implementations/index`.
+

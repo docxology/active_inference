@@ -294,3 +294,4 @@ class BaseIntegration(ABC):
 ---
 
 *"Active Inference for, with, by Generative AI"* - Building practical applications through collaborative intelligence and comprehensive implementation resources.
+

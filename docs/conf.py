@@ -140,3 +140,4 @@ def math_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
     from docutils import nodes
     node = nodes.math(text=text, **options)
     return [node], []
+

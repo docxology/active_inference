@@ -1,0 +1,144 @@
+{
+  "id": "advanced_probability",
+  "title": "Advanced Probability and Measure Theory",
+  "content_type": "mathematics",
+  "difficulty": "expert",
+  "description": "Advanced probabilistic concepts and measure-theoretic foundations relevant to Active Inference.",
+  "prerequisites": ["stochastic_processes", "information_geometry"],
+  "tags": ["measure theory", "probability spaces", "stochastic processes", "martingales"],
+  "learning_objectives": [
+    "Understand measure-theoretic foundations of probability",
+    "Work with advanced stochastic processes",
+    "Apply martingale theory to inference problems",
+    "Use probability in infinite-dimensional spaces"
+  ],
+  "content": {
+    "overview": "Advanced probability theory provides the rigorous mathematical foundation for understanding stochastic processes and inference in complex systems. Measure theory enables precise formulation of probabilistic concepts in Active Inference.",
+    "measure_theoretic_probability": {
+      "probability_space": "(Ω, F, P) - sample space, sigma-algebra, probability measure",
+      "random_variables": "Measurable functions from Ω to R",
+      "expectation": "E[X] = ∫_Ω X dP",
+      "almost_sure_convergence": "Convergence with probability 1"
+    },
+    "stochastic_processes_advanced": {
+      "filtration": "F_t - information available up to time t",
+      "adapted_processes": "X_t is F_t-measurable for each t",
+      "martingales": "E[X_{t+1} | F_t] = X_t",
+      "semimartingales": "Processes that can be decomposed into martingale and finite variation parts"
+    },
+    "martingale_theory": {
+      "martingale_convergence": "Martingales converge almost surely under conditions",
+      "optional_stopping": "Stopped martingales are still martingales",
+      "doob_decomposition": "Any semimartingale decomposes into martingale and predictable parts",
+      "applications": "Convergence of belief updating, learning algorithms"
+    },
+    "brownian_motion": {
+      "wiener_process": "dW_t - Brownian motion with W_0 = 0, E[W_t] = 0, Cov(W_s, W_t) = min(s,t)",
+      "properties": "Continuous paths, independent increments, Gaussian",
+      "stochastic_calculus": "Itô integral, Stratonovich integral",
+      "geometric_brownian_motion": "dS_t = μ S_t dt + σ S_t dW_t"
+    },
+    "stochastic_differential_equations": {
+      "itô_formula": "df(X_t) = f'(X_t) dX_t + (1/2) f''(X_t) (dX_t)^2",
+      "strong_solutions": "Pathwise unique solutions",
+      "weak_solutions": "Solutions in distribution",
+      "numerical_methods": "Euler-Maruyama, Milstein schemes"
+    },
+    "examples": [
+      {
+        "name": "Bayesian Learning as Martingale",
+        "description": "Posterior beliefs form a martingale",
+        "setup": "θ_t | x_{1:t} - posterior at time t",
+        "property": "E[θ_{t+1} | x_{1:t}] = θ_t",
+        "interpretation": "Beliefs are unbiased estimates",
+        "convergence": "Converges to true parameter almost surely"
+      },
+      {
+        "name": "Neural Dynamics",
+        "description": "Neural activity as stochastic process",
+        "model": "dθ/dt = -∇F(θ) + σ dW_t",
+        "interpretation": "Gradient flow with stochastic noise",
+        "equilibrium": "Stationary distribution minimizes free energy"
+      }
+    ],
+    "probability_in_function_spaces": {
+      "wiener_measure": "Probability measure on continuous paths",
+      "gaussian_processes": "Distributions over functions",
+      "cylindrical_measures": "Measures on infinite-dimensional spaces",
+      "large_deviations": "Rare events in function spaces"
+    },
+    "ergodic_theory": {
+      "ergodic_processes": "Time averages equal ensemble averages",
+      "mixing": "Dependence decays over time",
+      "stationary_measures": "Invariant probability measures",
+      "applications": "Long-term behavior of learning systems"
+    },
+    "connections_to_active_inference": {
+      "belief_dynamics": "Belief updating as stochastic process",
+      "learning_convergence": "Martingale convergence of learning algorithms",
+      "neural_fluctuations": "Stochastic neural dynamics",
+      "uncertainty_evolution": "How uncertainty changes over time"
+    },
+    "computational_methods": {
+      "monte_carlo_simulation": "Sample-based approximation",
+      "quasi_monte_carlo": "Low-discrepancy sequences",
+      "markov_chain_monte_carlo": "MCMC in continuous spaces",
+      "spectral_methods": "Fourier analysis of stochastic processes"
+    },
+    "interactive_exercises": [
+      {
+        "id": "martingale_analysis",
+        "type": "analysis",
+        "description": "Analyze martingale properties of belief updating",
+        "difficulty": "expert"
+      },
+      {
+        "id": "sde_simulation",
+        "type": "simulation",
+        "description": "Simulate stochastic differential equations",
+        "difficulty": "expert"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Measure theory is only theoretical",
+        "clarification": "Essential for rigorous treatment of stochastic processes"
+      },
+      {
+        "misconception": "Martingales always converge",
+        "clarification": "Only under specific conditions (uniform integrability)"
+      },
+      {
+        "misconception": "Brownian motion is differentiable",
+        "clarification": "Continuous but nowhere differentiable"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Probability and Measure",
+        "author": "Patrick Billingsley",
+        "year": 1995,
+        "description": "Measure-theoretic probability theory"
+      },
+      {
+        "title": "Stochastic Processes",
+        "author": "Richard Durrett",
+        "year": 2010,
+        "description": "Comprehensive stochastic processes"
+      }
+    ],
+    "related_concepts": [
+      "stochastic_processes",
+      "information_geometry",
+      "brownian_motion",
+      "martingales"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 55,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

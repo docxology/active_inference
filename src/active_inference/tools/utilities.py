@@ -383,3 +383,4 @@ class Utilities:
 
         # Save new data
         return self.file_manager.save_json_file(data, file_path)
+

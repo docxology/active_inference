@@ -1,0 +1,149 @@
+{
+  "id": "differential_geometry",
+  "title": "Differential Geometry and Information Manifolds",
+  "content_type": "mathematics",
+  "difficulty": "expert",
+  "description": "Differential geometric foundations of information geometry and its application to Active Inference.",
+  "prerequisites": ["information_geometry", "advanced_probability"],
+  "tags": ["differential geometry", "riemannian manifolds", "connections", "curvature", "information manifolds"],
+  "learning_objectsives": [
+    "Understand differential geometry in Active Inference",
+    "Work with Riemannian manifolds of probability distributions",
+    "Compute connections and curvature",
+    "Apply to optimization and inference"
+  ],
+  "content": {
+    "overview": "Differential geometry provides the mathematical foundation for understanding the geometric structure of probability distributions and their role in Active Inference. It enables rigorous analysis of information flow, natural gradients, and optimization on statistical manifolds.",
+    "manifolds_and_tangent_spaces": {
+      "topological_manifolds": "Spaces that locally look like Euclidean space",
+      "differentiable_manifolds": "Manifolds with smooth coordinate charts",
+      "tangent_spaces": "Vector spaces attached to each point on manifold",
+      "tangent_bundle": "Union of all tangent spaces"
+    },
+    "riemannian_geometry": {
+      "riemannian_metric": "Inner product on tangent spaces",
+      "length_and_distance": "Geodesic distance between points",
+      "gradient_and_divergence": "Generalization of Euclidean concepts",
+      "curvature": "How manifold deviates from Euclidean space"
+    },
+    "connections_and_covariant_derivatives": {
+      "affine_connections": "Parallel transport and covariant differentiation",
+      "christoffel_symbols": "Γ^i_jk = (1/2) g^il (∂_j g_kl + ∂_k g_jl - ∂_l g_jk)",
+      "parallel_transport": "Move vectors along curves without changing them",
+      "geodesics": "Curves of shortest length on manifold"
+    },
+    "curvature_tensors": {
+      "riemann_curvature": "R^i_jkl = ∂_k Γ^i_jl - ∂_l Γ^i_jk + Γ^i_mk Γ^m_jl - Γ^i_ml Γ^m_jk",
+      "sectional_curvature": "Curvature of 2D subspaces",
+      "scalar_curvature": "Average curvature at a point",
+      "ricci_curvature": "Contraction of Riemann tensor"
+    },
+    "examples": [
+      {
+        "name": "Gaussian Statistical Manifold",
+        "description": "Geometry of multivariate Gaussian distributions",
+        "parameterization": "θ = (μ, Σ) where μ is mean, Σ is covariance",
+        "metric": "g_μμ = Σ^{-1}, g_μΣ = 0, g_ΣΣ = (1/2) Σ^{-1} ⊗ Σ^{-1}",
+        "geodesics": "Straight lines in mean coordinates, scaling in covariance",
+        "curvature": "Non-zero curvature in covariance directions"
+      },
+      {
+        "name": "Exponential Family Geometry",
+        "description": "Geometry of exponential family distributions",
+        "natural_parameters": "η_i = E[T_i(x)] - expectation parameters",
+        "metric": "g_ij = Cov(T_i, T_j)",
+        "duality": "Legendre transform between natural and expectation parameters",
+        "applications": "Information geometry of common distributions"
+      }
+    ],
+    "information_geometry": {
+      "statistical_manifolds": "Manifolds of probability distributions",
+      "fisher_rao_metric": "Fisher information as Riemannian metric",
+      "alpha_geometry": "One-parameter family of geometric structures",
+      "divergences": "Geometrically motivated distance measures"
+    },
+    "geometric_mechanics": {
+      "lagrangian_mechanics": "L = K - V where K is kinetic energy, V is potential",
+      "hamiltonian_mechanics": "H = K + V with symplectic structure",
+      "geometric_control": "Control theory on manifolds",
+      "active_inference": "Free energy minimization as geometric mechanics"
+    },
+    "connections_to_active_inference": {
+      "belief_space": "Space of probability distributions as manifold",
+      "natural_gradients": "Gradient descent using Riemannian metric",
+      "information_flow": "Geodesic flow of information",
+      "learning_dynamics": "Gradient flow on statistical manifold"
+    },
+    "numerical_methods": {
+      "manifold_optimization": "Optimization algorithms on manifolds",
+      "geodesic_computation": "Compute shortest paths on manifolds",
+      "curvature_estimation": "Estimate curvature from samples",
+      "tangent_space_operations": "Work in local coordinate systems"
+    },
+    "applications": {
+      "machine_learning": "Natural gradient methods, manifold learning",
+      "statistics": "Statistical inference on manifolds",
+      "physics": "Geometric formulation of physical theories",
+      "computer_vision": "Shape analysis and computer graphics"
+    },
+    "interactive_exercises": [
+      {
+        "id": "manifold_computation",
+        "type": "computation",
+        "description": "Compute geometric properties of statistical manifold",
+        "difficulty": "expert",
+        "manifold": "Gaussian or exponential family manifold",
+        "task": "Compute metric, geodesics, and curvature"
+      },
+      {
+        "id": "geometric_optimization",
+        "type": "optimization",
+        "description": "Implement optimization on Riemannian manifold",
+        "difficulty": "expert",
+        "objective": "Function defined on manifold",
+        "task": "Use natural gradients for efficient optimization"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "Differential geometry is only for physical space",
+        "clarification": "Applies to abstract spaces like probability distributions"
+      },
+      {
+        "misconception": "Riemannian manifolds are always curved",
+        "clarification": "Can have zero curvature (flat manifolds)"
+      },
+      {
+        "misconception": "Curvature is a scalar quantity",
+        "clarification": "Curvature is a tensor with rich geometric information"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Riemannian Geometry",
+        "author": "Manfredo do Carmo",
+        "year": 1992,
+        "description": "Comprehensive introduction to Riemannian geometry"
+      },
+      {
+        "title": "Information Geometry and Its Applications",
+        "author": "Shun-ichi Amari",
+        "year": 2016,
+        "description": "Information geometry and its applications"
+      }
+    ],
+    "related_concepts": [
+      "information_geometry",
+      "advanced_probability",
+      "natural_gradient",
+      "statistical_manifolds"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 70,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

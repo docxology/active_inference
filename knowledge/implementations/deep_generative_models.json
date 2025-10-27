@@ -1,0 +1,149 @@
+{
+  "id": "deep_generative_models",
+  "title": "Deep Generative Models for Active Inference",
+  "content_type": "implementation",
+  "difficulty": "expert",
+  "description": "Advanced implementation of deep generative models using hierarchical VAEs, GANs, and normalizing flows for Active Inference.",
+  "prerequisites": ["neural_network_implementation", "variational_inference"],
+  "tags": ["deep learning", "generative models", "hierarchical vae", "normalizing flows", "gan", "active inference"],
+  "learning_objectives": [
+    "Implement hierarchical generative models",
+    "Build deep VAEs for complex data",
+    "Apply normalizing flows for flexible posteriors",
+    "Scale Active Inference to high-dimensional data"
+  ],
+  "content": {
+    "overview": "Deep generative models provide the foundation for implementing Active Inference in high-dimensional, complex environments. This tutorial covers advanced neural architectures for building sophisticated generative models that can handle real-world data.",
+    "hierarchical_variational_autoencoders": {
+      "multi_level_structure": "Multiple levels of latent variables",
+      "bottom_up_generation": "p(x|z₁) p(z₁|z₂) ... p(z_L|z_{L+1})",
+      "top_down_inference": "q(z_{L+1}|z_L) ... q(z₂|z₁) q(z₁|x)",
+      "information_flow": "Higher levels capture abstract structure"
+    },
+    "normalizing_flows": {
+      "change_of_variables": "x = f(z), z = f^{-1}(x)",
+      "probability_transformation": "p_x(x) = p_z(f^{-1}(x)) |det df^{-1}/dx|",
+      "flexible_posteriors": "Complex posterior approximations",
+      "exact_likelihood": "Compute exact likelihood under flow"
+    },
+    "generative_adversarial_networks": {
+      "minimax_game": "min_G max_D E[log D(x)] + E[log(1-D(G(z)))]",
+      "generator": "G(z) - generates samples from noise",
+      "discriminator": "D(x) - distinguishes real from fake",
+      "active_inference_gan": "Generator minimizes expected free energy"
+    },
+    "attention_mechanisms": {
+      "self_attention": "Learn dependencies within sequences",
+      "cross_attention": "Align different modalities",
+      "transformer_architecture": "Multi-head attention for complex data",
+      "memory_networks": "External memory for long-term dependencies"
+    },
+    "step_by_step_implementation": [
+      {
+        "step": 1,
+        "title": "Hierarchical VAE",
+        "description": "Build multi-level VAE for hierarchical representation",
+        "code_snippet": "class HierarchicalVAE(nn.Module):\n    def __init__(self, input_dim, hidden_dims, latent_dims):\n        super().__init__()\n        self.levels = len(latent_dims)\n        \n        # Bottom-up encoders (inference)\n        self.encoders = nn.ModuleList()\n        prev_dim = input_dim\n        for i in range(self.levels):\n            encoder = nn.Sequential(\n                nn.Linear(prev_dim, hidden_dims[i]),\n                nn.ReLU(),\n                nn.Linear(hidden_dims[i], latent_dims[i] * 2)\n            )\n            self.encoders.append(encoder)\n            prev_dim = latent_dims[i]\n            \n        # Top-down decoders (generation)\n        self.decoders = nn.ModuleList()\n        prev_dim = latent_dims[-1] if self.levels > 0 else input_dim\n        for i in range(self.levels - 1, -1, -1):\n            decoder = nn.Sequential(\n                nn.Linear(prev_dim, hidden_dims[i]),\n                nn.ReLU(),\n                nn.Linear(hidden_dims[i], latent_dims[i] if i > 0 else input_dim)\n            )\n            self.decoders.append(decoder)\n            prev_dim = latent_dims[i]\n            \n    def encode(self, x):\n        # Bottom-up inference\n        posteriors = []\n        h = x\n        for encoder in self.encoders:\n            encoded = encoder(h)\n            mean, logvar = encoded.chunk(2, dim=-1)\n            posteriors.append((mean, logvar))\n            # Sample for next level\n            std = torch.exp(0.5 * logvar)\n            eps = torch.randn_like(std)\n            h = mean + eps * std\n        return posteriors\n        \n    def decode(self, latents):\n        # Top-down generation\n        h = latents[-1] if self.levels > 0 else torch.zeros_like(x)\n        reconstructions = []\n        \n        for i, decoder in enumerate(self.decoders):\n            h = decoder(h)\n            if i < self.levels - 1:\n                reconstructions.append(h)\n            else:\n                reconstructions.append(h)\n        return reconstructions",
+        "explanation": "Hierarchical VAE with multiple levels of abstraction"
+      },
+      {
+        "step": 2,
+        "title": "Normalizing Flow",
+        "description": "Implement normalizing flow for flexible posteriors",
+        "code_snippet": "class NormalizingFlow(nn.Module):\n    def __init__(self, dim, num_layers=4):\n        super().__init__()\n        self.layers = nn.ModuleList()\n        for i in range(num_layers):\n            self.layers.append(\n                RealNVP(dim, hidden_dim=64)\n            )\n            \n    def forward(self, x):\n        log_det_J = 0\n        for layer in self.layers:\n            x, log_det = layer(x)\n            log_det_J += log_det\n        return x, log_det_J\n        \n    def inverse(self, z):\n        for layer in reversed(self.layers):\n            z = layer.inverse(z)\n        return z\n        \n    def log_prob(self, x):\n        z, log_det_J = self.forward(x)\n        log_p_z = standard_normal.log_prob(z).sum(-1)\n        return log_p_z + log_det_J",
+        "explanation": "Normalizing flow transforms simple distribution to complex posterior"
+      },
+      {
+        "step": 3,
+        "title": "Active Inference GAN",
+        "description": "Implement GAN where generator minimizes expected free energy",
+        "code_snippet": "class ActiveInferenceGAN:\n    def __init__(self, generator, discriminator, latent_dim, action_dim):\n        self.generator = generator\n        self.discriminator = discriminator\n        self.latent_dim = latent_dim\n        self.action_dim = action_dim\n        \n    def expected_free_energy(self, states, actions, observations):\n        # Generate predicted observations\n        predicted_obs = self.generator(states, actions)\n        \n        # Discriminator scores (log likelihood)\n        real_scores = self.discriminator(observations)\n        fake_scores = self.discriminator(predicted_obs)\n        \n        # Pragmatic term: reconstruction accuracy\n        pragmatic = -F.mse_loss(predicted_obs, observations)\n        \n        # Epistemic term: uncertainty about states\n        epistemic = -torch.var(states, dim=0).mean()\n        \n        return pragmatic + epistemic\n        \n    def train_step(self, real_obs, actions):\n        # Sample latent states\n        z = torch.randn(real_obs.size(0), self.latent_dim)\n        states = self.generator.infer_state(z, real_obs)\n        \n        # Compute expected free energy\n        G = self.expected_free_energy(states, actions, real_obs)\n        \n        # Update generator to minimize G\n        self.generator_optimizer.zero_grad()\n        (-G).backward()\n        self.generator_optimizer.step()\n        \n        # Update discriminator\n        self.discriminator_optimizer.zero_grad()\n        real_loss = -torch.log(self.discriminator(real_obs) + 1e-8)\n        fake_loss = -torch.log(1 - self.discriminator(self.generator(states, actions)) + 1e-8)\n        (real_loss + fake_loss).backward()\n        self.discriminator_optimizer.step()",
+        "explanation": "GAN training where generator minimizes expected free energy"
+      }
+    ],
+    "applications": {
+      "image_generation": "High-resolution image synthesis and manipulation",
+      "video_prediction": "Predicting future frames in video sequences",
+      "robot_learning": "Learning manipulation skills from demonstration",
+      "language_modeling": "Text generation and understanding",
+      "anomaly_detection": "Detecting unusual patterns in data"
+    },
+    "advanced_techniques": {
+      "diffusion_models": "Generate data through iterative denoising",
+      "score_based_models": "Learn gradients of data distribution",
+      "energy_based_models": "Model data using energy functions",
+      "hybrid_models": "Combine multiple generative approaches"
+    },
+    "scalability_and_efficiency": {
+      "distributed_training": "Train on multiple GPUs",
+      "model_parallelism": "Split model across devices",
+      "mixed_precision": "Use half precision for faster training",
+      "model_compression": "Prune and quantize for deployment"
+    },
+    "evaluation_metrics": {
+      "likelihood": "Log likelihood under generative model",
+      "fidelity": "How well model captures data distribution",
+      "diversity": "Variety of generated samples",
+      "utility": "Usefulness for downstream tasks"
+    },
+    "interactive_exercises": [
+      {
+        "id": "implement_hierarchical_vae",
+        "type": "coding",
+        "description": "Implement hierarchical VAE for image data",
+        "difficulty": "expert",
+        "dataset": "MNIST or CIFAR-10",
+        "task": "Generate and classify images"
+      },
+      {
+        "id": "build_normalizing_flow",
+        "type": "implementation",
+        "description": "Build normalizing flow for complex posterior",
+        "difficulty": "expert",
+        "target_distribution": "Mixture of Gaussians or complex density",
+        "task": "Approximate posterior with flow"
+      }
+    ],
+    "common_implementation_issues": [
+      {
+        "issue": "Posterior collapse in VAEs",
+        "solution": "Use β-VAE, annealing, or more flexible posteriors"
+      },
+      {
+        "issue": "Training instability in GANs",
+        "solution": "Use spectral normalization, gradient penalties"
+      },
+      {
+        "issue": "Computational complexity of flows",
+        "solution": "Use efficient flow architectures, parallel computation"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Deep Generative Modeling",
+        "author": "Jakob Foerster et al.",
+        "year": 2021,
+        "description": "Comprehensive overview of deep generative models"
+      },
+      {
+        "title": "Normalizing Flows for Probabilistic Modeling",
+        "author": "George Papamakarios et al.",
+        "year": 2021,
+        "description": "Theory and practice of normalizing flows"
+      }
+    ],
+    "related_concepts": [
+      "neural_network_implementation",
+      "variational_inference",
+      "hierarchical_models",
+      "generative_adversarial_networks"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 80,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

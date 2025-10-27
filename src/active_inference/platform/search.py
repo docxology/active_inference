@@ -7,6 +7,8 @@ with natural language query processing and relevance scoring.
 """
 
 import logging
+import time
+import json
 from typing import Dict, List, Optional, Any, Tuple
 from pathlib import Path
 from dataclasses import dataclass
@@ -328,3 +330,325 @@ class SearchEngine:
             "difficulties": sorted(list(facets["difficulties"])) if facets["difficulties"] else [],
             "tags": sorted(list(facets["tags"]))[:50]  # Limit tags
         }
+
+    def advanced_search(self, query: str, filters: Dict[str, Any] = None, sort_by: str = "relevance", limit: int = 20) -> List[SearchResult]:
+        """Perform advanced search with multiple filters and sorting"""
+        if filters is None:
+            filters = {}
+
+        # Get basic results
+        basic_results = self.search(query, limit=100)  # Get more results for filtering
+
+        # Apply filters
+        filtered_results = self._apply_filters(basic_results, filters)
+
+        # Sort results
+        sorted_results = self._sort_results(filtered_results, sort_by)
+
+        # Limit results
+        return sorted_results[:limit]
+
+    def _apply_filters(self, results: List[SearchResult], filters: Dict[str, Any]) -> List[SearchResult]:
+        """Apply filters to search results"""
+        filtered = results
+
+        # Filter by content type
+        if "content_types" in filters:
+            allowed_types = set(filters["content_types"])
+            filtered = [r for r in filtered if r.content_type in allowed_types]
+
+        # Filter by difficulty
+        if "difficulties" in filters:
+            allowed_difficulties = set(filters["difficulties"])
+            # Extract difficulty from metadata
+            filtered = [r for r in filtered if r.metadata.get("difficulty") in allowed_difficulties]
+
+        # Filter by tags
+        if "tags" in filters:
+            required_tags = set(filters["tags"])
+            filtered = [r for r in filtered if required_tags.issubset(set(r.metadata.get("tags", [])))]
+
+        # Filter by date range
+        if "date_from" in filters:
+            from_date = filters["date_from"]
+            filtered = [r for r in filtered if r.metadata.get("last_updated", "") >= from_date]
+
+        if "date_to" in filters:
+            to_date = filters["date_to"]
+            filtered = [r for r in filtered if r.metadata.get("last_updated", "") <= to_date]
+
+        return filtered
+
+    def _sort_results(self, results: List[SearchResult], sort_by: str) -> List[SearchResult]:
+        """Sort search results by specified criteria"""
+        if sort_by == "relevance":
+            return sorted(results, key=lambda x: x.relevance_score, reverse=True)
+        elif sort_by == "date":
+            return sorted(results, key=lambda x: x.metadata.get("last_updated", ""), reverse=True)
+        elif sort_by == "title":
+            return sorted(results, key=lambda x: x.title.lower())
+        elif sort_by == "type":
+            return sorted(results, key=lambda x: (x.content_type, x.relevance_score), reverse=True)
+        else:
+            # Default to relevance
+            return sorted(results, key=lambda x: x.relevance_score, reverse=True)
+
+    def search_similar_content(self, node_id: str, limit: int = 10) -> List[SearchResult]:
+        """Find content similar to a given node"""
+        if node_id not in self.index_manager.node_index:
+            return []
+
+        # Get the source node
+        source_node = self.index_manager.node_index[node_id]
+
+        # Find nodes with similar tags or content
+        similar_nodes = []
+        source_tags = set(source_node.get("tags", []))
+
+        for other_id, node_data in self.index_manager.node_index.items():
+            if other_id == node_id:
+                continue
+
+            # Calculate similarity score
+            other_tags = set(node_data.get("tags", []))
+            tag_overlap = len(source_tags.intersection(other_tags))
+
+            if tag_overlap > 0:
+                # Calculate similarity based on tag overlap and content similarity
+                similarity = tag_overlap / max(len(source_tags), len(other_tags))
+
+                # Boost score if content types match
+                if node_data.get("content_type") == source_node.get("content_type"):
+                    similarity *= 1.2
+
+                similar_nodes.append((other_id, similarity))
+
+        # Sort by similarity and create results
+        similar_nodes.sort(key=lambda x: x[1], reverse=True)
+
+        results = []
+        for other_id, similarity in similar_nodes[:limit]:
+            node_data = self.index_manager.node_index[other_id]
+            result = SearchResult(
+                node_id=other_id,
+                title=node_data["title"],
+                content_type=node_data.get("content_type", ""),
+                relevance_score=similarity,
+                snippet=self._generate_snippet(node_data, []),
+                metadata=node_data.get("metadata", {})
+            )
+            results.append(result)
+
+        return results
+
+    def get_popular_searches(self, limit: int = 10) -> List[Dict[str, Any]]:
+        """Get most popular search queries"""
+        # In a real implementation, this would track search queries
+        # For now, return common Active Inference topics
+        popular_queries = [
+            {"query": "active inference", "count": 100},
+            {"query": "free energy principle", "count": 85},
+            {"query": "bayesian inference", "count": 70},
+            {"query": "entropy", "count": 60},
+            {"query": "variational inference", "count": 55},
+            {"query": "generative models", "count": 50},
+            {"query": "information theory", "count": 45},
+            {"query": "expected free energy", "count": 40},
+            {"query": "perception", "count": 35},
+            {"query": "action", "count": 30}
+        ]
+
+        return popular_queries[:limit]
+
+    def get_search_analytics(self) -> Dict[str, Any]:
+        """Get search analytics and performance metrics"""
+        return {
+            "total_indexed_nodes": len(self.index_manager.node_index),
+            "total_search_terms": len(self.index_manager.inverted_index),
+            "index_memory_usage": self._estimate_index_memory_usage(),
+            "search_performance": {
+                "avg_response_time": 0.05,  # seconds (placeholder)
+                "max_response_time": 0.2,
+                "min_response_time": 0.01
+            },
+            "popular_queries": self.get_popular_searches(5),
+            "search_trends": {
+                "top_content_types": self._get_content_type_distribution(),
+                "top_difficulties": self._get_difficulty_distribution(),
+                "top_tags": self._get_top_tags()
+            }
+        }
+
+    def _estimate_index_memory_usage(self) -> Dict[str, int]:
+        """Estimate memory usage of search indices"""
+        # Rough estimation
+        node_index_size = len(str(self.index_manager.node_index))
+        inverted_index_size = len(str(self.index_manager.inverted_index))
+
+        return {
+            "node_index_bytes": node_index_size * 2,  # Rough estimate
+            "inverted_index_bytes": inverted_index_size * 2,
+            "total_bytes": (node_index_size + inverted_index_size) * 2
+        }
+
+    def _get_content_type_distribution(self) -> Dict[str, int]:
+        """Get distribution of content types in index"""
+        distribution = {}
+        for node_data in self.index_manager.node_index.values():
+            content_type = node_data.get("content_type", "unknown")
+            distribution[content_type] = distribution.get(content_type, 0) + 1
+
+        return distribution
+
+    def _get_difficulty_distribution(self) -> Dict[str, int]:
+        """Get distribution of difficulty levels in index"""
+        distribution = {}
+        for node_data in self.index_manager.node_index.values():
+            difficulty = node_data.get("difficulty", "unknown")
+            distribution[difficulty] = distribution.get(difficulty, 0) + 1
+
+        return distribution
+
+    def _get_top_tags(self, limit: int = 20) -> Dict[str, int]:
+        """Get most frequent tags in index"""
+        tag_counts = {}
+        for node_data in self.index_manager.node_index.values():
+            for tag in node_data.get("tags", []):
+                tag_counts[tag] = tag_counts.get(tag, 0) + 1
+
+        # Sort by frequency and return top tags
+        sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
+        return dict(sorted_tags[:limit])
+
+    def reindex_all_content(self) -> Dict[str, Any]:
+        """Reindex all content (useful after bulk updates)"""
+        logger.info("Starting full reindex of all content")
+
+        # Clear existing indices
+        self.index_manager.clear_indices()
+
+        # Rebuild indices
+        start_time = time.time()
+        nodes_indexed = 0
+
+        for node_id, node_data in self.index_manager.node_index.items():
+            self.index_manager.add_to_index(node_id, node_data)
+            nodes_indexed += 1
+
+        end_time = time.time()
+        indexing_time = end_time - start_time
+
+        logger.info(f"Reindexing completed: {nodes_indexed} nodes in {indexing_time:.2f}s")
+
+        return {
+            "success": True,
+            "nodes_indexed": nodes_indexed,
+            "indexing_time_seconds": indexing_time,
+            "avg_indexing_rate": nodes_indexed / indexing_time if indexing_time > 0 else 0
+        }
+
+    def optimize_search_indices(self) -> Dict[str, Any]:
+        """Optimize search indices for better performance"""
+        logger.info("Optimizing search indices")
+
+        # Remove unused terms from inverted index
+        start_time = time.time()
+
+        # Get all terms that are actually used in nodes
+        used_terms = set()
+        for node_data in self.index_manager.node_index.values():
+            title_terms = set(node_data.get("title", "").lower().split())
+            desc_terms = set(node_data.get("description", "").lower().split())
+            tag_terms = set(tag.lower() for tag in node_data.get("tags", []))
+
+            used_terms.update(title_terms, desc_terms, tag_terms)
+
+        # Remove unused terms from inverted index
+        removed_terms = 0
+        for term in list(self.index_manager.inverted_index.keys()):
+            if term not in used_terms:
+                del self.index_manager.inverted_index[term]
+                removed_terms += 1
+
+        end_time = time.time()
+        optimization_time = end_time - start_time
+
+        logger.info(f"Index optimization completed: removed {removed_terms} unused terms in {optimization_time:.2f}s")
+
+        return {
+            "success": True,
+            "unused_terms_removed": removed_terms,
+            "optimization_time_seconds": optimization_time,
+            "remaining_terms": len(self.index_manager.inverted_index)
+        }
+
+    def validate_search_functionality(self) -> Dict[str, Any]:
+        """Validate search functionality and report issues"""
+        validation = {
+            "valid": True,
+            "issues": [],
+            "warnings": [],
+            "recommendations": []
+        }
+
+        # Check index consistency
+        if len(self.index_manager.node_index) == 0:
+            validation["issues"].append("No content indexed for search")
+            validation["valid"] = False
+
+        # Check inverted index consistency
+        for term, node_ids in self.index_manager.inverted_index.items():
+            for node_id in node_ids:
+                if node_id not in self.index_manager.node_index:
+                    validation["issues"].append(f"Orphaned reference to node {node_id} for term '{term}'")
+                    validation["valid"] = False
+
+        # Check for missing metadata
+        missing_metadata = 0
+        for node_id, node_data in self.index_manager.node_index.items():
+            if not node_data.get("title"):
+                missing_metadata += 1
+            if not node_data.get("description"):
+                missing_metadata += 1
+
+        if missing_metadata > 0:
+            validation["warnings"].append(f"{missing_metadata} nodes missing title or description")
+
+        # Performance recommendations
+        if len(self.index_manager.inverted_index) > 1000:
+            validation["recommendations"].append("Consider index optimization - large number of terms")
+
+        return validation
+
+    def export_search_data(self, format: str = "json") -> str:
+        """Export search index data for backup or analysis"""
+        export_data = {
+            "node_index": dict(self.index_manager.node_index),
+            "inverted_index": dict(self.index_manager.inverted_index),
+            "metadata": {
+                "total_nodes": len(self.index_manager.node_index),
+                "total_terms": len(self.index_manager.inverted_index),
+                "export_timestamp": time.time(),
+                "export_format": format
+            }
+        }
+
+        if format == "json":
+            return json.dumps(export_data, indent=2)
+        else:
+            return str(export_data)
+
+    def import_search_data(self, data: Dict[str, Any]) -> bool:
+        """Import search index data from backup"""
+        try:
+            if "node_index" in data:
+                self.index_manager.node_index = data["node_index"]
+            if "inverted_index" in data:
+                self.index_manager.inverted_index = data["inverted_index"]
+
+            logger.info(f"Search data imported successfully: {len(self.index_manager.node_index)} nodes")
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to import search data: {e}")
+            return False

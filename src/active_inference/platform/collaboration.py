@@ -214,3 +214,4 @@ class CollaborationManager:
             "active_workspaces": len(workspaces),
             "timestamp": datetime.now().isoformat()
         }
+

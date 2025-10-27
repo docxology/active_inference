@@ -339,3 +339,4 @@ def validate_api_documentation():
 ---
 
 *"Active Inference for, with, by Generative AI"* - Enabling seamless integration through comprehensive, well-documented APIs and clear integration patterns.
+

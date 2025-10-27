@@ -1,0 +1,149 @@
+{
+  "id": "dynamical_systems",
+  "title": "Dynamical Systems and Active Inference",
+  "content_type": "mathematics",
+  "difficulty": "expert",
+  "description": "Mathematical treatment of dynamical systems theory and its application to Active Inference modeling.",
+  "prerequisites": ["stochastic_processes", "continuous_control"],
+  "tags": ["dynamical systems", "attractors", "bifurcations", "chaos", "stability"],
+  "learning_objectives": [
+    "Understand dynamical systems in Active Inference",
+    "Analyze stability and bifurcations",
+    "Model complex system dynamics",
+    "Apply to neural and cognitive systems"
+  ],
+  "content": {
+    "overview": "Dynamical systems theory provides the mathematical foundation for understanding how Active Inference systems evolve over time. It describes the behavior of complex systems, their stability properties, and how they respond to perturbations.",
+    "continuous_dynamical_systems": {
+      "autonomous_systems": "dx/dt = f(x) - evolution depends only on current state",
+      "non_autonomous_systems": "dx/dt = f(x,t) - time-varying dynamics",
+      "equilibrium_points": "Fixed points where f(x*) = 0",
+      "stability": "Linear stability analysis using Jacobian matrix"
+    },
+    "stability_theory": {
+      "linear_systems": "Stability determined by eigenvalues of system matrix",
+      "lyapunov_stability": "Solutions remain close to equilibrium",
+      "asymptotic_stability": "Solutions converge to equilibrium",
+      "global_stability": "Stability for all initial conditions"
+    },
+    "bifurcation_theory": {
+      "saddle_node_bifurcation": "Creation or destruction of equilibrium points",
+      "transcritical_bifurcation": "Exchange of stability between equilibria",
+      "hopf_bifurcation": "Emergence of periodic solutions",
+      "period_doubling": "Route to chaos through period doubling"
+    },
+    "attractor_landscape": {
+      "fixed_points": "Stable equilibria",
+      "limit_cycles": "Periodic attractors",
+      "strange_attractors": "Chaotic attractors with fractal structure",
+      "basins_of_attraction": "Sets of initial conditions that converge to attractor"
+    },
+    "examples": [
+      {
+        "name": "Neural Dynamics",
+        "description": "Dynamical systems modeling neural activity",
+        "equation": "dx/dt = -x + σ(w · x) + I",
+        "interpretation": "Neural firing rates as dynamical system",
+        "bifurcations": "Transitions between different neural states",
+        "applications": "Working memory, decision making, oscillations"
+      },
+      {
+        "name": "Belief Dynamics",
+        "description": "How beliefs evolve in Active Inference",
+        "equation": "dμ/dt = -∇_μ F(μ) - gradient flow on free energy",
+        "interpretation": "Belief updating as gradient descent",
+        "stability": "Convergence to posterior beliefs",
+        "applications": "Learning, inference, decision making"
+      }
+    ],
+    "stochastic_dynamical_systems": {
+      "langevin_equation": "dx = f(x)dt + σ dW_t",
+      "fokker_planck_equation": "∂_t p = -∇ · (f p) + (σ²/2) ∇²p",
+      "stationary_distribution": "π(x) ∝ exp(-2U(x)/σ²) where U is potential",
+      "first_passage_times": "Time to reach absorbing states"
+    },
+    "chaos_and_complexity": {
+      "sensitive_dependence": "Exponential divergence of nearby trajectories",
+      "lyapunov_exponent": "Rate of divergence in chaotic systems",
+      "fractal_dimensions": "Measure complexity of strange attractors",
+      "predictability_horizon": "Time beyond which prediction becomes impossible"
+    },
+    "control_of_dynamical_systems": {
+      "controllability": "Can system reach any state from any initial condition?",
+      "observability": "Can system state be determined from observations?",
+      "stabilization": "Design control to stabilize unstable equilibria",
+      "optimal_control": "Minimize cost while achieving control objectives"
+    },
+    "connections_to_active_inference": {
+      "brain_dynamics": "Neural activity as dynamical system",
+      "belief_dynamics": "Belief updating as gradient flow",
+      "policy_dynamics": "Policy selection and adaptation",
+      "learning_dynamics": "Parameter updates as dynamical process"
+    },
+    "numerical_methods": {
+      "integration_schemes": "Euler, Runge-Kutta, symplectic integrators",
+      "stability_analysis": "Numerical stability of integration methods",
+      "bifurcation_detection": "Numerical continuation methods",
+      "parameter_estimation": "Infer system parameters from data"
+    },
+    "interactive_exercises": [
+      {
+        "id": "dynamical_analysis",
+        "type": "analysis",
+        "description": "Analyze stability and bifurcations of dynamical system",
+        "difficulty": "expert",
+        "system": "Nonlinear system with parameters",
+        "task": "Find equilibria, analyze stability, identify bifurcations"
+      },
+      {
+        "id": "control_design",
+        "type": "design",
+        "description": "Design controller for dynamical system",
+        "difficulty": "expert",
+        "system": "Unstable nonlinear system",
+        "task": "Design stabilizing control using Active Inference"
+      }
+    ],
+    "common_misconceptions": [
+      {
+        "misconception": "All dynamical systems are deterministic",
+        "clarification": "Stochastic dynamical systems are common and important"
+      },
+      {
+        "misconception": "Chaos means random behavior",
+        "clarification": "Chaotic systems are deterministic but unpredictable"
+      },
+      {
+        "misconception": "Stable systems never change",
+        "clarification": "Stable systems can have complex dynamics (limit cycles, chaos)"
+      }
+    ],
+    "further_reading": [
+      {
+        "title": "Nonlinear Dynamics and Chaos",
+        "author": "Steven Strogatz",
+        "year": 2014,
+        "description": "Comprehensive introduction to dynamical systems"
+      },
+      {
+        "title": "Dynamical Systems in Neuroscience",
+        "author": "Eugene Izhikevich",
+        "year": 2007,
+        "description": "Dynamical systems approach to neural modeling"
+      }
+    ],
+    "related_concepts": [
+      "stochastic_processes",
+      "continuous_control",
+      "neural_dynamics",
+      "attractor_dynamics"
+    ]
+  },
+  "metadata": {
+    "estimated_reading_time": 65,
+    "difficulty_level": "expert",
+    "last_updated": "2024-10-27",
+    "version": "1.0",
+    "author": "Active Inference Community"
+  }
+}

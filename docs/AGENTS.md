@@ -543,3 +543,4 @@ class ContentManager:
 ---
 
 *"Active Inference for, with, by Generative AI"* - Building comprehensive understanding through clear, accessible, and well-organized documentation.
+

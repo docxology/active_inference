@@ -387,3 +387,4 @@ pytest tests/integration/test_experiment_integration.py -v
 ---
 
 *"Active Inference for, with, by Generative AI"* - Advancing research through comprehensive experiment management, rigorous methodological standards, and collaborative scientific inquiry.
+

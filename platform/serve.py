@@ -464,7 +464,8 @@ def main():
 
     # Start the server
     print("🚀 Starting Active Inference Knowledge Platform")
-    print("📚 Knowledge repository loaded"    print(f"   - Nodes: {len(knowledge_repo._nodes)}")
+    print("📚 Knowledge repository loaded")
+    print(f"   - Nodes: {len(knowledge_repo._nodes)}")
     print(f"   - Paths: {len(knowledge_repo._paths)}")
     print()
     print("🌐 Web interface available at: http://localhost:5000")

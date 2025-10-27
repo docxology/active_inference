@@ -234,3 +234,4 @@ Contribute and share applications:
    For theoretical background, see :doc:`../knowledge/index`.
    For research tools, see :doc:`../research/index`.
    For visualization tools, see :doc:`../visualization/index`.
+
