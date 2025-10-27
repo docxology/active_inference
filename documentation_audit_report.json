@@ -1,0 +1,57 @@
+{
+  "timestamp": "2025-10-27T14:29:15.737118",
+  "summary": {
+    "total_directories": 151,
+    "readme_coverage": {
+      "count": 144,
+      "percentage": 95.36
+    },
+    "agents_coverage": {
+      "count": 143,
+      "percentage": 94.7
+    },
+    "missing_readme_count": 5,
+    "missing_agents_count": 6
+  },
+  "missing_documentation": {
+    "readme": [
+      ".benchmarks",
+      ".pytest_cache/v",
+      ".pytest_cache/v/cache",
+      "src/.benchmarks",
+      "templates"
+    ],
+    "agents": [
+      ".benchmarks",
+      ".pytest_cache",
+      ".pytest_cache/v",
+      ".pytest_cache/v/cache",
+      "src/.benchmarks",
+      "templates"
+    ]
+  },
+  "categorized_missing": {
+    "src": [
+      "src/.benchmarks"
+    ],
+    "other": [
+      ".benchmarks",
+      ".benchmarks",
+      ".pytest_cache",
+      ".pytest_cache/v",
+      ".pytest_cache/v",
+      ".pytest_cache/v/cache",
+      ".pytest_cache/v/cache",
+      "templates",
+      "templates"
+    ]
+  },
+  "priority_recommendations": [
+    {
+      "priority": "Medium",
+      "category": "src",
+      "count": 1,
+      "action": "Document src directories with implementation details"
+    }
+  ]
+}

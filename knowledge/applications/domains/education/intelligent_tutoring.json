@@ -6,6 +6,8 @@
   "description": "Design and implementation of intelligent tutoring systems using Active Inference for personalized education.",
   "prerequisites": [
     "adaptive_learning",
+    "belief_updating",
+    "expected_free_energy",
     "neural_network_implementation"
   ],
   "tags": [

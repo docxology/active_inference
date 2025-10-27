@@ -6,6 +6,7 @@
   "description": "Decision making frameworks for climate policy using Active Inference under deep uncertainty.",
   "prerequisites": [
     "climate_modeling",
+    "decision_theory",
     "multi_agent_systems"
   ],
   "tags": [

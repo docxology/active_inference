@@ -6,7 +6,9 @@
   "description": "Application of Active Inference to robotics, motor control, and autonomous systems.",
   "prerequisites": [
     "active_inference_introduction",
-    "ai_policy_selection"
+    "ai_policy_selection",
+    "expected_free_energy_calculation",
+    "planning_algorithms"
   ],
   "tags": [
     "robotics",

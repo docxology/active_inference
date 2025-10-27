@@ -5,8 +5,11 @@
   "difficulty": "expert",
   "description": "Advanced implementation of planning algorithms for policy selection in complex Active Inference systems.",
   "prerequisites": [
+    "continuous_control",
+    "cutting_edge_active_inference",
     "expected_free_energy_calculation",
-    "continuous_control"
+    "natural_gradient",
+    "variational_free_energy"
   ],
   "tags": [
     "planning",

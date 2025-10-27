@@ -6,7 +6,9 @@
   "description": "Comprehensive implementation of reinforcement learning algorithms using Active Inference framework.",
   "prerequisites": [
     "active_inference_basic",
-    "expected_free_energy_calculation"
+    "active_inference_introduction",
+    "expected_free_energy_calculation",
+    "policy_gradient"
   ],
   "tags": [
     "reinforcement learning",

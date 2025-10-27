@@ -5,6 +5,7 @@
   "difficulty": "intermediate",
   "description": "Graphical models represent probabilistic relationships between variables using graphs, enabling efficient inference and learning in complex systems.",
   "prerequisites": [
+    "ai_generative_models",
     "bayesian_basics",
     "bayesian_models",
     "belief_updating"

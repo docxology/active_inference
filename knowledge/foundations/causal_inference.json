@@ -6,7 +6,9 @@
   "description": "Understanding causal relationships and how Active Inference incorporates causality in modeling and decision making.",
   "prerequisites": [
     "bayesian_models",
-    "belief_updating"
+    "belief_updating",
+    "graphical_models",
+    "information_bottleneck"
   ],
   "tags": [
     "causal inference",

@@ -6,8 +6,9 @@
   "description": "Behavioral economics studies how psychological, cognitive, and emotional factors affect economic decisions, providing insights into real human behavior.",
   "prerequisites": [
     "decision_theory",
-    "multi_agent_systems",
-    "expected_free_energy"
+    "expected_free_energy",
+    "info_theory_kl_divergence",
+    "multi_agent_systems"
   ],
   "tags": [
     "behavioral economics",

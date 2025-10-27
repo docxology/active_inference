@@ -5,8 +5,9 @@
   "difficulty": "expert",
   "description": "Application of Active Inference to autonomous systems including self-driving cars, drones, and robotic platforms.",
   "prerequisites": [
+    "continuous_control",
     "control_systems",
-    "continuous_control"
+    "predictive_coding"
   ],
   "tags": [
     "autonomous systems",

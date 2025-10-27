@@ -5,6 +5,8 @@
   "difficulty": "expert",
   "description": "Advanced implementation of deep generative models using hierarchical VAEs, GANs, and normalizing flows for Active Inference.",
   "prerequisites": [
+    "active_inference_introduction",
+    "ai_generative_models",
     "neural_network_implementation",
     "variational_inference"
   ],

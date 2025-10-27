@@ -5,8 +5,9 @@
   "difficulty": "advanced",
   "description": "Application of Active Inference to game theory, strategic decision making, and multi-agent interactions.",
   "prerequisites": [
-    "multi_agent_systems",
-    "expected_free_energy"
+    "decision_theory",
+    "expected_free_energy",
+    "multi_agent_systems"
   ],
   "tags": [
     "game theory",

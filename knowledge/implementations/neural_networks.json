@@ -5,9 +5,11 @@
   "difficulty": "intermediate",
   "description": "Neural networks are computational models inspired by biological neural systems, serving as universal function approximators for complex pattern recognition and prediction tasks.",
   "prerequisites": [
-    "variational_inference",
     "expected_free_energy_calculation",
-    "optimization_methods"
+    "neural_dynamics",
+    "optimization_methods",
+    "predictive_coding",
+    "variational_inference"
   ],
   "tags": [
     "neural networks",

@@ -5,8 +5,9 @@
   "difficulty": "advanced",
   "description": "Understanding empirical Bayes methods for estimating hyperparameters from data in hierarchical models.",
   "prerequisites": [
-    "hierarchical_models",
-    "conjugate_priors"
+    "bayesian_inference",
+    "conjugate_priors",
+    "hierarchical_models"
   ],
   "tags": [
     "empirical bayes",

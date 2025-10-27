@@ -5,8 +5,10 @@
   "difficulty": "expert",
   "description": "Application of Active Inference to understanding and treating mental health disorders from a computational perspective.",
   "prerequisites": [
+    "belief_updating",
     "neural_dynamics",
-    "predictive_coding"
+    "predictive_coding",
+    "variational_free_energy"
   ],
   "tags": [
     "clinical psychology",

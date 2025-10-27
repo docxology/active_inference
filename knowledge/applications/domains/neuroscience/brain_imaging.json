@@ -5,8 +5,10 @@
   "difficulty": "expert",
   "description": "Application of Active Inference to analysis of brain imaging data including fMRI, EEG, and MEG.",
   "prerequisites": [
+    "mcmc_sampling",
     "neural_dynamics",
-    "predictive_coding"
+    "predictive_coding",
+    "variational_inference"
   ],
   "tags": [
     "brain imaging",

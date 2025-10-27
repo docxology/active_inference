@@ -10,11 +10,29 @@ The Prompt Templates module contains carefully crafted prompt templates that gui
 
 ```
 tools/prompts/
-├── documentation_audit_prompt.md          # Comprehensive repository documentation auditing
-├── knowledge_base_audit_prompt.md         # Knowledge base content validation and auditing
-├── knowledge_base_enhancement_prompt.md   # Knowledge content enhancement and improvement
-├── knowledge_base_maintenance_prompt.md   # Knowledge base maintenance and updates
-└── learning_path_development_prompt.md   # Learning path creation and curriculum development
+├── documentation_audit_prompt.md              # Comprehensive repository documentation auditing
+├── knowledge_base_audit_prompt.md             # Knowledge base content validation and auditing
+├── knowledge_base_enhancement_prompt.md       # Knowledge content enhancement and improvement
+├── knowledge_base_maintenance_prompt.md       # Knowledge base maintenance and updates
+├── learning_path_development_prompt.md        # Learning path creation and curriculum development
+├── code_implementation_prompt.md              # Code development and implementation guidance
+├── testing_framework_prompt.md                # Testing framework development and validation
+├── visualization_development_prompt.md        # Interactive visualization component development
+├── platform_infrastructure_prompt.md          # Platform services and infrastructure development
+├── research_tools_prompt.md                   # Research experimentation and analysis tools
+├── application_framework_prompt.md            # Application development and deployment
+├── llm_integration_prompt.md                  # Large Language Model integration and management
+├── quality_assurance_prompt.md                # Comprehensive quality assurance and validation
+├── deployment_orchestration_prompt.md         # Deployment and scaling orchestration
+├── integration_testing_prompt.md              # System integration testing and validation
+├── accessibility_prompt.md                    # Accessibility and inclusive design
+├── performance_optimization_prompt.md         # Advanced performance tuning and optimization
+├── security_hardening_prompt.md               # Advanced security implementation and hardening
+├── devops_automation_prompt.md                # DevOps automation and infrastructure management
+├── data_privacy_prompt.md                     # Data privacy, ethics, and compliance
+├── user_experience_prompt.md                  # User experience design and optimization
+├── educational_content_prompt.md              # Educational content creation and pedagogy
+└── community_management_prompt.md             # Community management and collaboration
 ```
 
 ## Prompt Categories
@@ -29,17 +47,6 @@ Comprehensive prompt for performing systematic documentation audits across the e
 - Quality assurance validation
 - Cross-reference integration
 
-**Usage**:
-```python
-from tools.prompts.documentation_audit_prompt import DocumentationAuditPrompt
-
-# Load documentation audit template
-audit_prompt = DocumentationAuditPrompt.load()
-
-# Execute documentation audit
-audit_results = audit_prompt.execute_audit(repository_path=".")
-```
-
 ### Knowledge Base Templates
 **Files**: `knowledge_base_audit_prompt.md`, `knowledge_base_enhancement_prompt.md`, `knowledge_base_maintenance_prompt.md`
 
@@ -49,17 +56,6 @@ Specialized prompts for knowledge base management including:
 - Knowledge gap analysis
 - Content enhancement strategies
 - Maintenance workflow automation
-
-**Usage**:
-```python
-from tools.prompts.knowledge_base_audit_prompt import KnowledgeBaseAuditPrompt
-
-# Load knowledge audit template
-kb_audit_prompt = KnowledgeBaseAuditPrompt.load()
-
-# Audit knowledge base content
-validation_results = kb_audit_prompt.validate_content(knowledge_path="./knowledge")
-```
 
 ### Learning Path Templates
 **Files**: `learning_path_development_prompt.md`
@@ -71,20 +67,209 @@ Structured prompts for creating comprehensive learning paths and curricula inclu
 - Assessment integration
 - Educational effectiveness validation
 
-**Usage**:
-```python
-from tools.prompts.learning_path_development_prompt import LearningPathPrompt
+### Code Development Templates
+**Files**: `code_implementation_prompt.md`
 
-# Load learning path template
-path_prompt = LearningPathPrompt.load()
+Comprehensive guidance for implementing platform components with established patterns and standards. Includes:
+- Component architecture design
+- Implementation following established patterns
+- Integration with existing systems
+- Code quality assurance
+- Testing and validation
 
-# Develop new learning path
-learning_path = path_prompt.create_learning_path(
-    domain="active_inference",
-    difficulty="intermediate",
-    target_audience="researchers"
-)
-```
+### Testing Framework Templates
+**Files**: `testing_framework_prompt.md`, `integration_testing_prompt.md`
+
+Structured prompts for developing comprehensive testing frameworks including:
+- Unit testing development
+- Integration testing design
+- Performance testing implementation
+- Security testing frameworks
+- Quality assurance automation
+
+### Visualization Development Templates
+**Files**: `visualization_development_prompt.md`
+
+Interactive visualization component development guidance including:
+- Diagram generation and rendering
+- Dashboard creation and data integration
+- Animation and interactive element development
+- Comparative analysis visualization
+- User experience optimization
+
+### Platform Infrastructure Templates
+**Files**: `platform_infrastructure_prompt.md`, `deployment_orchestration_prompt.md`
+
+Platform services and infrastructure development including:
+- Knowledge graph engine implementation
+- Search and retrieval system development
+- Collaboration feature development
+- Deployment and scaling orchestration
+- Infrastructure monitoring and management
+
+### Research Tools Templates
+**Files**: `research_tools_prompt.md`
+
+Research experimentation and analysis tool development including:
+- Experiment management systems
+- Simulation framework development
+- Statistical analysis tools
+- Benchmarking and evaluation frameworks
+- Data management and processing
+
+### Application Framework Templates
+**Files**: `application_framework_prompt.md`
+
+Application development and deployment guidance including:
+- Template library development
+- Case study implementation
+- Integration API development
+- Best practice frameworks
+- Domain-specific application development
+
+### LLM Integration Templates
+**Files**: `llm_integration_prompt.md`
+
+Large Language Model integration and management including:
+- Model registry and management
+- Conversation handling and storage
+- Prompt engineering and optimization
+- Model performance monitoring
+- Integration with platform services
+
+### Quality Assurance Templates
+**Files**: `quality_assurance_prompt.md`
+
+Comprehensive quality assurance and validation including:
+- Automated quality checking
+- Code review and validation
+- Performance monitoring and optimization
+- Security assessment and validation
+- Compliance and standards verification
+
+### Specialized Development Templates
+
+#### Accessibility Templates
+**Files**: `accessibility_prompt.md`
+
+Accessibility and inclusive design implementation including:
+- WCAG compliance and guidelines
+- Screen reader optimization
+- Keyboard navigation support
+- Color contrast and visual accessibility
+- Inclusive design principles and testing
+
+#### Performance Optimization Templates
+**Files**: `performance_optimization_prompt.md`
+
+Advanced performance tuning and optimization including:
+- Algorithm complexity analysis and optimization
+- Memory usage optimization and leak prevention
+- Database query optimization and indexing
+- Caching strategies and implementation
+- Distributed system performance tuning
+
+#### Security Hardening Templates
+**Files**: `security_hardening_prompt.md`
+
+Advanced security implementation and hardening including:
+- Threat modeling and risk assessment
+- Secure coding practices and vulnerability prevention
+- Cryptographic implementation and key management
+- Authentication and authorization frameworks
+- Security monitoring and incident response
+
+#### DevOps Automation Templates
+**Files**: `devops_automation_prompt.md`
+
+DevOps automation and infrastructure management including:
+- Infrastructure as Code implementation
+- Configuration management and automation
+- Continuous integration and deployment pipelines
+- Monitoring and alerting automation
+- Infrastructure scaling and optimization
+
+#### Data Privacy Templates
+**Files**: `data_privacy_prompt.md`
+
+Data privacy, ethics, and compliance including:
+- GDPR and privacy regulation compliance
+- Data minimization and purpose limitation
+- Consent management and user rights
+- Ethical AI considerations and bias mitigation
+- Privacy-preserving computation techniques
+
+#### User Experience Templates
+**Files**: `user_experience_prompt.md`
+
+User experience design and optimization including:
+- User research and persona development
+- Interface design and usability testing
+- User journey mapping and optimization
+- Accessibility and inclusive design
+- User feedback integration and iteration
+
+#### Educational Content Templates
+**Files**: `educational_content_prompt.md`
+
+Educational content creation and pedagogy including:
+- Learning objective definition and assessment
+- Content sequencing and progressive disclosure
+- Interactive learning element design
+- Assessment and feedback systems
+- Pedagogical research and evidence-based methods
+
+#### Community Management Templates
+**Files**: `community_management_prompt.md`
+
+Community management and collaboration including:
+- Community governance and participation models
+- Contribution workflow and review processes
+- Communication and engagement strategies
+- Conflict resolution and moderation
+- Community growth and retention strategies
+
+### Integration Testing Templates
+**Files**: `integration_testing_prompt.md`
+
+System-wide integration testing and validation including:
+- API contract testing and validation
+- Data flow and pipeline verification
+- Cross-component interaction testing
+- Performance testing under load
+- Failure scenario and recovery testing
+- End-to-end user journey validation
+
+### Research Tools Templates
+**Files**: `research_tools_prompt.md`
+
+Research experimentation and analysis tools including:
+- Bayesian analysis frameworks
+- Simulation and modeling systems
+- Statistical analysis and comparison tools
+- Benchmarking and evaluation frameworks
+- Data management and preprocessing
+- Research result visualization
+
+### Application Framework Templates
+**Files**: `application_framework_prompt.md`
+
+Application development and domain implementation including:
+- Active Inference agent templates
+- Robotics and control system frameworks
+- Domain-specific application patterns
+- Case study implementations
+- Integration and deployment frameworks
+
+### LLM Integration Templates
+**Files**: `llm_integration_prompt.md`
+
+Large Language Model integration and management including:
+- Model registry and performance monitoring
+- Conversation management and persistence
+- Prompt engineering and optimization
+- Safety filtering and content moderation
+- Knowledge base integration
 
 ## Template Standards
 

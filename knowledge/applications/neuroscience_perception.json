@@ -5,8 +5,9 @@
   "difficulty": "advanced",
   "description": "Application of Active Inference to understanding brain function, perception, and neural processing.",
   "prerequisites": [
-    "predictive_coding",
-    "fep_biological_systems"
+    "fep_biological_systems",
+    "perception",
+    "predictive_coding"
   ],
   "tags": [
     "neuroscience",

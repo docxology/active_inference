@@ -5,8 +5,9 @@
   "difficulty": "advanced",
   "description": "Application of Active Inference to understanding market behavior, price formation, and agent interactions in financial markets.",
   "prerequisites": [
-    "multi_agent_systems",
-    "expected_free_energy"
+    "decision_theory",
+    "expected_free_energy",
+    "multi_agent_systems"
   ],
   "tags": [
     "market behavior",

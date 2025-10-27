@@ -5,8 +5,11 @@
   "difficulty": "intermediate",
   "description": "Perception in Active Inference is the process of inferring hidden states of the world from sensory observations by minimizing variational free energy.",
   "prerequisites": [
+    "bayesian_inference",
     "belief_updating",
     "fep_introduction",
+    "fep_mathematical_formulation",
+    "neural_dynamics",
     "variational_free_energy"
   ],
   "tags": [

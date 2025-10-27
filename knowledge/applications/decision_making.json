@@ -5,8 +5,10 @@
   "difficulty": "intermediate",
   "description": "Application of Active Inference to human and artificial decision making, planning, and problem solving.",
   "prerequisites": [
+    "ai_policy_selection",
     "expected_free_energy",
-    "ai_policy_selection"
+    "expected_free_energy_calculation",
+    "planning_algorithms"
   ],
   "tags": [
     "decision making",

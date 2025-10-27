@@ -29,6 +29,50 @@ tools/
 └── utilities/           # Helper functions and development tools
 ```
 
+### Development Tools Architecture
+
+```mermaid
+graph TB
+    subgraph "Development Tools Ecosystem"
+        A[Documentation Tools] --> B[Central Orchestrator]
+        C[Testing Framework] --> B
+        D[Utilities] --> B
+        E[Quality Assurance] --> B
+
+        A1[Generator] --> A
+        A2[Validator] --> A
+        A3[Maintainer] --> A
+
+        C1[Unit Tests] --> C
+        C2[Integration Tests] --> C
+        C3[Performance Tests] --> C
+
+        D1[Code Formatters] --> D
+        D2[Analyzers] --> D
+        D3[Optimizers] --> D
+    end
+
+    subgraph "Platform Integration"
+        F[Development Workflow] <--> B
+        G[CI/CD Pipeline] <--> B
+        H[Quality Gates] <--> B
+        I[Deployment System] <--> B
+    end
+
+    subgraph "External Tools"
+        J[IDE Integration] --> A1
+        K[Version Control] --> B
+        L[Package Managers] --> D1
+        M[Code Quality Tools] --> E
+    end
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+```
+
 ### Integration Points
 
 **Development tools integrate across the development ecosystem:**
@@ -37,6 +81,30 @@ tools/
 - **Platform Services**: Tools for platform management and deployment
 - **Quality Assurance**: Testing and validation frameworks
 - **Documentation System**: Automated documentation generation and maintenance
+
+### Development Workflow Pipeline
+
+```mermaid
+flowchart LR
+    A[Development Request] --> B[Requirements Analysis]
+    B --> C[Tool Selection]
+    C --> D[Implementation]
+    D --> E[Testing]
+    E --> F{Docs Valid?}
+    F -->|Yes| G[Quality Check]
+    F -->|No| H[Documentation Update]
+    H --> E
+    G --> I{Integration Valid?}
+    I -->|Yes| J[Deployment]
+    I -->|No| K[Fix Integration]
+    K --> E
+    J --> L[Monitoring & Feedback]
+
+    style A fill:#ffebee
+    style J fill:#e8f5e8
+    style F fill:#fff3e0
+    style I fill:#fff3e0
+```
 
 ### Tool Standards
 

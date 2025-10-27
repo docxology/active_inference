@@ -5,9 +5,12 @@
   "difficulty": "advanced",
   "description": "Natural gradient descent optimizes parameters in the space of probability distributions using the Riemannian metric induced by the Fisher information matrix.",
   "prerequisites": [
+    "fep_mathematical_formulation",
+    "fisher_information",
     "information_geometry",
-    "variational_free_energy",
-    "optimization_methods"
+    "optimal_transport",
+    "optimization_methods",
+    "variational_free_energy"
   ],
   "tags": [
     "natural gradient",

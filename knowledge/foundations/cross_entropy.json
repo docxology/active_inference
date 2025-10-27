@@ -6,7 +6,8 @@
   "description": "Understanding cross-entropy as a measure of difference between distributions and its applications in machine learning.",
   "prerequisites": [
     "info_theory_entropy",
-    "info_theory_kl_divergence"
+    "info_theory_kl_divergence",
+    "info_theory_mutual_information"
   ],
   "tags": [
     "cross entropy",

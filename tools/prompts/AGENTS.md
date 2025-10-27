@@ -10,11 +10,29 @@ The Prompt Templates module serves as the central repository for structured prom
 
 ```
 tools/prompts/
-├── documentation_audit_prompt.md          # Repository documentation auditing
-├── knowledge_base_audit_prompt.md         # Knowledge content validation
-├── knowledge_base_enhancement_prompt.md   # Content enhancement strategies
-├── knowledge_base_maintenance_prompt.md   # Content maintenance workflows
-└── learning_path_development_prompt.md   # Learning curriculum development
+├── documentation_audit_prompt.md              # Repository documentation auditing
+├── knowledge_base_audit_prompt.md             # Knowledge content validation
+├── knowledge_base_enhancement_prompt.md       # Content enhancement strategies
+├── knowledge_base_maintenance_prompt.md       # Knowledge base maintenance and updates
+├── learning_path_development_prompt.md        # Learning path creation and curriculum development
+├── code_implementation_prompt.md              # Code development and implementation guidance
+├── testing_framework_prompt.md                # Testing framework development and validation
+├── visualization_development_prompt.md        # Interactive visualization component development
+├── platform_infrastructure_prompt.md          # Platform services and infrastructure development
+├── research_tools_prompt.md                   # Research experimentation and analysis tools
+├── application_framework_prompt.md            # Application development and deployment
+├── llm_integration_prompt.md                  # Large Language Model integration and management
+├── quality_assurance_prompt.md                # Comprehensive quality assurance and validation
+├── deployment_orchestration_prompt.md         # Deployment and scaling orchestration
+├── integration_testing_prompt.md              # System integration testing and validation
+├── accessibility_prompt.md                    # Accessibility and inclusive design
+├── performance_optimization_prompt.md         # Advanced performance tuning and optimization
+├── security_hardening_prompt.md               # Advanced security implementation and hardening
+├── devops_automation_prompt.md                # DevOps automation and infrastructure management
+├── data_privacy_prompt.md                     # Data privacy, ethics, and compliance
+├── user_experience_prompt.md                  # User experience design and optimization
+├── educational_content_prompt.md              # Educational content creation and pedagogy
+└── community_management_prompt.md             # Community management and collaboration
 ```
 
 ## Core Responsibilities

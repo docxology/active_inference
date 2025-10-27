@@ -6,8 +6,9 @@
   "description": "Kalman filtering provides optimal state estimation for linear dynamical systems with Gaussian noise, serving as a foundation for recursive Bayesian estimation.",
   "prerequisites": [
     "bayesian_basics",
-    "stochastic_processes",
-    "continuous_control"
+    "belief_updating",
+    "continuous_control",
+    "stochastic_processes"
   ],
   "tags": [
     "kalman filtering",

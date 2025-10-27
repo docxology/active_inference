@@ -5,7 +5,9 @@
   "difficulty": "advanced",
   "description": "Application of Active Inference to cognitive science, including perception, attention, memory, and decision making.",
   "prerequisites": [
+    "belief_updating",
     "neural_dynamics",
+    "perception",
     "predictive_coding"
   ],
   "tags": [

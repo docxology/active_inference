@@ -5,8 +5,11 @@
   "difficulty": "advanced",
   "description": "Fisher information quantifies the amount of information that observable data carries about unknown parameters in statistical models.",
   "prerequisites": [
-    "information_geometry",
     "advanced_probability",
+    "fep_mathematical_formulation",
+    "information_geometry",
+    "natural_gradient",
+    "optimal_transport",
     "variational_free_energy"
   ],
   "tags": [

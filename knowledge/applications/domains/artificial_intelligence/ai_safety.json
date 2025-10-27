@@ -5,8 +5,10 @@
   "difficulty": "expert",
   "description": "Using Active Inference for AI safety, alignment, and ensuring beneficial AI behavior.",
   "prerequisites": [
+    "decision_theory",
+    "expected_free_energy",
     "multi_agent_systems",
-    "expected_free_energy"
+    "uncertainty_quantification"
   ],
   "tags": [
     "ai safety",

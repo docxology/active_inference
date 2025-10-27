@@ -5,8 +5,11 @@
   "difficulty": "advanced",
   "description": "Complete implementation of Markov Chain Monte Carlo methods for sampling from complex posterior distributions.",
   "prerequisites": [
+    "bayesian_inference",
+    "bayesian_models",
+    "hierarchical_models",
     "markov_chain_monte_carlo",
-    "bayesian_models"
+    "variational_free_energy"
   ],
   "tags": [
     "mcmc",
