@@ -440,3 +440,4 @@ Happy learning! 🚀
 **Version**: 1.0.0
 
 *"Active Inference for, with, by Generative AI"* - Getting started with collaborative intelligence and comprehensive Active Inference understanding.
+

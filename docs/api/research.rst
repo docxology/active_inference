@@ -169,3 +169,4 @@ Complete API documentation for all research functionality.
    For research guides, see :doc:`../research/index`.
    For analysis methods, see :doc:`../research/analysis/index`.
    For simulation tools, see :doc:`../research/simulations/index`.
+

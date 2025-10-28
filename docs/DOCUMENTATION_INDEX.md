@@ -258,3 +258,4 @@ This index provides quick access to all documentation resources in the Active In
 **Version**: 1.0.0
 
 *"Active Inference for, with, by Generative AI"* - Navigating comprehensive documentation for collaborative intelligence and Active Inference understanding.
+

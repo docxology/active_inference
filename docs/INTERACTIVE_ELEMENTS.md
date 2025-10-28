@@ -516,3 +516,4 @@ Interactive elements significantly enhance the user experience across all aspect
 **Version**: 1.0.0
 
 *"Active Inference for, with, by Generative AI"* - Enhancing understanding through interactive engagement and immersive learning experiences.
+

@@ -417,3 +417,4 @@ See :doc:`license` for complete license text.
 
    :doc:`code_of_conduct`
       Community standards and conduct guidelines
+

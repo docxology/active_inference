@@ -192,3 +192,4 @@ Complete API documentation for all visualization functionality.
    For visualization guides, see :doc:`../visualization/index`.
    For diagram creation, see :doc:`../visualization/diagrams/index`.
    For animation tools, see :doc:`../visualization/animations/index`.
+

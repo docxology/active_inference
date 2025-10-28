@@ -203,3 +203,4 @@ Complete API documentation for all application functionality.
    For application guides, see :doc:`../applications/index`.
    For templates, see :doc:`../applications/templates/index`.
    For case studies, see :doc:`../applications/case_studies/index`.
+
