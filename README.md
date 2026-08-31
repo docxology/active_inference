@@ -4,6 +4,27 @@
 
 A comprehensive integrated platform for Active Inference & Free Energy Principle education, research, visualization, and application development. This repository provides a structured, accessible knowledge environment that bridges theoretical foundations with practical applications, built through collaborative intelligence among humans and AI.
 
+## Current Status
+
+*As of 2026-08-31, verified by the agent-ergonomics pass — see
+[REVIEW_LOG_2026-08-31.md](REVIEW_LOG_2026-08-31.md) for the measured evidence
+behind every claim below. Open work lives in [TODO.md](TODO.md) (canonical
+backlog); do not duplicate it here.*
+
+- **This README below the fold is an aspirational catalog, not a status
+  report.** Some directories it describes do not exist on disk (notably
+  `visualization/` at repo root and several `tools/` subdirectories). Verify
+  presence with `ls <dir>` before relying on any component.
+- **Verification:** tests run via `.venv/bin/python -m pytest tests/` (pytest
+  8.4.2 installed) or `make test`. Warning: on an external-drive checkout,
+  `import pytest` alone takes ~47s and full collection can exceed 5 minutes —
+  do not assume a hang. The `venv/` directory is a dangling symlink to a
+  miniforge interpreter that no longer exists; use `.venv/`.
+- **Known documentation debt:** 91 broken relative links across the main doc
+  surface (measured 2026-08-31); tracked in TODO.md.
+
+---
+
 ## 🎯 Mission & Vision
 
 The Active Inference Knowledge Environment is the most comprehensive, accessible, and integrated platform for understanding and applying Active Inference principles. We build understanding through collaborative intelligence, combining human expertise with AI capabilities to create an unprecedented resource for learning, research, and application development.
