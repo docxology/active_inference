@@ -298,8 +298,8 @@ make check-all
 python --version  # Should be 3.9+
 
 # Try with specific Python version
-python3.11 -m venv venv
-source venv/bin/activate
+uv venv
+source .venv/bin/activate
 uv sync
 ```
 
@@ -335,9 +335,9 @@ For more troubleshooting help, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 Always work within a virtual environment to avoid conflicts:
 
 ```bash
-# Create and activate
-python3 -m venv venv
-source venv/bin/activate  # Linux/Mac
+# Create and activate (uv-managed; avoids dangling venv/ interpreter symlinks)
+uv venv
+source .venv/bin/activate  # Linux/Mac
 ```
 
 ### 2. Follow TDD
