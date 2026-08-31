@@ -318,13 +318,15 @@ class TestComponentPattern:
 
 ### Development Environment
 ```bash
-# Setup development environment
+# Setup development environment (uv-managed .venv/ — NOT python3 -m venv venv,
+# which produces a venv/ with interpreter symlinks that can dangle; verified 2026-08-31)
 make setup
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+uv venv
+source .venv/bin/activate
+uv sync --extra test
 
-# Run tests
+# Run tests (note: on external-drive checkouts, pytest collection can exceed
+# 5 minutes — a slow start is not a hang)
 make test
 
 # Start platform

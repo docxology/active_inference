@@ -512,13 +512,13 @@ make docs
 
 ### Development Setup
 ```bash
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or venv\Scripts\activate  # Windows
+# Create virtual environment (uv-managed; this repo's working env is .venv/)
+uv venv
+source .venv/bin/activate  # Linux/Mac
+# or .venv\Scripts\activate  # Windows
 
 # Install all dependencies
-pip install -r requirements.txt
+uv sync --extra test
 
 # Set up pre-commit hooks
 pre-commit install
@@ -532,6 +532,13 @@ make docs
 # Start development server
 python platform/serve.py
 ```
+
+> **Environment note (verified 2026-08-31):** the previously documented
+> `python3 -m venv venv` path leaves a `venv/` whose interpreter symlinks to a
+> system location that may not exist (the committed `venv/` in this repo was
+> exactly that: a dangling symlink). Use `uv venv` / `.venv/`. Also note that
+> on external-drive checkouts, `import pytest` alone can take ~47s and full
+> test collection exceeds 5 minutes — a slow start is not a hang.
 
 ## 🎓 Learning Pathways
 
