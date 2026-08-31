@@ -923,7 +923,7 @@ Next-generation educational technology with real-time feedback, personalized lea
 
 ## 📄 License & Attribution
 
-This project is licensed under the MIT License - see LICENSE `LICENSE` file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ### Acknowledgments
 - **Karl Friston** and the Active Inference research community for theoretical foundations
