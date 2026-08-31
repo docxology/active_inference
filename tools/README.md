@@ -126,6 +126,17 @@ Thin orchestration for complex workflows:
 
 ## 🚀 Usage
 
+### Repository Status
+
+`tools/repo_status.py` prints fast, executable repo facts (branch, sync state,
+dirty-file count, component presence) so no prose status table is needed:
+
+```bash
+python3 tools/repo_status.py          # fast facts (stdlib only)
+python3 tools/repo_status.py --tests  # + pytest collection count (slow on external drives)
+python3 tools/repo_status.py --json   # machine-readable
+```
+
 ### Basic Tool Usage
 
 ```python
