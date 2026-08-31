@@ -518,7 +518,7 @@ When contributing to animation documentation:
 - **[Animation Tools](../../visualization/animations/)**: Animation implementation tools
 - **[Interactive Visualization](../../visualization/dashboards/)**: Interactive visualization interfaces
 - **[Diagramming System](../../visualization/diagrams/)**: Static diagram generation
-- **[Platform Visualization](../../../platform/)**: Platform-wide visualization integration
+- **[Platform Visualization](../../../../platform)**: Platform-wide visualization integration
 
 ---
 

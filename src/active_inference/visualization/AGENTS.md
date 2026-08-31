@@ -417,7 +417,7 @@ class InteractiveVisualizationComponent:
             self.validate_interaction_data(interaction_type, interaction_data)
 
             # Execute interaction
-            result = self.interaction_handlers[interaction_type](interaction_data)
+            result = self.interaction_handlersinteraction_type `interaction_data`
 
             # Post-interaction processing
             self.update_interaction_state(interaction_type, result)

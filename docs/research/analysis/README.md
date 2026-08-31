@@ -445,10 +445,10 @@ When contributing to analysis documentation:
 ## Related Documentation
 
 - **[Research Framework](../../research/README.md)**: Overview of research tools
-- **[Information Theory Analysis](../information_theory/README.md)**: Specialized information theory methods
+- **Information Theory Analysis `../information_theory/README.md`**: Specialized information theory methods
 - **[Statistical Methods Documentation](../../research/analysis/README.md)**: Statistical analysis tools
-- **[Model Validation Guide](../../research/analysis/validation/)**: Model assessment methods
-- **[Performance Analysis](../../research/analysis/performance/)**: Performance evaluation tools
+- **Model Validation Guide `../../research/analysis/validation/`**: Model assessment methods
+- **Performance Analysis `../../research/analysis/performance/`**: Performance evaluation tools
 
 ---
 

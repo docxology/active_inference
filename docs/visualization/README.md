@@ -519,11 +519,11 @@ When contributing to visualization documentation:
 
 ## Related Documentation
 
-- **[Visualization Framework](../../visualization/README.md)**: Overview of visualization systems
-- **[Animation Systems](../../visualization/animations/README.md)**: Dynamic visualization tools
-- **[Interactive Dashboards](../../visualization/dashboards/README.md)**: Interactive exploration interfaces
-- **[Diagramming System](../../visualization/diagrams/README.md)**: Static diagram generation
-- **[Platform Integration](../../../platform/)**: Platform-wide visualization integration
+- **Visualization Framework `../../visualization/README.md`**: Overview of visualization systems
+- **Animation Systems `../../visualization/animations/README.md`**: Dynamic visualization tools
+- **Interactive Dashboards `../../visualization/dashboards/README.md`**: Interactive exploration interfaces
+- **Diagramming System `../../visualization/diagrams/README.md`**: Static diagram generation
+- **[Platform Integration](../../platform)**: Platform-wide visualization integration
 
 ---
 

@@ -484,13 +484,13 @@ When contributing application documentation:
 - **[Templates](templates/README.md)**: Implementation templates
 
 ### Development References
-- **[Application Framework](../../../applications/README.md)**: Application development framework
-- **[Domain Applications](../../../knowledge/applications/domains/README.md)**: Domain-specific applications
-- **[Implementation Examples](../../../knowledge/implementations/README.md)**: Implementation examples
+- **[Application Framework](../../applications/README.md)**: Application development framework
+- **[Domain Applications](../../knowledge/applications/domains/README.md)**: Domain-specific applications
+- **[Implementation Examples](../../knowledge/implementations/README.md)**: Implementation examples
 
 ## 📄 License
 
-This applications documentation is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This applications documentation is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

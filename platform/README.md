@@ -292,50 +292,50 @@ graph TB
 ### 🖥️ Platform Service Navigation
 | Service Component | Implementation | API Endpoints | Configuration | Tests |
 |-------------------|----------------|---------------|---------------|-------|
-| **[Web Server](serve.py)** | [FastAPI App](serve.py) | [All Endpoints](serve.py#L50-L200) | [Server Config](serve.py#L10-L30) | [Server Tests](tests/integration/test_platform_server.py) |
-| **[Knowledge Graph](knowledge_graph/)** | [Graph Engine](src/active_inference/platform/knowledge_graph.py) | [Graph API](knowledge_graph/) | [Graph Config](knowledge_graph/config.py) | [Graph Tests](tests/integration/test_knowledge_graph.py) |
-| **[Search Engine](search/)** | [Search Service](src/active_inference/platform/search.py) | [Search API](search/) | [Index Config](search/config.py) | [Search Tests](tests/unit/test_search_engine.py) |
-| **[Collaboration Hub](collaboration/)** | [Collaboration Service](src/active_inference/platform/collaboration.py) | [Collaboration API](collaboration/) | [User Config](collaboration/config.py) | [Collaboration Tests](tests/integration/test_collaboration.py) |
+| **[Web Server](serve.py)** | [FastAPI App](serve.py) | [All Endpoints](serve.py#L50-L200) | [Server Config](serve.py#L10-L30) | Server Tests `tests/integration/test_platform_server.py` |
+| **[Knowledge Graph](knowledge_graph/)** | [Graph Engine](../src/active_inference/platform/knowledge_graph.py) | [Graph API](knowledge_graph/) | Graph Config `knowledge_graph/config.py` | Graph Tests `tests/integration/test_knowledge_graph.py` |
+| **[Search Engine](search/)** | [Search Service](../src/active_inference/platform/search.py) | [Search API](search/) | Index Config `search/config.py` | Search Tests `tests/unit/test_search_engine.py` |
+| **[Collaboration Hub](collaboration/)** | [Collaboration Service](../src/active_inference/platform/collaboration.py) | [Collaboration API](collaboration/) | User Config `collaboration/config.py` | Collaboration Tests `tests/integration/test_collaboration.py` |
 
 ### 🔗 Inter-Service Dependencies
 | Service | Depends On | Used By | External Integrations |
 |---------|------------|---------|---------------------|
-| **Knowledge Graph** | [Knowledge Repository](src/active_inference/knowledge/) | [Search Engine](search/), [Web Interface](serve.py) | [Ollama LLM](https://ollama.ai/) |
-| **Search Engine** | [Knowledge Graph](knowledge_graph/), [Index Storage](search/index/) | [Web Interface](serve.py), [API Clients](src/active_inference/) | [Whoosh](https://whoosh.readthedocs.io/) |
-| **Collaboration Hub** | [User Database](collaboration/users.db), [Session Store](collaboration/sessions/) | [Web Interface](serve.py), [Authentication](serve.py) | [Redis](https://redis.io/) |
-| **Deployment System** | [Docker Images](deployment/docker/), [Config Files](deployment/config/) | [CI/CD Pipeline](.github/workflows/), [Production](deployment/production/) | [Docker](https://docker.com/), [Kubernetes](https://kubernetes.io/) |
+| **Knowledge Graph** | [Knowledge Repository](../src/active_inference/knowledge) | [Search Engine](search/), [Web Interface](serve.py) | [Ollama LLM](https://ollama.ai/) |
+| **Search Engine** | [Knowledge Graph](knowledge_graph/), Index Storage `search/index/` | [Web Interface](serve.py), [API Clients](../src/active_inference) | [Whoosh](https://whoosh.readthedocs.io/) |
+| **Collaboration Hub** | User Database `collaboration/users.db`, Session Store `collaboration/sessions/` | [Web Interface](serve.py), [Authentication](serve.py) | [Redis](https://redis.io/) |
+| **Deployment System** | Docker Images `deployment/docker/`, Config Files `deployment/config/` | [CI/CD Pipeline](../.github/workflows), Production `deployment/production/` | [Docker](https://docker.com/), [Kubernetes](https://kubernetes.io/) |
 
 ### 📊 Data Flow Cross-References
 | Data Type | Source | Processing | Storage | Access |
 |-----------|--------|------------|---------|--------|
-| **Knowledge Content** | [JSON Files](knowledge/foundations/) | [Content Parser](src/active_inference/knowledge/parser.py) | [Knowledge Graph](knowledge_graph/) | [REST API](serve.py), [Search](search/) |
-| **User Sessions** | [Web Requests](serve.py) | [Auth Service](serve.py#L100-L150) | [Redis Cache](platform/cache/) | [Session Middleware](serve.py#L75-L95) |
-| **Search Indexes** | [Knowledge Graph](knowledge_graph/) | [Indexing Pipeline](search/indexer.py) | [Whoosh Index](search/index/) | [Search API](search/search.py) |
-| **Collaboration Data** | [User Actions](collaboration/) | [Event Processor](collaboration/processor.py) | [Database](collaboration/data/) | [Collaboration API](collaboration/api.py) |
+| **Knowledge Content** | [JSON Files](../knowledge/foundations) | Content Parser `src/active_inference/knowledge/parser.py` | [Knowledge Graph](knowledge_graph/) | [REST API](serve.py), [Search](search/) |
+| **User Sessions** | [Web Requests](serve.py) | [Auth Service](serve.py#L100-L150) | Redis Cache `platform/cache/` | [Session Middleware](serve.py#L75-L95) |
+| **Search Indexes** | [Knowledge Graph](knowledge_graph/) | Indexing Pipeline `search/indexer.py` | Whoosh Index `search/index/` | Search API `search/search.py` |
+| **Collaboration Data** | [User Actions](collaboration/) | Event Processor `collaboration/processor.py` | Database `collaboration/data/` | Collaboration API `collaboration/api.py` |
 
 ### 🧪 Testing Cross-References
 | Test Type | Component | Test Location | Configuration | CI Integration |
 |-----------|-----------|---------------|---------------|----------------|
-| **Unit Tests** | [Platform Services](src/active_inference/platform/) | [Unit Tests](tests/unit/test_platform_*.py) | [Test Config](tests/fixtures/platform_config.py) | [Unit Test Job](.github/workflows/unit-tests.yml) |
-| **Integration Tests** | [Service Interactions](platform/) | [Integration Tests](tests/integration/test_platform_*.py) | [Integration Config](tests/fixtures/integration_config.py) | [Integration Job](.github/workflows/integration-tests.yml) |
-| **Performance Tests** | [Platform Scalability](platform/) | [Performance Tests](tests/performance/test_platform_*.py) | [Load Config](tests/performance/load_config.py) | [Performance Job](.github/workflows/performance-tests.yml) |
-| **Security Tests** | [Platform Security](platform/) | [Security Tests](tests/security/test_platform_*.py) | [Security Config](tests/security/security_config.py) | [Security Job](.github/workflows/security-tests.yml) |
+| **Unit Tests** | [Platform Services](../src/active_inference/platform) | Unit Tests `tests/unit/test_platform_*.py` | Test Config `tests/fixtures/platform_config.py` | Unit Test Job `.github/workflows/unit-tests.yml` |
+| **Integration Tests** | [Service Interactions](.) | Integration Tests `tests/integration/test_platform_*.py` | Integration Config `tests/fixtures/integration_config.py` | Integration Job `.github/workflows/integration-tests.yml` |
+| **Performance Tests** | [Platform Scalability](.) | Performance Tests `tests/performance/test_platform_*.py` | Load Config `tests/performance/load_config.py` | Performance Job `.github/workflows/performance-tests.yml` |
+| **Security Tests** | [Platform Security](.) | Security Tests `tests/security/test_platform_*.py` | Security Config `tests/security/security_config.py` | Security Job `.github/workflows/security-tests.yml` |
 
 ### 📖 Documentation Cross-References
 | Documentation Type | Location | Content Focus | Related Components |
 |-------------------|----------|---------------|-------------------|
-| **[Platform Architecture](docs/platform/architecture.md)** | [Platform Docs](docs/platform/) | System design, service interactions | [All Platform Services](src/active_inference/platform/) |
-| **[API Reference](docs/api/platform.md)** | [API Docs](docs/api/) | REST API endpoints, parameters | [Web Server](serve.py), [Service APIs](platform/) |
-| **[Deployment Guide](docs/platform/deployment.md)** | [Platform Docs](docs/platform/) | Production deployment, scaling | [Deployment Tools](deployment/), [Docker Config](deployment/docker/) |
-| **[Security Guide](docs/platform/security.md)** | [Platform Docs](docs/platform/) | Authentication, authorization, data protection | [Auth Service](serve.py), [Security Tests](tests/security/) |
+| **Platform Architecture `docs/platform/architecture.md`** | [Platform Docs](../docs/platform) | System design, service interactions | [All Platform Services](../src/active_inference/platform) |
+| **API Reference `docs/api/platform.md`** | [API Docs](../docs/api) | REST API endpoints, parameters | [Web Server](serve.py), [Service APIs](.) |
+| **Deployment Guide `docs/platform/deployment.md`** | [Platform Docs](../docs/platform) | Production deployment, scaling | [Deployment Tools](deployment/), Docker Config `deployment/docker/` |
+| **Security Guide `docs/platform/security.md`** | [Platform Docs](../docs/platform) | Authentication, authorization, data protection | [Auth Service](serve.py), [Security Tests](../tests/security) |
 
 ### 🔧 Development Tool Integration
 | Tool | Purpose | Platform Integration | Configuration | Documentation |
 |------|---------|---------------------|---------------|---------------|
-| **[Black](https://black.readthedocs.io/)** | Code formatting | [Pre-commit hooks](.pre-commit-config.yaml) | [Format Config](pyproject.toml) | [Style Guide](docs/development/code_style.md) |
-| **[MyPy](https://mypy.readthedocs.io/)** | Type checking | [CI Pipeline](.github/workflows/) | [Type Config](mypy.ini) | [Type Guide](docs/development/type_checking.md) |
-| **[Pytest](https://pytest.org/)** | Testing framework | [Test Runner](tests/) | [Test Config](pytest.ini) | [Testing Guide](docs/development/testing.md) |
-| **[Sphinx](https://sphinx-doc.org/)** | Documentation | [Docs Builder](docs/) | [Docs Config](docs/conf.py) | [Writing Docs](docs/development/documentation.md) |
+| **[Black](https://black.readthedocs.io/)** | Code formatting | Pre-commit hooks `.pre-commit-config.yaml` | [Format Config](../pyproject.toml) | Style Guide `docs/development/code_style.md` |
+| **[MyPy](https://mypy.readthedocs.io/)** | Type checking | [CI Pipeline](../.github/workflows) | Type Config `mypy.ini` | Type Guide `docs/development/type_checking.md` |
+| **[Pytest](https://pytest.org/)** | Testing framework | [Test Runner](../tests) | [Test Config](../pytest.ini) | Testing Guide `docs/development/testing.md` |
+| **[Sphinx](https://sphinx-doc.org/)** | Documentation | [Docs Builder](../docs) | [Docs Config](../docs/conf.py) | Writing Docs `docs/development/documentation.md` |
 
 ## Core Components
 
@@ -489,7 +489,7 @@ suggestions = search_engine.get_suggestions('active infer')
 
 ## Contributing
 
-We welcome contributions to the platform infrastructure! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the platform infrastructure! See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Services**: Implement new platform services
@@ -516,11 +516,11 @@ We welcome contributions to the platform infrastructure! See [CONTRIBUTING.md](.
 ## Related Documentation
 
 - **[Main README](../../README.md)**: Project overview and getting started
-- **[Knowledge Repository](../../knowledge/)**: Educational content
-- **[Research Tools](../../research/)**: Research methodologies
-- **[Applications](../../applications/)**: Practical applications
-- **[Visualization](../../visualization/)**: Visualization tools
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Knowledge Repository](../knowledge)**: Educational content
+- **[Research Tools](../research)**: Research methodologies
+- **[Applications](../applications)**: Practical applications
+- **Visualization `../../visualization/`**: Visualization tools
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution guidelines
 
 ## Platform Architecture
 

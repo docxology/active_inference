@@ -531,11 +531,11 @@ When contributing to collaboration documentation:
 
 ## Related Documentation
 
-- **[Platform Services](../../../platform/README.md)**: Overview of platform infrastructure
-- **[Search System](../../../platform/search/README.md)**: Search and discovery integration
-- **[Knowledge Graph](../../../platform/knowledge_graph/README.md)**: Knowledge organization and navigation
-- **[User Management](../../../platform/)**: User authentication and profile management
-- **[Community Guidelines](../../../applications/best_practices/)**: Community standards and practices
+- **[Platform Services](../README.md)**: Overview of platform infrastructure
+- **[Search System](../search/README.md)**: Search and discovery integration
+- **[Knowledge Graph](../knowledge_graph/README.md)**: Knowledge organization and navigation
+- **[User Management](..)**: User authentication and profile management
+- **[Community Guidelines](../../applications/best_practices)**: Community standards and practices
 
 ---
 

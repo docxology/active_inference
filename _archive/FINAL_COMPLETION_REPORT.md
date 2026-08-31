@@ -80,18 +80,18 @@ All documentation enhancements have been completed, validated, and are ready for
 ## 🎯 Documentation Structure
 
 ### Quick Access
-- **New Users**: Start with [QUICK_START.md](docs/QUICK_START.md)
-- **Troubleshooting**: See [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
-- **Navigation**: Use [DOCUMENTATION_INDEX.md](docs/DOCUMENTATION_INDEX.md)
-- **Interactive Features**: Check [INTERACTIVE_ELEMENTS.md](docs/INTERACTIVE_ELEMENTS.md)
+- **New Users**: Start with [QUICK_START.md](../docs/QUICK_START.md)
+- **Troubleshooting**: See [TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md)
+- **Navigation**: Use [DOCUMENTATION_INDEX.md](../docs/DOCUMENTATION_INDEX.md)
+- **Interactive Features**: Check [INTERACTIVE_ELEMENTS.md](../docs/INTERACTIVE_ELEMENTS.md)
 
 ### Component Documentation
-- Knowledge: [knowledge/README.md](knowledge/README.md) (already has diagrams)
-- Research: [research/README.md](research/README.md) (already has diagrams)
-- Platform: [platform/README.md](platform/README.md) (already has diagrams)
-- Applications: [applications/README.md](applications/README.md)
-- Tools: [tools/README.md](tools/README.md) (enhanced with diagrams)
-- Tests: [tests/README.md](tests/README.md) (enhanced with diagram)
+- Knowledge: [knowledge/README.md](../knowledge/README.md) (already has diagrams)
+- Research: [research/README.md](../research/README.md) (already has diagrams)
+- Platform: [platform/README.md](../platform/README.md) (already has diagrams)
+- Applications: [applications/README.md](../applications/README.md)
+- Tools: [tools/README.md](../tools/README.md) (enhanced with diagrams)
+- Tests: [tests/README.md](../tests/README.md) (enhanced with diagram)
 
 ---
 
@@ -158,20 +158,20 @@ All documentation enhancements have been completed, validated, and are ready for
 ## 🎓 User Paths
 
 ### For New Users
-1. Read [QUICK_START.md](docs/QUICK_START.md)
+1. Read [QUICK_START.md](../docs/QUICK_START.md)
 2. Try the 5-minute setup
-3. Explore [DOCUMENTATION_INDEX.md](docs/DOCUMENTATION_INDEX.md)
-4. Reference [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) if usesues arise
+3. Explore [DOCUMENTATION_INDEX.md](../docs/DOCUMENTATION_INDEX.md)
+4. Reference [TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md) if usesues arise
 
 ### For Developers
 1. Review architecture diagrams in README files
-2. Follow [Quick Start Development](docs/QUICK_START.md#development-quick-start)
-3. Use [Troubleshooting Guide](docs/TROUBLESHOOTING.md) for debugging
-4. Reference [INTERACTIVE_ELEMENTS.md](docs/INTERACTIVE_ELEMENTS.md) for features
+2. Follow [Quick Start Development](../docs/QUICK_START.md)
+3. Use [Troubleshooting Guide](../docs/TROUBLESHOOTING.md) for debugging
+4. Reference [INTERACTIVE_ELEMENTS.md](../docs/INTERACTIVE_ELEMENTS.md) for features
 
 ### For Contributors
-1. Read [CONTRIBUTING.md](CONTRIBUTING.md)
-2. Study [AGENTS.md](AGENTS.md) for patterns
+1. Read [CONTRIBUTING.md](../CONTRIBUTING.md)
+2. Study [AGENTS.md](../AGENTS.md) for patterns
 3. Follow enhancement guidelines
 4. Maintain documentation quality
 
@@ -254,16 +254,16 @@ All documentation enhancements have been completed, validated, and are ready for
 ## 📞 Support Resources
 
 ### Getting Help
-- **Quick Start**: [docs/QUICK_START.md](docs/QUICK_START.md)
-- **Troubleshooting**: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
-- **Documentation Index**: [docs/DOCUMENTATION_INDEX.md](docs/DOCUMENTATION_INDEX.md)
+- **Quick Start**: [docs/QUICK_START.md](../docs/QUICK_START.md)
+- **Troubleshooting**: [docs/TROUBLESHOOTING.md](../docs/TROUBLESHOOTING.md)
+- **Documentation Index**: [docs/DOCUMENTATION_INDEX.md](../docs/DOCUMENTATION_INDEX.md)
 - **GitHub Issues**: Report bugs and request features
 - **GitHub Discussions**: Ask questions
 
 ### Contributing
-- **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute
-- **[AGENTS.md](AGENTS.md)** - Development guidelines
-- **[INTERACTIVE_ELEMENTS.md](docs/INTERACTIVE_ELEMENTS.md)** - Future features
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - How to contribute
+- **[AGENTS.md](../AGENTS.md)** - Development guidelines
+- **[INTERACTIVE_ELEMENTS.md](../docs/INTERACTIVE_ELEMENTS.md)** - Future features
 
 ---
 

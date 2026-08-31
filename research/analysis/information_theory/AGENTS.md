@@ -297,7 +297,7 @@ def test_algorithm_validation():
 
     for case in reference_cases:
         our_result = calculate_our_implementation(case["data"])
-        reference_result = case["reference_implementation"](case["data"])
+        reference_result = case"reference_implementation" `case["data"]`
 
         assert abs(our_result - reference_result) < case["tolerance"], \
             f"Implementation differs from reference for {case['name']}"
@@ -763,7 +763,7 @@ Study these related components for integration patterns:
 
 - **[Research Analysis](../../)**: Analysis framework integration patterns
 - **[Mathematical Tools](../../../knowledge/mathematics/)**: Mathematical foundation implementations
-- **[Statistical Methods](../../statistical/)**: Statistical analysis integration
+- **Statistical Methods `../../statistical/`**: Statistical analysis integration
 - **[Simulation Framework](../../../research/simulations/)**: Simulation data analysis
 
 ## 🎯 Success Metrics

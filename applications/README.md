@@ -134,7 +134,7 @@ activate_domain('neuroscience')
 
 ## Contributing
 
-We welcome contributions to the applications module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the applications module! See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Templates**: Create implementation templates for common use cases
@@ -161,9 +161,9 @@ We welcome contributions to the applications module! See [CONTRIBUTING.md](../..
 
 - **[Main README](../../README.md)**: Project overview and getting started
 - **[Domains README](./domains/README.md)**: Domain-specific applications and interfaces
-- **[Knowledge Repository](../../knowledge/)**: Theoretical foundations and learning paths
-- **[Research Tools](../../research/)**: Advanced research methodologies
-- **[Visualization](../../visualization/)**: Interactive exploration tools
+- **[Knowledge Repository](../knowledge)**: Theoretical foundations and learning paths
+- **[Research Tools](../research)**: Advanced research methodologies
+- **Visualization `../../visualization/`**: Interactive exploration tools
 
 ---
 

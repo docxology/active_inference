@@ -178,7 +178,7 @@ Metadata supports various tools:
 - **[Knowledge Base README](../README.md)**: Knowledge base overview
 - **[Knowledge AGENTS.md](../AGENTS.md)**: Agent guidelines for knowledge content
 - **[Validation Tools](../../tools/knowledge_validation.py)**: Knowledge validation tools
-- **[Repository Configuration](../../tools/repository.json)**: Repository configuration
+- **Repository Configuration `../../tools/repository.json`**: Repository configuration
 
 ---
 

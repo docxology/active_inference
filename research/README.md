@@ -477,7 +477,7 @@ report = analyzer.generate_report(results, format='comprehensive')
 
 ## Contributing
 
-We welcome contributions to the research tools module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the research tools module! See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Methods**: Implement new research methods and algorithms
@@ -504,10 +504,10 @@ We welcome contributions to the research tools module! See [CONTRIBUTING.md](../
 ## Related Documentation
 
 - **[Main README](../../README.md)**: Project overview and getting started
-- **[Knowledge Repository](../../knowledge/)**: Theoretical foundations
-- **[Applications](../../applications/)**: Practical applications
-- **[Visualization](../../visualization/)**: Research visualization tools
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Knowledge Repository](../knowledge)**: Theoretical foundations
+- **[Applications](../applications)**: Practical applications
+- **Visualization `../../visualization/`**: Research visualization tools
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution guidelines
 
 ## Research Standards
 

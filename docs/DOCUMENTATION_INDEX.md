@@ -13,7 +13,7 @@ This index provides quick access to all documentation resources in the Active In
 ### New Users
 1. **[Quick Start Guide](QUICK_START.md)** - 5-minute setup and first steps
 2. **[Main README](../../README.md)** - Project overview and architecture
-3. **[Contributing Guide](../../CONTRIBUTING.md)** - How to contribute
+3. **[Contributing Guide](../CONTRIBUTING.md)** - How to contribute
 
 ### Developers
 1. **[Quick Start Guide](QUICK_START.md)** - Development setup
@@ -27,7 +27,7 @@ This index provides quick access to all documentation resources in the Active In
 ### Main Documentation
 - **[README.md](../../README.md)** - Main project documentation
 - **[AGENTS.md](../../AGENTS.md)** - Master agent development guide
-- **[CONTRIBUTING.md](../../CONTRIBUTING.md)** - Contribution guidelines
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Contribution guidelines
 
 ### Documentation Enhancement Guides
 - **[Quick Start Guide](QUICK_START.md)** - Fast-track onboarding
@@ -39,123 +39,123 @@ This index provides quick access to all documentation resources in the Active In
 ## 🧠 Knowledge System
 
 ### Knowledge Repository
-- **[Knowledge README](../../knowledge/README.md)** - Educational content overview
-- **[Knowledge AGENTS](../../knowledge/AGENTS.md)** - Content development guidelines
-- **[Learning Paths](../../knowledge/learning_paths.json)** - Structured curriculum
+- **[Knowledge README](../knowledge/README.md)** - Educational content overview
+- **[Knowledge AGENTS](../knowledge/AGENTS.md)** - Content development guidelines
+- **[Learning Paths](../knowledge/learning_paths.json)** - Structured curriculum
 
 ### Knowledge Subdirectories
-- **[Foundations](../../knowledge/foundations/)** - Theoretical foundations
-- **[Mathematics](../../knowledge/mathematics/)** - Mathematical formulations
-- **[Implementations](../../knowledge/implementations/)** - Code examples
-- **[Applications](../../knowledge/applications/)** - Real-world use cases
+- **[Foundations](../knowledge/foundations)** - Theoretical foundations
+- **[Mathematics](../knowledge/mathematics)** - Mathematical formulations
+- **[Implementations](../knowledge/implementations)** - Code examples
+- **[Applications](../knowledge/applications)** - Real-world use cases
 
 ---
 
 ## 🔬 Research Tools
 
 ### Research Framework
-- **[Research README](../../research/README.md)** - Research tools overview
-- **[Research AGENTS](../../research/AGENTS.md)** - Research development guidelines
+- **[Research README](../research/README.md)** - Research tools overview
+- **[Research AGENTS](../research/AGENTS.md)** - Research development guidelines
 
 ### Research Components
-- **[Experiments](../../research/experiments/)** - Experiment management
-- **[Simulations](../../research/simulations/)** - Simulation engines
-- **[Analysis](../../research/analysis/)** - Statistical analysis
-- **[Benchmarks](../../research/benchmarks/)** - Performance evaluation
-- **[Data Management](../../research/data_management/)** - Data workflows
-- **[Model Development](../../research/model_development/)** - Model building
-- **[Project Planning](../../research/project_planning/)** - Research planning
-- **[Reporting](../../research/reporting/)** - Publication tools
-- **[Visualization](../../research/visualization/)** - Research visualization
-- **[Tools](../../research/tools/)** - Research utilities
+- **[Experiments](../research/experiments)** - Experiment management
+- **[Simulations](../research/simulations)** - Simulation engines
+- **[Analysis](../research/analysis)** - Statistical analysis
+- **[Benchmarks](../research/benchmarks)** - Performance evaluation
+- **[Data Management](../research/data_management)** - Data workflows
+- **[Model Development](../research/model_development)** - Model building
+- **[Project Planning](../research/project_planning)** - Research planning
+- **[Reporting](../research/reporting)** - Publication tools
+- **[Visualization](../research/visualization)** - Research visualization
+- **[Tools](../research/tools)** - Research utilities
 
 ---
 
 ## 👁️ Visualization
 
 ### Visualization System
-- **[Visualization README](../../visualization/README.md)** - Visualization overview
-- **[Visualization AGENTS](../../visualization/AGENTS.md)** - Visualization guidelines
+- **Visualization README `../../visualization/README.md`** - Visualization overview
+- **Visualization AGENTS `../../visualization/AGENTS.md`** - Visualization guidelines
 
 ### Visualization Components
-- **[Diagrams](../../visualization/diagrams/)** - Interactive diagrams
-- **[Dashboards](../../visualization/dashboards/)** - Real-time dashboards
-- **[Animations](../../visualization/animations/)** - Educational animations
-- **[Comparative](../../visualization/comparative/)** - Comparison tools
+- **Diagrams `../../visualization/diagrams/`** - Interactive diagrams
+- **Dashboards `../../visualization/dashboards/`** - Real-time dashboards
+- **Animations `../../visualization/animations/`** - Educational animations
+- **Comparative `../../visualization/comparative/`** - Comparison tools
 
 ---
 
 ## 🛠️ Applications
 
 ### Applications Framework
-- **[Applications README](../../applications/README.md)** - Applications overview
-- **[Applications AGENTS](../../applications/AGENTS.md)** - Application development
+- **[Applications README](../applications/README.md)** - Applications overview
+- **[Applications AGENTS](../applications/AGENTS.md)** - Application development
 
 ### Application Components
-- **[Templates](../../applications/templates/)** - Implementation templates
-- **[Case Studies](../../applications/case_studies/)** - Real-world examples
-- **[Integrations](../../applications/integrations/)** - External integrations
-- **[Best Practices](../../applications/best_practices/)** - Architectural patterns
-- **[Domains](../../applications/domains/)** - Domain-specific applications
+- **[Templates](../applications/templates)** - Implementation templates
+- **[Case Studies](../applications/case_studies)** - Real-world examples
+- **[Integrations](../applications/integrations)** - External integrations
+- **[Best Practices](../applications/best_practices)** - Architectural patterns
+- **[Domains](../applications/domains)** - Domain-specific applications
 
 ---
 
 ## 🖥️ Platform
 
 ### Platform Infrastructure
-- **[Platform README](../../platform/README.md)** - Platform services overview
-- **[Platform AGENTS](../../platform/AGENTS.md)** - Platform development
+- **[Platform README](../platform/README.md)** - Platform services overview
+- **[Platform AGENTS](../platform/AGENTS.md)** - Platform development
 
 ### Platform Services
-- **[Knowledge Graph](../../platform/knowledge_graph/)** - Semantic representation
-- **[Search](../../platform/search/)** - Intelligent search
-- **[Collaboration](../../platform/collaboration/)** - Multi-user features
-- **[Deployment](../../platform/deployment/)** - Production deployment
+- **[Knowledge Graph](../platform/knowledge_graph)** - Semantic representation
+- **[Search](../platform/search)** - Intelligent search
+- **[Collaboration](../platform/collaboration)** - Multi-user features
+- **[Deployment](../platform/deployment)** - Production deployment
 
 ---
 
 ## 🧪 Testing
 
 ### Testing Framework
-- **[Testing README](../../tests/README.md)** - Testing overview
-- **[Testing AGENTS](../../tests/AGENTS.md)** - Testing guidelines
+- **[Testing README](../tests/README.md)** - Testing overview
+- **[Testing AGENTS](../tests/AGENTS.md)** - Testing guidelines
 
 ### Test Types
-- **[Unit Tests](../../tests/unit/)** - Component testing
-- **[Integration Tests](../../tests/integration/)** - System integration
-- **[Knowledge Tests](../../tests/knowledge/)** - Content validation
-- **[Performance Tests](../../tests/performance/)** - Scalability testing
-- **[Security Tests](../../tests/security/)** - Security validation
+- **[Unit Tests](../tests/unit)** - Component testing
+- **[Integration Tests](../tests/integration)** - System integration
+- **[Knowledge Tests](../tests/knowledge)** - Content validation
+- **[Performance Tests](../tests/performance)** - Scalability testing
+- **[Security Tests](../tests/security)** - Security validation
 
 ---
 
 ## 🛠️ Tools
 
 ### Development Tools
-- **[Tools README](../../tools/README.md)** - Tools overview
-- **[Tools AGENTS](../../tools/AGENTS.md)** - Tool development
+- **[Tools README](../tools/README.md)** - Tools overview
+- **[Tools AGENTS](../tools/AGENTS.md)** - Tool development
 
 ### Tool Categories
-- **[Documentation](../../tools/documentation/)** - Doc generation
-- **[Prompts](../../tools/prompts/)** - Prompt templates
-- **[Templates](../../tools/templates/)** - Development templates
+- **[Documentation](../tools/documentation)** - Doc generation
+- **[Prompts](../tools/prompts)** - Prompt templates
+- **[Templates](../tools/templates)** - Development templates
 
 ---
 
 ## 📚 Source Code
 
 ### Python Package
-- **[Source README](../../src/active_inference/README.md)** - Source code overview
-- **[Source AGENTS](../../src/active_inference/AGENTS.md)** - Source development
+- **[Source README](../src/active_inference/README.md)** - Source code overview
+- **[Source AGENTS](../src/active_inference/AGENTS.md)** - Source development
 
 ### Package Modules
 - **[Knowledge](../knowledge/)** - Knowledge implementation
 - **[Research](../research/)** - Research tools
-- **[Visualization](../visualization/)** - Visualization engine
+- **Visualization `../visualization/`** - Visualization engine
 - **[Applications](../applications/)** - Application frameworks
 - **[Platform](../platform/)** - Platform services
 - **[Tools](../tools/)** - Development utilities
-- **[LLM](../llm/)** - LLM integration
+- **LLM `../llm/`** - LLM integration
 
 ---
 
@@ -178,16 +178,16 @@ This index provides quick access to all documentation resources in the Active In
 - **Installation**: [Quick Start](QUICK_START.md#installation), [Troubleshooting](TROUBLESHOOTING.md#installation-and-setup-issues)
 无法运行时**: [Quick Start](QUICK_START.md#troubleshooting), [Troubleshooting Guide](TROUBLESHOOTING.md)
 - **Architecture**: [Main README](../../README.md#architecture-overview), Component README files
-- **Development**: [Contributing](CONTRIBUTING.md), [AGENTS.md](../../AGENTS.md)
-- **Testing**: [Testing README](../../tests/README.md)
-- **Deployment**: [Platform Deployment](../../platform/deployment/)
+- **Development**: [Contributing](../CONTRIBUTING.md), [AGENTS.md](../../AGENTS.md)
+- **Testing**: [Testing README](../tests/README.md)
+- **Deployment**: [Platform Deployment](../platform/deployment)
 
 ### By Role
-- **Researchers**: [Research Tools](../../research/README.md), [Experiments](../../research/experiments/)
+- **Researchers**: [Research Tools](../research/README.md), [Experiments](../research/experiments)
 - **Educators**: SS1
-[Knowledge Base](../../knowledge/README.md), [Learning Paths](../../knowledge/learning_paths.json)
+[Knowledge Base](../knowledge/README.md), [Learning Paths](../knowledge/learning_paths.json)
 - **Developers**: [Quick Start](QUICK_START.md), [AGENTS.md](../../AGENTS.md)
-- **Contributors**: [Contributing](../../CONTRIBUTING.md)
+- **Contributors**: [Contributing](../CONTRIBUTING.md)
 
 ---
 
@@ -212,7 +212,7 @@ This index provides quick access to all documentation resources in the Active In
 1. [Main README](../../README.md) - Project overview
 2. [Quick Start](QUICK_START.md) - Getting started fast
 3. [Troubleshooting](TROUBLESHOOTING.md) - Problem solving
-4. [Contributing](CONTRIBUTING.md) - How to contribute
+4. [Contributing](../CONTRIBUTING.md) - How to contribute
 5. [AGENTS.md](../../AGENTS.md) - Development guidelines
 
 ### Support Resources
@@ -250,7 +250,7 @@ This index provides quick access to all documentation resources in the Active In
 - ✅ Enhanced visual documentation
 
 ### Previous Updates
-- See [CHANGELOG](../../CHANGELOG.md) for full history
+- See CHANGELOG `../../CHANGELOG.md` for full history
 
 ---
 

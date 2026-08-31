@@ -821,13 +821,13 @@ When contributing platform documentation:
 - **[Search](search/README.md)**: Intelligent search and retrieval
 
 ### Development References
-- **[Platform Services](../../../platform/README.md)**: Platform service implementation
-- **[API Standards](../../../docs/api/README.md)**: API design and documentation standards
-- **[Deployment Guide](../../../platform/deployment/README.md)**: Production deployment documentation
+- **[Platform Services](../../platform/README.md)**: Platform service implementation
+- **[API Standards](../api/README.md)**: API design and documentation standards
+- **[Deployment Guide](../../platform/deployment/README.md)**: Production deployment documentation
 
 ## 📄 License
 
-This platform documentation is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This platform documentation is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

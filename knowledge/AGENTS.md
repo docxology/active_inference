@@ -510,21 +510,21 @@ graph TB
 - **[Applications AGENTS.md](./applications/AGENTS.md)**: Application content development guide
 
 ### 🎓 **Learning Resources**
-- **[Learning Paths](../../knowledge/learning_paths.json)**: Structured curricula and learning tracks
-- **[Foundations Content](../../knowledge/foundations/)**: Core theoretical concepts
-- **[Mathematics Content](../../knowledge/mathematics/)**: Mathematical formulations
-- **[Implementation Examples](../../knowledge/implementations/)**: Code examples and tutorials
-- **[Application Case Studies](../../knowledge/applications/)**: Real-world applications
+- **[Learning Paths](learning_paths.json)**: Structured curricula and learning tracks
+- **[Foundations Content](foundations)**: Core theoretical concepts
+- **[Mathematics Content](mathematics)**: Mathematical formulations
+- **[Implementation Examples](implementations)**: Code examples and tutorials
+- **[Application Case Studies](applications)**: Real-world applications
 
 ### 🔧 **Development Tools Integration**
-- **[Tools AGENTS.md](../../tools/AGENTS.md)**: Development tools and automation
-- **[Testing Framework AGENTS.md](../../tests/AGENTS.md)**: Testing and validation guidelines
-- **[Platform Services AGENTS.md](../../platform/AGENTS.md)**: Platform infrastructure development
+- **[Tools AGENTS.md](../tools/AGENTS.md)**: Development tools and automation
+- **[Testing Framework AGENTS.md](../tests/AGENTS.md)**: Testing and validation guidelines
+- **[Platform Services AGENTS.md](../platform/AGENTS.md)**: Platform infrastructure development
 
 ### 🌐 **External Resources**
-- **[Research Framework](../../research/README.md)**: Scientific research tools and methods
-- **[Visualization Systems](../../visualization/README.md)**: Interactive exploration tools
-- **[Application Templates](../../applications/templates/)**: Ready-to-use implementation templates
+- **[Research Framework](../research/README.md)**: Scientific research tools and methods
+- **Visualization Systems `../../visualization/README.md`**: Interactive exploration tools
+- **[Application Templates](../applications/templates)**: Ready-to-use implementation templates
 
 ### 📖 **Navigation Breadcrumb**
 ```
@@ -532,10 +532,10 @@ graph TB
 ```
 
 ### 🔗 **Quick Links**
-- **[Start Here: Foundations](../../knowledge/foundations/README.md)** - Begin learning Active Inference
-- **[Mathematical Foundations](../../knowledge/mathematics/README.md)** - Rigorous mathematical treatment
-- **[Implementation Guide](../../knowledge/implementations/README.md)** - Practical code examples
-- **[Domain Applications](../../knowledge/applications/README.md)** - Real-world use cases
+- **[Start Here: Foundations](foundations/README.md)** - Begin learning Active Inference
+- **[Mathematical Foundations](mathematics/README.md)** - Rigorous mathematical treatment
+- **[Implementation Guide](implementations/README.md)** - Practical code examples
+- **[Domain Applications](applications/README.md)** - Real-world use cases
 
 ---
 

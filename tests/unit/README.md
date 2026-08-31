@@ -577,7 +577,7 @@ When contributing to unit tests:
 - **[Integration Testing](../../tests/integration/README.md)**: Integration testing documentation
 - **[Performance Testing](../../tests/performance/README.md)**: Performance testing tools
 - **[Security Testing](../../tests/security/README.md)**: Security testing frameworks
-- **[Quality Assurance](../../../applications/best_practices/)**: Quality standards and guidelines
+- **[Quality Assurance](../../applications/best_practices)**: Quality standards and guidelines
 
 ---
 

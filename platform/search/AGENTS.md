@@ -92,7 +92,7 @@ def create_search_engine(search_type: str, config: Dict[str, Any]) -> BaseSearch
 
     # Create search engine with error handling
     try:
-        search_engine = search_factories[search_type](config)
+        search_engine = search_factoriessearch_type `config`
         validate_search_functionality(search_engine)
         return search_engine
     except Exception as e:
@@ -799,10 +799,10 @@ def debug_search_performance(engine: BaseSearchEngine, performance_config: Dict[
 
 Study these related components for integration patterns:
 
-- **[Knowledge Graph](../../../platform/knowledge_graph/)**: Semantic knowledge organization
-- **[Content Management](../../../platform/)**: Content indexing and management
-- **[User Analytics](../../../platform/)**: User behavior and personalization
-- **[Platform Services](../../../platform/)**: Platform infrastructure integration
+- **[Knowledge Graph](../knowledge_graph)**: Semantic knowledge organization
+- **[Content Management](..)**: Content indexing and management
+- **[User Analytics](..)**: User behavior and personalization
+- **[Platform Services](..)**: Platform infrastructure integration
 
 ## 🎯 Success Metrics
 

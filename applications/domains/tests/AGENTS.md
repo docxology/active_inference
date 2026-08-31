@@ -89,7 +89,7 @@ def create_domain_test(domain_name: str, test_type: str) -> Any:
     if domain_name not in test_factories:
         raise ValueError(f"Unknown domain: {domain_name}")
 
-    return test_factories[domain_name](test_type)
+    return test_factoriesdomain_name `test_type`
 ```
 
 ### Domain Integration Test Pattern

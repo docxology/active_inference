@@ -603,9 +603,9 @@ class QueryDebugger:
 
 ### Platform Integration
 
-- **[Knowledge Platform](../../../knowledge/README.md)**: Knowledge architecture
-- **[Search Integration](../../search/README.md)**: Search engine integration
-- **[Visualization Systems](../../../visualization/README.md)**: Graph visualization
+- **[Knowledge Platform](../../knowledge/README.md)**: Knowledge architecture
+- **Search Integration `../../search/README.md`**: Search engine integration
+- **Visualization Systems `../../../visualization/README.md`**: Graph visualization
 
 ## 🎯 Success Metrics
 

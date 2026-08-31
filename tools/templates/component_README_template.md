@@ -391,7 +391,7 @@ component = ComponentClass(debug_config)
 
 ### Development Guidelines
 
-See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [../../../.cursorrules](../../../.cursorrules) for comprehensive development standards.
+See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [../../../.cursorrules](../../.cursorrules) for comprehensive development standards.
 
 ### Contribution Process
 
@@ -417,11 +417,11 @@ See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [../../
 ### Documentation
 - **[Main README](../../../README.md)**: Project overview
 - **[AGENTS.md](AGENTS.md)**: Agent development guidelines
-- **[.cursorrules](../../../.cursorrules)**: Complete development standards
+- **[.cursorrules](../../.cursorrules)**: Complete development standards
 
 ### Related Components
-- **[Related Component 1](../related_component1/README.md)**: Description
-- **[Related Component 2](../related_component2/README.md)**: Description
+- **Related Component 1 `../related_component1/README.md`**: Description
+- **Related Component 2 `../related_component2/README.md`**: Description
 
 ### External Resources
 - **[External Documentation](https://example.com)**: Related external documentation
@@ -430,7 +430,7 @@ See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [../../
 
 ## 📄 License
 
-This component is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This component is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

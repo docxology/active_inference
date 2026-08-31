@@ -247,7 +247,7 @@ def test_prerequisite_chains(self, knowledge_repo):
 - **[Testing AGENTS.md](../AGENTS.md)**: Testing framework development guidelines
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
 - **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
-- **[Knowledge System](../../../knowledge/)**: Knowledge repository overview
+- **[Knowledge System](../../knowledge)**: Knowledge repository overview
 
 ---
 

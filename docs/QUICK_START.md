@@ -233,16 +233,16 @@ with open("my_app.py", "w") as f:
 
 ### Resources
 
-- **Documentation**: Complete docs at [docs/](docs/)
-- **Examples**: Working examples in [examples/](examples/)
-- **API Reference**: Full API docs at [docs/api/](docs/api/)
+- **Documentation**: Complete docs at [docs/](.)
+- **Examples**: Working examples in examples/ `examples/`
+- **API Reference**: Full API docs at [docs/api/](api)
 - **Community**: Join discussions on [GitHub](https://github.com/docxology/active_inference/discussions)
 
 ### Support
 
 - **Issues**: Report bugs on [GitHub Issues](https://github.com/docxology/active_inference/issues)
 - **Troubleshooting**: Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
-- **FAQ**: See [FAQ section](knowledge/faq.json)
+- **FAQ**: See [FAQ section](../knowledge/faq.json)
 
 ---
 
@@ -412,7 +412,7 @@ make check-all
 
 ### Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to the project.
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on contributing to the project.
 
 ---
 

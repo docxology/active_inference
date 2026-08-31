@@ -91,7 +91,7 @@ def create_simulation_framework(simulation_type: str, config: Dict[str, Any]) ->
     validate_simulation_config(config)
 
     # Create simulation with scientific validation
-    simulation = simulation_factories[simulation_type](config)
+    simulation = simulation_factoriessimulation_type `config`
 
     # Add numerical stability checks
     simulation = add_numerical_stability(simulation)
@@ -739,10 +739,10 @@ def debug_simulation_science(simulation: BaseSimulation, debug_config: Dict[str,
 Study these related components for integration patterns:
 
 - **[Research Framework](../../)**: Research questions that simulations address
-- **[Experiment Framework](../../experiments/)**: Experimental validation of simulations
-- **[Analysis Framework](../../analysis/)**: Analysis of simulation results
-- **[Visualization Framework](../../../src/active_inference/visualization/)**: Simulation visualization
-- **[Neural Implementations](../../../src/active_inference/)**: Neural simulation implementations
+- **Experiment Framework `../../experiments/`**: Experimental validation of simulations
+- **Analysis Framework `../../analysis/`**: Analysis of simulation results
+- **[Visualization Framework](../../src/active_inference/visualization)**: Simulation visualization
+- **[Neural Implementations](../../src/active_inference)**: Neural simulation implementations
 
 ## 🎯 Success Metrics
 

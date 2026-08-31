@@ -92,7 +92,7 @@ def create_animation(animation_type: str, config: Dict[str, Any]) -> BaseAnimati
 
     # Create animation with error handling
     try:
-        animation = animation_factories[animation_type](config)
+        animation = animation_factoriesanimation_type `config`
         validate_animation_functionality(animation)
         return animation
     except Exception as e:
@@ -770,7 +770,7 @@ Study these related components for integration patterns:
 - **[Visualization Framework](../../visualization/)**: Core visualization systems
 - **[Interactive Dashboards](../../visualization/dashboards/)**: Interactive visualization interfaces
 - **[Diagramming System](../../visualization/diagrams/)**: Static diagram generation
-- **[Educational Content](../../../knowledge/)**: Educational content integration
+- **[Educational Content](../../../../knowledge)**: Educational content integration
 
 ## 🎯 Success Metrics
 

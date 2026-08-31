@@ -110,7 +110,7 @@ def create_documentation_tool(tool_type: str, category: str, config: Dict[str, A
     validate_documentation_context(config)
 
     # Create tool with documentation validation
-    tool = tool_registry[category][tool_type](config)
+    tool = tool_registry[category]tool_type `config`
 
     # Validate tool functionality
     validate_tool_functionality(tool)
@@ -907,8 +907,8 @@ class DocumentationSandbox:
 ### Documentation Tool Resources
 
 - **[Main Documentation Tools](README.md)**: Documentation tool overview
-- **[Template System](../../templates/README.md)**: Documentation templates
-- **[Development Standards](../../../.cursorrules)**: Documentation quality standards
+- **Template System `../../templates/README.md`**: Documentation templates
+- **[Development Standards](../../.cursorrules)**: Documentation quality standards
 
 ### Documentation Technical References
 

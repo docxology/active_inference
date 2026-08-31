@@ -618,8 +618,8 @@ class DeploymentDebugger:
 ### Platform Integration
 
 - **[Platform Services](../../platform/README.md)**: Platform architecture
-- **[Service Integration](../../../src/active_inference/platform/README.md)**: Service patterns
-- **[Configuration Management](../../../tools/README.md)**: Configuration tools
+- **[Service Integration](../../src/active_inference/platform/README.md)**: Service patterns
+- **[Configuration Management](../../tools/README.md)**: Configuration tools
 
 ## 🎯 Success Metrics
 

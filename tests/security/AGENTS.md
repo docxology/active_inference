@@ -90,7 +90,7 @@ def create_security_test(test_type: str, config: Dict[str, Any]) -> SecurityTest
     validate_security_context(config)
 
     # Create test with security validation
-    test = security_tests[test_type](config)
+    test = security_teststest_type `config`
 
     # Validate test functionality
     validate_test_functionality(test)
@@ -789,7 +789,7 @@ def sanitize_security_test_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
 - **[Vulnerability Testing](../../README.md)**: Vulnerability detection and analysis
 - **[Penetration Testing](../../README.md)**: Penetration testing methodologies
 - **[Security Analysis](../../README.md)**: Security assessment and analysis
-- **[.cursorrules](../../../.cursorrules)**: Development standards
+- **[.cursorrules](../../.cursorrules)**: Development standards
 
 ### Security Testing References
 

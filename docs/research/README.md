@@ -359,10 +359,10 @@ When contributing to research documentation:
 ## Related Documentation
 
 - **[Research Tools](../../research/README.md)**: Overview of research framework
-- **[Analysis Methods](../analysis/README.md)**: Statistical analysis documentation
-- **[Benchmarking Guide](../benchmarks/README.md)**: Performance evaluation methods
-- **[Experiment Design](../experiments/README.md)**: Experimental research guidance
-- **[Simulation Framework](../simulations/README.md)**: Multi-scale modeling tools
+- **Analysis Methods `../analysis/README.md`**: Statistical analysis documentation
+- **Benchmarking Guide `../benchmarks/README.md`**: Performance evaluation methods
+- **Experiment Design `../experiments/README.md`**: Experimental research guidance
+- **Simulation Framework `../simulations/README.md`**: Multi-scale modeling tools
 - **[Main Research Documentation](../../research/README.md)**: Research module overview
 
 ---

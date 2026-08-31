@@ -586,8 +586,8 @@ When contributing to the reporting framework:
 - **[Research Framework](../../research/README.md)**: Overview of research tools and methods
 - **[Analysis Framework](../../research/analysis/README.md)**: Statistical analysis and validation
 - **[Experiment Framework](../../research/experiments/README.md)**: Experimental design and execution
-- **[Visualization Framework](../../../src/active_inference/visualization/README.md)**: Scientific visualization tools
-- **[Collaboration Framework](../../../platform/collaboration/README.md)**: Collaborative research and writing
+- **[Visualization Framework](../../src/active_inference/visualization/README.md)**: Scientific visualization tools
+- **[Collaboration Framework](../../platform/collaboration/README.md)**: Collaborative research and writing
 
 ---
 

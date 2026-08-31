@@ -465,7 +465,7 @@ def profile_method(func):
 ### Component-Specific Resources
 
 - **[Main README](../README.md)**: Component overview and usage
-- **[.cursorrules](../../../.cursorrules)**: Complete development standards
+- **[.cursorrules](../../.cursorrules)**: Complete development standards
 - **[Platform AGENTS.md](../../../AGENTS.md)**: Platform-wide agent guidelines
 
 ### Technical References
@@ -479,8 +479,8 @@ def profile_method(func):
 
 Study these related components for integration patterns:
 
-- **[Related Component 1](../component1/README.md)**: Integration example
-- **[Related Component 2](../component2/README.md)**: Dependency pattern
+- **Related Component 1 `../component1/README.md`**: Integration example
+- **Related Component 2 `../component2/README.md`**: Dependency pattern
 - **[Platform Integration](../../platform/README.md)**: Platform patterns
 
 ## 🎯 Success Metrics

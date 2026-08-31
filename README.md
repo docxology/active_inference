@@ -61,7 +61,7 @@ The Active Inference Knowledge Environment is the most comprehensive, accessible
 - **Educational Animations**: Step-by-step process demonstrations
 - **3D Visualizations**: Immersive 3D model exploration
 
-👁️ **[Visualization Documentation](visualization/README.md)** | 🤖 **[Visualization AGENTS.md](visualization/AGENTS.md)**
+👁️ **Visualization Documentation `visualization/README.md`** | 🤖 **Visualization AGENTS.md `visualization/AGENTS.md`**
 
 #### 🛠️ Applications Framework (`applications/`, `src/active_inference/applications/`)
 **Practical Implementation & Deployment**
@@ -859,7 +859,7 @@ Each major component has comprehensive documentation:
 - **[Research](research/README.md)**: Scientific tools and methodologies
 - **[Applications](applications/README.md)**: Implementation frameworks and patterns
 - **[Platform](platform/README.md)**: Infrastructure and services
-- **[Visualization](visualization/README.md)**: Interactive exploration tools
+- **Visualization `visualization/README.md`**: Interactive exploration tools
 - **[Tests](tests/README.md)**: Quality assurance and validation
 
 ### Technical Documentation
@@ -923,7 +923,7 @@ Next-generation educational technology with real-time feedback, personalized lea
 
 ## 📄 License & Attribution
 
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see LICENSE `LICENSE` file for details.
 
 ### Acknowledgments
 - **Karl Friston** and the Active Inference research community for theoretical foundations

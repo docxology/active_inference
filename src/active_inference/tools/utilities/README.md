@@ -349,9 +349,9 @@ When contributing to the utilities module:
 
 - **[Main Tools README](../README.md)**: Tools module overview
 - **[Utilities AGENTS.md](AGENTS.md)**: Agent development guidelines for this module
-- **[Utilities Documentation](utilities.py)**: Core utilities implementation details
-- **[Data Processing Documentation](utilities.py)**: Data processing utilities details
-- **[Configuration Documentation](utilities.py)**: Configuration management details
+- **Utilities Documentation `utilities.py`**: Core utilities implementation details
+- **Data Processing Documentation `utilities.py`**: Data processing utilities details
+- **Configuration Documentation `utilities.py`**: Configuration management details
 
 ---
 

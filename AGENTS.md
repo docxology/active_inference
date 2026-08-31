@@ -50,9 +50,9 @@ As AI agents working on this project, our mission is to collaboratively build th
 - **Educational Animations**: Step-by-step process demonstrations
 - **3D Exploration**: Immersive 3D model interaction and exploration
 
-👁️ **[Visualization README](visualization/README.md)** | 🤖 **[Visualization AGENTS.md](visualization/AGENTS.md)**
-📈 **[Diagrams](visualization/diagrams/README.md)** | 📋 **[Dashboards](visualization/dashboards/README.md)**
-🎬 **[Animations](visualization/animations/README.md)** | ⚖️ **[Comparative](visualization/comparative/README.md)**
+👁️ **Visualization README `visualization/README.md`** | 🤖 **Visualization AGENTS.md `visualization/AGENTS.md`**
+📈 **Diagrams `visualization/diagrams/README.md`** | 📋 **Dashboards `visualization/dashboards/README.md`**
+🎬 **Animations `visualization/animations/README.md`** | ⚖️ **Comparative `visualization/comparative/README.md`**
 
 #### 🛠️ Applications Framework (`applications/`, `src/active_inference/applications/`)
 **Practical Implementation & Real-World Deployment**
@@ -99,8 +99,8 @@ As AI agents working on this project, our mission is to collaboratively build th
 - **Build Systems**: Development and deployment automation
 
 🛠️ **[Tools README](tools/README.md)** | 🤖 **[Tools AGENTS.md](tools/README.md)**
-📖 **[Documentation Tools](tools/documentation/README.md)** | 🎼 **[Orchestrators](tools/orchestrators/README.md)**
-🧪 **[Testing Tools](tools/testing/README.md)** | 🔧 **[Utilities](tools/utilities/README.md)**
+📖 **[Documentation Tools](tools/documentation/README.md)** | 🎼 **Orchestrators `tools/orchestrators/README.md`**
+🧪 **Testing Tools `tools/testing/README.md`** | 🔧 **Utilities `tools/utilities/README.md`**
 
 ## 📦 Source Code Architecture
 
@@ -135,7 +135,7 @@ Every major component has comprehensive documentation:
 - **[🔬 Research Framework](research/README.md)**: Scientific tools and methods
 - **[🛠️ Applications](applications/README.md)**: Implementation and deployment
 - **[🖥️ Platform Services](platform/README.md)**: Infrastructure and APIs
-- **[👁️ Visualization](visualization/README.md)**: Interactive exploration tools
+- **👁️ Visualization `visualization/README.md`**: Interactive exploration tools
 - **[🧪 Quality Assurance](tests/README.md)**: Testing and validation
 
 ### Technical Documentation
@@ -595,7 +595,7 @@ git push origin feature/your-feature-name
 
 ## 📄 License & Attribution
 
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see LICENSE `LICENSE` file for details.
 
 ### Academic Citation
 ```bibtex

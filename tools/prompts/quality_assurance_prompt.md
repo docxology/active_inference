@@ -1029,7 +1029,7 @@ class ComplianceValidator:
 
         for framework in frameworks:
             if framework in self.compliance_frameworks:
-                result = self.compliance_frameworks[framework](target_path)
+                result = self.compliance_frameworksframework `target_path`
                 compliance_results['framework_results'][framework] = result
 
                 if not result.get('compliant', True):

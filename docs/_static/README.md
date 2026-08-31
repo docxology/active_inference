@@ -140,7 +140,7 @@ pytest tests/test_core.py -v
 
 ### Development Guidelines
 
-See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [../../../.cursorrules](../../../.cursorrules) for comprehensive development standards.
+See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [../../../.cursorrules](../../.cursorrules) for comprehensive development standards.
 
 ### Contribution Process
 

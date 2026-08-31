@@ -227,13 +227,13 @@ component = Publication(debug_config)
 - **[Development Standards](../../../.cursorrules)**: Complete development standards
 
 ### Component-Specific Resources
-- **[API Documentation](../../api/README.md)**: Component API reference
-- **[Integration Guide](../../integration/README.md)**: Integration patterns
-- **[Testing Guide](../../testing/README.md)**: Testing standards and methods
+- **API Documentation `../../api/README.md`**: Component API reference
+- **Integration Guide `../../integration/README.md`**: Integration patterns
+- **Testing Guide `../../testing/README.md`**: Testing standards and methods
 
 ### Related Components
-- **[Related Component 1](../related1/README.md)**: Description of related functionality
-- **[Related Component 2](../related2/README.md)**: Description of related functionality
+- **Related Component 1 `../related1/README.md`**: Description of related functionality
+- **Related Component 2 `../related2/README.md`**: Description of related functionality
 
 ---
 

@@ -831,8 +831,8 @@ graph TB
 
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines and standards
 - **[Climate Science README](./README.md)**: Climate science domain overview
-- **[Knowledge Foundations AGENTS.md](../../foundations/AGENTS.md)**: Foundation concepts development
-- **[Applications AGENTS.md](../../applications/AGENTS.md)**: Application development guidelines
+- **Knowledge Foundations AGENTS.md `../../foundations/AGENTS.md`**: Foundation concepts development
+- **[Applications AGENTS.md](../../../../applications/AGENTS.md)**: Application development guidelines
 - **[Climate Modeling JSON](./climate_modeling.json)**: Detailed climate modeling implementation
 - **[Climate Decision Making JSON](./climate_decision_making.json)**: Decision making under uncertainty
 

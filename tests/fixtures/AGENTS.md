@@ -123,7 +123,7 @@ def create_fixture(fixture_type: str, config: Dict[str, Any]) -> Any:
     # Validate configuration
     validate_fixture_config(config)
 
-    return fixture_factories[fixture_type](config)
+    return fixture_factoriesfixture_type `config`
 ```
 
 ### Fixture Builder Pattern

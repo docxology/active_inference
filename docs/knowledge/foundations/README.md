@@ -881,10 +881,10 @@ When contributing foundations documentation:
 ## 📚 Resources
 
 ### Foundations Documentation
-- **[Information Theory](information_theory/README.md)**: Information theory fundamentals
-- **[Bayesian Inference](bayesian_inference/README.md)**: Bayesian probability and inference
-- **[Free Energy Principle](free_energy_principle/README.md)**: Free Energy Principle formulation
-- **[Active Inference](active_inference/README.md)**: Complete Active Inference framework
+- **Information Theory `information_theory/README.md`**: Information theory fundamentals
+- **Bayesian Inference `bayesian_inference/README.md`**: Bayesian probability and inference
+- **Free Energy Principle `free_energy_principle/README.md`**: Free Energy Principle formulation
+- **Active Inference `active_inference/README.md`**: Complete Active Inference framework
 
 ### Educational References
 - **[Information Theory Textbooks](https://information-theory.org)**: Classic information theory references
@@ -894,7 +894,7 @@ When contributing foundations documentation:
 
 ## 📄 License
 
-This foundations documentation is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This foundations documentation is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

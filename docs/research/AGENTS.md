@@ -650,8 +650,8 @@ Study these related components for integration patterns:
 
 - **[Research Tools](../../research/tools/)**: Research tool development patterns
 - **[Analysis Methods](../../research/analysis/)**: Statistical analysis documentation
-- **[Knowledge Base](../../../knowledge/)**: Educational content patterns
-- **[Platform Integration](../../../platform/)**: Platform documentation integration
+- **[Knowledge Base](../../knowledge)**: Educational content patterns
+- **[Platform Integration](../../platform)**: Platform documentation integration
 
 ## 🎯 Success Metrics
 

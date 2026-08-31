@@ -91,7 +91,7 @@ def create_visualization_documentation(visualization_type: str, config: Dict[str
     validate_visualization_config(config)
 
     # Create comprehensive documentation
-    documentation = documentation_factories[visualization_type](config)
+    documentation = documentation_factoriesvisualization_type `config`
 
     # Validate documentation completeness
     validate_documentation_completeness(documentation)
@@ -737,7 +737,7 @@ def debug_educational_effectiveness(documentation_path: str) -> Dict[str, Any]:
 
 ### Visualization Documentation Resources
 
-- **[Visualization AGENTS.md](../../visualization/AGENTS.md)**: Visualization development guidelines
+- **Visualization AGENTS.md `../../visualization/AGENTS.md`**: Visualization development guidelines
 - **[Data Visualization Best Practices](https://example.com)**: Visualization design principles
 - **[Educational Visualization](https://example.com)**: Educational visualization techniques
 - **[Interactive Design](https://example.com)**: Interactive user interface design
@@ -753,10 +753,10 @@ def debug_educational_effectiveness(documentation_path: str) -> Dict[str, Any]:
 
 Study these related components for integration patterns:
 
-- **[Animation Systems](../../visualization/animations/)**: Animation implementation patterns
-- **[Interactive Dashboards](../../visualization/dashboards/)**: Dashboard development patterns
-- **[Diagramming System](../../visualization/diagrams/)**: Diagram generation patterns
-- **[Educational Content](../../../knowledge/)**: Educational content integration
+- **Animation Systems `../../visualization/animations/`**: Animation implementation patterns
+- **Interactive Dashboards `../../visualization/dashboards/`**: Dashboard development patterns
+- **Diagramming System `../../visualization/diagrams/`**: Diagram generation patterns
+- **[Educational Content](../../knowledge)**: Educational content integration
 
 ## 🎯 Success Metrics
 

@@ -679,8 +679,8 @@ class ConfigDebugger:
 ### Platform Integration
 
 - **[Platform Architecture](../../platform/README.md)**: Platform structure
-- **[Service Patterns](../../../src/active_inference/README.md)**: Integration patterns
-- **[Quality Standards](../../../.cursorrules)**: Development standards
+- **[Service Patterns](../../README.md)**: Integration patterns
+- **[Quality Standards](../../../../.cursorrules)**: Development standards
 
 ## 🎯 Success Metrics
 

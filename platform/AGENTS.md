@@ -686,10 +686,10 @@ class SearchEngine:
 
 - **[Platform README](./README.md)**: Platform infrastructure overview
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
-- **[Knowledge Repository](../../knowledge/)**: Knowledge management
-- **[Search Tools](../../platform/search/)**: Search implementation
-- **[Deployment Tools](../../platform/deployment/)**: Deployment infrastructure
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes
+- **[Knowledge Repository](../knowledge)**: Knowledge management
+- **[Search Tools](search)**: Search implementation
+- **[Deployment Tools](deployment)**: Deployment infrastructure
 
 ---
 

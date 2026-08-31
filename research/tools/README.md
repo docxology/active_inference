@@ -620,8 +620,8 @@ When contributing to the research tools framework:
 - **[Research Framework](../../research/README.md)**: Overview of research tools and methods
 - **[Experiment Framework](../../research/experiments/README.md)**: Experimental design and execution tools
 - **[Analysis Framework](../../research/analysis/README.md)**: Statistical analysis and validation tools
-- **[Platform Tools](../../../../tools/README.md)**: General development and utility tools
-- **[Testing Framework](../../../../tests/README.md)**: Comprehensive testing and validation framework
+- **[Platform Tools](../../tools/README.md)**: General development and utility tools
+- **[Testing Framework](../../tests/README.md)**: Comprehensive testing and validation framework
 
 ---
 

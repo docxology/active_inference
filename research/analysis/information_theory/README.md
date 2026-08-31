@@ -475,10 +475,10 @@ When contributing to information theory documentation:
 ## Related Documentation
 
 - **[Analysis Framework](../../analysis/README.md)**: Overview of analysis tools and methods
-- **[Entropy Analysis](../entropy/README.md)**: Specialized entropy estimation methods
-- **[Divergence Measures](../divergence_measures/README.md)**: Information divergence analysis
-- **[Mutual Information](../mutual_information/README.md)**: Mutual information analysis tools
-- **[Complexity Analysis](../complexity/README.md)**: Statistical complexity measures
+- **Entropy Analysis `../entropy/README.md`**: Specialized entropy estimation methods
+- **Divergence Measures `../divergence_measures/README.md`**: Information divergence analysis
+- **Mutual Information `../mutual_information/README.md`**: Mutual information analysis tools
+- **Complexity Analysis `../complexity/README.md`**: Statistical complexity measures
 - **[Research Analysis Documentation](../../../docs/research/analysis/README.md)**: Analysis framework documentation
 
 ---

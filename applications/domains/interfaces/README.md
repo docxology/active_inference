@@ -597,9 +597,9 @@ When contributing domain interfaces:
 ## 📚 Resources
 
 ### Interface Documentation
-- **[API Interfaces](api_interfaces/README.md)**: API integration interfaces
-- **[Data Interfaces](data_interfaces/README.md)**: Data exchange interfaces
-- **[Protocol Interfaces](protocol_interfaces/README.md)**: Communication protocols
+- **API Interfaces `api_interfaces/README.md`**: API integration interfaces
+- **Data Interfaces `data_interfaces/README.md`**: Data exchange interfaces
+- **Protocol Interfaces `protocol_interfaces/README.md`**: Communication protocols
 
 ### Integration References
 - **[Integration Patterns](../../../applications/integrations/README.md)**: Integration best practices
@@ -608,7 +608,7 @@ When contributing domain interfaces:
 
 ## 📄 License
 
-This domain interfaces collection is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This domain interfaces collection is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

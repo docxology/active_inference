@@ -370,7 +370,7 @@ print("Quality distribution:", quality_metrics['quality_distribution'])
 - **[LLM AGENTS.md](../AGENTS.md)**: LLM development guidelines
 - **[Conversations AGENTS.md](./AGENTS.md)**: Conversation management guidelines
 - **[Platform Integration](../../platform/README.md)**: Platform integration guidelines
-- **[Quality Standards](../../applications/best_practices/)**: Quality standards and validation
+- **[Quality Standards](../../../../applications/best_practices)**: Quality standards and validation
 
 ---
 

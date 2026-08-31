@@ -812,10 +812,10 @@ def debug_code_examples(documentation_path: str) -> Dict[str, Any]:
 
 Study these related components for integration patterns:
 
-- **[Research Tools](../../research/tools/)**: Research tool development patterns
-- **[Statistical Methods](../../research/analysis/statistical/)**: Statistical analysis implementations
-- **[Information Theory Methods](../../research/analysis/information_theory/)**: Information theory tools
-- **[Validation Framework](../../research/analysis/validation/)**: Model validation systems
+- **[Research Tools](../../../research/tools)**: Research tool development patterns
+- **Statistical Methods `../../research/analysis/statistical/`**: Statistical analysis implementations
+- **[Information Theory Methods](../../../research/analysis/information_theory)**: Information theory tools
+- **Validation Framework `../../research/analysis/validation/`**: Model validation systems
 
 ## 🎯 Success Metrics
 

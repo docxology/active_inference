@@ -577,11 +577,11 @@ When contributing to search documentation:
 
 ## Related Documentation
 
-- **[Platform Services](../../../platform/README.md)**: Overview of platform infrastructure
-- **[Knowledge Graph](../../../platform/knowledge_graph/README.md)**: Knowledge organization system
-- **[Collaboration Hub](../../../platform/collaboration/README.md)**: Community and collaboration features
-- **[Search Analytics](../../../platform/search/analytics/)**: Search performance and analytics
-- **[Platform Integration](../../../platform/)**: Platform-wide service integration
+- **[Platform Services](../README.md)**: Overview of platform infrastructure
+- **[Knowledge Graph](../knowledge_graph/README.md)**: Knowledge organization system
+- **[Collaboration Hub](../collaboration/README.md)**: Community and collaboration features
+- **Search Analytics `../../../platform/search/analytics/`**: Search performance and analytics
+- **[Platform Integration](..)**: Platform-wide service integration
 
 ---
 

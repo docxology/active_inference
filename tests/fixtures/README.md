@@ -306,7 +306,7 @@ class FixtureManager:
         }
 
         if component in component_configs:
-            return component_configs[component](config)
+            return component_configscomponent `config`
         else:
             return self.create_generic_fixtures(component, config)
 
@@ -658,7 +658,7 @@ When contributing fixtures:
 
 ## 📄 License
 
-This test fixtures collection is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This test fixtures collection is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

@@ -289,7 +289,7 @@ src/tests/
 
 ### Development Standards
 
-This package follows all standards defined in [.cursorrules](../../.cursorrules):
+This package follows all standards defined in [.cursorrules](../.cursorrules):
 
 - **Test-Driven Development**: All features must have tests first
 - **Type Safety**: Complete type annotations required
@@ -372,7 +372,7 @@ platform = ActiveInferencePlatform(debug_config)
 
 ### Development Guidelines
 
-See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [.cursorrules](../../../.cursorrules) for comprehensive development standards.
+See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [.cursorrules](../.cursorrules) for comprehensive development standards.
 
 ### Contribution Process
 
@@ -398,16 +398,16 @@ See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [.curso
 ### Documentation
 - **[Main README](../../../README.md)**: Project overview
 - **[AGENTS.md](AGENTS.md)**: Agent development guidelines
-- **[.cursorrules](../../../.cursorrules)**: Complete development standards
+- **[.cursorrules](../.cursorrules)**: Complete development standards
 
 ### Related Components
-- **[Knowledge Package](../active_inference/knowledge/README.md)**: Knowledge management
-- **[Research Package](../active_inference/research/README.md)**: Research tools
-- **[Platform Package](../active_inference/platform/README.md)**: Platform services
+- **Knowledge Package `../active_inference/knowledge/README.md`**: Knowledge management
+- **Research Package `../active_inference/research/README.md`**: Research tools
+- **Platform Package `../active_inference/platform/README.md`**: Platform services
 
 ## 📄 License
 
-This package is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This package is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

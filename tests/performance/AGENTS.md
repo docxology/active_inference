@@ -90,7 +90,7 @@ def create_performance_test(test_type: str, config: Dict[str, Any]) -> Performan
     validate_performance_context(config)
 
     # Create test with performance validation
-    test = performance_tests[test_type](config)
+    test = performance_teststest_type `config`
 
     # Validate test functionality
     validate_test_functionality(test)
@@ -829,7 +829,7 @@ def sanitize_performance_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
 - **[Load Testing](../../README.md)**: Load testing methodologies
 - **[Benchmarking](../../README.md)**: Performance benchmarking approaches
 - **[Scalability Testing](../../README.md)**: Scalability analysis techniques
-- **[.cursorrules](../../../.cursorrules)**: Development standards
+- **[.cursorrules](../../.cursorrules)**: Development standards
 
 ### Performance Testing References
 

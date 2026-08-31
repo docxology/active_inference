@@ -608,17 +608,17 @@ When contributing development tools:
 
 ### Tool Documentation
 - **[Documentation Tools](documentation/README.md)**: Documentation generation tools
-- **[Orchestration Tools](orchestrators/README.md)**: Workflow orchestration components
-- **[Testing Tools](testing/README.md)**: Advanced testing frameworks
+- **Orchestration Tools `orchestrators/README.md`**: Workflow orchestration components
+- **Testing Tools `testing/README.md`**: Advanced testing frameworks
 
 ### Development References
-- **[Development Tools Best Practices](../../tools/README.md)**: Tool development guidelines
-- **[Automation Patterns](../../tools/orchestrators/README.md)**: Orchestration patterns
-- **[Testing Methodologies](../../tools/testing/README.md)**: Testing frameworks
+- **[Development Tools Best Practices](README.md)**: Tool development guidelines
+- **Automation Patterns `../../tools/orchestrators/README.md`**: Orchestration patterns
+- **Testing Methodologies `../../tools/testing/README.md`**: Testing frameworks
 
 ## 📄 License
 
-This development tools collection is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This development tools collection is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

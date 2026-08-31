@@ -446,7 +446,7 @@ When contributing to the template system:
 - **[Development Tools](../../tools/README.md)**: Overview of development tools and utilities
 - **[Documentation Tools](../../tools/documentation/README.md)**: Documentation generation and management
 - **[Quality Assurance](../../applications/best_practices/)**: Quality standards and best practices
-- **[Development Standards](../../../.cursorrules)**: Complete development standards and patterns
+- **[Development Standards](../../.cursorrules)**: Complete development standards and patterns
 - **[Template System AGENTS.md](AGENTS.md)**: Template development guidelines
 
 ---

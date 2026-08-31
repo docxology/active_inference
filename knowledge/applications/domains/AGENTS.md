@@ -92,7 +92,7 @@ def create_domain_implementation(domain: str, implementation_config: Dict[str, A
     validate_domain_config(domain, implementation_config)
 
     # Create implementation with domain expertise
-    implementation = domain_factories[domain](implementation_config)
+    implementation = domain_factoriesdomain `implementation_config`
 
     # Validate domain compliance
     validate_domain_compliance(implementation, domain)
@@ -115,7 +115,7 @@ def validate_domain_config(domain: str, config: Dict[str, Any]) -> None:
     }
 
     if domain in domain_validators:
-        domain_validators[domain](config)
+        domain_validatorsdomain `config`
     else:
         # Generic validation
         validate_generic_config(config)
@@ -658,7 +658,7 @@ def debug_domain_implementation(implementation: Any, domain: str) -> DebugResult
     }
 
     if domain in domain_debugs:
-        return domain_debugs[domain](implementation)
+        return domain_debugsdomain `implementation`
     else:
         return debug_generic_implementation(implementation)
 

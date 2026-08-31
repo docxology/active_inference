@@ -91,7 +91,7 @@ def create_experiment(experiment_type: str, config: Dict[str, Any]) -> BaseExper
     validate_experiment_config(config)
 
     # Create experiment with comprehensive setup
-    experiment = experiment_factories[experiment_type](config)
+    experiment = experiment_factoriesexperiment_type `config`
 
     # Add validation framework
     validated_experiment = add_validation_framework(experiment)
@@ -783,9 +783,9 @@ def debug_statistical_validity(experiment: BaseExperiment) -> DebugResult:
 Study these related components for integration patterns:
 
 - **[Research Framework](../../)**: Research tools and scientific methods
-- **[Analysis Tools](../../analysis/)**: Statistical analysis and validation tools
-- **[Simulation Systems](../../simulations/)**: Multi-scale simulation frameworks
-- **[Data Management](../../data_management/)**: Research data handling and validation
+- **Analysis Tools `../../analysis/`**: Statistical analysis and validation tools
+- **Simulation Systems `../../simulations/`**: Multi-scale simulation frameworks
+- **Data Management `../../data_management/`**: Research data handling and validation
 
 ## 🎯 Success Metrics
 

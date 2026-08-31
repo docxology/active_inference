@@ -393,7 +393,7 @@ await platform_orchestrator.coordinate_services(
 
 ## Contributing
 
-See [AGENTS.md](AGENTS.md) for development guidelines and [.cursorrules](../../../.cursorrules) for comprehensive development standards.
+See [AGENTS.md](AGENTS.md) for development guidelines and [.cursorrules](../../../../.cursorrules) for comprehensive development standards.
 
 ### Development Process
 

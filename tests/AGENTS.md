@@ -594,8 +594,8 @@ class TestOrganizationManager:
 
 - **[Testing README](./README.md)**: Testing framework overview
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
-- **[Development Guide](../../CONTRIBUTING.md)**: Development workflows
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes
+- **[Development Guide](../CONTRIBUTING.md)**: Development workflows
 
 ---
 

@@ -202,7 +202,7 @@ We welcome contributions to the analysis tools module! See [CONTRIBUTING.md](../
 - **[Main README](../../README.md)**: Project overview and getting started
 - **[Knowledge Repository](../../knowledge/)**: Theoretical foundations
 - **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
-- **[Statistical Methods](../../research/analysis/statistical/)**: Statistical analysis methods
+- **Statistical Methods `../../research/analysis/statistical/`**: Statistical analysis methods
 
 ## Analysis Pipeline
 

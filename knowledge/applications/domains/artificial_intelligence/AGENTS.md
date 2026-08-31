@@ -689,7 +689,7 @@ graph TB
 ### 🔝 **Core Platform Documentation**
 - **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines and standards
 - **[Main README.md](../../../README.md)**: Active Inference Knowledge Environment overview
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes and guidelines
+- **[Contributing Guide](../../../../CONTRIBUTING.md)**: Contribution processes and guidelines
 
 ### 🤖 **AI Domain Documentation**
 - **[AI Domain README](./README.md)**: Artificial intelligence domain overview and applications
@@ -697,21 +697,21 @@ graph TB
 - **[AI Safety JSON](./ai_safety.json)**: AI safety mechanisms and implementation details
 
 ### 📚 **Knowledge Foundations**
-- **[Knowledge Base AGENTS.md](../../../knowledge/AGENTS.md)**: Educational content development guidelines
-- **[Foundations AGENTS.md](../../../knowledge/foundations/AGENTS.md)**: Foundation concepts development guide
-- **[Mathematics AGENTS.md](../../../knowledge/mathematics/AGENTS.md)**: Mathematical formulations and derivations
-- **[Implementations AGENTS.md](../../../knowledge/implementations/AGENTS.md)**: Code examples and tutorials
+- **[Knowledge Base AGENTS.md](../../../AGENTS.md)**: Educational content development guidelines
+- **[Foundations AGENTS.md](../../../foundations/AGENTS.md)**: Foundation concepts development guide
+- **[Mathematics AGENTS.md](../../../mathematics/AGENTS.md)**: Mathematical formulations and derivations
+- **[Implementations AGENTS.md](../../../implementations/AGENTS.md)**: Code examples and tutorials
 
 ### 🌍 **Domain Applications**
 - **[Applications AGENTS.md](../../../applications/AGENTS.md)**: Application development guidelines
 - **[Climate Science AGENTS.md](../climate_science/AGENTS.md)**: Climate modeling and decision making
 - **[Neuroscience AGENTS.md](../neuroscience/AGENTS.md)**: Brain imaging and neural analysis
-- **[Robotics AGENTS.md](../robotics/AGENTS.md)**: Control systems and autonomous technologies
+- **Robotics AGENTS.md `../robotics/AGENTS.md`**: Control systems and autonomous technologies
 
 ### 🔧 **Development Tools Integration**
-- **[Tools AGENTS.md](../../../tools/AGENTS.md)**: Development tools and automation
-- **[Testing Framework AGENTS.md](../../../tests/AGENTS.md)**: Testing and validation guidelines
-- **[Platform Services AGENTS.md](../../../platform/AGENTS.md)**: Platform infrastructure development
+- **[Tools AGENTS.md](../../../../tools/AGENTS.md)**: Development tools and automation
+- **[Testing Framework AGENTS.md](../../../../tests/AGENTS.md)**: Testing and validation guidelines
+- **[Platform Services AGENTS.md](../../../../platform/AGENTS.md)**: Platform infrastructure development
 
 ### 📖 **Navigation Breadcrumb**
 ```
@@ -719,10 +719,10 @@ graph TB
 ```
 
 ### 🔗 **Quick Links**
-- **[Active Inference Foundations](../../../knowledge/foundations/)** - Core theoretical concepts
-- **[Mathematical Framework](../../../knowledge/mathematics/)** - Rigorous mathematical treatment
-- **[Implementation Examples](../../../knowledge/implementations/)** - Code examples and algorithms
-- **[Research Methods](../../../research/)** - Scientific tools and validation methods
+- **[Active Inference Foundations](../../../foundations)** - Core theoretical concepts
+- **[Mathematical Framework](../../../mathematics)** - Rigorous mathematical treatment
+- **[Implementation Examples](../../../implementations)** - Code examples and algorithms
+- **[Research Methods](../../../../research)** - Scientific tools and validation methods
 
 ---
 

@@ -636,8 +636,8 @@ class PerformanceProfiler:
 ### Platform Integration
 
 - **[Platform Services](../../platform/README.md)**: Platform architecture
-- **[Knowledge Integration](../../../knowledge/README.md)**: Knowledge platform
-- **[User Management](../../../src/active_inference/platform/README.md)**: Authentication
+- **[Knowledge Integration](../../knowledge/README.md)**: Knowledge platform
+- **[User Management](../../src/active_inference/platform/README.md)**: Authentication
 
 ## 🎯 Success Metrics
 

@@ -731,8 +731,8 @@ class ConversationPrivacyManager:
 - **[LLM AGENTS.md](../AGENTS.md)**: LLM development guidelines
 - **[Conversations README](./README.md)**: Conversation data management documentation
 - **[Platform Integration](../../platform/README.md)**: Platform integration guidelines
-- **[Privacy Standards](../../applications/best_practices/)**: Privacy and ethical standards
-- **[Quality Standards](../../applications/best_practices/)**: Quality standards and validation
+- **[Privacy Standards](../../../../applications/best_practices)**: Privacy and ethical standards
+- **[Quality Standards](../../../../applications/best_practices)**: Quality standards and validation
 
 ---
 

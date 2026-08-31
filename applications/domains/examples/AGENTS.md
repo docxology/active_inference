@@ -615,7 +615,7 @@ class ExampleDebugger:
 
 - **[Knowledge Platform](../../../knowledge/README.md)**: Knowledge architecture
 - **[Learning Paths](../../../knowledge/learning_paths.json)**: Learning progression
-- **[Visualization Systems](../../../visualization/README.md)**: Visual examples
+- **Visualization Systems `../../../visualization/README.md`**: Visual examples
 
 ## 🎯 Success Metrics
 

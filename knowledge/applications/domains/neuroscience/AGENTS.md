@@ -580,10 +580,10 @@ class PredictiveCodingAnalyzer:
 
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines and standards
 - **[Neuroscience README](./README.md)**: Neuroscience domain overview
-- **[Knowledge Foundations AGENTS.md](../../foundations/AGENTS.md)**: Foundation concepts development
-- **[Applications AGENTS.md](../../applications/AGENTS.md)**: Application development guidelines
+- **Knowledge Foundations AGENTS.md `../../foundations/AGENTS.md`**: Foundation concepts development
+- **[Applications AGENTS.md](../../../../applications/AGENTS.md)**: Application development guidelines
 - **[Brain Imaging JSON](./brain_imaging.json)**: Detailed brain imaging analysis
-- **[Platform Integration](../../platform/README.md)**: Platform integration guidelines
+- **[Platform Integration](../../../../platform/README.md)**: Platform integration guidelines
 
 ---
 

@@ -91,7 +91,7 @@ def create_research_automation_tool(automation_type: str, config: Dict[str, Any]
     validate_automation_config(config)
 
     # Create automation tool with research-specific features
-    automation_tool = automation_factories[automation_type](config)
+    automation_tool = automation_factoriesautomation_type `config`
 
     # Add research monitoring and logging
     automation_tool = add_research_monitoring(automation_tool)
@@ -781,10 +781,10 @@ def debug_research_orchestration(orchestrator: Any, debug_config: Dict[str, Any]
 Study these related components for integration patterns:
 
 - **[Research Framework](../../)**: Research methods that tools support
-- **[Experiment Framework](../../experiments/)**: Experimental workflows that tools orchestrate
-- **[Analysis Framework](../../analysis/)**: Analysis processes that tools automate
-- **[Platform Tools](../../../../tools/)**: General development tools integration
-- **[Testing Framework](../../../../tests/)**: Testing infrastructure for tools
+- **Experiment Framework `../../experiments/`**: Experimental workflows that tools orchestrate
+- **Analysis Framework `../../analysis/`**: Analysis processes that tools automate
+- **[Platform Tools](../../tools)**: General development tools integration
+- **[Testing Framework](../../tests)**: Testing infrastructure for tools
 
 ## 🎯 Success Metrics
 

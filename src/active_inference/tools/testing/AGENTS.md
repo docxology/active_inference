@@ -606,8 +606,8 @@ class TestFailureDebugger:
 ### Platform Integration
 
 - **[Platform Architecture](../../platform/README.md)**: Platform structure
-- **[Component Testing](../../../src/active_inference/README.md)**: Component patterns
-- **[Quality Standards](../../../.cursorrules)**: Development standards
+- **[Component Testing](../../README.md)**: Component patterns
+- **[Quality Standards](../../../../.cursorrules)**: Development standards
 
 ## 🎯 Success Metrics
 

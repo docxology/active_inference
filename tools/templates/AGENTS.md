@@ -91,7 +91,7 @@ def create_template(template_type: str, config: Dict[str, Any]) -> Template:
     validate_template_config(config)
 
     # Create and validate template
-    template = template_factories[template_type](config)
+    template = template_factoriestemplate_type `config`
     validate_template_functionality(template)
 
     return template
@@ -817,7 +817,7 @@ Study these related components for integration patterns:
 - **[Development Tools](../../tools/)**: Development tool integration patterns
 - **[Documentation Tools](../../tools/documentation/)**: Documentation generation integration
 - **[Quality Assurance](../../applications/best_practices/)**: Quality standards implementation
-- **[Platform Architecture](../../../platform/)**: Platform-wide template integration
+- **[Platform Architecture](../../platform)**: Platform-wide template integration
 
 ## 🎯 Success Metrics
 

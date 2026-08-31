@@ -290,42 +290,42 @@ Each learning path includes:
 ### 📖 Knowledge Content Navigation
 | Content Type | Foundations | Mathematics | Implementations | Applications |
 |--------------|-------------|-------------|-----------------|--------------|
-| **[Information Theory](foundations/)** | [Entropy](foundations/info_theory_entropy.json), [KL Divergence](foundations/kl_divergence.json), [Mutual Information](foundations/mutual_information.json) | [Mathematical Foundations](mathematics/information_theory_formulations.json) | [Computational Methods](implementations/info_theory_computation.json) | [Applications](applications/info_theory_applications.json) |
-| **[Bayesian Methods](foundations/)** | [Bayes' Rule](foundations/bayes_rule_basics.json), [Belief Updating](foundations/belief_updating.json) | [Probabilistic Models](mathematics/bayesian_inference_math.json) | [Inference Algorithms](implementations/bayesian_inference_impl.json) | [Decision Making](applications/bayesian_decision_making.json) |
-| **[Free Energy Principle](foundations/)** | [Core Concepts](foundations/free_energy_principle.json), [Biological Applications](foundations/fep_biology.json) | [Mathematical Formulation](mathematics/free_energy_mathematics.json) | [Minimization Algorithms](implementations/free_energy_minimization.json) | [Neural Implementation](applications/fep_neural_models.json) |
-| **[Active Inference](foundations/)** | [Framework Overview](foundations/active_inference_basics.json), [Generative Models](foundations/generative_models.json) | [Policy Selection](mathematics/active_inference_math.json) | [Complete Implementation](implementations/active_inference_full.json) | [Multi-Agent Systems](applications/active_inference_multiagent.json) |
+| **[Information Theory](foundations/)** | [Entropy](foundations/info_theory_entropy.json), KL Divergence `foundations/kl_divergence.json`, Mutual Information `foundations/mutual_information.json` | Mathematical Foundations `mathematics/information_theory_formulations.json` | Computational Methods `implementations/info_theory_computation.json` | Applications `applications/info_theory_applications.json` |
+| **[Bayesian Methods](foundations/)** | Bayes' Rule `foundations/bayes_rule_basics.json`, [Belief Updating](foundations/belief_updating.json) | Probabilistic Models `mathematics/bayesian_inference_math.json` | Inference Algorithms `implementations/bayesian_inference_impl.json` | Decision Making `applications/bayesian_decision_making.json` |
+| **[Free Energy Principle](foundations/)** | Core Concepts `foundations/free_energy_principle.json`, Biological Applications `foundations/fep_biology.json` | Mathematical Formulation `mathematics/free_energy_mathematics.json` | Minimization Algorithms `implementations/free_energy_minimization.json` | Neural Implementation `applications/fep_neural_models.json` |
+| **[Active Inference](foundations/)** | Framework Overview `foundations/active_inference_basics.json`, Generative Models `foundations/generative_models.json` | Policy Selection `mathematics/active_inference_math.json` | Complete Implementation `implementations/active_inference_full.json` | Multi-Agent Systems `applications/active_inference_multiagent.json` |
 
 ### 🔗 Related Components & Dependencies
 | Component | Source Code | Documentation | Tests | Tools |
 |-----------|-------------|---------------|-------|-------|
-| **[Knowledge Repository](src/active_inference/knowledge/repository.py)** | [Implementation](src/active_inference/knowledge/) | [API Docs](docs/knowledge/) | [Unit Tests](tests/unit/test_knowledge_repository.py) | [Validation](tools/knowledge_validation.py) |
-| **[Learning Paths](src/active_inference/knowledge/learning_paths.py)** | [Implementation](src/active_inference/knowledge/) | [User Guide](docs/knowledge/learning_paths.md) | [Integration Tests](tests/integration/test_learning_paths.py) | [Generation](tools/learning_path_generator.py) |
-| **[Content Parser](src/active_inference/knowledge/parser.py)** | [Implementation](src/active_inference/knowledge/) | [Format Guide](docs/knowledge/content_formats.md) | [Validation Tests](tests/unit/test_content_parser.py) | [Schema Validator](tools/json_schema_validator.py) |
-| **[Knowledge Graph](src/active_inference/platform/knowledge_graph.py)** | [Platform Service](src/active_inference/platform/) | [Graph API](docs/platform/knowledge_graph.md) | [Graph Tests](tests/integration/test_knowledge_graph.py) | [Query Tools](tools/knowledge_graph_tools.py) |
+| **[Knowledge Repository](../src/active_inference/knowledge/repository.py)** | [Implementation](../src/active_inference/knowledge) | [API Docs](../docs/knowledge) | [Unit Tests](../tests/unit/test_knowledge_repository.py) | [Validation](../tools/knowledge_validation.py) |
+| **Learning Paths `src/active_inference/knowledge/learning_paths.py`** | [Implementation](../src/active_inference/knowledge) | User Guide `docs/knowledge/learning_paths.md` | Integration Tests `tests/integration/test_learning_paths.py` | [Generation](../tools/learning_path_generator.py) |
+| **Content Parser `src/active_inference/knowledge/parser.py`** | [Implementation](../src/active_inference/knowledge) | Format Guide `docs/knowledge/content_formats.md` | Validation Tests `tests/unit/test_content_parser.py` | Schema Validator `tools/json_schema_validator.py` |
+| **[Knowledge Graph](../src/active_inference/platform/knowledge_graph.py)** | [Platform Service](../src/active_inference/platform) | Graph API `docs/platform/knowledge_graph.md` | Graph Tests `tests/integration/test_knowledge_graph.py` | Query Tools `tools/knowledge_graph_tools.py` |
 
 ### 📚 Learning Path Dependencies
 | Learning Track | Prerequisites | Next Steps | Related Research |
 |----------------|---------------|------------|------------------|
-| **[Foundations Track](learning_paths.json#foundations_complete)** | None | Mathematics Track | [Friston et al. (2010)](foundations/free_energy_principle.json) |
-| **[Mathematics Track](learning_paths.json#mathematics_complete)** | Foundations | Implementation Track | [Parr & Friston (2017)](mathematics/active_inference_math.json) |
-| **[Implementation Track](learning_paths.json#implementation_complete)** | Mathematics | Applications Track | [Friston et al. (2016)](implementations/active_inference_full.json) |
+| **[Foundations Track](learning_paths.json#foundations_complete)** | None | Mathematics Track | Friston et al. (2010) `foundations/free_energy_principle.json` |
+| **[Mathematics Track](learning_paths.json#mathematics_complete)** | Foundations | Implementation Track | Parr & Friston (2017) `mathematics/active_inference_math.json` |
+| **[Implementation Track](learning_paths.json#implementation_complete)** | Mathematics | Applications Track | Friston et al. (2016) `implementations/active_inference_full.json` |
 | **[Applications Track](learning_paths.json#applications_complete)** | Implementation | Research Tracks | [Domain-specific papers](applications/) |
 
 ### 🧪 Testing & Validation Cross-References
 | Test Type | Location | Coverage | Related Content |
 |-----------|----------|----------|-----------------|
-| **[Content Validation](tests/knowledge/test_content_validation.py)** | [Tests](tests/knowledge/) | JSON Schema, Mathematical Accuracy | [All JSON files](foundations/), [Schema](tools/json_schema.json) |
-| **[Learning Path Validation](tests/integration/test_learning_paths.py)** | [Integration Tests](tests/integration/) | Path Completeness, Prerequisites | [Learning Paths](learning_paths.json), [Content Dependencies](foundations/) |
-| **[Mathematical Validation](tests/knowledge/test_mathematical_correctness.py)** | [Knowledge Tests](tests/knowledge/) | Derivations, Proofs | [Mathematics](mathematics/), [Reference Papers](foundations/) |
-| **[API Integration Tests](tests/integration/test_knowledge_api.py)** | [Integration Tests](tests/integration/) | REST API, Graph Queries | [Platform Services](platform/), [API Docs](docs/api/) |
+| **Content Validation `tests/knowledge/test_content_validation.py`** | [Tests](../tests/knowledge) | JSON Schema, Mathematical Accuracy | [All JSON files](foundations/), Schema `tools/json_schema.json` |
+| **Learning Path Validation `tests/integration/test_learning_paths.py`** | [Integration Tests](../tests/integration) | Path Completeness, Prerequisites | [Learning Paths](learning_paths.json), [Content Dependencies](foundations/) |
+| **Mathematical Validation `tests/knowledge/test_mathematical_correctness.py`** | [Knowledge Tests](../tests/knowledge) | Derivations, Proofs | [Mathematics](mathematics/), [Reference Papers](foundations/) |
+| **API Integration Tests `tests/integration/test_knowledge_api.py`** | [Integration Tests](../tests/integration) | REST API, Graph Queries | [Platform Services](../platform), [API Docs](../docs/api) |
 
 ### 📖 Documentation Cross-References
 | Documentation Type | Location | Content | Related Files |
 |-------------------|----------|---------|---------------|
 | **[Knowledge Overview](README.md)** | [Current File](README.md) | Architecture, Usage | [All content files](foundations/), [Learning paths](learning_paths.json) |
-| **[Content Creation Guide](docs/knowledge/content_creation.md)** | [Documentation](docs/knowledge/) | Writing standards, templates | [JSON Schema](tools/json_schema.json), [Templates](applications/templates/) |
-| **[Learning Path Design](docs/knowledge/learning_path_design.md)** | [Documentation](docs/knowledge/) | Curriculum design, assessment | [Existing paths](learning_paths.json), [Content analysis](foundations/) |
-| **[Mathematical Notation](docs/knowledge/mathematical_notation.md)** | [Documentation](docs/knowledge/) | Symbol conventions, derivations | [Mathematics](mathematics/), [Reference papers](foundations/) |
+| **Content Creation Guide `docs/knowledge/content_creation.md`** | [Documentation](../docs/knowledge) | Writing standards, templates | JSON Schema `tools/json_schema.json`, [Templates](../applications/templates) |
+| **Learning Path Design `docs/knowledge/learning_path_design.md`** | [Documentation](../docs/knowledge) | Curriculum design, assessment | [Existing paths](learning_paths.json), [Content analysis](foundations/) |
+| **Mathematical Notation `docs/knowledge/mathematical_notation.md`** | [Documentation](../docs/knowledge) | Symbol conventions, derivations | [Mathematics](mathematics/), [Reference papers](foundations/) |
 
 ## Contributing
 

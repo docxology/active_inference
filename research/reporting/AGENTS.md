@@ -91,7 +91,7 @@ def create_report_generator(report_type: str, config: Dict[str, Any]) -> BaseRep
     validate_report_config(config)
 
     # Create report generator with scientific validation
-    generator = generator_factories[report_type](config)
+    generator = generator_factoriesreport_type `config`
 
     # Add scientific standards compliance
     generator = add_scientific_standards_compliance(generator)
@@ -774,10 +774,10 @@ def debug_publication_workflow(workflow: Any, debug_config: Dict[str, Any]) -> D
 Study these related components for integration patterns:
 
 - **[Research Framework](../../)**: Research tools and scientific methods
-- **[Analysis Tools](../../analysis/)**: Statistical analysis for reporting
-- **[Experiment Framework](../../experiments/)**: Experimental results for reports
-- **[Visualization Tools](../../../src/active_inference/visualization/)**: Scientific visualizations
-- **[Publication Platforms](../../../platform/)**: Platform publication integration
+- **Analysis Tools `../../analysis/`**: Statistical analysis for reporting
+- **Experiment Framework `../../experiments/`**: Experimental results for reports
+- **[Visualization Tools](../../src/active_inference/visualization)**: Scientific visualizations
+- **[Publication Platforms](../../platform)**: Platform publication integration
 
 ## 🎯 Success Metrics
 

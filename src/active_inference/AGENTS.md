@@ -274,7 +274,7 @@ def create_component(component_type: str, config: Dict[str, Any]) -> Any:
     if component_type not in component_factories:
         raise ValueError(f"Unknown component type: {component_type}")
 
-    return component_factories[component_type](config)
+    return component_factoriescomponent_type `config`
 
 def validate_component_dependencies(components: Dict[str, Any]) -> List[str]:
     """Validate that all component dependencies are satisfied"""
@@ -461,7 +461,7 @@ def create_component_with_validation(component_type: str, config: Dict[str, Any]
     validate_config_schema(config, component_type)
 
     # Create component using factory
-    component = component_factories[component_type](config)
+    component = component_factoriescomponent_type `config`
 
     # Validate component functionality
     validate_component_functionality(component)
@@ -508,12 +508,12 @@ def execute_with_error_handling(operation: Callable, *args, **kwargs) -> Any:
 ## Related Documentation
 
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Applications AGENTS.md](../applications/AGENTS.md)**: Application development guidelines
-- **[Knowledge AGENTS.md](../knowledge/AGENTS.md)**: Knowledge management guidelines
-- **[Research AGENTS.md](../research/AGENTS.md)**: Research tool development guidelines
-- **[Visualization AGENTS.md](../visualization/AGENTS.md)**: Visualization system guidelines
-- **[Platform AGENTS.md](../platform/AGENTS.md)**: Platform infrastructure guidelines
-- **[Tools AGENTS.md](../tools/AGENTS.md)**: Development tools guidelines
+- **[Applications AGENTS.md](../../applications/AGENTS.md)**: Application development guidelines
+- **[Knowledge AGENTS.md](../../knowledge/AGENTS.md)**: Knowledge management guidelines
+- **[Research AGENTS.md](../../research/AGENTS.md)**: Research tool development guidelines
+- **Visualization AGENTS.md `../visualization/AGENTS.md`**: Visualization system guidelines
+- **[Platform AGENTS.md](../../platform/AGENTS.md)**: Platform infrastructure guidelines
+- **[Tools AGENTS.md](../../tools/AGENTS.md)**: Development tools guidelines
 
 ---
 

@@ -614,9 +614,9 @@ class SimulationEngine:
 
 - **[Research README](./README.md)**: Research tools module overview
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
-- **[Knowledge Repository](../../knowledge/)**: Theoretical foundations
-- **[Analysis Tools](../../research/analysis/)**: Analysis methodologies
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes
+- **[Knowledge Repository](../knowledge)**: Theoretical foundations
+- **[Analysis Tools](analysis)**: Analysis methodologies
 
 ---
 

@@ -384,8 +384,8 @@ See [AGENTS.md](AGENTS.md) for development guidelines and [.cursorrules](../../.
 
 ### Development Resources
 
-- **[Example Template](template.py)**: Starting template for new examples
-- **[Testing Guide](../../tests/README.md)**: Testing best practices
+- **Example Template `template.py`**: Starting template for new examples
+- **[Testing Guide](../../../tests/README.md)**: Testing best practices
 - **[Documentation Standards](../../../.cursorrules)**: Documentation requirements
 
 ---

@@ -618,8 +618,8 @@ When contributing to the simulation framework:
 - **[Research Framework](../../research/README.md)**: Overview of research tools and methods
 - **[Experiment Framework](../../research/experiments/README.md)**: Experimental validation of simulations
 - **[Analysis Framework](../../research/analysis/README.md)**: Statistical analysis of simulation results
-- **[Visualization Framework](../../../src/active_inference/visualization/README.md)**: Simulation visualization and monitoring
-- **[Neural Simulations](../../research/simulations/neural/)**: Neural simulation implementations
+- **[Visualization Framework](../../src/active_inference/visualization/README.md)**: Simulation visualization and monitoring
+- **Neural Simulations `../../research/simulations/neural/`**: Neural simulation implementations
 
 ---
 

@@ -384,7 +384,7 @@ class TemplateFactory:
         self.validate_template_config(config, template_type)
 
         # Generate template
-        template_result = self.template_generators[template_type](config)
+        template_result = self.template_generatorstemplate_type `config`
 
         # Validate generated content
         self.validate_generated_template(template_result, template_type)

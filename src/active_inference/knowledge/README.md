@@ -369,7 +369,7 @@ When contributing to the knowledge module:
 - **[Repository Documentation](repository.py)**: Core repository system details
 - **[Foundations Documentation](foundations.py)**: Theoretical foundations details
 - **[Mathematics Documentation](mathematics.py)**: Mathematical formulations details
-- **[Knowledge Content](../../knowledge/)**: Educational content organization
+- **[Knowledge Content](../../../knowledge)**: Educational content organization
 
 ---
 

@@ -506,7 +506,7 @@ When contributing documentation tools:
 ### Documentation Tool References
 - **[Documentation Tools](../../tools/README.md)**: Main development tools
 - **[Template System](../templates/README.md)**: Documentation templates
-- **[Quality Standards](../../../.cursorrules)**: Documentation quality requirements
+- **[Quality Standards](../../.cursorrules)**: Documentation quality requirements
 
 ### Technical References
 - **[Documentation Generation](https://docs-generation.org)**: Documentation automation
@@ -515,7 +515,7 @@ When contributing documentation tools:
 
 ## 📄 License
 
-This documentation tools collection is part of the Active Inference Knowledge Environment and follows the same [MIT License](../../../LICENSE).
+This documentation tools collection is part of the Active Inference Knowledge Environment and follows the same MIT License `../../../LICENSE`.
 
 ---
 

@@ -391,7 +391,7 @@ python benchmarks/data_performance.py
 - **[Data AGENTS.md](./AGENTS.md)**: Data management development guidelines
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../AGENTS.md)**: Research tools module guidelines
-- **[Platform Security](../../platform/security/)**: Security and compliance tools
+- **Platform Security `../../platform/security/`**: Security and compliance tools
 - **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
 
 ## Data Management Pipeline

@@ -83,7 +83,7 @@ def create_platform_component(component_type: str, config: Dict[str, Any]) -> An
     if component_type not in component_factories:
         raise ValueError(f"Unknown component type: {component_type}")
 
-    return component_factories[component_type](config)
+    return component_factoriescomponent_type `config`
 ```
 
 #### 2. Configuration Pattern (MANDATORY)
@@ -660,7 +660,7 @@ def get_memory_usage() -> float:
 ### Package-Specific Resources
 
 - **[Main Package README](README.md)**: Package overview and usage
-- **[.cursorrules](../../../.cursorrules)**: Complete development standards
+- **[.cursorrules](../.cursorrules)**: Complete development standards
 - **[Platform AGENTS.md](../../../AGENTS.md)**: Platform-wide agent guidelines
 
 ### Technical References

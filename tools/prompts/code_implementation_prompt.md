@@ -154,7 +154,7 @@ def create_platform_component(component_type: str, config: Dict[str, Any]) -> An
     validate_component_config(component_type, config)
 
     # Create component instance
-    component = component_factories[component_type](config)
+    component = component_factoriescomponent_type `config`
 
     # Post-creation validation
     validate_component_functionality(component)
