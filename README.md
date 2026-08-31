@@ -61,7 +61,7 @@ The Active Inference Knowledge Environment is the most comprehensive, accessible
 - **Educational Animations**: Step-by-step process demonstrations
 - **3D Visualizations**: Immersive 3D model exploration
 
-👁️ **Visualization Documentation `visualization/README.md`** | 🤖 **Visualization AGENTS.md `visualization/AGENTS.md`**
+👁️ **Visualization Documentation `research/visualization/README.md`** | 🤖 **Visualization AGENTS.md `research/visualization/AGENTS.md`**
 
 #### 🛠️ Applications Framework (`applications/`, `src/active_inference/applications/`)
 **Practical Implementation & Deployment**
@@ -377,194 +377,33 @@ flowchart TD
 
 ```
 active_inference/
-├── 📖 knowledge/                     # Educational content & learning paths
-│   ├── 🏗️ foundations/               # Core theoretical concepts
-│   │   ├── 📖 README.md              # Foundations overview & navigation
-│   │   └── 🤖 AGENTS.md              # Agent guidelines for foundations
-│   ├── 📐 mathematics/               # Mathematical formulations & derivations
-│   │   ├── 📖 README.md              # Mathematics overview & navigation
-│   │   └── 🤖 AGENTS.md              # Agent guidelines for mathematics
-│   ├── 💻 implementations/           # Code examples & tutorials
-│   │   ├── 📖 README.md              # Implementations overview & navigation
-│   │   └── 🤖 AGENTS.md              # Agent guidelines for implementations
-│   ├── 🌍 applications/              # Real-world use cases & domain content
-│   │   ├── 📖 README.md              # Applications overview & navigation
-│   │   └── 🤖 AGENTS.md              # Agent guidelines for applications
-│   ├── 🎯 learning_paths.json        # Structured learning tracks
-│   ├── 📖 README.md                  # Knowledge system overview
-│   └── 🤖 AGENTS.md                  # Knowledge agent guidelines
-│
-├── 🔬 research/                      # Research tools & scientific methods
-│   ├── 🧪 experiments/               # Reproducible research pipelines
-│   │   ├── 📖 README.md              # Experiments overview
-│   │   └── 🤖 AGENTS.md              # Experiments agent guidelines
-│   ├── 🧮 simulations/               # Multi-scale modeling & simulation
-│   │   ├── 📖 README.md              # Simulations overview
-│   │   └── 🤖 AGENTS.md              # Simulations agent guidelines
-│   ├── 📊 analysis/                  # Statistical & information-theoretic analysis
-│   │   ├── 📖 README.md              # Analysis overview
-│   │   └── 🤖 AGENTS.md              # Analysis agent guidelines
-│   ├── 🏆 benchmarks/                # Performance evaluation & comparison
-│   │   ├── 📖 README.md              # Benchmarks overview
-│   │   └── 🤖 AGENTS.md              # Benchmarks agent guidelines
-│   ├── 📖 README.md                  # Research framework overview
-│   └── 🤖 AGENTS.md                  # Research agent guidelines
-│
-├── 👁️ visualization/                # Interactive exploration & visualization
-│   ├── 📈 diagrams/                  # Concept diagrams & visual explanations
-│   ├── 📋 dashboards/                # Interactive exploration interfaces
-│   ├── 🎬 animations/                # Educational animations & demonstrations
-│   ├── ⚖️ comparative/               # Model comparison & analysis tools
-│   ├── 📖 README.md                  # Visualization system overview
-│   └── 🤖 AGENTS.md                  # Visualization agent guidelines
-│
-├── 🛠️ applications/                 # Practical applications & implementations
-│   ├── 📋 templates/                 # Ready-to-use implementation templates
-│   │   ├── 📖 README.md              # Templates overview
-│   │   └── 🤖 AGENTS.md              # Templates agent guidelines
-│   ├── 📚 case_studies/              # Real-world application examples
-│   │   ├── 📖 README.md              # Case studies overview
-│   │   └── 🤖 AGENTS.md              # Case studies agent guidelines
-│   ├── 🔗 integrations/              # External system connectors & APIs
-│   │   ├── 📖 README.md              # Integrations overview
-│   │   └── 🤖 AGENTS.md              # Integrations agent guidelines
-│   ├── 📖 best_practices/            # Architectural guidelines & patterns
-│   │   ├── 📖 README.md              # Best practices overview
-│   │   └── 🤖 AGENTS.md              # Best practices agent guidelines
-│   ├── 🌍 domains/                   # Domain-specific applications
-│   │   ├── 🤖 artificial_intelligence
-│   │   │   ├── 📖 README.md          # AI applications overview
-│   │   │   └── 🤖 AGENTS.md          # AI applications agent guidelines
-│   │   ├── 🎓 education
-│   │   │   ├── 📖 README.md          # Education applications overview
-│   │   │   └── 🤖 AGENTS.md          # Education applications agent guidelines
-│   │   ├── ⚙️ engineering
-│   │   │   ├── 📖 README.md          # Engineering applications overview
-│   │   │   └── 🤖 AGENTS.md          # Engineering applications agent guidelines
-│   │   ├── 🧠 neuroscience
-│   │   │   ├── 📖 README.md          # Neuroscience applications overview
-│   │   │   └── 🤖 AGENTS.md          # Neuroscience applications agent guidelines
-│   │   ├── 🧑‍🤝‍🧑 psychology
-│   │   │   ├── 📖 README.md          # Psychology applications overview
-│   │   │   └── 🤖 AGENTS.md          # Psychology applications agent guidelines
-│   │   └── 🤖 robotics
-│   │       ├── 📖 README.md          # Robotics applications overview
-│   │       └── 🤖 AGENTS.md          # Robotics applications agent guidelines
-│   ├── 📖 README.md                  # Applications framework overview
-│   └── 🤖 AGENTS.md                  # Applications agent guidelines
-│
-├── 🖥️ platform/                     # Platform infrastructure & services
-│   ├── 🌐 serve.py                   # Main platform server
-│   ├── 🧠 knowledge_graph/           # Semantic knowledge representation
-│   │   ├── 📖 README.md              # Knowledge graph overview
-│   │   └── 🤖 AGENTS.md              # Knowledge graph agent guidelines
-│   ├── 🔍 search/                    # Intelligent search & retrieval
-│   │   ├── 📖 README.md              # Search system overview
-│   │   └── 🤖 AGENTS.md              # Search system agent guidelines
-│   ├── 🤝 collaboration/             # Multi-user collaboration features
-│   │   ├── 📖 README.md              # Collaboration features overview
-│   │   └── 🤖 AGENTS.md              # Collaboration agent guidelines
-│   ├── 🚀 deployment/                # Deployment & scaling infrastructure
-│   │   ├── 📖 README.md              # Deployment overview
-│   │   └── 🤖 AGENTS.md              # Deployment agent guidelines
-│   ├── 📖 README.md                  # Platform infrastructure overview
-│   └── 🤖 AGENTS.md                  # Platform agent guidelines
-│
-├── 🧪 tests/                         # Comprehensive testing & validation
-│   ├── 🧪 unit/                      # Unit tests for components
-│   │   ├── 📖 README.md              # Unit testing overview
-│   │   └── 🤖 AGENTS.md              # Unit testing agent guidelines
-│   ├── 🔗 integration/               # Integration tests for systems
-│   │   ├── 📖 README.md              # Integration testing overview
-│   │   └── 🤖 AGENTS.md              # Integration testing agent guidelines
-│   ├── 📚 knowledge/                 # Knowledge content validation
-│   │   ├── 📖 README.md              # Knowledge testing overview
-│   │   └── 🤖 AGENTS.md              # Knowledge testing agent guidelines
-│   ├── ⚡ performance/                # Performance tests
-│   │   ├── 📖 README.md              # Performance testing overview
-│   │   └── 🤖 AGENTS.md              # Performance testing agent guidelines
-│   ├── 🔒 security/                  # Security tests
-│   │   ├── 📖 README.md              # Security testing overview
-│   │   └── 🤖 AGENTS.md              # Security testing agent guidelines
-│   ├── 🛠️ utilities/                 # Test utilities
-│   │   ├── 📖 README.md              # Test utilities overview
-│   │   └── 🤖 AGENTS.md              # Test utilities agent guidelines
-│   ├── 🧪 fixtures/                  # Test fixtures
-│   │   ├── 📖 README.md              # Test fixtures overview
-│   │   └── 🤖 AGENTS.md              # Test fixtures agent guidelines
-│   ├── 📖 README.md                  # Testing framework overview
-│   └── 🤖 AGENTS.md                  # Testing agent guidelines
-│
-├── 🛠️ tools/                        # Development & orchestration tools
-│   ├── 📖 documentation/             # Documentation generation tools
-│   │   ├── 📖 README.md              # Documentation tools overview
-│   │   └── 🤖 AGENTS.md              # Documentation tools agent guidelines
-│   ├── 🎼 orchestrators/             # Thin orchestration components
-│   │   ├── 📖 README.md              # Orchestrators overview
-│   │   └── 🤖 AGENTS.md              # Orchestrators agent guidelines
-│   ├── 🧪 testing/                   # Testing frameworks & utilities
-│   │   ├── 📖 README.md              # Testing tools overview
-│   │   └── 🤖 AGENTS.md              # Testing tools agent guidelines
-│   ├── 🔧 utilities/                 # Helper functions & development tools
-│   │   ├── 📖 README.md              # Utilities overview
-│   │   └── 🤖 AGENTS.md              # Utilities agent guidelines
-│   ├── 📖 README.md                  # Development tools overview
-│   └── 🤖 AGENTS.md                  # Development tools agent guidelines
-│
-├── 📦 src/                          # Source code packages
-│   └── 🧠 active_inference/          # Main Python package
-│       ├── 💻 applications/          # Application framework implementations
-│       │   ├── 📖 README.md          # Applications implementation overview
-│       │   └── 🤖 AGENTS.md          # Applications implementation guidelines
-│       ├── 📚 knowledge/             # Knowledge management systems
-│       │   ├── 📖 README.md          # Knowledge systems overview
-│       │   └── 🤖 AGENTS.md          # Knowledge systems guidelines
-│       ├── 🖥️ platform/              # Platform service implementations
-│       │   ├── 📖 README.md          # Platform services overview
-│       │   └── 🤖 AGENTS.md          # Platform services guidelines
-│       ├── 🔬 research/              # Research tool implementations
-│       │   ├── 📖 README.md          # Research tools overview
-│       │   └── 🤖 AGENTS.md          # Research tools guidelines
-│       ├── 🛠️ tools/                 # Development tool implementations
-│       │   ├── 📖 README.md          # Development tools overview
-│       │   └── 🤖 AGENTS.md          # Development tools guidelines
-│       ├── 👁️ visualization/         # Visualization system implementations
-│       │   ├── 📖 README.md          # Visualization systems overview
-│       │   └── 🤖 AGENTS.md          # Visualization systems guidelines
-│       ├── 📖 README.md              # Source code overview
-│       └── 🤖 AGENTS.md              # Source code agent guidelines
-│
-└── 📖 docs/                         # Comprehensive documentation
-    ├── 🌐 _static/                   # Static documentation assets
-    ├── 📋 _templates/                # Documentation templates
-    ├── 🔌 api/                       # API reference documentation
-    │   ├── 📖 README.md              # API documentation overview
-    │   └── 🤖 AGENTS.md              # API documentation guidelines
-    ├── 🛠️ applications/              # Applications documentation
-    │   ├── 📖 README.md              # Applications docs overview
-    │   └── 🤖 AGENTS.md              # Applications docs guidelines
-    ├── 📚 knowledge/                 # Knowledge documentation
-    │   ├── 📖 foundations/           # Foundations documentation
-    │   │   ├── 📖 README.md          # Foundations docs overview
-    │   │   └── 🤖 AGENTS.md          # Foundations docs guidelines
-    │   ├── 📖 README.md              # Knowledge docs overview
-    │   └── 🤖 AGENTS.md              # Knowledge docs guidelines
-    ├── 🖥️ platform/                  # Platform documentation
-    │   ├── 📖 README.md              # Platform docs overview
-    │   └── 🤖 AGENTS.md              # Platform docs guidelines
-    ├── 🔬 research/                  # Research documentation
-    │   ├── 📖 analysis/              # Analysis documentation
-    │   │   ├── 📖 README.md          # Analysis docs overview
-    │   │   └── 🤖 AGENTS.md          # Analysis docs guidelines
-    │   ├── 📖 README.md              # Research docs overview
-    │   └── 🤖 AGENTS.md              # Research docs guidelines
-    ├── 👁️ visualization/             # Visualization documentation
-    │   ├── 📖 README.md              # Visualization docs overview
-    │   └── 🤖 AGENTS.md              # Visualization docs guidelines
-    ├── 📖 index.rst                  # Main documentation index
-    ├── 📖 conf.py                    # Sphinx configuration
-    ├── 📖 README.md                  # Documentation overview
-    └── 🤖 AGENTS.md                  # Documentation agent guidelines
+├── knowledge/        # Educational content & learning paths
+│   ├── foundations/  │   ├── mathematics/  │   ├── implementations/
+│   ├── applications/ │   ├── metadata/     │   └── learning_paths.json
+├── research/         # Research tools & scientific methods
+│   ├── experiments/  │   ├── simulations/  │   ├── analysis/
+│   ├── benchmarks/   │   ├── data_management/ │   ├── model_development/
+│   ├── project_planning/ │   ├── reporting/ │   ├── tools/
+│   └── visualization/
+├── applications/     # Practical applications & templates
+│   ├── templates/    │   ├── case_studies/ │   ├── integrations/
+│   ├── best_practices/ │   └── domains/    # per-domain content incl. README+AGENTS
+├── platform/         # Platform infrastructure & services
+│   ├── knowledge_graph/ │   ├── search/    │   ├── collaboration/
+│   └── deployment/
+├── src/              # Python package (active_inference.*) mirroring the above
+│   ├── knowledge/    │   ├── research/    │   ├── visualization/
+│   ├── applications/ │   ├── platform/    │   ├── tools/
+│   └── llm/
+├── tools/            # Development & audit tooling (tools/documentation/, tools/templates/, tools/prompts/)
+├── tests/            # unit/ integration/ knowledge/ performance/ security/ utilities/ fixtures/
+└── docs/             # Documentation hub (Sphinx), incl. manuscript/ and DOCUMENTATION_INDEX.md
+
+NOTE (2026-08-31): this tree reflects directories that exist on disk (verified
+by `ls`). Earlier versions of this README listed a root-level `visualization/`
+and several `tools/` subdirectories that do not exist — the visualization
+implementation lives in `src/active_inference/visualization/` and its content
+in `research/visualization/`.
 ```
 
 ## 🔗 Component Navigation & Cross-References
@@ -859,7 +698,7 @@ Each major component has comprehensive documentation:
 - **[Research](research/README.md)**: Scientific tools and methodologies
 - **[Applications](applications/README.md)**: Implementation frameworks and patterns
 - **[Platform](platform/README.md)**: Infrastructure and services
-- **Visualization `visualization/README.md`**: Interactive exploration tools
+- **Visualization `research/visualization/README.md`**: Interactive exploration tools
 - **[Tests](tests/README.md)**: Quality assurance and validation
 
 ### Technical Documentation

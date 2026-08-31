@@ -50,9 +50,9 @@ As AI agents working on this project, our mission is to collaboratively build th
 - **Educational Animations**: Step-by-step process demonstrations
 - **3D Exploration**: Immersive 3D model interaction and exploration
 
-👁️ **Visualization README `visualization/README.md`** | 🤖 **Visualization AGENTS.md `visualization/AGENTS.md`**
-📈 **Diagrams `visualization/diagrams/README.md`** | 📋 **Dashboards `visualization/dashboards/README.md`**
-🎬 **Animations `visualization/animations/README.md`** | ⚖️ **Comparative `visualization/comparative/README.md`**
+👁️ **Visualization README `research/visualization/README.md`** | 🤖 **Visualization AGENTS.md `research/visualization/AGENTS.md`**
+📈 **Diagrams `research/visualization/diagrams/README.md`** | 📋 **Dashboards `research/visualization/README.md`**
+🎬 **Animations `research/visualization/animations/README.md`** | ⚖️ **Comparative `research/visualization/README.md`**
 
 #### 🛠️ Applications Framework (`applications/`, `src/active_inference/applications/`)
 **Practical Implementation & Real-World Deployment**
@@ -135,7 +135,7 @@ Every major component has comprehensive documentation:
 - **[🔬 Research Framework](research/README.md)**: Scientific tools and methods
 - **[🛠️ Applications](applications/README.md)**: Implementation and deployment
 - **[🖥️ Platform Services](platform/README.md)**: Infrastructure and APIs
-- **👁️ Visualization `visualization/README.md`**: Interactive exploration tools
+- **👁️ Visualization `research/visualization/README.md`**: Interactive exploration tools
 - **[🧪 Quality Assurance](tests/README.md)**: Testing and validation
 
 ### Technical Documentation

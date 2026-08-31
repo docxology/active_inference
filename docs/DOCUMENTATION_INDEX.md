@@ -12,21 +12,21 @@ This index provides quick access to all documentation resources in the Active In
 
 ### New Users
 1. **[Quick Start Guide](QUICK_START.md)** - 5-minute setup and first steps
-2. **[Main README](../../README.md)** - Project overview and architecture
+2. **[Main README](../README.md)** - Project overview and architecture
 3. **[Contributing Guide](../CONTRIBUTING.md)** - How to contribute
 
 ### Developers
 1. **[Quick Start Guide](QUICK_START.md)** - Development setup
 2. **[Troubleshooting Guide](TROUBLESHOOTING.md)** - Common issues and solutions
-3. **[AGENTS.md](../../AGENTS.md)** - Master agent guidelines
+3. **[AGENTS.md](../AGENTS.md)** - Master agent guidelines
 
 ---
 
 ## 📖 Core Documentation
 
 ### Main Documentation
-- **[README.md](../../README.md)** - Main project documentation
-- **[AGENTS.md](../../AGENTS.md)** - Master agent development guide
+- **[README.md](../README.md)** - Main project documentation
+- **[AGENTS.md](../AGENTS.md)** - Master agent development guide
 - **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Contribution guidelines
 
 ### Documentation Enhancement Guides
@@ -177,8 +177,8 @@ This index provides quick access to all documentation resources in the Active In
 ### By Topic
 - **Installation**: [Quick Start](QUICK_START.md#installation), [Troubleshooting](TROUBLESHOOTING.md#installation-and-setup-issues)
 无法运行时**: [Quick Start](QUICK_START.md#troubleshooting), [Troubleshooting Guide](TROUBLESHOOTING.md)
-- **Architecture**: [Main README](../../README.md#architecture-overview), Component README files
-- **Development**: [Contributing](../CONTRIBUTING.md), [AGENTS.md](../../AGENTS.md)
+- **Architecture**: [Main README](../README.md#architecture-overview), Component README files
+- **Development**: [Contributing](../CONTRIBUTING.md), [AGENTS.md](../AGENTS.md)
 - **Testing**: [Testing README](../tests/README.md)
 - **Deployment**: [Platform Deployment](../platform/deployment)
 
@@ -186,7 +186,7 @@ This index provides quick access to all documentation resources in the Active In
 - **Researchers**: [Research Tools](../research/README.md), [Experiments](../research/experiments)
 - **Educators**: SS1
 [Knowledge Base](../knowledge/README.md), [Learning Paths](../knowledge/learning_paths.json)
-- **Developers**: [Quick Start](QUICK_START.md), [AGENTS.md](../../AGENTS.md)
+- **Developers**: [Quick Start](QUICK_START.md), [AGENTS.md](../AGENTS.md)
 - **Contributors**: [Contributing](../CONTRIBUTING.md)
 
 ---
@@ -209,11 +209,11 @@ This index provides quick access to all documentation resources in the Active In
 ## 🎯 Quick Links
 
 ### Most Used Documents
-1. [Main README](../../README.md) - Project overview
+1. [Main README](../README.md) - Project overview
 2. [Quick Start](QUICK_START.md) - Getting started fast
 3. [Troubleshooting](TROUBLESHOOTING.md) - Problem solving
 4. [Contributing](../CONTRIBUTING.md) - How to contribute
-5. [AGENTS.md](../../AGENTS.md) - Development guidelines
+5. [AGENTS.md](../AGENTS.md) - Development guidelines
 
 ### Support Resources
 - **GitHub Issues**: Report bugs and request features
