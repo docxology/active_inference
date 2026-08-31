@@ -421,11 +421,10 @@ git push origin feature/your-feature-name
 ```
 
 ### Branch Strategy
-- **main**: Production-ready code and documentation
-- **develop**: Integration branch for features
-- **feature/**: Feature development branches
-- **hotfix/**: Urgent bug fixes
-- **docs/**: Documentation improvements
+Trunk-based: **main** is the only long-lived branch (verified 2026-08-31: the
+remote has no `develop`). Work directly on `main` or short-lived
+`feature/*`/`docs/*` branches merged back quickly; no PR-gated release train
+is in place for this repo.
 
 ## 🎓 Agent Learning & Development
 
