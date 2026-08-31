@@ -20,8 +20,13 @@ backlog); do not duplicate it here.*
   `import pytest` alone takes ~47s and full collection can exceed 5 minutes —
   do not assume a hang. The `venv/` directory is a dangling symlink to a
   miniforge interpreter that no longer exists; use `.venv/`.
-- **Known documentation debt:** 91 broken relative links across the main doc
-  surface (measured 2026-08-31); tracked in TODO.md.
+- **Executable status:** run `python3 tools/repo_status.py` for current facts
+  (branch, sync state, dirty count, component presence) instead of trusting any
+  prose table. Add `--tests` for a pytest collection count (slow on external
+  drives).
+- **Documentation debt (updated 2026-08-31, Round 2):** the 91 broken links
+  measured in Round 1 were repaired repo-wide (157 files; 0 broken links remain
+  across all 332 tracked .md files, verified by re-running the checker).
 
 ---
 
