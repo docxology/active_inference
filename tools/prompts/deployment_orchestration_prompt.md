@@ -17,6 +17,8 @@ You are tasked with developing comprehensive deployment orchestration and scalin
 6. **Monitoring Integration**: Comprehensive monitoring and alerting for deployed services
 
 ### Deployment Architecture Components
+The target structure for the work this prompt describes is:
+
 ```
 deployment/
 ├── orchestrator/

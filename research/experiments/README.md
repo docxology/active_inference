@@ -20,6 +20,8 @@ This experiments framework contributes to the research mission by:
 
 ### Experiments Framework Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 research/experiments/
 ├── templates/                # Experiment design templates

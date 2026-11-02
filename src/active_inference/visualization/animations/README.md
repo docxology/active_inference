@@ -20,6 +20,8 @@ This module contributes to the platform mission by:
 
 ### Animation System Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 src/active_inference/visualization/animations/
 ├── belief_dynamics/        # Belief updating and inference animations

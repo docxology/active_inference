@@ -8,6 +8,8 @@ The Data Preprocessing Framework provides a comprehensive toolkit for transformi
 
 ## Directory Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 preprocessing/
 ├── cleaning/             # Data cleaning and quality improvement

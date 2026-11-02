@@ -21,6 +21,8 @@ This interfaces collection contributes to application interoperability by:
 
 ### Interface Categories
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 applications/domains/interfaces/
 ├── api_interfaces/              # API integration interfaces

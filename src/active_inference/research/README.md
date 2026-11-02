@@ -8,6 +8,8 @@ The research module provides comprehensive tools and frameworks for conducting A
 
 ## Module Structure
 
+The module files above are the implementation; the `[subdirectories]` entries below are intended structure:
+
 ```
 src/active_inference/research/
 ├── __init__.py          # Module initialization and research framework exports

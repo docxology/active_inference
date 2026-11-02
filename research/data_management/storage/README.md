@@ -8,6 +8,8 @@ The Data Storage Framework provides a unified interface for storing, retrieving,
 
 ## Directory Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 storage/
 ├── file_storage/         # File system-based storage solutions

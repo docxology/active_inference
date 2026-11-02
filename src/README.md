@@ -241,6 +241,8 @@ pytest src/ --cov=src/active_inference/ --cov-report=html
 
 ### Test Structure
 
+The intended test layout under `src/` is (the suites currently live in `tests/` at the repository root):
+
 ```
 src/tests/
 ├── test_core.py              # Core functionality tests

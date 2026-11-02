@@ -397,9 +397,10 @@ active_inference/
 │   ├── knowledge_graph/ │   ├── search/    │   ├── collaboration/
 │   └── deployment/
 ├── src/              # Python package (active_inference.*) mirroring the above
-│   ├── knowledge/    │   ├── research/    │   ├── visualization/
-│   ├── applications/ │   ├── platform/    │   ├── tools/
-│   └── llm/
+│   └── active_inference/
+│       ├── knowledge/    │   ├── research/    │   ├── visualization/
+│       ├── applications/ │   ├── platform/    │   ├── tools/
+│       └── llm/
 ├── tools/            # Development & audit tooling (tools/documentation/, tools/templates/, tools/prompts/)
 ├── tests/            # unit/ integration/ knowledge/ performance/ security/ utilities/ fixtures/
 └── docs/             # Documentation hub (Sphinx), incl. manuscript/ and DOCUMENTATION_INDEX.md

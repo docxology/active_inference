@@ -15,7 +15,7 @@ research/
 ├── analysis/             # Statistical and information-theoretic analysis
 ├── benchmarks/           # Performance benchmarking and evaluation
 ├── tools/                # Research-specific utilities
-└── collaboration/        # Collaborative research features
+└── collaboration/        # Collaborative research features (not present in this repository)
 ```
 
 ## Research Architecture Diagrams

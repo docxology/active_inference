@@ -141,6 +141,8 @@ class DomainIntegrationTest:
 ## Testing Guidelines
 
 ### Test Organization
+This is the intended test layout; the directories below are not created yet.
+
 ```
 applications/domains/tests/
 ├── unit/                 # Unit tests for domain components

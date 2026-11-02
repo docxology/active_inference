@@ -14,7 +14,7 @@ visualization/
 ├── interactive/              # Interactive visualization tools
 ├── dynamic/                  # Animation and dynamic visualizations
 ├── diagrams/                 # Diagrams and conceptual graphics
-└── specialized/              # Domain-specific visualizations
+└── specialized/              # Domain-specific visualizations (not present in this repository)
 ```
 
 ## Core Components

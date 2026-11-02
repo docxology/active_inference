@@ -15,7 +15,7 @@ model_development/
 ├── optimization/             # Parameter and algorithm optimization
 ├── validation/               # Model validation and testing
 ├── versioning/               # Model versioning and management
-└── templates/                 # Model development templates
+└── templates/                 # Model development templates (not present in this repository)
 ```
 
 ## Core Components

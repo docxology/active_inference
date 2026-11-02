@@ -8,6 +8,8 @@ The Integrations module provides robust, well-tested connectors for external sys
 
 ## Directory Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 integrations/
 ├── apis/                  # REST API connectors and clients
