@@ -21,8 +21,8 @@ This tools collection contributes to development efficiency by:
 
 ### Tool Categories
 
-```
-tools/
+```text
+src/active_inference/tools/
 ├── documentation/        # Documentation generation and management tools
 ├── orchestrators/        # Thin orchestration components for workflows
 ├── testing/             # Testing frameworks and validation utilities
