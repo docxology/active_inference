@@ -19,6 +19,8 @@ This documentation contributes to the platform mission by:
 
 ### Analysis Documentation Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 docs/research/analysis/
 ├── information_theory/    # Information-theoretic analysis methods

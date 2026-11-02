@@ -15,7 +15,7 @@ platform/
 ├── search/               # Intelligent search and retrieval
 ├── collaboration/        # Multi-user collaboration features
 ├── deployment/           # Deployment and scaling tools
-└── infrastructure/       # Platform infrastructure components
+└── infrastructure/       # Platform infrastructure components (not present in this repository)
 ```
 
 ## Platform Architecture Diagrams

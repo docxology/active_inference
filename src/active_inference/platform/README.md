@@ -8,6 +8,8 @@ The platform module provides the infrastructure and backend services that power 
 
 ## Module Structure
 
+The module files above are the implementation; the `[subdirectories]` entries below are intended structure:
+
 ```
 src/active_inference/platform/
 ├── __init__.py                # Module initialization and service exports

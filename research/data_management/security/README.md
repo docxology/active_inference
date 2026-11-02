@@ -8,6 +8,8 @@ The Data Security Framework provides enterprise-grade security and privacy prote
 
 ## Directory Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 security/
 ├── encryption/           # Data encryption and key management

@@ -8,6 +8,8 @@ The Research Analysis module provides a complete toolkit for analyzing Active In
 
 ## Directory Structure
 
+This is the intended layout; only `information_theory/` exists so far.
+
 ```
 analysis/
 ├── statistical/          # Statistical analysis methods

@@ -20,6 +20,8 @@ This search system contributes to the platform mission by:
 
 ### Search System Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 platform/search/
 ├── engine/                   # Core search engine implementation

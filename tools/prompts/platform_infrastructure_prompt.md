@@ -17,6 +17,8 @@ You are tasked with developing comprehensive platform infrastructure and service
 6. **Observability**: Comprehensive logging, monitoring, and alerting
 
 ### Platform Architecture Components
+The target structure for the work this prompt describes is:
+
 ```
 platform/
 ├── knowledge_graph/         # Semantic knowledge representation

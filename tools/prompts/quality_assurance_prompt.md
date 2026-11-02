@@ -17,6 +17,8 @@ You are tasked with developing comprehensive quality assurance and validation sy
 6. **User Experience Validation**: Comprehensive UX testing and accessibility verification
 
 ### Quality Assurance Architecture
+The target structure for the work this prompt describes is:
+
 ```
 qa/
 ├── automated_testing/        # Automated quality gate testing

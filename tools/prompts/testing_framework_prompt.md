@@ -17,6 +17,8 @@ You are tasked with developing comprehensive testing frameworks for the Active I
 6. **Continuous Monitoring**: Ongoing test execution and result analysis
 
 ### Test Organization Structure
+The target structure for the work this prompt describes is:
+
 ```
 tests/
 ├── unit/                          # Unit tests for individual components

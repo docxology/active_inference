@@ -21,6 +21,8 @@ This documentation tools collection contributes to platform quality by:
 
 ### Tool Categories
 
+This is the intended layout; the directory currently holds `generate_knowledge_docs.py`.
+
 ```
 tools/documentation/
 ├── generator/           # Documentation generation engines

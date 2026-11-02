@@ -17,6 +17,8 @@ You are tasked with developing comprehensive Large Language Model integration an
 6. **Knowledge Integration**: Seamless integration with platform knowledge base and research tools
 
 ### LLM Integration Architecture
+The target structure for the work this prompt describes is:
+
 ```text
 src/active_inference/llm/
 ├── client.py                    # Unified LLM client interface

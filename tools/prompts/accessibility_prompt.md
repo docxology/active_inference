@@ -16,6 +16,8 @@ You are tasked with developing comprehensive accessibility and inclusive design 
 5. **Continuous Testing**: Regular accessibility audits and user testing
 
 ### Accessibility Architecture Components
+The target structure for the work this prompt describes is:
+
 ```
 accessibility/
 ├── wcag_compliance.py           # WCAG guideline implementation and validation

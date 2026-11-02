@@ -56,6 +56,8 @@ Platform Utilities
 
 ### Utility Categories
 
+The intended utility organization pattern is:
+
 ```python
 # Utility organization pattern
 utilities/

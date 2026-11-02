@@ -21,6 +21,8 @@ This foundations documentation contributes to educational excellence by:
 
 ### Documentation Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 docs/knowledge/foundations/
 ├── information_theory/      # Information theory fundamentals

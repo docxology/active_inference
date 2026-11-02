@@ -21,6 +21,8 @@ This test fixtures collection contributes to testing excellence by:
 
 ### Fixture Categories
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 tests/fixtures/
 ├── data/                    # Test data fixtures and generators
