@@ -17,8 +17,8 @@ You are tasked with developing interactive visualization systems for the Active 
 6. **Integration**: Seamless integration with platform knowledge and research systems
 
 ### Visualization Architecture Components
-```
-visualization/
+```text
+src/active_inference/visualization/
 ├── diagrams/              # Concept and system diagrams
 │   ├── concept_maps.py   # Interactive concept relationship diagrams
 │   ├── flow_charts.py    # Process and workflow visualizations

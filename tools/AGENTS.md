@@ -56,8 +56,8 @@ graph TB
 
 ## Directory Structure
 
-```
-tools/
+```text
+src/active_inference/tools/
 ├── documentation/        # Documentation generation and management tools
 ├── orchestrators/        # Thin orchestration components for workflows
 ├── testing/             # Testing frameworks and validation utilities

@@ -17,8 +17,8 @@ You are tasked with developing comprehensive Large Language Model integration an
 6. **Knowledge Integration**: Seamless integration with platform knowledge base and research tools
 
 ### LLM Integration Architecture
-```
-llm/
+```text
+src/active_inference/llm/
 ├── client.py                    # Unified LLM client interface
 ├── models.py                    # Model management and registry
 ├── conversations.py             # Conversation handling and storage
