@@ -92,7 +92,7 @@ pip install jupyter-book  # Interactive documentation
 pip install matplotlib seaborn plotly  # Visualization
 
 # Install publication tools
-pip install pandoc-citeproc bibtexparser  # Citation management
+pip install bibtexparser  # Citation management (pandoc-citeproc is not on PyPI; recent pandoc versions include citeproc)
 pip install manubot  # Collaborative manuscript writing
 pip install jupyterlab  # Interactive environments
 
