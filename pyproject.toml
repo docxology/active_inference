@@ -4,22 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "active-inference-knowledge"
-version = "0.2.0"
+version = "0.3.0"
 description = "Comprehensive integrated knowledge environment for Active Inference & Free Energy Principle"
 authors = [
     {name = "Active Inference Community", email = "community@activeinference.org"}
 ]
 readme = "README.md"
 license = {text = "MIT"}
-requires-python = ">=3.9, <3.13"
+# 3.11 is the oldest release still receiving security fixes (3.10 reached end of life 2026-10-01, 3.9 on 2025-10-31). Pillow 13.0.0 declares requires-python >=3.11, so an advertised older range keeps a vulnerable pillow in the lock for interpreters that no longer get fixes. Do not lower this floor.
+requires-python = ">=3.11, <3.13"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Education",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",

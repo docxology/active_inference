@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: active-inference-knowledge
-Version: 0.2.0
+Version: 0.3.0
 Summary: Comprehensive integrated knowledge environment for Active Inference & Free Energy Principle
 Author-email: Active Inference Community <community@activeinference.org>
 License: MIT
@@ -14,14 +14,12 @@ Classifier: Intended Audience :: Science/Research
 Classifier: Intended Audience :: Education
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
-Classifier: Programming Language :: Python :: 3.9
-Classifier: Programming Language :: Python :: 3.10
 Classifier: Programming Language :: Python :: 3.11
 Classifier: Programming Language :: Python :: 3.12
 Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
 Classifier: Topic :: Scientific/Engineering :: Mathematics
 Classifier: Topic :: Education
-Requires-Python: <3.13,>=3.9
+Requires-Python: <3.13,>=3.11
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: numpy>=1.21.0
