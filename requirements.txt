@@ -67,7 +67,7 @@ nbsphinx>=0.8.0
 # Development tools
 pre-commit>=2.17.0
 tox>=3.25.0
-virtualenv>=20.14.0
+virtualenv>=21.14.13
 
 # Specialized Active Inference libraries
 active-inference-toolbox>=0.1.0
