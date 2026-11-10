@@ -7,6 +7,7 @@ simulations, and exploring Active Inference concepts interactively.
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
@@ -477,7 +478,7 @@ def main():
     print()
 
     try:
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        app.run(host='0.0.0.0', port=5000, debug=os.environ.get('FLASK_DEBUG') == '1')
     except KeyboardInterrupt:
         print("\n👋 Shutting down server...")
     except Exception as e:
