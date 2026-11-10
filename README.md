@@ -6,10 +6,9 @@ A comprehensive integrated platform for Active Inference & Free Energy Principle
 
 ## Current Status
 
-*As of 2026-08-31, verified by the agent-ergonomics pass — see
-[REVIEW_LOG_2026-08-31.md](REVIEW_LOG_2026-08-31.md) for the measured evidence
-behind every claim below. Open work lives in [TODO.md](TODO.md) (canonical
-backlog); do not duplicate it here.*
+*As of 2026-08-31, verified by the agent-ergonomics pass; the measured evidence
+was retired as point-in-time scratch and remains available in git history. Open
+work lives in [TODO.md](TODO.md) (canonical backlog); do not duplicate it here.*
 
 - **This README below the fold is an aspirational catalog, not a status
   report.** Some directories it describes do not exist on disk (notably
