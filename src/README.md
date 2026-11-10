@@ -61,7 +61,7 @@ This package follows core design principles:
 
 ```bash
 # Package is included in main installation
-pip install active-inference-knowledge
+pip install active-inference-knowledge  # not published on PyPI; use the source install
 
 # Or install from source
 pip install -e .
@@ -241,6 +241,8 @@ pytest src/ --cov=src/active_inference/ --cov-report=html
 
 ### Test Structure
 
+The intended test layout under `src/` is (the suites currently live in `tests/` at the repository root):
+
 ```
 src/tests/
 ├── test_core.py              # Core functionality tests
@@ -335,7 +337,7 @@ This package follows all standards defined in [.cursorrules](../.cursorrules):
 pip install -e .
 
 # Or install from PyPI
-pip install active-inference-knowledge
+pip install active-inference-knowledge  # not published on PyPI; use the source install
 ```
 
 #### Issue 2: Configuration Error

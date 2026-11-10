@@ -8,6 +8,8 @@ The Case Studies module documents practical applications of Active Inference acr
 
 ## Directory Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 case_studies/
 ├── neuroscience/           # Neuroscientific applications and studies

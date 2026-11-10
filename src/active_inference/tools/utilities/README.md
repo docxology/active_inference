@@ -8,6 +8,8 @@ The utilities module provides comprehensive helper functions and tools for Activ
 
 ## Module Structure
 
+Only this `README.md` and `AGENTS.md` are tracked here; the intended implementation layout is:
+
 ```
 src/active_inference/tools/utilities/
 ├── __init__.py         # Utilities module exports

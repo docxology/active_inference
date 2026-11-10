@@ -17,6 +17,8 @@ You are tasked with developing comprehensive integration testing frameworks for 
 6. **Failure Scenario Testing**: Test system behavior under failure conditions
 
 ### Integration Testing Architecture
+The target structure for the work this prompt describes is:
+
 ```
 tests/integration/
 ├── api_integration/            # API contract and interface testing

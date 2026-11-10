@@ -23,7 +23,7 @@ This applications section contributes to the platform mission by:
 ```
 knowledge/applications/domains/
 ├── artificial_intelligence/    # AI and machine learning applications
-├── robotics/                  # Robotics and control systems
+├── robotics/                  # Robotics and control systems (not present in this repository)
 ├── neuroscience/              # Neural and brain applications
 ├── psychology/                # Cognitive and behavioral applications
 ├── education/                 # Educational technology applications

@@ -20,6 +20,8 @@ This testing framework contributes to the platform mission by:
 
 ### Unit Testing Structure
 
+The unit tests currently live in this directory as flat `test_<area>_<subject>.py` modules; the intended per-area layout is:
+
 ```
 tests/unit/
 ├── test_knowledge/           # Knowledge base component tests

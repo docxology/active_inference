@@ -60,8 +60,9 @@ This component follows these core design principles:
 ### Installation & Setup
 
 ```bash
-# Component is included in main package
-pip install active-inference-knowledge
+# Component is included in the main package; there is no separate PyPI distribution
+# install from the parent checkout instead:
+pip install -e .
 
 # Or install from source
 pip install -e .

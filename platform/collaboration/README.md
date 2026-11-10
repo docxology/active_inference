@@ -20,6 +20,8 @@ This collaboration system contributes to the platform mission by:
 
 ### Collaboration System Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 platform/collaboration/
 ├── forums/                   # Discussion forums and Q&A

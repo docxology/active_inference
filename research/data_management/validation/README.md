@@ -8,6 +8,8 @@ The Data Validation Framework ensures research data quality, integrity, and comp
 
 ## Directory Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 validation/
 ├── schema_validation/    # Schema and format validation

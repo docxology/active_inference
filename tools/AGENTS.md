@@ -56,8 +56,8 @@ graph TB
 
 ## Directory Structure
 
-```
-tools/
+```text
+src/active_inference/tools/
 ├── documentation/        # Documentation generation and management tools
 ├── orchestrators/        # Thin orchestration components for workflows
 ├── testing/             # Testing frameworks and validation utilities
@@ -384,6 +384,8 @@ def tool_execution_context(tool_name: str, operation: str, config: Dict[str, Any
 5. **Error Handling Tests**: Test tool behavior under error conditions
 
 ### Test Organization
+This is the intended test organization; there is no `tools/tests/` directory yet.
+
 ```
 tools/tests/
 ├── test_documentation_tools/

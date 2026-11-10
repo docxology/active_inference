@@ -8,6 +8,8 @@ The Data Collection Framework provides a comprehensive system for acquiring rese
 
 ## Directory Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 collection/
 ├── api_collectors/       # API-based data collection tools

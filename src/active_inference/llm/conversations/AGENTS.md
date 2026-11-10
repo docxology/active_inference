@@ -8,6 +8,8 @@ The LLM Conversations module manages structured conversation data from interacti
 
 ## Directory Structure
 
+This directory currently holds the conversation JSON records; the intended additional structure is:
+
 ```
 src/active_inference/llm/conversations/
 ├── [conversation_id].json    # Individual conversation records

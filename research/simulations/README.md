@@ -20,6 +20,8 @@ This simulations framework contributes to the research mission by:
 
 ### Simulations Framework Structure
 
+This is the intended layout; the directories below are not created yet.
+
 ```
 research/simulations/
 ├── neural/                 # Neural network and brain-inspired simulations
