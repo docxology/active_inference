@@ -36,9 +36,7 @@ jobs:
           ${{ runner.os }}-uv-
 
     - name: Install dependencies
-      run: |
-        uv sync --dev
-        uv sync --extra test
+      run: uv sync --extra dev --extra test
 
     - name: Run linting
       run: |
@@ -73,7 +71,7 @@ jobs:
 
     - name: Test documentation build
       run: |
-        uv run sphinx-build -b html docs/ docs/_build/ -W
+        uv run --with sphinx --with sphinx-rtd-theme sphinx-build -b html docs/ docs/_build/ -W
 
     - name: Run performance tests
       run: |
@@ -94,8 +92,7 @@ jobs:
       uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # astral-sh/setup-uv@v10.3.3
 
     - name: Install dependencies
-      run: |
-        uv sync --dev
+      run: uv sync --extra dev
 
     - name: Run security tests
       run: |
@@ -125,12 +122,11 @@ jobs:
       uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # astral-sh/setup-uv@v10.3.3
 
     - name: Install dependencies
-      run: |
-        uv sync --dev
+      run: uv sync --extra dev
 
     - name: Build documentation
       run: |
-        uv run sphinx-build -b html docs/ docs/_build/
+        uv run --with sphinx --with sphinx-rtd-theme sphinx-build -b html docs/ docs/_build/
 
     - name: Deploy documentation
       uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # peaceiris/actions-gh-pages@v4.1.0
