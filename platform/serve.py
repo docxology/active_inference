@@ -52,7 +52,7 @@ def index():
                              title="Active Inference Knowledge Environment")
     except Exception as e:
         logger.error(f"Error loading index: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.route('/learn')
@@ -71,7 +71,7 @@ def learn():
                              title="Learning Paths")
     except Exception as e:
         logger.error(f"Error loading learning paths: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.route('/learn/<path_id>')
@@ -99,7 +99,7 @@ def learning_path(path_id: str):
                              title=f"Learning Path: {path.name}")
     except Exception as e:
         logger.error(f"Error loading learning path {path_id}: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.route('/search')
@@ -150,7 +150,7 @@ def search():
                              title=f"Search Results: {query}" if query else "Search")
     except Exception as e:
         logger.error(f"Error performing search: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.route('/knowledge/<node_id>')
@@ -170,7 +170,7 @@ def knowledge_node(node_id: str):
                              title=node.title)
     except Exception as e:
         logger.error(f"Error loading knowledge node {node_id}: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.route('/api/knowledge/graph')
@@ -181,7 +181,7 @@ def api_knowledge_graph():
         return jsonify(graph)
     except Exception as e:
         logger.error(f"Error exporting knowledge graph: {e}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': 'Internal server error'}), 500
 
 
 @app.route('/api/knowledge/stats')
@@ -192,7 +192,7 @@ def api_knowledge_stats():
         return jsonify(stats)
     except Exception as e:
         logger.error(f"Error getting statistics: {e}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': 'Internal server error'}), 500
 
 
 @app.route('/api/search')
@@ -224,7 +224,7 @@ def api_search():
         })
     except Exception as e:
         logger.error(f"Error in API search: {e}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': 'Internal server error'}), 500
 
 
 @app.route('/visualize')
@@ -235,7 +235,7 @@ def visualize():
                              title="Visualization Tools")
     except Exception as e:
         logger.error(f"Error loading visualization: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.route('/research')
@@ -246,7 +246,7 @@ def research():
                              title="Research Tools")
     except Exception as e:
         logger.error(f"Error loading research tools: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.route('/about')
@@ -257,7 +257,7 @@ def about():
                              title="About")
     except Exception as e:
         logger.error(f"Error loading about page: {e}")
-        return render_template('error.html', error=str(e))
+        return render_template('error.html', error='An unexpected error occurred. See the server log for details.')
 
 
 @app.errorhandler(404)
