@@ -1,5 +1,11 @@
 # Active Inference Knowledge Environment
 
+<p align="center">
+  <a href="https://github.com/docxology/active_inference/actions/workflows/ci.yml"><img alt="ci.yml workflow status on main" src="https://github.com/docxology/active_inference/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <img alt="Requires Python 3.11 to 3.12" src="https://img.shields.io/badge/python-3.11%E2%80%933.12-3776AB?logo=python&logoColor=white">
+</p>
+
 **"Active Inference for, with, by Generative AI"**
 
 A comprehensive integrated platform for Active Inference & Free Energy Principle education, research, visualization, and application development. This repository provides a structured, accessible knowledge environment that bridges theoretical foundations with practical applications, built through collaborative intelligence among humans and AI.
