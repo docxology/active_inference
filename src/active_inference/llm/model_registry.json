@@ -8,11 +8,11 @@
       "context_window": 8192,
       "capabilities": [
         "text_generation",
-        "mathematical_reasoning",
-        "code_generation",
-        "active_inference_explanation",
+        "reasoning",
         "conversation",
-        "reasoning"
+        "active_inference_explanation",
+        "code_generation",
+        "mathematical_reasoning"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -26,13 +26,13 @@
       "context_window": 8192,
       "capabilities": [
         "text_generation",
-        "code_generation",
         "reasoning",
-        "mathematical_reasoning",
         "active_inference_explanation",
-        "conversation",
+        "code_generation",
         "research_analysis",
-        "educational_content"
+        "educational_content",
+        "mathematical_reasoning",
+        "conversation"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -46,10 +46,10 @@
       "context_window": 4096,
       "capabilities": [
         "text_generation",
-        "code_generation",
+        "reasoning",
         "conversation",
-        "research_analysis",
-        "reasoning"
+        "code_generation",
+        "research_analysis"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -63,13 +63,13 @@
       "context_window": 4096,
       "capabilities": [
         "text_generation",
-        "complex_reasoning",
-        "code_generation",
         "reasoning",
-        "mathematical_reasoning",
-        "conversation",
+        "code_generation",
         "research_analysis",
-        "educational_content"
+        "educational_content",
+        "mathematical_reasoning",
+        "complex_reasoning",
+        "conversation"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -82,13 +82,13 @@
       "quantization": null,
       "context_window": 8192,
       "capabilities": [
+        "educational_content",
         "text_generation",
         "mathematical_reasoning",
-        "code_generation",
-        "conversation",
-        "research_analysis",
         "reasoning",
-        "educational_content"
+        "conversation",
+        "code_generation",
+        "research_analysis"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -101,8 +101,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -132,8 +132,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -170,8 +170,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -184,9 +184,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -199,10 +199,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -239,8 +239,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -253,9 +253,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -268,10 +268,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -308,8 +308,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -322,9 +322,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -337,10 +337,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -377,8 +377,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -391,9 +391,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -406,10 +406,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -446,8 +446,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -460,9 +460,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -475,10 +475,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -515,8 +515,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -529,9 +529,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -544,10 +544,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -584,8 +584,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -598,9 +598,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -613,10 +613,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -653,8 +653,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -667,9 +667,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -682,10 +682,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -722,8 +722,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -736,9 +736,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -751,10 +751,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -791,8 +791,8 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_0",
-        "capability_1"
+        "capability_1",
+        "capability_0"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -805,9 +805,9 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_1"
+        "capability_2"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -820,10 +820,10 @@
       "quantization": null,
       "context_window": 4096,
       "capabilities": [
-        "capability_2",
+        "capability_1",
         "capability_0",
-        "capability_3",
-        "capability_1"
+        "capability_2",
+        "capability_3"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -836,8 +836,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -850,8 +850,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -864,8 +864,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -878,8 +878,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -892,8 +892,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -906,8 +906,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -920,8 +920,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -934,8 +934,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -948,8 +948,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -962,8 +962,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -976,8 +976,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -990,8 +990,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1004,8 +1004,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1018,8 +1018,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1032,8 +1032,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1046,8 +1046,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1060,8 +1060,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1074,8 +1074,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1088,8 +1088,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1102,8 +1102,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1116,8 +1116,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1130,8 +1130,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1144,8 +1144,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1158,8 +1158,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1172,8 +1172,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1186,8 +1186,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1200,8 +1200,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1214,8 +1214,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1228,8 +1228,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1242,8 +1242,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1256,8 +1256,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1270,8 +1270,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1284,8 +1284,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1298,8 +1298,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1312,8 +1312,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1326,8 +1326,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1340,8 +1340,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1354,8 +1354,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1368,8 +1368,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1382,8 +1382,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1396,8 +1396,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1410,8 +1410,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1424,8 +1424,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1438,8 +1438,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1452,8 +1452,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1466,8 +1466,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1480,8 +1480,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1494,8 +1494,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1508,8 +1508,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1522,8 +1522,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1536,8 +1536,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1550,8 +1550,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1564,8 +1564,8 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1578,8 +1578,64 @@
       "quantization": null,
       "context_window": 2048,
       "capabilities": [
-        "custom_capability",
-        "text_generation"
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_ae031c15": {
+      "name": "test_model_ae031c15",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_155d1866": {
+      "name": "test_model_155d1866",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_577a212d": {
+      "name": "test_model_577a212d",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
+      ],
+      "performance_metrics": {},
+      "requirements": {},
+      "metadata": {}
+    },
+    "test_model_765c7316": {
+      "name": "test_model_765c7316",
+      "family": "custom",
+      "size": "1b",
+      "quantization": null,
+      "context_window": 2048,
+      "capabilities": [
+        "text_generation",
+        "custom_capability"
       ],
       "performance_metrics": {},
       "requirements": {},
@@ -1705,6 +1761,10 @@
     "test_model_65e2de8f",
     "test_model_56847f26",
     "test_model_619c4491",
-    "test_model_b62b6201"
+    "test_model_b62b6201",
+    "test_model_ae031c15",
+    "test_model_155d1866",
+    "test_model_577a212d",
+    "test_model_765c7316"
   ]
 }

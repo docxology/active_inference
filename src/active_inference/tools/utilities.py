@@ -94,7 +94,7 @@ class ConfigurationManager:
     """Configuration management utilities"""
 
     def __init__(self):
-        self.config_cache: Dict[str, Any] = {}
+        self.config_cache: Dict[Path, Any] = {}
         logger.info("ConfigurationManager initialized")
 
     def load_config(

@@ -368,7 +368,9 @@ class OllamaClient:
     async def delete_model(self, model: str) -> bool:
         """Delete a model from local storage"""
         try:
-            response = await self.client.delete("/api/delete", json={"name": model})
+            response = await self.client.request(
+                "DELETE", "/api/delete", json={"name": model}
+            )
             response.raise_for_status()
 
             await self._refresh_models()

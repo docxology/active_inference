@@ -402,7 +402,7 @@ class TestOllamaClient:
 
             mock_response = Mock()
             mock_response.raise_for_status = Mock()
-            mock_client.delete.return_value = mock_response
+            mock_client.request.return_value = mock_response
 
             # Mock refresh after deletion
             mock_get_response = Mock()
@@ -417,8 +417,10 @@ class TestOllamaClient:
             success = await client.delete_model("gemma3:2b")
 
             assert success is True
-            mock_client.delete.assert_called_once_with(
-                "/api/delete", json={"name": "gemma3:2b"}
+            # httpx.AsyncClient.delete() takes no body, so a DELETE with JSON
+            # has to go through request().
+            mock_client.request.assert_called_once_with(
+                "DELETE", "/api/delete", json={"name": "gemma3:2b"}
             )
 
 

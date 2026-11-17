@@ -405,6 +405,22 @@ class KnowledgeRepository:
 
         return results
 
+    def add_knowledge_node(self, node_data: Dict[str, Any]) -> KnowledgeNode:
+        """Add a node from a definition mapping and refresh the search index.
+
+        Raises:
+            ValueError: if the definition is invalid or its id already exists.
+        """
+        data = dict(node_data)
+        data["content_type"] = ContentType(data["content_type"])
+        data["difficulty"] = DifficultyLevel(data["difficulty"])
+        node = KnowledgeNode(**data)
+        if node.id in self._nodes:
+            raise ValueError(f"Knowledge node already exists: {node.id}")
+        self._nodes[node.id] = node
+        self._build_index()
+        return node
+
     def get_node(self, node_id: str) -> Optional[KnowledgeNode]:
         """Get a specific knowledge node by ID"""
         return self._nodes.get(node_id)
@@ -893,13 +909,13 @@ class KnowledgeRepository:
         logger.info(f"Created content backup: {backup_path}")
         return backup_path
 
-    def _extract_relationships(self) -> Dict[str, List[str]]:
+    def _extract_relationships(self) -> Dict[str, Dict[str, List[str]]]:
         """Extract all relationships between nodes"""
-        relationships = {}
+        relationships: Dict[str, Dict[str, List[str]]] = {}
 
         for node_id, node in self._nodes.items():
             relationships[node_id] = {
-                "prerequisites": node.prerequisites,
+                "prerequisites": list(node.prerequisites),
                 "dependents": [],
             }
 

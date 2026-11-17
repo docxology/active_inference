@@ -532,17 +532,13 @@ if __name__ == "__main__":
 '''
 
         return {
-            {
-                "files": {
-                    {f"{config.name.lower().replace(' ', '_')}.py": robotics_code}
-                },
-                "requirements": ["numpy", "scipy", "matplotlib"],
-                "readme": (
-                    f"# {config.name}\\n\\nRobotics control system using Active"
-                    " Inference principles.\\n\\nFeatures:\\n- Multi-joint control\\n-"
-                    " Safety constraints\\n- Goal-directed behavior\\n- Sensor fusion"
-                ),
-            }
+            "files": {f"{config.name.lower().replace(' ', '_')}.py": robotics_code},
+            "requirements": ["numpy", "scipy", "matplotlib"],
+            "readme": (
+                f"# {config.name}\\n\\nRobotics control system using Active"
+                " Inference principles.\\n\\nFeatures:\\n- Multi-joint control\\n-"
+                " Safety constraints\\n- Goal-directed behavior\\n- Sensor fusion"
+            ),
         }
 
     def generate_neural_interface(self, config: TemplateConfig) -> Dict[str, Any]:
@@ -862,16 +858,14 @@ if __name__ == "__main__":
 '''
 
         return {
-            {
-                "files": {{f"{config.name.lower().replace(' ', '_')}.py": neural_code}},
-                "requirements": ["numpy", "scipy", "matplotlib", "mne"],
-                "readme": (
-                    f"# {config.name}\\n\\nNeural interface using Active Inference for"
-                    " brain-machine interfaces.\\n\\nFeatures:\\n- Real-time neural"
-                    " signal processing\\n- Intent decoding\\n- Adaptive learning\\n-"
-                    " Signal quality assessment"
-                ),
-            }
+            "files": {f"{config.name.lower().replace(' ', '_')}.py": neural_code},
+            "requirements": ["numpy", "scipy", "matplotlib", "mne"],
+            "readme": (
+                f"# {config.name}\\n\\nNeural interface using Active Inference for"
+                " brain-machine interfaces.\\n\\nFeatures:\\n- Real-time neural"
+                " signal processing\\n- Intent decoding\\n- Adaptive learning\\n-"
+                " Signal quality assessment"
+            ),
         }
 
 

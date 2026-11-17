@@ -43,7 +43,7 @@ class TestKnowledgeApplications(unittest.TestCase):
         if ai_app:
             self.assertEqual(ai_app.content_type.value, "application")
             self.assertEqual(ai_app.difficulty.value, "advanced")
-            self.assertIn("artificial_intelligence", ai_app.tags)
+            self.assertIn("artificial intelligence", ai_app.tags)
 
     def test_neuroscience_applications_creation(self):
         """Test creation of neuroscience applications"""

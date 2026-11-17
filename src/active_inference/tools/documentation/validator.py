@@ -11,7 +11,7 @@ import re
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ class ValidationRule:
     description: str
     severity: str  # 'error', 'warning', 'info'
     category: str  # 'structure', 'content', 'style', 'completeness'
-    check_function: callable
+    check_function: Callable[[Path], List["ValidationResult"]]
 
 
 @dataclass

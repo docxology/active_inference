@@ -57,7 +57,7 @@ class ComparisonTool:
         if comparison_metrics is None:
             comparison_metrics = ["accuracy", "free_energy", "convergence_time"]
 
-        metrics = {}
+        metrics: Dict[str, Any] = {}
 
         for metric in comparison_metrics:
             if metric in model_a_data and metric in model_b_data:

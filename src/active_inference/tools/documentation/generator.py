@@ -15,7 +15,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from jinja2 import Environment, FileSystemLoader
+try:  # optional: only needed for custom template directories
+    from jinja2 import Environment, FileSystemLoader
+except ImportError:  # pragma: no cover - depends on the environment
+    Environment = None  # type: ignore[assignment,misc]
+    FileSystemLoader = None  # type: ignore[assignment,misc]
 
 from ...knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
 
@@ -77,7 +81,7 @@ class DocumentationGenerator:
         self.template_dir = (
             self.config.template_dir or Path(__file__).parent / "templates"
         )
-        if self.template_dir.exists():
+        if Environment is not None and self.template_dir.exists():
             self.jinja_env = Environment(loader=FileSystemLoader(self.template_dir))
         else:
             self.jinja_env = None
