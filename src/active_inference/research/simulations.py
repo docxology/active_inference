@@ -8,8 +8,7 @@ studying complex adaptive systems.
 
 import logging
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 

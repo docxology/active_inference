@@ -9,8 +9,7 @@ integration patterns and external system connectivity.
 import logging
 from dataclasses import dataclass
 from enum import Enum
-from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 

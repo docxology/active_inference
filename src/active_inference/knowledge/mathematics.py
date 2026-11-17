@@ -6,9 +6,7 @@ Provides rigorous derivations, computational implementations, and mathematical t
 for understanding and working with the theoretical framework.
 """
 
-import json
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List
 
 try:
     import numpy as np
@@ -26,7 +24,7 @@ except ImportError:
     sp = None
     HAS_SYMPY = False
 
-from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository
+from .repository import ContentType, DifficultyLevel, KnowledgeRepository
 
 
 class Mathematics:
@@ -376,8 +374,6 @@ class Mathematics:
 
     def create_mathematical_learning_path(self) -> List[str]:
         """Create a comprehensive mathematical learning path"""
-        prerequisites = self.get_mathematical_prerequisites()
-
         # Topological sort of mathematical topics
         learning_order = [
             "probability_basics",

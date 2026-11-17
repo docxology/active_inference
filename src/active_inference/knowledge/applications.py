@@ -6,9 +6,7 @@ and the Free Energy Principle. Provides comprehensive case studies, domain
 knowledge, and practical applications across various research areas.
 """
 
-import json
-from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository
 
@@ -116,7 +114,7 @@ class Applications:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 
@@ -158,7 +156,7 @@ class Applications:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 
@@ -228,7 +226,7 @@ class Applications:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 
@@ -270,7 +268,7 @@ class Applications:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 
@@ -312,7 +310,7 @@ class Applications:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 

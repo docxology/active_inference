@@ -6,13 +6,12 @@ Provides comprehensive validation of documentation completeness and quality.
 """
 
 import ast
-import json
 import logging
 import re
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -314,7 +313,7 @@ class DocumentationValidator:
                                 file_path=file_path,
                                 line_number=node.lineno,
                                 element_name=node.name,
-                                suggestion=f"Add a class docstring describing the class purpose, parameters, and methods",
+                                suggestion="Add a class docstring describing the class purpose, parameters, and methods",
                             )
                         )
 
@@ -349,7 +348,7 @@ class DocumentationValidator:
                                 file_path=file_path,
                                 line_number=node.lineno,
                                 element_name=node.name,
-                                suggestion=f"Add a function docstring describing parameters, return value, and behavior",
+                                suggestion="Add a function docstring describing parameters, return value, and behavior",
                             )
                         )
 

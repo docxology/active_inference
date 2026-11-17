@@ -6,9 +6,6 @@ search functionality, indexing, ranking, and analytics.
 """
 
 import json
-import time
-from pathlib import Path
-from unittest.mock import Mock, patch
 
 import pytest
 

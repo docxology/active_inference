@@ -8,7 +8,6 @@ model registry, capability matching, and fallback strategies.
 import json
 import tempfile
 from pathlib import Path
-from unittest.mock import Mock, patch
 
 import pytest
 

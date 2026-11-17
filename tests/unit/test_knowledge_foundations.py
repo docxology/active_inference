@@ -6,15 +6,13 @@ foundation knowledge management, learning tracks, and educational content.
 """
 
 import json
-from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 import pytest
 
 from active_inference.knowledge.foundations import Foundations
 from active_inference.knowledge.repository import (
     KnowledgeRepository,
-    KnowledgeRepositoryConfig,
 )
 
 

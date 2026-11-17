@@ -5,12 +5,11 @@ Comprehensive helper utilities for testing the Active Inference Knowledge Enviro
 Provides mock objects, test data generators, and testing infrastructure helpers.
 """
 
-import json
 import tempfile
 import uuid
 from pathlib import Path
 from typing import Any, Dict, Generator, List
-from unittest.mock import AsyncMock, MagicMock, Mock
+from unittest.mock import AsyncMock, Mock
 
 import pytest
 

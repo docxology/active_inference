@@ -421,17 +421,13 @@ class Platform:
         """Get platform service by name"""
         return self.services.get(service_name)
 
-    def implement_graph_storage_engine(self) -> "GraphStorage":
+    def implement_graph_storage_engine(self) -> None:
         """
         Implement efficient graph storage engine with indexing and caching
 
         Returns:
             Configured graph storage instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .storage import GraphStorage
 
         # Implementation would create a GraphStorage instance
         logger.info("Graph storage engine implementation placeholder")
@@ -537,113 +533,85 @@ class Platform:
 
         return self.semantic_engine
 
-    def create_graph_validation_system(self) -> "GraphValidator":
+    def create_graph_validation_system(self) -> None:
         """
         Create comprehensive graph validation and integrity checking system
 
         Returns:
             Configured graph validator instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .validation import GraphValidator
 
         # Implementation would create a GraphValidator instance
         logger.info("Graph validation system implementation placeholder")
         return None
 
-    def implement_graph_query_language(self) -> "GraphQueryProcessor":
+    def implement_graph_query_language(self) -> None:
         """
         Implement graph query language for complex relationship queries
 
         Returns:
             Configured graph query processor
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .query import GraphQueryProcessor
 
         # Implementation would create a GraphQueryProcessor instance
         logger.info("Graph query language implementation placeholder")
         return None
 
-    def create_graph_visualization_integration(self) -> "GraphVisualization":
+    def create_graph_visualization_integration(self) -> None:
         """
         Create integration with visualization systems for graph rendering
 
         Returns:
             Configured graph visualization instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .visualization import GraphVisualization
 
         # Implementation would create a GraphVisualization instance
         logger.info("Graph visualization integration implementation placeholder")
         return None
 
-    def implement_graph_backup_and_recovery(self) -> "BackupSystem":
+    def implement_graph_backup_and_recovery(self) -> None:
         """
         Implement comprehensive graph backup and recovery mechanisms
 
         Returns:
             Configured backup system instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .backup import BackupSystem
 
         # Implementation would create a BackupSystem instance
         logger.info("Graph backup and recovery implementation placeholder")
         return None
 
-    def create_performance_monitoring(self) -> "GraphPerformanceMonitor":
+    def create_performance_monitoring(self) -> None:
         """
         Create performance monitoring and optimization for graph operations
 
         Returns:
             Configured performance monitor instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .monitoring import GraphPerformanceMonitor
 
         # Implementation would create a GraphPerformanceMonitor instance
         logger.info("Graph performance monitoring implementation placeholder")
         return None
 
-    def implement_graph_security_model(self) -> "SecurityManager":
+    def implement_graph_security_model(self) -> None:
         """
         Implement security model for graph access control and permissions
 
         Returns:
             Configured security manager instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .security import SecurityManager
 
         # Implementation would create a SecurityManager instance
         logger.info("Graph security model implementation placeholder")
         return None
 
-    def create_graph_analytics_engine(self) -> "GraphAnalytics":
+    def create_graph_analytics_engine(self) -> None:
         """
         Create analytics engine for graph usage patterns and insights
 
         Returns:
             Configured graph analytics instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .analytics import GraphAnalytics
 
         # Implementation would create a GraphAnalytics instance
         logger.info("Graph analytics engine implementation placeholder")

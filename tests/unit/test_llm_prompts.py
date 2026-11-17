@@ -5,10 +5,8 @@ Unit tests for the prompt composition and templating system, ensuring proper
 operation of template management, variable substitution, and prompt building.
 """
 
-import json
 import tempfile
 from pathlib import Path
-from unittest.mock import Mock, patch
 
 import pytest
 
@@ -17,7 +15,6 @@ from active_inference.llm.prompts import (
     EducationalPromptBuilder,
     PromptBuilder,
     PromptManager,
-    PromptSection,
     PromptTemplate,
 )
 

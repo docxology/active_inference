@@ -2,13 +2,11 @@
 Tests for Knowledge Applications Module
 """
 
-import json
 import tempfile
 import unittest
 from pathlib import Path
 
 from active_inference.knowledge.applications import Applications
-from active_inference.knowledge.foundations import Foundations
 from active_inference.knowledge.repository import (
     KnowledgeRepository,
     KnowledgeRepositoryConfig,

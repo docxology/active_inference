@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -139,9 +139,9 @@ class DataManager:
     def _validate_collection_config(self, config: DataCollectionConfig) -> None:
         """Validate data collection configuration"""
         required_fields = ["source_type", "collection_method"]
-        for field in required_fields:
-            if not getattr(config, field):
-                raise ValueError(f"Missing required field: {field}")
+        for field_name in required_fields:
+            if not getattr(config, field_name):
+                raise ValueError(f"Missing required field: {field_name}")
 
     def _execute_data_collection(self, config: DataCollectionConfig) -> Any:
         """Execute data collection based on configuration"""

@@ -11,12 +11,10 @@ This module implements the primary interface for local LLM capabilities includin
 - Error handling and fallback strategies
 """
 
-import asyncio
 import json
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, AsyncGenerator, Dict, List, Optional
-from urllib.parse import urljoin
 
 import httpx
 

@@ -9,12 +9,10 @@ conceptual explanations, and reference materials meet accuracy standards.
 import json
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, List
 
 import pytest
 
 from active_inference.knowledge.repository import (
-    KnowledgeNode,
     KnowledgeRepository,
     KnowledgeRepositoryConfig,
 )
@@ -207,7 +205,7 @@ class TestConceptualAccuracy:
         assert len(examples) > 0
 
         # Examples should relate to main concept
-        concept_tags = set(content.tags)
+        set(content.tags)
         for example in examples:
             assert "name" in example
             assert "description" in example
@@ -287,8 +285,8 @@ class TestReferenceValidation:
 
     def test_content_reference_consistency(self, sample_referenced_content):
         """Test consistency between content and references"""
-        content_tags = set(sample_referenced_content["tags"])
-        references = sample_referenced_content["metadata"].get("references", [])
+        set(sample_referenced_content["tags"])
+        sample_referenced_content["metadata"].get("references", [])
 
         # Content should be consistent with referenced topics
         content_text = json.dumps(sample_referenced_content).lower()
@@ -373,7 +371,7 @@ class TestCrossReferenceValidation:
         )
 
         # Learning objectives should build upon each other
-        basic_objectives = [obj.lower() for obj in basic_content["learning_objectives"]]
+        [obj.lower() for obj in basic_content["learning_objectives"]]
         advanced_objectives = [
             obj.lower() for obj in advanced_content["learning_objectives"]
         ]

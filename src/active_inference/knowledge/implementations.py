@@ -6,8 +6,6 @@ Principle. Provides comprehensive examples, working code, and educational materi
 for implementing theoretical concepts in practice.
 """
 
-import json
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository
@@ -142,7 +140,7 @@ class Implementations:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 
@@ -211,7 +209,7 @@ class Implementations:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 
@@ -258,7 +256,7 @@ class Implementations:
         for node_data in nodes_data:
             try:
                 self.repository.add_knowledge_node(node_data)
-            except Exception as e:
+            except Exception:
                 # Node might already exist, that's okay
                 pass
 

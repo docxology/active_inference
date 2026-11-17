@@ -470,7 +470,7 @@ Issues by Category:
             try:
                 report_data = json.loads(report)
                 content = json.dumps(report_data, indent=2)
-            except:
+            except (ValueError, TypeError):
                 content = report
         else:
             content = report

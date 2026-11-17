@@ -8,11 +8,9 @@ content quality metrics.
 
 import ast
 import logging
-import re
-from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +60,7 @@ class DocumentationAnalyzer:
             source_paths: List of source directories to analyze
         """
         self.source_paths = [Path(p) for p in source_paths]
-        self.logger = setup_logger(__name__)
+        self.logger = logging.getLogger(__name__)
 
         # Quality thresholds
         self.quality_thresholds = {"excellent": 0.8, "good": 0.6, "poor": 0.3}

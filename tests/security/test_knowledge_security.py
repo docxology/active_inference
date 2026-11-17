@@ -8,8 +8,6 @@ path traversal protection, and content sanitization.
 import json
 import tempfile
 from pathlib import Path
-from typing import Any, Dict
-from unittest.mock import Mock, patch
 
 import pytest
 
@@ -201,7 +199,7 @@ class TestContentSanitization:
             node = repo.get_node("script_test")
             if node:
                 # Content should be sanitized (in real implementation)
-                content_text = json.dumps(node.content).lower()
+                json.dumps(node.content).lower()
                 # Should handle script tags safely
                 assert True  # Just ensure no crash
 

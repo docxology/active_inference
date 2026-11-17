@@ -5,7 +5,6 @@ Comprehensive test coverage configuration for the Active Inference Knowledge Env
 Defines coverage requirements, exclusions, and reporting configuration.
 """
 
-import os
 from pathlib import Path
 
 # Coverage configuration

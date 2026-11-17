@@ -6,11 +6,8 @@ ensuring proper case study management, code generation, and example
 application execution.
 """
 
-import json
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, List
-from unittest.mock import Mock, patch
 
 import pytest
 

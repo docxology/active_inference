@@ -5,8 +5,6 @@ Integration tests for the complete LLM system, testing interactions between
 components, end-to-end workflows, and real-world usage scenarios.
 """
 
-import asyncio
-import json
 import tempfile
 from pathlib import Path
 from unittest.mock import AsyncMock, Mock, patch
@@ -389,7 +387,7 @@ class TestLLMIntegration:
         model_manager = ModelManager()
 
         # Should return None for unknown task
-        unknown_model = model_manager.find_best_model("unknown_task_xyz")
+        model_manager.find_best_model("unknown_task_xyz")
         # This might return a default model or None depending on implementation
 
         # Should handle non-existent model gracefully
@@ -459,7 +457,7 @@ class TestLLMPerformance:
             model_manager.add_custom_model(
                 name=f"test_model_{i}",
                 family="test",
-                size=f"{i%10}b",
+                size=f"{i % 10}b",
                 capabilities=[f"capability_{j}" for j in range(i % 5)],
             )
 

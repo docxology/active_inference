@@ -6,9 +6,6 @@ ensuring proper functionality of architecture recommendations, pattern
 validation, and best practice guidance systems.
 """
 
-from typing import Any, Dict, List
-from unittest.mock import Mock, patch
-
 import pytest
 
 from active_inference.applications.best_practices import (

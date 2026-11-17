@@ -9,8 +9,7 @@ application framework operations.
 import json
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, List
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 import pytest
 
@@ -310,7 +309,7 @@ class TestTemplateManager:
 
             success = manager.create_custom_template(template_data)
 
-            assert success == True
+            assert success is True
 
             # Check that template file was created
             template_file = manager.templates_dir / "custom" / "custom_template.json"
@@ -331,13 +330,13 @@ class TestTemplateManager:
 
             success = manager.create_custom_template(template_data)
 
-            assert success == False
+            assert success is False
 
     def test_template_directory_creation(self):
         """Test template directory creation"""
         with tempfile.TemporaryDirectory() as temp_dir:
             templates_dir = Path(temp_dir) / "custom_templates"
-            manager = TemplateManager(templates_dir)
+            TemplateManager(templates_dir)
 
             # Directory should be created automatically
             assert templates_dir.exists()

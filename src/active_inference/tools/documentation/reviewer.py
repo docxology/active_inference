@@ -7,14 +7,12 @@ coverage, and architectural insights.
 """
 
 import ast
-import json
 import logging
 import re
-import subprocess
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 

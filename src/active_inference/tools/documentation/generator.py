@@ -16,9 +16,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
 from jinja2 import Environment, FileSystemLoader
-from pydantic import BaseModel
 
-from ...knowledge.repository import KnowledgeRepository
+from ...knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +82,7 @@ class DocumentationGenerator:
             self.jinja_env = None
 
         # Set up logging
-        self.logger = setup_logger(__name__)
+        self.logger = logging.getLogger(__name__)
 
         self.logger.info(f"Documentation generator initialized for {self.output_dir}")
 
@@ -291,7 +290,7 @@ Indices and tables
         for node in nodes:
             content += f"   ../nodes/{node.id}\n"
 
-        content += f"""
+        content += """
 
 Validation Report
 -----------------
@@ -366,9 +365,6 @@ Use the search functionality to find learning paths by topic, difficulty, or con
         self, repo: KnowledgeRepository, output_dir: Path
     ) -> None:
         """Generate concept dependency graphs"""
-        # Get all nodes
-        nodes = list(repo._nodes.values())
-
         # Generate prerequisite graph
         graph_data = repo.export_knowledge_graph(format="json")
 
@@ -702,7 +698,6 @@ The search interface provides:
         # Generate knowledge documentation
         if self.config.knowledge_docs_enabled:
             # Initialize knowledge repository
-            config = DocumentationConfig(output_dir=self.output_dir)
             repo_config = KnowledgeRepositoryConfig(
                 root_path=Path(repo_path), auto_index=True
             )

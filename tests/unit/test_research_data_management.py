@@ -65,7 +65,7 @@ class TestResearchDataManagement(unittest.TestCase):
 
         # Invalid configuration (missing required fields)
         try:
-            invalid_config = DataCollectionConfig(
+            DataCollectionConfig(
                 source_type="", collection_method="test"  # Empty required field
             )
             # This should raise an error when used
@@ -125,7 +125,6 @@ class TestResearchDataManagement(unittest.TestCase):
         config = DataCollectionConfig(
             source_type="simulation", collection_method="test_method"
         )
-        test_data = {"test": "dataset"}
 
         dataset_id = self.data_manager.collect_data(config)
         self.assertIsNotNone(dataset_id)
@@ -181,12 +180,12 @@ class TestResearchDataManagement(unittest.TestCase):
         """Test data quality checking"""
         # Test missing values check
         data_with_missing = {"a": 1, "b": None, "c": 3}
-        has_missing = self.data_manager._has_missing_values(data_with_missing)
+        self.data_manager._has_missing_values(data_with_missing)
         # Placeholder returns False, but real implementation should detect missing values
 
         # Test outliers check
         data_with_outliers = {"values": [1, 2, 3, 1000, 4, 5]}  # 1000 is outlier
-        has_outliers = self.data_manager._has_outliers(data_with_outliers)
+        self.data_manager._has_outliers(data_with_outliers)
         # Placeholder returns False, but real implementation should detect outliers
 
     def test_backup_functionality(self):

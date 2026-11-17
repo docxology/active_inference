@@ -7,13 +7,8 @@ are met, content is accessible, and educational flow is logical.
 """
 
 import json
-import tempfile
-from pathlib import Path
-from typing import Any, Dict, List
 
 import pytest
-
-from active_inference.knowledge.repository import KnowledgeNode, KnowledgeRepository
 
 pytestmark = pytest.mark.knowledge
 
@@ -104,10 +99,10 @@ class TestLearningObjectivesValidation:
     def test_content_objectives_alignment(self, sample_content_with_objectives):
         """Test alignment between content and learning objectives"""
         content = sample_content_with_objectives["content"]
-        objectives = sample_content_with_objectives["learning_objectives"]
+        sample_content_with_objectives["learning_objectives"]
 
         # Content should support objectives
-        content_text = json.dumps(content).lower()
+        json.dumps(content).lower()
 
         # Should have examples that support objectives
         examples = content.get("examples", [])

@@ -9,7 +9,6 @@ and interactive exploration capabilities.
 import logging
 from dataclasses import dataclass
 from enum import Enum
-from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
@@ -117,7 +116,7 @@ class InteractiveDiagram:
                     "node_type": node.node_type,
                     "properties": node.properties,
                 }
-                for node, node in self.nodes.items()
+                for node_id, node in self.nodes.items()
             },
             "edges": [
                 {
@@ -263,7 +262,6 @@ class ConceptDiagram:
             ("goal", "Goal Level", (200, 400), ["objectives", "intentions"]),
         ]
 
-        nodes = []
         for level_id, level_name, position, subconcepts in levels:
             # Main level node
             main_node = DiagramNode(level_id, level_name, position, "level")
@@ -393,7 +391,6 @@ class ConceptDiagram:
             ("hours", "Hour Scale", (100, 500), ["strategy", "long-term goals"]),
         ]
 
-        nodes = []
         for scale_id, scale_name, position, processes in scales:
             # Main scale node
             main_node = DiagramNode(scale_id, scale_name, position, "timescale")
@@ -492,170 +489,130 @@ class VisualizationEngine:
             logger.warning(f"Export format not supported: {format}")
             return None
 
-    def implement_diagram_rendering_engine(self) -> "DiagramRenderer":
+    def implement_diagram_rendering_engine(self) -> None:
         """
         Implement high-performance diagram rendering with interactive features
 
         Returns:
             Configured diagram renderer instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .rendering import DiagramRenderer
 
         # Implementation would create a DiagramRenderer instance
         # For now, return a placeholder
         logger.info("Diagram rendering engine implementation placeholder")
         return None
 
-    def create_concept_visualization_system(self) -> "ConceptVisualizer":
+    def create_concept_visualization_system(self) -> None:
         """
         Create system for visualizing Active Inference concepts and relationships
 
         Returns:
             Configured concept visualizer instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .concepts import ConceptVisualizer
 
         # Implementation would create a ConceptVisualizer instance
         # For now, return a placeholder
         logger.info("Concept visualization system implementation placeholder")
         return None
 
-    def implement_diagram_interaction_manager(self) -> "InteractionManager":
+    def implement_diagram_interaction_manager(self) -> None:
         """
         Implement comprehensive interaction management for diagram exploration
 
         Returns:
             Configured interaction manager instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .interaction import InteractionManager
 
         # Implementation would create an InteractionManager instance
         # For now, return a placeholder
         logger.info("Diagram interaction manager implementation placeholder")
         return None
 
-    def create_diagram_export_and_sharing_system(self) -> "ExportManager":
+    def create_diagram_export_and_sharing_system(self) -> None:
         """
         Create export and sharing system for diagrams in multiple formats
 
         Returns:
             Configured export manager instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .export import ExportManager
 
         # Implementation would create an ExportManager instance
         # For now, return a placeholder
         logger.info("Diagram export and sharing system implementation placeholder")
         return None
 
-    def implement_diagram_accessibility_features(self) -> "AccessibilityManager":
+    def implement_diagram_accessibility_features(self) -> None:
         """
         Implement full accessibility support for diagram navigation and understanding
 
         Returns:
             Configured accessibility manager instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .accessibility import AccessibilityManager
 
         # Implementation would create an AccessibilityManager instance
         # For now, return a placeholder
         logger.info("Diagram accessibility features implementation placeholder")
         return None
 
-    def create_diagram_performance_optimization(self) -> "PerformanceOptimizer":
+    def create_diagram_performance_optimization(self) -> None:
         """
         Create performance optimization for complex diagram rendering
 
         Returns:
             Configured performance optimizer instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .performance import PerformanceOptimizer
 
         # Implementation would create a PerformanceOptimizer instance
         # For now, return a placeholder
         logger.info("Diagram performance optimization implementation placeholder")
         return None
 
-    def implement_diagram_validation_system(self) -> "DiagramValidator":
+    def implement_diagram_validation_system(self) -> None:
         """
         Implement validation system for diagram correctness and completeness
 
         Returns:
             Configured diagram validator instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .validation import DiagramValidator
 
         # Implementation would create a DiagramValidator instance
         # For now, return a placeholder
         logger.info("Diagram validation system implementation placeholder")
         return None
 
-    def create_diagram_integration_with_knowledge_graph(self) -> "KnowledgeIntegration":
+    def create_diagram_integration_with_knowledge_graph(self) -> None:
         """
         Create integration between diagrams and knowledge graph systems
 
         Returns:
             Configured knowledge integration instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .knowledge_integration import KnowledgeIntegration
 
         # Implementation would create a KnowledgeIntegration instance
         # For now, return a placeholder
         logger.info("Diagram knowledge graph integration implementation placeholder")
         return None
 
-    def implement_diagram_security_and_access_control(self) -> "SecurityManager":
+    def implement_diagram_security_and_access_control(self) -> None:
         """
         Implement security and access control for diagram systems
 
         Returns:
             Configured security manager instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .security import SecurityManager
 
         # Implementation would create a SecurityManager instance
         # For now, return a placeholder
         logger.info("Diagram security and access control implementation placeholder")
         return None
 
-    def create_diagram_analytics_and_insights(self) -> "DiagramAnalytics":
+    def create_diagram_analytics_and_insights(self) -> None:
         """
         Create analytics and insights system for diagram usage and effectiveness
 
         Returns:
             Configured diagram analytics instance
         """
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .analytics import DiagramAnalytics
 
         # Implementation would create a DiagramAnalytics instance
         # For now, return a placeholder

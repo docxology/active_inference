@@ -8,7 +8,6 @@ search speed, memory usage, and scalability under various loads.
 import tempfile
 import time
 from pathlib import Path
-from typing import Any, Dict, List
 
 import psutil
 import pytest
@@ -144,7 +143,7 @@ class TestKnowledgeRepositoryPerformance:
         end_memory = self.get_memory_usage()
 
         filter_time = end_time - start_time
-        memory_increase = end_memory - start_memory
+        end_memory - start_memory
 
         # Should complete quickly
         assert filter_time < 0.5, f"Filtering took too long: {filter_time:.3f}s"
@@ -177,7 +176,7 @@ class TestKnowledgeRepositoryPerformance:
         end_memory = self.get_memory_usage()
 
         stats_time = end_time - start_time
-        memory_increase = end_memory - start_memory
+        end_memory - start_memory
 
         # Statistics should be calculated quickly
         assert (
@@ -202,7 +201,7 @@ class TestKnowledgeRepositoryPerformance:
         end_memory = self.get_memory_usage()
 
         graph_time = end_time - start_time
-        memory_increase = end_memory - start_memory
+        end_memory - start_memory
 
         # Graph generation should be reasonably fast
         assert graph_time < 0.5, f"Graph generation took too long: {graph_time:.3f}s"

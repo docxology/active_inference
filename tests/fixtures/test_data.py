@@ -7,7 +7,7 @@ Provides realistic test data, knowledge nodes, learning paths, and research scen
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 # Sample knowledge nodes for testing
 SAMPLE_KNOWLEDGE_NODES = [

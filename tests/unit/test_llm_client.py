@@ -5,9 +5,6 @@ Unit tests for the Ollama LLM client functionality, ensuring proper
 operation of model management, conversation handling, and error recovery.
 """
 
-import json
-import tempfile
-from pathlib import Path
 from unittest.mock import AsyncMock, Mock, patch
 
 import pytest

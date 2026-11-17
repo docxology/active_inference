@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -160,9 +160,9 @@ class BaseOrchestrator:
     def _validate_context(self, stage: ResearchStage, context: Dict[str, Any]) -> None:
         """Validate stage context"""
         required_fields = self._get_required_context_fields(stage)
-        for field in required_fields:
-            if field not in context:
-                raise ValueError(f"Missing required context field: {field}")
+        for field_name in required_fields:
+            if field_name not in context:
+                raise ValueError(f"Missing required context field: {field_name}")
 
     def _get_required_context_fields(self, stage: ResearchStage) -> List[str]:
         """Get required context fields for a stage"""

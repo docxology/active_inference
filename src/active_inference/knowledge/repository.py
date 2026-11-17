@@ -13,7 +13,6 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-import yaml
 from pydantic import BaseModel, Field, ValidationError
 
 logger = logging.getLogger(__name__)
@@ -112,11 +111,11 @@ class KnowledgeNodeSchema:
             errors.append(f"Missing required fields: {missing_fields}")
 
         # Check field types
-        for field, expected_type in cls.FIELD_TYPES.items():
-            if field in data:
-                if not isinstance(data[field], expected_type):
+        for field_name, expected_type in cls.FIELD_TYPES.items():
+            if field_name in data:
+                if not isinstance(data[field_name], expected_type):
                     errors.append(
-                        f"Field '{field}' must be of type {expected_type.__name__}"
+                        f"Field '{field_name}' must be of type {expected_type.__name__}"
                     )
 
         # Check content_type values

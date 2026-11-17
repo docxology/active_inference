@@ -6,7 +6,6 @@ mathematical computations, derivations, and validation functions.
 """
 
 import math
-from typing import Any, Dict, List
 from unittest.mock import Mock, patch
 
 import pytest
@@ -14,7 +13,6 @@ import pytest
 from active_inference.knowledge.mathematics import Mathematics
 from active_inference.knowledge.repository import (
     KnowledgeRepository,
-    KnowledgeRepositoryConfig,
 )
 
 

@@ -10,10 +10,8 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from .applications import ApplicationFramework
 from .knowledge import KnowledgeRepository, KnowledgeRepositoryConfig
 from .llm import (
-    ActiveInferencePromptBuilder,
     ActiveInferenceTemplates,
     ConversationManager,
     LLMConfig,
@@ -21,8 +19,6 @@ from .llm import (
     OllamaClient,
     PromptManager,
 )
-from .research import ResearchFramework
-from .visualization import VisualizationEngine
 
 
 class ActiveInferenceCLI:
@@ -144,9 +140,7 @@ Examples:
         path_show_parser = path_subparsers.add_parser("show", help="Show learning path")
         path_show_parser.add_argument("path_id", help="Path identifier")
 
-        path_list_parser = path_subparsers.add_parser(
-            "list", help="List available paths"
-        )
+        path_subparsers.add_parser("list", help="List available paths")
 
         # Statistics command
         knowledge_subparsers.add_parser("stats", help="Show repository statistics")
@@ -415,12 +409,6 @@ Examples:
         print(f"🔍 Searching for: '{args.query}'")
         print()
 
-        # Prepare filters
-        content_types = []
-        if hasattr(args, "type") and args.type:
-            # Map string to enum (placeholder)
-            content_types = [args.type]
-
         # Perform search
         results = self.knowledge_repo.search(query=args.query, limit=args.limit)
 
@@ -628,7 +616,7 @@ Examples:
                     conversation = self.conversation_manager.create_conversation(
                         "AI Chat"
                     )
-                    print(f"💬 Started new conversation")
+                    print("💬 Started new conversation")
 
                 if args.message:
                     # Single message chat

@@ -7,7 +7,6 @@ principles, and theoretical framework.
 """
 
 import json
-from pathlib import Path
 from typing import Any, Dict, List
 
 from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository

@@ -8,10 +8,9 @@ and common operations used throughout the platform.
 
 import json
 import logging
-from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import yaml

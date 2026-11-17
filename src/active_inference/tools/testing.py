@@ -6,6 +6,7 @@ Provides unit testing, integration testing, performance testing, and quality
 assurance tools for ensuring reliable and robust implementations.
 """
 
+import json
 import logging
 import time
 import traceback
@@ -14,6 +15,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 

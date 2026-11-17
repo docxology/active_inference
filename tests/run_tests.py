@@ -9,8 +9,7 @@ Provides multiple ways to run tests with different configurations and reporting.
 import argparse
 import subprocess
 import sys
-from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 
 def run_command(command: List[str], description: str = "") -> bool:
@@ -18,7 +17,7 @@ def run_command(command: List[str], description: str = "") -> bool:
     try:
         print(f"🔧 {description}")
         print(f"   Command: {' '.join(command)}")
-        result = subprocess.run(command, check=True, capture_output=True, text=True)
+        subprocess.run(command, check=True, capture_output=True, text=True)
         print("   ✅ Success")
         return True
     except subprocess.CalledProcessError as e:

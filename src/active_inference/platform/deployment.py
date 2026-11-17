@@ -7,12 +7,11 @@ and operational management.
 """
 
 import logging
-import subprocess
 import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional
 
 import psutil
 

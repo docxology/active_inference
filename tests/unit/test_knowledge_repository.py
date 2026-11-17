@@ -8,7 +8,6 @@ operation of knowledge management, search, and learning path features.
 import json
 import tempfile
 from pathlib import Path
-from unittest.mock import Mock, patch
 
 import pytest
 
@@ -218,7 +217,7 @@ class TestKnowledgeRepository:
         assert "path_length" in validation
 
         # Our test path should be valid
-        assert validation["valid"] == True
+        assert validation["valid"] is True
         assert validation["path_length"] == 2
         assert len(validation["issues"]) == 0
 
@@ -268,7 +267,7 @@ class TestKnowledgeRepository:
 
         # Try to validate non-existent path
         validation = repo.validate_learning_path("nonexistent")
-        assert validation["valid"] == False
+        assert validation["valid"] is False
         assert "Path not found" in validation["error"]
 
     def test_get_node_content(self, repository_config):
@@ -296,7 +295,7 @@ class TestKnowledgeRepository:
         assert "circular_dependencies" in validation
 
         # Our test repository should be valid
-        assert validation["valid"] == True
+        assert validation["valid"] is True
 
     def test_json_schema_validation(self, repository_config):
         """Test JSON schema validation"""
