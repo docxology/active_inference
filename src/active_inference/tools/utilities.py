@@ -87,7 +87,8 @@ class DataProcessingTools:
         old_indices = np.linspace(0, len(data) - 1, len(data))
         new_indices = np.linspace(0, len(data) - 1, target_length)
 
-        return np.interp(new_indices, old_indices, data).tolist()
+        interpolated = np.interp(new_indices, old_indices, data)
+        return list(map(float, interpolated))
 
 
 class ConfigurationManager:

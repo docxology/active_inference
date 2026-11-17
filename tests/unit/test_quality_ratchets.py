@@ -14,6 +14,7 @@ from coverage_config import (  # noqa: E402
     COVERAGE_THRESHOLDS,
     check_coverage_report,
     component_of,
+    is_coverage_acceptable,
 )
 
 
@@ -89,31 +90,61 @@ def _report(tmp_path, files, total):
     return report
 
 
-def test_coverage_report_passes_at_thresholds(tmp_path):
-    report = _report(
-        tmp_path,
-        {
-            "src/active_inference/llm/a.py": (95, 100),
-            "src/active_inference/cli.py": (100, 100),
-        },
-        99.0,
-    )
-    assert check_coverage_report(report) == []
+def _complete_files():
+    return {
+        (
+            "src/active_inference/cli.py"
+            if component == "package"
+            else f"src/active_inference/{component}/__init__.py"
+        ): (100, 100)
+        for component in COVERAGE_THRESHOLDS
+        if component != "overall"
+    }
 
 
-def test_coverage_report_flags_component_and_overall(tmp_path):
-    report = _report(
-        tmp_path,
-        {"src/active_inference/llm/a.py": (94, 100)},
-        98.9,
-    )
-    problems = check_coverage_report(report)
-    assert problems == ["llm: 94.00% < 95%", "overall: 98.90% < 99%"]
+def test_coverage_report_passes_just_above_component_floor(tmp_path):
+    files = _complete_files()
+    files["src/active_inference/knowledge/__init__.py"] = (9501, 10000)
+    assert check_coverage_report(_report(tmp_path, files, 99.0)) == []
+
+
+def test_coverage_helper_uses_strict_component_and_inclusive_overall_floors():
+    assert not is_coverage_acceptable(95, "knowledge")
+    assert is_coverage_acceptable(95.01, "knowledge")
+    assert is_coverage_acceptable(99)
+
+
+@pytest.mark.parametrize("covered", [94, 95])
+def test_coverage_report_flags_component_and_overall(tmp_path, covered):
+    files = _complete_files()
+    files["src/active_inference/knowledge/__init__.py"] = (covered, 100)
+    report = _report(tmp_path, files, 98.9)
+    assert check_coverage_report(report) == [
+        f"knowledge: {covered:.2f}% must exceed 95%",
+        "overall: 98.90% < 99%",
+    ]
+
+
+def test_coverage_report_rejects_an_omitted_component(tmp_path):
+    files = _complete_files()
+    del files["src/active_inference/knowledge/__init__.py"]
+    assert check_coverage_report(_report(tmp_path, files, 100.0)) == [
+        "component 'knowledge' is missing from the coverage report"
+    ]
+
+
+def test_coverage_report_rejects_a_component_without_measured_lines(tmp_path):
+    files = _complete_files()
+    files["src/active_inference/knowledge/__init__.py"] = (0, 0)
+    assert check_coverage_report(_report(tmp_path, files, 100.0)) == [
+        "component 'knowledge' has no measured statements"
+    ]
 
 
 def test_coverage_report_flags_unthresholded_component(tmp_path):
-    report = _report(tmp_path, {"src/active_inference/newpkg/a.py": (1, 1)}, 100.0)
-    assert check_coverage_report(report) == [
+    files = _complete_files()
+    files["src/active_inference/newpkg/a.py"] = (1, 1)
+    assert check_coverage_report(_report(tmp_path, files, 100.0)) == [
         "component 'newpkg' has no coverage threshold"
     ]
 

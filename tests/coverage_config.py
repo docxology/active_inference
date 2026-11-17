@@ -75,6 +75,8 @@ def get_coverage_threshold(component: str = "overall") -> int:
 def is_coverage_acceptable(coverage_percent: float, component: str = "overall") -> bool:
     """Check if coverage meets the required threshold"""
     threshold = get_coverage_threshold(component)
+    if component in COVERAGE_THRESHOLDS and component != "overall":
+        return coverage_percent > threshold
     return coverage_percent >= threshold
 
 
@@ -88,8 +90,8 @@ def component_of(path: str) -> str:
 def check_coverage_report(report_path: Path) -> list[str]:
     """Check a coverage.py JSON report against COVERAGE_THRESHOLDS.
 
-    Returns one message per threshold that is not met, and one for any
-    component without a threshold, so a new package cannot go unchecked.
+    Reports unmet thresholds and components that are missing from the
+    report, have no measured statements, or have no configured threshold.
     """
     import json
 
@@ -102,15 +104,21 @@ def check_coverage_report(report_path: Path) -> list[str]:
         covered[component] = covered.get(component, 0) + summary["covered_lines"]
         statements[component] = statements.get(component, 0) + summary["num_statements"]
     problems = []
-    for component in sorted(statements):
-        if component not in COVERAGE_THRESHOLDS:
-            problems.append(f"component {component!r} has no coverage threshold")
+    expected = COVERAGE_THRESHOLDS.keys() - {"overall"}
+    for component in sorted(expected - statements.keys()):
+        problems.append(f"component {component!r} is missing from the coverage report")
+    for component in sorted(statements.keys() - expected):
+        problems.append(f"component {component!r} has no coverage threshold")
+    for component in sorted(expected & statements.keys()):
+        count = statements[component]
+        if count == 0:
+            problems.append(f"component {component!r} has no measured statements")
             continue
-        percent = 100.0 * covered[component] / max(statements[component], 1)
+        percent = 100.0 * covered[component] / count
         threshold = COVERAGE_THRESHOLDS[component]
-        print(f"{component}: {percent:.2f}% (threshold {threshold}%)")
-        if percent < threshold:
-            problems.append(f"{component}: {percent:.2f}% < {threshold}%")
+        print(f"{component}: {percent:.2f}% (must exceed {threshold}%)")
+        if covered[component] * 100 <= threshold * count:
+            problems.append(f"{component}: {percent:.2f}% must exceed {threshold}%")
     total = report["totals"]["percent_covered"]
     print(f"overall: {total:.2f}% (threshold {COVERAGE_THRESHOLDS['overall']}%)")
     if total < COVERAGE_THRESHOLDS["overall"]:
