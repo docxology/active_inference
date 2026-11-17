@@ -23,6 +23,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
     'sphinx.ext.graphviz',
+    'myst_parser',  # Markdown sources (otherwise .md is parsed as reStructuredText)
     # 'myst_nb',  # For markdown and Jupyter notebooks - temporarily disabled
     # 'nbsphinx',  # For Jupyter notebooks - temporarily disabled
     'sphinx_rtd_theme',  # Read the Docs theme
@@ -105,9 +106,8 @@ math_eqref_format = 'Eq.{number}'
 
 # Source configuration
 source_suffix = {
-    '.rst': None,
-    '.md': None,
-    '.ipynb': None,
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
 }
 
 # Master document

@@ -5,6 +5,7 @@ Unit tests for the platform search engine, ensuring proper operation of
 search functionality, indexing, ranking, and analytics.
 """
 
+import inspect
 import json
 
 import pytest
@@ -12,13 +13,43 @@ import pytest
 from active_inference.platform.search import QueryProcessor, SearchEngine, SearchResult
 
 
-def _planned_api(reason: str) -> pytest.MarkDecorator:
+def _planned_api(
+    reason: str, *, missing: bool, raises: type[BaseException]
+) -> pytest.MarkDecorator:
     """Mark a test written against search API that does not exist yet.
 
-    strict=True makes the test fail loudly once the API is implemented, so the
-    marker has to be removed rather than silently masking a pass.
+    The test is an expected failure only while ``missing`` is true (a probe of
+    the current code shows the capability is absent) and only when it fails with
+    ``raises``; any other error is reported as a real failure. strict=True makes
+    an unexpected pass fail loudly, and once the capability exists ``missing``
+    turns false and the test runs normally.
     """
-    return pytest.mark.xfail(reason=f"planned API: {reason}", strict=True)
+    return pytest.mark.xfail(
+        missing, reason=f"planned API: {reason}", raises=raises, strict=True
+    )
+
+
+def _engine() -> SearchEngine:
+    return SearchEngine(
+        {"index_backend": "memory", "cache_enabled": False, "max_results": 50}
+    )
+
+
+def _lacks(name: str) -> bool:
+    return not hasattr(SearchEngine, name)
+
+
+def _search_returns_dicts() -> bool:
+    engine = _engine()
+    engine.index_manager.add_to_index(
+        "probe", {"id": "probe", "title": "Entropy", "description": "entropy"}
+    )
+    results = engine.search("entropy", limit=1)
+    return not results or not isinstance(results[0], SearchResult)
+
+
+_INTENT = QueryProcessor({}).extract_intent("explain entropy information theory")
+_SIMPLE_INTENT = QueryProcessor({}).extract_intent("entropy")
 
 
 class TestSearchResult:
@@ -104,7 +135,11 @@ class TestQueryProcessor:
         processed = query_processor.preprocess_query("")
         assert processed == []
 
-    @_planned_api("QueryProcessor.extract_intent returns no 'entities' field")
+    @_planned_api(
+        "QueryProcessor.extract_intent returns no 'entities' field",
+        missing="entities" not in _INTENT,
+        raises=AssertionError,
+    )
     def test_extract_intent(self, query_processor):
         """Test intent extraction from query"""
         query = "explain entropy information theory"
@@ -115,7 +150,11 @@ class TestQueryProcessor:
         assert "entities" in intent
         assert "complexity" in intent
 
-    @_planned_api("QueryProcessor.extract_intent has no 'concept_lookup' intent")
+    @_planned_api(
+        "QueryProcessor.extract_intent has no 'concept_lookup' intent",
+        missing=_SIMPLE_INTENT["primary_intent"] != "concept_lookup",
+        raises=AssertionError,
+    )
     def test_extract_intent_simple_query(self, query_processor):
         """Test intent extraction from simple query"""
         intent = query_processor.extract_intent("entropy")
@@ -133,7 +172,11 @@ class TestSearchEngine:
         config = {"index_backend": "memory", "cache_enabled": False, "max_results": 50}
         return SearchEngine(config)
 
-    @_planned_api("SearchEngine exposes result_ranker, not ranker")
+    @_planned_api(
+        "SearchEngine exposes result_ranker, not ranker",
+        missing=not hasattr(_engine(), "ranker"),
+        raises=AssertionError,
+    )
     def test_search_engine_initialization(self, search_engine):
         """Test SearchEngine initialization"""
         assert hasattr(search_engine, "index_manager")
@@ -141,7 +184,9 @@ class TestSearchEngine:
         assert hasattr(search_engine, "ranker")
 
     @_planned_api(
-        "IndexManager exposes index/reverse_index, not node_index/inverted_index"
+        "IndexManager exposes index/reverse_index, not node_index/inverted_index",
+        missing=not hasattr(_engine().index_manager, "node_index"),
+        raises=AttributeError,
     )
     def test_add_to_index(self, search_engine):
         """Test adding content to search index"""
@@ -160,7 +205,11 @@ class TestSearchEngine:
         assert "test_node_1" in search_engine.index_manager.node_index
         assert "test" in search_engine.index_manager.inverted_index
 
-    @_planned_api("SearchEngine.search returns dicts, not SearchResult objects")
+    @_planned_api(
+        "SearchEngine.search returns dicts, not SearchResult objects",
+        missing=_search_returns_dicts(),
+        raises=AssertionError,
+    )
     def test_search_basic(self, search_engine):
         """Test basic search functionality"""
         # Add test content
@@ -187,7 +236,12 @@ class TestSearchEngine:
         assert result.node_id == "entropy_basics"
         assert result.relevance_score > 0
 
-    @_planned_api("SearchEngine.search has no content_types/difficulty keywords")
+    @_planned_api(
+        "SearchEngine.search has no content_types/difficulty keywords",
+        missing="content_types"
+        not in inspect.signature(SearchEngine.search).parameters,
+        raises=TypeError,
+    )
     def test_search_with_filters(self, search_engine):
         """Test search with content type filters"""
         # Add multiple test nodes
@@ -265,7 +319,11 @@ class TestSearchEngine:
         if len(results) > 1:
             assert results[0].relevance_score >= results[1].relevance_score
 
-    @_planned_api("SearchEngine.advanced_search is not implemented")
+    @_planned_api(
+        "SearchEngine.advanced_search is not implemented",
+        missing=_lacks("advanced_search"),
+        raises=AttributeError,
+    )
     def test_advanced_search(self, search_engine):
         """Test advanced search functionality"""
         # Add test content
@@ -291,7 +349,11 @@ class TestSearchEngine:
         # Should return matching results
         assert len(results) > 0
 
-    @_planned_api("SearchEngine.search_similar_content is not implemented")
+    @_planned_api(
+        "SearchEngine.search_similar_content is not implemented",
+        missing=_lacks("search_similar_content"),
+        raises=AttributeError,
+    )
     def test_search_similar_content(self, search_engine):
         """Test finding similar content"""
         # Add related nodes
@@ -335,7 +397,11 @@ class TestSearchEngine:
         # Should not include unrelated node
         assert "unrelated" not in similar_ids
 
-    @_planned_api("SearchEngine.get_search_analytics is not implemented")
+    @_planned_api(
+        "SearchEngine.get_search_analytics is not implemented",
+        missing=_lacks("get_search_analytics"),
+        raises=AttributeError,
+    )
     def test_search_analytics(self, search_engine):
         """Test search analytics functionality"""
         # Add some test content
@@ -361,7 +427,11 @@ class TestSearchEngine:
 
         assert analytics["total_indexed_nodes"] == 1
 
-    @_planned_api("SearchEngine.get_popular_searches is not implemented")
+    @_planned_api(
+        "SearchEngine.get_popular_searches is not implemented",
+        missing=_lacks("get_popular_searches"),
+        raises=AttributeError,
+    )
     def test_popular_searches(self, search_engine):
         """Test popular searches functionality"""
         popular = search_engine.get_popular_searches(limit=5)
@@ -374,7 +444,11 @@ class TestSearchEngine:
             assert "count" in item
             assert isinstance(item["count"], int)
 
-    @_planned_api("SearchEngine.get_faceted_search_options is not implemented")
+    @_planned_api(
+        "SearchEngine.get_faceted_search_options is not implemented",
+        missing=_lacks("get_faceted_search_options"),
+        raises=AttributeError,
+    )
     def test_faceted_search_options(self, search_engine):
         """Test faceted search options"""
         # Add nodes with different facets
@@ -416,7 +490,11 @@ class TestSearchEngine:
         # Check tags
         assert len(facets["tags"]) > 0
 
-    @_planned_api("SearchEngine.reindex_all_content is not implemented")
+    @_planned_api(
+        "SearchEngine.reindex_all_content is not implemented",
+        missing=_lacks("reindex_all_content"),
+        raises=AttributeError,
+    )
     def test_reindex_functionality(self, search_engine):
         """Test reindexing functionality"""
         # Add some content
@@ -435,7 +513,11 @@ class TestSearchEngine:
         assert result["success"] is True
         assert result["nodes_indexed"] > 0
 
-    @_planned_api("SearchEngine.optimize_search_indices is not implemented")
+    @_planned_api(
+        "SearchEngine.optimize_search_indices is not implemented",
+        missing=_lacks("optimize_search_indices"),
+        raises=AttributeError,
+    )
     def test_search_optimization(self, search_engine):
         """Test search index optimization"""
         # Add content
@@ -454,7 +536,11 @@ class TestSearchEngine:
         assert result["success"] is True
         assert "unused_terms_removed" in result
 
-    @_planned_api("SearchEngine.validate_search_functionality is not implemented")
+    @_planned_api(
+        "SearchEngine.validate_search_functionality is not implemented",
+        missing=_lacks("validate_search_functionality"),
+        raises=AttributeError,
+    )
     def test_search_validation(self, search_engine):
         """Test search functionality validation"""
         validation = search_engine.validate_search_functionality()
@@ -465,7 +551,11 @@ class TestSearchEngine:
         assert "warnings" in validation
         assert "recommendations" in validation
 
-    @_planned_api("SearchEngine.export_search_data is not implemented")
+    @_planned_api(
+        "SearchEngine.export_search_data is not implemented",
+        missing=_lacks("export_search_data"),
+        raises=AttributeError,
+    )
     def test_search_export_import(self, search_engine):
         """Test search data export and import"""
         # Add test content
@@ -512,7 +602,11 @@ class TestSearchEngine:
         assert isinstance(suggestions, list)
         assert len(suggestions) > 0
 
-    @_planned_api("SearchEngine.get_search_analytics is not implemented")
+    @_planned_api(
+        "SearchEngine.get_search_analytics is not implemented",
+        missing=_lacks("get_search_analytics"),
+        raises=AttributeError,
+    )
     def test_search_performance_metrics(self, search_engine):
         """Test search performance metrics"""
         analytics = search_engine.get_search_analytics()

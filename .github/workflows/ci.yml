@@ -32,22 +32,29 @@ jobs:
         enable-cache: true
 
     - name: Install dependencies
-      run: uv sync --locked --extra dev --extra test
+      run: uv sync --locked --extra dev --extra test --extra docs
 
     - name: black
-      run: uv run black --check src/ tests/
+      run: uv run black --check src/ tests/ scripts/check_ratchets.py
 
     - name: isort
-      run: uv run isort --check-only src/ tests/
+      run: uv run isort --check-only src/ tests/ scripts/check_ratchets.py
 
     - name: flake8
-      run: uv run flake8 src/ tests/
+      run: uv run flake8 src/ tests/ scripts/check_ratchets.py
 
     - name: mypy
       run: uv run mypy src/
 
-    - name: Test documentation build
-      run: uv run --with sphinx --with sphinx-rtd-theme sphinx-build -q -b html docs/ docs/_build/
+    # Modules still exempt from strict typing are pinned in pyproject.toml
+    # ([tool.active_inference.ratchets]): the list may only shrink and each
+    # module's error count must match its budget exactly.
+    - name: mypy legacy-module ratchet
+      run: uv run python scripts/check_ratchets.py mypy
+
+    # The documentation build must emit exactly the budgeted warning count.
+    - name: Sphinx warning ratchet
+      run: uv run python scripts/check_ratchets.py sphinx
 
   test:
     runs-on: ubuntu-latest
@@ -69,10 +76,14 @@ jobs:
       run: uv sync --locked --extra dev --extra test
 
     # One run covers unit, integration, knowledge, performance and security
-    # tests. The coverage floor is the measured baseline (issue #10); raise it
-    # as coverage improves.
+    # tests. AGENTS.md requires >80% overall and >95% for core components;
+    # tests/coverage_config.py holds the per-component thresholds and the
+    # overall ratchet that --cov-fail-under repeats here.
     - name: pytest
-      run: uv run python -m pytest tests/ --cov=src/ --cov-report=xml --cov-report=term --cov-fail-under=35
+      run: uv run python -m pytest tests/ --cov=src/active_inference --cov-report=xml --cov-report=json --cov-report=term --cov-fail-under=99
+
+    - name: Per-component coverage thresholds
+      run: uv run python scripts/check_ratchets.py coverage coverage.json
 
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
@@ -124,10 +135,10 @@ jobs:
         enable-cache: true
 
     - name: Install dependencies
-      run: uv sync --locked --extra dev
+      run: uv sync --locked --extra dev --extra docs
 
     - name: Build documentation
-      run: uv run --with sphinx --with sphinx-rtd-theme sphinx-build -q -b html docs/ docs/_build/
+      run: uv run sphinx-build -q -b html docs/ docs/_build/
 
     - name: Deploy documentation
       uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # peaceiris/actions-gh-pages@v4.1.0
