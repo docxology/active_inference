@@ -242,9 +242,9 @@
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
                     <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                    <span class="n">func_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">func_docstring</span><span class="p">:</span>
                         <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span> <span class="o">+=</span> <span class="mi">1</span>
-                        <span class="n">func_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
                         <span class="n">docstring_metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_docstring</span><span class="p">(</span><span class="n">func_docstring</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_docstring_quality</span><span class="p">(</span>
                             <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
@@ -255,9 +255,9 @@
 
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span>
                     <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                    <span class="n">class_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">class_docstring</span><span class="p">:</span>
                         <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span> <span class="o">+=</span> <span class="mi">1</span>
-                        <span class="n">class_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
                         <span class="n">docstring_metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_docstring</span><span class="p">(</span><span class="n">class_docstring</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_docstring_quality</span><span class="p">(</span>
                             <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
@@ -293,7 +293,7 @@
 
         <span class="c1"># Check for sections</span>
         <span class="n">current_section</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">section_content</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content_lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>  <span class="c1"># Skip first line (summary)</span>
             <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"Args:"</span><span class="p">,</span> <span class="s2">"Arguments:"</span><span class="p">,</span> <span class="s2">"Parameters:"</span><span class="p">)):</span>
@@ -322,12 +322,22 @@
             <span class="k">elif</span> <span class="n">current_section</span><span class="p">:</span>
                 <span class="n">section_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
-        <span class="c1"># Count parameters in Args section</span>
+        <span class="c1"># Count parameters in Args section (indentation survives only in raw lines)</span>
         <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_parameters</span><span class="p">:</span>
-            <span class="n">param_lines</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content_lines</span> <span class="k">if</span> <span class="s2">"    "</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="s2">":"</span> <span class="ow">in</span> <span class="n">line</span>
-            <span class="p">]</span>
-            <span class="n">metrics</span><span class="o">.</span><span class="n">parameter_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_lines</span><span class="p">)</span>
+            <span class="n">args_indent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">param_indent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">raw_line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="n">stripped</span> <span class="o">=</span> <span class="n">raw_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">indent</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_line</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">stripped</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"Args:"</span><span class="p">,</span> <span class="s2">"Arguments:"</span><span class="p">,</span> <span class="s2">"Parameters:"</span><span class="p">)):</span>
+                    <span class="n">args_indent</span><span class="p">,</span> <span class="n">param_indent</span> <span class="o">=</span> <span class="n">indent</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="k">elif</span> <span class="n">args_indent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">stripped</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">indent</span> <span class="o">&lt;=</span> <span class="n">args_indent</span><span class="p">:</span>
+                    <span class="n">args_indent</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">elif</span> <span class="s2">":"</span> <span class="ow">in</span> <span class="n">stripped</span> <span class="ow">and</span> <span class="n">param_indent</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">indent</span><span class="p">):</span>
+                    <span class="n">param_indent</span> <span class="o">=</span> <span class="n">indent</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">parameter_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># Calculate quality score</span>
         <span class="n">metrics</span><span class="o">.</span><span class="n">quality_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_docstring_quality_score</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
@@ -536,7 +546,7 @@
 
         <span class="n">current_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_documentation</span><span class="p">()</span>
 
-        <span class="n">suggestions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">suggestions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"current_coverage"</span><span class="p">:</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="p">,</span>
             <span class="s2">"target_coverage"</span><span class="p">:</span> <span class="n">target_coverage</span><span class="p">,</span>
             <span class="s2">"gap"</span><span class="p">:</span> <span class="n">target_coverage</span> <span class="o">-</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="p">,</span>

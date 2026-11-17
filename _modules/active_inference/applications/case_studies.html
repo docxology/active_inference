@@ -281,7 +281,7 @@
 <span class="s1">"""</span>
 
 <span class="s1">import numpy as np</span>
-<span class="s1">from typing import Dict, List, Optional, Tuple</span>
+<span class="s1">from typing import Any, Dict, List, Optional, Tuple</span>
 <span class="s1">import matplotlib.pyplot as plt</span>
 
 
@@ -502,7 +502,7 @@
 <span class="s1">    print("Decision making simulation completed:")</span>
 <span class="s1">    print(f"Actions taken: </span><span class="si">{results['actions']}</span><span class="s1">")</span>
 <span class="s1">    print(f"Final beliefs: </span><span class="si">{results['beliefs'][-1]}</span><span class="s1">")</span>
-<span class="s1">    print(f"Average expected FE: {np.mean(results['expected_free_energy'])".3f"}")</span>
+<span class="s1">    print(f"Average expected FE: {np.mean(results['expected_free_energy']):.3f}")</span>
 <span class="s1">'''</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_generate_motor_control_code</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -516,9 +516,12 @@
 <span class="s1">minimizing free energy.</span>
 <span class="s1">"""</span>
 
+<span class="s1">import logging</span>
 <span class="s1">import numpy as np</span>
-<span class="s1">from typing import Dict, List, Optional, Tuple</span>
+<span class="s1">from typing import Any, Dict, List, Optional, Tuple</span>
 <span class="s1">import matplotlib.pyplot as plt</span>
+
+<span class="s1">logger = logging.getLogger(__name__)</span>
 
 
 <span class="s1">class MotorControlModel:</span>
@@ -667,8 +670,8 @@
 <span class="s1">    print("Motor control simulation completed:")</span>
 <span class="s1">    print(f"Final position: </span><span class="si">{results['states'][-1]}</span><span class="s1">")</span>
 <span class="s1">    print(f"Target position: </span><span class="si">{target_pos}</span><span class="s1">")</span>
-<span class="s1">    print(f"Final error: {np.linalg.norm(results['states'][-1] - target_pos)".3f"}")</span>
-<span class="s1">    print(f"Average free energy: {np.mean(results['free_energy'])".3f"}")</span>
+<span class="s1">    print(f"Final error: {np.linalg.norm(results['states'][-1] - target_pos):.3f}")</span>
+<span class="s1">    print(f"Average free energy: {np.mean(results['free_energy']):.3f}")</span>
 <span class="s1">'''</span></div>
 
 

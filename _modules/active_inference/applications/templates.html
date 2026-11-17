@@ -91,6 +91,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -305,8 +306,8 @@
 <span class="s1">    model = </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s1">(config)</span>
 <span class="s1">    results = model.run_simulation(100)</span>
 
-<span class="s1">    print(f"Final free energy: </span><span class="se">{{</span><span class="s1">results['free_energy_history'][-1]".3f"</span><span class="se">}}</span><span class="s1">")</span>
-<span class="s1">    print(f"Average accuracy: </span><span class="se">{{</span><span class="s1">np.mean(results['accuracy_history'])".3f"</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">    print(f"Final free energy: </span><span class="se">{{</span><span class="s1">results['free_energy_history'][-1]:.3f</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">    print(f"Average accuracy: </span><span class="se">{{</span><span class="s1">np.mean(results['accuracy_history']):.3f</span><span class="se">}}</span><span class="s1">")</span>
 <span class="s1">'''</span>
 
         <span class="k">return</span> <span class="p">{</span>
@@ -1228,7 +1229,7 @@
         <span class="n">required_elements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"class.*Model"</span><span class="p">,</span> <span class="s2">"def __init__"</span><span class="p">,</span> <span class="s2">"def perceive"</span><span class="p">,</span> <span class="s2">"def act"</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">required_elements</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">element</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)):</span>
                 <span class="n">results</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required element: </span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="n">results</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 

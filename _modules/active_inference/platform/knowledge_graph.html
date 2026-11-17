@@ -331,6 +331,23 @@
         <span class="k">return</span> <span class="n">related</span></div>
 
 
+<div class="viewcode-block" id="KnowledgeGraphManager.get_neighbors">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.get_neighbors">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get IDs of nodes adjacent to a node via edges in either direction"""</span>
+        <span class="n">neighbors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">node_id</span><span class="p">:</span>
+                <span class="n">other</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span>
+            <span class="k">elif</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">node_id</span><span class="p">:</span>
+                <span class="n">other</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">other</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+                <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">neighbors</span></div>
+
+
 <div class="viewcode-block" id="KnowledgeGraphManager.find_shortest_path">
 <a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.find_shortest_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">find_shortest_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>

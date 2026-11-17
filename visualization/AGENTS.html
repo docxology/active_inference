@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+  <title>Visualization Documentation - Agent Development Guide &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -71,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">Visualization Documentation - Agent Development Guide</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/visualization/AGENTS.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,344 +81,379 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p># Visualization Documentation - Agent Development Guide</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="visualization-documentation-agent-development-guide">
+<h1>Visualization Documentation - Agent Development Guide<a class="headerlink" href="#visualization-documentation-agent-development-guide" title="Link to this heading"></a></h1>
 <p><strong>Guidelines for AI agents working with visualization documentation in the Active Inference Knowledge Environment.</strong></p>
-<p>## 🤖 Agent Role &amp; Responsibilities</p>
+<section id="agent-role-responsibilities">
+<h2>🤖 Agent Role &amp; Responsibilities<a class="headerlink" href="#agent-role-responsibilities" title="Link to this heading"></a></h2>
 <p><strong>What agents should do when working with visualization documentation:</strong></p>
-<p>### Primary Responsibilities
-- <strong>Visualization Documentation</strong>: Create comprehensive documentation for visualization systems
-- <strong>Educational Visualization</strong>: Design and document engaging visual learning experiences
-- <strong>Interactive Documentation</strong>: Document interactive exploration tools and interfaces
-- <strong>Performance Documentation</strong>: Document visualization performance and optimization
-- <strong>Accessibility Documentation</strong>: Ensure visualizations are accessible and usable</p>
-<p>### Development Focus Areas
-1. <strong>Animation Documentation</strong>: Document dynamic visualizations and temporal processes
-2. <strong>Dashboard Documentation</strong>: Document interactive exploration and analysis interfaces
-3. <strong>Diagram Documentation</strong>: Document static diagrams and visual explanations
-4. <strong>Comparative Documentation</strong>: Document comparison tools and analysis visualizations
-5. <strong>Educational Documentation</strong>: Document learning-focused visualizations</p>
-<p>## 🏗️ Architecture &amp; Integration</p>
-<p>### Visualization Documentation Architecture</p>
+<section id="primary-responsibilities">
+<h3>Primary Responsibilities<a class="headerlink" href="#primary-responsibilities" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Visualization Documentation</strong>: Create comprehensive documentation for visualization systems</p></li>
+<li><p><strong>Educational Visualization</strong>: Design and document engaging visual learning experiences</p></li>
+<li><p><strong>Interactive Documentation</strong>: Document interactive exploration tools and interfaces</p></li>
+<li><p><strong>Performance Documentation</strong>: Document visualization performance and optimization</p></li>
+<li><p><strong>Accessibility Documentation</strong>: Ensure visualizations are accessible and usable</p></li>
+</ul>
+</section>
+<section id="development-focus-areas">
+<h3>Development Focus Areas<a class="headerlink" href="#development-focus-areas" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Animation Documentation</strong>: Document dynamic visualizations and temporal processes</p></li>
+<li><p><strong>Dashboard Documentation</strong>: Document interactive exploration and analysis interfaces</p></li>
+<li><p><strong>Diagram Documentation</strong>: Document static diagrams and visual explanations</p></li>
+<li><p><strong>Comparative Documentation</strong>: Document comparison tools and analysis visualizations</p></li>
+<li><p><strong>Educational Documentation</strong>: Document learning-focused visualizations</p></li>
+</ol>
+</section>
+</section>
+<section id="architecture-integration">
+<h2>🏗️ Architecture &amp; Integration<a class="headerlink" href="#architecture-integration" title="Link to this heading"></a></h2>
+<section id="visualization-documentation-architecture">
+<h3>Visualization Documentation Architecture<a class="headerlink" href="#visualization-documentation-architecture" title="Link to this heading"></a></h3>
 <p><strong>Understanding how visualization documentation fits into the larger system:</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Documentation</span> <span class="pre">Layer</span>
-<span class="pre">├──</span> <span class="pre">Visualization</span> <span class="pre">Documentation</span> <span class="pre">(Animations,</span> <span class="pre">diagrams,</span> <span class="pre">dashboards,</span> <span class="pre">comparative)</span>
-<span class="pre">├──</span> <span class="pre">Educational</span> <span class="pre">Documentation</span> <span class="pre">(Learning</span> <span class="pre">modules,</span> <span class="pre">tutorials,</span> <span class="pre">interactive</span> <span class="pre">content)</span>
-<span class="pre">├──</span> <span class="pre">Technical</span> <span class="pre">Documentation</span> <span class="pre">(API</span> <span class="pre">docs,</span> <span class="pre">implementation</span> <span class="pre">guides,</span> <span class="pre">performance)</span>
-<span class="pre">└──</span> <span class="pre">User</span> <span class="pre">Documentation</span> <span class="pre">(Usage</span> <span class="pre">guides,</span> <span class="pre">best</span> <span class="pre">practices,</span> <span class="pre">troubleshooting)</span>
-<span class="pre">`</span></code></p>
-<p>### Integration Points</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Documentation Layer
+├── Visualization Documentation (Animations, diagrams, dashboards, comparative)
+├── Educational Documentation (Learning modules, tutorials, interactive content)
+├── Technical Documentation (API docs, implementation guides, performance)
+└── User Documentation (Usage guides, best practices, troubleshooting)
+</pre></div>
+</div>
+</section>
+<section id="integration-points">
+<h3>Integration Points<a class="headerlink" href="#integration-points" title="Link to this heading"></a></h3>
 <p><strong>Key integration points and dependencies:</strong></p>
-<p>#### Upstream Components
-- <strong>Visualization Engine</strong>: Core rendering and animation systems
-- <strong>Knowledge Base</strong>: Educational content and concept definitions
-- <strong>Research Tools</strong>: Data and analysis results for visualization
-- <strong>Platform Services</strong>: Infrastructure supporting visualization delivery</p>
-<p>#### Downstream Components
-- <strong>User Interfaces</strong>: Integration with web interfaces and applications
-- <strong>Educational Platforms</strong>: Integration with learning management systems
-- <strong>Publication Systems</strong>: Export for academic papers and presentations
-- <strong>Community Tools</strong>: Shared visualization and collaborative exploration</p>
-<p>#### External Systems
-- <strong>Visualization Libraries</strong>: Matplotlib, Plotly, D3.js, WebGL, Three.js
-- <strong>Design Tools</strong>: Figma, Adobe XD, design system documentation
-- <strong>Web Technologies</strong>: HTML5 Canvas, CSS animations, JavaScript frameworks
-- <strong>Multimedia Tools</strong>: Video editing, image processing, accessibility tools</p>
-<p>### Documentation Flow Patterns</p>
-<p><code class="docutils literal notranslate"><span class="pre">`python</span>
-<span class="pre">#</span> <span class="pre">Typical</span> <span class="pre">visualization</span> <span class="pre">documentation</span> <span class="pre">workflow</span>
-<span class="pre">concept</span> <span class="pre">→</span> <span class="pre">visual_design</span> <span class="pre">→</span> <span class="pre">implementation</span> <span class="pre">→</span> <span class="pre">testing</span> <span class="pre">→</span> <span class="pre">documentation</span> <span class="pre">→</span> <span class="pre">review</span>
-<span class="pre">`</span></code></p>
-<p>## 💻 Development Patterns</p>
-<p>### Required Implementation Patterns</p>
+<section id="upstream-components">
+<h4>Upstream Components<a class="headerlink" href="#upstream-components" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Visualization Engine</strong>: Core rendering and animation systems</p></li>
+<li><p><strong>Knowledge Base</strong>: Educational content and concept definitions</p></li>
+<li><p><strong>Research Tools</strong>: Data and analysis results for visualization</p></li>
+<li><p><strong>Platform Services</strong>: Infrastructure supporting visualization delivery</p></li>
+</ul>
+</section>
+<section id="downstream-components">
+<h4>Downstream Components<a class="headerlink" href="#downstream-components" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>User Interfaces</strong>: Integration with web interfaces and applications</p></li>
+<li><p><strong>Educational Platforms</strong>: Integration with learning management systems</p></li>
+<li><p><strong>Publication Systems</strong>: Export for academic papers and presentations</p></li>
+<li><p><strong>Community Tools</strong>: Shared visualization and collaborative exploration</p></li>
+</ul>
+</section>
+<section id="external-systems">
+<h4>External Systems<a class="headerlink" href="#external-systems" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Visualization Libraries</strong>: Matplotlib, Plotly, D3.js, WebGL, Three.js</p></li>
+<li><p><strong>Design Tools</strong>: Figma, Adobe XD, design system documentation</p></li>
+<li><p><strong>Web Technologies</strong>: HTML5 Canvas, CSS animations, JavaScript frameworks</p></li>
+<li><p><strong>Multimedia Tools</strong>: Video editing, image processing, accessibility tools</p></li>
+</ul>
+</section>
+</section>
+<section id="documentation-flow-patterns">
+<h3>Documentation Flow Patterns<a class="headerlink" href="#documentation-flow-patterns" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Typical visualization documentation workflow</span>
+<span class="n">concept</span> <span class="err">→</span> <span class="n">visual_design</span> <span class="err">→</span> <span class="n">implementation</span> <span class="err">→</span> <span class="n">testing</span> <span class="err">→</span> <span class="n">documentation</span> <span class="err">→</span> <span class="n">review</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="development-patterns">
+<h2>💻 Development Patterns<a class="headerlink" href="#development-patterns" title="Link to this heading"></a></h2>
+<section id="required-implementation-patterns">
+<h3>Required Implementation Patterns<a class="headerlink" href="#required-implementation-patterns" title="Link to this heading"></a></h3>
 <p><strong>All visualization documentation must follow these patterns:</strong></p>
-<p>#### 1. Visualization Factory Pattern (PREFERRED)</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-def create_visualization_documentation(visualization_type: str, config: Dict[str, Any]) -&gt; Documentation:</p>
-<blockquote>
-<div><p>“””Create visualization documentation using factory pattern”””</p>
-<dl class="simple">
-<dt>documentation_factories = {</dt><dd><p>‘animation’: create_animation_documentation,
-‘diagram’: create_diagram_documentation,
-‘dashboard’: create_dashboard_documentation,
-‘comparative’: create_comparative_documentation,
-‘educational’: create_educational_documentation,
-‘interactive’: create_interactive_documentation</p>
-</dd>
-</dl>
-<p>}</p>
-<dl class="simple">
-<dt>if visualization_type not in documentation_factories:</dt><dd><p>raise ValueError(f”Unknown visualization type: {visualization_type}”)</p>
-</dd>
-</dl>
-<p># Validate documentation configuration
-validate_visualization_config(config)</p>
-<p># Create comprehensive documentation
-documentation = documentation_factoriesvisualization_type <cite>config</cite></p>
-<p># Validate documentation completeness
-validate_documentation_completeness(documentation)</p>
-<p>return documentation</p>
-</div></blockquote>
-<dl>
-<dt>def validate_visualization_config(config: Dict[str, Any]) -&gt; None:</dt><dd><p>“””Validate visualization documentation configuration”””</p>
-<p>required_fields = [‘visualization_type’, ‘target_audience’, ‘educational_objectives’]</p>
-<dl class="simple">
-<dt>for field in required_fields:</dt><dd><dl class="simple">
-<dt>if field not in config:</dt><dd><p>raise DocumentationConfigurationError(f”Missing required field: {field}”)</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p># Type-specific validation
-if config[‘visualization_type’] == ‘animation’:</p>
-<blockquote>
-<div><p>validate_animation_config(config)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>elif config[‘visualization_type’] == ‘dashboard’:</dt><dd><p>validate_dashboard_config(config)</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>#### 2. Educational Visualization Pattern (MANDATORY)</p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
-from dataclasses import dataclass
-from typing import List, Dict, Any, Optional</p>
-<p>&#64;dataclass
-class EducationalVisualization:</p>
-<blockquote>
-<div><p>“””Educational visualization with learning objectives”””</p>
-<p>title: str
-description: str
-learning_objectives: List[str]
-difficulty_level: str
-target_audience: str
-visualization_type: str</p>
-<p># Content components
-conceptual_explanation: str
-visual_elements: List[Dict[str, Any]]
-interactive_features: List[Dict[str, Any]]
-assessment_questions: List[Dict[str, Any]]</p>
-<p># Technical details
-implementation_code: str
-configuration_options: Dict[str, Any]
-performance_requirements: Dict[str, Any]
-accessibility_features: Dict[str, Any]</p>
-<dl>
-<dt>def validate_educational_effectiveness(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate educational effectiveness of visualization”””</p>
-<dl class="simple">
-<dt>validation_checks = {</dt><dd><p>“learning_objectives_clear”: validate_learning_objectives(self.learning_objectives),
-“conceptual_accuracy”: validate_conceptual_accuracy(self.conceptual_explanation),
-“visual_clarity”: validate_visual_clarity(self.visual_elements),
-“interactive_engagement”: validate_interactive_engagement(self.interactive_features),
-“assessment_alignment”: validate_assessment_alignment(self.assessment_questions, self.learning_objectives)</p>
-</dd>
-</dl>
-<p>}</p>
-<dl class="simple">
-<dt>return {</dt><dd><p>“effective”: all(validation_checks.values()),
-“checks”: validation_checks,
-“improvements”: generate_educational_improvements(validation_checks)</p>
-</dd>
-</dl>
-<p>}</p>
-</dd>
-<dt>def generate_documentation(self) -&gt; str:</dt><dd><p>“””Generate comprehensive educational documentation”””</p>
-<dl class="simple">
-<dt>documentation_sections = [</dt><dd><p>self._generate_overview_section(),
-self._generate_learning_objectives_section(),
-self._generate_conceptual_section(),
-self._generate_visual_elements_section(),
-self._generate_interactive_section(),
-self._generate_implementation_section(),
-self._generate_assessment_section(),
-self._generate_usage_section()</p>
-</dd>
-</dl>
-<p>]</p>
-<p>return “nn”.join(documentation_sections)</p>
-</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p>#### 3. Interactive Documentation Pattern (MANDATORY)</p>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
-def document_interactive_visualization(visualization: Any, config: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document interactive visualization with comprehensive guidance”””</p>
-<p># Interactive features documentation
-interactive_documentation = {</p>
-<blockquote>
-<div><p>“user_controls”: document_user_controls(visualization, config),
-“navigation”: document_navigation_features(visualization, config),
-“data_exploration”: document_data_exploration_features(visualization, config),
-“parameter_adjustment”: document_parameter_adjustment(visualization, config),
-“export_options”: document_export_options(visualization, config),
-“accessibility”: document_accessibility_features(visualization, config)</p>
-</div></blockquote>
-<p>}</p>
-<p># Usage examples
-usage_examples = create_interactive_examples(visualization, config)</p>
-<p># Best practices
-best_practices = document_interactive_best_practices(visualization, config)</p>
-<p>return format_interactive_documentation(interactive_documentation, usage_examples, best_practices)</p>
-</div></blockquote>
-<dl>
-<dt>def create_interactive_examples(visualization: Any, config: Dict[str, Any]) -&gt; List[str]:</dt><dd><p>“””Create comprehensive interactive usage examples”””</p>
-<p>examples = []</p>
-<p># Basic interaction example
-basic_example = “””</p>
-</dd>
-</dl>
-<p># Basic interactive exploration
-import plotly.graph_objects as go</p>
-<p># Create interactive figure
-fig = go.Figure()</p>
-<p># Add interactive elements
-fig.add_trace(go.Scatter(x=data_x, y=data_y, mode=’markers’,</p>
-<blockquote>
-<div><p>hovertemplate=’Value: %{y}&lt;extra&gt;&lt;/extra&gt;’))</p>
-</div></blockquote>
-<p># Enable interactive features
-fig.update_layout(hovermode=’closest’)
-fig.show()
-“””</p>
-<blockquote>
-<div><p>examples.append(basic_example)</p>
-<p># Advanced interaction example
-advanced_example = “””</p>
-</div></blockquote>
-<p># Advanced interactive dashboard
-import streamlit as st
-import plotly.express as px</p>
-<p># Create interactive controls
-st.sidebar.header(‘Controls’)
-selected_metric = st.sidebar.selectbox(‘Metric’, [‘accuracy’, ‘efficiency’, ‘robustness’])
-time_range = st.sidebar.slider(‘Time Range’, 0, 100, (0, 100))</p>
-<p># Generate interactive visualization
-fig = px.line(data, x=’time’, y=selected_metric,</p>
-<blockquote>
-<div><p>title=f’{selected_metric.title()} over Time’)</p>
-</div></blockquote>
-<p>st.plotly_chart(fig)
-“””</p>
-<blockquote>
-<div><p>examples.append(advanced_example)</p>
-<p>return examples</p>
-</div></blockquote>
-<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
-<p>## 🧪 Documentation Testing Standards</p>
-<p>### Documentation Testing Categories (MANDATORY)</p>
-<p>#### 1. Visual Quality Testing
-<strong>Test visual quality and effectiveness of documented visualizations:</strong></p>
-<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
-def test_visualization_documentation_quality():</p>
-<blockquote>
-<div><p>“””Test quality of visualization documentation”””
-# Test diagram documentation
-diagram_docs = load_diagram_documentation()
-visual_quality = validate_diagram_documentation_quality(diagram_docs)</p>
-<p>assert visual_quality[‘clarity_score’] &gt; 0.8, “Diagram documentation unclear”
-assert visual_quality[‘completeness_score’] &gt; 0.9, “Diagram documentation incomplete”</p>
-<p># Test animation documentation
-animation_docs = load_animation_documentation()
-animation_quality = validate_animation_documentation_quality(animation_docs)</p>
-<p>assert animation_quality[‘educational_score’] &gt; 0.85, “Animation documentation not educational”
-assert animation_quality[‘technical_score’] &gt; 0.9, “Animation documentation not technical”</p>
-</div></blockquote>
-<dl>
-<dt>def test_visualization_examples():</dt><dd><p>“””Test visualization examples work correctly”””
-# Test diagram generation examples
-diagram_examples = extract_diagram_examples()
-for example in diagram_examples:</p>
-<blockquote>
-<div><p>result = test_diagram_example_execution(example)
-assert result[‘success’], f”Diagram example failed: {result[‘error’]}”</p>
-</div></blockquote>
-<p># Test animation examples
-animation_examples = extract_animation_examples()
-for example in animation_examples:</p>
-<blockquote>
-<div><p>result = test_animation_example_execution(example)
-assert result[‘success’], f”Animation example failed: {result[‘error’]}”</p>
-</div></blockquote>
-</dd>
-</dl>
-<p><a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
-<p>#### 2. Educational Effectiveness Testing
-<strong>Test educational value of visualization documentation:</strong></p>
-<p><a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a>python
-def test_educational_effectiveness():</p>
-<blockquote>
-<div><p>“””Test educational effectiveness of visualization documentation”””
-# Test learning objective clarity
-learning_docs = load_educational_visualization_documentation()</p>
-<dl>
-<dt>for doc in learning_docs:</dt><dd><p>learning_objectives = extract_learning_objectives(doc)
-clarity_test = test_learning_objective_clarity(learning_objectives)</p>
-<p>assert clarity_test[‘clear’], f”Unclear learning objectives: {learning_objectives}”</p>
-<p># Test assessment alignment
-assessment_alignment = test_assessment_alignment(doc)
-assert assessment_alignment[‘aligned’], “Assessment not aligned with objectives”</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl>
-<dt>def test_user_engagement():</dt><dd><p>“””Test user engagement features in documentation”””
-interactive_docs = load_interactive_documentation()</p>
-<dl>
-<dt>for doc in interactive_docs:</dt><dd><p>engagement_features = extract_engagement_features(doc)</p>
-<p># Test interactivity documentation
-interactivity_test = validate_interactivity_documentation(engagement_features)
-assert interactivity_test[‘comprehensive’], “Interactivity not well documented”</p>
-<p># Test accessibility documentation
-accessibility_test = validate_accessibility_documentation(engagement_features)
-assert accessibility_test[‘complete’], “Accessibility not well documented”</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p><a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
-<p>#### 3. Cross-Reference Testing
-<strong>Test cross-references between visualization components:</strong></p>
-<p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a>python
-def test_visualization_cross_references():</p>
-<blockquote>
-<div><p>“””Test cross-references in visualization documentation”””
-# Load all visualization documentation
-all_docs = load_all_visualization_documentation()</p>
-<p># Validate component references
-for doc in all_docs:</p>
-<blockquote>
-<div><p>component_refs = extract_component_references(doc)</p>
-<dl class="simple">
-<dt>for ref in component_refs:</dt><dd><p>ref_validation = validate_component_reference(ref)
-assert ref_validation[‘valid’], f”Invalid component reference: {ref}”</p>
-</dd>
-</dl>
-</div></blockquote>
-<p># Validate educational progression
-educational_docs = load_educational_documentation()
-progression_test = validate_educational_progression(educational_docs)
-assert progression_test[‘logical’], “Educational progression not logical”</p>
-</div></blockquote>
-<dl>
-<dt>def test_integration_references():</dt><dd><p>“””Test references to platform integration”””
-platform_docs = load_platform_integration_documentation()</p>
-<dl>
-<dt>for doc in platform_docs:</dt><dd><p>integration_refs = extract_integration_references(doc)</p>
-<dl class="simple">
-<dt>for ref in integration_refs:</dt><dd><p>integration_test = validate_integration_reference(ref)
-assert integration_test[‘valid’], f”Invalid integration reference: {ref}”</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-</dl>
-<p><a href="#id45"><span class="problematic" id="id46">``</span></a><a href="#id47"><span class="problematic" id="id48">`</span></a></p>
-<p>### Documentation Coverage Requirements</p>
+<section id="visualization-factory-pattern-preferred">
+<h4>1. Visualization Factory Pattern (PREFERRED)<a class="headerlink" href="#visualization-factory-pattern-preferred" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_visualization_documentation</span><span class="p">(</span><span class="n">visualization_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Documentation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Create visualization documentation using factory pattern"""</span>
+
+    <span class="n">documentation_factories</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'animation'</span><span class="p">:</span> <span class="n">create_animation_documentation</span><span class="p">,</span>
+        <span class="s1">'diagram'</span><span class="p">:</span> <span class="n">create_diagram_documentation</span><span class="p">,</span>
+        <span class="s1">'dashboard'</span><span class="p">:</span> <span class="n">create_dashboard_documentation</span><span class="p">,</span>
+        <span class="s1">'comparative'</span><span class="p">:</span> <span class="n">create_comparative_documentation</span><span class="p">,</span>
+        <span class="s1">'educational'</span><span class="p">:</span> <span class="n">create_educational_documentation</span><span class="p">,</span>
+        <span class="s1">'interactive'</span><span class="p">:</span> <span class="n">create_interactive_documentation</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">visualization_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">documentation_factories</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown visualization type: </span><span class="si">{</span><span class="n">visualization_type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># Validate documentation configuration</span>
+    <span class="n">validate_visualization_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># Create comprehensive documentation</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="n">documentation_factoriesvisualization_type</span> <span class="err">`</span><span class="n">config</span><span class="err">`</span>
+
+    <span class="c1"># Validate documentation completeness</span>
+    <span class="n">validate_documentation_completeness</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">documentation</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_visualization_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Validate visualization documentation configuration"""</span>
+
+    <span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'visualization_type'</span><span class="p">,</span> <span class="s1">'target_audience'</span><span class="p">,</span> <span class="s1">'educational_objectives'</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">required_fields</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DocumentationConfigurationError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required field: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># Type-specific validation</span>
+    <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">'visualization_type'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'animation'</span><span class="p">:</span>
+        <span class="n">validate_animation_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">'visualization_type'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'dashboard'</span><span class="p">:</span>
+        <span class="n">validate_dashboard_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="educational-visualization-pattern-mandatory">
+<h4>2. Educational Visualization Pattern (MANDATORY)<a class="headerlink" href="#educational-visualization-pattern-mandatory" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EducationalVisualization</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Educational visualization with learning objectives"""</span>
+
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">learning_objectives</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">difficulty_level</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">target_audience</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">visualization_type</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="c1"># Content components</span>
+    <span class="n">conceptual_explanation</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">visual_elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="n">interactive_features</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="n">assessment_questions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+
+    <span class="c1"># Technical details</span>
+    <span class="n">implementation_code</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">configuration_options</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">performance_requirements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">accessibility_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_educational_effectiveness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate educational effectiveness of visualization"""</span>
+
+        <span class="n">validation_checks</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"learning_objectives_clear"</span><span class="p">:</span> <span class="n">validate_learning_objectives</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_objectives</span><span class="p">),</span>
+            <span class="s2">"conceptual_accuracy"</span><span class="p">:</span> <span class="n">validate_conceptual_accuracy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conceptual_explanation</span><span class="p">),</span>
+            <span class="s2">"visual_clarity"</span><span class="p">:</span> <span class="n">validate_visual_clarity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">visual_elements</span><span class="p">),</span>
+            <span class="s2">"interactive_engagement"</span><span class="p">:</span> <span class="n">validate_interactive_engagement</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interactive_features</span><span class="p">),</span>
+            <span class="s2">"assessment_alignment"</span><span class="p">:</span> <span class="n">validate_assessment_alignment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">assessment_questions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">learning_objectives</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"effective"</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span><span class="n">validation_checks</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+            <span class="s2">"checks"</span><span class="p">:</span> <span class="n">validation_checks</span><span class="p">,</span>
+            <span class="s2">"improvements"</span><span class="p">:</span> <span class="n">generate_educational_improvements</span><span class="p">(</span><span class="n">validation_checks</span><span class="p">)</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate comprehensive educational documentation"""</span>
+
+        <span class="n">documentation_sections</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_overview_section</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_learning_objectives_section</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_conceptual_section</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_visual_elements_section</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_interactive_section</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_implementation_section</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_assessment_section</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_usage_section</span><span class="p">()</span>
+        <span class="p">]</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">documentation_sections</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="interactive-documentation-pattern-mandatory">
+<h4>3. Interactive Documentation Pattern (MANDATORY)<a class="headerlink" href="#interactive-documentation-pattern-mandatory" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_interactive_visualization</span><span class="p">(</span><span class="n">visualization</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document interactive visualization with comprehensive guidance"""</span>
+
+    <span class="c1"># Interactive features documentation</span>
+    <span class="n">interactive_documentation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"user_controls"</span><span class="p">:</span> <span class="n">document_user_controls</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"navigation"</span><span class="p">:</span> <span class="n">document_navigation_features</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"data_exploration"</span><span class="p">:</span> <span class="n">document_data_exploration_features</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"parameter_adjustment"</span><span class="p">:</span> <span class="n">document_parameter_adjustment</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"export_options"</span><span class="p">:</span> <span class="n">document_export_options</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"accessibility"</span><span class="p">:</span> <span class="n">document_accessibility_features</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Usage examples</span>
+    <span class="n">usage_examples</span> <span class="o">=</span> <span class="n">create_interactive_examples</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># Best practices</span>
+    <span class="n">best_practices</span> <span class="o">=</span> <span class="n">document_interactive_best_practices</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">format_interactive_documentation</span><span class="p">(</span><span class="n">interactive_documentation</span><span class="p">,</span> <span class="n">usage_examples</span><span class="p">,</span> <span class="n">best_practices</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_interactive_examples</span><span class="p">(</span><span class="n">visualization</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Create comprehensive interactive usage examples"""</span>
+
+    <span class="n">examples</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Basic interaction example</span>
+    <span class="n">basic_example</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2"># Basic interactive exploration</span>
+<span class="s2">import plotly.graph_objects as go</span>
+
+<span class="s2"># Create interactive figure</span>
+<span class="s2">fig = go.Figure()</span>
+
+<span class="s2"># Add interactive elements</span>
+<span class="s2">fig.add_trace(go.Scatter(x=data_x, y=data_y, mode='markers',</span>
+<span class="s2">                        hovertemplate='Value: %</span><span class="si">{y}</span><span class="s2">&lt;extra&gt;&lt;/extra&gt;'))</span>
+
+<span class="s2"># Enable interactive features</span>
+<span class="s2">fig.update_layout(hovermode='closest')</span>
+<span class="s2">fig.show()</span>
+<span class="s2">"""</span>
+    <span class="n">examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">basic_example</span><span class="p">)</span>
+
+    <span class="c1"># Advanced interaction example</span>
+    <span class="n">advanced_example</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2"># Advanced interactive dashboard</span>
+<span class="s2">import streamlit as st</span>
+<span class="s2">import plotly.express as px</span>
+
+<span class="s2"># Create interactive controls</span>
+<span class="s2">st.sidebar.header('Controls')</span>
+<span class="s2">selected_metric = st.sidebar.selectbox('Metric', ['accuracy', 'efficiency', 'robustness'])</span>
+<span class="s2">time_range = st.sidebar.slider('Time Range', 0, 100, (0, 100))</span>
+
+<span class="s2"># Generate interactive visualization</span>
+<span class="s2">fig = px.line(data, x='time', y=selected_metric,</span>
+<span class="s2">              title=f'{selected_metric.title()} over Time')</span>
+<span class="s2">st.plotly_chart(fig)</span>
+<span class="s2">"""</span>
+    <span class="n">examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">advanced_example</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">examples</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="documentation-testing-standards">
+<h2>🧪 Documentation Testing Standards<a class="headerlink" href="#documentation-testing-standards" title="Link to this heading"></a></h2>
+<section id="documentation-testing-categories-mandatory">
+<h3>Documentation Testing Categories (MANDATORY)<a class="headerlink" href="#documentation-testing-categories-mandatory" title="Link to this heading"></a></h3>
+<section id="visual-quality-testing">
+<h4>1. Visual Quality Testing<a class="headerlink" href="#visual-quality-testing" title="Link to this heading"></a></h4>
+<p><strong>Test visual quality and effectiveness of documented visualizations:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_visualization_documentation_quality</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test quality of visualization documentation"""</span>
+    <span class="c1"># Test diagram documentation</span>
+    <span class="n">diagram_docs</span> <span class="o">=</span> <span class="n">load_diagram_documentation</span><span class="p">()</span>
+    <span class="n">visual_quality</span> <span class="o">=</span> <span class="n">validate_diagram_documentation_quality</span><span class="p">(</span><span class="n">diagram_docs</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">visual_quality</span><span class="p">[</span><span class="s1">'clarity_score'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s2">"Diagram documentation unclear"</span>
+    <span class="k">assert</span> <span class="n">visual_quality</span><span class="p">[</span><span class="s1">'completeness_score'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">"Diagram documentation incomplete"</span>
+
+    <span class="c1"># Test animation documentation</span>
+    <span class="n">animation_docs</span> <span class="o">=</span> <span class="n">load_animation_documentation</span><span class="p">()</span>
+    <span class="n">animation_quality</span> <span class="o">=</span> <span class="n">validate_animation_documentation_quality</span><span class="p">(</span><span class="n">animation_docs</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">animation_quality</span><span class="p">[</span><span class="s1">'educational_score'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.85</span><span class="p">,</span> <span class="s2">"Animation documentation not educational"</span>
+    <span class="k">assert</span> <span class="n">animation_quality</span><span class="p">[</span><span class="s1">'technical_score'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">"Animation documentation not technical"</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_visualization_examples</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test visualization examples work correctly"""</span>
+    <span class="c1"># Test diagram generation examples</span>
+    <span class="n">diagram_examples</span> <span class="o">=</span> <span class="n">extract_diagram_examples</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">diagram_examples</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">test_diagram_example_execution</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">'success'</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"Diagram example failed: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'error'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># Test animation examples</span>
+    <span class="n">animation_examples</span> <span class="o">=</span> <span class="n">extract_animation_examples</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">animation_examples</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">test_animation_example_execution</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">'success'</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"Animation example failed: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'error'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+</pre></div>
+</div>
+</section>
+<section id="educational-effectiveness-testing">
+<h4>2. Educational Effectiveness Testing<a class="headerlink" href="#educational-effectiveness-testing" title="Link to this heading"></a></h4>
+<p><strong>Test educational value of visualization documentation:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_educational_effectiveness</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test educational effectiveness of visualization documentation"""</span>
+    <span class="c1"># Test learning objective clarity</span>
+    <span class="n">learning_docs</span> <span class="o">=</span> <span class="n">load_educational_visualization_documentation</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">learning_docs</span><span class="p">:</span>
+        <span class="n">learning_objectives</span> <span class="o">=</span> <span class="n">extract_learning_objectives</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="n">clarity_test</span> <span class="o">=</span> <span class="n">test_learning_objective_clarity</span><span class="p">(</span><span class="n">learning_objectives</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">clarity_test</span><span class="p">[</span><span class="s1">'clear'</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"Unclear learning objectives: </span><span class="si">{</span><span class="n">learning_objectives</span><span class="si">}</span><span class="s2">"</span>
+
+        <span class="c1"># Test assessment alignment</span>
+        <span class="n">assessment_alignment</span> <span class="o">=</span> <span class="n">test_assessment_alignment</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">assessment_alignment</span><span class="p">[</span><span class="s1">'aligned'</span><span class="p">],</span> <span class="s2">"Assessment not aligned with objectives"</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_user_engagement</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test user engagement features in documentation"""</span>
+    <span class="n">interactive_docs</span> <span class="o">=</span> <span class="n">load_interactive_documentation</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">interactive_docs</span><span class="p">:</span>
+        <span class="n">engagement_features</span> <span class="o">=</span> <span class="n">extract_engagement_features</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+        <span class="c1"># Test interactivity documentation</span>
+        <span class="n">interactivity_test</span> <span class="o">=</span> <span class="n">validate_interactivity_documentation</span><span class="p">(</span><span class="n">engagement_features</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">interactivity_test</span><span class="p">[</span><span class="s1">'comprehensive'</span><span class="p">],</span> <span class="s2">"Interactivity not well documented"</span>
+
+        <span class="c1"># Test accessibility documentation</span>
+        <span class="n">accessibility_test</span> <span class="o">=</span> <span class="n">validate_accessibility_documentation</span><span class="p">(</span><span class="n">engagement_features</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">accessibility_test</span><span class="p">[</span><span class="s1">'complete'</span><span class="p">],</span> <span class="s2">"Accessibility not well documented"</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-reference-testing">
+<h4>3. Cross-Reference Testing<a class="headerlink" href="#cross-reference-testing" title="Link to this heading"></a></h4>
+<p><strong>Test cross-references between visualization components:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_visualization_cross_references</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test cross-references in visualization documentation"""</span>
+    <span class="c1"># Load all visualization documentation</span>
+    <span class="n">all_docs</span> <span class="o">=</span> <span class="n">load_all_visualization_documentation</span><span class="p">()</span>
+
+    <span class="c1"># Validate component references</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">all_docs</span><span class="p">:</span>
+        <span class="n">component_refs</span> <span class="o">=</span> <span class="n">extract_component_references</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">component_refs</span><span class="p">:</span>
+            <span class="n">ref_validation</span> <span class="o">=</span> <span class="n">validate_component_reference</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">ref_validation</span><span class="p">[</span><span class="s1">'valid'</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"Invalid component reference: </span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># Validate educational progression</span>
+    <span class="n">educational_docs</span> <span class="o">=</span> <span class="n">load_educational_documentation</span><span class="p">()</span>
+    <span class="n">progression_test</span> <span class="o">=</span> <span class="n">validate_educational_progression</span><span class="p">(</span><span class="n">educational_docs</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">progression_test</span><span class="p">[</span><span class="s1">'logical'</span><span class="p">],</span> <span class="s2">"Educational progression not logical"</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_integration_references</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test references to platform integration"""</span>
+    <span class="n">platform_docs</span> <span class="o">=</span> <span class="n">load_platform_integration_documentation</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">platform_docs</span><span class="p">:</span>
+        <span class="n">integration_refs</span> <span class="o">=</span> <span class="n">extract_integration_references</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">integration_refs</span><span class="p">:</span>
+            <span class="n">integration_test</span> <span class="o">=</span> <span class="n">validate_integration_reference</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">integration_test</span><span class="p">[</span><span class="s1">'valid'</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"Invalid integration reference: </span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">"</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="documentation-coverage-requirements">
+<h3>Documentation Coverage Requirements<a class="headerlink" href="#documentation-coverage-requirements" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Visualization Coverage</strong>: All visualization types documented</p></li>
 <li><p><strong>Educational Coverage</strong>: All visualizations have educational documentation</p></li>
@@ -426,99 +461,111 @@ assert integration_test[‘valid’], f”Invalid integration reference: {ref}�
 <li><p><strong>Integration Coverage</strong>: All integration points documented</p></li>
 <li><p><strong>Accessibility Coverage</strong>: All accessibility features documented</p></li>
 </ul>
-<p>### Documentation Testing Commands</p>
-<p><a href="#id49"><span class="problematic" id="id50">``</span></a><a href="#id51"><span class="problematic" id="id52">`</span></a>bash
-# Validate all visualization documentation
-make validate-visualization-docs</p>
-<p># Test educational effectiveness
-pytest docs/visualization/tests/test_education.py -v</p>
-<p># Test example functionality
-pytest docs/visualization/tests/test_examples.py -v</p>
-<p># Test cross-references
-python tools/documentation/test_visualization_references.py</p>
-<p># Validate accessibility documentation
-python tools/documentation/test_accessibility.py docs/visualization/
-<a href="#id53"><span class="problematic" id="id54">``</span></a><a href="#id55"><span class="problematic" id="id56">`</span></a></p>
-<p>## 📖 Visualization Documentation Standards</p>
-<p>### Documentation Requirements (MANDATORY)</p>
-<p>#### 1. Educational Documentation Standards
-<strong>All visualization documentation must support educational objectives:</strong></p>
-<p><a href="#id57"><span class="problematic" id="id58">``</span></a><a href="#id59"><span class="problematic" id="id60">`</span></a>python
-def document_educational_visualization(visualization: Any, educational_config: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document visualization with comprehensive educational focus”””</p>
-<dl class="simple">
-<dt>educational_documentation = {</dt><dd><p>“learning_objectives”: define_clear_learning_objectives(visualization, educational_config),
-“conceptual_foundation”: provide_conceptual_foundation(visualization, educational_config),
-“visual_elements”: explain_visual_elements(visualization, educational_config),
-“interactive_guidance”: provide_interactive_guidance(visualization, educational_config),
-“interpretation_help”: provide_interpretation_guidance(visualization, educational_config),
-“assessment_integration”: integrate_assessment_tools(visualization, educational_config)</p>
-</dd>
-</dl>
-<p>}</p>
-<p>return format_educational_documentation(educational_documentation)</p>
-</div></blockquote>
-<dl>
-<dt>def define_clear_learning_objectives(visualization: Any, config: Dict[str, Any]) -&gt; List[str]:</dt><dd><p>“””Define clear, measurable learning objectives”””</p>
-<p># Extract learning objectives from visualization metadata
-base_objectives = visualization.get_learning_objectives()</p>
-<p># Ensure objectives are SMART (Specific, Measurable, Achievable, Relevant, Time-bound)
-smart_objectives = []
-for objective in base_objectives:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>if is_measurable(objective):</dt><dd><p>smart_objectives.append(objective)</p>
-</dd>
-<dt>else:</dt><dd><p>smart_objective = make_measurable(objective, config)
-smart_objectives.append(smart_objective)</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>return smart_objectives</p>
-</dd>
-</dl>
-<p><a href="#id61"><span class="problematic" id="id62">``</span></a><a href="#id63"><span class="problematic" id="id64">`</span></a></p>
-<p>#### 2. Technical Documentation Standards
-<strong>Visualization implementations must be thoroughly documented:</strong></p>
-<p><a href="#id65"><span class="problematic" id="id66">``</span></a><a href="#id67"><span class="problematic" id="id68">`</span></a>python
-def document_visualization_technical_details(visualization: Any, config: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document technical implementation of visualization”””</p>
-<dl class="simple">
-<dt>technical_documentation = {</dt><dd><p>“implementation_overview”: document_implementation_overview(visualization, config),
-“algorithm_details”: document_visualization_algorithms(visualization, config),
-“performance_characteristics”: document_performance_characteristics(visualization, config),
-“configuration_options”: document_configuration_options(visualization, config),
-“integration_points”: document_integration_points(visualization, config),
-“optimization_strategies”: document_optimization_strategies(visualization, config)</p>
-</dd>
-</dl>
-<p>}</p>
-<p>return format_technical_documentation(technical_documentation)</p>
-</div></blockquote>
-<p><a href="#id69"><span class="problematic" id="id70">``</span></a><a href="#id71"><span class="problematic" id="id72">`</span></a></p>
-<p>#### 3. User Experience Documentation
-<strong>All visualizations must have clear user experience documentation:</strong></p>
-<p><a href="#id73"><span class="problematic" id="id74">``</span></a><a href="#id75"><span class="problematic" id="id76">`</span></a>python
-def document_user_experience(visualization: Any, config: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document user experience and interaction patterns”””</p>
-<dl class="simple">
-<dt>user_experience_documentation = {</dt><dd><p>“navigation_guide”: document_navigation_patterns(visualization, config),
-“interaction_patterns”: document_interaction_patterns(visualization, config),
-“customization_options”: document_customization_options(visualization, config),
-“troubleshooting”: document_troubleshooting_guide(visualization, config),
-“best_practices”: document_usage_best_practices(visualization, config),
-“accessibility_guide”: document_accessibility_guide(visualization, config)</p>
-</dd>
-</dl>
-<p>}</p>
-<p>return format_user_experience_documentation(user_experience_documentation)</p>
-</div></blockquote>
-<p><a href="#id77"><span class="problematic" id="id78">``</span></a><a href="#id79"><span class="problematic" id="id80">`</span></a></p>
-<p>## 🚀 Performance Optimization</p>
-<p>### Documentation Performance Requirements</p>
+</section>
+<section id="documentation-testing-commands">
+<h3>Documentation Testing Commands<a class="headerlink" href="#documentation-testing-commands" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Validate all visualization documentation</span>
+make<span class="w"> </span>validate-visualization-docs
+
+<span class="c1"># Test educational effectiveness</span>
+pytest<span class="w"> </span>docs/visualization/tests/test_education.py<span class="w"> </span>-v
+
+<span class="c1"># Test example functionality</span>
+pytest<span class="w"> </span>docs/visualization/tests/test_examples.py<span class="w"> </span>-v
+
+<span class="c1"># Test cross-references</span>
+python<span class="w"> </span>tools/documentation/test_visualization_references.py
+
+<span class="c1"># Validate accessibility documentation</span>
+python<span class="w"> </span>tools/documentation/test_accessibility.py<span class="w"> </span>docs/visualization/
+</pre></div>
+</div>
+</section>
+</section>
+<section id="visualization-documentation-standards">
+<h2>📖 Visualization Documentation Standards<a class="headerlink" href="#visualization-documentation-standards" title="Link to this heading"></a></h2>
+<section id="documentation-requirements-mandatory">
+<h3>Documentation Requirements (MANDATORY)<a class="headerlink" href="#documentation-requirements-mandatory" title="Link to this heading"></a></h3>
+<section id="educational-documentation-standards">
+<h4>1. Educational Documentation Standards<a class="headerlink" href="#educational-documentation-standards" title="Link to this heading"></a></h4>
+<p><strong>All visualization documentation must support educational objectives:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_educational_visualization</span><span class="p">(</span><span class="n">visualization</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">educational_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document visualization with comprehensive educational focus"""</span>
+
+    <span class="n">educational_documentation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="n">define_clear_learning_objectives</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">educational_config</span><span class="p">),</span>
+        <span class="s2">"conceptual_foundation"</span><span class="p">:</span> <span class="n">provide_conceptual_foundation</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">educational_config</span><span class="p">),</span>
+        <span class="s2">"visual_elements"</span><span class="p">:</span> <span class="n">explain_visual_elements</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">educational_config</span><span class="p">),</span>
+        <span class="s2">"interactive_guidance"</span><span class="p">:</span> <span class="n">provide_interactive_guidance</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">educational_config</span><span class="p">),</span>
+        <span class="s2">"interpretation_help"</span><span class="p">:</span> <span class="n">provide_interpretation_guidance</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">educational_config</span><span class="p">),</span>
+        <span class="s2">"assessment_integration"</span><span class="p">:</span> <span class="n">integrate_assessment_tools</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">educational_config</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">format_educational_documentation</span><span class="p">(</span><span class="n">educational_documentation</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">define_clear_learning_objectives</span><span class="p">(</span><span class="n">visualization</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Define clear, measurable learning objectives"""</span>
+
+    <span class="c1"># Extract learning objectives from visualization metadata</span>
+    <span class="n">base_objectives</span> <span class="o">=</span> <span class="n">visualization</span><span class="o">.</span><span class="n">get_learning_objectives</span><span class="p">()</span>
+
+    <span class="c1"># Ensure objectives are SMART (Specific, Measurable, Achievable, Relevant, Time-bound)</span>
+    <span class="n">smart_objectives</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">objective</span> <span class="ow">in</span> <span class="n">base_objectives</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_measurable</span><span class="p">(</span><span class="n">objective</span><span class="p">):</span>
+            <span class="n">smart_objectives</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objective</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">smart_objective</span> <span class="o">=</span> <span class="n">make_measurable</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+            <span class="n">smart_objectives</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">smart_objective</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">smart_objectives</span>
+</pre></div>
+</div>
+</section>
+<section id="technical-documentation-standards">
+<h4>2. Technical Documentation Standards<a class="headerlink" href="#technical-documentation-standards" title="Link to this heading"></a></h4>
+<p><strong>Visualization implementations must be thoroughly documented:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_visualization_technical_details</span><span class="p">(</span><span class="n">visualization</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document technical implementation of visualization"""</span>
+
+    <span class="n">technical_documentation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"implementation_overview"</span><span class="p">:</span> <span class="n">document_implementation_overview</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"algorithm_details"</span><span class="p">:</span> <span class="n">document_visualization_algorithms</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"performance_characteristics"</span><span class="p">:</span> <span class="n">document_performance_characteristics</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"configuration_options"</span><span class="p">:</span> <span class="n">document_configuration_options</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"integration_points"</span><span class="p">:</span> <span class="n">document_integration_points</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"optimization_strategies"</span><span class="p">:</span> <span class="n">document_optimization_strategies</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">format_technical_documentation</span><span class="p">(</span><span class="n">technical_documentation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="user-experience-documentation">
+<h4>3. User Experience Documentation<a class="headerlink" href="#user-experience-documentation" title="Link to this heading"></a></h4>
+<p><strong>All visualizations must have clear user experience documentation:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_user_experience</span><span class="p">(</span><span class="n">visualization</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document user experience and interaction patterns"""</span>
+
+    <span class="n">user_experience_documentation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"navigation_guide"</span><span class="p">:</span> <span class="n">document_navigation_patterns</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"interaction_patterns"</span><span class="p">:</span> <span class="n">document_interaction_patterns</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"customization_options"</span><span class="p">:</span> <span class="n">document_customization_options</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"troubleshooting"</span><span class="p">:</span> <span class="n">document_troubleshooting_guide</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"best_practices"</span><span class="p">:</span> <span class="n">document_usage_best_practices</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="s2">"accessibility_guide"</span><span class="p">:</span> <span class="n">document_accessibility_guide</span><span class="p">(</span><span class="n">visualization</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">format_user_experience_documentation</span><span class="p">(</span><span class="n">user_experience_documentation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="performance-optimization">
+<h2>🚀 Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<section id="documentation-performance-requirements">
+<h3>Documentation Performance Requirements<a class="headerlink" href="#documentation-performance-requirements" title="Link to this heading"></a></h3>
 <p><strong>Visualization documentation must meet these performance standards:</strong></p>
 <ul class="simple">
 <li><p><strong>Load Time</strong>: Documentation pages load in &lt;2 seconds</p></li>
@@ -527,277 +574,326 @@ def document_user_experience(visualization: Any, config: Dict[str, Any]) -&gt; s
 <li><p><strong>Search Efficiency</strong>: Visualizations easily discoverable</p></li>
 <li><p><strong>Interactive Response</strong>: Documentation supports interactive exploration</p></li>
 </ul>
-<p>### Optimization Techniques</p>
-<p>#### 1. Documentation Structure Optimization</p>
-<p><a href="#id81"><span class="problematic" id="id82">``</span></a><a href="#id83"><span class="problematic" id="id84">`</span></a>python
-def optimize_visualization_documentation_structure(docs: List[str]) -&gt; List[str]:</p>
-<blockquote>
-<div><p>“””Optimize documentation structure for better user experience”””</p>
-<p># Analyze documentation structure
-structure_analysis = analyze_documentation_structure(docs)</p>
-<p># Optimize for learning progression
-optimized_docs = []
-for doc in docs:</p>
-<blockquote>
-<div><p>optimized = optimize_for_learning_progression(doc, structure_analysis)
-optimized_docs.append(optimized)</p>
-</div></blockquote>
-<p>return optimized_docs</p>
-</div></blockquote>
-<dl>
-<dt>def optimize_for_learning_progression(doc: str, analysis: Dict[str, Any]) -&gt; str:</dt><dd><p>“””Optimize documentation for logical learning progression”””</p>
-<p># Educational progression order
-optimal_order = [</p>
-<blockquote>
-<div><p>“learning_objectives”, “prerequisites”, “conceptual_overview”,
-“visual_elements”, “interactive_features”, “examples”,
-“interpretation”, “assessment”, “advanced_topics”</p>
-</div></blockquote>
-<p>]</p>
-<p>return reorder_documentation_sections(doc, optimal_order)</p>
-</dd>
-</dl>
-<p><a href="#id85"><span class="problematic" id="id86">``</span></a><a href="#id87"><span class="problematic" id="id88">`</span></a></p>
-<p>#### 2. Example Optimization</p>
-<p><a href="#id89"><span class="problematic" id="id90">``</span></a><a href="#id91"><span class="problematic" id="id92">`</span></a>python
-def optimize_visualization_examples(examples: List[str]) -&gt; List[str]:</p>
-<blockquote>
-<div><p>“””Optimize visualization examples for clarity and performance”””</p>
-<p>optimized_examples = []</p>
-<dl>
-<dt>for example in examples:</dt><dd><p># Optimize code structure
-optimized_code = optimize_example_structure(example)</p>
-<p># Add performance guidance
-optimized_code = add_performance_comments(optimized_code)</p>
-<p># Ensure educational clarity
-optimized_code = enhance_educational_clarity(optimized_code)</p>
-<p># Add accessibility features
-optimized_code = add_accessibility_features(optimized_code)</p>
-<p>optimized_examples.append(optimized_code)</p>
-</dd>
-</dl>
-<p>return optimized_examples</p>
-</div></blockquote>
-<p><a href="#id93"><span class="problematic" id="id94">``</span></a><a href="#id95"><span class="problematic" id="id96">`</span></a></p>
-<p>## 🔒 Documentation Security Standards</p>
-<p>### Documentation Security Requirements (MANDATORY)</p>
-<p>#### 1. Code Example Security</p>
-<p><a href="#id97"><span class="problematic" id="id98">``</span></a><a href="#id99"><span class="problematic" id="id100">`</span></a>python
-def validate_visualization_example_security(examples: List[str]) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Validate security of visualization code examples”””</p>
-<dl class="simple">
-<dt>security_checks = {</dt><dd><p>“input_validation”: check_input_validation_in_examples(examples),
-“path_safety”: check_path_safety_in_examples(examples),
-“data_privacy”: check_data_privacy_in_examples(examples),
-“resource_limits”: check_resource_limits_in_examples(examples)</p>
-</dd>
-</dl>
-<p>}</p>
-<dl class="simple">
-<dt>return {</dt><dd><p>“secure”: all(security_checks.values()),
-“checks”: security_checks,
-“vulnerabilities”: [k for k, v in security_checks.items() if not v]</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<dl>
-<dt>def create_secure_visualization_example(visualization_config: Dict[str, Any]) -&gt; str:</dt><dd><p>“””Create secure visualization example”””</p>
-<p># Generate safe synthetic data
-safe_data = generate_synthetic_visualization_data(visualization_config)</p>
-<p># Add input validation
-validated_example = add_input_validation_to_example(visualization_config)</p>
-<p># Include security best practices
-secure_example = add_security_best_practices(validated_example)</p>
-<p># Document security considerations
-documented_example = add_security_documentation(secure_example)</p>
-<p>return documented_example</p>
-</dd>
-</dl>
-<p><a href="#id101"><span class="problematic" id="id102">``</span></a><a href="#id103"><span class="problematic" id="id104">`</span></a></p>
-<p>#### 2. Accessibility Security</p>
-<p><a href="#id105"><span class="problematic" id="id106">``</span></a><a href="#id107"><span class="problematic" id="id108">`</span></a>python
-def validate_accessibility_documentation(visualization_docs: List[str]) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Validate accessibility documentation completeness”””</p>
-<dl class="simple">
-<dt>accessibility_validation = {</dt><dd><p>“color_accessibility”: validate_color_accessibility_documentation(visualization_docs),
-“motion_accessibility”: validate_motion_accessibility_documentation(visualization_docs),
-“screen_reader”: validate_screen_reader_documentation(visualization_docs),
-“keyboard_navigation”: validate_keyboard_navigation_documentation(visualization_docs)</p>
-</dd>
-</dl>
-<p>}</p>
-<dl class="simple">
-<dt>return {</dt><dd><p>“accessible”: all(accessibility_validation.values()),
-“validation”: accessibility_validation,
-“missing_features”: [k for k, v in accessibility_validation.items() if not v]</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id109"><span class="problematic" id="id110">``</span></a><a href="#id111"><span class="problematic" id="id112">`</span></a></p>
-<p>## 🐛 Documentation Debugging &amp; Troubleshooting</p>
-<p>### Debug Configuration</p>
-<p><a href="#id113"><span class="problematic" id="id114">``</span></a><a href="#id115"><span class="problematic" id="id116">`</span></a>python
-# Enable visualization documentation debugging
-debug_config = {</p>
-<blockquote>
-<div><p>“debug”: True,
-“visual_validation”: True,
-“example_testing”: True,
-“cross_reference_checking”: True,
-“performance_monitoring”: True</p>
-</div></blockquote>
-<p>}</p>
-<p># Debug visualization documentation development
-debug_visualization_documentation_workflow(debug_config)
-<a href="#id117"><span class="problematic" id="id118">``</span></a><a href="#id119"><span class="problematic" id="id120">`</span></a></p>
-<p>### Common Debugging Patterns</p>
-<p>#### 1. Visual Quality Debugging</p>
-<p><a href="#id121"><span class="problematic" id="id122">``</span></a><a href="#id123"><span class="problematic" id="id124">`</span></a>python
-def debug_visual_quality(documentation_path: str) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Debug visual quality issues in visualization documentation”””</p>
-<p>doc = load_visualization_documentation(documentation_path)</p>
-<p># Check visual element documentation
-visual_elements = extract_visual_elements(doc)
-visual_issues = validate_visual_element_documentation(visual_elements)</p>
-<dl class="simple">
-<dt>if visual_issues:</dt><dd><p>return {“type”: “visual_elements”, “issues”: visual_issues}</p>
-</dd>
-</dl>
-<p># Check example documentation
-examples = extract_examples(doc)
-example_issues = validate_example_documentation(examples)</p>
-<dl class="simple">
-<dt>if example_issues:</dt><dd><p>return {“type”: “examples”, “issues”: example_issues}</p>
-</dd>
-</dl>
-<p># Check educational effectiveness
-educational_issues = validate_educational_documentation(doc)</p>
-<dl class="simple">
-<dt>if educational_issues:</dt><dd><p>return {“type”: “educational”, “issues”: educational_issues}</p>
-</dd>
-</dl>
-<p>return {“status”: “visual_quality_ok”}</p>
-</div></blockquote>
-<dl>
-<dt>def validate_visual_element_documentation(elements: List[Dict[str, Any]]) -&gt; List[str]:</dt><dd><p>“””Validate documentation of visual elements”””</p>
-<p>issues = []</p>
-<dl>
-<dt>for element in elements:</dt><dd><p># Check element description
-if not element.get(‘description’):</p>
-<blockquote>
-<div><p>issues.append(f”Missing description for element: {element[‘name’]}”)</p>
-</div></blockquote>
-<p># Check visual properties
-if not element.get(‘visual_properties’):</p>
-<blockquote>
-<div><p>issues.append(f”Missing visual properties for element: {element[‘name’]}”)</p>
-</div></blockquote>
-<p># Check interaction documentation
-if element.get(‘interactive’) and not element.get(‘interaction_guide’):</p>
-<blockquote>
-<div><p>issues.append(f”Missing interaction guide for element: {element[‘name’]}”)</p>
-</div></blockquote>
-</dd>
-</dl>
-<p>return issues</p>
-</dd>
-</dl>
-<p><a href="#id125"><span class="problematic" id="id126">``</span></a><a href="#id127"><span class="problematic" id="id128">`</span></a></p>
-<p>#### 2. Educational Effectiveness Debugging</p>
-<p><a href="#id129"><span class="problematic" id="id130">``</span></a><a href="#id131"><span class="problematic" id="id132">`</span></a>python
-def debug_educational_effectiveness(documentation_path: str) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Debug educational effectiveness issues”””</p>
-<p>doc = load_visualization_documentation(documentation_path)</p>
-<p># Check learning objectives
-objectives = extract_learning_objectives(doc)
-objective_issues = validate_learning_objectives_completeness(objectives)</p>
-<dl class="simple">
-<dt>if objective_issues:</dt><dd><p>return {“type”: “objectives”, “issues”: objective_issues}</p>
-</dd>
-</dl>
-<p># Check conceptual explanations
-explanations = extract_conceptual_explanations(doc)
-explanation_issues = validate_conceptual_explanation_quality(explanations)</p>
-<dl class="simple">
-<dt>if explanation_issues:</dt><dd><p>return {“type”: “explanations”, “issues”: explanation_issues}</p>
-</dd>
-</dl>
-<p># Check assessment alignment
-assessment_issues = validate_assessment_alignment(doc)</p>
-<dl class="simple">
-<dt>if assessment_issues:</dt><dd><p>return {“type”: “assessment”, “issues”: assessment_issues}</p>
-</dd>
-</dl>
-<p>return {“status”: “educationally_effective”}</p>
-</div></blockquote>
-<p><a href="#id133"><span class="problematic" id="id134">``</span></a><a href="#id135"><span class="problematic" id="id136">`</span></a></p>
-<p>## 🔄 Development Workflow</p>
-<p>### Agent Development Process</p>
+</section>
+<section id="optimization-techniques">
+<h3>Optimization Techniques<a class="headerlink" href="#optimization-techniques" title="Link to this heading"></a></h3>
+<section id="documentation-structure-optimization">
+<h4>1. Documentation Structure Optimization<a class="headerlink" href="#documentation-structure-optimization" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">optimize_visualization_documentation_structure</span><span class="p">(</span><span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Optimize documentation structure for better user experience"""</span>
+
+    <span class="c1"># Analyze documentation structure</span>
+    <span class="n">structure_analysis</span> <span class="o">=</span> <span class="n">analyze_documentation_structure</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+    <span class="c1"># Optimize for learning progression</span>
+    <span class="n">optimized_docs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">optimized</span> <span class="o">=</span> <span class="n">optimize_for_learning_progression</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">structure_analysis</span><span class="p">)</span>
+        <span class="n">optimized_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">optimized</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">optimized_docs</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">optimize_for_learning_progression</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">analysis</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Optimize documentation for logical learning progression"""</span>
+
+    <span class="c1"># Educational progression order</span>
+    <span class="n">optimal_order</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"learning_objectives"</span><span class="p">,</span> <span class="s2">"prerequisites"</span><span class="p">,</span> <span class="s2">"conceptual_overview"</span><span class="p">,</span>
+        <span class="s2">"visual_elements"</span><span class="p">,</span> <span class="s2">"interactive_features"</span><span class="p">,</span> <span class="s2">"examples"</span><span class="p">,</span>
+        <span class="s2">"interpretation"</span><span class="p">,</span> <span class="s2">"assessment"</span><span class="p">,</span> <span class="s2">"advanced_topics"</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">reorder_documentation_sections</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">optimal_order</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-optimization">
+<h4>2. Example Optimization<a class="headerlink" href="#example-optimization" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">optimize_visualization_examples</span><span class="p">(</span><span class="n">examples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Optimize visualization examples for clarity and performance"""</span>
+
+    <span class="n">optimized_examples</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
+        <span class="c1"># Optimize code structure</span>
+        <span class="n">optimized_code</span> <span class="o">=</span> <span class="n">optimize_example_structure</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+
+        <span class="c1"># Add performance guidance</span>
+        <span class="n">optimized_code</span> <span class="o">=</span> <span class="n">add_performance_comments</span><span class="p">(</span><span class="n">optimized_code</span><span class="p">)</span>
+
+        <span class="c1"># Ensure educational clarity</span>
+        <span class="n">optimized_code</span> <span class="o">=</span> <span class="n">enhance_educational_clarity</span><span class="p">(</span><span class="n">optimized_code</span><span class="p">)</span>
+
+        <span class="c1"># Add accessibility features</span>
+        <span class="n">optimized_code</span> <span class="o">=</span> <span class="n">add_accessibility_features</span><span class="p">(</span><span class="n">optimized_code</span><span class="p">)</span>
+
+        <span class="n">optimized_examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">optimized_code</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">optimized_examples</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="documentation-security-standards">
+<h2>🔒 Documentation Security Standards<a class="headerlink" href="#documentation-security-standards" title="Link to this heading"></a></h2>
+<section id="documentation-security-requirements-mandatory">
+<h3>Documentation Security Requirements (MANDATORY)<a class="headerlink" href="#documentation-security-requirements-mandatory" title="Link to this heading"></a></h3>
+<section id="code-example-security">
+<h4>1. Code Example Security<a class="headerlink" href="#code-example-security" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validate_visualization_example_security</span><span class="p">(</span><span class="n">examples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate security of visualization code examples"""</span>
+
+    <span class="n">security_checks</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"input_validation"</span><span class="p">:</span> <span class="n">check_input_validation_in_examples</span><span class="p">(</span><span class="n">examples</span><span class="p">),</span>
+        <span class="s2">"path_safety"</span><span class="p">:</span> <span class="n">check_path_safety_in_examples</span><span class="p">(</span><span class="n">examples</span><span class="p">),</span>
+        <span class="s2">"data_privacy"</span><span class="p">:</span> <span class="n">check_data_privacy_in_examples</span><span class="p">(</span><span class="n">examples</span><span class="p">),</span>
+        <span class="s2">"resource_limits"</span><span class="p">:</span> <span class="n">check_resource_limits_in_examples</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"secure"</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span><span class="n">security_checks</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+        <span class="s2">"checks"</span><span class="p">:</span> <span class="n">security_checks</span><span class="p">,</span>
+        <span class="s2">"vulnerabilities"</span><span class="p">:</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">security_checks</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span><span class="p">]</span>
+    <span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_secure_visualization_example</span><span class="p">(</span><span class="n">visualization_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Create secure visualization example"""</span>
+
+    <span class="c1"># Generate safe synthetic data</span>
+    <span class="n">safe_data</span> <span class="o">=</span> <span class="n">generate_synthetic_visualization_data</span><span class="p">(</span><span class="n">visualization_config</span><span class="p">)</span>
+
+    <span class="c1"># Add input validation</span>
+    <span class="n">validated_example</span> <span class="o">=</span> <span class="n">add_input_validation_to_example</span><span class="p">(</span><span class="n">visualization_config</span><span class="p">)</span>
+
+    <span class="c1"># Include security best practices</span>
+    <span class="n">secure_example</span> <span class="o">=</span> <span class="n">add_security_best_practices</span><span class="p">(</span><span class="n">validated_example</span><span class="p">)</span>
+
+    <span class="c1"># Document security considerations</span>
+    <span class="n">documented_example</span> <span class="o">=</span> <span class="n">add_security_documentation</span><span class="p">(</span><span class="n">secure_example</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">documented_example</span>
+</pre></div>
+</div>
+</section>
+<section id="accessibility-security">
+<h4>2. Accessibility Security<a class="headerlink" href="#accessibility-security" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validate_accessibility_documentation</span><span class="p">(</span><span class="n">visualization_docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate accessibility documentation completeness"""</span>
+
+    <span class="n">accessibility_validation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"color_accessibility"</span><span class="p">:</span> <span class="n">validate_color_accessibility_documentation</span><span class="p">(</span><span class="n">visualization_docs</span><span class="p">),</span>
+        <span class="s2">"motion_accessibility"</span><span class="p">:</span> <span class="n">validate_motion_accessibility_documentation</span><span class="p">(</span><span class="n">visualization_docs</span><span class="p">),</span>
+        <span class="s2">"screen_reader"</span><span class="p">:</span> <span class="n">validate_screen_reader_documentation</span><span class="p">(</span><span class="n">visualization_docs</span><span class="p">),</span>
+        <span class="s2">"keyboard_navigation"</span><span class="p">:</span> <span class="n">validate_keyboard_navigation_documentation</span><span class="p">(</span><span class="n">visualization_docs</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"accessible"</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span><span class="n">accessibility_validation</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+        <span class="s2">"validation"</span><span class="p">:</span> <span class="n">accessibility_validation</span><span class="p">,</span>
+        <span class="s2">"missing_features"</span><span class="p">:</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">accessibility_validation</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span><span class="p">]</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="documentation-debugging-troubleshooting">
+<h2>🐛 Documentation Debugging &amp; Troubleshooting<a class="headerlink" href="#documentation-debugging-troubleshooting" title="Link to this heading"></a></h2>
+<section id="debug-configuration">
+<h3>Debug Configuration<a class="headerlink" href="#debug-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable visualization documentation debugging</span>
+<span class="n">debug_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"debug"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"visual_validation"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"example_testing"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"cross_reference_checking"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"performance_monitoring"</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+
+<span class="c1"># Debug visualization documentation development</span>
+<span class="n">debug_visualization_documentation_workflow</span><span class="p">(</span><span class="n">debug_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="common-debugging-patterns">
+<h3>Common Debugging Patterns<a class="headerlink" href="#common-debugging-patterns" title="Link to this heading"></a></h3>
+<section id="visual-quality-debugging">
+<h4>1. Visual Quality Debugging<a class="headerlink" href="#visual-quality-debugging" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">debug_visual_quality</span><span class="p">(</span><span class="n">documentation_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Debug visual quality issues in visualization documentation"""</span>
+
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">load_visualization_documentation</span><span class="p">(</span><span class="n">documentation_path</span><span class="p">)</span>
+
+    <span class="c1"># Check visual element documentation</span>
+    <span class="n">visual_elements</span> <span class="o">=</span> <span class="n">extract_visual_elements</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">visual_issues</span> <span class="o">=</span> <span class="n">validate_visual_element_documentation</span><span class="p">(</span><span class="n">visual_elements</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">visual_issues</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"visual_elements"</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="n">visual_issues</span><span class="p">}</span>
+
+    <span class="c1"># Check example documentation</span>
+    <span class="n">examples</span> <span class="o">=</span> <span class="n">extract_examples</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">example_issues</span> <span class="o">=</span> <span class="n">validate_example_documentation</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">example_issues</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"examples"</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="n">example_issues</span><span class="p">}</span>
+
+    <span class="c1"># Check educational effectiveness</span>
+    <span class="n">educational_issues</span> <span class="o">=</span> <span class="n">validate_educational_documentation</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">educational_issues</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"educational"</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="n">educational_issues</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"visual_quality_ok"</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_visual_element_documentation</span><span class="p">(</span><span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate documentation of visual elements"""</span>
+
+    <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+        <span class="c1"># Check element description</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'description'</span><span class="p">):</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing description for element: </span><span class="si">{</span><span class="n">element</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check visual properties</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'visual_properties'</span><span class="p">):</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing visual properties for element: </span><span class="si">{</span><span class="n">element</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check interaction documentation</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'interactive'</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'interaction_guide'</span><span class="p">):</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing interaction guide for element: </span><span class="si">{</span><span class="n">element</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">issues</span>
+</pre></div>
+</div>
+</section>
+<section id="educational-effectiveness-debugging">
+<h4>2. Educational Effectiveness Debugging<a class="headerlink" href="#educational-effectiveness-debugging" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">debug_educational_effectiveness</span><span class="p">(</span><span class="n">documentation_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Debug educational effectiveness issues"""</span>
+
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">load_visualization_documentation</span><span class="p">(</span><span class="n">documentation_path</span><span class="p">)</span>
+
+    <span class="c1"># Check learning objectives</span>
+    <span class="n">objectives</span> <span class="o">=</span> <span class="n">extract_learning_objectives</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">objective_issues</span> <span class="o">=</span> <span class="n">validate_learning_objectives_completeness</span><span class="p">(</span><span class="n">objectives</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">objective_issues</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"objectives"</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="n">objective_issues</span><span class="p">}</span>
+
+    <span class="c1"># Check conceptual explanations</span>
+    <span class="n">explanations</span> <span class="o">=</span> <span class="n">extract_conceptual_explanations</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">explanation_issues</span> <span class="o">=</span> <span class="n">validate_conceptual_explanation_quality</span><span class="p">(</span><span class="n">explanations</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">explanation_issues</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"explanations"</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="n">explanation_issues</span><span class="p">}</span>
+
+    <span class="c1"># Check assessment alignment</span>
+    <span class="n">assessment_issues</span> <span class="o">=</span> <span class="n">validate_assessment_alignment</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">assessment_issues</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"assessment"</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="n">assessment_issues</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"educationally_effective"</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="development-workflow">
+<h2>🔄 Development Workflow<a class="headerlink" href="#development-workflow" title="Link to this heading"></a></h2>
+<section id="agent-development-process">
+<h3>Agent Development Process<a class="headerlink" href="#agent-development-process" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
-<li><p><strong>Visualization Documentation Assessment</strong>
-- Understand current visualization documentation state
-- Identify gaps in visual concept documentation
-- Review existing educational and technical documentation quality</p></li>
-<li><p><strong>Educational Design Planning</strong>
-- Design comprehensive visualization learning experiences
-- Plan integration with educational objectives
-- Consider user experience and accessibility requirements</p></li>
-<li><p><strong>Implementation Documentation</strong>
-- Document visualization implementations with technical rigor
-- Create comprehensive educational explanations
-- Develop interactive usage examples and tutorials</p></li>
-<li><p><strong>Quality Assurance Implementation</strong>
-- Implement comprehensive testing for documentation effectiveness
-- Validate educational objectives and learning outcomes
-- Ensure accessibility and usability standards</p></li>
-<li><p><strong>Integration and Validation</strong>
-- Test integration with visualization systems
-- Validate documentation educational effectiveness
-- Update related documentation and learning paths</p></li>
+<li><p><strong>Visualization Documentation Assessment</strong></p>
+<ul class="simple">
+<li><p>Understand current visualization documentation state</p></li>
+<li><p>Identify gaps in visual concept documentation</p></li>
+<li><p>Review existing educational and technical documentation quality</p></li>
+</ul>
+</li>
+<li><p><strong>Educational Design Planning</strong></p>
+<ul class="simple">
+<li><p>Design comprehensive visualization learning experiences</p></li>
+<li><p>Plan integration with educational objectives</p></li>
+<li><p>Consider user experience and accessibility requirements</p></li>
+</ul>
+</li>
+<li><p><strong>Implementation Documentation</strong></p>
+<ul class="simple">
+<li><p>Document visualization implementations with technical rigor</p></li>
+<li><p>Create comprehensive educational explanations</p></li>
+<li><p>Develop interactive usage examples and tutorials</p></li>
+</ul>
+</li>
+<li><p><strong>Quality Assurance Implementation</strong></p>
+<ul class="simple">
+<li><p>Implement comprehensive testing for documentation effectiveness</p></li>
+<li><p>Validate educational objectives and learning outcomes</p></li>
+<li><p>Ensure accessibility and usability standards</p></li>
+</ul>
+</li>
+<li><p><strong>Integration and Validation</strong></p>
+<ul class="simple">
+<li><p>Test integration with visualization systems</p></li>
+<li><p>Validate documentation educational effectiveness</p></li>
+<li><p>Update related documentation and learning paths</p></li>
+</ul>
+</li>
 </ol>
-<p>### Code Review Checklist</p>
+</section>
+<section id="code-review-checklist">
+<h3>Code Review Checklist<a class="headerlink" href="#code-review-checklist" title="Link to this heading"></a></h3>
 <p><strong>Before submitting visualization documentation for review:</strong></p>
-<ul class="simple">
-<li><p>[ ] <strong>Educational Value</strong>: Documentation clearly supports learning objectives</p></li>
-<li><p>[ ] <strong>Visual Clarity</strong>: Visualizations are clearly explained and documented</p></li>
-<li><p>[ ] <strong>Technical Accuracy</strong>: Implementation details are accurate and complete</p></li>
-<li><p>[ ] <strong>Interactive Features</strong>: Interactive elements are well documented</p></li>
-<li><p>[ ] <strong>Working Examples</strong>: All code examples execute successfully</p></li>
-<li><p>[ ] <strong>Accessibility</strong>: Documentation includes accessibility guidance</p></li>
-<li><p>[ ] <strong>Cross-References</strong>: All related visualizations and concepts linked</p></li>
-<li><p>[ ] <strong>Standards Compliance</strong>: Follows all documentation and quality standards</p></li>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Educational Value</strong>: Documentation clearly supports learning objectives</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Visual Clarity</strong>: Visualizations are clearly explained and documented</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Technical Accuracy</strong>: Implementation details are accurate and complete</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Interactive Features</strong>: Interactive elements are well documented</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Working Examples</strong>: All code examples execute successfully</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Accessibility</strong>: Documentation includes accessibility guidance</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Cross-References</strong>: All related visualizations and concepts linked</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Standards Compliance</strong>: Follows all documentation and quality standards</p></li>
 </ul>
-<p>## 📚 Learning Resources</p>
-<p>### Visualization Documentation Resources</p>
+</section>
+</section>
+<section id="learning-resources">
+<h2>📚 Learning Resources<a class="headerlink" href="#learning-resources" title="Link to this heading"></a></h2>
+<section id="visualization-documentation-resources">
+<h3>Visualization Documentation Resources<a class="headerlink" href="#visualization-documentation-resources" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>Visualization AGENTS.md `../../visualization/AGENTS.md`</strong>: Visualization development guidelines</p></li>
-<li><p><strong>[Data Visualization Best Practices](https://example.com)</strong>: Visualization design principles</p></li>
-<li><p><strong>[Educational Visualization](https://example.com)</strong>: Educational visualization techniques</p></li>
-<li><p><strong>[Interactive Design](https://example.com)</strong>: Interactive user interface design</p></li>
+<li><p><strong>Visualization <a class="reference external" href="http://AGENTS.md">AGENTS.md</a> <code class="docutils literal notranslate"><span class="pre">../../visualization/AGENTS.md</span></code></strong>: Visualization development guidelines</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Data Visualization Best Practices</a></strong>: Visualization design principles</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Educational Visualization</a></strong>: Educational visualization techniques</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Interactive Design</a></strong>: Interactive user interface design</p></li>
 </ul>
-<p>### Technical References</p>
+</section>
+<section id="technical-references">
+<h3>Technical References<a class="headerlink" href="#technical-references" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>[Matplotlib Documentation](https://example.com)</strong>: Matplotlib visualization guide</p></li>
-<li><p><strong>[Plotly Documentation](https://example.com)</strong>: Plotly interactive visualization</p></li>
-<li><p><strong>[D3.js Documentation](https://example.com)</strong>: Web-based visualization</p></li>
-<li><p><strong>[Accessibility Guidelines](https://example.com)</strong>: Web accessibility standards</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Matplotlib Documentation</a></strong>: Matplotlib visualization guide</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Plotly Documentation</a></strong>: Plotly interactive visualization</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">D3.js Documentation</a></strong>: Web-based visualization</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Accessibility Guidelines</a></strong>: Web accessibility standards</p></li>
 </ul>
-<p>### Related Components</p>
+</section>
+<section id="related-components">
+<h3>Related Components<a class="headerlink" href="#related-components" title="Link to this heading"></a></h3>
 <p>Study these related components for integration patterns:</p>
 <ul class="simple">
-<li><p><strong>Animation Systems `../../visualization/animations/`</strong>: Animation implementation patterns</p></li>
-<li><p><strong>Interactive Dashboards `../../visualization/dashboards/`</strong>: Dashboard development patterns</p></li>
-<li><p><strong>Diagramming System `../../visualization/diagrams/`</strong>: Diagram generation patterns</p></li>
-<li><p><strong>[Educational Content](../../knowledge)</strong>: Educational content integration</p></li>
+<li><p><strong>Animation Systems <code class="docutils literal notranslate"><span class="pre">../../visualization/animations/</span></code></strong>: Animation implementation patterns</p></li>
+<li><p><strong>Interactive Dashboards <code class="docutils literal notranslate"><span class="pre">../../visualization/dashboards/</span></code></strong>: Dashboard development patterns</p></li>
+<li><p><strong>Diagramming System <code class="docutils literal notranslate"><span class="pre">../../visualization/diagrams/</span></code></strong>: Diagram generation patterns</p></li>
+<li><p><strong><a class="reference internal" href="#../../knowledge"><span class="xref myst">Educational Content</span></a></strong>: Educational content integration</p></li>
 </ul>
-<p>## 🎯 Success Metrics</p>
-<p>### Documentation Quality Metrics</p>
+</section>
+</section>
+<section id="success-metrics">
+<h2>🎯 Success Metrics<a class="headerlink" href="#success-metrics" title="Link to this heading"></a></h2>
+<section id="documentation-quality-metrics">
+<h3>Documentation Quality Metrics<a class="headerlink" href="#documentation-quality-metrics" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Educational Effectiveness</strong>: &gt;90% learning objective achievement</p></li>
 <li><p><strong>Visual Clarity</strong>: &gt;85% concept clarity score</p></li>
@@ -805,7 +901,9 @@ assessment_issues = validate_assessment_alignment(doc)</p>
 <li><p><strong>Example Success Rate</strong>: 100% working code examples</p></li>
 <li><p><strong>Accessibility Compliance</strong>: 100% accessibility standard compliance</p></li>
 </ul>
-<p>### Development Metrics</p>
+</section>
+<section id="development-metrics">
+<h3>Development Metrics<a class="headerlink" href="#development-metrics" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Documentation Speed</strong>: Visualizations documented within 1 week</p></li>
 <li><p><strong>Quality Score</strong>: Consistent high-quality educational documentation</p></li>
@@ -813,9 +911,12 @@ assessment_issues = validate_assessment_alignment(doc)</p>
 <li><p><strong>User Adoption</strong>: Documentation widely used in educational contexts</p></li>
 <li><p><strong>Maintenance Efficiency</strong>: Easy to update and maintain visualization documentation</p></li>
 </ul>
-<p>—</p>
+<hr class="docutils" />
 <p><strong>Visualization Documentation</strong>: Agent Guide | <strong>Version</strong>: 1.0.0 | <strong>Last Updated</strong>: October 2024</p>
 <p><em>“Active Inference for, with, by Generative AI”</em> - Creating comprehensive visualization documentation that makes Active Inference concepts accessible, engaging, and educational through visual excellence.</p>
+</section>
+</section>
+</section>
 
 
            </div>

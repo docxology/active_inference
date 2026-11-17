@@ -575,6 +575,8 @@
             <span class="k">if</span> <span class="n">test_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
                 <span class="n">test_files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">test_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">)))</span>
 
+        <span class="c1"># Files matched by both the glob patterns and a test dir are counted once</span>
+        <span class="n">test_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">test_files</span><span class="p">))</span>
         <span class="n">testing</span><span class="p">[</span><span class="s2">"test_files"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_files</span><span class="p">)</span>
 
         <span class="c1"># Analyze test structure</span>
@@ -602,10 +604,9 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not analyze test file </span><span class="si">{</span><span class="n">test_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="c1"># Check for coverage configuration</span>
-        <span class="n">coverage_config</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">".coveragerc"</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"pyproject.toml"</span>
-        <span class="p">)</span>
-        <span class="n">testing</span><span class="p">[</span><span class="s2">"coverage_available"</span><span class="p">]</span> <span class="o">=</span> <span class="n">coverage_config</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+        <span class="n">testing</span><span class="p">[</span><span class="s2">"coverage_available"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">".coveragerc"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"pyproject.toml"</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">testing</span>
 

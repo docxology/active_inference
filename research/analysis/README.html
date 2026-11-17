@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>) &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+  <title>Research Analysis Documentation &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -71,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">)</li>
+      <li class="breadcrumb-item active">Research Analysis Documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/research/analysis/README.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,11 +81,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p># Research Analysis Documentation</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="research-analysis-documentation">
+<h1>Research Analysis Documentation<a class="headerlink" href="#research-analysis-documentation" title="Link to this heading"></a></h1>
 <p>This directory contains comprehensive documentation for statistical and information-theoretic analysis tools in the Active Inference Knowledge Environment. It provides guidance for researchers conducting quantitative analysis of Active Inference models and systems.</p>
-<p>## Overview</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
 <p>The research analysis documentation covers the complete toolkit for analyzing Active Inference systems, from basic statistical methods to advanced information-theoretic analysis. This includes entropy analysis, divergence measures, Bayesian inference, and model validation techniques.</p>
-<p>### Mission &amp; Role</p>
+<section id="mission-role">
+<h3>Mission &amp; Role<a class="headerlink" href="#mission-role" title="Link to this heading"></a></h3>
 <p>This documentation contributes to the platform mission by:</p>
 <ul class="simple">
 <li><p><strong>Scientific Analysis</strong>: Providing rigorous analytical methods for Active Inference research</p></li>
@@ -93,373 +96,445 @@
 <li><p><strong>Model Assessment</strong>: Enabling comprehensive evaluation of Active Inference models</p></li>
 <li><p><strong>Research Quality</strong>: Supporting high-quality, reproducible research practices</p></li>
 </ul>
-<p>## Architecture</p>
-<p>### Analysis Documentation Structure</p>
+</section>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<section id="analysis-documentation-structure">
+<h3>Analysis Documentation Structure<a class="headerlink" href="#analysis-documentation-structure" title="Link to this heading"></a></h3>
 <p>This is the intended layout; the directories below are not created yet.</p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">docs/research/analysis/</span>
-<span class="pre">├──</span> <span class="pre">information_theory/</span>&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Information-theoretic</span> <span class="pre">analysis</span> <span class="pre">methods</span>
-<span class="pre">├──</span> <span class="pre">statistical_methods/</span>&#160;&#160; <span class="pre">#</span> <span class="pre">Statistical</span> <span class="pre">analysis</span> <span class="pre">and</span> <span class="pre">inference</span>
-<span class="pre">├──</span> <span class="pre">model_validation/</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Model</span> <span class="pre">assessment</span> <span class="pre">and</span> <span class="pre">validation</span>
-<span class="pre">├──</span> <span class="pre">performance_analysis/</span>&#160; <span class="pre">#</span> <span class="pre">Performance</span> <span class="pre">evaluation</span> <span class="pre">and</span> <span class="pre">optimization</span>
-<span class="pre">└──</span> <span class="pre">README.md</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">This</span> <span class="pre">file</span>
-<span class="pre">`</span></code></p>
-<p>### Integration Points</p>
-<p><strong>Platform Integration:</strong>
-- <strong>Research Framework</strong>: Core analysis tools and statistical methods
-- <strong>Simulation Engine</strong>: Analysis of simulated Active Inference systems
-- <strong>Knowledge Base</strong>: Theoretical foundations for analysis methods
-- <strong>Visualization</strong>: Statistical data visualization and exploration</p>
-<p><strong>External Systems:</strong>
-- <strong>Statistical Computing</strong>: R, MATLAB, specialized statistical software
-- <strong>Scientific Libraries</strong>: NumPy, SciPy, StatsModels, scikit-learn
-- <strong>Visualization Tools</strong>: Matplotlib, Seaborn, Plotly for statistical graphics
-- <strong>Publication Systems</strong>: LaTeX, Jupyter notebooks for research reporting</p>
-<p>## Analysis Categories</p>
-<p>### Information Theory Analysis
-Comprehensive information-theoretic methods for Active Inference systems:
-- <strong>Entropy Measures</strong>: Shannon entropy, differential entropy, relative entropy
-- <strong>Divergence Analysis</strong>: KL divergence, Jensen-Shannon divergence, Wasserstein distance
-- <strong>Mutual Information</strong>: Mutual information, conditional mutual information, transfer entropy
-- <strong>Complexity Measures</strong>: Statistical complexity, effective measure complexity, causal density</p>
-<p>### Statistical Analysis
-Advanced statistical methods for model evaluation:
-- <strong>Bayesian Inference</strong>: Bayesian model comparison, posterior predictive checks
-- <strong>Hypothesis Testing</strong>: Statistical tests for model validation and comparison
-- <strong>Regression Analysis</strong>: Linear and nonlinear regression for model assessment
-- <strong>Time Series Analysis</strong>: Temporal analysis, Granger causality, frequency domain methods</p>
-<p>### Model Validation
-Rigorous validation and assessment frameworks:
-- <strong>Cross-Validation</strong>: K-fold cross-validation, leave-one-out validation
-- <strong>Model Comparison</strong>: AIC, BIC, WAIC, LOO-CV for model selection
-- <strong>Goodness of Fit</strong>: Chi-square tests, likelihood ratio tests, residual analysis
-- <strong>Robustness Analysis</strong>: Sensitivity analysis, stability assessment, uncertainty quantification</p>
-<p>### Performance Analysis
-Computational performance and efficiency evaluation:
-- <strong>Computational Complexity</strong>: Big O analysis, algorithmic complexity assessment
-- <strong>Memory Usage</strong>: Memory profiling, optimization strategies
-- <strong>Scalability Testing</strong>: Performance scaling with system size and complexity
-- <strong>Benchmarking</strong>: Comparative performance analysis, profiling, optimization</p>
-<p>## Getting Started</p>
-<p>### Prerequisites
-- <strong>Statistical Knowledge</strong>: Understanding of probability, statistics, and inference
-- <strong>Information Theory</strong>: Familiarity with entropy, divergence, and information measures
-- <strong>Programming Skills</strong>: Python programming with scientific computing libraries
-- <strong>Research Methods</strong>: Understanding of experimental design and validation</p>
-<p>### Basic Setup</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash
-# Install analysis dependencies
-pip install numpy scipy pandas matplotlib seaborn
-pip install statsmodels scikit-learn networkx
-pip install pymc3 arviz  # Bayesian analysis
-pip install torch tensorflow  # Deep learning analysis</p>
-<p># Install specialized packages
-pip install pyinform  # Information theory
-pip install chaospy   # Uncertainty quantification
-pip install corner     # Visualization
-<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>### Initial Analysis Project</p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
-# Basic analysis workflow
-import numpy as np
-from active_inference.research.analysis import InformationTheoryAnalyzer
-from active_inference.research.analysis import StatisticalValidator</p>
-<p># Load data for analysis
-data = np.load(“active_inference_data.npy”)</p>
-<p># Initialize analysis tools
-info_analyzer = InformationTheoryAnalyzer(data)
-stat_validator = StatisticalValidator(data)</p>
-<p># Perform comprehensive analysis
-entropy_analysis = info_analyzer.calculate_entropy_measures()
-divergence_analysis = info_analyzer.calculate_divergence_measures()
-statistical_validation = stat_validator.validate_model_performance()</p>
-<p># Generate analysis report
-report = generate_analysis_report(entropy_analysis, divergence_analysis, statistical_validation)
-<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p>## Usage Examples</p>
-<p>### Example 1: Entropy Analysis of Neural Activity</p>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
-# Analyze entropy in neural spike trains
-import numpy as np
-from active_inference.research.analysis.information_theory import EntropyAnalyzer</p>
-<p># Load neural spike data
-spike_data = load_spike_data(“neural_recording.mat”)
-time_bins = create_time_bins(spike_data, bin_size=50)</p>
-<p># Perform entropy analysis
-entropy_analyzer = EntropyAnalyzer(spike_data, time_bins)</p>
-<p># Calculate Shannon entropy
-shannon_entropy = entropy_analyzer.shannon_entropy()
-differential_entropy = entropy_analyzer.differential_entropy()</p>
-<p># Analyze entropy dynamics
-entropy_rate = entropy_analyzer.entropy_rate()
-entropy_production = entropy_analyzer.entropy_production()</p>
-<p># Visualize entropy patterns
-entropy_analyzer.plot_entropy_dynamics()
-entropy_analyzer.plot_spatiotemporal_entropy()
-<a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
-<p>### Example 2: Model Comparison and Validation</p>
-<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
-# Compare different Active Inference model implementations
-from active_inference.research.analysis import ModelComparisonSuite
-from active_inference.research.analysis import CrossValidator</p>
-<p># Define models to compare
-models = {</p>
-<blockquote>
-<div><p>“standard_aif”: StandardActiveInferenceModel(),
-“variational_aif”: VariationalActiveInferenceModel(),
-“hierarchical_aif”: HierarchicalActiveInferenceModel()</p>
-</div></blockquote>
-<p>}</p>
-<p># Set up comparison framework
-comparison_suite = ModelComparisonSuite(models)
-cross_validator = CrossValidator(k_folds=10)</p>
-<p># Run comprehensive comparison
-comparison_results = comparison_suite.compare_all_metrics()</p>
-<p># Perform cross-validation
-cv_results = cross_validator.validate_models(models)</p>
-<p># Analyze model selection criteria
-aic_scores = comparison_suite.calculate_aic_scores()
-bic_scores = comparison_suite.calculate_bic_scores()
-waic_scores = comparison_suite.calculate_waic_scores()</p>
-<p># Generate validation report
-validation_report = generate_model_validation_report(</p>
-<blockquote>
-<div><p>comparison_results, cv_results, aic_scores, bic_scores, waic_scores</p>
-</div></blockquote>
-<section id="id29">
-<h1>)<a class="headerlink" href="#id29" title="Link to this heading"></a></h1>
-<p>### Example 3: Information Flow Analysis</p>
-<p><a href="#id30"><span class="problematic" id="id31">``</span></a><a href="#id32"><span class="problematic" id="id33">`</span></a>python
-# Analyze information flow in Active Inference systems
-from active_inference.research.analysis.information_theory import InformationFlowAnalyzer</p>
-<p># Initialize system for analysis
-system = ActiveInferenceSystem(config)
-flow_analyzer = InformationFlowAnalyzer(system)</p>
-<p># Define analysis parameters
-analysis_config = {</p>
-<blockquote>
-<div><p>“time_window”: 1000,
-“lag_range”: range(1, 50),
-“significance_level”: 0.05</p>
-</div></blockquote>
-<p>}</p>
-<p># Calculate transfer entropy
-transfer_entropy = flow_analyzer.calculate_transfer_entropy(analysis_config)</p>
-<p># Analyze effective connectivity
-effective_connectivity = flow_analyzer.calculate_effective_connectivity()</p>
-<p># Identify information pathways
-information_pathways = flow_analyzer.identify_information_pathways()</p>
-<p># Visualize information flow
-flow_analyzer.plot_transfer_entropy_network()
-flow_analyzer.plot_information_flow_dynamics()
-<a href="#id34"><span class="problematic" id="id35">``</span></a><a href="#id36"><span class="problematic" id="id37">`</span></a></p>
-<p>## Configuration</p>
-<p>### Analysis Environment Configuration</p>
-<p><a href="#id38"><span class="problematic" id="id39">``</span></a><a href="#id40"><span class="problematic" id="id41">`</span></a>python
-# Basic analysis configuration
-analysis_config = {</p>
-<blockquote>
-<div><dl class="simple">
-<dt>“environment”: {</dt><dd><p>“random_seed”: 42,
-“precision”: “double”,
-“parallel_processing”: True</p>
-</dd>
-</dl>
-<p>},
-“statistical”: {</p>
-<blockquote>
-<div><p>“significance_level”: 0.05,
-“multiple_testing_correction”: “fdr”,
-“confidence_interval”: 0.95,
-“effect_size_threshold”: 0.8</p>
-</div></blockquote>
-<p>},
-“information_theory”: {</p>
-<blockquote>
-<div><p>“entropy_estimator”: “maximum_likelihood”,
-“divergence_estimator”: “k_nearest_neighbors”,
-“mutual_information_method”: “kraskov”,
-“surrogate_method”: “shuffle”</p>
-</div></blockquote>
-<p>},
-“validation”: {</p>
-<blockquote>
-<div><p>“cross_validation_folds”: 10,
-“bootstrap_replications”: 1000,
-“permutation_tests”: 1000,
-“model_comparison_criterion”: “waic”</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docs/research/analysis/
+├── information_theory/    # Information-theoretic analysis methods
+├── statistical_methods/   # Statistical analysis and inference
+├── model_validation/      # Model assessment and validation
+├── performance_analysis/  # Performance evaluation and optimization
+└── README.md             # This file
+</pre></div>
+</div>
 </section>
-<section id="id42">
-<h1>}<a class="headerlink" href="#id42" title="Link to this heading"></a></h1>
-<p>### Advanced Analysis Configuration</p>
-<p><a href="#id43"><span class="problematic" id="id44">``</span></a><a href="#id45"><span class="problematic" id="id46">`</span></a>python
-# Advanced analysis settings
-advanced_config = {</p>
-<blockquote>
-<div><dl class="simple">
-<dt>“performance”: {</dt><dd><p>“memory_limit”: “32GB”,
-“max_workers”: 16,
-“cache_size”: “8GB”,
-“profiling_enabled”: True</p>
-</dd>
-</dl>
-<p>},
-“quality_control”: {</p>
-<blockquote>
-<div><p>“validation_level”: “comprehensive”,
-“bias_detection”: True,
-“outlier_detection”: True,
-“distribution_assumptions”: “nonparametric”</p>
-</div></blockquote>
-<p>},
-“visualization”: {</p>
-<blockquote>
-<div><p>“plot_style”: “publication_ready”,
-“color_scheme”: “colorblind_friendly”,
-“figure_format”: “svg”,
-“interactive_plots”: True</p>
-</div></blockquote>
-<p>},
-“reporting”: {</p>
-<blockquote>
-<div><p>“statistical_reporting”: “apa”,
-“figure_captioning”: “automatic”,
-“reference_formatting”: “bibtex”,
-“supplementary_materials”: True</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<section id="integration-points">
+<h3>Integration Points<a class="headerlink" href="#integration-points" title="Link to this heading"></a></h3>
+<p><strong>Platform Integration:</strong></p>
+<ul class="simple">
+<li><p><strong>Research Framework</strong>: Core analysis tools and statistical methods</p></li>
+<li><p><strong>Simulation Engine</strong>: Analysis of simulated Active Inference systems</p></li>
+<li><p><strong>Knowledge Base</strong>: Theoretical foundations for analysis methods</p></li>
+<li><p><strong>Visualization</strong>: Statistical data visualization and exploration</p></li>
+</ul>
+<p><strong>External Systems:</strong></p>
+<ul class="simple">
+<li><p><strong>Statistical Computing</strong>: R, MATLAB, specialized statistical software</p></li>
+<li><p><strong>Scientific Libraries</strong>: NumPy, SciPy, StatsModels, scikit-learn</p></li>
+<li><p><strong>Visualization Tools</strong>: Matplotlib, Seaborn, Plotly for statistical graphics</p></li>
+<li><p><strong>Publication Systems</strong>: LaTeX, Jupyter notebooks for research reporting</p></li>
+</ul>
 </section>
-<section id="id47">
-<h1>}<a class="headerlink" href="#id47" title="Link to this heading"></a></h1>
-<p>## API Reference</p>
-<p>### Core Analysis Classes</p>
-<p>#### <cite>InformationTheoryAnalyzer</cite>
-Comprehensive information-theoretic analysis toolkit.</p>
-<p><a href="#id48"><span class="problematic" id="id49">``</span></a><a href="#id50"><span class="problematic" id="id51">`</span></a>python
-class InformationTheoryAnalyzer:</p>
-<blockquote>
-<div><p>“””Information-theoretic analysis of Active Inference systems”””</p>
-<dl class="simple">
-<dt>def __init__(self, data: Union[np.ndarray, torch.Tensor], config: Dict[str, Any]):</dt><dd><p>“””Initialize analyzer with data and configuration”””</p>
-</dd>
-<dt>def calculate_entropy_measures(self) -&gt; EntropyMeasures:</dt><dd><p>“””Calculate comprehensive entropy measures”””</p>
-</dd>
-<dt>def calculate_divergence_measures(self) -&gt; DivergenceMeasures:</dt><dd><p>“””Calculate divergence measures between distributions”””</p>
-</dd>
-<dt>def calculate_mutual_information(self) -&gt; MutualInformationMeasures:</dt><dd><p>“””Calculate mutual information and conditional dependencies”””</p>
-</dd>
-<dt>def analyze_complexity_measures(self) -&gt; ComplexityMeasures:</dt><dd><p>“””Analyze statistical and computational complexity”””</p>
-</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id52"><span class="problematic" id="id53">``</span></a><a href="#id54"><span class="problematic" id="id55">`</span></a></p>
-<p>#### <cite>StatisticalValidator</cite>
-Statistical validation and model assessment framework.</p>
-<p><a href="#id56"><span class="problematic" id="id57">``</span></a><a href="#id58"><span class="problematic" id="id59">`</span></a>python
-class StatisticalValidator:</p>
-<blockquote>
-<div><p>“””Statistical validation and model assessment”””</p>
-<dl class="simple">
-<dt>def __init__(self, model: ActiveInferenceModel, data: Any):</dt><dd><p>“””Initialize validator with model and validation data”””</p>
-</dd>
-<dt>def cross_validate(self, k_folds: int = 10) -&gt; CrossValidationResults:</dt><dd><p>“””Perform k-fold cross-validation”””</p>
-</dd>
-<dt>def calculate_model_comparison_criteria(self) -&gt; ModelComparisonCriteria:</dt><dd><p>“””Calculate AIC, BIC, WAIC, and LOO-CV criteria”””</p>
-</dd>
-<dt>def perform_hypothesis_tests(self, hypotheses: List[str]) -&gt; HypothesisTestResults:</dt><dd><p>“””Perform statistical hypothesis tests”””</p>
-</dd>
-<dt>def assess_model_goodness_of_fit(self) -&gt; GoodnessOfFitResults:</dt><dd><p>“””Assess model fit quality and adequacy”””</p>
-</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id60"><span class="problematic" id="id61">``</span></a><a href="#id62"><span class="problematic" id="id63">`</span></a></p>
-<p>#### <cite>PerformanceAnalyzer</cite>
-Computational performance and scalability analysis.</p>
-<p><a href="#id64"><span class="problematic" id="id65">``</span></a><a href="#id66"><span class="problematic" id="id67">`</span></a>python
-class PerformanceAnalyzer:</p>
-<blockquote>
-<div><p>“””Performance analysis and optimization”””</p>
-<dl class="simple">
-<dt>def __init__(self, model: ActiveInferenceModel):</dt><dd><p>“””Initialize performance analyzer with model”””</p>
-</dd>
-<dt>def profile_computational_complexity(self) -&gt; ComplexityProfile:</dt><dd><p>“””Profile computational complexity and resource usage”””</p>
-</dd>
-<dt>def analyze_scalability(self, size_range: Tuple[int, int]) -&gt; ScalabilityResults:</dt><dd><p>“””Analyze performance scaling with system size”””</p>
-</dd>
-<dt>def benchmark_against_baselines(self, baselines: List[Model]) -&gt; BenchmarkResults:</dt><dd><p>“””Benchmark against standard baseline models”””</p>
-</dd>
-<dt>def optimize_performance(self) -&gt; OptimizationRecommendations:</dt><dd><p>“””Generate performance optimization recommendations”””</p>
-</dd>
-</dl>
-</div></blockquote>
-<p><a href="#id68"><span class="problematic" id="id69">``</span></a><a href="#id70"><span class="problematic" id="id71">`</span></a></p>
-<p>## Research Workflows</p>
-<p>### Standard Analysis Pipeline</p>
-<p><a href="#id72"><span class="problematic" id="id73">``</span></a><a href="#id74"><span class="problematic" id="id75">`</span></a>mermaid
-flowchart TD</p>
-<blockquote>
-<div><p>A[Data Collection] –&gt; B[Preprocessing]
-B –&gt; C[Exploratory Analysis]
-C –&gt; D[Model Fitting]
-D –&gt; E[Model Validation]
-E –&gt; F[Statistical Testing]
-F –&gt; G[Results Interpretation]
-G –&gt; H[Report Generation]
-H –&gt; I[Publication]</p>
-<p>style A fill:#ffebee
-style B fill:#f3e5f5
-style C fill:#e8f5e8
-style D fill:#fff3e0
-style E fill:#fce4ec
-style F fill:#f1f8e9
-style G fill:#e1f5fe
-style H fill:#fff8e1
-style I fill:#ffebee</p>
-</div></blockquote>
-<p><a href="#id76"><span class="problematic" id="id77">``</span></a><a href="#id78"><span class="problematic" id="id79">`</span></a></p>
-<p>### Advanced Analysis Patterns</p>
-<p><a href="#id80"><span class="problematic" id="id81">``</span></a><a href="#id82"><span class="problematic" id="id83">`</span></a>python
-# Multi-scale analysis workflow
-def conduct_multiscale_analysis(data: Any, scales: List[float]) -&gt; AnalysisReport:</p>
-<blockquote>
-<div><p>“””Conduct analysis across multiple temporal and spatial scales”””</p>
-<p># Scale-specific analysis
-scale_results = {}
-for scale in scales:</p>
-<blockquote>
-<div><p>scaled_data = preprocess_data_for_scale(data, scale)
-scale_analysis = perform_scale_specific_analysis(scaled_data)
-scale_results[scale] = scale_analysis</p>
-</div></blockquote>
-<p># Cross-scale integration
-cross_scale_patterns = identify_cross_scale_patterns(scale_results)</p>
-<p># Multi-scale validation
-multiscale_validation = validate_multiscale_consistency(scale_results)</p>
-<p># Generate comprehensive report
-return generate_multiscale_report(scale_results, cross_scale_patterns, multiscale_validation)</p>
-</div></blockquote>
-<p># Bayesian model comparison workflow
-def conduct_bayesian_model_comparison(models: List[Model], data: Any) -&gt; ComparisonReport:</p>
-<blockquote>
-<div><p>“””Conduct comprehensive Bayesian model comparison”””</p>
-<p># Fit all models
-fitted_models = fit_all_models(models, data)</p>
-<p># Calculate comparison criteria
-model_criteria = calculate_comparison_criteria(fitted_models)</p>
-<p># Perform model averaging
-model_weights = calculate_model_weights(model_criteria)
-averaged_predictions = generate_averaged_predictions(fitted_models, model_weights)</p>
-<p># Validate model comparison
-comparison_validation = validate_model_comparison(model_criteria)</p>
-<p>return generate_comparison_report(fitted_models, model_criteria, comparison_validation)</p>
-</div></blockquote>
-<p><a href="#id84"><span class="problematic" id="id85">``</span></a><a href="#id86"><span class="problematic" id="id87">`</span></a></p>
-<p>## Contributing</p>
-<p>### Analysis Documentation Standards</p>
+</section>
+<section id="analysis-categories">
+<h2>Analysis Categories<a class="headerlink" href="#analysis-categories" title="Link to this heading"></a></h2>
+<section id="information-theory-analysis">
+<h3>Information Theory Analysis<a class="headerlink" href="#information-theory-analysis" title="Link to this heading"></a></h3>
+<p>Comprehensive information-theoretic methods for Active Inference systems:</p>
+<ul class="simple">
+<li><p><strong>Entropy Measures</strong>: Shannon entropy, differential entropy, relative entropy</p></li>
+<li><p><strong>Divergence Analysis</strong>: KL divergence, Jensen-Shannon divergence, Wasserstein distance</p></li>
+<li><p><strong>Mutual Information</strong>: Mutual information, conditional mutual information, transfer entropy</p></li>
+<li><p><strong>Complexity Measures</strong>: Statistical complexity, effective measure complexity, causal density</p></li>
+</ul>
+</section>
+<section id="statistical-analysis">
+<h3>Statistical Analysis<a class="headerlink" href="#statistical-analysis" title="Link to this heading"></a></h3>
+<p>Advanced statistical methods for model evaluation:</p>
+<ul class="simple">
+<li><p><strong>Bayesian Inference</strong>: Bayesian model comparison, posterior predictive checks</p></li>
+<li><p><strong>Hypothesis Testing</strong>: Statistical tests for model validation and comparison</p></li>
+<li><p><strong>Regression Analysis</strong>: Linear and nonlinear regression for model assessment</p></li>
+<li><p><strong>Time Series Analysis</strong>: Temporal analysis, Granger causality, frequency domain methods</p></li>
+</ul>
+</section>
+<section id="model-validation">
+<h3>Model Validation<a class="headerlink" href="#model-validation" title="Link to this heading"></a></h3>
+<p>Rigorous validation and assessment frameworks:</p>
+<ul class="simple">
+<li><p><strong>Cross-Validation</strong>: K-fold cross-validation, leave-one-out validation</p></li>
+<li><p><strong>Model Comparison</strong>: AIC, BIC, WAIC, LOO-CV for model selection</p></li>
+<li><p><strong>Goodness of Fit</strong>: Chi-square tests, likelihood ratio tests, residual analysis</p></li>
+<li><p><strong>Robustness Analysis</strong>: Sensitivity analysis, stability assessment, uncertainty quantification</p></li>
+</ul>
+</section>
+<section id="performance-analysis">
+<h3>Performance Analysis<a class="headerlink" href="#performance-analysis" title="Link to this heading"></a></h3>
+<p>Computational performance and efficiency evaluation:</p>
+<ul class="simple">
+<li><p><strong>Computational Complexity</strong>: Big O analysis, algorithmic complexity assessment</p></li>
+<li><p><strong>Memory Usage</strong>: Memory profiling, optimization strategies</p></li>
+<li><p><strong>Scalability Testing</strong>: Performance scaling with system size and complexity</p></li>
+<li><p><strong>Benchmarking</strong>: Comparative performance analysis, profiling, optimization</p></li>
+</ul>
+</section>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Statistical Knowledge</strong>: Understanding of probability, statistics, and inference</p></li>
+<li><p><strong>Information Theory</strong>: Familiarity with entropy, divergence, and information measures</p></li>
+<li><p><strong>Programming Skills</strong>: Python programming with scientific computing libraries</p></li>
+<li><p><strong>Research Methods</strong>: Understanding of experimental design and validation</p></li>
+</ul>
+</section>
+<section id="basic-setup">
+<h3>Basic Setup<a class="headerlink" href="#basic-setup" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install analysis dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>pandas<span class="w"> </span>matplotlib<span class="w"> </span>seaborn
+pip<span class="w"> </span>install<span class="w"> </span>statsmodels<span class="w"> </span>scikit-learn<span class="w"> </span>networkx
+pip<span class="w"> </span>install<span class="w"> </span>pymc3<span class="w"> </span>arviz<span class="w">  </span><span class="c1"># Bayesian analysis</span>
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>tensorflow<span class="w">  </span><span class="c1"># Deep learning analysis</span>
+
+<span class="c1"># Install specialized packages</span>
+pip<span class="w"> </span>install<span class="w"> </span>pyinform<span class="w">  </span><span class="c1"># Information theory</span>
+pip<span class="w"> </span>install<span class="w"> </span>chaospy<span class="w">   </span><span class="c1"># Uncertainty quantification</span>
+pip<span class="w"> </span>install<span class="w"> </span>corner<span class="w">     </span><span class="c1"># Visualization</span>
+</pre></div>
+</div>
+</section>
+<section id="initial-analysis-project">
+<h3>Initial Analysis Project<a class="headerlink" href="#initial-analysis-project" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic analysis workflow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">InformationTheoryAnalyzer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">StatisticalValidator</span>
+
+<span class="c1"># Load data for analysis</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"active_inference_data.npy"</span><span class="p">)</span>
+
+<span class="c1"># Initialize analysis tools</span>
+<span class="n">info_analyzer</span> <span class="o">=</span> <span class="n">InformationTheoryAnalyzer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">stat_validator</span> <span class="o">=</span> <span class="n">StatisticalValidator</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Perform comprehensive analysis</span>
+<span class="n">entropy_analysis</span> <span class="o">=</span> <span class="n">info_analyzer</span><span class="o">.</span><span class="n">calculate_entropy_measures</span><span class="p">()</span>
+<span class="n">divergence_analysis</span> <span class="o">=</span> <span class="n">info_analyzer</span><span class="o">.</span><span class="n">calculate_divergence_measures</span><span class="p">()</span>
+<span class="n">statistical_validation</span> <span class="o">=</span> <span class="n">stat_validator</span><span class="o">.</span><span class="n">validate_model_performance</span><span class="p">()</span>
+
+<span class="c1"># Generate analysis report</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">generate_analysis_report</span><span class="p">(</span><span class="n">entropy_analysis</span><span class="p">,</span> <span class="n">divergence_analysis</span><span class="p">,</span> <span class="n">statistical_validation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="usage-examples">
+<h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<section id="example-1-entropy-analysis-of-neural-activity">
+<h3>Example 1: Entropy Analysis of Neural Activity<a class="headerlink" href="#example-1-entropy-analysis-of-neural-activity" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analyze entropy in neural spike trains</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research.analysis.information_theory</span><span class="w"> </span><span class="kn">import</span> <span class="n">EntropyAnalyzer</span>
+
+<span class="c1"># Load neural spike data</span>
+<span class="n">spike_data</span> <span class="o">=</span> <span class="n">load_spike_data</span><span class="p">(</span><span class="s2">"neural_recording.mat"</span><span class="p">)</span>
+<span class="n">time_bins</span> <span class="o">=</span> <span class="n">create_time_bins</span><span class="p">(</span><span class="n">spike_data</span><span class="p">,</span> <span class="n">bin_size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Perform entropy analysis</span>
+<span class="n">entropy_analyzer</span> <span class="o">=</span> <span class="n">EntropyAnalyzer</span><span class="p">(</span><span class="n">spike_data</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span>
+
+<span class="c1"># Calculate Shannon entropy</span>
+<span class="n">shannon_entropy</span> <span class="o">=</span> <span class="n">entropy_analyzer</span><span class="o">.</span><span class="n">shannon_entropy</span><span class="p">()</span>
+<span class="n">differential_entropy</span> <span class="o">=</span> <span class="n">entropy_analyzer</span><span class="o">.</span><span class="n">differential_entropy</span><span class="p">()</span>
+
+<span class="c1"># Analyze entropy dynamics</span>
+<span class="n">entropy_rate</span> <span class="o">=</span> <span class="n">entropy_analyzer</span><span class="o">.</span><span class="n">entropy_rate</span><span class="p">()</span>
+<span class="n">entropy_production</span> <span class="o">=</span> <span class="n">entropy_analyzer</span><span class="o">.</span><span class="n">entropy_production</span><span class="p">()</span>
+
+<span class="c1"># Visualize entropy patterns</span>
+<span class="n">entropy_analyzer</span><span class="o">.</span><span class="n">plot_entropy_dynamics</span><span class="p">()</span>
+<span class="n">entropy_analyzer</span><span class="o">.</span><span class="n">plot_spatiotemporal_entropy</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="example-2-model-comparison-and-validation">
+<h3>Example 2: Model Comparison and Validation<a class="headerlink" href="#example-2-model-comparison-and-validation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare different Active Inference model implementations</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelComparisonSuite</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research.analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">CrossValidator</span>
+
+<span class="c1"># Define models to compare</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"standard_aif"</span><span class="p">:</span> <span class="n">StandardActiveInferenceModel</span><span class="p">(),</span>
+    <span class="s2">"variational_aif"</span><span class="p">:</span> <span class="n">VariationalActiveInferenceModel</span><span class="p">(),</span>
+    <span class="s2">"hierarchical_aif"</span><span class="p">:</span> <span class="n">HierarchicalActiveInferenceModel</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1"># Set up comparison framework</span>
+<span class="n">comparison_suite</span> <span class="o">=</span> <span class="n">ModelComparisonSuite</span><span class="p">(</span><span class="n">models</span><span class="p">)</span>
+<span class="n">cross_validator</span> <span class="o">=</span> <span class="n">CrossValidator</span><span class="p">(</span><span class="n">k_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Run comprehensive comparison</span>
+<span class="n">comparison_results</span> <span class="o">=</span> <span class="n">comparison_suite</span><span class="o">.</span><span class="n">compare_all_metrics</span><span class="p">()</span>
+
+<span class="c1"># Perform cross-validation</span>
+<span class="n">cv_results</span> <span class="o">=</span> <span class="n">cross_validator</span><span class="o">.</span><span class="n">validate_models</span><span class="p">(</span><span class="n">models</span><span class="p">)</span>
+
+<span class="c1"># Analyze model selection criteria</span>
+<span class="n">aic_scores</span> <span class="o">=</span> <span class="n">comparison_suite</span><span class="o">.</span><span class="n">calculate_aic_scores</span><span class="p">()</span>
+<span class="n">bic_scores</span> <span class="o">=</span> <span class="n">comparison_suite</span><span class="o">.</span><span class="n">calculate_bic_scores</span><span class="p">()</span>
+<span class="n">waic_scores</span> <span class="o">=</span> <span class="n">comparison_suite</span><span class="o">.</span><span class="n">calculate_waic_scores</span><span class="p">()</span>
+
+<span class="c1"># Generate validation report</span>
+<span class="n">validation_report</span> <span class="o">=</span> <span class="n">generate_model_validation_report</span><span class="p">(</span>
+    <span class="n">comparison_results</span><span class="p">,</span> <span class="n">cv_results</span><span class="p">,</span> <span class="n">aic_scores</span><span class="p">,</span> <span class="n">bic_scores</span><span class="p">,</span> <span class="n">waic_scores</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-3-information-flow-analysis">
+<h3>Example 3: Information Flow Analysis<a class="headerlink" href="#example-3-information-flow-analysis" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analyze information flow in Active Inference systems</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research.analysis.information_theory</span><span class="w"> </span><span class="kn">import</span> <span class="n">InformationFlowAnalyzer</span>
+
+<span class="c1"># Initialize system for analysis</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">ActiveInferenceSystem</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">flow_analyzer</span> <span class="o">=</span> <span class="n">InformationFlowAnalyzer</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+
+<span class="c1"># Define analysis parameters</span>
+<span class="n">analysis_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"time_window"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s2">"lag_range"</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="s2">"significance_level"</span><span class="p">:</span> <span class="mf">0.05</span>
+<span class="p">}</span>
+
+<span class="c1"># Calculate transfer entropy</span>
+<span class="n">transfer_entropy</span> <span class="o">=</span> <span class="n">flow_analyzer</span><span class="o">.</span><span class="n">calculate_transfer_entropy</span><span class="p">(</span><span class="n">analysis_config</span><span class="p">)</span>
+
+<span class="c1"># Analyze effective connectivity</span>
+<span class="n">effective_connectivity</span> <span class="o">=</span> <span class="n">flow_analyzer</span><span class="o">.</span><span class="n">calculate_effective_connectivity</span><span class="p">()</span>
+
+<span class="c1"># Identify information pathways</span>
+<span class="n">information_pathways</span> <span class="o">=</span> <span class="n">flow_analyzer</span><span class="o">.</span><span class="n">identify_information_pathways</span><span class="p">()</span>
+
+<span class="c1"># Visualize information flow</span>
+<span class="n">flow_analyzer</span><span class="o">.</span><span class="n">plot_transfer_entropy_network</span><span class="p">()</span>
+<span class="n">flow_analyzer</span><span class="o">.</span><span class="n">plot_information_flow_dynamics</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<section id="analysis-environment-configuration">
+<h3>Analysis Environment Configuration<a class="headerlink" href="#analysis-environment-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic analysis configuration</span>
+<span class="n">analysis_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"environment"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"random_seed"</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+        <span class="s2">"precision"</span><span class="p">:</span> <span class="s2">"double"</span><span class="p">,</span>
+        <span class="s2">"parallel_processing"</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">},</span>
+    <span class="s2">"statistical"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"significance_level"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="s2">"multiple_testing_correction"</span><span class="p">:</span> <span class="s2">"fdr"</span><span class="p">,</span>
+        <span class="s2">"confidence_interval"</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span>
+        <span class="s2">"effect_size_threshold"</span><span class="p">:</span> <span class="mf">0.8</span>
+    <span class="p">},</span>
+    <span class="s2">"information_theory"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"entropy_estimator"</span><span class="p">:</span> <span class="s2">"maximum_likelihood"</span><span class="p">,</span>
+        <span class="s2">"divergence_estimator"</span><span class="p">:</span> <span class="s2">"k_nearest_neighbors"</span><span class="p">,</span>
+        <span class="s2">"mutual_information_method"</span><span class="p">:</span> <span class="s2">"kraskov"</span><span class="p">,</span>
+        <span class="s2">"surrogate_method"</span><span class="p">:</span> <span class="s2">"shuffle"</span>
+    <span class="p">},</span>
+    <span class="s2">"validation"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"cross_validation_folds"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">"bootstrap_replications"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"permutation_tests"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"model_comparison_criterion"</span><span class="p">:</span> <span class="s2">"waic"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-analysis-configuration">
+<h3>Advanced Analysis Configuration<a class="headerlink" href="#advanced-analysis-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Advanced analysis settings</span>
+<span class="n">advanced_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"performance"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"memory_limit"</span><span class="p">:</span> <span class="s2">"32GB"</span><span class="p">,</span>
+        <span class="s2">"max_workers"</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="s2">"cache_size"</span><span class="p">:</span> <span class="s2">"8GB"</span><span class="p">,</span>
+        <span class="s2">"profiling_enabled"</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">},</span>
+    <span class="s2">"quality_control"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"validation_level"</span><span class="p">:</span> <span class="s2">"comprehensive"</span><span class="p">,</span>
+        <span class="s2">"bias_detection"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"outlier_detection"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"distribution_assumptions"</span><span class="p">:</span> <span class="s2">"nonparametric"</span>
+    <span class="p">},</span>
+    <span class="s2">"visualization"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"plot_style"</span><span class="p">:</span> <span class="s2">"publication_ready"</span><span class="p">,</span>
+        <span class="s2">"color_scheme"</span><span class="p">:</span> <span class="s2">"colorblind_friendly"</span><span class="p">,</span>
+        <span class="s2">"figure_format"</span><span class="p">:</span> <span class="s2">"svg"</span><span class="p">,</span>
+        <span class="s2">"interactive_plots"</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">},</span>
+    <span class="s2">"reporting"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"statistical_reporting"</span><span class="p">:</span> <span class="s2">"apa"</span><span class="p">,</span>
+        <span class="s2">"figure_captioning"</span><span class="p">:</span> <span class="s2">"automatic"</span><span class="p">,</span>
+        <span class="s2">"reference_formatting"</span><span class="p">:</span> <span class="s2">"bibtex"</span><span class="p">,</span>
+        <span class="s2">"supplementary_materials"</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<section id="core-analysis-classes">
+<h3>Core Analysis Classes<a class="headerlink" href="#core-analysis-classes" title="Link to this heading"></a></h3>
+<section id="informationtheoryanalyzer">
+<h4><code class="docutils literal notranslate"><span class="pre">InformationTheoryAnalyzer</span></code><a class="headerlink" href="#informationtheoryanalyzer" title="Link to this heading"></a></h4>
+<p>Comprehensive information-theoretic analysis toolkit.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">InformationTheoryAnalyzer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Information-theoretic analysis of Active Inference systems"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">"""Initialize analyzer with data and configuration"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_entropy_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntropyMeasures</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate comprehensive entropy measures"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_divergence_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DivergenceMeasures</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate divergence measures between distributions"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_mutual_information</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutualInformationMeasures</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate mutual information and conditional dependencies"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_complexity_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ComplexityMeasures</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Analyze statistical and computational complexity"""</span>
+</pre></div>
+</div>
+</section>
+<section id="statisticalvalidator">
+<h4><code class="docutils literal notranslate"><span class="pre">StatisticalValidator</span></code><a class="headerlink" href="#statisticalvalidator" title="Link to this heading"></a></h4>
+<p>Statistical validation and model assessment framework.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">StatisticalValidator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Statistical validation and model assessment"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">ActiveInferenceModel</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Initialize validator with model and validation data"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">cross_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_folds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CrossValidationResults</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Perform k-fold cross-validation"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_model_comparison_criteria</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelComparisonCriteria</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate AIC, BIC, WAIC, and LOO-CV criteria"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_hypothesis_tests</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hypotheses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">HypothesisTestResults</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Perform statistical hypothesis tests"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">assess_model_goodness_of_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GoodnessOfFitResults</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Assess model fit quality and adequacy"""</span>
+</pre></div>
+</div>
+</section>
+<section id="performanceanalyzer">
+<h4><code class="docutils literal notranslate"><span class="pre">PerformanceAnalyzer</span></code><a class="headerlink" href="#performanceanalyzer" title="Link to this heading"></a></h4>
+<p>Computational performance and scalability analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PerformanceAnalyzer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Performance analysis and optimization"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">ActiveInferenceModel</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Initialize performance analyzer with model"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">profile_computational_complexity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ComplexityProfile</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Profile computational complexity and resource usage"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_scalability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ScalabilityResults</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Analyze performance scaling with system size"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">benchmark_against_baselines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baselines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Model</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">BenchmarkResults</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Benchmark against standard baseline models"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimize_performance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptimizationRecommendations</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate performance optimization recommendations"""</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="research-workflows">
+<h2>Research Workflows<a class="headerlink" href="#research-workflows" title="Link to this heading"></a></h2>
+<section id="standard-analysis-pipeline">
+<h3>Standard Analysis Pipeline<a class="headerlink" href="#standard-analysis-pipeline" title="Link to this heading"></a></h3>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart TD
+    A[Data Collection] --&gt; B[Preprocessing]
+    B --&gt; C[Exploratory Analysis]
+    C --&gt; D[Model Fitting]
+    D --&gt; E[Model Validation]
+    E --&gt; F[Statistical Testing]
+    F --&gt; G[Results Interpretation]
+    G --&gt; H[Report Generation]
+    H --&gt; I[Publication]
+
+    style A fill:#ffebee
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#fce4ec
+    style F fill:#f1f8e9
+    style G fill:#e1f5fe
+    style H fill:#fff8e1
+    style I fill:#ffebee
+</pre></div>
+</div>
+</section>
+<section id="advanced-analysis-patterns">
+<h3>Advanced Analysis Patterns<a class="headerlink" href="#advanced-analysis-patterns" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Multi-scale analysis workflow</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">conduct_multiscale_analysis</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">scales</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">AnalysisReport</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Conduct analysis across multiple temporal and spatial scales"""</span>
+
+    <span class="c1"># Scale-specific analysis</span>
+    <span class="n">scale_results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">scale</span> <span class="ow">in</span> <span class="n">scales</span><span class="p">:</span>
+        <span class="n">scaled_data</span> <span class="o">=</span> <span class="n">preprocess_data_for_scale</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+        <span class="n">scale_analysis</span> <span class="o">=</span> <span class="n">perform_scale_specific_analysis</span><span class="p">(</span><span class="n">scaled_data</span><span class="p">)</span>
+        <span class="n">scale_results</span><span class="p">[</span><span class="n">scale</span><span class="p">]</span> <span class="o">=</span> <span class="n">scale_analysis</span>
+
+    <span class="c1"># Cross-scale integration</span>
+    <span class="n">cross_scale_patterns</span> <span class="o">=</span> <span class="n">identify_cross_scale_patterns</span><span class="p">(</span><span class="n">scale_results</span><span class="p">)</span>
+
+    <span class="c1"># Multi-scale validation</span>
+    <span class="n">multiscale_validation</span> <span class="o">=</span> <span class="n">validate_multiscale_consistency</span><span class="p">(</span><span class="n">scale_results</span><span class="p">)</span>
+
+    <span class="c1"># Generate comprehensive report</span>
+    <span class="k">return</span> <span class="n">generate_multiscale_report</span><span class="p">(</span><span class="n">scale_results</span><span class="p">,</span> <span class="n">cross_scale_patterns</span><span class="p">,</span> <span class="n">multiscale_validation</span><span class="p">)</span>
+
+<span class="c1"># Bayesian model comparison workflow</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">conduct_bayesian_model_comparison</span><span class="p">(</span><span class="n">models</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Model</span><span class="p">],</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ComparisonReport</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Conduct comprehensive Bayesian model comparison"""</span>
+
+    <span class="c1"># Fit all models</span>
+    <span class="n">fitted_models</span> <span class="o">=</span> <span class="n">fit_all_models</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="c1"># Calculate comparison criteria</span>
+    <span class="n">model_criteria</span> <span class="o">=</span> <span class="n">calculate_comparison_criteria</span><span class="p">(</span><span class="n">fitted_models</span><span class="p">)</span>
+
+    <span class="c1"># Perform model averaging</span>
+    <span class="n">model_weights</span> <span class="o">=</span> <span class="n">calculate_model_weights</span><span class="p">(</span><span class="n">model_criteria</span><span class="p">)</span>
+    <span class="n">averaged_predictions</span> <span class="o">=</span> <span class="n">generate_averaged_predictions</span><span class="p">(</span><span class="n">fitted_models</span><span class="p">,</span> <span class="n">model_weights</span><span class="p">)</span>
+
+    <span class="c1"># Validate model comparison</span>
+    <span class="n">comparison_validation</span> <span class="o">=</span> <span class="n">validate_model_comparison</span><span class="p">(</span><span class="n">model_criteria</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">generate_comparison_report</span><span class="p">(</span><span class="n">fitted_models</span><span class="p">,</span> <span class="n">model_criteria</span><span class="p">,</span> <span class="n">comparison_validation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
+<section id="analysis-documentation-standards">
+<h3>Analysis Documentation Standards<a class="headerlink" href="#analysis-documentation-standards" title="Link to this heading"></a></h3>
 <p>When contributing to analysis documentation:</p>
 <ol class="arabic simple">
 <li><p><strong>Statistical Rigor</strong>: Ensure all statistical methods are mathematically sound</p></li>
@@ -468,7 +543,9 @@ comparison_validation = validate_model_comparison(model_criteria)</p>
 <li><p><strong>Interpretation Guidance</strong>: Provide clear interpretation guidelines</p></li>
 <li><p><strong>Limitations Documentation</strong>: Clearly document method limitations and assumptions</p></li>
 </ol>
-<p>### Analysis Contribution Process</p>
+</section>
+<section id="analysis-contribution-process">
+<h3>Analysis Contribution Process<a class="headerlink" href="#analysis-contribution-process" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p><strong>Identify Analysis Gap</strong>: Find missing or inadequate analysis methods</p></li>
 <li><p><strong>Research Implementation</strong>: Implement robust analysis methods</p></li>
@@ -477,17 +554,21 @@ comparison_validation = validate_model_comparison(model_criteria)</p>
 <li><p><strong>Validate Against Standards</strong>: Ensure compliance with statistical standards</p></li>
 <li><p><strong>Submit for Review</strong>: Follow peer review process for analysis contributions</p></li>
 </ol>
-<p>## Related Documentation</p>
+</section>
+</section>
+<section id="related-documentation">
+<h2>Related Documentation<a class="headerlink" href="#related-documentation" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><strong>[Research Framework](../../research/README.md)</strong>: Overview of research tools</p></li>
-<li><p><strong>Information Theory Analysis `../information_theory/README.md`</strong>: Specialized information theory methods</p></li>
-<li><p><strong>[Statistical Methods Documentation](../../research/analysis/README.md)</strong>: Statistical analysis tools</p></li>
-<li><p><strong>Model Validation Guide `../../research/analysis/validation/`</strong>: Model assessment methods</p></li>
-<li><p><strong>Performance Analysis `../../research/analysis/performance/`</strong>: Performance evaluation tools</p></li>
+<li><p><strong><a class="reference internal" href="../README.html"><span class="std std-doc">Research Framework</span></a></strong>: Overview of research tools</p></li>
+<li><p><strong>Information Theory Analysis <code class="docutils literal notranslate"><span class="pre">../information_theory/README.md</span></code></strong>: Specialized information theory methods</p></li>
+<li><p><strong><a class="reference internal" href="#"><span class="std std-doc">Statistical Methods Documentation</span></a></strong>: Statistical analysis tools</p></li>
+<li><p><strong>Model Validation Guide <code class="docutils literal notranslate"><span class="pre">../../research/analysis/validation/</span></code></strong>: Model assessment methods</p></li>
+<li><p><strong>Performance Analysis <code class="docutils literal notranslate"><span class="pre">../../research/analysis/performance/</span></code></strong>: Performance evaluation tools</p></li>
 </ul>
-<p>—</p>
+<hr class="docutils" />
 <p><strong>Research Analysis Documentation Version</strong>: 1.0.0 | <strong>Last Updated</strong>: October 2024 | <strong>Development Status</strong>: Active Development</p>
 <p><em>“Active Inference for, with, by Generative AI”</em> - Advancing scientific understanding through rigorous analysis, statistical validation, and comprehensive research methods.</p>
+</section>
 </section>
 
 

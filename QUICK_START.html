@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+  <title>Quick Start Guide - Active Inference Knowledge Environment &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
@@ -71,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">Quick Start Guide - Active Inference Knowledge Environment</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/QUICK_START.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,359 +81,449 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p># Quick Start Guide - Active Inference Knowledge Environment</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="quick-start-guide-active-inference-knowledge-environment">
+<h1>Quick Start Guide - Active Inference Knowledge Environment<a class="headerlink" href="#quick-start-guide-active-inference-knowledge-environment" title="Link to this heading"></a></h1>
 <p><strong>Get up and running with the Active Inference Knowledge Environment in minutes!</strong></p>
-<p>## 5-Minute Quick Start</p>
-<p>### 1. Prerequisites (30 seconds)</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash
-# Check Python version (requires 3.9+)
-python –version</p>
-<p># If needed, install Python 3.11
-pyenv install 3.11
-pyenv local 3.11
-<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>—</p>
-<p>### 2. Installation (2 minutes)</p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>bash
-# Clone the repository
-git clone <a class="reference external" href="https://github.com/docxology/active_inference.git">https://github.com/docxology/active_inference.git</a>
-cd active_inference</p>
-<p># Install uv (recommended package manager)
-curl -LsSf <a class="reference external" href="https://astral.sh/uv/install.sh">https://astral.sh/uv/install.sh</a> | sh</p>
-<p># Install dependencies
-uv sync</p>
-<p># Activate virtual environment
-source .venv/bin/activate  # Linux/Mac
-.venvScriptsactivate     # Windows
-<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p>—</p>
-<p>### 3. Verify Installation (30 seconds)</p>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>bash
-# Check installation
-python -c “from active_inference import KnowledgeRepository; print(’✓ Installed successfully’)”</p>
-<p># Run tests
-uv run pytest tests/unit/test_knowledge_repository.py -v
-<a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
-<p>—</p>
-<p>### 4. First Steps (2 minutes)</p>
-<p>#### Explore the Knowledge Repository</p>
-<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
-from active_inference import KnowledgeRepository</p>
-<p># Initialize repository
-repo = KnowledgeRepository()</p>
-<p># Search for concepts
-results = repo.search(“entropy”, limit=5)
-for result in results:</p>
-<blockquote>
-<div><p>print(f”- {result.title}: {result.description[:100]}…”)</p>
-</div></blockquote>
-<p># Get a specific learning path
-path = repo.get_learning_path(“foundations_complete”)
-print(f”Learning path: {path.name} ({path.estimated_hours} hours)”)
-<a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
-<p>—</p>
-<p>## 10-Minute Deep Dive</p>
-<p>### Understanding the Architecture</p>
-<p><a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a>mermaid
-graph LR</p>
-<blockquote>
-<div><p>A[Knowledge Repository] –&gt; B[Search &amp; Discovery]
-C[Research Tools] –&gt; D[Experiments]
-E[Applications] –&gt; F[Templates]
-G[Platform] –&gt; H[Services]</p>
-<p>style A fill:#e1f5fe
-style C fill:#f3e5f5
-style E fill:#e8f5e8
-style G fill:#fff3e0</p>
-</div></blockquote>
-<p><a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
-<p>### Core Components</p>
+<section id="minute-quick-start">
+<h2>5-Minute Quick Start<a class="headerlink" href="#minute-quick-start" title="Link to this heading"></a></h2>
+<section id="prerequisites-30-seconds">
+<h3>1. Prerequisites (30 seconds)<a class="headerlink" href="#prerequisites-30-seconds" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Python version (requires 3.9+)</span>
+python<span class="w"> </span>--version
+
+<span class="c1"># If needed, install Python 3.11</span>
+pyenv<span class="w"> </span>install<span class="w"> </span><span class="m">3</span>.11
+pyenv<span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="m">3</span>.11
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="installation-2-minutes">
+<h3>2. Installation (2 minutes)<a class="headerlink" href="#installation-2-minutes" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/docxology/active_inference.git
+<span class="nb">cd</span><span class="w"> </span>active_inference
+
+<span class="c1"># Install uv (recommended package manager)</span>
+curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+
+<span class="c1"># Install dependencies</span>
+uv<span class="w"> </span>sync
+
+<span class="c1"># Activate virtual environment</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># Linux/Mac</span>
+.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># Windows</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="verify-installation-30-seconds">
+<h3>3. Verify Installation (30 seconds)<a class="headerlink" href="#verify-installation-30-seconds" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check installation</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"from active_inference import KnowledgeRepository; print('✓ Installed successfully')"</span>
+
+<span class="c1"># Run tests</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/unit/test_knowledge_repository.py<span class="w"> </span>-v
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="first-steps-2-minutes">
+<h3>4. First Steps (2 minutes)<a class="headerlink" href="#first-steps-2-minutes" title="Link to this heading"></a></h3>
+<section id="explore-the-knowledge-repository">
+<h4>Explore the Knowledge Repository<a class="headerlink" href="#explore-the-knowledge-repository" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference</span><span class="w"> </span><span class="kn">import</span> <span class="n">KnowledgeRepository</span>
+
+<span class="c1"># Initialize repository</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="n">KnowledgeRepository</span><span class="p">()</span>
+
+<span class="c1"># Search for concepts</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">"entropy"</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">description</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
+
+<span class="c1"># Get a specific learning path</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_learning_path</span><span class="p">(</span><span class="s2">"foundations_complete"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Learning path: </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">estimated_hours</span><span class="si">}</span><span class="s2"> hours)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="minute-deep-dive">
+<h2>10-Minute Deep Dive<a class="headerlink" href="#minute-deep-dive" title="Link to this heading"></a></h2>
+<section id="understanding-the-architecture">
+<h3>Understanding the Architecture<a class="headerlink" href="#understanding-the-architecture" title="Link to this heading"></a></h3>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph LR
+    A[Knowledge Repository] --&gt; B[Search &amp; Discovery]
+    C[Research Tools] --&gt; D[Experiments]
+    E[Applications] --&gt; F[Templates]
+    G[Platform] --&gt; H[Services]
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style E fill:#e8f5e8
+    style G fill:#fff3e0
+</pre></div>
+</div>
+</section>
+<section id="core-components">
+<h3>Core Components<a class="headerlink" href="#core-components" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p><strong>Knowledge Repository</strong>: Educational content and learning systems</p></li>
 <li><p><strong>Research Tools</strong>: Scientific research and experimentation</p></li>
 <li><p><strong>Applications</strong>: Practical implementations and templates</p></li>
 <li><p><strong>Platform</strong>: Infrastructure and services</p></li>
 </ol>
-<p>—</p>
-<p>### Interactive Tutorial</p>
-<p>#### Tutorial 1: Working with Knowledge</p>
-<p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a>python
-from active_inference import KnowledgeRepository, ContentType, DifficultyLevel</p>
-<p># Initialize with custom configuration
-repo = KnowledgeRepository({</p>
-<blockquote>
-<div><p>‘root_path’: ‘./knowledge’,
-‘auto_index’: True,
-‘cache_enabled’: True</p>
-</div></blockquote>
-<p>})</p>
-<p># Search with filters
-results = repo.search(</p>
-<blockquote>
-<div><p>query=”information theory”,
-content_types=[ContentType.FOUNDATION, ContentType.MATHEMATICS],
-difficulty=[DifficultyLevel.BEGINNER, DifficultyLevel.INTERMEDIATE]</p>
-</div></blockquote>
-<p>)</p>
-<p>print(f”Found {len(results)} results”)
-for result in results:</p>
-<blockquote>
-<div><p>print(f”  - {result.title} ({result.content_type}, {result.difficulty})”)</p>
-</div></blockquote>
-<p><a href="#id45"><span class="problematic" id="id46">``</span></a><a href="#id47"><span class="problematic" id="id48">`</span></a></p>
-<p>#### Tutorial 2: Running Experiments</p>
-<p><a href="#id49"><span class="problematic" id="id50">``</span></a><a href="#id51"><span class="problematic" id="id52">`</span></a>python
-from active_inference.research import ExperimentFramework, ExperimentConfig</p>
-<p># Initialize research framework
-research = ExperimentFramework()</p>
-<p># Create experiment
-config = ExperimentConfig(</p>
-<blockquote>
-<div><p>name=”entropy_analysis”,
-description=”Analyze entropy measures”,
-parameters={“n_samples”: 1000}</p>
-</div></blockquote>
-<p>)</p>
-<p># Run experiment
-experiment_id = research.create_experiment(config)
-results = research.run_experiment(experiment_id)</p>
-<p>print(f”Experiment completed: {results[‘status’]}”)
-<a href="#id53"><span class="problematic" id="id54">``</span></a><a href="#id55"><span class="problematic" id="id56">`</span></a></p>
-<p>#### Tutorial 3: Using LLM Integration</p>
-<p><a href="#id57"><span class="problematic" id="id58">``</span></a><a href="#id59"><span class="problematic" id="id60">`</span></a>python
-from active_inference.llm import LLMClient</p>
-<p># Initialize LLM client
-llm = LLMClient({</p>
-<blockquote>
-<div><p>‘provider’: ‘ollama’,
-‘model’: ‘llama2’,
-‘base_url’: ‘<a class="reference external" href="http://localhost:11434">http://localhost:11434</a>’</p>
-</div></blockquote>
-<p>})</p>
-<p># Ask questions about Active Inference
-response = await llm.ask(“What is variational free energy?”)
-print(response)</p>
-<p># Generate explanations
-explanation = await llm.explain_concept(“active inference”, difficulty=”beginner”)
-print(explanation)
-<a href="#id61"><span class="problematic" id="id62">``</span></a><a href="#id63"><span class="problematic" id="id64">`</span></a></p>
-<p>—</p>
-<p>## Common Use Cases</p>
-<p>### Use Case 1: Learning Active Inference</p>
-<p><a href="#id65"><span class="problematic" id="id66">``</span></a><a href="#id67"><span class="problematic" id="id68">`</span></a>bash
-# Start the platform
-make serve</p>
-<p># Open browser to <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>
-# Navigate to learning paths
-# Follow structured curriculum
-<a href="#id69"><span class="problematic" id="id70">``</span></a><a href="#id71"><span class="problematic" id="id72">`</span></a></p>
-<p>### Use Case 2: Research with Active Inference</p>
-<p><a href="#id73"><span class="problematic" id="id74">``</span></a><a href="#id75"><span class="problematic" id="id76">`</span></a>python
-from active_inference.research import create_research_project</p>
-<p># Create research project
-project = create_research_project({</p>
-<blockquote>
-<div><p>“name”: “perceptual_inference_study”,
-“objectives”: [“Study perceptual inference”, “Analyze free energy”],
-“methodology”: “experimental”</p>
-</div></blockquote>
-<p>})</p>
-<p># Run research pipeline
-results = project.execute()
-print(results)
-<a href="#id77"><span class="problematic" id="id78">``</span></a><a href="#id79"><span class="problematic" id="id80">`</span></a></p>
-<p>### Use Case 3: Building Applications</p>
-<p><a href="#id81"><span class="problematic" id="id82">``</span></a><a href="#id83"><span class="problematic" id="id84">`</span></a>python
-from active_inference.applications import ApplicationFramework</p>
-<p># Create application from template
-app = ApplicationFramework()</p>
-<p># Generate application code
-code = app.create_application(</p>
-<blockquote>
-<div><p>template=”basic_model”,
-parameters={</p>
-<blockquote>
-<div><p>“n_states”: 10,
-“n_observations”: 20</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>)</p>
-<p># Save generated application
-with open(“my_app.py”, “w”) as f:</p>
-<blockquote>
-<div><p>f.write(code)</p>
-</div></blockquote>
-<p><a href="#id85"><span class="problematic" id="id86">``</span></a><a href="#id87"><span class="problematic" id="id88">`</span></a></p>
-<p>—</p>
-<p>## Next Steps</p>
-<p>### Learning Paths</p>
-<ol class="arabic simple">
-<li><p><strong>Beginner</strong>: Start with [Foundations](knowledge/foundations/README.md)</p></li>
-<li><p><strong>Intermediate</strong>: Explore [Mathematics](knowledge/mathematics/README.md)</p></li>
-<li><p><strong>Advanced</strong>: Study [Implementations](knowledge/implementations/README.md)</p></li>
-<li><p><strong>Expert</strong>: Apply to [Applications](applications/README.md)</p></li>
-</ol>
-<p>### Resources</p>
-<ul class="simple">
-<li><p><strong>Documentation</strong>: Complete docs at [docs/](.)</p></li>
-<li><p><strong>Examples</strong>: Working examples in examples/ <cite>examples/</cite></p></li>
-<li><p><strong>API Reference</strong>: Full API docs at [docs/api/](api)</p></li>
-<li><p><strong>Community</strong>: Join discussions on [GitHub](<a class="reference external" href="https://github.com/docxology/active_inference/discussions">https://github.com/docxology/active_inference/discussions</a>)</p></li>
-</ul>
-<p>### Support</p>
-<ul class="simple">
-<li><p><strong>Issues</strong>: Report bugs on [GitHub Issues](<a class="reference external" href="https://github.com/docxology/active_inference/issues">https://github.com/docxology/active_inference/issues</a>)</p></li>
-<li><p><strong>Troubleshooting</strong>: Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md)</p></li>
-<li><p><strong>FAQ</strong>: See [FAQ section](../knowledge/faq.json)</p></li>
-</ul>
-<p>—</p>
-<p>## Development Quick Start</p>
-<p>### Running Tests</p>
-<p><a href="#id89"><span class="problematic" id="id90">``</span></a><a href="#id91"><span class="problematic" id="id92">`</span></a>bash
-# All tests
-make test</p>
-<p># Unit tests only
-make test-unit</p>
-<p># With coverage
-make test-coverage
-<a href="#id93"><span class="problematic" id="id94">``</span></a><a href="#id95"><span class="problematic" id="id96">`</span></a></p>
-<p>### Building Documentation</p>
-<p><a href="#id97"><span class="problematic" id="id98">``</span></a><a href="#id99"><span class="problematic" id="id100">`</span></a>bash
-# Generate documentation
-make docs</p>
-<p># Serve locally
-make docs-serve
-<a href="#id101"><span class="problematic" id="id102">``</span></a><a href="#id103"><span class="problematic" id="id104">`</span></a></p>
-<p>### Code Quality</p>
-<p><a href="#id105"><span class="problematic" id="id106">``</span></a><a href="#id107"><span class="problematic" id="id108">`</span></a>bash
-# Format code
-make format</p>
-<p># Lint code
-make lint</p>
-<p># Type check
-make type-check</p>
-<p># All quality checks
-make check-all
-<a href="#id109"><span class="problematic" id="id110">``</span></a><a href="#id111"><span class="problematic" id="id112">`</span></a></p>
-<p>—</p>
-<p>## Troubleshooting</p>
-<p>### Issue: Installation fails</p>
-<p><a href="#id113"><span class="problematic" id="id114">``</span></a><a href="#id115"><span class="problematic" id="id116">`</span></a>bash
-# Check Python version
-python –version  # Should be 3.9+</p>
-<p># Try with specific Python version
-uv venv
-source .venv/bin/activate
-uv sync
-<a href="#id117"><span class="problematic" id="id118">``</span></a><a href="#id119"><span class="problematic" id="id120">`</span></a></p>
-<p>### Issue: Import errors</p>
-<p><a href="#id121"><span class="problematic" id="id122">``</span></a><a href="#id123"><span class="problematic" id="id124">`</span></a>bash
-# Reinstall in development mode
-uv pip install -e .</p>
-<p># Check PYTHONPATH
-export PYTHONPATH=”${PYTHONPATH}:$(pwd)”
-<a href="#id125"><span class="problematic" id="id126">``</span></a><a href="#id127"><span class="problematic" id="id128">`</span></a></p>
-<p>### Issue: Platform won’t start</p>
-<p><a href="#id129"><span class="problematic" id="id130">``</span></a><a href="#id131"><span class="problematic" id="id132">`</span></a>bash
-# Check if port is in use
-lsof -i :8080</p>
-<p># Use different port
-export PLATFORM_PORT=8081
-python platform/serve.py
-<a href="#id133"><span class="problematic" id="id134">``</span></a><a href="#id135"><span class="problematic" id="id136">`</span></a></p>
-<p>For more troubleshooting help, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md)</p>
-<p>—</p>
-<p>## Tips and Best Practices</p>
-<p>### 1. Use Virtual Environment</p>
-<p>Always work within a virtual environment to avoid conflicts:</p>
-<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
-<span class="pre">#</span> <span class="pre">Create</span> <span class="pre">and</span> <span class="pre">activate</span> <span class="pre">(uv-managed;</span> <span class="pre">avoids</span> <span class="pre">dangling</span> <span class="pre">venv/</span> <span class="pre">interpreter</span> <span class="pre">symlinks)</span>
-<span class="pre">uv</span> <span class="pre">venv</span>
-<span class="pre">source</span> <span class="pre">.venv/bin/activate</span>&#160; <span class="pre">#</span> <span class="pre">Linux/Mac</span>
-<span class="pre">`</span></code></p>
-<p>### 2. Follow TDD</p>
-<p>Write tests before implementation:</p>
-<p><a href="#id137"><span class="problematic" id="id138">``</span></a><a href="#id139"><span class="problematic" id="id140">`</span></a>python
-def test_feature():</p>
-<blockquote>
-<div><p># Arrange
-setup_test()
-# Act
-result = run_feature()
-# Assert
-assert result == expected</p>
-</div></blockquote>
-<p><a href="#id141"><span class="problematic" id="id142">``</span></a><a href="#id143"><span class="problematic" id="id144">`</span></a></p>
-<p>### 3. Use Type Hints</p>
-<p>Add type annotations for better code quality:</p>
-<p><a href="#id145"><span class="problematic" id="id146">``</span></a><a href="#id147"><span class="problematic" id="id148">`</span></a>python
-def process_data(data: Dict[str, Any]) -&gt; List[Result]:</p>
-<blockquote>
-<div><p>“””Process data and return results”””
-return [transform(item) for item in data]</p>
-</div></blockquote>
-<p><a href="#id149"><span class="problematic" id="id150">``</span></a><a href="#id151"><span class="problematic" id="id152">`</span></a></p>
-<p>### 4. Document Your Code</p>
-<p>Follow documentation standards:</p>
-<p><a href="#id153"><span class="problematic" id="id154">``</span></a><a href="#id155"><span class="problematic" id="id156">`</span></a>python
-def important_function(param1: str, param2: int) -&gt; dict:</p>
-<blockquote>
-<div><p>“””
-Brief description of what the function does.</p>
-<dl>
-<dt>Args:</dt><dd><p>param1: Description of param1
-param2: Description of param2</p>
-</dd>
-<dt>Returns:</dt><dd><p>Dictionary containing results</p>
-</dd>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">important_function</span><span class="p">(</span><span class="s2">"test"</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-<span class="go">{'status': 'success'}</span>
+</section>
+<hr class="docutils" />
+<section id="interactive-tutorial">
+<h3>Interactive Tutorial<a class="headerlink" href="#interactive-tutorial" title="Link to this heading"></a></h3>
+<section id="tutorial-1-working-with-knowledge">
+<h4>Tutorial 1: Working with Knowledge<a class="headerlink" href="#tutorial-1-working-with-knowledge" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference</span><span class="w"> </span><span class="kn">import</span> <span class="n">KnowledgeRepository</span><span class="p">,</span> <span class="n">ContentType</span><span class="p">,</span> <span class="n">DifficultyLevel</span>
+
+<span class="c1"># Initialize with custom configuration</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="n">KnowledgeRepository</span><span class="p">({</span>
+    <span class="s1">'root_path'</span><span class="p">:</span> <span class="s1">'./knowledge'</span><span class="p">,</span>
+    <span class="s1">'auto_index'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">'cache_enabled'</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">})</span>
+
+<span class="c1"># Search with filters</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+    <span class="n">query</span><span class="o">=</span><span class="s2">"information theory"</span><span class="p">,</span>
+    <span class="n">content_types</span><span class="o">=</span><span class="p">[</span><span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">],</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="p">[</span><span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">BEGINNER</span><span class="p">,</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> results"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">content_type</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">difficulty</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
-<p>“””</p>
-</div></blockquote>
-<p><a href="#id157"><span class="problematic" id="id158">``</span></a><a href="#id159"><span class="problematic" id="id160">`</span></a></p>
-<p>### 5. Regular Testing</p>
+</section>
+<section id="tutorial-2-running-experiments">
+<h4>Tutorial 2: Running Experiments<a class="headerlink" href="#tutorial-2-running-experiments" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExperimentFramework</span><span class="p">,</span> <span class="n">ExperimentConfig</span>
+
+<span class="c1"># Initialize research framework</span>
+<span class="n">research</span> <span class="o">=</span> <span class="n">ExperimentFramework</span><span class="p">()</span>
+
+<span class="c1"># Create experiment</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">ExperimentConfig</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"entropy_analysis"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Analyze entropy measures"</span><span class="p">,</span>
+    <span class="n">parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"n_samples"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># Run experiment</span>
+<span class="n">experiment_id</span> <span class="o">=</span> <span class="n">research</span><span class="o">.</span><span class="n">create_experiment</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">research</span><span class="o">.</span><span class="n">run_experiment</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Experiment completed: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="tutorial-3-using-llm-integration">
+<h4>Tutorial 3: Using LLM Integration<a class="headerlink" href="#tutorial-3-using-llm-integration" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.llm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LLMClient</span>
+
+<span class="c1"># Initialize LLM client</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">LLMClient</span><span class="p">({</span>
+    <span class="s1">'provider'</span><span class="p">:</span> <span class="s1">'ollama'</span><span class="p">,</span>
+    <span class="s1">'model'</span><span class="p">:</span> <span class="s1">'llama2'</span><span class="p">,</span>
+    <span class="s1">'base_url'</span><span class="p">:</span> <span class="s1">'http://localhost:11434'</span>
+<span class="p">})</span>
+
+<span class="c1"># Ask questions about Active Inference</span>
+<span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">llm</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="s2">"What is variational free energy?"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="c1"># Generate explanations</span>
+<span class="n">explanation</span> <span class="o">=</span> <span class="k">await</span> <span class="n">llm</span><span class="o">.</span><span class="n">explain_concept</span><span class="p">(</span><span class="s2">"active inference"</span><span class="p">,</span> <span class="n">difficulty</span><span class="o">=</span><span class="s2">"beginner"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">explanation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="common-use-cases">
+<h2>Common Use Cases<a class="headerlink" href="#common-use-cases" title="Link to this heading"></a></h2>
+<section id="use-case-1-learning-active-inference">
+<h3>Use Case 1: Learning Active Inference<a class="headerlink" href="#use-case-1-learning-active-inference" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start the platform</span>
+make<span class="w"> </span>serve
+
+<span class="c1"># Open browser to http://localhost:8080</span>
+<span class="c1"># Navigate to learning paths</span>
+<span class="c1"># Follow structured curriculum</span>
+</pre></div>
+</div>
+</section>
+<section id="use-case-2-research-with-active-inference">
+<h3>Use Case 2: Research with Active Inference<a class="headerlink" href="#use-case-2-research-with-active-inference" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.research</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_research_project</span>
+
+<span class="c1"># Create research project</span>
+<span class="n">project</span> <span class="o">=</span> <span class="n">create_research_project</span><span class="p">({</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"perceptual_inference_study"</span><span class="p">,</span>
+    <span class="s2">"objectives"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Study perceptual inference"</span><span class="p">,</span> <span class="s2">"Analyze free energy"</span><span class="p">],</span>
+    <span class="s2">"methodology"</span><span class="p">:</span> <span class="s2">"experimental"</span>
+<span class="p">})</span>
+
+<span class="c1"># Run research pipeline</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="use-case-3-building-applications">
+<h3>Use Case 3: Building Applications<a class="headerlink" href="#use-case-3-building-applications" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApplicationFramework</span>
+
+<span class="c1"># Create application from template</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">ApplicationFramework</span><span class="p">()</span>
+
+<span class="c1"># Generate application code</span>
+<span class="n">code</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">create_application</span><span class="p">(</span>
+    <span class="n">template</span><span class="o">=</span><span class="s2">"basic_model"</span><span class="p">,</span>
+    <span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"n_states"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">"n_observations"</span><span class="p">:</span> <span class="mi">20</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># Save generated application</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"my_app.py"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<section id="learning-paths">
+<h3>Learning Paths<a class="headerlink" href="#learning-paths" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Beginner</strong>: Start with <a class="reference internal" href="knowledge/foundations/README.html"><span class="std std-doc">Foundations</span></a></p></li>
+<li><p><strong>Intermediate</strong>: Explore <a class="reference internal" href="knowledge/mathematics/README.html"><span class="std std-doc">Mathematics</span></a></p></li>
+<li><p><strong>Advanced</strong>: Study <a class="reference internal" href="knowledge/implementations/README.html"><span class="std std-doc">Implementations</span></a></p></li>
+<li><p><strong>Expert</strong>: Apply to <a class="reference internal" href="applications/README.html"><span class="std std-doc">Applications</span></a></p></li>
+</ol>
+</section>
+<section id="resources">
+<h3>Resources<a class="headerlink" href="#resources" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Documentation</strong>: Complete docs at <a class="reference internal" href="#."><span class="xref myst">docs/</span></a></p></li>
+<li><p><strong>Examples</strong>: Working examples in examples/ <code class="docutils literal notranslate"><span class="pre">examples/</span></code></p></li>
+<li><p><strong>API Reference</strong>: Full API docs at <a class="reference external" href="https://pandas.pydata.org/docs/reference/index.html#api" title="pandas 3.1"><span class="xref myst">docs/api/</span></a></p></li>
+<li><p><strong>Community</strong>: Join discussions on <a class="reference external" href="https://github.com/docxology/active_inference/discussions">GitHub</a></p></li>
+</ul>
+</section>
+<section id="support">
+<h3>Support<a class="headerlink" href="#support" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Issues</strong>: Report bugs on <a class="reference external" href="https://github.com/docxology/active_inference/issues">GitHub Issues</a></p></li>
+<li><p><strong>Troubleshooting</strong>: Check <a class="reference internal" href="TROUBLESHOOTING.html"><span class="std std-doc">TROUBLESHOOTING.md</span></a></p></li>
+<li><p><strong>FAQ</strong>: See <a class="reference download internal" download="" href="_downloads/94cd2df459089f2f2382e154210d206f/faq.json"><span class="xref download myst">FAQ section</span></a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="development-quick-start">
+<h2>Development Quick Start<a class="headerlink" href="#development-quick-start" title="Link to this heading"></a></h2>
+<section id="running-tests">
+<h3>Running Tests<a class="headerlink" href="#running-tests" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># All tests</span>
+make<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Unit tests only</span>
+make<span class="w"> </span>test-unit
+
+<span class="c1"># With coverage</span>
+make<span class="w"> </span>test-coverage
+</pre></div>
+</div>
+</section>
+<section id="building-documentation">
+<h3>Building Documentation<a class="headerlink" href="#building-documentation" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate documentation</span>
+make<span class="w"> </span>docs
+
+<span class="c1"># Serve locally</span>
+make<span class="w"> </span>docs-serve
+</pre></div>
+</div>
+</section>
+<section id="code-quality">
+<h3>Code Quality<a class="headerlink" href="#code-quality" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Format code</span>
+make<span class="w"> </span>format
+
+<span class="c1"># Lint code</span>
+make<span class="w"> </span>lint
+
+<span class="c1"># Type check</span>
+make<span class="w"> </span>type-check
+
+<span class="c1"># All quality checks</span>
+make<span class="w"> </span>check-all
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="issue-installation-fails">
+<h3>Issue: Installation fails<a class="headerlink" href="#issue-installation-fails" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Python version</span>
+python<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Should be 3.9+</span>
+
+<span class="c1"># Try with specific Python version</span>
+uv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+uv<span class="w"> </span>sync
+</pre></div>
+</div>
+</section>
+<section id="issue-import-errors">
+<h3>Issue: Import errors<a class="headerlink" href="#issue-import-errors" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reinstall in development mode</span>
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+
+<span class="c1"># Check PYTHONPATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span><span class="s2">:</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
+</pre></div>
+</div>
+</section>
+<section id="issue-platform-wont-start">
+<h3>Issue: Platform won’t start<a class="headerlink" href="#issue-platform-wont-start" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if port is in use</span>
+lsof<span class="w"> </span>-i<span class="w"> </span>:8080
+
+<span class="c1"># Use different port</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PLATFORM_PORT</span><span class="o">=</span><span class="m">8081</span>
+python<span class="w"> </span>platform/serve.py
+</pre></div>
+</div>
+<p>For more troubleshooting help, see <a class="reference internal" href="TROUBLESHOOTING.html"><span class="std std-doc">TROUBLESHOOTING.md</span></a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tips-and-best-practices">
+<h2>Tips and Best Practices<a class="headerlink" href="#tips-and-best-practices" title="Link to this heading"></a></h2>
+<section id="use-virtual-environment">
+<h3>1. Use Virtual Environment<a class="headerlink" href="#use-virtual-environment" title="Link to this heading"></a></h3>
+<p>Always work within a virtual environment to avoid conflicts:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create and activate (uv-managed; avoids dangling venv/ interpreter symlinks)</span>
+uv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># Linux/Mac</span>
+</pre></div>
+</div>
+</section>
+<section id="follow-tdd">
+<h3>2. Follow TDD<a class="headerlink" href="#follow-tdd" title="Link to this heading"></a></h3>
+<p>Write tests before implementation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_feature</span><span class="p">():</span>
+    <span class="c1"># Arrange</span>
+    <span class="n">setup_test</span><span class="p">()</span>
+    <span class="c1"># Act</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_feature</span><span class="p">()</span>
+    <span class="c1"># Assert</span>
+    <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">expected</span>
+</pre></div>
+</div>
+</section>
+<section id="use-type-hints">
+<h3>3. Use Type Hints<a class="headerlink" href="#use-type-hints" title="Link to this heading"></a></h3>
+<p>Add type annotations for better code quality:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Result</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Process data and return results"""</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">transform</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="document-your-code">
+<h3>4. Document Your Code<a class="headerlink" href="#document-your-code" title="Link to this heading"></a></h3>
+<p>Follow documentation standards:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">important_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Brief description of what the function does.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        param1: Description of param1</span>
+<span class="sd">        param2: Description of param2</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary containing results</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; result = important_function("test", 42)</span>
+<span class="sd">        &gt;&gt;&gt; print(result)</span>
+<span class="sd">        {'status': 'success'}</span>
+<span class="sd">    """</span>
+</pre></div>
+</div>
+</section>
+<section id="regular-testing">
+<h3>5. Regular Testing<a class="headerlink" href="#regular-testing" title="Link to this heading"></a></h3>
 <p>Run tests frequently:</p>
-<p><a href="#id161"><span class="problematic" id="id162">``</span></a><a href="#id163"><span class="problematic" id="id164">`</span></a>bash
-# Before committing
-make test</p>
-<p># Before pushing
-make check-all
-<a href="#id165"><span class="problematic" id="id166">``</span></a><a href="#id167"><span class="problematic" id="id168">`</span></a></p>
-<p>—</p>
-<p>## Getting Help</p>
-<p>### Community Resources</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Before committing</span>
+make<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Before pushing</span>
+make<span class="w"> </span>check-all
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
+<section id="community-resources">
+<h3>Community Resources<a class="headerlink" href="#community-resources" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>GitHub Discussions</strong>: Ask questions and share ideas</p></li>
 <li><p><strong>GitHub Issues</strong>: Report bugs and request features</p></li>
 <li><p><strong>Documentation</strong>: Comprehensive guides and references</p></li>
 <li><p><strong>Examples</strong>: Working code examples and tutorials</p></li>
 </ul>
-<p>### Contributing</p>
-<p>See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on contributing to the project.</p>
-<p>—</p>
-<p>## Summary</p>
+</section>
+<section id="contributing">
+<h3>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h3>
+<p>See <span class="xref myst">CONTRIBUTING.md</span> for guidelines on contributing to the project.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
 <p>You’re now ready to start working with the Active Inference Knowledge Environment!</p>
-<p><strong>Key Takeaways</strong>:
-- ✅ Installation takes ~2 minutes
-- ✅ Core functionality works out of the box
-- ✅ Extensive documentation available
-- ✅ Active community support</p>
-<p><strong>Next Steps</strong>:
-1. Explore the knowledge repository
-2. Try running experiments
-3. Build your first application
-4. Join the community</p>
+<p><strong>Key Takeaways</strong>:</p>
+<ul class="simple">
+<li><p>✅ Installation takes ~2 minutes</p></li>
+<li><p>✅ Core functionality works out of the box</p></li>
+<li><p>✅ Extensive documentation available</p></li>
+<li><p>✅ Active community support</p></li>
+</ul>
+<p><strong>Next Steps</strong>:</p>
+<ol class="arabic simple">
+<li><p>Explore the knowledge repository</p></li>
+<li><p>Try running experiments</p></li>
+<li><p>Build your first application</p></li>
+<li><p>Join the community</p></li>
+</ol>
 <p>Happy learning! 🚀</p>
-<p>—</p>
-<p><strong>Last Updated</strong>: December 2024
+<hr class="docutils" />
+<p><strong>Last Updated</strong>: December 2024<br />
 <strong>Version</strong>: 1.0.0</p>
 <p><em>“Active Inference for, with, by Generative AI”</em> - Getting started with collaborative intelligence and comprehensive Active Inference understanding.</p>
+</section>
+</section>
 
 
            </div>

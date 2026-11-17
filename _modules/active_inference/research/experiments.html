@@ -143,7 +143,15 @@
 <a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentManager.create_experiment">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">create_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ExperimentConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Create a new experiment"""</span>
-        <span class="n">experiment_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"exp_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="n">base_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"exp_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="n">experiment_id</span> <span class="o">=</span> <span class="n">base_id</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="p">(</span>
+            <span class="n">experiment_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiments</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">/</span> <span class="n">experiment_id</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">experiment_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">"</span>
+            <span class="n">suffix</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="n">experiment_data</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"id"</span><span class="p">:</span> <span class="n">experiment_id</span><span class="p">,</span>
@@ -380,7 +388,7 @@
         <span class="c1"># Save log file</span>
         <span class="n">log_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">/</span> <span class="n">experiment_id</span> <span class="o">/</span> <span class="s2">"experiment_log.json"</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ExperimentManager.get_experiment">
 <a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentManager.get_experiment">[docs]</a>
@@ -424,7 +432,7 @@
 <span class="w">        </span><span class="sd">"""Run a complete research study"""</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Starting research study: </span><span class="si">{</span><span class="n">study_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Unnamed'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"study_name"</span><span class="p">:</span> <span class="n">study_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">),</span>
             <span class="s2">"experiments"</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">"summary"</span><span class="p">:</span> <span class="p">{},</span>

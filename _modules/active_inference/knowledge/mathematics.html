@@ -90,6 +90,7 @@
 <span class="sd">for understanding and working with the theoretical framework.</span>
 <span class="sd">"""</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -402,7 +403,9 @@
             <span class="n">q_norm</span> <span class="o">=</span> <span class="p">[</span><span class="n">qi</span> <span class="o">/</span> <span class="n">q_sum</span> <span class="k">for</span> <span class="n">qi</span> <span class="ow">in</span> <span class="n">q</span><span class="p">]</span>
 
             <span class="c1"># Compute KL divergence</span>
-            <span class="n">kl_div</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="n">qi</span><span class="p">)</span> <span class="k">for</span> <span class="n">pi</span><span class="p">,</span> <span class="n">qi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">p_norm</span><span class="p">,</span> <span class="n">q_norm</span><span class="p">))</span>
+            <span class="n">kl_div</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="n">pi</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="n">qi</span><span class="p">)</span> <span class="k">for</span> <span class="n">pi</span><span class="p">,</span> <span class="n">qi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">p_norm</span><span class="p">,</span> <span class="n">q_norm</span><span class="p">)</span> <span class="k">if</span> <span class="n">pi</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="p">)</span>
             <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">kl_div</span><span class="p">)</span>
 
         <span class="c1"># Use numpy implementation if available</span>
@@ -515,7 +518,7 @@
             <span class="n">entropy</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">probabilities</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">entropy</span> <span class="o">-=</span> <span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span>  <span class="c1"># Simplified calculation</span>
+                    <span class="n">entropy</span> <span class="o">-=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">entropy</span>
 
         <span class="c1"># Use numpy implementation if available</span>
@@ -543,7 +546,7 @@
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">px</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">marginal_x</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">py</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">marginal_y</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">joint_probs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">px</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">py</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">mutual_info</span> <span class="o">+=</span> <span class="n">joint_probs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                        <span class="n">mutual_info</span> <span class="o">+=</span> <span class="n">joint_probs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span>
                             <span class="n">joint_probs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">px</span> <span class="o">*</span> <span class="n">py</span><span class="p">)</span>
                         <span class="p">)</span>
             <span class="k">return</span> <span class="n">mutual_info</span>

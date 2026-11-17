@@ -426,7 +426,11 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="s2">"Implementation not found"</span><span class="p">}</span>
 
-        <span class="n">validation_result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"suggestions"</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="n">validation_result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"suggestions"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
 
         <span class="c1"># Check if implementation has required sections</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">content</span>

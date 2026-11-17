@@ -1063,7 +1063,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">validate_foundation_consistency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">"""Validate consistency of foundation knowledge"""</span>
         <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
-        <span class="n">validation_result</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">validation_result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
             <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">"track_completeness"</span><span class="p">:</span> <span class="p">{},</span>
@@ -1121,7 +1121,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">search_foundation_concepts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">"""Search for foundation concepts by query"""</span>
         <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
@@ -1183,7 +1183,7 @@
 <span class="w">        </span><span class="sd">"""Export foundation concepts as a graph structure"""</span>
         <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
 
-        <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">graph</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"nodes"</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">"edges"</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">"tracks"</span><span class="p">:</span> <span class="n">tracks</span><span class="p">,</span>

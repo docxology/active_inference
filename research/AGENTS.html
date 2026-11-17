@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+  <title>Research Documentation - Agent Development Guide &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -71,7 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">Research Documentation - Agent Development Guide</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/research/AGENTS.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,264 +81,308 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p># Research Documentation - Agent Development Guide</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="research-documentation-agent-development-guide">
+<h1>Research Documentation - Agent Development Guide<a class="headerlink" href="#research-documentation-agent-development-guide" title="Link to this heading"></a></h1>
 <p><strong>Guidelines for AI agents working with research documentation in the Active Inference Knowledge Environment.</strong></p>
-<p>## 🤖 Agent Role &amp; Responsibilities</p>
+<section id="agent-role-responsibilities">
+<h2>🤖 Agent Role &amp; Responsibilities<a class="headerlink" href="#agent-role-responsibilities" title="Link to this heading"></a></h2>
 <p><strong>What agents should do when working with research documentation:</strong></p>
-<p>### Primary Responsibilities
-- <strong>Research Documentation</strong>: Create and maintain comprehensive research documentation
-- <strong>Scientific Writing</strong>: Ensure clear, accurate scientific communication
-- <strong>Method Documentation</strong>: Document research methods and experimental procedures
-- <strong>Result Presentation</strong>: Present research findings in accessible formats
-- <strong>Literature Integration</strong>: Connect research with existing scientific literature</p>
-<p>### Development Focus Areas
-1. <strong>Technical Documentation</strong>: Write clear documentation of research tools and methods
-2. <strong>Educational Content</strong>: Create accessible explanations of complex research concepts
-3. <strong>Example Development</strong>: Provide working code examples and tutorials
-4. <strong>Validation Documentation</strong>: Document validation procedures and quality checks
-5. <strong>Integration Documentation</strong>: Document how research components integrate</p>
-<p>## 🏗️ Architecture &amp; Integration</p>
-<p>### Documentation Architecture</p>
+<section id="primary-responsibilities">
+<h3>Primary Responsibilities<a class="headerlink" href="#primary-responsibilities" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Research Documentation</strong>: Create and maintain comprehensive research documentation</p></li>
+<li><p><strong>Scientific Writing</strong>: Ensure clear, accurate scientific communication</p></li>
+<li><p><strong>Method Documentation</strong>: Document research methods and experimental procedures</p></li>
+<li><p><strong>Result Presentation</strong>: Present research findings in accessible formats</p></li>
+<li><p><strong>Literature Integration</strong>: Connect research with existing scientific literature</p></li>
+</ul>
+</section>
+<section id="development-focus-areas">
+<h3>Development Focus Areas<a class="headerlink" href="#development-focus-areas" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Technical Documentation</strong>: Write clear documentation of research tools and methods</p></li>
+<li><p><strong>Educational Content</strong>: Create accessible explanations of complex research concepts</p></li>
+<li><p><strong>Example Development</strong>: Provide working code examples and tutorials</p></li>
+<li><p><strong>Validation Documentation</strong>: Document validation procedures and quality checks</p></li>
+<li><p><strong>Integration Documentation</strong>: Document how research components integrate</p></li>
+</ol>
+</section>
+</section>
+<section id="architecture-integration">
+<h2>🏗️ Architecture &amp; Integration<a class="headerlink" href="#architecture-integration" title="Link to this heading"></a></h2>
+<section id="documentation-architecture">
+<h3>Documentation Architecture<a class="headerlink" href="#documentation-architecture" title="Link to this heading"></a></h3>
 <p><strong>Understanding how research documentation fits into the larger system:</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">Documentation</span> <span class="pre">Layer</span>
-<span class="pre">├──</span> <span class="pre">User-Facing</span> <span class="pre">Documentation</span> <span class="pre">(README.md,</span> <span class="pre">tutorials,</span> <span class="pre">guides)</span>
-<span class="pre">├──</span> <span class="pre">Agent</span> <span class="pre">Documentation</span> <span class="pre">(AGENTS.md,</span> <span class="pre">development</span> <span class="pre">guides)</span>
-<span class="pre">├──</span> <span class="pre">Technical</span> <span class="pre">Documentation</span> <span class="pre">(API</span> <span class="pre">docs,</span> <span class="pre">method</span> <span class="pre">specifications)</span>
-<span class="pre">└──</span> <span class="pre">Research</span> <span class="pre">Documentation</span> <span class="pre">(methods,</span> <span class="pre">results,</span> <span class="pre">validation)</span>
-<span class="pre">`</span></code></p>
-<p>### Integration Points</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Documentation Layer
+├── User-Facing Documentation (README.md, tutorials, guides)
+├── Agent Documentation (AGENTS.md, development guides)
+├── Technical Documentation (API docs, method specifications)
+└── Research Documentation (methods, results, validation)
+</pre></div>
+</div>
+</section>
+<section id="integration-points">
+<h3>Integration Points<a class="headerlink" href="#integration-points" title="Link to this heading"></a></h3>
 <p><strong>Key integration points and dependencies:</strong></p>
-<p>#### Upstream Components
-- <strong>Research Framework</strong>: Core research tools and scientific methods
-- <strong>Knowledge Base</strong>: Theoretical foundations and concepts
-- <strong>Platform Services</strong>: Infrastructure supporting research activities</p>
-<p>#### Downstream Components
-- <strong>User Applications</strong>: Research-driven applications and tools
-- <strong>Educational Content</strong>: Research-based learning materials
-- <strong>Publication Systems</strong>: Academic writing and dissemination</p>
-<p>#### External Systems
-- <strong>Academic Resources</strong>: Research papers, textbooks, documentation
-- <strong>Scientific Tools</strong>: Statistical software, simulation platforms
-- <strong>Publication Venues</strong>: Journals, conferences, preprint servers</p>
-<p>### Documentation Flow Patterns</p>
-<p><code class="docutils literal notranslate"><span class="pre">`python</span>
-<span class="pre">#</span> <span class="pre">Typical</span> <span class="pre">documentation</span> <span class="pre">workflow</span>
-<span class="pre">research_method</span> <span class="pre">→</span> <span class="pre">implementation</span> <span class="pre">→</span> <span class="pre">validation</span> <span class="pre">→</span> <span class="pre">documentation</span> <span class="pre">→</span> <span class="pre">review</span>
-<span class="pre">`</span></code></p>
-<p>## 💻 Development Patterns</p>
-<p>### Required Implementation Patterns</p>
+<section id="upstream-components">
+<h4>Upstream Components<a class="headerlink" href="#upstream-components" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Research Framework</strong>: Core research tools and scientific methods</p></li>
+<li><p><strong>Knowledge Base</strong>: Theoretical foundations and concepts</p></li>
+<li><p><strong>Platform Services</strong>: Infrastructure supporting research activities</p></li>
+</ul>
+</section>
+<section id="downstream-components">
+<h4>Downstream Components<a class="headerlink" href="#downstream-components" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>User Applications</strong>: Research-driven applications and tools</p></li>
+<li><p><strong>Educational Content</strong>: Research-based learning materials</p></li>
+<li><p><strong>Publication Systems</strong>: Academic writing and dissemination</p></li>
+</ul>
+</section>
+<section id="external-systems">
+<h4>External Systems<a class="headerlink" href="#external-systems" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Academic Resources</strong>: Research papers, textbooks, documentation</p></li>
+<li><p><strong>Scientific Tools</strong>: Statistical software, simulation platforms</p></li>
+<li><p><strong>Publication Venues</strong>: Journals, conferences, preprint servers</p></li>
+</ul>
+</section>
+</section>
+<section id="documentation-flow-patterns">
+<h3>Documentation Flow Patterns<a class="headerlink" href="#documentation-flow-patterns" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Typical documentation workflow</span>
+<span class="n">research_method</span> <span class="err">→</span> <span class="n">implementation</span> <span class="err">→</span> <span class="n">validation</span> <span class="err">→</span> <span class="n">documentation</span> <span class="err">→</span> <span class="n">review</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="development-patterns">
+<h2>💻 Development Patterns<a class="headerlink" href="#development-patterns" title="Link to this heading"></a></h2>
+<section id="required-implementation-patterns">
+<h3>Required Implementation Patterns<a class="headerlink" href="#required-implementation-patterns" title="Link to this heading"></a></h3>
 <p><strong>All research documentation must follow these patterns:</strong></p>
-<p>#### 1. Scientific Writing Pattern (PREFERRED)</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-def document_research_method(method_name: str, method_details: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document research method following scientific writing standards”””</p>
-<p># Structure documentation following IMRAD pattern
-documentation = {</p>
-<blockquote>
-<div><p>“introduction”: method_details.get(“introduction”, “”),
-“methods”: document_methods_section(method_details),
-“results”: document_results_section(method_details),
-“discussion”: document_discussion_section(method_details),
-“conclusion”: document_conclusion_section(method_details)</p>
-</div></blockquote>
-<p>}</p>
-<p># Add scientific rigor elements
-documentation[“validation”] = document_validation_approach(method_details)
-documentation[“reproducibility”] = document_reproducibility_info(method_details)
-documentation[“references”] = document_references(method_details)</p>
-<p>return format_scientific_documentation(documentation)</p>
-</div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>#### 2. Method Documentation Pattern (MANDATORY)</p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
-from dataclasses import dataclass
-from typing import List, Dict, Any, Optional</p>
-<p>&#64;dataclass
-class ResearchMethodDocumentation:</p>
-<blockquote>
-<div><p>“””Standardized research method documentation”””</p>
-<p>method_name: str
-description: str
-theoretical_background: str
-implementation: str
-validation: str
-examples: List[str]
-references: List[str]</p>
-<dl>
-<dt>def validate_completeness(self) -&gt; List[str]:</dt><dd><p>“””Validate documentation completeness”””
-errors = []</p>
-<p>required_fields = [‘method_name’, ‘description’, ‘implementation’, ‘validation’]
-for field in required_fields:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>if not getattr(self, field):</dt><dd><p>errors.append(f”Missing required field: {field}”)</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl class="simple">
-<dt>if not self.examples:</dt><dd><p>errors.append(“At least one example required”)</p>
-</dd>
-<dt>if not self.references:</dt><dd><p>errors.append(“References required for scientific validity”)</p>
-</dd>
-</dl>
-<p>return errors</p>
-</dd>
-<dt>def generate_markdown(self) -&gt; str:</dt><dd><p>“””Generate markdown documentation”””
-return f”””</p>
-</dd>
-</dl>
-</div></blockquote>
-<p># {self.method_name}</p>
-<p>{self.description}</p>
-<p>## Theoretical Background</p>
-<p>{self.theoretical_background}</p>
-<p>## Implementation</p>
-<p><code class="docutils literal notranslate"><span class="pre">`python</span>
-<span class="pre">{self.implementation}</span>
-<span class="pre">`</span></code></p>
-<p>## Validation</p>
+<section id="scientific-writing-pattern-preferred">
+<h4>1. Scientific Writing Pattern (PREFERRED)<a class="headerlink" href="#scientific-writing-pattern-preferred" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_research_method</span><span class="p">(</span><span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">method_details</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document research method following scientific writing standards"""</span>
+
+    <span class="c1"># Structure documentation following IMRAD pattern</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"introduction"</span><span class="p">:</span> <span class="n">method_details</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"introduction"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="s2">"methods"</span><span class="p">:</span> <span class="n">document_methods_section</span><span class="p">(</span><span class="n">method_details</span><span class="p">),</span>
+        <span class="s2">"results"</span><span class="p">:</span> <span class="n">document_results_section</span><span class="p">(</span><span class="n">method_details</span><span class="p">),</span>
+        <span class="s2">"discussion"</span><span class="p">:</span> <span class="n">document_discussion_section</span><span class="p">(</span><span class="n">method_details</span><span class="p">),</span>
+        <span class="s2">"conclusion"</span><span class="p">:</span> <span class="n">document_conclusion_section</span><span class="p">(</span><span class="n">method_details</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Add scientific rigor elements</span>
+    <span class="n">documentation</span><span class="p">[</span><span class="s2">"validation"</span><span class="p">]</span> <span class="o">=</span> <span class="n">document_validation_approach</span><span class="p">(</span><span class="n">method_details</span><span class="p">)</span>
+    <span class="n">documentation</span><span class="p">[</span><span class="s2">"reproducibility"</span><span class="p">]</span> <span class="o">=</span> <span class="n">document_reproducibility_info</span><span class="p">(</span><span class="n">method_details</span><span class="p">)</span>
+    <span class="n">documentation</span><span class="p">[</span><span class="s2">"references"</span><span class="p">]</span> <span class="o">=</span> <span class="n">document_references</span><span class="p">(</span><span class="n">method_details</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">format_scientific_documentation</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="method-documentation-pattern-mandatory">
+<h4>2. Method Documentation Pattern (MANDATORY)<a class="headerlink" href="#method-documentation-pattern-mandatory" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResearchMethodDocumentation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Standardized research method documentation"""</span>
+
+    <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">theoretical_background</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">implementation</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">validation</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">examples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_completeness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate documentation completeness"""</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'method_name'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'implementation'</span><span class="p">,</span> <span class="s1">'validation'</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">required_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required field: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">examples</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"At least one example required"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"References required for scientific validity"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">errors</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_markdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate markdown documentation"""</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2"># </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method_name</span><span class="si">}</span>
+
+<span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="si">}</span>
+
+<span class="s2">## Theoretical Background</span>
+
+<span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">theoretical_background</span><span class="si">}</span>
+
+<span class="s2">## Implementation</span>
+
+<span class="s2">```python</span>
+<span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">implementation</span><span class="si">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Link to this heading"></a></h2>
 <p>{self.validation}</p>
-<p>## Examples</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
 <p>{self._format_examples()}</p>
-<p>## References</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
 <p>{self._format_references()}
-“””
-<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p>#### 3. Example Documentation Pattern (MANDATORY)</p>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
-def document_working_example(example_name: str, code: str, explanation: str) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document working code example with comprehensive explanation”””</p>
-<p># Validate example works correctly
-validation_result = validate_example_code(code)</p>
-<dl class="simple">
-<dt>if not validation_result[“valid”]:</dt><dd><p>raise ValueError(f”Example code invalid: {validation_result[‘errors’]}”)</p>
-</dd>
-</dl>
-<p># Document example with context
-documentation = {</p>
-<blockquote>
-<div><p>“title”: example_name,
-“code”: format_code_example(code),
-“explanation”: explanation,
-“expected_output”: validation_result[“expected_output”],
-“prerequisites”: extract_prerequisites(code),
-“learning_objectives”: define_learning_objectives(explanation)</p>
-</div></blockquote>
-<p>}</p>
-<p>return format_example_documentation(documentation)</p>
-</div></blockquote>
-<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
-<p>## 🧪 Documentation Testing Standards</p>
-<p>### Documentation Testing Categories (MANDATORY)</p>
-<p>#### 1. Content Validation Tests
-<strong>Test documentation content quality and completeness:</strong></p>
-<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
-def test_documentation_completeness():</p>
-<blockquote>
-<div><p>“””Test documentation includes all required sections”””
-required_sections = [</p>
-<blockquote>
-<div><p>“overview”, “installation”, “usage”, “examples”,
-“configuration”, “api_reference”, “troubleshooting”</p>
-</div></blockquote>
-<p>]</p>
-<p>documentation = load_research_documentation(“method_x.md”)</p>
-<dl class="simple">
-<dt>for section in required_sections:</dt><dd><p>assert section in documentation, f”Missing section: {section}”</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl>
-<dt>def test_scientific_accuracy():</dt><dd><p>“””Test scientific accuracy of research documentation”””
-documentation = load_research_documentation(“information_theory.md”)</p>
-<p># Validate mathematical formulations
-math_validation = validate_mathematical_content(documentation)
-assert math_validation[“accuracy_score”] &gt; 0.95</p>
-<p># Validate references
-reference_validation = validate_references(documentation)
-assert reference_validation[“all_valid”], “Invalid references found”</p>
-</dd>
-</dl>
-<p><a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
-<p>#### 2. Code Example Tests
-<strong>Test all code examples work correctly:</strong></p>
-<p><a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a>python
-def test_code_examples():</p>
-<blockquote>
-<div><p>“””Test all code examples execute successfully”””
-documentation = load_research_documentation(“analysis_tools.md”)</p>
-<dl>
-<dt>for example in documentation.get_code_examples():</dt><dd><p># Extract code from documentation
-code = extract_code_from_markdown(example)</p>
-<p># Test execution
-result = test_code_execution(code)
-assert result[“success”], f”Code example failed: {result[‘error’]}”</p>
-<p># Test output matches documentation
-assert result[“output”] == example[“expected_output”]</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl>
-<dt>def test_example_reproducibility():</dt><dd><p>“””Test examples produce consistent results”””
-example = get_research_example(“entropy_calculation”)</p>
-<p># Run multiple times
-results = []
-for _ in range(10):</p>
-<blockquote>
-<div><p>result = execute_example(example)
-results.append(result[“value”])</p>
-</div></blockquote>
-<p># Check consistency
-assert statistical_variance(results) &lt; tolerance_threshold</p>
-</dd>
-</dl>
-<p><a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
-<p>#### 3. Cross-Reference Tests
-<strong>Test all cross-references work correctly:</strong></p>
-<p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a>python
-def test_cross_references():</p>
-<blockquote>
-<div><p>“””Test all cross-references are valid”””
-documentation = load_research_documentation(“research_methods.md”)</p>
-<p># Extract all links and references
-links = extract_all_links(documentation)
-references = extract_all_references(documentation)</p>
-<p># Validate links work
-for link in links:</p>
-<blockquote>
-<div><p>assert validate_link(link), f”Broken link: {link}”</p>
-</div></blockquote>
-<p># Validate references exist
-for ref in references:</p>
-<blockquote>
-<div><p>assert reference_exists(ref), f”Missing reference: {ref}”</p>
-</div></blockquote>
-</div></blockquote>
-<dl>
-<dt>def test_navigation_consistency():</dt><dd><p>“””Test documentation navigation is consistent”””
-docs = load_all_research_documentation()</p>
-<p># Check breadcrumb consistency
-for doc in docs:</p>
-<blockquote>
-<div><p>breadcrumb = extract_breadcrumb(doc)
-assert validate_breadcrumb_path(breadcrumb)</p>
-</div></blockquote>
-<p># Check related documentation links
-for doc in docs:</p>
-<blockquote>
-<div><p>related_docs = extract_related_documentation(doc)
-for related in related_docs:</p>
-<blockquote>
-<div><p>assert documentation_exists(related)</p>
-</div></blockquote>
-</div></blockquote>
-</dd>
-</dl>
-<p><a href="#id45"><span class="problematic" id="id46">``</span></a><a href="#id47"><span class="problematic" id="id48">`</span></a></p>
-<p>### Documentation Coverage Requirements</p>
+“””</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+#### 3. Example Documentation Pattern (MANDATORY)
+
+```python
+def document_working_example(example_name: str, code: str, explanation: str) -&gt; str:
+    """Document working code example with comprehensive explanation"""
+
+    # Validate example works correctly
+    validation_result = validate_example_code(code)
+
+    if not validation_result["valid"]:
+        raise ValueError(f"Example code invalid: {validation_result['errors']}")
+
+    # Document example with context
+    documentation = {
+        "title": example_name,
+        "code": format_code_example(code),
+        "explanation": explanation,
+        "expected_output": validation_result["expected_output"],
+        "prerequisites": extract_prerequisites(code),
+        "learning_objectives": define_learning_objectives(explanation)
+    }
+
+    return format_example_documentation(documentation)
+</pre></div>
+</div>
+</section>
+<section id="documentation-testing-standards">
+<h2>🧪 Documentation Testing Standards<a class="headerlink" href="#documentation-testing-standards" title="Link to this heading"></a></h2>
+<section id="documentation-testing-categories-mandatory">
+<h3>Documentation Testing Categories (MANDATORY)<a class="headerlink" href="#documentation-testing-categories-mandatory" title="Link to this heading"></a></h3>
+<section id="content-validation-tests">
+<h4>1. Content Validation Tests<a class="headerlink" href="#content-validation-tests" title="Link to this heading"></a></h4>
+<p><strong>Test documentation content quality and completeness:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_documentation_completeness</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test documentation includes all required sections"""</span>
+    <span class="n">required_sections</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"overview"</span><span class="p">,</span> <span class="s2">"installation"</span><span class="p">,</span> <span class="s2">"usage"</span><span class="p">,</span> <span class="s2">"examples"</span><span class="p">,</span>
+        <span class="s2">"configuration"</span><span class="p">,</span> <span class="s2">"api_reference"</span><span class="p">,</span> <span class="s2">"troubleshooting"</span>
+    <span class="p">]</span>
+
+    <span class="n">documentation</span> <span class="o">=</span> <span class="n">load_research_documentation</span><span class="p">(</span><span class="s2">"method_x.md"</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">required_sections</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">documentation</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Missing section: </span><span class="si">{</span><span class="n">section</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_scientific_accuracy</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test scientific accuracy of research documentation"""</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="n">load_research_documentation</span><span class="p">(</span><span class="s2">"information_theory.md"</span><span class="p">)</span>
+
+    <span class="c1"># Validate mathematical formulations</span>
+    <span class="n">math_validation</span> <span class="o">=</span> <span class="n">validate_mathematical_content</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">math_validation</span><span class="p">[</span><span class="s2">"accuracy_score"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.95</span>
+
+    <span class="c1"># Validate references</span>
+    <span class="n">reference_validation</span> <span class="o">=</span> <span class="n">validate_references</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">reference_validation</span><span class="p">[</span><span class="s2">"all_valid"</span><span class="p">],</span> <span class="s2">"Invalid references found"</span>
+</pre></div>
+</div>
+</section>
+<section id="code-example-tests">
+<h4>2. Code Example Tests<a class="headerlink" href="#code-example-tests" title="Link to this heading"></a></h4>
+<p><strong>Test all code examples work correctly:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_code_examples</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test all code examples execute successfully"""</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="n">load_research_documentation</span><span class="p">(</span><span class="s2">"analysis_tools.md"</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">documentation</span><span class="o">.</span><span class="n">get_code_examples</span><span class="p">():</span>
+        <span class="c1"># Extract code from documentation</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">extract_code_from_markdown</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+
+        <span class="c1"># Test execution</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">test_code_execution</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">"success"</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"Code example failed: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'error'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+
+        <span class="c1"># Test output matches documentation</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span> <span class="o">==</span> <span class="n">example</span><span class="p">[</span><span class="s2">"expected_output"</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_example_reproducibility</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test examples produce consistent results"""</span>
+    <span class="n">example</span> <span class="o">=</span> <span class="n">get_research_example</span><span class="p">(</span><span class="s2">"entropy_calculation"</span><span class="p">)</span>
+
+    <span class="c1"># Run multiple times</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">execute_example</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"value"</span><span class="p">])</span>
+
+    <span class="c1"># Check consistency</span>
+    <span class="k">assert</span> <span class="n">statistical_variance</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance_threshold</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-reference-tests">
+<h4>3. Cross-Reference Tests<a class="headerlink" href="#cross-reference-tests" title="Link to this heading"></a></h4>
+<p><strong>Test all cross-references work correctly:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_cross_references</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test all cross-references are valid"""</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="n">load_research_documentation</span><span class="p">(</span><span class="s2">"research_methods.md"</span><span class="p">)</span>
+
+    <span class="c1"># Extract all links and references</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="n">extract_all_links</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="n">extract_all_references</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+
+    <span class="c1"># Validate links work</span>
+    <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">validate_link</span><span class="p">(</span><span class="n">link</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"Broken link: </span><span class="si">{</span><span class="n">link</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># Validate references exist</span>
+    <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">references</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">reference_exists</span><span class="p">(</span><span class="n">ref</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"Missing reference: </span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_navigation_consistency</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Test documentation navigation is consistent"""</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">load_all_research_documentation</span><span class="p">()</span>
+
+    <span class="c1"># Check breadcrumb consistency</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">breadcrumb</span> <span class="o">=</span> <span class="n">extract_breadcrumb</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">validate_breadcrumb_path</span><span class="p">(</span><span class="n">breadcrumb</span><span class="p">)</span>
+
+    <span class="c1"># Check related documentation links</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">related_docs</span> <span class="o">=</span> <span class="n">extract_related_documentation</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">related</span> <span class="ow">in</span> <span class="n">related_docs</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">documentation_exists</span><span class="p">(</span><span class="n">related</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="documentation-coverage-requirements">
+<h3>Documentation Coverage Requirements<a class="headerlink" href="#documentation-coverage-requirements" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Content Coverage</strong>: 100% of research methods documented</p></li>
 <li><p><strong>Example Coverage</strong>: Working examples for all major methods</p></li>
@@ -346,111 +390,121 @@ for related in related_docs:</p>
 <li><p><strong>Cross-Reference Coverage</strong>: All related concepts linked</p></li>
 <li><p><strong>Validation Coverage</strong>: All validation methods documented</p></li>
 </ul>
-<p>### Documentation Testing Commands</p>
-<p><a href="#id49"><span class="problematic" id="id50">``</span></a><a href="#id51"><span class="problematic" id="id52">`</span></a>bash
-# Validate all research documentation
-make validate-research-docs</p>
-<p># Test code examples
-pytest docs/research/tests/test_examples.py -v</p>
-<p># Check documentation completeness
-python tools/documentation/validate_completeness.py docs/research/</p>
-<p># Test cross-references
-python tools/documentation/test_links.py docs/research/
-<a href="#id53"><span class="problematic" id="id54">``</span></a><a href="#id55"><span class="problematic" id="id56">`</span></a></p>
-<p>## 📖 Documentation Standards</p>
-<p>### Documentation Requirements (MANDATORY)</p>
-<p>#### 1. Scientific Writing Standards
-<strong>All research documentation must follow scientific writing conventions:</strong></p>
-<p><a href="#id57"><span class="problematic" id="id58">``</span></a><a href="#id59"><span class="problematic" id="id60">`</span></a>python
-def validate_scientific_writing(documentation: str) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Validate documentation follows scientific writing standards”””</p>
-<dl class="simple">
-<dt>validation = {</dt><dd><p>“structure”: validate_imrad_structure(documentation),
-“clarity”: validate_scientific_clarity(documentation),
-“accuracy”: validate_technical_accuracy(documentation),
-“completeness”: validate_method_completeness(documentation),
-“references”: validate_reference_format(documentation)</p>
-</dd>
-</dl>
-<p>}</p>
-<p>return validation</p>
-</div></blockquote>
-<dl>
-<dt>def format_scientific_references(references: List[Dict]) -&gt; str:</dt><dd><p>“””Format references in standard academic format”””</p>
-<p>formatted_refs = []
-for i, ref in enumerate(references, 1):</p>
-<blockquote>
-<div><dl class="simple">
-<dt>if ref[“type”] == “journal”:</dt><dd><p>formatted = f”{i}. {ref[‘authors’]} ({ref[‘year’]}). {ref[‘title’]}. {ref[‘journal’]}, {ref[‘volume’]}({ref[‘issue’]}), {ref[‘pages’]}.”</p>
-</dd>
-<dt>elif ref[“type”] == “book”:</dt><dd><p>formatted = f”{i}. {ref[‘authors’]} ({ref[‘year’]}). <em>{ref[‘title’]}</em>. {ref[‘publisher’]}.”</p>
-</dd>
-<dt>else:  # conference, preprint, etc.</dt><dd><p>formatted = f”{i}. {ref[‘authors’]} ({ref[‘year’]}). {ref[‘title’]}. {ref[‘venue’]}.”</p>
-</dd>
-</dl>
-<p>formatted_refs.append(formatted)</p>
-</div></blockquote>
-<p>return “nn”.join(formatted_refs)</p>
-</dd>
-</dl>
-<p><a href="#id61"><span class="problematic" id="id62">``</span></a><a href="#id63"><span class="problematic" id="id64">`</span></a></p>
-<p>#### 2. Method Documentation Standards
-<strong>Research methods must be documented comprehensively:</strong></p>
-<p><a href="#id65"><span class="problematic" id="id66">``</span></a><a href="#id67"><span class="problematic" id="id68">`</span></a>python
-def document_research_method(method_config: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document research method following established standards”””</p>
-<p># Required sections for research methods
-required_sections = [</p>
-<blockquote>
-<div><p>“method_overview”,
-“theoretical_background”,
-“implementation_details”,
-“validation_approach”,
-“usage_examples”,
-“interpretation_guidelines”,
-“limitations_and_assumptions”,
-“references_and_further_reading”</p>
-</div></blockquote>
-<p>]</p>
-<p># Generate comprehensive documentation
-documentation = f”# {method_config[‘name’]}nn”</p>
-<dl class="simple">
-<dt>for section in required_sections:</dt><dd><dl class="simple">
-<dt>if section in method_config:</dt><dd><p>documentation += f”## {format_section_title(section)}nn”
-documentation += f”{method_config[section]}nn”</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p># Add metadata
-documentation += generate_documentation_metadata(method_config)</p>
-<p>return documentation</p>
-</div></blockquote>
-<p><a href="#id69"><span class="problematic" id="id70">``</span></a><a href="#id71"><span class="problematic" id="id72">`</span></a></p>
-<p>#### 3. Example Documentation Standards
-<strong>All examples must be complete and educational:</strong></p>
-<p><a href="#id73"><span class="problematic" id="id74">``</span></a><a href="#id75"><span class="problematic" id="id76">`</span></a>python
-def document_educational_example(example_config: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document example with educational context”””</p>
-<dl class="simple">
-<dt>documentation = {</dt><dd><p>“learning_objectives”: define_learning_objectives(example_config),
-“prerequisites”: list_prerequisites(example_config),
-“step_by_step_guide”: create_step_by_step_guide(example_config),
-“code_example”: format_executable_code(example_config),
-“explanation”: provide_detailed_explanation(example_config),
-“expected_results”: document_expected_output(example_config),
-“extensions”: suggest_extensions(example_config)</p>
-</dd>
-</dl>
-<p>}</p>
-<p>return format_educational_example(documentation)</p>
-</div></blockquote>
-<p><a href="#id77"><span class="problematic" id="id78">``</span></a><a href="#id79"><span class="problematic" id="id80">`</span></a></p>
-<p>## 🚀 Performance Optimization</p>
-<p>### Documentation Performance Requirements</p>
+</section>
+<section id="documentation-testing-commands">
+<h3>Documentation Testing Commands<a class="headerlink" href="#documentation-testing-commands" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Validate all research documentation</span>
+make<span class="w"> </span>validate-research-docs
+
+<span class="c1"># Test code examples</span>
+pytest<span class="w"> </span>docs/research/tests/test_examples.py<span class="w"> </span>-v
+
+<span class="c1"># Check documentation completeness</span>
+python<span class="w"> </span>tools/documentation/validate_completeness.py<span class="w"> </span>docs/research/
+
+<span class="c1"># Test cross-references</span>
+python<span class="w"> </span>tools/documentation/test_links.py<span class="w"> </span>docs/research/
+</pre></div>
+</div>
+</section>
+</section>
+<section id="documentation-standards">
+<h2>📖 Documentation Standards<a class="headerlink" href="#documentation-standards" title="Link to this heading"></a></h2>
+<section id="documentation-requirements-mandatory">
+<h3>Documentation Requirements (MANDATORY)<a class="headerlink" href="#documentation-requirements-mandatory" title="Link to this heading"></a></h3>
+<section id="scientific-writing-standards">
+<h4>1. Scientific Writing Standards<a class="headerlink" href="#scientific-writing-standards" title="Link to this heading"></a></h4>
+<p><strong>All research documentation must follow scientific writing conventions:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validate_scientific_writing</span><span class="p">(</span><span class="n">documentation</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate documentation follows scientific writing standards"""</span>
+
+    <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"structure"</span><span class="p">:</span> <span class="n">validate_imrad_structure</span><span class="p">(</span><span class="n">documentation</span><span class="p">),</span>
+        <span class="s2">"clarity"</span><span class="p">:</span> <span class="n">validate_scientific_clarity</span><span class="p">(</span><span class="n">documentation</span><span class="p">),</span>
+        <span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">validate_technical_accuracy</span><span class="p">(</span><span class="n">documentation</span><span class="p">),</span>
+        <span class="s2">"completeness"</span><span class="p">:</span> <span class="n">validate_method_completeness</span><span class="p">(</span><span class="n">documentation</span><span class="p">),</span>
+        <span class="s2">"references"</span><span class="p">:</span> <span class="n">validate_reference_format</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">validation</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">format_scientific_references</span><span class="p">(</span><span class="n">references</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Format references in standard academic format"""</span>
+
+    <span class="n">formatted_refs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ref</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">references</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ref</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"journal"</span><span class="p">:</span>
+            <span class="n">formatted</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'authors'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'year'</span><span class="p">]</span><span class="si">}</span><span class="s2">). </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'journal'</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'volume'</span><span class="p">]</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'issue'</span><span class="p">]</span><span class="si">}</span><span class="s2">), </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'pages'</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span>
+        <span class="k">elif</span> <span class="n">ref</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"book"</span><span class="p">:</span>
+            <span class="n">formatted</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'authors'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'year'</span><span class="p">]</span><span class="si">}</span><span class="s2">). *</span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span><span class="s2">*. </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'publisher'</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># conference, preprint, etc.</span>
+            <span class="n">formatted</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'authors'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'year'</span><span class="p">]</span><span class="si">}</span><span class="s2">). </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="s1">'venue'</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span>
+
+        <span class="n">formatted_refs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">formatted</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">formatted_refs</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="method-documentation-standards">
+<h4>2. Method Documentation Standards<a class="headerlink" href="#method-documentation-standards" title="Link to this heading"></a></h4>
+<p><strong>Research methods must be documented comprehensively:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_research_method</span><span class="p">(</span><span class="n">method_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document research method following established standards"""</span>
+
+    <span class="c1"># Required sections for research methods</span>
+    <span class="n">required_sections</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"method_overview"</span><span class="p">,</span>
+        <span class="s2">"theoretical_background"</span><span class="p">,</span>
+        <span class="s2">"implementation_details"</span><span class="p">,</span>
+        <span class="s2">"validation_approach"</span><span class="p">,</span>
+        <span class="s2">"usage_examples"</span><span class="p">,</span>
+        <span class="s2">"interpretation_guidelines"</span><span class="p">,</span>
+        <span class="s2">"limitations_and_assumptions"</span><span class="p">,</span>
+        <span class="s2">"references_and_further_reading"</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Generate comprehensive documentation</span>
+    <span class="n">documentation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"# </span><span class="si">{</span><span class="n">method_config</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">"</span>
+
+    <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">required_sections</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">method_config</span><span class="p">:</span>
+            <span class="n">documentation</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"## </span><span class="si">{</span><span class="n">format_section_title</span><span class="p">(</span><span class="n">section</span><span class="p">)</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">"</span>
+            <span class="n">documentation</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">method_config</span><span class="p">[</span><span class="n">section</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">"</span>
+
+    <span class="c1"># Add metadata</span>
+    <span class="n">documentation</span> <span class="o">+=</span> <span class="n">generate_documentation_metadata</span><span class="p">(</span><span class="n">method_config</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">documentation</span>
+</pre></div>
+</div>
+</section>
+<section id="example-documentation-standards">
+<h4>3. Example Documentation Standards<a class="headerlink" href="#example-documentation-standards" title="Link to this heading"></a></h4>
+<p><strong>All examples must be complete and educational:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_educational_example</span><span class="p">(</span><span class="n">example_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document example with educational context"""</span>
+
+    <span class="n">documentation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="n">define_learning_objectives</span><span class="p">(</span><span class="n">example_config</span><span class="p">),</span>
+        <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="n">list_prerequisites</span><span class="p">(</span><span class="n">example_config</span><span class="p">),</span>
+        <span class="s2">"step_by_step_guide"</span><span class="p">:</span> <span class="n">create_step_by_step_guide</span><span class="p">(</span><span class="n">example_config</span><span class="p">),</span>
+        <span class="s2">"code_example"</span><span class="p">:</span> <span class="n">format_executable_code</span><span class="p">(</span><span class="n">example_config</span><span class="p">),</span>
+        <span class="s2">"explanation"</span><span class="p">:</span> <span class="n">provide_detailed_explanation</span><span class="p">(</span><span class="n">example_config</span><span class="p">),</span>
+        <span class="s2">"expected_results"</span><span class="p">:</span> <span class="n">document_expected_output</span><span class="p">(</span><span class="n">example_config</span><span class="p">),</span>
+        <span class="s2">"extensions"</span><span class="p">:</span> <span class="n">suggest_extensions</span><span class="p">(</span><span class="n">example_config</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">format_educational_example</span><span class="p">(</span><span class="n">documentation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="performance-optimization">
+<h2>🚀 Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<section id="documentation-performance-requirements">
+<h3>Documentation Performance Requirements<a class="headerlink" href="#documentation-performance-requirements" title="Link to this heading"></a></h3>
 <p><strong>Research documentation must meet these performance standards:</strong></p>
 <ul class="simple">
 <li><p><strong>Load Time</strong>: Documentation pages load in &lt;2 seconds</p></li>
@@ -459,234 +513,282 @@ def document_educational_example(example_config: Dict[str, Any]) -&gt; str:</p>
 <li><p><strong>Example Execution</strong>: Code examples run efficiently</p></li>
 <li><p><strong>Cross-Reference Speed</strong>: Instant link validation</p></li>
 </ul>
-<p>### Optimization Techniques</p>
-<p>#### 1. Documentation Structure Optimization</p>
-<p><a href="#id81"><span class="problematic" id="id82">``</span></a><a href="#id83"><span class="problematic" id="id84">`</span></a>python
-def optimize_documentation_structure(docs: List[str]) -&gt; List[str]:</p>
-<blockquote>
-<div><p>“””Optimize documentation structure for performance and usability”””</p>
-<p># Analyze documentation structure
-structure_analysis = analyze_documentation_structure(docs)</p>
-<p># Optimize section ordering
-optimized_docs = []
-for doc in docs:</p>
-<blockquote>
-<div><p>optimized = optimize_section_order(doc, structure_analysis)
-optimized_docs.append(optimized)</p>
-</div></blockquote>
-<p>return optimized_docs</p>
-</div></blockquote>
-<dl>
-<dt>def optimize_section_order(doc: str, analysis: Dict) -&gt; str:</dt><dd><p>“””Optimize section order for better user experience”””</p>
-<p># Learning progression order
-optimal_order = [</p>
-<blockquote>
-<div><p>“overview”, “prerequisites”, “installation”, “basic_usage”,
-“advanced_usage”, “examples”, “configuration”, “api_reference”,
-“troubleshooting”, “contributing”, “references”</p>
-</div></blockquote>
-<p>]</p>
-<p>return reorder_sections(doc, optimal_order)</p>
-</dd>
-</dl>
-<p><a href="#id85"><span class="problematic" id="id86">``</span></a><a href="#id87"><span class="problematic" id="id88">`</span></a></p>
-<p>#### 2. Cross-Reference Optimization</p>
-<p><a href="#id89"><span class="problematic" id="id90">``</span></a><a href="#id91"><span class="problematic" id="id92">`</span></a>python
-def optimize_cross_references(docs: List[str]) -&gt; List[str]:</p>
-<blockquote>
-<div><p>“””Optimize cross-references for performance and reliability”””</p>
-<p># Build reference graph
-reference_graph = build_reference_graph(docs)</p>
-<p># Optimize reference paths
-optimized_refs = optimize_reference_paths(reference_graph)</p>
-<p># Update documentation with optimized references
-updated_docs = []
-for doc in docs:</p>
-<blockquote>
-<div><p>updated_doc = update_references(doc, optimized_refs)
-updated_docs.append(updated_doc)</p>
-</div></blockquote>
-<p>return updated_docs</p>
-</div></blockquote>
-<p><a href="#id93"><span class="problematic" id="id94">``</span></a><a href="#id95"><span class="problematic" id="id96">`</span></a></p>
-<p>## 🔒 Documentation Security Standards</p>
-<p>### Documentation Security Requirements (MANDATORY)</p>
-<p>#### 1. Code Example Security</p>
-<p><a href="#id97"><span class="problematic" id="id98">``</span></a><a href="#id99"><span class="problematic" id="id100">`</span></a>python
-def validate_example_security(code_example: str) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Validate code examples for security vulnerabilities”””</p>
-<dl class="simple">
-<dt>security_checks = {</dt><dd><p>“input_validation”: check_input_validation(code_example),
-“sql_injection”: check_sql_injection_risks(code_example),
-“path_traversal”: check_path_traversal_risks(code_example),
-“command_injection”: check_command_injection_risks(code_example),
-“information_disclosure”: check_info_disclosure_risks(code_example)</p>
-</dd>
-</dl>
-<p>}</p>
-<p>return security_checks</p>
-</div></blockquote>
-<dl>
-<dt>def secure_code_example(original_example: str) -&gt; str:</dt><dd><p>“””Make code example secure while maintaining functionality”””</p>
-<p># Add input validation
-secured_example = add_input_validation(original_example)</p>
-<p># Use secure defaults
-secured_example = apply_secure_defaults(secured_example)</p>
-<p># Add security documentation
-secured_example = add_security_comments(secured_example)</p>
-<p>return secured_example</p>
-</dd>
-</dl>
-<p><a href="#id101"><span class="problematic" id="id102">``</span></a><a href="#id103"><span class="problematic" id="id104">`</span></a></p>
-<p>#### 2. Research Ethics Documentation</p>
-<p><a href="#id105"><span class="problematic" id="id106">``</span></a><a href="#id107"><span class="problematic" id="id108">`</span></a>python
-def document_research_ethics(method_config: Dict[str, Any]) -&gt; str:</p>
-<blockquote>
-<div><p>“””Document research ethics considerations”””</p>
-<dl class="simple">
-<dt>ethics_documentation = {</dt><dd><p>“data_privacy”: document_data_privacy_considerations(method_config),
-“informed_consent”: document_consent_procedures(method_config),
-“bias_mitigation”: document_bias_mitigation_strategies(method_config),
-“reproducibility”: document_reproducibility_standards(method_config),
-“conflict_of_interest”: document_conflict_disclosure(method_config)</p>
-</dd>
-</dl>
-<p>}</p>
-<p>return format_ethics_documentation(ethics_documentation)</p>
-</div></blockquote>
-<p><a href="#id109"><span class="problematic" id="id110">``</span></a><a href="#id111"><span class="problematic" id="id112">`</span></a></p>
-<p>## 🐛 Documentation Debugging &amp; Troubleshooting</p>
-<p>### Debug Configuration</p>
-<p><a href="#id113"><span class="problematic" id="id114">``</span></a><a href="#id115"><span class="problematic" id="id116">`</span></a>python
-# Enable documentation debugging
-debug_config = {</p>
-<blockquote>
-<div><p>“debug”: True,
-“validation_level”: “comprehensive”,
-“cross_reference_checking”: True,
-“example_testing”: True,
-“performance_monitoring”: True</p>
-</div></blockquote>
-<p>}</p>
-<p># Debug documentation development
-debug_documentation_workflow(debug_config)
-<a href="#id117"><span class="problematic" id="id118">``</span></a><a href="#id119"><span class="problematic" id="id120">`</span></a></p>
-<p>### Common Debugging Patterns</p>
-<p>#### 1. Documentation Validation Debugging</p>
-<p><a href="#id121"><span class="problematic" id="id122">``</span></a><a href="#id123"><span class="problematic" id="id124">`</span></a>python
-def debug_documentation_validation(doc_path: str) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Debug documentation validation issues”””</p>
-<p># Load and validate documentation
-doc = load_documentation(doc_path)
-validation_result = validate_documentation_completeness(doc)</p>
-<dl>
-<dt>if not validation_result[“valid”]:</dt><dd><p># Identify missing sections
-missing_sections = identify_missing_sections(doc, validation_result)</p>
-<p># Suggest fixes
-fixes = generate_documentation_fixes(missing_sections)</p>
-<dl class="simple">
-<dt>return {</dt><dd><p>“validation_result”: validation_result,
-“missing_sections”: missing_sections,
-“suggested_fixes”: fixes</p>
-</dd>
-</dl>
-<p>}</p>
-</dd>
-</dl>
-<p>return {“status”: “valid”}</p>
-</div></blockquote>
-<p><a href="#id125"><span class="problematic" id="id126">``</span></a><a href="#id127"><span class="problematic" id="id128">`</span></a></p>
-<p>#### 2. Cross-Reference Debugging</p>
-<p><a href="#id129"><span class="problematic" id="id130">``</span></a><a href="#id131"><span class="problematic" id="id132">`</span></a>python
-def debug_cross_references(doc_path: str) -&gt; Dict[str, Any]:</p>
-<blockquote>
-<div><p>“””Debug cross-reference issues in documentation”””</p>
-<p>doc = load_documentation(doc_path)
-links = extract_all_links(doc)</p>
-<p># Test each link
-link_status = {}
-for link in links:</p>
-<blockquote>
-<div><p>status = test_link(link)
-link_status[link] = status</p>
-</div></blockquote>
-<p># Identify broken links
-broken_links = {link: status for link, status in link_status.items()</p>
-<blockquote>
-<div><p>if not status[“valid”]}</p>
-</div></blockquote>
-<dl class="simple">
-<dt>return {</dt><dd><p>“total_links”: len(links),
-“broken_links”: broken_links,
-“link_suggestions”: generate_link_fixes(broken_links)</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p><a href="#id133"><span class="problematic" id="id134">``</span></a><a href="#id135"><span class="problematic" id="id136">`</span></a></p>
-<p>## 🔄 Development Workflow</p>
-<p>### Agent Development Process</p>
+</section>
+<section id="optimization-techniques">
+<h3>Optimization Techniques<a class="headerlink" href="#optimization-techniques" title="Link to this heading"></a></h3>
+<section id="documentation-structure-optimization">
+<h4>1. Documentation Structure Optimization<a class="headerlink" href="#documentation-structure-optimization" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">optimize_documentation_structure</span><span class="p">(</span><span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Optimize documentation structure for performance and usability"""</span>
+
+    <span class="c1"># Analyze documentation structure</span>
+    <span class="n">structure_analysis</span> <span class="o">=</span> <span class="n">analyze_documentation_structure</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+    <span class="c1"># Optimize section ordering</span>
+    <span class="n">optimized_docs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">optimized</span> <span class="o">=</span> <span class="n">optimize_section_order</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">structure_analysis</span><span class="p">)</span>
+        <span class="n">optimized_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">optimized</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">optimized_docs</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">optimize_section_order</span><span class="p">(</span><span class="n">doc</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">analysis</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Optimize section order for better user experience"""</span>
+
+    <span class="c1"># Learning progression order</span>
+    <span class="n">optimal_order</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"overview"</span><span class="p">,</span> <span class="s2">"prerequisites"</span><span class="p">,</span> <span class="s2">"installation"</span><span class="p">,</span> <span class="s2">"basic_usage"</span><span class="p">,</span>
+        <span class="s2">"advanced_usage"</span><span class="p">,</span> <span class="s2">"examples"</span><span class="p">,</span> <span class="s2">"configuration"</span><span class="p">,</span> <span class="s2">"api_reference"</span><span class="p">,</span>
+        <span class="s2">"troubleshooting"</span><span class="p">,</span> <span class="s2">"contributing"</span><span class="p">,</span> <span class="s2">"references"</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">reorder_sections</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">optimal_order</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-reference-optimization">
+<h4>2. Cross-Reference Optimization<a class="headerlink" href="#cross-reference-optimization" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">optimize_cross_references</span><span class="p">(</span><span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Optimize cross-references for performance and reliability"""</span>
+
+    <span class="c1"># Build reference graph</span>
+    <span class="n">reference_graph</span> <span class="o">=</span> <span class="n">build_reference_graph</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+    <span class="c1"># Optimize reference paths</span>
+    <span class="n">optimized_refs</span> <span class="o">=</span> <span class="n">optimize_reference_paths</span><span class="p">(</span><span class="n">reference_graph</span><span class="p">)</span>
+
+    <span class="c1"># Update documentation with optimized references</span>
+    <span class="n">updated_docs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">updated_doc</span> <span class="o">=</span> <span class="n">update_references</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">optimized_refs</span><span class="p">)</span>
+        <span class="n">updated_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">updated_doc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">updated_docs</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="documentation-security-standards">
+<h2>🔒 Documentation Security Standards<a class="headerlink" href="#documentation-security-standards" title="Link to this heading"></a></h2>
+<section id="documentation-security-requirements-mandatory">
+<h3>Documentation Security Requirements (MANDATORY)<a class="headerlink" href="#documentation-security-requirements-mandatory" title="Link to this heading"></a></h3>
+<section id="code-example-security">
+<h4>1. Code Example Security<a class="headerlink" href="#code-example-security" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validate_example_security</span><span class="p">(</span><span class="n">code_example</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Validate code examples for security vulnerabilities"""</span>
+
+    <span class="n">security_checks</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"input_validation"</span><span class="p">:</span> <span class="n">check_input_validation</span><span class="p">(</span><span class="n">code_example</span><span class="p">),</span>
+        <span class="s2">"sql_injection"</span><span class="p">:</span> <span class="n">check_sql_injection_risks</span><span class="p">(</span><span class="n">code_example</span><span class="p">),</span>
+        <span class="s2">"path_traversal"</span><span class="p">:</span> <span class="n">check_path_traversal_risks</span><span class="p">(</span><span class="n">code_example</span><span class="p">),</span>
+        <span class="s2">"command_injection"</span><span class="p">:</span> <span class="n">check_command_injection_risks</span><span class="p">(</span><span class="n">code_example</span><span class="p">),</span>
+        <span class="s2">"information_disclosure"</span><span class="p">:</span> <span class="n">check_info_disclosure_risks</span><span class="p">(</span><span class="n">code_example</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">security_checks</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">secure_code_example</span><span class="p">(</span><span class="n">original_example</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Make code example secure while maintaining functionality"""</span>
+
+    <span class="c1"># Add input validation</span>
+    <span class="n">secured_example</span> <span class="o">=</span> <span class="n">add_input_validation</span><span class="p">(</span><span class="n">original_example</span><span class="p">)</span>
+
+    <span class="c1"># Use secure defaults</span>
+    <span class="n">secured_example</span> <span class="o">=</span> <span class="n">apply_secure_defaults</span><span class="p">(</span><span class="n">secured_example</span><span class="p">)</span>
+
+    <span class="c1"># Add security documentation</span>
+    <span class="n">secured_example</span> <span class="o">=</span> <span class="n">add_security_comments</span><span class="p">(</span><span class="n">secured_example</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">secured_example</span>
+</pre></div>
+</div>
+</section>
+<section id="research-ethics-documentation">
+<h4>2. Research Ethics Documentation<a class="headerlink" href="#research-ethics-documentation" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">document_research_ethics</span><span class="p">(</span><span class="n">method_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Document research ethics considerations"""</span>
+
+    <span class="n">ethics_documentation</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"data_privacy"</span><span class="p">:</span> <span class="n">document_data_privacy_considerations</span><span class="p">(</span><span class="n">method_config</span><span class="p">),</span>
+        <span class="s2">"informed_consent"</span><span class="p">:</span> <span class="n">document_consent_procedures</span><span class="p">(</span><span class="n">method_config</span><span class="p">),</span>
+        <span class="s2">"bias_mitigation"</span><span class="p">:</span> <span class="n">document_bias_mitigation_strategies</span><span class="p">(</span><span class="n">method_config</span><span class="p">),</span>
+        <span class="s2">"reproducibility"</span><span class="p">:</span> <span class="n">document_reproducibility_standards</span><span class="p">(</span><span class="n">method_config</span><span class="p">),</span>
+        <span class="s2">"conflict_of_interest"</span><span class="p">:</span> <span class="n">document_conflict_disclosure</span><span class="p">(</span><span class="n">method_config</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">format_ethics_documentation</span><span class="p">(</span><span class="n">ethics_documentation</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="documentation-debugging-troubleshooting">
+<h2>🐛 Documentation Debugging &amp; Troubleshooting<a class="headerlink" href="#documentation-debugging-troubleshooting" title="Link to this heading"></a></h2>
+<section id="debug-configuration">
+<h3>Debug Configuration<a class="headerlink" href="#debug-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable documentation debugging</span>
+<span class="n">debug_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"debug"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"validation_level"</span><span class="p">:</span> <span class="s2">"comprehensive"</span><span class="p">,</span>
+    <span class="s2">"cross_reference_checking"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"example_testing"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"performance_monitoring"</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+
+<span class="c1"># Debug documentation development</span>
+<span class="n">debug_documentation_workflow</span><span class="p">(</span><span class="n">debug_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="common-debugging-patterns">
+<h3>Common Debugging Patterns<a class="headerlink" href="#common-debugging-patterns" title="Link to this heading"></a></h3>
+<section id="documentation-validation-debugging">
+<h4>1. Documentation Validation Debugging<a class="headerlink" href="#documentation-validation-debugging" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">debug_documentation_validation</span><span class="p">(</span><span class="n">doc_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Debug documentation validation issues"""</span>
+
+    <span class="c1"># Load and validate documentation</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">load_documentation</span><span class="p">(</span><span class="n">doc_path</span><span class="p">)</span>
+    <span class="n">validation_result</span> <span class="o">=</span> <span class="n">validate_documentation_completeness</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">validation_result</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]:</span>
+        <span class="c1"># Identify missing sections</span>
+        <span class="n">missing_sections</span> <span class="o">=</span> <span class="n">identify_missing_sections</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">validation_result</span><span class="p">)</span>
+
+        <span class="c1"># Suggest fixes</span>
+        <span class="n">fixes</span> <span class="o">=</span> <span class="n">generate_documentation_fixes</span><span class="p">(</span><span class="n">missing_sections</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"validation_result"</span><span class="p">:</span> <span class="n">validation_result</span><span class="p">,</span>
+            <span class="s2">"missing_sections"</span><span class="p">:</span> <span class="n">missing_sections</span><span class="p">,</span>
+            <span class="s2">"suggested_fixes"</span><span class="p">:</span> <span class="n">fixes</span>
+        <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"valid"</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-reference-debugging">
+<h4>2. Cross-Reference Debugging<a class="headerlink" href="#cross-reference-debugging" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">debug_cross_references</span><span class="p">(</span><span class="n">doc_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Debug cross-reference issues in documentation"""</span>
+
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">load_documentation</span><span class="p">(</span><span class="n">doc_path</span><span class="p">)</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="n">extract_all_links</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="c1"># Test each link</span>
+    <span class="n">link_status</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">test_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+        <span class="n">link_status</span><span class="p">[</span><span class="n">link</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
+
+    <span class="c1"># Identify broken links</span>
+    <span class="n">broken_links</span> <span class="o">=</span> <span class="p">{</span><span class="n">link</span><span class="p">:</span> <span class="n">status</span> <span class="k">for</span> <span class="n">link</span><span class="p">,</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">link_status</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                   <span class="k">if</span> <span class="ow">not</span> <span class="n">status</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"total_links"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">links</span><span class="p">),</span>
+        <span class="s2">"broken_links"</span><span class="p">:</span> <span class="n">broken_links</span><span class="p">,</span>
+        <span class="s2">"link_suggestions"</span><span class="p">:</span> <span class="n">generate_link_fixes</span><span class="p">(</span><span class="n">broken_links</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="development-workflow">
+<h2>🔄 Development Workflow<a class="headerlink" href="#development-workflow" title="Link to this heading"></a></h2>
+<section id="agent-development-process">
+<h3>Agent Development Process<a class="headerlink" href="#agent-development-process" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
-<li><p><strong>Research Documentation Assessment</strong>
-- Understand current research documentation state
-- Identify gaps in research method documentation
-- Review existing scientific writing quality</p></li>
-<li><p><strong>Documentation Architecture Planning</strong>
-- Design comprehensive documentation structure
-- Plan integration with research workflows
-- Consider user needs and research requirements</p></li>
-<li><p><strong>Scientific Writing Implementation</strong>
-- Write clear, accurate research documentation
-- Create comprehensive method descriptions
-- Develop educational examples and tutorials</p></li>
-<li><p><strong>Quality Assurance Implementation</strong>
-- Implement comprehensive testing for documentation
-- Validate scientific accuracy and completeness
-- Ensure cross-reference integrity</p></li>
-<li><p><strong>Integration and Validation</strong>
-- Test integration with research workflows
-- Validate documentation effectiveness
-- Update related documentation systems</p></li>
+<li><p><strong>Research Documentation Assessment</strong></p>
+<ul class="simple">
+<li><p>Understand current research documentation state</p></li>
+<li><p>Identify gaps in research method documentation</p></li>
+<li><p>Review existing scientific writing quality</p></li>
+</ul>
+</li>
+<li><p><strong>Documentation Architecture Planning</strong></p>
+<ul class="simple">
+<li><p>Design comprehensive documentation structure</p></li>
+<li><p>Plan integration with research workflows</p></li>
+<li><p>Consider user needs and research requirements</p></li>
+</ul>
+</li>
+<li><p><strong>Scientific Writing Implementation</strong></p>
+<ul class="simple">
+<li><p>Write clear, accurate research documentation</p></li>
+<li><p>Create comprehensive method descriptions</p></li>
+<li><p>Develop educational examples and tutorials</p></li>
+</ul>
+</li>
+<li><p><strong>Quality Assurance Implementation</strong></p>
+<ul class="simple">
+<li><p>Implement comprehensive testing for documentation</p></li>
+<li><p>Validate scientific accuracy and completeness</p></li>
+<li><p>Ensure cross-reference integrity</p></li>
+</ul>
+</li>
+<li><p><strong>Integration and Validation</strong></p>
+<ul class="simple">
+<li><p>Test integration with research workflows</p></li>
+<li><p>Validate documentation effectiveness</p></li>
+<li><p>Update related documentation systems</p></li>
+</ul>
+</li>
 </ol>
-<p>### Code Review Checklist</p>
+</section>
+<section id="code-review-checklist">
+<h3>Code Review Checklist<a class="headerlink" href="#code-review-checklist" title="Link to this heading"></a></h3>
 <p><strong>Before submitting research documentation for review:</strong></p>
-<ul class="simple">
-<li><p>[ ] <strong>Scientific Accuracy</strong>: All methods and concepts accurately described</p></li>
-<li><p>[ ] <strong>Complete Coverage</strong>: All aspects of research method documented</p></li>
-<li><p>[ ] <strong>Working Examples</strong>: All code examples execute successfully</p></li>
-<li><p>[ ] <strong>Clear References</strong>: All claims supported by appropriate references</p></li>
-<li><p>[ ] <strong>Educational Value</strong>: Documentation supports learning objectives</p></li>
-<li><p>[ ] <strong>Cross-References</strong>: All links and references work correctly</p></li>
-<li><p>[ ] <strong>Validation</strong>: Documentation passes all quality checks</p></li>
-<li><p>[ ] <strong>Standards</strong>: Follows all documentation standards</p></li>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Scientific Accuracy</strong>: All methods and concepts accurately described</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Complete Coverage</strong>: All aspects of research method documented</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Working Examples</strong>: All code examples execute successfully</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Clear References</strong>: All claims supported by appropriate references</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Educational Value</strong>: Documentation supports learning objectives</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Cross-References</strong>: All links and references work correctly</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Validation</strong>: Documentation passes all quality checks</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"><strong>Standards</strong>: Follows all documentation standards</p></li>
 </ul>
-<p>## 📚 Learning Resources</p>
-<p>### Research Documentation Resources</p>
+</section>
+</section>
+<section id="learning-resources">
+<h2>📚 Learning Resources<a class="headerlink" href="#learning-resources" title="Link to this heading"></a></h2>
+<section id="research-documentation-resources">
+<h3>Research Documentation Resources<a class="headerlink" href="#research-documentation-resources" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>[Research Framework AGENTS.md](../../research/AGENTS.md)</strong>: Research development guidelines</p></li>
-<li><p><strong>[Scientific Writing Guide](https://example.com)</strong>: Academic writing standards</p></li>
-<li><p><strong>[Documentation Best Practices](https://example.com)</strong>: Technical documentation methods</p></li>
-<li><p><strong>[Research Ethics Guidelines](https://example.com)</strong>: Ethical research conduct</p></li>
+<li><p><strong><span class="xref myst">Research Framework AGENTS.md</span></strong>: Research development guidelines</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Scientific Writing Guide</a></strong>: Academic writing standards</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Documentation Best Practices</a></strong>: Technical documentation methods</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Research Ethics Guidelines</a></strong>: Ethical research conduct</p></li>
 </ul>
-<p>### Technical References</p>
+</section>
+<section id="technical-references">
+<h3>Technical References<a class="headerlink" href="#technical-references" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><strong>[Markdown Standards](https://example.com)</strong>: Markdown formatting and syntax</p></li>
-<li><p><strong>[Scientific LaTeX](https://example.com)</strong>: Mathematical notation in documentation</p></li>
-<li><p><strong>[Code Documentation](https://example.com)</strong>: Best practices for code documentation</p></li>
-<li><p><strong>[API Documentation](https://example.com)</strong>: API documentation standards</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Markdown Standards</a></strong>: Markdown formatting and syntax</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Scientific LaTeX</a></strong>: Mathematical notation in documentation</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">Code Documentation</a></strong>: Best practices for code documentation</p></li>
+<li><p><strong><a class="reference external" href="https://example.com">API Documentation</a></strong>: API documentation standards</p></li>
 </ul>
-<p>### Related Components</p>
+</section>
+<section id="related-components">
+<h3>Related Components<a class="headerlink" href="#related-components" title="Link to this heading"></a></h3>
 <p>Study these related components for integration patterns:</p>
 <ul class="simple">
-<li><p><strong>[Research Tools](../../research/tools/)</strong>: Research tool development patterns</p></li>
-<li><p><strong>[Analysis Methods](../../research/analysis/)</strong>: Statistical analysis documentation</p></li>
-<li><p><strong>[Knowledge Base](../../knowledge)</strong>: Educational content patterns</p></li>
-<li><p><strong>[Platform Integration](../../platform)</strong>: Platform documentation integration</p></li>
+<li><p><strong><a class="reference internal" href="#../../research/tools/"><span class="xref myst">Research Tools</span></a></strong>: Research tool development patterns</p></li>
+<li><p><strong><a class="reference internal" href="#../../research/analysis/"><span class="xref myst">Analysis Methods</span></a></strong>: Statistical analysis documentation</p></li>
+<li><p><strong><a class="reference internal" href="#../../knowledge"><span class="xref myst">Knowledge Base</span></a></strong>: Educational content patterns</p></li>
+<li><p><strong><a class="reference internal" href="#../../platform"><span class="xref myst">Platform Integration</span></a></strong>: Platform documentation integration</p></li>
 </ul>
-<p>## 🎯 Success Metrics</p>
-<p>### Documentation Quality Metrics</p>
+</section>
+</section>
+<section id="success-metrics">
+<h2>🎯 Success Metrics<a class="headerlink" href="#success-metrics" title="Link to this heading"></a></h2>
+<section id="documentation-quality-metrics">
+<h3>Documentation Quality Metrics<a class="headerlink" href="#documentation-quality-metrics" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Completeness Score</strong>: 100% of research methods documented</p></li>
 <li><p><strong>Accuracy Score</strong>: &gt;95% scientific accuracy validation</p></li>
@@ -694,7 +796,9 @@ broken_links = {link: status for link, status in link_status.items()</p>
 <li><p><strong>Example Success Rate</strong>: 100% working code examples</p></li>
 <li><p><strong>Cross-Reference Integrity</strong>: 100% valid links and references</p></li>
 </ul>
-<p>### Development Metrics</p>
+</section>
+<section id="development-metrics">
+<h3>Development Metrics<a class="headerlink" href="#development-metrics" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>Documentation Speed</strong>: Research methods documented within 1 week</p></li>
 <li><p><strong>Quality Score</strong>: Consistent high-quality scientific writing</p></li>
@@ -702,9 +806,12 @@ broken_links = {link: status for link, status in link_status.items()</p>
 <li><p><strong>User Satisfaction</strong>: Positive feedback on documentation usefulness</p></li>
 <li><p><strong>Maintenance Efficiency</strong>: Easy to update and maintain documentation</p></li>
 </ul>
-<p>—</p>
+<hr class="docutils" />
 <p><strong>Research Documentation</strong>: Agent Guide | <strong>Version</strong>: 1.0.0 | <strong>Last Updated</strong>: October 2024</p>
 <p><em>“Active Inference for, with, by Generative AI”</em> - Advancing scientific understanding through comprehensive research documentation and collaborative knowledge development.</p>
+</section>
+</section>
+</section>
 
 
            </div>
