@@ -286,6 +286,17 @@ class IndexManager:
         }
 
 
+def _flatten_text(value: Any) -> str:
+    """Join the string leaves of a content value (str, list or nested dict)."""
+    if isinstance(value, str):
+        return value
+    if isinstance(value, dict):
+        return " ".join(_flatten_text(v) for v in value.values())
+    if isinstance(value, (list, tuple)):
+        return " ".join(_flatten_text(v) for v in value)
+    return ""
+
+
 class ResultRanker:
     """Ranks and sorts search results"""
 
@@ -322,8 +333,8 @@ class ResultRanker:
                 if term.lower() in title:
                     score += 10.0
 
-            # Content match
-            content = result.get("content", "").lower()
+            # Content match: "content" is a section mapping (or plain text)
+            content = _flatten_text(result.get("content", "")).lower()
             for term in query_terms:
                 if term.lower() in content:
                     score += 1.0
