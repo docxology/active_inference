@@ -49,6 +49,45 @@ def test_strict_config_drops_only_the_legacy_override():
     assert "ignore_missing_imports = True" in config
 
 
+@pytest.mark.parametrize("before_legacy", [False, True])
+@pytest.mark.parametrize(
+    "module",
+    [
+        "active_inference.knowledge.foundations",
+        "active_inference.*",
+        "*",
+        "*.foundations",
+    ],
+)
+def test_strict_config_rejects_additional_error_exemptions(module, before_legacy):
+    pyproject = checker.load_pyproject()
+    overrides = pyproject["tool"]["mypy"]["overrides"]
+    extra = {"module": [module], "ignore_errors": True}
+    overrides.insert(0 if before_legacy else len(overrides), extra)
+    with pytest.raises(SystemExit, match="exactly one non-test"):
+        checker.strict_mypy_config(pyproject)
+
+
+def test_strict_config_rejects_a_duplicate_legacy_exemption():
+    pyproject = checker.load_pyproject()
+    legacy = checker.legacy_override(pyproject)
+    pyproject["tool"]["mypy"]["overrides"].append(legacy)
+    with pytest.raises(SystemExit, match="exactly one non-test"):
+        checker.strict_mypy_config(pyproject)
+
+
+@pytest.mark.parametrize("module", ["active_inference.*", "*"])
+def test_strict_config_rejects_widening_the_single_legacy_exemption(module):
+    pyproject = checker.load_pyproject()
+    legacy = checker.legacy_override(pyproject)
+    for override in pyproject["tool"]["mypy"]["overrides"]:
+        if override == legacy:
+            override["module"] = [*legacy["module"], module]
+            break
+    with pytest.raises(SystemExit, match="unapproved modules"):
+        checker.strict_mypy_config(pyproject)
+
+
 @pytest.mark.parametrize(
     ("path", "module"),
     [

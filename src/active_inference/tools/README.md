@@ -416,10 +416,10 @@ When contributing to the tools module:
 
 - **[Main README](../README.md)**: Main package documentation
 - **[AGENTS.md](AGENTS.md)**: Agent development guidelines for this module
-- **[Orchestrators Documentation](orchestrators.py)**: Orchestration system details
+- **[Orchestrators Documentation](orchestrators/__init__.py)**: Orchestration system details
 - **[Utilities Documentation](utilities.py)**: Utility functions details
 - **[Testing Documentation](testing.py)**: Testing framework details
-- **[Documentation Documentation](documentation.py)**: Documentation generation details
+- **[Documentation Documentation](documentation/__init__.py)**: Documentation generation details
 
 ---
 

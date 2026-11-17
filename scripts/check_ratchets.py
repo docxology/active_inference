@@ -57,16 +57,28 @@ def ratchets(pyproject: dict[str, Any]) -> dict[str, Any]:
 
 
 def legacy_override(pyproject: dict[str, Any]) -> dict[str, Any]:
-    """Return the mypy override that silences the legacy modules."""
+    """Require one exact legacy exemption and only the known test exemptions.
+
+    A second exemption, including a wildcard that reaches project modules,
+    must not survive in the configuration used to measure strict diagnostics.
+    """
+    candidates = []
     for override in pyproject["tool"]["mypy"]["overrides"]:
+        if not override.get("ignore_errors"):
+            continue
         modules = override["module"]
         modules = [modules] if isinstance(modules, str) else modules
-        if override.get("ignore_errors") and any(
-            m == "active_inference" or m.startswith("active_inference.")
-            for m in modules
-        ):
-            return dict(override)
-    raise SystemExit("no ignore_errors override for active_inference modules found")
+        if modules and set(modules) <= {"tests.*", "test_*"}:
+            continue
+        candidates.append(override)
+    if len(candidates) != 1:
+        raise SystemExit("expected exactly one non-test ignore_errors override")
+    legacy = dict(candidates[0])
+    modules = legacy["module"]
+    modules = [modules] if isinstance(modules, str) else modules
+    if not modules or not set(modules) <= LEGACY_MYPY_MODULES:
+        raise SystemExit("legacy ignore_errors override contains unapproved modules")
+    return legacy
 
 
 def _ini_value(value: Any) -> str:
