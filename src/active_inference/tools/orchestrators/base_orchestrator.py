@@ -10,19 +10,20 @@ all specialized orchestrators inherit from, ensuring consistency and
 interoperability across the research framework.
 """
 
-import logging
-from typing import Dict, List, Optional, Any, Union
-from pathlib import Path
-from dataclasses import dataclass, field
-from enum import Enum
-from datetime import datetime
 import json
+import logging
+from dataclasses import dataclass, field
+from datetime import datetime
+from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 
 
 class ResearchStage(Enum):
     """Research process stages"""
+
     IDEATION = "ideation"
     HYPOTHESIS = "hypothesis"
     DESIGN = "design"
@@ -36,6 +37,7 @@ class ResearchStage(Enum):
 
 class ResearchRole(Enum):
     """Research roles and expertise levels"""
+
     INTERN = "intern"
     PHD_STUDENT = "phd_student"
     POSTDOC = "postdoc"
@@ -47,6 +49,7 @@ class ResearchRole(Enum):
 @dataclass
 class OrchestratorConfig:
     """Configuration for research orchestrators"""
+
     name: str
     role: ResearchRole
     stages: List[ResearchStage]
@@ -89,21 +92,25 @@ class BaseOrchestrator:
         if config.enable_logging:
             self._setup_logging()
 
-        logger.info(f"Initialized {self.__class__.__name__} for role: {config.role.value}")
+        logger.info(
+            f"Initialized {self.__class__.__name__} for role: {config.role.value}"
+        )
 
     def _setup_logging(self) -> None:
         """Setup logging for the orchestrator"""
-        log_file = self.config.output_dir / f"{self.config.name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        log_file = (
+            self.config.output_dir
+            / f"{self.config.name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        )
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler(log_file),
-                logging.StreamHandler()
-            ]
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
         )
 
-    def coordinate_stage(self, stage: ResearchStage, context: Dict[str, Any]) -> Dict[str, Any]:
+    def coordinate_stage(
+        self, stage: ResearchStage, context: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """
         Coordinate a specific research stage.
 
@@ -162,7 +169,9 @@ class BaseOrchestrator:
         # Base implementation - override in subclasses
         return []
 
-    def _execute_stage(self, stage: ResearchStage, context: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_stage(
+        self, stage: ResearchStage, context: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """
         Execute a specific research stage.
 
@@ -171,28 +180,32 @@ class BaseOrchestrator:
         """
         raise NotImplementedError("Subclasses must implement _execute_stage")
 
-    def _validate_results(self, stage: ResearchStage, results: Dict[str, Any]) -> Dict[str, Any]:
+    def _validate_results(
+        self, stage: ResearchStage, results: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Validate stage results"""
         # Base validation - can be extended by subclasses
         if not isinstance(results, dict):
             raise ValueError("Results must be a dictionary")
 
         # Add metadata
-        results['_metadata'] = {
-            'stage': stage.value,
-            'timestamp': datetime.now().isoformat(),
-            'orchestrator': self.config.name,
-            'role': self.config.role.value
+        results["_metadata"] = {
+            "stage": stage.value,
+            "timestamp": datetime.now().isoformat(),
+            "orchestrator": self.config.name,
+            "role": self.config.role.value,
         }
 
         return results
 
-    def _cache_results(self, stage: ResearchStage, context: Dict[str, Any], results: Dict[str, Any]) -> None:
+    def _cache_results(
+        self, stage: ResearchStage, context: Dict[str, Any], results: Dict[str, Any]
+    ) -> None:
         """Cache results for potential reuse"""
         cache_key = self._generate_cache_key(stage, context)
         self.results_cache[cache_key] = {
-            'results': results,
-            'timestamp': datetime.now().isoformat()
+            "results": results,
+            "timestamp": datetime.now().isoformat(),
         }
 
     def _generate_cache_key(self, stage: ResearchStage, context: Dict[str, Any]) -> str:
@@ -201,35 +214,39 @@ class BaseOrchestrator:
         context_str = json.dumps(context, sort_keys=True)
         return f"{stage.value}_{hash(context_str)}"
 
-    def _update_research_state(self, stage: ResearchStage, results: Dict[str, Any]) -> None:
+    def _update_research_state(
+        self, stage: ResearchStage, results: Dict[str, Any]
+    ) -> None:
         """Update the overall research state"""
         self.research_state[stage.value] = {
-            'completed': True,
-            'timestamp': datetime.now().isoformat(),
-            'results_summary': self._summarize_results(results)
+            "completed": True,
+            "timestamp": datetime.now().isoformat(),
+            "results_summary": self._summarize_results(results),
         }
 
     def _summarize_results(self, results: Dict[str, Any]) -> Dict[str, Any]:
         """Generate summary of results"""
         # Base implementation - extract key metrics
         summary = {
-            'result_keys': list(results.keys()),
-            'metadata_available': '_metadata' in results
+            "result_keys": list(results.keys()),
+            "metadata_available": "_metadata" in results,
         }
 
-        if '_metadata' in results:
-            summary['metadata'] = results['_metadata']
+        if "_metadata" in results:
+            summary["metadata"] = results["_metadata"]
 
         return summary
 
-    def _handle_stage_error(self, stage: ResearchStage, context: Dict[str, Any], error: Exception) -> None:
+    def _handle_stage_error(
+        self, stage: ResearchStage, context: Dict[str, Any], error: Exception
+    ) -> None:
         """Handle errors in stage execution"""
         error_info = {
-            'stage': stage.value,
-            'error_type': type(error).__name__,
-            'error_message': str(error),
-            'timestamp': datetime.now().isoformat(),
-            'context_summary': self._summarize_context(context)
+            "stage": stage.value,
+            "error_type": type(error).__name__,
+            "error_message": str(error),
+            "timestamp": datetime.now().isoformat(),
+            "context_summary": self._summarize_context(context),
         }
 
         self.research_state[f"{stage.value}_error"] = error_info
@@ -237,10 +254,7 @@ class BaseOrchestrator:
 
     def _summarize_context(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """Generate summary of context"""
-        return {
-            'context_keys': list(context.keys()),
-            'context_size': len(context)
-        }
+        return {"context_keys": list(context.keys()), "context_size": len(context)}
 
     def get_research_state(self) -> Dict[str, Any]:
         """Get current research state"""
@@ -248,7 +262,7 @@ class BaseOrchestrator:
 
     def get_stage_results(self, stage: ResearchStage) -> Optional[Dict[str, Any]]:
         """Get results for a specific stage"""
-        return self.research_state.get(stage.value, {}).get('results')
+        return self.research_state.get(stage.value, {}).get("results")
 
     def validate_workflow(self, stages: List[ResearchStage]) -> Dict[str, Any]:
         """
@@ -261,21 +275,25 @@ class BaseOrchestrator:
             Validation results and recommendations
         """
         validation = {
-            'valid': True,
-            'issues': [],
-            'recommendations': [],
-            'missing_stages': [],
-            'redundant_stages': []
+            "valid": True,
+            "issues": [],
+            "recommendations": [],
+            "missing_stages": [],
+            "redundant_stages": [],
         }
 
         # Check for missing required stages
-        required_stages = {ResearchStage.IDEATION, ResearchStage.EXECUTION, ResearchStage.ANALYSIS}
+        required_stages = {
+            ResearchStage.IDEATION,
+            ResearchStage.EXECUTION,
+            ResearchStage.ANALYSIS,
+        }
         provided_stages = set(stages)
 
         missing = required_stages - provided_stages
         if missing:
-            validation['missing_stages'] = [stage.value for stage in missing]
-            validation['issues'].append(f"Missing required stages: {missing}")
+            validation["missing_stages"] = [stage.value for stage in missing]
+            validation["issues"].append(f"Missing required stages: {missing}")
 
         # Check for stage dependencies
         stage_dependencies = self._get_stage_dependencies()
@@ -284,13 +302,15 @@ class BaseOrchestrator:
                 required_deps = stage_dependencies[stage]
                 for dep in required_deps:
                     if dep not in stages[:i]:
-                        validation['issues'].append(f"Stage {stage.value} requires {dep.value} but it's not before it")
+                        validation["issues"].append(
+                            f"Stage {stage.value} requires {dep.value} but it's not before it"
+                        )
 
         # Generate recommendations
-        validation['recommendations'] = self._generate_workflow_recommendations(stages)
+        validation["recommendations"] = self._generate_workflow_recommendations(stages)
 
-        if validation['issues']:
-            validation['valid'] = False
+        if validation["issues"]:
+            validation["valid"] = False
 
         return validation
 
@@ -302,11 +322,19 @@ class BaseOrchestrator:
             ResearchStage.EXECUTION: [ResearchStage.DESIGN],
             ResearchStage.ANALYSIS: [ResearchStage.EXECUTION],
             ResearchStage.VALIDATION: [ResearchStage.ANALYSIS],
-            ResearchStage.DOCUMENTATION: [ResearchStage.ANALYSIS, ResearchStage.VALIDATION],
-            ResearchStage.PUBLICATION: [ResearchStage.DOCUMENTATION, ResearchStage.VALIDATION]
+            ResearchStage.DOCUMENTATION: [
+                ResearchStage.ANALYSIS,
+                ResearchStage.VALIDATION,
+            ],
+            ResearchStage.PUBLICATION: [
+                ResearchStage.DOCUMENTATION,
+                ResearchStage.VALIDATION,
+            ],
         }
 
-    def _generate_workflow_recommendations(self, stages: List[ResearchStage]) -> List[str]:
+    def _generate_workflow_recommendations(
+        self, stages: List[ResearchStage]
+    ) -> List[str]:
         """Generate workflow recommendations"""
         recommendations = []
 
@@ -326,7 +354,9 @@ class BaseOrchestrator:
         has_documentation = ResearchStage.DOCUMENTATION in stages
 
         if has_publication and not has_documentation:
-            recommendations.append("Consider adding documentation stage before publication")
+            recommendations.append(
+                "Consider adding documentation stage before publication"
+            )
 
         return recommendations
 
@@ -341,22 +371,28 @@ class BaseOrchestrator:
             Path to exported summary
         """
         if output_path is None:
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             output_path = self.config.output_dir / f"research_summary_{timestamp}.json"
 
         summary = {
-            'orchestrator_config': {
-                'name': self.config.name,
-                'role': self.config.role.value,
-                'stages': [stage.value for stage in self.config.stages]
+            "orchestrator_config": {
+                "name": self.config.name,
+                "role": self.config.role.value,
+                "stages": [stage.value for stage in self.config.stages],
             },
-            'research_state': self.research_state,
-            'workflow_validation': self.validate_workflow([ResearchStage(s) for s in self.research_state.keys() if not s.endswith('_error')]),
-            'export_timestamp': datetime.now().isoformat(),
-            'active_inference_version': '0.1.0'
+            "research_state": self.research_state,
+            "workflow_validation": self.validate_workflow(
+                [
+                    ResearchStage(s)
+                    for s in self.research_state.keys()
+                    if not s.endswith("_error")
+                ]
+            ),
+            "export_timestamp": datetime.now().isoformat(),
+            "active_inference_version": "0.1.0",
         }
 
-        with open(output_path, 'w') as f:
+        with open(output_path, "w") as f:
             json.dump(summary, f, indent=2)
 
         logger.info(f"Research summary exported to: {output_path}")
@@ -365,22 +401,13 @@ class BaseOrchestrator:
     def get_capabilities(self) -> Dict[str, Any]:
         """Get orchestrator capabilities and supported features"""
         return {
-            'supported_stages': [stage.value for stage in self.config.stages],
-            'research_role': self.config.role.value,
-            'features': [
-                'stage_coordination',
-                'result_caching',
-                'workflow_validation',
-                'research_summary_export'
+            "supported_stages": [stage.value for stage in self.config.stages],
+            "research_role": self.config.role.value,
+            "features": [
+                "stage_coordination",
+                "result_caching",
+                "workflow_validation",
+                "research_summary_export",
             ],
-            'integrations': [
-                'experiments',
-                'simulations',
-                'analysis',
-                'benchmarks'
-            ]
+            "integrations": ["experiments", "simulations", "analysis", "benchmarks"],
         }
-
-
-
-

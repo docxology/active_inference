@@ -6,14 +6,15 @@ Provides data processing tools, mathematical utilities, configuration management
 and common operations used throughout the platform.
 """
 
-import logging
 import json
-import yaml
-from typing import Dict, List, Optional, Any, Union
-from pathlib import Path
+import logging
 from dataclasses import dataclass
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
+
 import numpy as np
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +73,7 @@ class DataProcessingTools:
             "std": float(np.std(data_array)),
             "min": float(np.min(data_array)),
             "max": float(np.max(data_array)),
-            "count": len(data)
+            "count": len(data),
         }
 
     def resample_data(self, data: List[float], target_length: int) -> List[float]:
@@ -97,7 +98,9 @@ class ConfigurationManager:
         self.config_cache: Dict[str, Any] = {}
         logger.info("ConfigurationManager initialized")
 
-    def load_config(self, config_path: Path, config_type: str = "auto") -> Dict[str, Any]:
+    def load_config(
+        self, config_path: Path, config_type: str = "auto"
+    ) -> Dict[str, Any]:
         """Load configuration from file"""
         if config_path in self.config_cache:
             return self.config_cache[config_path]
@@ -120,7 +123,7 @@ class ConfigurationManager:
 
         # Load configuration
         try:
-            with open(config_path, 'r') as f:
+            with open(config_path, "r") as f:
                 if config_type == "yaml":
                     config = yaml.safe_load(f)
                 elif config_type == "json":
@@ -136,12 +139,14 @@ class ConfigurationManager:
             logger.error(f"Failed to load config {config_path}: {e}")
             return {}
 
-    def save_config(self, config: Dict[str, Any], config_path: Path, config_type: str = "json") -> bool:
+    def save_config(
+        self, config: Dict[str, Any], config_path: Path, config_type: str = "json"
+    ) -> bool:
         """Save configuration to file"""
         try:
             config_path = Path(config_path)
 
-            with open(config_path, 'w') as f:
+            with open(config_path, "w") as f:
                 if config_type == "yaml":
                     yaml.dump(config, f, default_flow_style=False)
                 elif config_type == "json":
@@ -159,12 +164,18 @@ class ConfigurationManager:
             logger.error(f"Failed to save config {config_path}: {e}")
             return False
 
-    def merge_configs(self, base_config: Dict[str, Any], override_config: Dict[str, Any]) -> Dict[str, Any]:
+    def merge_configs(
+        self, base_config: Dict[str, Any], override_config: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Merge two configurations"""
         merged = base_config.copy()
 
         for key, value in override_config.items():
-            if isinstance(value, dict) and key in merged and isinstance(merged[key], dict):
+            if (
+                isinstance(value, dict)
+                and key in merged
+                and isinstance(merged[key], dict)
+            ):
                 merged[key] = self.merge_configs(merged[key], value)
             else:
                 merged[key] = value
@@ -194,9 +205,9 @@ class FileManager:
             file_path.parent.mkdir(parents=True, exist_ok=True)
 
             # Write to temporary file first
-            temp_path = file_path.with_suffix(file_path.suffix + '.tmp')
+            temp_path = file_path.with_suffix(file_path.suffix + ".tmp")
 
-            with open(temp_path, 'w') as f:
+            with open(temp_path, "w") as f:
                 f.write(content)
 
             # Atomic move
@@ -212,7 +223,7 @@ class FileManager:
     def load_json_file(self, file_path: Path) -> Optional[Dict[str, Any]]:
         """Load JSON file safely"""
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 return json.load(f)
         except Exception as e:
             logger.error(f"Failed to load JSON file {file_path}: {e}")
@@ -223,7 +234,7 @@ class FileManager:
         try:
             file_path.parent.mkdir(parents=True, exist_ok=True)
 
-            with open(file_path, 'w') as f:
+            with open(file_path, "w") as f:
                 json.dump(data, f, indent=2)
 
             return True
@@ -301,6 +312,7 @@ class HelperFunctions:
     def generate_id(self, prefix: str = "id", length: int = 8) -> str:
         """Generate a unique ID"""
         import uuid
+
         return f"{prefix}_{str(uuid.uuid4())[:length]}"
 
     def flatten_dict(self, d: Dict[str, Any], prefix: str = "") -> Dict[str, Any]:
@@ -317,12 +329,18 @@ class HelperFunctions:
 
         return flattened
 
-    def deep_merge(self, dict1: Dict[str, Any], dict2: Dict[str, Any]) -> Dict[str, Any]:
+    def deep_merge(
+        self, dict1: Dict[str, Any], dict2: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Deep merge two dictionaries"""
         result = dict1.copy()
 
         for key, value in dict2.items():
-            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            if (
+                key in result
+                and isinstance(result[key], dict)
+                and isinstance(value, dict)
+            ):
                 result[key] = self.deep_merge(result[key], value)
             else:
                 result[key] = value
@@ -343,7 +361,9 @@ class Utilities:
 
         logger.info("Utilities initialized")
 
-    def process_time_series(self, data: List[float], operations: List[str] = None) -> Dict[str, Any]:
+    def process_time_series(
+        self, data: List[float], operations: List[str] = None
+    ) -> Dict[str, Any]:
         """Process time series data with specified operations"""
         if operations is None:
             operations = ["normalize", "smooth", "statistics"]
@@ -361,14 +381,18 @@ class Utilities:
 
         return result
 
-    def load_and_merge_configs(self, base_config_path: Path, override_config_path: Path) -> Dict[str, Any]:
+    def load_and_merge_configs(
+        self, base_config_path: Path, override_config_path: Path
+    ) -> Dict[str, Any]:
         """Load and merge configuration files"""
         base_config = self.configuration.load_config(base_config_path)
         override_config = self.configuration.load_config(override_config_path)
 
         return self.configuration.merge_configs(base_config, override_config)
 
-    def backup_and_save(self, data: Dict[str, Any], file_path: Path, backup_suffix: str = ".backup") -> bool:
+    def backup_and_save(
+        self, data: Dict[str, Any], file_path: Path, backup_suffix: str = ".backup"
+    ) -> bool:
         """Backup existing file and save new data"""
         file_path = Path(file_path)
 
@@ -383,7 +407,3 @@ class Utilities:
 
         # Save new data
         return self.file_manager.save_json_file(data, file_path)
-
-
-
-

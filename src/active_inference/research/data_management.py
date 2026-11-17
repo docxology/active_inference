@@ -6,21 +6,22 @@ preprocessing, storage, security, and validation. Provides robust data handling
 for scientific research workflows.
 """
 
-import logging
-from typing import Dict, List, Optional, Any, Union
-from pathlib import Path
-from dataclasses import dataclass, field
-from enum import Enum
-import json
-from datetime import datetime
 import hashlib
+import json
+import logging
 import uuid
+from dataclasses import dataclass, field
+from datetime import datetime
+from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 
 
 class DataSecurityLevel(Enum):
     """Data security classification levels"""
+
     PUBLIC = "public"
     INTERNAL = "internal"
     CONFIDENTIAL = "confidential"
@@ -29,6 +30,7 @@ class DataSecurityLevel(Enum):
 
 class DataFormat(Enum):
     """Supported data formats"""
+
     JSON = "json"
     CSV = "csv"
     HDF5 = "hdf5"
@@ -40,6 +42,7 @@ class DataFormat(Enum):
 @dataclass
 class DataMetadata:
     """Metadata for research data"""
+
     dataset_id: str
     name: str
     description: str
@@ -57,6 +60,7 @@ class DataMetadata:
 @dataclass
 class DataCollectionConfig:
     """Configuration for data collection"""
+
     source_type: str
     collection_method: str
     sampling_rate: Optional[float] = None
@@ -81,7 +85,7 @@ class DataManager:
             "processed_data",
             "validated_data",
             "metadata",
-            "backups"
+            "backups",
         ]
 
         for directory in directories:
@@ -101,13 +105,19 @@ class DataManager:
             raw_data = self._execute_data_collection(config)
 
             # Apply preprocessing
-            processed_data = self._apply_preprocessing(raw_data, config.preprocessing_steps)
+            processed_data = self._apply_preprocessing(
+                raw_data, config.preprocessing_steps
+            )
 
             # Validate data
-            validation_result = self._validate_data(processed_data, config.validation_rules)
+            validation_result = self._validate_data(
+                processed_data, config.validation_rules
+            )
 
             if not validation_result["valid"]:
-                raise ValueError(f"Data validation failed: {validation_result['issues']}")
+                raise ValueError(
+                    f"Data validation failed: {validation_result['issues']}"
+                )
 
             # Store data
             self._store_dataset(dataset_id, processed_data, config)
@@ -190,13 +200,11 @@ class DataManager:
         # Placeholder implementation
         return data
 
-    def _validate_data(self, data: Any, validation_rules: Dict[str, Any]) -> Dict[str, Any]:
+    def _validate_data(
+        self, data: Any, validation_rules: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Validate data against specified rules"""
-        validation_result = {
-            "valid": True,
-            "issues": [],
-            "warnings": []
-        }
+        validation_result = {"valid": True, "issues": [], "warnings": []}
 
         # Check data completeness
         if not data:
@@ -245,7 +253,9 @@ class DataManager:
         # Placeholder implementation
         return False
 
-    def _store_dataset(self, dataset_id: str, data: Any, config: DataCollectionConfig) -> None:
+    def _store_dataset(
+        self, dataset_id: str, data: Any, config: DataCollectionConfig
+    ) -> None:
         """Store dataset in appropriate format"""
         # Determine storage format
         storage_format = self._determine_storage_format(data, config)
@@ -258,7 +268,9 @@ class DataManager:
         else:
             self._store_custom_data(dataset_id, data, storage_format)
 
-    def _determine_storage_format(self, data: Any, config: DataCollectionConfig) -> DataFormat:
+    def _determine_storage_format(
+        self, data: Any, config: DataCollectionConfig
+    ) -> DataFormat:
         """Determine appropriate storage format for data"""
         # Default to JSON for simplicity
         return DataFormat.JSON
@@ -266,7 +278,7 @@ class DataManager:
     def _store_json_data(self, dataset_id: str, data: Any) -> None:
         """Store data as JSON"""
         file_path = self.base_dir / "processed_data" / f"{dataset_id}.json"
-        with open(file_path, 'w') as f:
+        with open(file_path, "w") as f:
             json.dump(data, f, indent=2)
 
     def _store_hdf5_data(self, dataset_id: str, data: Any) -> None:
@@ -274,12 +286,16 @@ class DataManager:
         # Placeholder implementation
         pass
 
-    def _store_custom_data(self, dataset_id: str, data: Any, format_type: DataFormat) -> None:
+    def _store_custom_data(
+        self, dataset_id: str, data: Any, format_type: DataFormat
+    ) -> None:
         """Store data in custom format"""
         # Placeholder implementation
         pass
 
-    def _create_metadata(self, dataset_id: str, config: DataCollectionConfig, data: Any) -> DataMetadata:
+    def _create_metadata(
+        self, dataset_id: str, config: DataCollectionConfig, data: Any
+    ) -> DataMetadata:
         """Create metadata for dataset"""
         # Calculate data size
         size_bytes = self._calculate_data_size(data)
@@ -297,7 +313,7 @@ class DataManager:
             created_by="system",
             size_bytes=size_bytes,
             checksum=checksum,
-            tags=config.preprocessing_steps
+            tags=config.preprocessing_steps,
         )
 
     def _calculate_data_size(self, data: Any) -> int:
@@ -313,21 +329,25 @@ class DataManager:
     def _save_metadata(self, metadata: DataMetadata) -> None:
         """Save metadata to file"""
         file_path = self.base_dir / "metadata" / f"{metadata.dataset_id}.json"
-        with open(file_path, 'w') as f:
-            json.dump({
-                "dataset_id": metadata.dataset_id,
-                "name": metadata.name,
-                "description": metadata.description,
-                "format": metadata.format.value,
-                "security_level": metadata.security_level.value,
-                "created_at": metadata.created_at.isoformat(),
-                "created_by": metadata.created_by,
-                "size_bytes": metadata.size_bytes,
-                "checksum": metadata.checksum,
-                "tags": metadata.tags,
-                "schema": metadata.schema,
-                "access_permissions": metadata.access_permissions
-            }, f, indent=2)
+        with open(file_path, "w") as f:
+            json.dump(
+                {
+                    "dataset_id": metadata.dataset_id,
+                    "name": metadata.name,
+                    "description": metadata.description,
+                    "format": metadata.format.value,
+                    "security_level": metadata.security_level.value,
+                    "created_at": metadata.created_at.isoformat(),
+                    "created_by": metadata.created_by,
+                    "size_bytes": metadata.size_bytes,
+                    "checksum": metadata.checksum,
+                    "tags": metadata.tags,
+                    "schema": metadata.schema,
+                    "access_permissions": metadata.access_permissions,
+                },
+                f,
+                indent=2,
+            )
 
     def get_dataset(self, dataset_id: str) -> Optional[Any]:
         """Retrieve dataset by ID"""
@@ -342,7 +362,7 @@ class DataManager:
             return None
 
         try:
-            with open(file_path, 'r') as f:
+            with open(file_path, "r") as f:
                 data = json.load(f)
 
             # Verify checksum
@@ -376,8 +396,8 @@ class DataManager:
             "metadata": {
                 "size_match": True,
                 "checksum_match": True,
-                "format_valid": True
-            }
+                "format_valid": True,
+            },
         }
 
         # Check file size
@@ -417,7 +437,7 @@ class DataManager:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         backup_file = backup_dir / f"{dataset_id}_{timestamp}.json"
 
-        with open(backup_file, 'w') as f:
+        with open(backup_file, "w") as f:
             json.dump(data, f, indent=2)
 
         logger.info(f"Created backup of dataset {dataset_id}: {backup_file}")

@@ -15,7 +15,7 @@ import asyncio
 import json
 import logging
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Any, AsyncGenerator
+from typing import Any, AsyncGenerator, Dict, List, Optional
 from urllib.parse import urljoin
 
 import httpx
@@ -39,30 +39,32 @@ class LLMConfig:
     frequency_penalty: float = 0.0
     max_tokens: int = 2048
     context_window: int = 4096
-    system_prompt: str = "You are a helpful AI assistant specialized in Active Inference and the Free Energy Principle. Provide accurate, helpful responses based on scientific knowledge."
+    system_prompt: str = (
+        "You are a helpful AI assistant specialized in Active Inference and the Free Energy Principle. Provide accurate, helpful responses based on scientific knowledge."
+    )
     enable_logging: bool = True
     debug: bool = False
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert configuration to dictionary"""
         return {
-            'base_url': self.base_url,
-            'default_model': self.default_model,
-            'timeout': self.timeout,
-            'max_retries': self.max_retries,
-            'retry_delay': self.retry_delay,
-            'chunk_size': self.chunk_size,
-            'temperature': self.temperature,
-            'top_p': self.top_p,
-            'top_k': self.top_k,
-            'repeat_penalty': self.repeat_penalty,
-            'presence_penalty': self.presence_penalty,
-            'frequency_penalty': self.frequency_penalty,
-            'max_tokens': self.max_tokens,
-            'context_window': self.context_window,
-            'system_prompt': self.system_prompt,
-            'enable_logging': self.enable_logging,
-            'debug': self.debug,
+            "base_url": self.base_url,
+            "default_model": self.default_model,
+            "timeout": self.timeout,
+            "max_retries": self.max_retries,
+            "retry_delay": self.retry_delay,
+            "chunk_size": self.chunk_size,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+            "top_k": self.top_k,
+            "repeat_penalty": self.repeat_penalty,
+            "presence_penalty": self.presence_penalty,
+            "frequency_penalty": self.frequency_penalty,
+            "max_tokens": self.max_tokens,
+            "context_window": self.context_window,
+            "system_prompt": self.system_prompt,
+            "enable_logging": self.enable_logging,
+            "debug": self.debug,
         }
 
 
@@ -83,7 +85,7 @@ class OllamaClient:
         if not logger.handlers:
             handler = logging.StreamHandler()
             formatter = logging.Formatter(
-                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+                "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             )
             handler.setFormatter(formatter)
             logger.addHandler(handler)
@@ -96,8 +98,7 @@ class OllamaClient:
         """Initialize the Ollama client and check service availability"""
         try:
             self.client = httpx.AsyncClient(
-                base_url=self.config.base_url,
-                timeout=self.config.timeout
+                base_url=self.config.base_url, timeout=self.config.timeout
             )
 
             # Test connection and get available models
@@ -110,15 +111,21 @@ class OllamaClient:
 
             # If we have no models and can't pull the default, consider it a failure
             if not self._available_models:
-                self.logger.warning("No models available in Ollama. Run: ollama pull gemma3:2b")
+                self.logger.warning(
+                    "No models available in Ollama. Run: ollama pull gemma3:2b"
+                )
                 # Try to pull default model
                 pull_success = await self.pull_model(self.config.default_model)
                 if not pull_success:
-                    self.logger.error("Failed to pull default model and no models available")
+                    self.logger.error(
+                        "Failed to pull default model and no models available"
+                    )
                     return False
 
             self._is_initialized = True
-            self.logger.info(f"Ollama client initialized successfully. Available models: {self._available_models}")
+            self.logger.info(
+                f"Ollama client initialized successfully. Available models: {self._available_models}"
+            )
             return True
 
         except Exception as e:
@@ -136,8 +143,10 @@ class OllamaClient:
             response.raise_for_status()
 
             data = response.json()
-            self._available_models = [model['name'] for model in data.get('models', [])]
-            self._model_info = {model['name']: model for model in data.get('models', [])}
+            self._available_models = [model["name"] for model in data.get("models", [])]
+            self._model_info = {
+                model["name"]: model for model in data.get("models", [])
+            }
             return True
 
         except Exception as e:
@@ -157,17 +166,14 @@ class OllamaClient:
                 is_our_client = False
             else:
                 client = httpx.AsyncClient(
-                    base_url=self.config.base_url,
-                    timeout=self.config.timeout
+                    base_url=self.config.base_url, timeout=self.config.timeout
                 )
                 is_our_client = True
 
             try:
                 # Make the pull request
                 response = await client.post(
-                    "/api/pull",
-                    json={"name": model_name},
-                    timeout=self.config.timeout
+                    "/api/pull", json={"name": model_name}, timeout=self.config.timeout
                 )
                 response.raise_for_status()
 
@@ -192,11 +198,13 @@ class OllamaClient:
         prompt: str,
         model: Optional[str] = None,
         system_prompt: Optional[str] = None,
-        **kwargs
+        **kwargs,
     ) -> str:
         """Generate text using the specified model"""
         if not self._is_initialized:
-            raise RuntimeError("Ollama client not initialized. Call initialize() first.")
+            raise RuntimeError(
+                "Ollama client not initialized. Call initialize() first."
+            )
 
         model = model or self.config.default_model
         if model not in self._available_models:
@@ -213,14 +221,20 @@ class OllamaClient:
             "system": system_prompt,
             "stream": False,
             "options": {
-                "temperature": kwargs.get('temperature', self.config.temperature),
-                "top_p": kwargs.get('top_p', self.config.top_p),
-                "top_k": kwargs.get('top_k', self.config.top_k),
-                "repeat_penalty": kwargs.get('repeat_penalty', self.config.repeat_penalty),
-                "presence_penalty": kwargs.get('presence_penalty', self.config.presence_penalty),
-                "frequency_penalty": kwargs.get('frequency_penalty', self.config.frequency_penalty),
-                "num_predict": kwargs.get('max_tokens', self.config.max_tokens),
-            }
+                "temperature": kwargs.get("temperature", self.config.temperature),
+                "top_p": kwargs.get("top_p", self.config.top_p),
+                "top_k": kwargs.get("top_k", self.config.top_k),
+                "repeat_penalty": kwargs.get(
+                    "repeat_penalty", self.config.repeat_penalty
+                ),
+                "presence_penalty": kwargs.get(
+                    "presence_penalty", self.config.presence_penalty
+                ),
+                "frequency_penalty": kwargs.get(
+                    "frequency_penalty", self.config.frequency_penalty
+                ),
+                "num_predict": kwargs.get("max_tokens", self.config.max_tokens),
+            },
         }
 
         try:
@@ -228,21 +242,20 @@ class OllamaClient:
             response.raise_for_status()
 
             data = response.json()
-            return data.get('response', '')
+            return data.get("response", "")
 
         except Exception as e:
             self.logger.error(f"Error generating text: {e}")
             raise
 
     async def chat(
-        self,
-        messages: List[Dict[str, str]],
-        model: Optional[str] = None,
-        **kwargs
+        self, messages: List[Dict[str, str]], model: Optional[str] = None, **kwargs
     ) -> str:
         """Chat with the model using message history"""
         if not self._is_initialized:
-            raise RuntimeError("Ollama client not initialized. Call initialize() first.")
+            raise RuntimeError(
+                "Ollama client not initialized. Call initialize() first."
+            )
 
         model = model or self.config.default_model
         if model not in self._available_models:
@@ -255,14 +268,20 @@ class OllamaClient:
             "messages": messages,
             "stream": False,
             "options": {
-                "temperature": kwargs.get('temperature', self.config.temperature),
-                "top_p": kwargs.get('top_p', self.config.top_p),
-                "top_k": kwargs.get('top_k', self.config.top_k),
-                "repeat_penalty": kwargs.get('repeat_penalty', self.config.repeat_penalty),
-                "presence_penalty": kwargs.get('presence_penalty', self.config.presence_penalty),
-                "frequency_penalty": kwargs.get('frequency_penalty', self.config.frequency_penalty),
-                "num_predict": kwargs.get('max_tokens', self.config.max_tokens),
-            }
+                "temperature": kwargs.get("temperature", self.config.temperature),
+                "top_p": kwargs.get("top_p", self.config.top_p),
+                "top_k": kwargs.get("top_k", self.config.top_k),
+                "repeat_penalty": kwargs.get(
+                    "repeat_penalty", self.config.repeat_penalty
+                ),
+                "presence_penalty": kwargs.get(
+                    "presence_penalty", self.config.presence_penalty
+                ),
+                "frequency_penalty": kwargs.get(
+                    "frequency_penalty", self.config.frequency_penalty
+                ),
+                "num_predict": kwargs.get("max_tokens", self.config.max_tokens),
+            },
         }
 
         try:
@@ -270,7 +289,7 @@ class OllamaClient:
             response.raise_for_status()
 
             data = response.json()
-            return data.get('message', {}).get('content', '')
+            return data.get("message", {}).get("content", "")
 
         except Exception as e:
             self.logger.error(f"Error in chat: {e}")
@@ -281,11 +300,13 @@ class OllamaClient:
         prompt: str,
         model: Optional[str] = None,
         system_prompt: Optional[str] = None,
-        **kwargs
+        **kwargs,
     ) -> AsyncGenerator[str, None]:
         """Generate text with streaming response"""
         if not self._is_initialized:
-            raise RuntimeError("Ollama client not initialized. Call initialize() first.")
+            raise RuntimeError(
+                "Ollama client not initialized. Call initialize() first."
+            )
 
         model = model or self.config.default_model
         system_prompt = system_prompt or self.config.system_prompt
@@ -296,27 +317,35 @@ class OllamaClient:
             "system": system_prompt,
             "stream": True,
             "options": {
-                "temperature": kwargs.get('temperature', self.config.temperature),
-                "top_p": kwargs.get('top_p', self.config.top_p),
-                "top_k": kwargs.get('top_k', self.config.top_k),
-                "repeat_penalty": kwargs.get('repeat_penalty', self.config.repeat_penalty),
-                "presence_penalty": kwargs.get('presence_penalty', self.config.presence_penalty),
-                "frequency_penalty": kwargs.get('frequency_penalty', self.config.frequency_penalty),
-                "num_predict": kwargs.get('max_tokens', self.config.max_tokens),
-            }
+                "temperature": kwargs.get("temperature", self.config.temperature),
+                "top_p": kwargs.get("top_p", self.config.top_p),
+                "top_k": kwargs.get("top_k", self.config.top_k),
+                "repeat_penalty": kwargs.get(
+                    "repeat_penalty", self.config.repeat_penalty
+                ),
+                "presence_penalty": kwargs.get(
+                    "presence_penalty", self.config.presence_penalty
+                ),
+                "frequency_penalty": kwargs.get(
+                    "frequency_penalty", self.config.frequency_penalty
+                ),
+                "num_predict": kwargs.get("max_tokens", self.config.max_tokens),
+            },
         }
 
         try:
-            async with self.client.stream("POST", "/api/generate", json=payload) as response:
+            async with self.client.stream(
+                "POST", "/api/generate", json=payload
+            ) as response:
                 response.raise_for_status()
 
                 async for line in response.aiter_lines():
                     if line.strip():
                         try:
                             data = json.loads(line)
-                            if 'response' in data:
-                                yield data['response']
-                            if data.get('done', False):
+                            if "response" in data:
+                                yield data["response"]
+                            if data.get("done", False):
                                 break
                         except json.JSONDecodeError:
                             continue
@@ -356,10 +385,10 @@ class OllamaClient:
 
             return {
                 "status": "healthy",
-                "version": response.json().get('version', 'unknown'),
+                "version": response.json().get("version", "unknown"),
                 "available_models": await self.list_models(),
                 "default_model": self.config.default_model,
-                "initialized": self._is_initialized
+                "initialized": self._is_initialized,
             }
 
         except Exception as e:
@@ -367,7 +396,7 @@ class OllamaClient:
                 "status": "unhealthy",
                 "error": str(e),
                 "available_models": [],
-                "initialized": False
+                "initialized": False,
             }
 
     async def close(self) -> None:

@@ -8,8 +8,9 @@ for implementing theoretical concepts in practice.
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any, Optional
-from .repository import KnowledgeRepository, KnowledgeNode, ContentType, DifficultyLevel
+from typing import Any, Dict, List, Optional
+
+from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository
 
 
 class Implementations:
@@ -47,22 +48,22 @@ class Implementations:
                 "learning_objectives": [
                     "Implement basic Active Inference loop",
                     "Understand belief updating and policy selection",
-                    "Create simple agent-environment interaction"
+                    "Create simple agent-environment interaction",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Overview",
-                            "content": "This implementation provides a complete Active Inference agent..."
+                            "content": "This implementation provides a complete Active Inference agent...",
                         },
                         {
                             "title": "Mathematical Foundation",
-                            "content": "The implementation follows the mathematical framework..."
+                            "content": "The implementation follows the mathematical framework...",
                         },
                         {
                             "title": "Code Implementation",
-                            "content": "Complete working Python code with explanations..."
-                        }
+                            "content": "Complete working Python code with explanations...",
+                        },
                     ]
                 },
                 "metadata": {
@@ -72,8 +73,8 @@ class Implementations:
                     "version": "1.0",
                     "implementation_type": "tutorial",
                     "language": "python",
-                    "dependencies": ["numpy", "scipy"]
-                }
+                    "dependencies": ["numpy", "scipy"],
+                },
             },
             {
                 "id": "expected_free_energy_calculation",
@@ -86,26 +87,26 @@ class Implementations:
                 "learning_objectives": [
                     "Compute Expected Free Energy for multiple policies",
                     "Understand risk and ambiguity decomposition",
-                    "Implement policy comparison algorithms"
+                    "Implement policy comparison algorithms",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Mathematical Background",
-                            "content": "Expected Free Energy (EFE) provides a principled approach..."
+                            "content": "Expected Free Energy (EFE) provides a principled approach...",
                         },
                         {
                             "title": "Implementation Details",
-                            "content": "The implementation computes EFE for policy evaluation..."
-                        }
+                            "content": "The implementation computes EFE for policy evaluation...",
+                        },
                     ]
                 },
                 "metadata": {
                     "estimated_reading_time": 30,
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
-                    "version": "1.0"
-                }
+                    "version": "1.0",
+                },
             },
             {
                 "id": "mcmc_sampling",
@@ -118,13 +119,13 @@ class Implementations:
                 "learning_objectives": [
                     "Implement MCMC sampling for posterior inference",
                     "Understand Metropolis-Hastings algorithm",
-                    "Apply sampling to Active Inference models"
+                    "Apply sampling to Active Inference models",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "MCMC Fundamentals",
-                            "content": "Markov Chain Monte Carlo provides a framework..."
+                            "content": "Markov Chain Monte Carlo provides a framework...",
                         }
                     ]
                 },
@@ -132,9 +133,9 @@ class Implementations:
                     "estimated_reading_time": 35,
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
-                    "version": "1.0"
-                }
-            }
+                    "version": "1.0",
+                },
+            },
         ]
 
         # Add nodes to repository
@@ -159,13 +160,13 @@ class Implementations:
                 "learning_objectives": [
                     "Implement Active Inference in neural network frameworks",
                     "Train models using free energy minimization",
-                    "Scale to complex environments and tasks"
+                    "Scale to complex environments and tasks",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Neural Active Inference",
-                            "content": "Neural networks provide a natural framework..."
+                            "content": "Neural networks provide a natural framework...",
                         }
                     ]
                 },
@@ -173,8 +174,8 @@ class Implementations:
                     "estimated_reading_time": 45,
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
-                    "version": "1.0"
-                }
+                    "version": "1.0",
+                },
             },
             {
                 "id": "variational_inference",
@@ -187,13 +188,13 @@ class Implementations:
                 "learning_objectives": [
                     "Implement variational inference algorithms",
                     "Optimize variational approximations",
-                    "Apply to Active Inference models"
+                    "Apply to Active Inference models",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Variational Methods",
-                            "content": "Variational inference provides efficient approximations..."
+                            "content": "Variational inference provides efficient approximations...",
                         }
                     ]
                 },
@@ -201,9 +202,9 @@ class Implementations:
                     "estimated_reading_time": 40,
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
-                    "version": "1.0"
-                }
-            }
+                    "version": "1.0",
+                },
+            },
         ]
 
         # Add nodes to repository
@@ -228,18 +229,18 @@ class Implementations:
                 "learning_objectives": [
                     "Build simple grid world environment",
                     "Implement Active Inference agent",
-                    "Visualize belief updating and action selection"
+                    "Visualize belief updating and action selection",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Setting Up the Environment",
-                            "content": "First, we'll create a simple grid world..."
+                            "content": "First, we'll create a simple grid world...",
                         },
                         {
                             "title": "Implementing the Agent",
-                            "content": "Now we'll implement the Active Inference agent..."
-                        }
+                            "content": "Now we'll implement the Active Inference agent...",
+                        },
                     ]
                 },
                 "metadata": {
@@ -248,8 +249,8 @@ class Implementations:
                     "last_updated": "2024-10-27",
                     "version": "1.0",
                     "tutorial_type": "interactive",
-                    "difficulty": "beginner"
-                }
+                    "difficulty": "beginner",
+                },
             }
         ]
 
@@ -261,34 +262,40 @@ class Implementations:
                 # Node might already exist, that's okay
                 pass
 
-    def get_implementation_examples(self, difficulty: Optional[DifficultyLevel] = None,
-                                   tags: Optional[List[str]] = None) -> List[KnowledgeNode]:
+    def get_implementation_examples(
+        self,
+        difficulty: Optional[DifficultyLevel] = None,
+        tags: Optional[List[str]] = None,
+    ) -> List[KnowledgeNode]:
         """Get implementation examples filtered by criteria"""
         search_query = "implementation"
 
         filters = {}
         if difficulty:
-            filters['difficulty'] = [difficulty]
+            filters["difficulty"] = [difficulty]
         if tags:
-            filters['tags'] = tags
+            filters["tags"] = tags
 
         return self.repository.search(search_query, **filters)
 
     def get_tutorial_path(self) -> List[KnowledgeNode]:
         """Get recommended tutorial implementation path"""
         # Find tutorial nodes and sort by prerequisites
-        tutorials = self.repository.search("tutorial", content_types=[ContentType.IMPLEMENTATION])
+        tutorials = self.repository.search(
+            "tutorial", content_types=[ContentType.IMPLEMENTATION]
+        )
 
         # Sort by difficulty level
         difficulty_order = {
             DifficultyLevel.BEGINNER: 1,
             DifficultyLevel.INTERMEDIATE: 2,
             DifficultyLevel.ADVANCED: 3,
-            DifficultyLevel.EXPERT: 4
+            DifficultyLevel.EXPERT: 4,
         }
 
-        sorted_tutorials = sorted(tutorials,
-                                key=lambda x: difficulty_order.get(x.difficulty, 5))
+        sorted_tutorials = sorted(
+            tutorials, key=lambda x: difficulty_order.get(x.difficulty, 5)
+        )
 
         return sorted_tutorials
 
@@ -298,11 +305,7 @@ class Implementations:
         if not node:
             return {"valid": False, "error": "Implementation not found"}
 
-        validation_result = {
-            "valid": True,
-            "issues": [],
-            "suggestions": []
-        }
+        validation_result = {"valid": True, "issues": [], "suggestions": []}
 
         # Check if implementation has required sections
         content = node.content
@@ -311,10 +314,14 @@ class Implementations:
             validation_result["valid"] = False
 
         # Check for code examples
-        has_code = any("code" in section.get("content", "").lower()
-                      for section in content.get("sections", []))
+        has_code = any(
+            "code" in section.get("content", "").lower()
+            for section in content.get("sections", [])
+        )
         if not has_code:
-            validation_result["suggestions"].append("Add code examples to implementation")
+            validation_result["suggestions"].append(
+                "Add code examples to implementation"
+            )
 
         # Check prerequisites
         if not node.prerequisites:

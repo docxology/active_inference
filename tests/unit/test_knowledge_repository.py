@@ -5,19 +5,20 @@ Unit tests for the knowledge repository functionality, ensuring proper
 operation of knowledge management, search, and learning path features.
 """
 
-import pytest
 import json
 import tempfile
 from pathlib import Path
 from unittest.mock import Mock, patch
 
+import pytest
+
 from active_inference.knowledge.repository import (
+    ContentType,
+    DifficultyLevel,
+    KnowledgeNode,
     KnowledgeRepository,
     KnowledgeRepositoryConfig,
-    KnowledgeNode,
     LearningPath,
-    ContentType,
-    DifficultyLevel
 )
 
 
@@ -38,7 +39,7 @@ class TestKnowledgeRepository:
             repo_data = {
                 "version": "1.0",
                 "description": "Test knowledge repository",
-                "total_nodes": 0
+                "total_nodes": 0,
             }
             (metadata_dir / "repository.json").write_text(json.dumps(repo_data))
 
@@ -50,7 +51,7 @@ class TestKnowledgeRepository:
                     "description": "A test learning path",
                     "nodes": ["node1", "node2"],
                     "estimated_hours": 4,
-                    "difficulty": "beginner"
+                    "difficulty": "beginner",
                 }
             ]
             (metadata_dir / "learning_paths.json").write_text(json.dumps(paths_data))
@@ -68,11 +69,11 @@ class TestKnowledgeRepository:
                 "prerequisites": [],
                 "content": {
                     "overview": "Test overview content",
-                    "examples": [{"name": "Example 1", "description": "Test example"}]
+                    "examples": [{"name": "Example 1", "description": "Test example"}],
                 },
                 "tags": ["test", "beginner"],
                 "learning_objectives": ["Learn something"],
-                "metadata": {"version": "1.0"}
+                "metadata": {"version": "1.0"},
             }
             (foundations_dir / "node1.json").write_text(json.dumps(node1_data))
 
@@ -85,11 +86,11 @@ class TestKnowledgeRepository:
                 "prerequisites": ["node1"],
                 "content": {
                     "overview": "Test overview content for node 2",
-                    "mathematical_formulation": "Mathematical content here"
+                    "mathematical_formulation": "Mathematical content here",
                 },
                 "tags": ["test", "intermediate"],
                 "learning_objectives": ["Learn something else"],
-                "metadata": {"version": "1.0"}
+                "metadata": {"version": "1.0"},
             }
             (foundations_dir / "node2.json").write_text(json.dumps(node2_data))
 
@@ -99,9 +100,7 @@ class TestKnowledgeRepository:
     def repository_config(self, temp_knowledge_dir):
         """Create repository configuration"""
         return KnowledgeRepositoryConfig(
-            root_path=temp_knowledge_dir,
-            auto_index=True,
-            cache_enabled=False
+            root_path=temp_knowledge_dir, auto_index=True, cache_enabled=False
         )
 
     def test_repository_initialization(self, repository_config):
@@ -173,7 +172,9 @@ class TestKnowledgeRepository:
         assert len(beginner_results) == 1
         assert beginner_results[0].title == "Test Node 1"
 
-        intermediate_results = repo.search("", difficulty=[DifficultyLevel.INTERMEDIATE])
+        intermediate_results = repo.search(
+            "", difficulty=[DifficultyLevel.INTERMEDIATE]
+        )
         assert len(intermediate_results) == 1
         assert intermediate_results[0].title == "Test Node 2"
 
@@ -201,8 +202,9 @@ class TestKnowledgeRepository:
         assert len(graph["edges"]) > 0
 
         # Check that node2 has an edge from node1
-        edge_found = any(edge["from"] == "node1" and edge["to"] == "node2"
-                        for edge in graph["edges"])
+        edge_found = any(
+            edge["from"] == "node1" and edge["to"] == "node2" for edge in graph["edges"]
+        )
         assert edge_found
 
     def test_path_validation(self, repository_config):
@@ -311,7 +313,7 @@ class TestKnowledgeRepository:
             "content": {"overview": "test"},
             "tags": ["test"],
             "learning_objectives": ["learn"],
-            "metadata": {"version": "1.0"}
+            "metadata": {"version": "1.0"},
         }
 
         errors = KnowledgeNodeSchema.validate_json_structure(valid_data)
@@ -346,13 +348,10 @@ class TestKnowledgeNode:
             "difficulty": DifficultyLevel.BEGINNER,
             "description": "A test node",
             "prerequisites": [],
-            "content": {
-                "overview": "Test overview",
-                "examples": []
-            },
+            "content": {"overview": "Test overview", "examples": []},
             "tags": ["test"],
             "learning_objectives": ["Learn something"],
-            "metadata": {"version": "1.0"}
+            "metadata": {"version": "1.0"},
         }
 
         node = KnowledgeNode(**node_data)
@@ -378,7 +377,7 @@ class TestLearningPath:
             "description": "A test path",
             "nodes": ["node1", "node2"],
             "estimated_hours": 4,
-            "difficulty": DifficultyLevel.BEGINNER
+            "difficulty": DifficultyLevel.BEGINNER,
         }
 
         path = LearningPath(**path_data)

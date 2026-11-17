@@ -5,13 +5,17 @@ Unit tests for the mathematics module, ensuring proper operation of
 mathematical computations, derivations, and validation functions.
 """
 
-import pytest
 import math
+from typing import Any, Dict, List
 from unittest.mock import Mock, patch
-from typing import List, Dict, Any
+
+import pytest
 
 from active_inference.knowledge.mathematics import Mathematics
-from active_inference.knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
+from active_inference.knowledge.repository import (
+    KnowledgeRepository,
+    KnowledgeRepositoryConfig,
+)
 
 
 class TestMathematics:
@@ -29,8 +33,8 @@ class TestMathematics:
         math_system = Mathematics(mock_repository)
 
         assert math_system.repository == mock_repository
-        assert hasattr(math_system, 'compute_entropy')
-        assert hasattr(math_system, 'get_mathematical_prerequisites')
+        assert hasattr(math_system, "compute_entropy")
+        assert hasattr(math_system, "get_mathematical_prerequisites")
 
     def test_entropy_computation_without_numpy(self, mock_repository):
         """Test entropy computation without numpy"""
@@ -49,7 +53,7 @@ class TestMathematics:
 
     def test_entropy_computation_with_numpy(self, mock_repository):
         """Test entropy computation with numpy"""
-        with patch('active_inference.knowledge.mathematics.HAS_NUMPY', True):
+        with patch("active_inference.knowledge.mathematics.HAS_NUMPY", True):
             math_system = Mathematics(mock_repository)
 
             # Test with uniform distribution
@@ -67,7 +71,9 @@ class TestMathematics:
         marginal_x = [0.3, 0.7]
         marginal_y = [0.4, 0.6]
 
-        mutual_info = math_system.compute_mutual_information(joint_probs, marginal_x, marginal_y)
+        mutual_info = math_system.compute_mutual_information(
+            joint_probs, marginal_x, marginal_y
+        )
 
         assert isinstance(mutual_info, float)
         assert mutual_info >= 0  # Mutual information is non-negative
@@ -79,7 +85,9 @@ class TestMathematics:
         log_likelihood = -2.0
         kl_divergence = 0.5
 
-        free_energy = math_system.compute_variational_free_energy(log_likelihood, kl_divergence)
+        free_energy = math_system.compute_variational_free_energy(
+            log_likelihood, kl_divergence
+        )
 
         assert free_energy == log_likelihood - kl_divergence
         assert free_energy == -2.5
@@ -89,7 +97,9 @@ class TestMathematics:
         math_system = Mathematics(mock_repository)
 
         initial_params = [0.1, 0.2, 0.3]
-        optimized_params = math_system.optimize_free_energy(initial_params, num_iterations=10)
+        optimized_params = math_system.optimize_free_energy(
+            initial_params, num_iterations=10
+        )
 
         assert isinstance(optimized_params, list)
         assert len(optimized_params) == len(initial_params)
@@ -118,11 +128,7 @@ class TestMathematics:
         """Test mathematical consistency validation without sympy"""
         math_system = Mathematics(mock_repository)
 
-        expressions = [
-            "log(x) + log(y)",
-            "exp(x + y)",
-            "sin(x) * cos(y)"
-        ]
+        expressions = ["log(x) + log(y)", "exp(x + y)", "sin(x) * cos(y)"]
 
         validation = math_system.validate_mathematical_consistency(expressions)
 
@@ -150,7 +156,9 @@ class TestMathematics:
         assert "kl" in kl_derivation.lower() or "divergence" in kl_derivation.lower()
 
         # Test unknown concept
-        unknown_derivation = math_system.generate_mathematical_derivation("unknown_concept")
+        unknown_derivation = math_system.generate_mathematical_derivation(
+            "unknown_concept"
+        )
         assert isinstance(unknown_derivation, str)
         assert "unknown_concept" in unknown_derivation
 
@@ -238,20 +246,24 @@ class TestMathematics:
         circular_prereqs = {
             "concept_a": ["concept_b"],
             "concept_b": ["concept_c"],
-            "concept_c": ["concept_a"]  # Circular!
+            "concept_c": ["concept_a"],  # Circular!
         }
 
-        has_circular = math_system._has_circular_dependency("concept_a", circular_prereqs, set())
+        has_circular = math_system._has_circular_dependency(
+            "concept_a", circular_prereqs, set()
+        )
         assert has_circular is True
 
         # Test non-circular dependency
         non_circular_prereqs = {
             "concept_a": ["concept_b"],
             "concept_b": ["concept_c"],
-            "concept_c": []  # No circular dependency
+            "concept_c": [],  # No circular dependency
         }
 
-        has_circular = math_system._has_circular_dependency("concept_a", non_circular_prereqs, set())
+        has_circular = math_system._has_circular_dependency(
+            "concept_a", non_circular_prereqs, set()
+        )
         assert has_circular is False
 
     def test_mathematical_learning_path(self, mock_repository):
@@ -267,9 +279,9 @@ class TestMathematics:
         assert all(isinstance(concept, str) for concept in learning_path)
 
         # Check that path includes core concepts
-        concept_names = [concept.replace('_', ' ') for concept in learning_path]
-        assert any('probability' in name.lower() for name in concept_names)
-        assert any('bayesian' in name.lower() for name in concept_names)
+        concept_names = [concept.replace("_", " ") for concept in learning_path]
+        assert any("probability" in name.lower() for name in concept_names)
+        assert any("bayesian" in name.lower() for name in concept_names)
 
     def test_mathematical_summary_generation(self, mock_repository):
         """Test mathematical summary generation"""
@@ -285,7 +297,7 @@ class TestMathematics:
         # Check that learning path is included
         learning_path = math_system.create_mathematical_learning_path()
         for concept in learning_path:
-            assert concept.replace('_', ' ').title() in summary
+            assert concept.replace("_", " ").title() in summary
 
     def test_mathematical_prerequisites_structure(self, mock_repository):
         """Test mathematical prerequisites structure"""
@@ -313,14 +325,14 @@ class TestMathematics:
         mock_sympy.S.Zero = Mock()
         mock_sympy.log = Mock()
 
-        with patch.dict('sys.modules', {'sympy': mock_sympy}):
-            with patch('active_inference.knowledge.mathematics.HAS_SYMPY', True):
+        with patch.dict("sys.modules", {"sympy": mock_sympy}):
+            with patch("active_inference.knowledge.mathematics.HAS_SYMPY", True):
                 math_system = Mathematics(mock_repository)
 
                 expressions = [
                     "log(x) + log(y)",
                     "x^2 + 2*x + 1",  # (x+1)^2
-                    "sin(x)^2 + cos(x)^2"  # Should equal 1
+                    "sin(x)^2 + cos(x)^2",  # Should equal 1
                 ]
 
                 validation = math_system.validate_mathematical_consistency(expressions)

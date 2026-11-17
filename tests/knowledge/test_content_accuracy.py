@@ -6,13 +6,18 @@ Active Inference Knowledge Environment. Ensures mathematical formulations,
 conceptual explanations, and reference materials meet accuracy standards.
 """
 
-import pytest
 import json
 import tempfile
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Any, Dict, List
 
-from active_inference.knowledge.repository import KnowledgeRepository, KnowledgeNode, KnowledgeRepositoryConfig
+import pytest
+
+from active_inference.knowledge.repository import (
+    KnowledgeNode,
+    KnowledgeRepository,
+    KnowledgeRepositoryConfig,
+)
 
 pytestmark = pytest.mark.knowledge
 
@@ -36,13 +41,13 @@ class TestMathematicalAccuracy:
                 "examples": [
                     {
                         "name": "Binary entropy",
-                        "description": "H(p) = -p log p - (1-p) log(1-p)"
+                        "description": "H(p) = -p log p - (1-p) log(1-p)",
                     }
-                ]
+                ],
             },
             "tags": ["entropy", "information_theory"],
             "learning_objectives": ["Understand entropy", "Calculate entropy"],
-            "metadata": {"version": "1.0"}
+            "metadata": {"version": "1.0"},
         }
 
     @pytest.fixture
@@ -57,7 +62,7 @@ class TestMathematicalAccuracy:
 
             # Save test content
             content_file = foundations_dir / "test_entropy.json"
-            with open(content_file, 'w') as f:
+            with open(content_file, "w") as f:
                 json.dump(sample_math_content, f, indent=2)
 
             # Create repository config
@@ -125,21 +130,21 @@ class TestConceptualAccuracy:
                 "examples": [
                     {
                         "name": "Perception",
-                        "description": "Inferring hidden states from observations"
+                        "description": "Inferring hidden states from observations",
                     },
                     {
                         "name": "Action",
-                        "description": "Selecting actions to minimize expected free energy"
-                    }
-                ]
+                        "description": "Selecting actions to minimize expected free energy",
+                    },
+                ],
             },
             "tags": ["active_inference", "free_energy", "perception", "action"],
             "learning_objectives": [
                 "Understand active inference framework",
                 "Explain free energy principle",
-                "Describe perception-action cycle"
+                "Describe perception-action cycle",
             ],
-            "metadata": {"version": "1.0"}
+            "metadata": {"version": "1.0"},
         }
 
     @pytest.fixture
@@ -154,7 +159,7 @@ class TestConceptualAccuracy:
 
             # Save test content
             content_file = foundations_dir / "test_active_inference.json"
-            with open(content_file, 'w') as f:
+            with open(content_file, "w") as f:
                 json.dump(sample_concept_content, f, indent=2)
 
             # Create repository config
@@ -174,7 +179,10 @@ class TestConceptualAccuracy:
         assert len(overview) > 20  # Should be substantive
 
         # Check for key terms
-        assert any(term in overview.lower() for term in ["framework", "understanding", "behavior"])
+        assert any(
+            term in overview.lower()
+            for term in ["framework", "understanding", "behavior"]
+        )
 
     def test_learning_objectives_clarity(self, knowledge_repo):
         """Test clarity of learning objectives"""
@@ -225,23 +233,23 @@ class TestReferenceValidation:
                 "examples": [
                     {
                         "name": "Predictive coding",
-                        "description": "Hierarchical prediction and error minimization"
+                        "description": "Hierarchical prediction and error minimization",
                     }
-                ]
+                ],
             },
             "tags": ["free_energy_principle", "predictive_coding", "bayesian"],
             "learning_objectives": [
                 "Understand free energy principle",
                 "Explain predictive coding",
-                "Apply variational inference"
+                "Apply variational inference",
             ],
             "metadata": {
                 "version": "1.0",
                 "references": [
                     "Friston, K. (2009). The free-energy principle: a rough guide to the brain? Trends in Cognitive Sciences, 13(7), 293-301.",
-                    "Friston, K. (2010). The free energy principle: a unified brain theory? Nature Reviews Neuroscience, 11(2), 127-138."
-                ]
-            }
+                    "Friston, K. (2010). The free energy principle: a unified brain theory? Nature Reviews Neuroscience, 11(2), 127-138.",
+                ],
+            },
         }
 
     def test_reference_format_validation(self, sample_referenced_content):
@@ -271,7 +279,10 @@ class TestReferenceValidation:
 
             # Should have publication year (4 digits) - more flexible extraction
             import re
-            years = re.findall(r'\b(19|20)\d{2}\b', ref)  # Find 4-digit years starting with 19 or 20
+
+            years = re.findall(
+                r"\b(19|20)\d{2}\b", ref
+            )  # Find 4-digit years starting with 19 or 20
             assert len(years) > 0
 
     def test_content_reference_consistency(self, sample_referenced_content):
@@ -303,11 +314,14 @@ class TestCrossReferenceValidation:
                 "prerequisites": [],
                 "content": {
                     "overview": "Bayesian inference updates beliefs based on new evidence",
-                    "mathematical_definition": "p(θ|x) = p(x|θ) p(θ) / p(x)"
+                    "mathematical_definition": "p(θ|x) = p(x|θ) p(θ) / p(x)",
                 },
                 "tags": ["bayesian", "inference", "probability"],
-                "learning_objectives": ["Understand Bayes theorem", "Apply conditional probability"],
-                "metadata": {"version": "1.0"}
+                "learning_objectives": [
+                    "Understand Bayes theorem",
+                    "Apply conditional probability",
+                ],
+                "metadata": {"version": "1.0"},
             },
             {
                 "id": "advanced_bayesian",
@@ -318,12 +332,15 @@ class TestCrossReferenceValidation:
                 "prerequisites": ["bayesian_basics"],
                 "content": {
                     "overview": "Advanced methods extend basic Bayesian inference to complex models",
-                    "mathematical_definition": "Variational inference approximates posterior distributions"
+                    "mathematical_definition": "Variational inference approximates posterior distributions",
                 },
                 "tags": ["bayesian", "variational_inference", "approximation"],
-                "learning_objectives": ["Apply variational inference", "Understand approximation methods"],
-                "metadata": {"version": "1.0"}
-            }
+                "learning_objectives": [
+                    "Apply variational inference",
+                    "Understand approximation methods",
+                ],
+                "metadata": {"version": "1.0"},
+            },
         ]
 
     def test_prerequisite_chain_validation(self, sample_cross_referenced_content):
@@ -351,14 +368,21 @@ class TestCrossReferenceValidation:
         # Advanced should build upon basic concepts (either contain them or have related concepts)
         # This is more flexible - advanced concepts might specialize rather than just extend
         common_concepts = basic_tags.intersection(advanced_tags)
-        assert len(common_concepts) > 0 or any("bayes" in tag.lower() for tag in advanced_tags)
+        assert len(common_concepts) > 0 or any(
+            "bayes" in tag.lower() for tag in advanced_tags
+        )
 
         # Learning objectives should build upon each other
         basic_objectives = [obj.lower() for obj in basic_content["learning_objectives"]]
-        advanced_objectives = [obj.lower() for obj in advanced_content["learning_objectives"]]
+        advanced_objectives = [
+            obj.lower() for obj in advanced_content["learning_objectives"]
+        ]
 
         # Advanced should reference basic concepts (more flexible check)
-        assert any("bayes" in obj or "inference" in obj or "belief" in obj for obj in advanced_objectives)
+        assert any(
+            "bayes" in obj or "inference" in obj or "belief" in obj
+            for obj in advanced_objectives
+        )
 
 
 if __name__ == "__main__":

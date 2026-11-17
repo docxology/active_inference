@@ -6,19 +6,19 @@ and the Free Energy Principle. Provides organized, accessible knowledge
 with progressive learning tracks and interactive components.
 """
 
+from .applications import Applications
+from .foundations import Foundations
+from .implementations import Implementations
+from .mathematics import Mathematics
 from .repository import (
-    KnowledgeRepository,
-    KnowledgeRepositoryConfig,
-    KnowledgeNode,
-    LearningPath,
     ContentType,
     DifficultyLevel,
-    KnowledgeNodeSchema
+    KnowledgeNode,
+    KnowledgeNodeSchema,
+    KnowledgeRepository,
+    KnowledgeRepositoryConfig,
+    LearningPath,
 )
-from .foundations import Foundations
-from .mathematics import Mathematics
-from .implementations import Implementations
-from .applications import Applications
 
 __all__ = [
     "KnowledgeRepository",

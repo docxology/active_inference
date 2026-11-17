@@ -5,13 +5,17 @@ Unit tests for the foundations module, ensuring proper operation of
 foundation knowledge management, learning tracks, and educational content.
 """
 
-import pytest
 import json
-from unittest.mock import Mock, patch
 from pathlib import Path
+from unittest.mock import Mock, patch
+
+import pytest
 
 from active_inference.knowledge.foundations import Foundations
-from active_inference.knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
+from active_inference.knowledge.repository import (
+    KnowledgeRepository,
+    KnowledgeRepositoryConfig,
+)
 
 
 class TestFoundations:
@@ -29,8 +33,8 @@ class TestFoundations:
         foundations = Foundations(mock_repository)
 
         assert foundations.repository == mock_repository
-        assert hasattr(foundations, 'get_foundation_tracks')
-        assert hasattr(foundations, 'get_complete_foundation_path')
+        assert hasattr(foundations, "get_foundation_tracks")
+        assert hasattr(foundations, "get_complete_foundation_path")
 
     def test_foundation_tracks_structure(self, mock_repository):
         """Test foundation tracks have correct structure"""
@@ -43,7 +47,7 @@ class TestFoundations:
             "information_theory",
             "bayesian_inference",
             "free_energy_principle",
-            "active_inference"
+            "active_inference",
         ]
 
         for track in required_tracks:
@@ -196,10 +200,9 @@ class TestFoundations:
         foundations = Foundations(mock_repository)
 
         # Test entropy content
-        entropy_content = foundations._generate_node_content({
-            "id": "info_theory_entropy",
-            "title": "Entropy"
-        })
+        entropy_content = foundations._generate_node_content(
+            {"id": "info_theory_entropy", "title": "Entropy"}
+        )
 
         assert isinstance(entropy_content, dict)
         assert "overview" in entropy_content
@@ -218,10 +221,9 @@ class TestFoundations:
         """Test Bayesian inference content generation"""
         foundations = Foundations(mock_repository)
 
-        bayesian_content = foundations._generate_node_content({
-            "id": "bayesian_basics",
-            "title": "Bayesian Basics"
-        })
+        bayesian_content = foundations._generate_node_content(
+            {"id": "bayesian_basics", "title": "Bayesian Basics"}
+        )
 
         assert isinstance(bayesian_content, dict)
         assert "overview" in bayesian_content
@@ -231,17 +233,24 @@ class TestFoundations:
 
         # Check specific Bayesian content
         assert "bayes" in bayesian_content["mathematical_definition"].lower()
-        assert any("prior" in concept.lower() for concept in bayesian_content["key_concepts"])
-        assert any("posterior" in concept.lower() for concept in bayesian_content["key_concepts"])
+        assert any(
+            "prior" in concept.lower() for concept in bayesian_content["key_concepts"]
+        )
+        assert any(
+            "posterior" in concept.lower()
+            for concept in bayesian_content["key_concepts"]
+        )
 
     def test_active_inference_content_generation(self, mock_repository):
         """Test Active Inference content generation"""
         foundations = Foundations(mock_repository)
 
-        ai_content = foundations._generate_node_content({
-            "id": "active_inference_introduction",
-            "title": "Active Inference Introduction"
-        })
+        ai_content = foundations._generate_node_content(
+            {
+                "id": "active_inference_introduction",
+                "title": "Active Inference Introduction",
+            }
+        )
 
         assert isinstance(ai_content, dict)
         assert "overview" in ai_content
@@ -251,16 +260,18 @@ class TestFoundations:
 
         # Check Active Inference specific content
         assert "active inference" in ai_content["overview"].lower()
-        assert "surprise" in ai_content["core_idea"].lower() or "inference" in ai_content["core_idea"].lower()
+        assert (
+            "surprise" in ai_content["core_idea"].lower()
+            or "inference" in ai_content["core_idea"].lower()
+        )
 
     def test_unknown_node_content_generation(self, mock_repository):
         """Test content generation for unknown nodes"""
         foundations = Foundations(mock_repository)
 
-        content = foundations._generate_node_content({
-            "id": "unknown_node",
-            "title": "Unknown Node"
-        })
+        content = foundations._generate_node_content(
+            {"id": "unknown_node", "title": "Unknown Node"}
+        )
 
         assert isinstance(content, dict)
         assert "overview" in content
@@ -280,7 +291,7 @@ class TestFoundations:
                 "description": "Test node 1",
                 "prerequisites": [],
                 "tags": ["test"],
-                "learning_objectives": ["Learn test concept"]
+                "learning_objectives": ["Learn test concept"],
             },
             {
                 "id": "test_node_2",
@@ -290,8 +301,8 @@ class TestFoundations:
                 "description": "Test node 2",
                 "prerequisites": ["test_node_1"],
                 "tags": ["test", "intermediate"],
-                "learning_objectives": ["Learn advanced test concept"]
-            }
+                "learning_objectives": ["Learn advanced test concept"],
+            },
         ]
 
         # Save nodes to repository

@@ -5,19 +5,20 @@ Unit tests for the conversation and context management system, ensuring proper
 operation of message handling, context optimization, and persistence.
 """
 
-import pytest
 import json
 import tempfile
-from pathlib import Path
 from datetime import datetime, timedelta
+from pathlib import Path
 from unittest.mock import Mock, patch
 
+import pytest
+
 from active_inference.llm.conversations import (
-    Message,
+    ActiveInferenceTemplates,
     Conversation,
     ConversationManager,
     ConversationTemplate,
-    ActiveInferenceTemplates
+    Message,
 )
 
 
@@ -27,9 +28,7 @@ class TestMessage:
     def test_message_creation(self):
         """Test creating a message"""
         message = Message(
-            role="user",
-            content="Hello, world!",
-            metadata={"test": "value"}
+            role="user", content="Hello, world!", metadata={"test": "value"}
         )
 
         assert message.role == "user"
@@ -44,7 +43,7 @@ class TestMessage:
             role="assistant",
             content="Test response",
             timestamp=timestamp,
-            metadata={"model": "gemma3:2b"}
+            metadata={"model": "gemma3:2b"},
         )
 
         data = message.to_dict()
@@ -60,7 +59,7 @@ class TestMessage:
             "role": "system",
             "content": "System prompt",
             "timestamp": "2024-01-01T12:00:00",
-            "metadata": {"type": "system"}
+            "metadata": {"type": "system"},
         }
 
         message = Message.from_dict(data)
@@ -77,9 +76,7 @@ class TestConversation:
     def test_conversation_creation(self):
         """Test creating a conversation"""
         conversation = Conversation(
-            id="test_id",
-            title="Test Conversation",
-            metadata={"type": "test"}
+            id="test_id", title="Test Conversation", metadata={"type": "test"}
         )
 
         assert conversation.id == "test_id"
@@ -134,7 +131,10 @@ class TestConversation:
         # Add messages with varying lengths
         conversation.add_message("system", "You are a helpful assistant.")
         conversation.add_message("user", "Short question")
-        conversation.add_message("assistant", "This is a very long response that should exceed token limits when combined with other messages to test the context window optimization functionality.")
+        conversation.add_message(
+            "assistant",
+            "This is a very long response that should exceed token limits when combined with other messages to test the context window optimization functionality.",
+        )
 
         # Get context with reasonable token limit
         context = conversation.get_context_messages(max_tokens=50)
@@ -178,12 +178,12 @@ class TestConversation:
                     "role": "user",
                     "content": "Test message",
                     "timestamp": "2024-01-01T12:00:00",
-                    "metadata": {}
+                    "metadata": {},
                 }
             ],
             "metadata": {"type": "test"},
             "created_at": "2024-01-01T12:00:00",
-            "updated_at": "2024-01-01T12:01:00"
+            "updated_at": "2024-01-01T12:01:00",
         }
 
         conversation = Conversation.from_dict(data)
@@ -216,8 +216,7 @@ class TestConversationManager:
         manager = ConversationManager(temp_conversations_dir)
 
         conversation = manager.create_conversation(
-            title="Test Conversation",
-            metadata={"type": "test"}
+            title="Test Conversation", metadata={"type": "test"}
         )
 
         assert conversation.id in manager.conversations
@@ -269,10 +268,7 @@ class TestConversationManager:
         conversation_id = conversation.id
 
         success = manager.add_message(
-            conversation_id,
-            "user",
-            "Hello!",
-            {"test": "metadata"}
+            conversation_id, "user", "Hello!", {"test": "metadata"}
         )
 
         assert success is True
@@ -415,10 +411,8 @@ class TestConversationTemplate:
         template = ConversationTemplate(
             name="test_template",
             system_prompt="Test system prompt",
-            initial_messages=[
-                {"role": "user", "content": "Initial message"}
-            ],
-            metadata={"type": "test"}
+            initial_messages=[{"role": "user", "content": "Initial message"}],
+            metadata={"type": "test"},
         )
 
         assert template.name == "test_template"
@@ -431,9 +425,7 @@ class TestConversationTemplate:
         template = ConversationTemplate(
             name="test_template",
             system_prompt="System prompt",
-            initial_messages=[
-                {"role": "user", "content": "Hello"}
-            ]
+            initial_messages=[{"role": "user", "content": "Hello"}],
         )
 
         manager = ConversationManager()

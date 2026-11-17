@@ -13,10 +13,10 @@ This module provides:
 """
 
 import json
+import logging
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-import logging
+from typing import Any, Dict, List, Optional, Set
 
 
 @dataclass
@@ -25,7 +25,7 @@ class ModelInfo:
 
     name: str
     family: str  # gemma, llama, mistral, etc.
-    size: str    # 2b, 7b, 13b, etc.
+    size: str  # 2b, 7b, 13b, etc.
     quantization: Optional[str] = None
     context_window: int = 4096
     capabilities: Set[str] = field(default_factory=set)
@@ -44,15 +44,15 @@ class ModelInfo:
     def get_memory_requirement(self) -> float:
         """Estimate memory requirement in GB"""
         # Rough estimation based on model size
-        size_num = float(self.size.rstrip('b'))
+        size_num = float(self.size.rstrip("b"))
         base_memory = size_num * 2  # Approximate GB needed
 
         if self.quantization:
-            if '2bit' in self.quantization.lower():
+            if "2bit" in self.quantization.lower():
                 base_memory *= 0.25
-            elif '4bit' in self.quantization.lower():
+            elif "4bit" in self.quantization.lower():
                 base_memory *= 0.5
-            elif '8bit' in self.quantization.lower():
+            elif "8bit" in self.quantization.lower():
                 base_memory *= 0.75
 
         return base_memory
@@ -80,13 +80,17 @@ class ModelRegistry:
 
     def find_models_by_capability(self, capability: str) -> List[ModelInfo]:
         """Find models that have a specific capability"""
-        return [model for model in self.models.values() if model.has_capability(capability)]
+        return [
+            model for model in self.models.values() if model.has_capability(capability)
+        ]
 
     def find_models_by_family(self, family: str) -> List[ModelInfo]:
         """Find models from a specific family"""
         return [model for model in self.models.values() if model.family == family]
 
-    def get_best_model_for_task(self, task_capabilities: Set[str], max_memory: float = None) -> Optional[ModelInfo]:
+    def get_best_model_for_task(
+        self, task_capabilities: Set[str], max_memory: float = None
+    ) -> Optional[ModelInfo]:
         """Get the best model for a specific task based on capabilities and constraints"""
         suitable_models = []
 
@@ -101,10 +105,16 @@ class ModelRegistry:
             return None
 
         # Sort by preference order, then by size (smaller first for efficiency)
-        suitable_models.sort(key=lambda m: (
-            self.preferred_models.index(m.name) if m.name in self.preferred_models else len(self.preferred_models),
-            float(m.size.rstrip('b'))
-        ))
+        suitable_models.sort(
+            key=lambda m: (
+                (
+                    self.preferred_models.index(m.name)
+                    if m.name in self.preferred_models
+                    else len(self.preferred_models)
+                ),
+                float(m.size.rstrip("b")),
+            )
+        )
 
         return suitable_models[0]
 
@@ -125,20 +135,20 @@ class ModelRegistry:
                     "capabilities": list(info.capabilities),
                     "performance_metrics": info.performance_metrics,
                     "requirements": info.requirements,
-                    "metadata": info.metadata
+                    "metadata": info.metadata,
                 }
                 for name, info in self.models.items()
             },
             "preferred_models": self.preferred_models,
-            "fallback_chain": self.fallback_chain
+            "fallback_chain": self.fallback_chain,
         }
 
-        with open(file_path, 'w') as f:
+        with open(file_path, "w") as f:
             json.dump(data, f, indent=2)
 
     def load_registry(self, file_path: Path) -> None:
         """Load registry from file"""
-        with open(file_path, 'r') as f:
+        with open(file_path, "r") as f:
             data = json.load(f)
 
         self.models.clear()
@@ -152,7 +162,7 @@ class ModelRegistry:
                 capabilities=set(model_data.get("capabilities", [])),
                 performance_metrics=model_data.get("performance_metrics", {}),
                 requirements=model_data.get("requirements", {}),
-                metadata=model_data.get("metadata", {})
+                metadata=model_data.get("metadata", {}),
             )
             self.models[name] = info
 
@@ -165,8 +175,12 @@ class ModelManager:
 
     def __init__(self, registry_path: Optional[Path] = None):
         self.registry = ModelRegistry()
-        self.registry_path = registry_path or Path(__file__).parent / "model_registry.json"
-        self.logger = logging.getLogger(f"active_inference.llm.{self.__class__.__name__}")
+        self.registry_path = (
+            registry_path or Path(__file__).parent / "model_registry.json"
+        )
+        self.logger = logging.getLogger(
+            f"active_inference.llm.{self.__class__.__name__}"
+        )
 
         # Load registry if it exists
         if self.registry_path.exists():
@@ -188,9 +202,13 @@ class ModelManager:
             size="2b",
             context_window=8192,
             capabilities={
-                "text_generation", "conversation", "reasoning",
-                "mathematical_reasoning", "code_generation", "active_inference_explanation"
-            }
+                "text_generation",
+                "conversation",
+                "reasoning",
+                "mathematical_reasoning",
+                "code_generation",
+                "active_inference_explanation",
+            },
         )
 
         gemma3_4b = ModelInfo(
@@ -199,10 +217,15 @@ class ModelManager:
             size="4b",
             context_window=8192,
             capabilities={
-                "text_generation", "conversation", "reasoning",
-                "mathematical_reasoning", "code_generation", "active_inference_explanation",
-                "research_analysis", "educational_content"
-            }
+                "text_generation",
+                "conversation",
+                "reasoning",
+                "mathematical_reasoning",
+                "code_generation",
+                "active_inference_explanation",
+                "research_analysis",
+                "educational_content",
+            },
         )
 
         # Llama models
@@ -212,9 +235,12 @@ class ModelManager:
             size="7b",
             context_window=4096,
             capabilities={
-                "text_generation", "conversation", "reasoning",
-                "code_generation", "research_analysis"
-            }
+                "text_generation",
+                "conversation",
+                "reasoning",
+                "code_generation",
+                "research_analysis",
+            },
         )
 
         llama2_13b = ModelInfo(
@@ -223,10 +249,15 @@ class ModelManager:
             size="13b",
             context_window=4096,
             capabilities={
-                "text_generation", "conversation", "reasoning",
-                "mathematical_reasoning", "code_generation", "research_analysis",
-                "educational_content", "complex_reasoning"
-            }
+                "text_generation",
+                "conversation",
+                "reasoning",
+                "mathematical_reasoning",
+                "code_generation",
+                "research_analysis",
+                "educational_content",
+                "complex_reasoning",
+            },
         )
 
         # Mistral models
@@ -236,10 +267,14 @@ class ModelManager:
             size="7b",
             context_window=8192,
             capabilities={
-                "text_generation", "conversation", "reasoning",
-                "mathematical_reasoning", "code_generation", "research_analysis",
-                "educational_content"
-            }
+                "text_generation",
+                "conversation",
+                "reasoning",
+                "mathematical_reasoning",
+                "code_generation",
+                "research_analysis",
+                "educational_content",
+            },
         )
 
         # Register all models
@@ -247,9 +282,9 @@ class ModelManager:
             self.registry.register_model(model)
 
         # Set preferred order: smaller, more efficient models first
-        self.registry.set_preferred_order([
-            "gemma3:2b", "gemma3:4b", "mistral:7b", "llama2:7b", "llama2:13b"
-        ])
+        self.registry.set_preferred_order(
+            ["gemma3:2b", "gemma3:4b", "mistral:7b", "llama2:7b", "llama2:13b"]
+        )
 
     def get_available_models(self) -> List[str]:
         """Get list of available model names"""
@@ -260,10 +295,7 @@ class ModelManager:
         return self.registry.get_model(model_name)
 
     def find_best_model(
-        self,
-        task: str,
-        max_memory_gb: float = None,
-        preferred_family: str = None
+        self, task: str, max_memory_gb: float = None, preferred_family: str = None
     ) -> Optional[ModelInfo]:
         """Find the best model for a specific task"""
 
@@ -279,7 +311,9 @@ class ModelManager:
                 temp_registry.register_model(model)
             temp_registry.set_preferred_order(self.registry.preferred_models)
 
-            best_model = temp_registry.get_best_model_for_task(task_capabilities, max_memory_gb)
+            best_model = temp_registry.get_best_model_for_task(
+                task_capabilities, max_memory_gb
+            )
 
             # If we found a good model in the preferred family, use it
             if best_model:
@@ -299,13 +333,17 @@ class ModelManager:
             "education": {"educational_content", "text_generation"},
             "conversation": {"conversation", "text_generation"},
             "analysis": {"research_analysis", "reasoning"},
-            "active_inference": {"active_inference_explanation", "reasoning", "mathematical_reasoning"},
+            "active_inference": {
+                "active_inference_explanation",
+                "reasoning",
+                "mathematical_reasoning",
+            },
             "free_energy": {"mathematical_reasoning", "active_inference_explanation"},
             "variational": {"mathematical_reasoning", "research_analysis"},
             "neural_networks": {"mathematical_reasoning", "code_generation"},
             "simulation": {"mathematical_reasoning", "code_generation"},
             "policy_selection": {"reasoning", "mathematical_reasoning"},
-            "belief_updating": {"mathematical_reasoning", "reasoning"}
+            "belief_updating": {"mathematical_reasoning", "reasoning"},
         }
 
         # Find matching task capabilities
@@ -320,7 +358,9 @@ class ModelManager:
         """Get all models that support a specific capability"""
         return self.registry.find_models_by_capability(capability)
 
-    def update_model_performance(self, model_name: str, metrics: Dict[str, float]) -> None:
+    def update_model_performance(
+        self, model_name: str, metrics: Dict[str, float]
+    ) -> None:
         """Update performance metrics for a model"""
         model = self.registry.get_model(model_name)
         if model:
@@ -328,12 +368,7 @@ class ModelManager:
             self.save_registry()
 
     def add_custom_model(
-        self,
-        name: str,
-        family: str,
-        size: str,
-        capabilities: List[str],
-        **kwargs
+        self, name: str, family: str, size: str, capabilities: List[str], **kwargs
     ) -> ModelInfo:
         """Add a custom model to the registry"""
 
@@ -342,7 +377,7 @@ class ModelManager:
             family=family,
             size=size,
             capabilities=set(capabilities),
-            **kwargs
+            **kwargs,
         )
 
         self.registry.register_model(model_info)
@@ -379,12 +414,16 @@ class ModelManager:
         """Get system information for model recommendations"""
         return {
             "total_models": len(self.registry.models),
-            "available_families": list(set(model.family for model in self.registry.models.values())),
+            "available_families": list(
+                set(model.family for model in self.registry.models.values())
+            ),
             "preferred_models": self.registry.preferred_models,
-            "fallback_chain": self.registry.fallback_chain
+            "fallback_chain": self.registry.fallback_chain,
         }
 
-    def benchmark_model(self, model_name: str, test_tasks: List[str]) -> Dict[str, float]:
+    def benchmark_model(
+        self, model_name: str, test_tasks: List[str]
+    ) -> Dict[str, float]:
         """Benchmark a model on test tasks (placeholder for actual implementation)"""
         # This would integrate with actual benchmarking
         model = self.registry.get_model(model_name)
@@ -394,9 +433,10 @@ class ModelManager:
         # Placeholder metrics - in real implementation, this would run actual benchmarks
         metrics = {
             "reasoning_score": 0.8 if model.has_capability("reasoning") else 0.5,
-            "generation_speed": 100.0 / float(model.size.rstrip('b')),  # tokens per second estimate
+            "generation_speed": 100.0
+            / float(model.size.rstrip("b")),  # tokens per second estimate
             "memory_efficiency": 1.0 / model.get_memory_requirement(),
-            "context_utilization": min(1.0, model.context_window / 8192)
+            "context_utilization": min(1.0, model.context_window / 8192),
         }
 
         # Update model performance metrics

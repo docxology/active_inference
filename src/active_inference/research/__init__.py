@@ -6,17 +6,17 @@ and the Free Energy Principle. Provides reproducible research pipelines,
 simulation engines, analysis tools, and benchmarking frameworks.
 """
 
-from .experiments import ResearchFramework, ExperimentManager, ExperimentConfig
-from .simulations import SimulationEngine, ModelRunner
 from .analysis import AnalysisTools, StatisticalAnalysis
 from .benchmarks import BenchmarkSuite, PerformanceMetrics
 from .data_management import (
+    DataCollectionConfig,
+    DataFormat,
     DataManager,
     DataMetadata,
-    DataCollectionConfig,
     DataSecurityLevel,
-    DataFormat
 )
+from .experiments import ExperimentConfig, ExperimentManager, ResearchFramework
+from .simulations import ModelRunner, SimulationEngine
 
 __all__ = [
     "ResearchFramework",

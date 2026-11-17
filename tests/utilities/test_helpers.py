@@ -9,8 +9,9 @@ import json
 import tempfile
 import uuid
 from pathlib import Path
-from typing import Dict, List, Any, Generator
-from unittest.mock import Mock, AsyncMock, MagicMock
+from typing import Any, Dict, Generator, List
+from unittest.mock import AsyncMock, MagicMock, Mock
+
 import pytest
 
 
@@ -40,19 +41,13 @@ def create_mock_ollama_response(content: str = "Test response") -> Dict[str, Any
         "prompt_eval_count": 15,
         "prompt_eval_duration": 300000000,
         "eval_count": 25,
-        "eval_duration": 1150000000
+        "eval_duration": 1150000000,
     }
 
 
 def create_mock_chat_response(content: str = "Chat response") -> Dict[str, Any]:
     """Create a mock Ollama chat API response"""
-    return {
-        "message": {
-            "role": "assistant",
-            "content": content
-        },
-        "done": True
-    }
+    return {"message": {"role": "assistant", "content": content}, "done": True}
 
 
 def create_mock_models_response(models: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -65,9 +60,11 @@ def generate_unique_test_id(prefix: str = "test") -> str:
     return f"{prefix}_{uuid.uuid4().hex[:8]}"
 
 
-def create_temp_file_with_content(content: str, suffix: str = ".json") -> Generator[Path, None, None]:
+def create_temp_file_with_content(
+    content: str, suffix: str = ".json"
+) -> Generator[Path, None, None]:
     """Create a temporary file with specified content"""
-    with tempfile.NamedTemporaryFile(mode='w', suffix=suffix, delete=False) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=suffix, delete=False) as f:
         f.write(content)
         temp_path = Path(f.name)
 
@@ -89,14 +86,8 @@ def create_test_knowledge_node(overrides: Dict[str, Any] = None) -> Dict[str, An
         "prerequisites": [],
         "tags": ["test"],
         "learning_objectives": ["Learn something"],
-        "content": {
-            "overview": "Test overview",
-            "examples": []
-        },
-        "metadata": {
-            "author": "Test Author",
-            "version": "1.0"
-        }
+        "content": {"overview": "Test overview", "examples": []},
+        "metadata": {"author": "Test Author", "version": "1.0"},
     }
 
     if overrides:
@@ -113,7 +104,7 @@ def create_test_learning_path(overrides: Dict[str, Any] = None) -> Dict[str, Any
         "description": "Test learning path description",
         "nodes": [generate_unique_test_id("node1"), generate_unique_test_id("node2")],
         "estimated_hours": 4,
-        "difficulty": "beginner"
+        "difficulty": "beginner",
     }
 
     if overrides:
@@ -125,8 +116,16 @@ def create_test_learning_path(overrides: Dict[str, Any] = None) -> Dict[str, Any
 def assert_knowledge_node_structure(node_data: Dict[str, Any]) -> None:
     """Assert that knowledge node data has correct structure"""
     required_fields = [
-        "id", "title", "content_type", "difficulty", "description",
-        "prerequisites", "tags", "learning_objectives", "content", "metadata"
+        "id",
+        "title",
+        "content_type",
+        "difficulty",
+        "description",
+        "prerequisites",
+        "tags",
+        "learning_objectives",
+        "content",
+        "metadata",
     ]
 
     for field in required_fields:
@@ -144,7 +143,14 @@ def assert_knowledge_node_structure(node_data: Dict[str, Any]) -> None:
 
 def assert_learning_path_structure(path_data: Dict[str, Any]) -> None:
     """Assert that learning path data has correct structure"""
-    required_fields = ["id", "name", "description", "nodes", "estimated_hours", "difficulty"]
+    required_fields = [
+        "id",
+        "name",
+        "description",
+        "nodes",
+        "estimated_hours",
+        "difficulty",
+    ]
 
     for field in required_fields:
         assert field in path_data, f"Missing required field: {field}"
@@ -182,15 +188,17 @@ def create_failing_mock_client(error_message: str = "Connection refused") -> Asy
 
 def patch_llm_client_success() -> Generator[Mock, None, None]:
     """Context manager to patch LLM client with successful responses"""
-    with pytest.mock.patch('httpx.AsyncClient') as mock_client_class:
+    with pytest.mock.patch("httpx.AsyncClient") as mock_client_class:
         mock_client = create_async_mock_client()
         mock_client_class.return_value = mock_client
         yield mock_client
 
 
-def patch_llm_client_failure(error_message: str = "Connection refused") -> Generator[Mock, None, None]:
+def patch_llm_client_failure(
+    error_message: str = "Connection refused",
+) -> Generator[Mock, None, None]:
     """Context manager to patch LLM client with failing responses"""
-    with pytest.mock.patch('httpx.AsyncClient') as mock_client_class:
+    with pytest.mock.patch("httpx.AsyncClient") as mock_client_class:
         mock_client = create_failing_mock_client(error_message)
         mock_client_class.return_value = mock_client
         yield mock_client
@@ -201,21 +209,21 @@ def validate_json_schema(data: Dict[str, Any], schema: Dict[str, Any]) -> List[s
     errors = []
 
     # Check required fields
-    required_fields = schema.get('required', [])
+    required_fields = schema.get("required", [])
     for field in required_fields:
         if field not in data:
             errors.append(f"Missing required field: {field}")
 
     # Check field types
-    properties = schema.get('properties', {})
+    properties = schema.get("properties", {})
     for field, field_schema in properties.items():
         if field in data:
-            expected_type = field_schema.get('type')
-            if expected_type == 'string' and not isinstance(data[field], str):
+            expected_type = field_schema.get("type")
+            if expected_type == "string" and not isinstance(data[field], str):
                 errors.append(f"Field {field} must be string")
-            elif expected_type == 'array' and not isinstance(data[field], list):
+            elif expected_type == "array" and not isinstance(data[field], list):
                 errors.append(f"Field {field} must be array")
-            elif expected_type == 'object' and not isinstance(data[field], dict):
+            elif expected_type == "object" and not isinstance(data[field], dict):
                 errors.append(f"Field {field} must be object")
 
     return errors

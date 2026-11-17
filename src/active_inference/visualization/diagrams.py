@@ -7,16 +7,17 @@ and interactive exploration capabilities.
 """
 
 import logging
-from typing import Dict, List, Optional, Any, Tuple
-from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
 
 class DiagramType(Enum):
     """Types of diagrams supported"""
+
     CONCEPT_MAP = "concept_map"
     FLOWCHART = "flowchart"
     STATE_DIAGRAM = "state_diagram"
@@ -28,6 +29,7 @@ class DiagramType(Enum):
 @dataclass
 class DiagramNode:
     """Represents a node in a diagram"""
+
     id: str
     label: str
     position: Tuple[float, float] = (0, 0)
@@ -42,6 +44,7 @@ class DiagramNode:
 @dataclass
 class DiagramEdge:
     """Represents an edge/connection in a diagram"""
+
     source: str
     target: str
     label: str = ""
@@ -106,21 +109,27 @@ class InteractiveDiagram:
         return {
             "type": self.diagram_type.value,
             "title": self.title,
-            "nodes": {node_id: {
-                "id": node.id,
-                "label": node.label,
-                "position": node.position,
-                "node_type": node.node_type,
-                "properties": node.properties
-            } for node, node in self.nodes.items()},
-            "edges": [{
-                "source": edge.source,
-                "target": edge.target,
-                "label": edge.label,
-                "edge_type": edge.edge_type,
-                "properties": edge.properties
-            } for edge in self.edges],
-            "properties": self.properties
+            "nodes": {
+                node_id: {
+                    "id": node.id,
+                    "label": node.label,
+                    "position": node.position,
+                    "node_type": node.node_type,
+                    "properties": node.properties,
+                }
+                for node, node in self.nodes.items()
+            },
+            "edges": [
+                {
+                    "source": edge.source,
+                    "target": edge.target,
+                    "label": edge.label,
+                    "edge_type": edge.edge_type,
+                    "properties": edge.properties,
+                }
+                for edge in self.edges
+            ],
+            "properties": self.properties,
         }
 
 
@@ -132,17 +141,23 @@ class ConceptDiagram:
 
     def create_active_inference_overview(self) -> InteractiveDiagram:
         """Create overview diagram of Active Inference"""
-        diagram = InteractiveDiagram(DiagramType.CONCEPT_MAP, "Active Inference Overview")
+        diagram = InteractiveDiagram(
+            DiagramType.CONCEPT_MAP, "Active Inference Overview"
+        )
 
         # Add key concepts as nodes
         nodes = [
             DiagramNode("perception", "Perception", (100, 100), "process"),
             DiagramNode("action", "Action", (300, 100), "process"),
             DiagramNode("learning", "Learning", (200, 50), "process"),
-            DiagramNode("generative_model", "Generative Model", (200, 150), "component"),
+            DiagramNode(
+                "generative_model", "Generative Model", (200, 150), "component"
+            ),
             DiagramNode("free_energy", "Free Energy", (200, 250), "principle"),
-            DiagramNode("variational_inference", "Variational Inference", (100, 200), "method"),
-            DiagramNode("active_learning", "Active Learning", (300, 200), "method")
+            DiagramNode(
+                "variational_inference", "Variational Inference", (100, 200), "method"
+            ),
+            DiagramNode("active_learning", "Active Learning", (300, 200), "method"),
         ]
 
         for node in nodes:
@@ -156,7 +171,7 @@ class ConceptDiagram:
             DiagramEdge("action", "free_energy", "minimizes"),
             DiagramEdge("learning", "generative_model", "improves"),
             DiagramEdge("variational_inference", "free_energy", "computes"),
-            DiagramEdge("active_learning", "action", "drives")
+            DiagramEdge("active_learning", "action", "drives"),
         ]
 
         for edge in edges:
@@ -175,7 +190,7 @@ class ConceptDiagram:
             DiagramNode("prediction", "Prediction", (200, 200), "output"),
             DiagramNode("prediction_error", "Prediction Error", (350, 200), "signal"),
             DiagramNode("free_energy", "Free Energy", (200, 300), "measure"),
-            DiagramNode("action", "Action", (350, 300), "response")
+            DiagramNode("action", "Action", (350, 300), "response"),
         ]
 
         for node in nodes:
@@ -188,7 +203,7 @@ class ConceptDiagram:
             DiagramEdge("sensory_input", "prediction_error", "compared with"),
             DiagramEdge("prediction", "prediction_error", "compared with"),
             DiagramEdge("prediction_error", "free_energy", "quantifies"),
-            DiagramEdge("free_energy", "action", "drives")
+            DiagramEdge("free_energy", "action", "drives"),
         ]
 
         for edge in edges:
@@ -198,7 +213,9 @@ class ConceptDiagram:
 
     def create_bayesian_inference_diagram(self) -> InteractiveDiagram:
         """Create comprehensive diagram of Bayesian inference in Active Inference"""
-        diagram = InteractiveDiagram(DiagramType.FLOWCHART, "Bayesian Inference in Active Inference")
+        diagram = InteractiveDiagram(
+            DiagramType.FLOWCHART, "Bayesian Inference in Active Inference"
+        )
 
         nodes = [
             DiagramNode("prior_belief", "Prior Belief", (100, 100), "belief"),
@@ -207,7 +224,7 @@ class ConceptDiagram:
             DiagramNode("evidence", "Evidence", (200, 200), "data"),
             DiagramNode("bayes_theorem", "Bayes' Theorem", (350, 200), "formula"),
             DiagramNode("belief_update", "Belief Update", (350, 300), "process"),
-            DiagramNode("prediction", "Prediction", (500, 300), "output")
+            DiagramNode("prediction", "Prediction", (500, 300), "output"),
         ]
 
         for node in nodes:
@@ -219,7 +236,7 @@ class ConceptDiagram:
             DiagramEdge("bayes_theorem", "posterior", "P(θ|D)"),
             DiagramEdge("posterior", "belief_update", "updates"),
             DiagramEdge("belief_update", "prediction", "generates"),
-            DiagramEdge("posterior", "prediction", "guides")
+            DiagramEdge("posterior", "prediction", "guides"),
         ]
 
         for edge in edges:
@@ -229,14 +246,21 @@ class ConceptDiagram:
 
     def create_hierarchical_models_diagram(self) -> InteractiveDiagram:
         """Create diagram showing hierarchical Active Inference models"""
-        diagram = InteractiveDiagram(DiagramType.HIERARCHY, "Hierarchical Active Inference")
+        diagram = InteractiveDiagram(
+            DiagramType.HIERARCHY, "Hierarchical Active Inference"
+        )
 
         # Create hierarchical levels
         levels = [
             ("sensory", "Sensory Level", (200, 100), ["observations", "perceptions"]),
             ("contextual", "Contextual Level", (200, 200), ["categories", "features"]),
-            ("conceptual", "Conceptual Level", (200, 300), ["concepts", "abstractions"]),
-            ("goal", "Goal Level", (200, 400), ["objectives", "intentions"])
+            (
+                "conceptual",
+                "Conceptual Level",
+                (200, 300),
+                ["concepts", "abstractions"],
+            ),
+            ("goal", "Goal Level", (200, 400), ["objectives", "intentions"]),
         ]
 
         nodes = []
@@ -249,7 +273,9 @@ class ConceptDiagram:
             for i, subconcept in enumerate(subconcepts):
                 sub_x = position[0] + (i - 0.5) * 100
                 sub_y = position[1] + 50
-                sub_node = DiagramNode(f"{level_id}_{subconcept}", subconcept, (sub_x, sub_y), "subconcept")
+                sub_node = DiagramNode(
+                    f"{level_id}_{subconcept}", subconcept, (sub_x, sub_y), "subconcept"
+                )
                 diagram.add_node(sub_node)
 
                 # Connect main node to subconcepts
@@ -265,16 +291,26 @@ class ConceptDiagram:
 
     def create_information_geometry_diagram(self) -> InteractiveDiagram:
         """Create diagram showing information geometry concepts"""
-        diagram = InteractiveDiagram(DiagramType.ARCHITECTURE, "Information Geometry in Active Inference")
+        diagram = InteractiveDiagram(
+            DiagramType.ARCHITECTURE, "Information Geometry in Active Inference"
+        )
 
         nodes = [
-            DiagramNode("statistical_manifold", "Statistical Manifold", (300, 100), "geometry"),
+            DiagramNode(
+                "statistical_manifold", "Statistical Manifold", (300, 100), "geometry"
+            ),
             DiagramNode("fisher_metric", "Fisher Metric", (150, 200), "metric"),
-            DiagramNode("riemannian_geometry", "Riemannian Geometry", (450, 200), "geometry"),
-            DiagramNode("natural_gradient", "Natural Gradient", (100, 300), "optimization"),
+            DiagramNode(
+                "riemannian_geometry", "Riemannian Geometry", (450, 200), "geometry"
+            ),
+            DiagramNode(
+                "natural_gradient", "Natural Gradient", (100, 300), "optimization"
+            ),
             DiagramNode("geodesic", "Geodesic Path", (300, 300), "path"),
             DiagramNode("curvature", "Curvature", (500, 300), "property"),
-            DiagramNode("information_distance", "Information Distance", (300, 400), "measure")
+            DiagramNode(
+                "information_distance", "Information Distance", (300, 400), "measure"
+            ),
         ]
 
         for node in nodes:
@@ -287,7 +323,7 @@ class ConceptDiagram:
             DiagramEdge("riemannian_geometry", "geodesic", "has"),
             DiagramEdge("riemannian_geometry", "curvature", "characterized by"),
             DiagramEdge("geodesic", "information_distance", "measures"),
-            DiagramEdge("natural_gradient", "information_distance", "minimizes")
+            DiagramEdge("natural_gradient", "information_distance", "minimizes"),
         ]
 
         for edge in edges:
@@ -297,16 +333,22 @@ class ConceptDiagram:
 
     def create_policy_selection_diagram(self) -> InteractiveDiagram:
         """Create diagram showing policy selection in Active Inference"""
-        diagram = InteractiveDiagram(DiagramType.STATE_DIAGRAM, "Policy Selection Process")
+        diagram = InteractiveDiagram(
+            DiagramType.STATE_DIAGRAM, "Policy Selection Process"
+        )
 
         nodes = [
             DiagramNode("current_state", "Current State", (100, 100), "state"),
             DiagramNode("generative_model", "Generative Model", (300, 100), "model"),
             DiagramNode("policy_options", "Policy Options", (500, 100), "decision"),
-            DiagramNode("expected_fe", "Expected Free Energy", (400, 200), "calculation"),
-            DiagramNode("policy_evaluation", "Policy Evaluation", (300, 300), "process"),
+            DiagramNode(
+                "expected_fe", "Expected Free Energy", (400, 200), "calculation"
+            ),
+            DiagramNode(
+                "policy_evaluation", "Policy Evaluation", (300, 300), "process"
+            ),
             DiagramNode("selected_policy", "Selected Policy", (500, 300), "decision"),
-            DiagramNode("action_execution", "Action Execution", (400, 400), "action")
+            DiagramNode("action_execution", "Action Execution", (400, 400), "action"),
         ]
 
         for node in nodes:
@@ -318,7 +360,7 @@ class ConceptDiagram:
             DiagramEdge("policy_options", "expected_fe", "evaluated by"),
             DiagramEdge("expected_fe", "policy_evaluation", "computed in"),
             DiagramEdge("policy_evaluation", "selected_policy", "determines"),
-            DiagramEdge("selected_policy", "action_execution", "leads to")
+            DiagramEdge("selected_policy", "action_execution", "leads to"),
         ]
 
         for edge in edges:
@@ -328,15 +370,27 @@ class ConceptDiagram:
 
     def create_multi_scale_modeling_diagram(self) -> InteractiveDiagram:
         """Create diagram showing multi-scale modeling in Active Inference"""
-        diagram = InteractiveDiagram(DiagramType.HIERARCHY, "Multi-Scale Active Inference")
+        diagram = InteractiveDiagram(
+            DiagramType.HIERARCHY, "Multi-Scale Active Inference"
+        )
 
         # Define different time scales
         scales = [
-            ("microseconds", "Microsecond Scale", (100, 100), ["neural firing", "synaptic transmission"]),
-            ("milliseconds", "Millisecond Scale", (100, 200), ["perception", "motor control"]),
+            (
+                "microseconds",
+                "Microsecond Scale",
+                (100, 100),
+                ["neural firing", "synaptic transmission"],
+            ),
+            (
+                "milliseconds",
+                "Millisecond Scale",
+                (100, 200),
+                ["perception", "motor control"],
+            ),
             ("seconds", "Second Scale", (100, 300), ["decision making", "learning"]),
             ("minutes", "Minute Scale", (100, 400), ["planning", "adaptation"]),
-            ("hours", "Hour Scale", (100, 500), ["strategy", "long-term goals"])
+            ("hours", "Hour Scale", (100, 500), ["strategy", "long-term goals"]),
         ]
 
         nodes = []
@@ -349,7 +403,12 @@ class ConceptDiagram:
             for i, process in enumerate(processes):
                 process_x = position[0] + 200 + i * 120
                 process_y = position[1]
-                process_node = DiagramNode(f"{scale_id}_{process.replace(' ', '_')}", process, (process_x, process_y), "process")
+                process_node = DiagramNode(
+                    f"{scale_id}_{process.replace(' ', '_')}",
+                    process,
+                    (process_x, process_y),
+                    "process",
+                )
                 diagram.add_node(process_node)
 
                 # Connect scale to processes
@@ -374,9 +433,13 @@ class VisualizationEngine:
 
         logger.info("VisualizationEngine initialized")
 
-    def create_diagram(self, diagram_type: DiagramType, title: str,
-                      nodes: List[DiagramNode] = None,
-                      edges: List[DiagramEdge] = None) -> InteractiveDiagram:
+    def create_diagram(
+        self,
+        diagram_type: DiagramType,
+        title: str,
+        nodes: List[DiagramNode] = None,
+        edges: List[DiagramEdge] = None,
+    ) -> InteractiveDiagram:
         """Create a new interactive diagram"""
         diagram = InteractiveDiagram(diagram_type, title)
 
@@ -413,7 +476,9 @@ class VisualizationEngine:
             logger.warning(f"Concept diagram not found: {concept}")
             return None
 
-    def export_diagram(self, diagram_name: str, format: str = "json") -> Optional[Dict[str, Any]]:
+    def export_diagram(
+        self, diagram_name: str, format: str = "json"
+    ) -> Optional[Dict[str, Any]]:
         """Export diagram in specified format"""
         if diagram_name not in self.diagrams:
             logger.error(f"Diagram not found: {diagram_name}")
@@ -427,7 +492,7 @@ class VisualizationEngine:
             logger.warning(f"Export format not supported: {format}")
             return None
 
-    def implement_diagram_rendering_engine(self) -> 'DiagramRenderer':
+    def implement_diagram_rendering_engine(self) -> "DiagramRenderer":
         """
         Implement high-performance diagram rendering with interactive features
 
@@ -435,6 +500,7 @@ class VisualizationEngine:
             Configured diagram renderer instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .rendering import DiagramRenderer
 
@@ -443,7 +509,7 @@ class VisualizationEngine:
         logger.info("Diagram rendering engine implementation placeholder")
         return None
 
-    def create_concept_visualization_system(self) -> 'ConceptVisualizer':
+    def create_concept_visualization_system(self) -> "ConceptVisualizer":
         """
         Create system for visualizing Active Inference concepts and relationships
 
@@ -451,6 +517,7 @@ class VisualizationEngine:
             Configured concept visualizer instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .concepts import ConceptVisualizer
 
@@ -459,7 +526,7 @@ class VisualizationEngine:
         logger.info("Concept visualization system implementation placeholder")
         return None
 
-    def implement_diagram_interaction_manager(self) -> 'InteractionManager':
+    def implement_diagram_interaction_manager(self) -> "InteractionManager":
         """
         Implement comprehensive interaction management for diagram exploration
 
@@ -467,6 +534,7 @@ class VisualizationEngine:
             Configured interaction manager instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .interaction import InteractionManager
 
@@ -475,7 +543,7 @@ class VisualizationEngine:
         logger.info("Diagram interaction manager implementation placeholder")
         return None
 
-    def create_diagram_export_and_sharing_system(self) -> 'ExportManager':
+    def create_diagram_export_and_sharing_system(self) -> "ExportManager":
         """
         Create export and sharing system for diagrams in multiple formats
 
@@ -483,6 +551,7 @@ class VisualizationEngine:
             Configured export manager instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .export import ExportManager
 
@@ -491,7 +560,7 @@ class VisualizationEngine:
         logger.info("Diagram export and sharing system implementation placeholder")
         return None
 
-    def implement_diagram_accessibility_features(self) -> 'AccessibilityManager':
+    def implement_diagram_accessibility_features(self) -> "AccessibilityManager":
         """
         Implement full accessibility support for diagram navigation and understanding
 
@@ -499,6 +568,7 @@ class VisualizationEngine:
             Configured accessibility manager instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .accessibility import AccessibilityManager
 
@@ -507,7 +577,7 @@ class VisualizationEngine:
         logger.info("Diagram accessibility features implementation placeholder")
         return None
 
-    def create_diagram_performance_optimization(self) -> 'PerformanceOptimizer':
+    def create_diagram_performance_optimization(self) -> "PerformanceOptimizer":
         """
         Create performance optimization for complex diagram rendering
 
@@ -515,6 +585,7 @@ class VisualizationEngine:
             Configured performance optimizer instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .performance import PerformanceOptimizer
 
@@ -523,7 +594,7 @@ class VisualizationEngine:
         logger.info("Diagram performance optimization implementation placeholder")
         return None
 
-    def implement_diagram_validation_system(self) -> 'DiagramValidator':
+    def implement_diagram_validation_system(self) -> "DiagramValidator":
         """
         Implement validation system for diagram correctness and completeness
 
@@ -531,6 +602,7 @@ class VisualizationEngine:
             Configured diagram validator instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .validation import DiagramValidator
 
@@ -539,7 +611,7 @@ class VisualizationEngine:
         logger.info("Diagram validation system implementation placeholder")
         return None
 
-    def create_diagram_integration_with_knowledge_graph(self) -> 'KnowledgeIntegration':
+    def create_diagram_integration_with_knowledge_graph(self) -> "KnowledgeIntegration":
         """
         Create integration between diagrams and knowledge graph systems
 
@@ -547,6 +619,7 @@ class VisualizationEngine:
             Configured knowledge integration instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .knowledge_integration import KnowledgeIntegration
 
@@ -555,7 +628,7 @@ class VisualizationEngine:
         logger.info("Diagram knowledge graph integration implementation placeholder")
         return None
 
-    def implement_diagram_security_and_access_control(self) -> 'SecurityManager':
+    def implement_diagram_security_and_access_control(self) -> "SecurityManager":
         """
         Implement security and access control for diagram systems
 
@@ -563,6 +636,7 @@ class VisualizationEngine:
             Configured security manager instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .security import SecurityManager
 
@@ -571,7 +645,7 @@ class VisualizationEngine:
         logger.info("Diagram security and access control implementation placeholder")
         return None
 
-    def create_diagram_analytics_and_insights(self) -> 'DiagramAnalytics':
+    def create_diagram_analytics_and_insights(self) -> "DiagramAnalytics":
         """
         Create analytics and insights system for diagram usage and effectiveness
 
@@ -579,6 +653,7 @@ class VisualizationEngine:
             Configured diagram analytics instance
         """
         from typing import TYPE_CHECKING
+
         if TYPE_CHECKING:
             from .analytics import DiagramAnalytics
 
@@ -586,5 +661,3 @@ class VisualizationEngine:
         # For now, return a placeholder
         logger.info("Diagram analytics and insights implementation placeholder")
         return None
-
-

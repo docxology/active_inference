@@ -6,18 +6,19 @@ Provides ready-to-use implementation patterns, boilerplate code, and automated
 generation of common application structures.
 """
 
+import json
 import logging
-from typing import Dict, List, Optional, Any
-from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
-import json
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
 
 class TemplateType(Enum):
     """Types of application templates"""
+
     BASIC_MODEL = "basic_model"
     RESEARCH_PIPELINE = "research_pipeline"
     SIMULATION_STUDY = "simulation_study"
@@ -34,6 +35,7 @@ class TemplateType(Enum):
 @dataclass
 class TemplateConfig:
     """Configuration for template generation"""
+
     name: str
     template_type: TemplateType
     description: str
@@ -53,7 +55,9 @@ class CodeGenerator:
         self.templates_dir.mkdir(parents=True, exist_ok=True)
         self.templates: Dict[str, Dict[str, Any]] = {}
 
-        logger.info(f"CodeGenerator initialized with templates directory: {self.templates_dir}")
+        logger.info(
+            f"CodeGenerator initialized with templates directory: {self.templates_dir}"
+        )
 
     def generate_basic_model(self, config: TemplateConfig) -> Dict[str, Any]:
         """Generate a basic Active Inference model"""
@@ -219,21 +223,15 @@ if __name__ == "__main__":
 '''
 
         return {
-            "files": {
-                f"{config.name.lower().replace(' ', '_')}.py": model_code
-            },
+            "files": {f"{config.name.lower().replace(' ', '_')}.py": model_code},
             "requirements": ["numpy", "typing"],
-            "readme": f"# {config.name}\n\n{config.description}\n\nGenerated Active Inference model implementation."
+            "readme": f"# {config.name}\n\n{config.description}\n\nGenerated Active Inference model implementation.",
         }
 
     def generate_research_pipeline(self, config: TemplateConfig) -> Dict[str, Any]:
         """Generate a complete research pipeline template"""
         # Similar implementation for research pipeline
-        return {
-            "files": {},
-            "requirements": [],
-            "readme": "Research pipeline template"
-        }
+        return {"files": {}, "requirements": [], "readme": "Research pipeline template"}
 
     def generate_robotics_control(self, config: TemplateConfig) -> Dict[str, Any]:
         """Generate a robotics control application template"""
@@ -530,13 +528,15 @@ if __name__ == "__main__":
         print(f"Final free energy: {{results['free_energy_history'][-1]:.3f}}")
 '''
 
-        return {{
-            "files": {{
-                f"{config.name.lower().replace(' ', '_')}.py": robotics_code
-            }},
-            "requirements": ["numpy", "scipy", "matplotlib"],
-            "readme": f"# {config.name}\\n\\nRobotics control system using Active Inference principles.\\n\\nFeatures:\\n- Multi-joint control\\n- Safety constraints\\n- Goal-directed behavior\\n- Sensor fusion"
-        }}
+        return {
+            {
+                "files": {
+                    {f"{config.name.lower().replace(' ', '_')}.py": robotics_code}
+                },
+                "requirements": ["numpy", "scipy", "matplotlib"],
+                "readme": f"# {config.name}\\n\\nRobotics control system using Active Inference principles.\\n\\nFeatures:\\n- Multi-joint control\\n- Safety constraints\\n- Goal-directed behavior\\n- Sensor fusion",
+            }
+        }
 
     def generate_neural_interface(self, config: TemplateConfig) -> Dict[str, Any]:
         """Generate a neural interface application template"""
@@ -854,13 +854,13 @@ if __name__ == "__main__":
     print(f"Signal quality SNR: {{processed['signal_quality']['snr']:.1f}}")
 '''
 
-        return {{
-            "files": {{
-                f"{config.name.lower().replace(' ', '_')}.py": neural_code
-            }},
-            "requirements": ["numpy", "scipy", "matplotlib", "mne"],
-            "readme": f"# {config.name}\\n\\nNeural interface using Active Inference for brain-machine interfaces.\\n\\nFeatures:\\n- Real-time neural signal processing\\n- Intent decoding\\n- Adaptive learning\\n- Signal quality assessment"
-        }}
+        return {
+            {
+                "files": {{f"{config.name.lower().replace(' ', '_')}.py": neural_code}},
+                "requirements": ["numpy", "scipy", "matplotlib", "mne"],
+                "readme": f"# {config.name}\\n\\nNeural interface using Active Inference for brain-machine interfaces.\\n\\nFeatures:\\n- Real-time neural signal processing\\n- Intent decoding\\n- Adaptive learning\\n- Signal quality assessment",
+            }
+        }
 
 
 class TemplateManager:
@@ -875,7 +875,9 @@ class TemplateManager:
 
     def generate_application(self, config: TemplateConfig) -> Dict[str, Any]:
         """Generate a complete application from template"""
-        logger.info(f"Generating application: {config.name} ({config.template_type.value})")
+        logger.info(
+            f"Generating application: {config.name} ({config.template_type.value})"
+        )
 
         if config.template_type == TemplateType.BASIC_MODEL:
             return self.code_generator.generate_basic_model(config)
@@ -895,7 +897,7 @@ class TemplateManager:
             {
                 "name": template_type.value,
                 "type": template_type.name,
-                "description": f"Template for {template_type.value.replace('_', ' ')}"
+                "description": f"Template for {template_type.value.replace('_', ' ')}",
             }
             for template_type in TemplateType
         ]
@@ -910,7 +912,7 @@ class TemplateManager:
         template_file = self.templates_dir / "custom" / f"{template_name}.json"
         template_file.parent.mkdir(parents=True, exist_ok=True)
 
-        with open(template_file, 'w') as f:
+        with open(template_file, "w") as f:
             json.dump(template_data, f, indent=2)
 
         logger.info(f"Created custom template: {template_name}")
@@ -928,14 +930,15 @@ class ApplicationFramework:
 
         logger.info("ApplicationFramework initialized")
 
-    def create_application(self, template_type: TemplateType, name: str,
-                          parameters: Dict[str, Any] = None) -> Dict[str, Any]:
+    def create_application(
+        self, template_type: TemplateType, name: str, parameters: Dict[str, Any] = None
+    ) -> Dict[str, Any]:
         """Create a new application from template"""
         config = TemplateConfig(
             name=name,
             template_type=template_type,
             description=f"Application generated from {template_type.value} template",
-            parameters=parameters or {}
+            parameters=parameters or {},
         )
 
         return self.template_manager.generate_application(config)
@@ -959,7 +962,7 @@ class ApplicationFramework:
             name=config.get("name", "basic_model"),
             template_type=TemplateType.BASIC_MODEL,
             description="Basic Active Inference model implementation",
-            parameters=config
+            parameters=config,
         )
 
         return self.template_manager.generate_application(template_config)
@@ -978,7 +981,7 @@ class ApplicationFramework:
             name=config.get("name", "research_pipeline"),
             template_type=TemplateType.RESEARCH_PIPELINE,
             description="Research pipeline with experiment management",
-            parameters=config
+            parameters=config,
         )
 
         return self.template_manager.generate_application(template_config)
@@ -997,7 +1000,7 @@ class ApplicationFramework:
             name=config.get("name", "web_app"),
             template_type=TemplateType.WEB_APPLICATION,
             description="Web application with Active Inference backend",
-            parameters=config
+            parameters=config,
         )
 
         return self.template_manager.generate_application(template_config)
@@ -1016,7 +1019,7 @@ class ApplicationFramework:
             name=config.get("name", "api_service"),
             template_type=TemplateType.API_SERVICE,
             description="REST API service for Active Inference models",
-            parameters=config
+            parameters=config,
         )
 
         return self.template_manager.generate_application(template_config)
@@ -1035,7 +1038,7 @@ class ApplicationFramework:
             name=config.get("name", "educational_tool"),
             template_type=TemplateType.EDUCATIONAL_TOOL,
             description="Interactive educational tool for Active Inference",
-            parameters=config
+            parameters=config,
         )
 
         return self.template_manager.generate_application(template_config)
@@ -1055,12 +1058,12 @@ class ApplicationFramework:
             "valid": True,
             "issues": [],
             "warnings": [],
-            "suggestions": []
+            "suggestions": [],
         }
 
         # Basic syntax validation
         try:
-            compile(code, '<string>', 'exec')
+            compile(code, "<string>", "exec")
         except SyntaxError as e:
             validation_results["issues"].append(f"Syntax error: {e}")
             validation_results["valid"] = False
@@ -1080,16 +1083,22 @@ class ApplicationFramework:
         required_elements = ["class.*Model", "def __init__", "def perceive", "def act"]
 
         for element in required_elements:
-            if not any(element in line for line in code.split('\n')):
+            if not any(element in line for line in code.split("\n")):
                 results["issues"].append(f"Missing required element: {element}")
                 results["valid"] = False
 
-    def _validate_research_pipeline_code(self, code: str, results: Dict[str, Any]) -> None:
+    def _validate_research_pipeline_code(
+        self, code: str, results: Dict[str, Any]
+    ) -> None:
         """Validate research pipeline code structure"""
-        required_elements = ["def run_experiment", "def analyze_results", "def save_data"]
+        required_elements = [
+            "def run_experiment",
+            "def analyze_results",
+            "def save_data",
+        ]
 
         for element in required_elements:
-            if not any(element in line for line in code.split('\n')):
+            if not any(element in line for line in code.split("\n")):
                 results["issues"].append(f"Missing required element: {element}")
                 results["valid"] = False
 
@@ -1098,11 +1107,13 @@ class ApplicationFramework:
         required_elements = ["from flask import", "@app.route", "def index"]
 
         for element in required_elements:
-            if not any(element in line for line in code.split('\n')):
+            if not any(element in line for line in code.split("\n")):
                 results["issues"].append(f"Missing required element: {element}")
                 results["valid"] = False
 
-    def create_template_from_specification(self, spec: Dict[str, Any]) -> TemplateConfig:
+    def create_template_from_specification(
+        self, spec: Dict[str, Any]
+    ) -> TemplateConfig:
         """
         Create custom template from detailed specification
 
@@ -1122,7 +1133,9 @@ class ApplicationFramework:
             try:
                 template_type = TemplateType(template_type)
             except ValueError:
-                logger.warning(f"Unknown template type: {template_type}, using BASIC_MODEL")
+                logger.warning(
+                    f"Unknown template type: {template_type}, using BASIC_MODEL"
+                )
                 template_type = TemplateType.BASIC_MODEL
 
         # Create template configuration
@@ -1131,7 +1144,7 @@ class ApplicationFramework:
             template_type=template_type,
             description=description,
             parameters=spec.get("parameters", {}),
-            output_directory=spec.get("output_directory")
+            output_directory=spec.get("output_directory"),
         )
 
         # Validate specification
@@ -1169,7 +1182,7 @@ class ApplicationFramework:
             self._optimize_imports,
             self._optimize_loops,
             self._optimize_memory_usage,
-            self._optimize_computations
+            self._optimize_computations,
         ]
 
         for optimization in optimizations:
@@ -1183,12 +1196,12 @@ class ApplicationFramework:
 
     def _optimize_imports(self, code: str) -> str:
         """Optimize import statements"""
-        lines = code.split('\n')
+        lines = code.split("\n")
         import_lines = []
         other_lines = []
 
         for line in lines:
-            if line.startswith('import ') or line.startswith('from '):
+            if line.startswith("import ") or line.startswith("from "):
                 import_lines.append(line)
             else:
                 other_lines.append(line)
@@ -1196,12 +1209,12 @@ class ApplicationFramework:
         # Sort and deduplicate imports
         import_lines = sorted(list(set(import_lines)))
 
-        return '\n'.join(import_lines + [''] + other_lines)
+        return "\n".join(import_lines + [""] + other_lines)
 
     def _optimize_loops(self, code: str) -> str:
         """Optimize loop constructs"""
         # Basic loop optimization - this would be more sophisticated in practice
-        return code.replace('for i in range(len(list)):', 'for item in list:')
+        return code.replace("for i in range(len(list)):", "for item in list:")
 
     def _optimize_memory_usage(self, code: str) -> str:
         """Optimize memory usage patterns"""
@@ -1211,4 +1224,4 @@ class ApplicationFramework:
     def _optimize_computations(self, code: str) -> str:
         """Optimize computational patterns"""
         # Basic computational optimization
-        return code.replace('x * 2', 'x << 1')  # For integers only
+        return code.replace("x * 2", "x << 1")  # For integers only

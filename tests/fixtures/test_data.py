@@ -7,7 +7,7 @@ Provides realistic test data, knowledge nodes, learning paths, and research scen
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 # Sample knowledge nodes for testing
 SAMPLE_KNOWLEDGE_NODES = [
@@ -22,7 +22,7 @@ SAMPLE_KNOWLEDGE_NODES = [
         "learning_objectives": [
             "Understand what entropy measures",
             "Calculate entropy for simple distributions",
-            "Connect entropy to uncertainty"
+            "Connect entropy to uncertainty",
         ],
         "content": {
             "overview": "Entropy is a measure of uncertainty or disorder in a probability distribution.",
@@ -31,15 +31,15 @@ SAMPLE_KNOWLEDGE_NODES = [
                 {
                     "name": "Coin Flip",
                     "description": "Entropy of a fair coin is 1 bit",
-                    "calculation": "H = -0.5*log2(0.5) - 0.5*log2(0.5) = 1"
+                    "calculation": "H = -0.5*log2(0.5) - 0.5*log2(0.5) = 1",
                 }
-            ]
+            ],
         },
         "metadata": {
             "author": "Test Author",
             "version": "1.0",
-            "estimated_reading_time": 10
-        }
+            "estimated_reading_time": 10,
+        },
     },
     {
         "id": "bayesian_inference",
@@ -52,7 +52,7 @@ SAMPLE_KNOWLEDGE_NODES = [
         "learning_objectives": [
             "Apply Bayes' theorem",
             "Update beliefs with evidence",
-            "Understand posterior distributions"
+            "Understand posterior distributions",
         ],
         "content": {
             "overview": "Bayesian inference treats parameters as random variables with probability distributions.",
@@ -60,16 +60,16 @@ SAMPLE_KNOWLEDGE_NODES = [
             "examples": [
                 {
                     "name": "Medical Diagnosis",
-                    "description": "Updating disease probability based on test results"
+                    "description": "Updating disease probability based on test results",
                 }
-            ]
+            ],
         },
         "metadata": {
             "author": "Test Author",
             "version": "1.0",
-            "estimated_reading_time": 15
-        }
-    }
+            "estimated_reading_time": 15,
+        },
+    },
 ]
 
 # Sample learning paths
@@ -80,7 +80,7 @@ SAMPLE_LEARNING_PATHS = [
         "description": "Complete introduction to information theory concepts",
         "nodes": ["entropy_basics", "mutual_information", "kl_divergence"],
         "estimated_hours": 8,
-        "difficulty": "beginner"
+        "difficulty": "beginner",
     },
     {
         "id": "bayesian_methods",
@@ -88,8 +88,8 @@ SAMPLE_LEARNING_PATHS = [
         "description": "Comprehensive Bayesian inference and modeling",
         "nodes": ["probability_basics", "bayesian_inference", "bayesian_networks"],
         "estimated_hours": 12,
-        "difficulty": "intermediate"
-    }
+        "difficulty": "intermediate",
+    },
 ]
 
 # Sample research scenarios
@@ -103,15 +103,16 @@ SAMPLE_RESEARCH_SCENARIOS = [
         "parameters": {
             "n_agents": 100,
             "n_trials": 1000,
-            "uncertainty_levels": [0.1, 0.3, 0.5, 0.7, 0.9]
+            "uncertainty_levels": [0.1, 0.3, 0.5, 0.7, 0.9],
         },
         "expected_outcomes": [
             "Lower decision error rates",
             "Better uncertainty handling",
-            "More adaptive behavior"
-        ]
+            "More adaptive behavior",
+        ],
     }
 ]
+
 
 def create_test_knowledge_directory(base_path: Path) -> Path:
     """Create a test knowledge directory with sample content"""
@@ -126,7 +127,7 @@ def create_test_knowledge_directory(base_path: Path) -> Path:
     repo_data = {
         "version": "1.0",
         "description": "Test knowledge repository",
-        "total_nodes": len(SAMPLE_KNOWLEDGE_NODES)
+        "total_nodes": len(SAMPLE_KNOWLEDGE_NODES),
     }
     (metadata_dir / "repository.json").write_text(json.dumps(repo_data, indent=2))
 
@@ -149,12 +150,14 @@ def create_test_knowledge_directory(base_path: Path) -> Path:
 
     return knowledge_dir
 
+
 def get_sample_knowledge_node(node_id: str) -> Dict[str, Any]:
     """Get a sample knowledge node by ID"""
     for node in SAMPLE_KNOWLEDGE_NODES:
         if node["id"] == node_id:
             return node
     return None
+
 
 def get_sample_learning_path(path_id: str) -> Dict[str, Any]:
     """Get a sample learning path by ID"""

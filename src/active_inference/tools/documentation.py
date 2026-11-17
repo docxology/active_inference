@@ -6,12 +6,12 @@ Provides tools for generating API documentation, knowledge base documentation,
 and educational content from code and structured data.
 """
 
-import logging
 import inspect
-from typing import Dict, List, Optional, Any, Callable
-from pathlib import Path
+import logging
 from dataclasses import dataclass
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class DocumentationConfig:
     """Configuration for documentation generation"""
+
     output_format: str = "markdown"  # markdown, html, json
     include_examples: bool = True
     include_api_docs: bool = True
@@ -44,7 +45,9 @@ class DocumentationGenerator:
                 "docstring": inspect.getdoc(function) or "",
                 "module": getattr(function, "__module__", ""),
                 "is_method": inspect.ismethod(function),
-                "is_classmethod": inspect.isclass(function) if hasattr(inspect, 'isclass') else False
+                "is_classmethod": (
+                    inspect.isclass(function) if hasattr(inspect, "isclass") else False
+                ),
             }
 
             return doc
@@ -61,13 +64,13 @@ class DocumentationGenerator:
                 "docstring": inspect.getdoc(cls) or "",
                 "module": getattr(cls, "__module__", ""),
                 "methods": [],
-                "attributes": []
+                "attributes": [],
             }
 
             # Extract methods
             for name, member in inspect.getmembers(cls):
                 if inspect.isfunction(member) or inspect.ismethod(member):
-                    if not name.startswith('_'):  # Skip private methods
+                    if not name.startswith("_"):  # Skip private methods
                         method_doc = self.extract_function_docs(member)
                         if method_doc:
                             doc["methods"].append(method_doc)
@@ -86,14 +89,14 @@ class DocumentationGenerator:
         """Generate API documentation for a module"""
         try:
             # Import module
-            module = __import__(module_name, fromlist=[''])
+            module = __import__(module_name, fromlist=[""])
 
             # Extract documentation
             api_docs = {
                 "module": module_name,
                 "classes": [],
                 "functions": [],
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
             }
 
             # Extract classes
@@ -106,7 +109,7 @@ class DocumentationGenerator:
             # Extract functions
             for name, obj in inspect.getmembers(module):
                 if inspect.isfunction(obj) and obj.__module__ == module_name:
-                    if not name.startswith('_'):  # Skip private functions
+                    if not name.startswith("_"):  # Skip private functions
                         func_doc = self.extract_function_docs(obj)
                         if func_doc:
                             api_docs["functions"].append(func_doc)
@@ -115,7 +118,7 @@ class DocumentationGenerator:
             output_content = self._format_api_docs(api_docs)
 
             # Save to file
-            with open(output_path, 'w') as f:
+            with open(output_path, "w") as f:
                 f.write(output_content)
 
             logger.info(f"Generated API docs for {module_name} at {output_path}")
@@ -180,13 +183,19 @@ class KnowledgeDocBuilder:
 
     def __init__(self, config: Dict[str, Any]):
         self.config = config
-        self.documentation_generator = DocumentationGenerator(config.get("generator", {}))
+        self.documentation_generator = DocumentationGenerator(
+            config.get("generator", {})
+        )
 
         logger.info("KnowledgeDocBuilder initialized")
 
-    def build_knowledge_docs(self, knowledge_nodes: Dict[str, Any], output_dir: Path) -> int:
+    def build_knowledge_docs(
+        self, knowledge_nodes: Dict[str, Any], output_dir: Path
+    ) -> int:
         """Build documentation from knowledge nodes"""
-        logger.info(f"Building knowledge documentation for {len(knowledge_nodes)} nodes")
+        logger.info(
+            f"Building knowledge documentation for {len(knowledge_nodes)} nodes"
+        )
 
         output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -208,7 +217,7 @@ class KnowledgeDocBuilder:
             output_file = output_dir / f"{node_type}_documentation.md"
 
             try:
-                with open(output_file, 'w') as f:
+                with open(output_file, "w") as f:
                     f.write(docs_content)
                 docs_generated += 1
                 logger.debug(f"Generated docs for {node_type}: {len(nodes)} nodes")
@@ -220,7 +229,7 @@ class KnowledgeDocBuilder:
         index_file = output_dir / "index.md"
 
         try:
-            with open(index_file, 'w') as f:
+            with open(index_file, "w") as f:
                 f.write(index_content)
             docs_generated += 1
         except Exception as e:
@@ -242,7 +251,9 @@ class KnowledgeDocBuilder:
         lines.append("")
 
         # Sort nodes by difficulty or title
-        sorted_nodes = sorted(nodes, key=lambda x: (x[1].get("difficulty", ""), x[1].get("title", "")))
+        sorted_nodes = sorted(
+            nodes, key=lambda x: (x[1].get("difficulty", ""), x[1].get("title", ""))
+        )
 
         for node_id, node_data in sorted_nodes:
             lines.append(f"## {node_data.get('title', node_id)}")
@@ -257,7 +268,9 @@ class KnowledgeDocBuilder:
             if "difficulty" in node_data:
                 metadata_items.append(f"Difficulty: {node_data['difficulty']}")
             if "prerequisites" in node_data and node_data["prerequisites"]:
-                metadata_items.append(f"Prerequisites: {', '.join(node_data['prerequisites'])}")
+                metadata_items.append(
+                    f"Prerequisites: {', '.join(node_data['prerequisites'])}"
+                )
             if "tags" in node_data and node_data["tags"]:
                 metadata_items.append(f"Tags: {', '.join(node_data['tags'])}")
 
@@ -303,17 +316,21 @@ class KnowledgeDocBuilder:
         lines.append("")
 
         for node_type in nodes_by_type.keys():
-            lines.append(f"- [{node_type.title()} Documentation]({node_type}_documentation.md)")
+            lines.append(
+                f"- [{node_type.title()} Documentation]({node_type}_documentation.md)"
+            )
             lines.append("")
 
         return "\n".join(lines)
 
-    def generate_tutorial_docs(self, tutorial_config: Dict[str, Any], output_path: Path) -> bool:
+    def generate_tutorial_docs(
+        self, tutorial_config: Dict[str, Any], output_path: Path
+    ) -> bool:
         """Generate tutorial documentation"""
         try:
             tutorial_content = self._build_tutorial_content(tutorial_config)
 
-            with open(output_path, 'w') as f:
+            with open(output_path, "w") as f:
                 f.write(tutorial_content)
 
             logger.info(f"Generated tutorial docs at {output_path}")
@@ -381,30 +398,34 @@ class DocumentationManager:
         """Generate documentation for a specific module"""
         return self.generator.generate_api_docs(module_name, output_path)
 
-    def generate_knowledge_docs(self, knowledge_nodes: Dict[str, Any], output_dir: Path) -> int:
+    def generate_knowledge_docs(
+        self, knowledge_nodes: Dict[str, Any], output_dir: Path
+    ) -> int:
         """Generate documentation from knowledge repository"""
         return self.knowledge_builder.build_knowledge_docs(knowledge_nodes, output_dir)
 
-    def generate_tutorial(self, tutorial_config: Dict[str, Any], output_path: Path) -> bool:
+    def generate_tutorial(
+        self, tutorial_config: Dict[str, Any], output_path: Path
+    ) -> bool:
         """Generate tutorial documentation"""
-        return self.knowledge_builder.generate_tutorial_docs(tutorial_config, output_path)
+        return self.knowledge_builder.generate_tutorial_docs(
+            tutorial_config, output_path
+        )
 
-    def generate_comprehensive_docs(self, knowledge_nodes: Dict[str, Any],
-                                   modules: List[str], output_dir: Path) -> Dict[str, Any]:
+    def generate_comprehensive_docs(
+        self, knowledge_nodes: Dict[str, Any], modules: List[str], output_dir: Path
+    ) -> Dict[str, Any]:
         """Generate comprehensive documentation"""
         output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        results = {
-            "knowledge_docs": 0,
-            "api_docs": 0,
-            "tutorials": 0,
-            "total_files": 0
-        }
+        results = {"knowledge_docs": 0, "api_docs": 0, "tutorials": 0, "total_files": 0}
 
         # Generate knowledge documentation
         knowledge_dir = output_dir / "knowledge"
-        results["knowledge_docs"] = self.generate_knowledge_docs(knowledge_nodes, knowledge_dir)
+        results["knowledge_docs"] = self.generate_knowledge_docs(
+            knowledge_nodes, knowledge_dir
+        )
         results["total_files"] += results["knowledge_docs"]
 
         # Generate API documentation for each module
@@ -423,7 +444,7 @@ class DocumentationManager:
         index_file = output_dir / "README.md"
 
         try:
-            with open(index_file, 'w') as f:
+            with open(index_file, "w") as f:
                 f.write(index_content)
             results["total_files"] += 1
         except Exception as e:
@@ -442,7 +463,9 @@ class DocumentationManager:
         lines.append("")
         lines.append("## Documentation Overview")
         lines.append("")
-        lines.append(f"- **Knowledge Documentation**: {results['knowledge_docs']} files")
+        lines.append(
+            f"- **Knowledge Documentation**: {results['knowledge_docs']} files"
+        )
         lines.append(f"- **API Documentation**: {results['api_docs']} modules")
         lines.append(f"- **Tutorials**: {results['tutorials']} tutorials")
         lines.append(f"- **Total Files**: {results['total_files']} files")
@@ -452,10 +475,18 @@ class DocumentationManager:
         lines.append("")
         lines.append("Educational content organized by topic:")
         lines.append("")
-        lines.append("- [Foundations Documentation](knowledge/foundations_documentation.md)")
-        lines.append("- [Mathematics Documentation](knowledge/mathematics_documentation.md)")
-        lines.append("- [Implementation Documentation](knowledge/implementation_documentation.md)")
-        lines.append("- [Application Documentation](knowledge/application_documentation.md)")
+        lines.append(
+            "- [Foundations Documentation](knowledge/foundations_documentation.md)"
+        )
+        lines.append(
+            "- [Mathematics Documentation](knowledge/mathematics_documentation.md)"
+        )
+        lines.append(
+            "- [Implementation Documentation](knowledge/implementation_documentation.md)"
+        )
+        lines.append(
+            "- [Application Documentation](knowledge/application_documentation.md)"
+        )
         lines.append("")
 
         lines.append("## API Documentation")
@@ -470,7 +501,7 @@ class DocumentationManager:
             "active_inference.visualization",
             "active_inference.applications",
             "active_inference.platform",
-            "active_inference.tools"
+            "active_inference.tools",
         ]
 
         for module in api_modules:
@@ -480,13 +511,15 @@ class DocumentationManager:
 
         lines.append("## Getting Started")
         lines.append("")
-        lines.append("1. Start with the [foundations documentation](knowledge/foundations_documentation.md)")
-        lines.append("2. Explore the [API documentation](api/) for implementation details")
-        lines.append("3. Check out [example applications](knowledge/application_documentation.md)")
+        lines.append(
+            "1. Start with the [foundations documentation](knowledge/foundations_documentation.md)"
+        )
+        lines.append(
+            "2. Explore the [API documentation](api/) for implementation details"
+        )
+        lines.append(
+            "3. Check out [example applications](knowledge/application_documentation.md)"
+        )
         lines.append("")
 
         return "\n".join(lines)
-
-
-
-

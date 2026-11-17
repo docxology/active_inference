@@ -7,18 +7,20 @@ performance metrics visualization, and decision support for model selection.
 """
 
 import logging
-import numpy as np
-from typing import Dict, List, Optional, Any, Tuple
-from pathlib import Path
 from dataclasses import dataclass
-from enum import Enum
 from datetime import datetime
+from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
 
 class ComparisonType(Enum):
     """Types of comparisons supported"""
+
     MODEL_COMPARISON = "model_comparison"
     PARAMETER_STUDY = "parameter_study"
     ALGORITHM_COMPARISON = "algorithm_comparison"
@@ -28,6 +30,7 @@ class ComparisonType(Enum):
 @dataclass
 class ModelComparison:
     """Comparison between different models"""
+
     model_a: Dict[str, Any]
     model_b: Dict[str, Any]
     metrics: Dict[str, float]
@@ -45,8 +48,12 @@ class ComparisonTool:
         self.comparisons: Dict[str, ModelComparison] = {}
         logger.info("ComparisonTool initialized")
 
-    def compare_models(self, model_a_data: Dict[str, Any], model_b_data: Dict[str, Any],
-                      comparison_metrics: List[str] = None) -> ModelComparison:
+    def compare_models(
+        self,
+        model_a_data: Dict[str, Any],
+        model_b_data: Dict[str, Any],
+        comparison_metrics: List[str] = None,
+    ) -> ModelComparison:
         """Compare two models based on performance metrics"""
         if comparison_metrics is None:
             comparison_metrics = ["accuracy", "free_energy", "convergence_time"]
@@ -59,7 +66,9 @@ class ComparisonTool:
                 value_b = model_b_data[metric]
 
                 # Calculate relative difference
-                if isinstance(value_a, (int, float)) and isinstance(value_b, (int, float)):
+                if isinstance(value_a, (int, float)) and isinstance(
+                    value_b, (int, float)
+                ):
                     if value_a != 0:
                         relative_diff = ((value_b - value_a) / value_a) * 100
                     else:
@@ -85,7 +94,7 @@ class ComparisonTool:
             model_a=model_a_data,
             model_b=model_b_data,
             metrics=metrics,
-            recommendations=recommendations
+            recommendations=recommendations,
         )
 
         comparison_id = f"comp_{len(self.comparisons)}"
@@ -98,9 +107,11 @@ class ComparisonTool:
         """Create pairwise comparison matrix for multiple models"""
         n_models = len(models)
         matrix = {
-            "models": [model.get("name", f"Model_{i}") for i, model in enumerate(models)],
+            "models": [
+                model.get("name", f"Model_{i}") for i, model in enumerate(models)
+            ],
             "pairwise_comparisons": {},
-            "summary": {}
+            "summary": {},
         }
 
         # Create pairwise comparisons
@@ -111,16 +122,19 @@ class ComparisonTool:
 
                 comparison = self.compare_models(model_a, model_b)
                 matrix["pairwise_comparisons"][f"{i}_{j}"] = {
-                    "models": [model_a.get("name", f"Model_{i}"), model_b.get("name", f"Model_{j}")],
+                    "models": [
+                        model_a.get("name", f"Model_{i}"),
+                        model_b.get("name", f"Model_{j}"),
+                    ],
                     "metrics": comparison.metrics,
-                    "recommendations": comparison.recommendations
+                    "recommendations": comparison.recommendations,
                 }
 
         # Generate summary
         matrix["summary"] = {
             "total_models": n_models,
             "total_comparisons": len(matrix["pairwise_comparisons"]),
-            "best_model": self._determine_best_model(models)
+            "best_model": self._determine_best_model(models),
         }
 
         return matrix
@@ -166,7 +180,9 @@ class ModelComparator:
         self.comparison_tool = ComparisonTool()
         self.visualization_config: Dict[str, Any] = {}
 
-    def create_comparison_dashboard(self, models: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def create_comparison_dashboard(
+        self, models: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
         """Create interactive comparison dashboard"""
         logger.info(f"Creating comparison dashboard for {len(models)} models")
 
@@ -180,37 +196,45 @@ class ModelComparator:
             "models": comparison_matrix["models"],
             "comparison_matrix": comparison_matrix["pairwise_comparisons"],
             "summary": comparison_matrix["summary"],
-            "visualization_components": self._create_visualization_components(models)
+            "visualization_components": self._create_visualization_components(models),
         }
 
         return dashboard
 
-    def _create_visualization_components(self, models: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def _create_visualization_components(
+        self, models: List[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
         """Create visualization components for comparison"""
         components = []
 
         # Performance radar chart
-        components.append({
-            "type": "radar_chart",
-            "title": "Performance Overview",
-            "metrics": ["accuracy", "free_energy", "convergence_time"],
-            "data": models
-        })
+        components.append(
+            {
+                "type": "radar_chart",
+                "title": "Performance Overview",
+                "metrics": ["accuracy", "free_energy", "convergence_time"],
+                "data": models,
+            }
+        )
 
         # Metric comparison bars
-        components.append({
-            "type": "bar_chart",
-            "title": "Model Metrics",
-            "metrics": list(models[0].keys()) if models else [],
-            "data": models
-        })
+        components.append(
+            {
+                "type": "bar_chart",
+                "title": "Model Metrics",
+                "metrics": list(models[0].keys()) if models else [],
+                "data": models,
+            }
+        )
 
         # Recommendations panel
-        components.append({
-            "type": "recommendations",
-            "title": "Comparison Insights",
-            "content": self._generate_insights(models)
-        })
+        components.append(
+            {
+                "type": "recommendations",
+                "title": "Comparison Insights",
+                "content": self._generate_insights(models),
+            }
+        )
 
         return components
 
@@ -226,19 +250,29 @@ class ModelComparator:
         accuracies = [(i, model.get("accuracy", 0)) for i, model in enumerate(models)]
         best_accuracy = max(accuracies, key=lambda x: x[1])
 
-        insights.append(f"Model {best_accuracy[0]} has the highest accuracy ({best_accuracy[1]:.3f})")
+        insights.append(
+            f"Model {best_accuracy[0]} has the highest accuracy ({best_accuracy[1]:.3f})"
+        )
 
         # Compare free energy
-        free_energies = [(i, model.get("free_energy", 1.0)) for i, model in enumerate(models)]
+        free_energies = [
+            (i, model.get("free_energy", 1.0)) for i, model in enumerate(models)
+        ]
         best_fe = min(free_energies, key=lambda x: x[1])
 
-        insights.append(f"Model {best_fe[0]} achieves the lowest free energy ({best_fe[1]:.3f})")
+        insights.append(
+            f"Model {best_fe[0]} achieves the lowest free energy ({best_fe[1]:.3f})"
+        )
 
         # Convergence analysis
-        convergence_times = [(i, model.get("convergence_time", 100)) for i, model in enumerate(models)]
+        convergence_times = [
+            (i, model.get("convergence_time", 100)) for i, model in enumerate(models)
+        ]
         fastest = min(convergence_times, key=lambda x: x[1])
 
-        insights.append(f"Model {fastest[0]} converges fastest ({fastest[1]:.1f} time units)")
+        insights.append(
+            f"Model {fastest[0]} converges fastest ({fastest[1]:.1f} time units)"
+        )
 
         return insights
 
@@ -251,10 +285,12 @@ class StatisticalComparator:
             "t_test": self._perform_t_test,
             "wilcoxon": self._perform_wilcoxon_test,
             "ks_test": self._perform_ks_test,
-            "correlation": self._compute_correlation
+            "correlation": self._compute_correlation,
         }
 
-    def perform_comprehensive_comparison(self, models: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def perform_comprehensive_comparison(
+        self, models: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
         """Perform comprehensive statistical comparison of models"""
         if len(models) < 2:
             return {"error": "Need at least 2 models for comparison"}
@@ -264,7 +300,7 @@ class StatisticalComparator:
             "statistical_tests": {},
             "performance_rankings": {},
             "recommendations": [],
-            "summary": {}
+            "summary": {},
         }
 
         # Pairwise comparisons
@@ -288,28 +324,36 @@ class StatisticalComparator:
         comparison_results["performance_rankings"] = self._rank_models(models)
 
         # Generate recommendations
-        comparison_results["recommendations"] = self._generate_model_recommendations(models, comparison_results)
+        comparison_results["recommendations"] = self._generate_model_recommendations(
+            models, comparison_results
+        )
 
         # Summary statistics
-        comparison_results["summary"] = self._generate_comparison_summary(models, comparison_results)
+        comparison_results["summary"] = self._generate_comparison_summary(
+            models, comparison_results
+        )
 
         return comparison_results
 
-    def _compare_models_statistically(self, model_a: Dict[str, Any], model_b: Dict[str, Any]) -> Dict[str, Any]:
+    def _compare_models_statistically(
+        self, model_a: Dict[str, Any], model_b: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Compare two models using statistical tests"""
         comparison = {
             "models": [model_a.get("name", "Model A"), model_b.get("name", "Model B")],
             "metrics_comparison": {},
             "statistical_significance": {},
             "effect_sizes": {},
-            "confidence_intervals": {}
+            "confidence_intervals": {},
         }
 
         # Compare each metric
         common_metrics = set(model_a.keys()) & set(model_b.keys())
 
         for metric in common_metrics:
-            if isinstance(model_a[metric], (int, float)) and isinstance(model_b[metric], (int, float)):
+            if isinstance(model_a[metric], (int, float)) and isinstance(
+                model_b[metric], (int, float)
+            ):
                 value_a = model_a[metric]
                 value_b = model_b[metric]
 
@@ -320,15 +364,24 @@ class StatisticalComparator:
                         "model_a": value_a,
                         "model_b": value_b,
                         "difference": value_b - value_a,
-                        "relative_improvement": ((value_b - value_a) / value_a * 100) if value_a != 0 else 0
+                        "relative_improvement": (
+                            ((value_b - value_a) / value_a * 100) if value_a != 0 else 0
+                        ),
                     }
-                elif metric in ["free_energy", "prediction_error", "loss", "convergence_time"]:
+                elif metric in [
+                    "free_energy",
+                    "prediction_error",
+                    "loss",
+                    "convergence_time",
+                ]:
                     # Lower is better
                     comparison["metrics_comparison"][metric] = {
                         "model_a": value_a,
                         "model_b": value_b,
                         "difference": value_a - value_b,
-                        "relative_improvement": ((value_a - value_b) / value_a * 100) if value_a != 0 else 0
+                        "relative_improvement": (
+                            ((value_a - value_b) / value_a * 100) if value_a != 0 else 0
+                        ),
                     }
 
         return comparison
@@ -353,7 +406,7 @@ class StatisticalComparator:
                 metrics[metric] = {
                     "t_statistic": t_stat,
                     "p_value": "computed",  # Would compute actual p-value
-                    "significant": abs(t_stat) > 1.96  # Simplified threshold
+                    "significant": abs(t_stat) > 1.96,  # Simplified threshold
                 }
 
         return {"test_type": "t_test", "results": metrics}
@@ -375,11 +428,7 @@ class StatisticalComparator:
 
     def _rank_models(self, models: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Rank models based on comprehensive performance"""
-        rankings = {
-            "overall": [],
-            "by_metric": {},
-            "confidence_intervals": {}
-        }
+        rankings = {"overall": [], "by_metric": {}, "confidence_intervals": {}}
 
         # Define metric importance weights
         metric_weights = {
@@ -387,7 +436,7 @@ class StatisticalComparator:
             "free_energy": 0.25,  # Lower is better, so invert
             "prediction_error": 0.2,  # Lower is better, so invert
             "convergence_time": 0.15,  # Lower is better, so invert
-            "model_complexity": 0.1  # Lower is better, so invert
+            "model_complexity": 0.1,  # Lower is better, so invert
         }
 
         # Calculate composite scores
@@ -403,10 +452,22 @@ class StatisticalComparator:
                     # Normalize and weight the metric
                     if metric in ["accuracy"]:
                         normalized_value = min(1.0, value)  # Cap at 1.0
-                    elif metric in ["free_energy", "prediction_error", "convergence_time", "model_complexity"]:
+                    elif metric in [
+                        "free_energy",
+                        "prediction_error",
+                        "convergence_time",
+                        "model_complexity",
+                    ]:
                         # Lower is better, so invert (assuming reasonable bounds)
-                        max_reasonable = {"free_energy": 10.0, "prediction_error": 1.0, "convergence_time": 1000.0, "model_complexity": 100.0}
-                        normalized_value = 1.0 - min(1.0, value / max_reasonable.get(metric, 1.0))
+                        max_reasonable = {
+                            "free_energy": 10.0,
+                            "prediction_error": 1.0,
+                            "convergence_time": 1000.0,
+                            "model_complexity": 100.0,
+                        }
+                        normalized_value = 1.0 - min(
+                            1.0, value / max_reasonable.get(metric, 1.0)
+                        )
                     else:
                         normalized_value = min(1.0, value)
 
@@ -416,24 +477,34 @@ class StatisticalComparator:
             if valid_metrics > 0:
                 score /= valid_metrics  # Normalize by number of valid metrics
 
-            model_scores.append({
-                "model_index": i,
-                "model_name": model.get("name", f"Model_{i}"),
-                "composite_score": score,
-                "individual_metrics": {k: model.get(k, 0) for k in metric_weights.keys() if k in model}
-            })
+            model_scores.append(
+                {
+                    "model_index": i,
+                    "model_name": model.get("name", f"Model_{i}"),
+                    "composite_score": score,
+                    "individual_metrics": {
+                        k: model.get(k, 0) for k in metric_weights.keys() if k in model
+                    },
+                }
+            )
 
         # Sort by composite score
         model_scores.sort(key=lambda x: x["composite_score"], reverse=True)
 
         rankings["overall"] = [
-            {"rank": i+1, "model": model["model_name"], "score": model["composite_score"]}
+            {
+                "rank": i + 1,
+                "model": model["model_name"],
+                "score": model["composite_score"],
+            }
             for i, model in enumerate(model_scores)
         ]
 
         return rankings
 
-    def _generate_model_recommendations(self, models: List[Dict[str, Any]], comparison_results: Dict[str, Any]) -> List[str]:
+    def _generate_model_recommendations(
+        self, models: List[Dict[str, Any]], comparison_results: Dict[str, Any]
+    ) -> List[str]:
         """Generate actionable recommendations based on comparison"""
         recommendations = []
 
@@ -441,13 +512,17 @@ class StatisticalComparator:
         rankings = comparison_results.get("performance_rankings", {})
         if "overall" in rankings and rankings["overall"]:
             best_model = rankings["overall"][0]
-            recommendations.append(f"Recommended model: {best_model['model']} (score: {best_model['score']:.3f})")
+            recommendations.append(
+                f"Recommended model: {best_model['model']} (score: {best_model['score']:.3f})"
+            )
 
         # Analyze statistical significance
         stats_tests = comparison_results.get("statistical_tests", {})
         for test_name, test_result in stats_tests.items():
             if "error" not in test_result:
-                recommendations.append(f"Statistical test ({test_name}): {test_result.get('results', {})}")
+                recommendations.append(
+                    f"Statistical test ({test_name}): {test_result.get('results', {})}"
+                )
 
         # Analyze specific metric improvements
         pairwise = comparison_results.get("pairwise_comparisons", {})
@@ -457,18 +532,22 @@ class StatisticalComparator:
                 improvement = metric_data.get("relative_improvement", 0)
                 if abs(improvement) > 10:  # Significant improvement
                     direction = "better" if improvement > 0 else "worse"
-                    recommendations.append(f"{metric}: {direction} by {abs(improvement):.1f}%")
+                    recommendations.append(
+                        f"{metric}: {direction} by {abs(improvement):.1f}%"
+                    )
 
         return recommendations
 
-    def _generate_comparison_summary(self, models: List[Dict[str, Any]], comparison_results: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_comparison_summary(
+        self, models: List[Dict[str, Any]], comparison_results: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Generate summary of comparison results"""
         summary = {
             "total_models": len(models),
             "comparison_type": "comprehensive",
             "timestamp": datetime.now().isoformat(),
             "key_findings": [],
-            "methodology": "Statistical comparison with multiple metrics"
+            "methodology": "Statistical comparison with multiple metrics",
         }
 
         # Key findings

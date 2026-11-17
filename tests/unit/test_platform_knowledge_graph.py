@@ -5,13 +5,20 @@ Unit tests for the knowledge graph system, ensuring proper operation of
 graph management, node and edge operations, and graph analytics.
 """
 
-import pytest
 import json
 import time
-from unittest.mock import Mock, patch
 from pathlib import Path
+from unittest.mock import Mock, patch
 
-from active_inference.platform.knowledge_graph import KnowledgeGraphManager, KnowledgeNode, KnowledgeEdge, NodeType, RelationshipType
+import pytest
+
+from active_inference.platform.knowledge_graph import (
+    KnowledgeEdge,
+    KnowledgeGraphManager,
+    KnowledgeNode,
+    NodeType,
+    RelationshipType,
+)
 
 
 class TestKnowledgeNode:
@@ -24,7 +31,7 @@ class TestKnowledgeNode:
             title="Test Node",
             node_type=NodeType.CONCEPT,
             content={"description": "Test concept"},
-            properties={"domain": "test"}
+            properties={"domain": "test"},
         )
 
         assert node.id == "test_node"
@@ -39,7 +46,7 @@ class TestKnowledgeNode:
             id="test_node",
             title="Test Node",
             node_type=NodeType.CONCEPT,
-            content={"description": "Test"}
+            content={"description": "Test"},
         )
 
         # Properties should be initialized if None
@@ -56,7 +63,7 @@ class TestKnowledgeEdge:
             target="node2",
             relationship_type=RelationshipType.PREREQUISITE,
             weight=0.8,
-            properties={"strength": "strong"}
+            properties={"strength": "strong"},
         )
 
         assert edge.source == "node1"
@@ -70,7 +77,7 @@ class TestKnowledgeEdge:
         edge = KnowledgeEdge(
             source="node1",
             target="node2",
-            relationship_type=RelationshipType.RELATED_TO
+            relationship_type=RelationshipType.RELATED_TO,
         )
 
         # Properties should be initialized if None
@@ -87,10 +94,10 @@ class TestKnowledgeGraph:
 
     def test_knowledge_graph_initialization(self, knowledge_graph):
         """Test KnowledgeGraphManager initialization"""
-        assert hasattr(knowledge_graph, 'nodes')
-        assert hasattr(knowledge_graph, 'edges')
-        assert hasattr(knowledge_graph, 'node_index')
-        assert hasattr(knowledge_graph, 'storage_backend')
+        assert hasattr(knowledge_graph, "nodes")
+        assert hasattr(knowledge_graph, "edges")
+        assert hasattr(knowledge_graph, "node_index")
+        assert hasattr(knowledge_graph, "storage_backend")
 
         assert isinstance(knowledge_graph.nodes, dict)
         assert isinstance(knowledge_graph.edges, dict)
@@ -102,7 +109,7 @@ class TestKnowledgeGraph:
             id="test_concept",
             title="Test Concept",
             node_type=NodeType.CONCEPT,
-            content={"description": "A test concept"}
+            content={"description": "A test concept"},
         )
 
         success = knowledge_graph.add_node(node)
@@ -117,14 +124,14 @@ class TestKnowledgeGraph:
             id="test_concept",
             title="Test Concept 1",
             node_type=NodeType.CONCEPT,
-            content={"description": "First version"}
+            content={"description": "First version"},
         )
 
         node2 = KnowledgeNode(
             id="test_concept",
             title="Test Concept 2",
             node_type=NodeType.CONCEPT,
-            content={"description": "Updated version"}
+            content={"description": "Updated version"},
         )
 
         # Add first node
@@ -153,7 +160,7 @@ class TestKnowledgeGraph:
         edge = KnowledgeEdge(
             source="node1",
             target="node2",
-            relationship_type=RelationshipType.PREREQUISITE
+            relationship_type=RelationshipType.PREREQUISITE,
         )
 
         success = knowledge_graph.add_edge(edge)
@@ -164,7 +171,9 @@ class TestKnowledgeGraph:
 
     def test_get_node(self, knowledge_graph):
         """Test getting nodes from the graph"""
-        node = KnowledgeNode(id="test_node", title="Test Node", node_type=NodeType.CONCEPT)
+        node = KnowledgeNode(
+            id="test_node", title="Test Node", node_type=NodeType.CONCEPT
+        )
         knowledge_graph.add_node(node)
 
         # Get existing node
@@ -187,8 +196,14 @@ class TestKnowledgeGraph:
         knowledge_graph.add_node(node3)
 
         # Add edges
-        edge1 = KnowledgeEdge(source="node1", target="node2", relationship_type=RelationshipType.PREREQUISITE)
-        edge2 = KnowledgeEdge(source="node2", target="node3", relationship_type=RelationshipType.EXTENDS)
+        edge1 = KnowledgeEdge(
+            source="node1",
+            target="node2",
+            relationship_type=RelationshipType.PREREQUISITE,
+        )
+        edge2 = KnowledgeEdge(
+            source="node2", target="node3", relationship_type=RelationshipType.EXTENDS
+        )
 
         knowledge_graph.add_edge(edge1)
         knowledge_graph.add_edge(edge2)
@@ -197,7 +212,7 @@ class TestKnowledgeGraph:
         related = knowledge_graph.get_related_nodes("node1")
 
         assert len(related) == 1
-        assert related[0]['node'].id == "node2"
+        assert related[0]["node"].id == "node2"
 
         # Get related nodes for node2
         related = knowledge_graph.get_related_nodes("node2")
@@ -210,15 +225,23 @@ class TestKnowledgeGraph:
         nodes = [
             KnowledgeNode(id="node1", title="Node 1", node_type=NodeType.CONCEPT),
             KnowledgeNode(id="node2", title="Node 2", node_type=NodeType.CONCEPT),
-            KnowledgeNode(id="node3", title="Node 3", node_type=NodeType.CONCEPT)
+            KnowledgeNode(id="node3", title="Node 3", node_type=NodeType.CONCEPT),
         ]
 
         for node in nodes:
             knowledge_graph.add_node(node)
 
         edges = [
-            KnowledgeEdge(source="node1", target="node2", relationship_type=RelationshipType.PREREQUISITE),
-            KnowledgeEdge(source="node2", target="node3", relationship_type=RelationshipType.EXTENDS)
+            KnowledgeEdge(
+                source="node1",
+                target="node2",
+                relationship_type=RelationshipType.PREREQUISITE,
+            ),
+            KnowledgeEdge(
+                source="node2",
+                target="node3",
+                relationship_type=RelationshipType.EXTENDS,
+            ),
         ]
 
         for edge in edges:
@@ -237,12 +260,18 @@ class TestKnowledgeGraph:
         """Test getting graph statistics"""
         # Add some nodes and edges
         for i in range(5):
-            node = KnowledgeNode(id=f"node{i}", title=f"Node {i}", node_type=NodeType.CONCEPT)
+            node = KnowledgeNode(
+                id=f"node{i}", title=f"Node {i}", node_type=NodeType.CONCEPT
+            )
             knowledge_graph.add_node(node)
 
         # Add some edges
         for i in range(4):
-            edge = KnowledgeEdge(source=f"node{i}", target=f"node{i+1}", relationship_type=RelationshipType.RELATED_TO)
+            edge = KnowledgeEdge(
+                source=f"node{i}",
+                target=f"node{i+1}",
+                relationship_type=RelationshipType.RELATED_TO,
+            )
             knowledge_graph.add_edge(edge)
 
         stats = knowledge_graph.get_statistics()
@@ -275,7 +304,9 @@ class TestKnowledgeGraph:
     def test_export_graph(self, knowledge_graph):
         """Test graph export functionality"""
         # Add test data
-        node = KnowledgeNode(id="export_test", title="Export Test", node_type=NodeType.CONCEPT)
+        node = KnowledgeNode(
+            id="export_test", title="Export Test", node_type=NodeType.CONCEPT
+        )
         knowledge_graph.add_node(node)
 
         # Export as JSON
@@ -496,4 +527,3 @@ class TestKnowledgeGraph:
 
 if __name__ == "__main__":
     pytest.main([__file__])
-

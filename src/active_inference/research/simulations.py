@@ -7,10 +7,11 @@ studying complex adaptive systems.
 """
 
 import logging
-import numpy as np
-from typing import Dict, List, Optional, Any, Callable
-from pathlib import Path
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +19,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class ModelConfig:
     """Configuration for simulation models"""
+
     name: str
     model_type: str = "active_inference"
     parameters: Dict[str, Any] = None
@@ -49,7 +51,9 @@ class SimulationEngine:
         logger.info(f"Registered model: {config.name}")
         return True
 
-    def run_simulation(self, model_name: str, inputs: Dict[str, Any] = None) -> Dict[str, Any]:
+    def run_simulation(
+        self, model_name: str, inputs: Dict[str, Any] = None
+    ) -> Dict[str, Any]:
         """Run a simulation with the specified model"""
         if model_name not in self.models:
             raise ValueError(f"Model {model_name} not found")
@@ -61,7 +65,9 @@ class SimulationEngine:
         simulation_id = f"sim_{model_name}_{len(self.running_simulations)}"
 
         # Simulate model execution
-        time_points = np.linspace(0, config.time_horizon * config.time_step, config.time_horizon)
+        time_points = np.linspace(
+            0, config.time_horizon * config.time_step, config.time_horizon
+        )
 
         # Generate mock results based on model type
         if config.model_type == "active_inference":
@@ -78,7 +84,9 @@ class SimulationEngine:
 
         return results
 
-    def _simulate_active_inference(self, time_points: np.ndarray, config: ModelConfig, inputs: Dict[str, Any]) -> Dict[str, Any]:
+    def _simulate_active_inference(
+        self, time_points: np.ndarray, config: ModelConfig, inputs: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Simulate a realistic Active Inference model"""
         n_states = inputs.get("n_states", 4)
         n_observations = inputs.get("n_observations", 8)
@@ -173,22 +181,28 @@ class SimulationEngine:
                 "B_shape": B.shape,
                 "C_shape": C.shape,
                 "final_beliefs": beliefs.tolist(),
-                "preferred_observations": np.argsort(C)[-3:].tolist()  # Top 3 preferred observations
-            }
+                "preferred_observations": np.argsort(C)[
+                    -3:
+                ].tolist(),  # Top 3 preferred observations
+            },
         }
 
-    def _simulate_generic_model(self, time_points: np.ndarray, config: ModelConfig, inputs: Dict[str, Any]) -> Dict[str, Any]:
+    def _simulate_generic_model(
+        self, time_points: np.ndarray, config: ModelConfig, inputs: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Generic model simulation"""
         # Simple generic simulation
         amplitude = config.parameters.get("amplitude", 1.0)
         frequency = config.parameters.get("frequency", 1.0)
 
-        signal = amplitude * np.sin(2 * np.pi * frequency * time_points / len(time_points))
+        signal = amplitude * np.sin(
+            2 * np.pi * frequency * time_points / len(time_points)
+        )
 
         return {
             "time_points": time_points.tolist(),
             "signal": signal.tolist(),
-            "parameters": config.parameters
+            "parameters": config.parameters,
         }
 
     def get_simulation_results(self, simulation_id: str) -> Optional[Dict[str, Any]]:
@@ -206,14 +220,16 @@ class ModelRunner:
     def __init__(self, simulation_engine: SimulationEngine):
         self.engine = simulation_engine
 
-    def run_comparison_study(self, model_configs: List[ModelConfig], inputs: Dict[str, Any] = None) -> Dict[str, Any]:
+    def run_comparison_study(
+        self, model_configs: List[ModelConfig], inputs: Dict[str, Any] = None
+    ) -> Dict[str, Any]:
         """Run comparative study across multiple models"""
         logger.info(f"Starting comparison study with {len(model_configs)} models")
 
         results = {
             "study_id": f"comparison_{len(model_configs)}",
             "models": [],
-            "comparison_metrics": {}
+            "comparison_metrics": {},
         }
 
         for config in model_configs:
@@ -223,13 +239,12 @@ class ModelRunner:
             # Run simulation
             sim_results = self.engine.run_simulation(config.name, inputs)
 
-            results["models"].append({
-                "config": config,
-                "results": sim_results
-            })
+            results["models"].append({"config": config, "results": sim_results})
 
         # Generate comparison metrics
-        results["comparison_metrics"] = self._compute_comparison_metrics(results["models"])
+        results["comparison_metrics"] = self._compute_comparison_metrics(
+            results["models"]
+        )
 
         logger.info("Comparison study completed")
         return results
@@ -238,10 +253,8 @@ class ModelRunner:
         """Compute comparison metrics across models"""
         metrics = {
             "n_models": len(model_results),
-            "model_names": [m["config"].name for m in model_results]
+            "model_names": [m["config"].name for m in model_results],
         }
 
         # Add more sophisticated comparison metrics here
         return metrics
-
-

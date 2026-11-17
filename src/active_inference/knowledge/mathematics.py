@@ -7,11 +7,12 @@ for understanding and working with the theoretical framework.
 """
 
 import json
-from typing import Dict, List, Any, Tuple, Optional
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import numpy as np
+
     HAS_NUMPY = True
 except ImportError:
     np = None
@@ -19,12 +20,13 @@ except ImportError:
 
 try:
     import sympy as sp
+
     HAS_SYMPY = True
 except ImportError:
     sp = None
     HAS_SYMPY = False
 
-from .repository import KnowledgeRepository, KnowledgeNode, ContentType, DifficultyLevel
+from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository
 
 
 class Mathematics:
@@ -63,8 +65,8 @@ class Mathematics:
                 "learning_objectives": [
                     "Define probability spaces formally",
                     "Understand conditional probability and independence",
-                    "Work with probability distributions"
-                ]
+                    "Work with probability distributions",
+                ],
             },
             {
                 "id": "bayesian_mathematics",
@@ -77,8 +79,8 @@ class Mathematics:
                 "learning_objectives": [
                     "Derive Bayes' theorem mathematically",
                     "Understand posterior, likelihood, and prior",
-                    "Work with conjugate priors"
-                ]
+                    "Work with conjugate priors",
+                ],
             },
             {
                 "id": "graphical_models",
@@ -91,9 +93,9 @@ class Mathematics:
                 "learning_objectives": [
                     "Represent probabilistic dependencies graphically",
                     "Understand factor graphs and message passing",
-                    "Design efficient inference algorithms"
-                ]
-            }
+                    "Design efficient inference algorithms",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -112,8 +114,8 @@ class Mathematics:
                 "learning_objectives": [
                     "Derive entropy from first principles",
                     "Prove entropy properties mathematically",
-                    "Connect entropy to statistical mechanics"
-                ]
+                    "Connect entropy to statistical mechanics",
+                ],
             },
             {
                 "id": "kl_divergence_mathematics",
@@ -126,8 +128,8 @@ class Mathematics:
                 "learning_objectives": [
                     "Prove KL divergence properties",
                     "Understand KL divergence as Bregman divergence",
-                    "Connect to information geometry"
-                ]
+                    "Connect to information geometry",
+                ],
             },
             {
                 "id": "information_geometry",
@@ -140,9 +142,9 @@ class Mathematics:
                 "learning_objectives": [
                     "Understand Fisher information metric",
                     "Work with statistical manifolds",
-                    "Apply information geometry to inference"
-                ]
-            }
+                    "Apply information geometry to inference",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -161,8 +163,8 @@ class Mathematics:
                 "learning_objectives": [
                     "Understand variational lower bounds",
                     "Derive evidence lower bound (ELBO)",
-                    "Implement coordinate ascent algorithms"
-                ]
+                    "Implement coordinate ascent algorithms",
+                ],
             },
             {
                 "id": "free_energy_calculus",
@@ -170,13 +172,16 @@ class Mathematics:
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.EXPERT,
                 "description": "Mathematical theory of free energy and variational free energy",
-                "prerequisites": ["variational_inference_basics", "kl_divergence_mathematics"],
+                "prerequisites": [
+                    "variational_inference_basics",
+                    "kl_divergence_mathematics",
+                ],
                 "tags": ["free energy", "variational", "calculus"],
                 "learning_objectives": [
                     "Derive variational free energy expression",
                     "Understand path integral formulations",
-                    "Connect to statistical physics"
-                ]
+                    "Connect to statistical physics",
+                ],
             },
             {
                 "id": "stochastic_optimization",
@@ -189,9 +194,9 @@ class Mathematics:
                 "learning_objectives": [
                     "Understand stochastic gradient methods",
                     "Analyze convergence properties",
-                    "Design efficient sampling algorithms"
-                ]
-            }
+                    "Design efficient sampling algorithms",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -210,8 +215,8 @@ class Mathematics:
                 "learning_objectives": [
                     "Understand state space and trajectories",
                     "Analyze system stability",
-                    "Work with differential equations"
-                ]
+                    "Work with differential equations",
+                ],
             },
             {
                 "id": "stochastic_processes",
@@ -224,8 +229,8 @@ class Mathematics:
                 "learning_objectives": [
                     "Model belief dynamics as stochastic processes",
                     "Understand Markov decision processes",
-                    "Design continuous-time Active Inference models"
-                ]
+                    "Design continuous-time Active Inference models",
+                ],
             },
             {
                 "id": "information_dynamics",
@@ -238,9 +243,9 @@ class Mathematics:
                 "learning_objectives": [
                     "Understand transfer entropy",
                     "Analyze information flow in networks",
-                    "Model causal relationships mathematically"
-                ]
-            }
+                    "Model causal relationships mathematically",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -264,14 +269,14 @@ class Mathematics:
             "expression": "F = ∫ q(θ) log(q(θ)/p(x,θ)) dθ",
             "components": {
                 "cross_entropy": "∫ q(θ) log q(θ) dθ",
-                "entropy": "-∫ q(θ) log p(x,θ) dθ"
+                "entropy": "-∫ q(θ) log p(x,θ) dθ",
             },
             "interpretation": "Free energy as upper bound on negative log evidence",
             "proof_sketch": [
                 "Start with log evidence: log p(x) = log ∫ p(x,θ) dθ",
                 "Apply Jensen's inequality with variational distribution q(θ)",
-                "Arrive at free energy bound: F ≥ -log p(x)"
-            ]
+                "Arrive at free energy bound: F ≥ -log p(x)",
+            ],
         }
 
     def compute_kl_divergence(self, p: List[float], q: List[float]) -> float:
@@ -299,6 +304,7 @@ class Mathematics:
 
         # Use numpy implementation if available
         import numpy as np
+
         p_array = np.array(p)
         q_array = np.array(q)
         p_array = p_array / np.sum(p_array)
@@ -306,8 +312,9 @@ class Mathematics:
         kl_div = np.sum(p_array * np.log(p_array / q_array))
         return float(kl_div)
 
-    def expected_free_energy(self, policies: List[List[float]],
-                           observations: List[float]) -> List[float]:
+    def expected_free_energy(
+        self, policies: List[List[float]], observations: List[float]
+    ) -> List[float]:
         """
         Compute expected free energy for policy selection in Active Inference
 
@@ -326,6 +333,7 @@ class Mathematics:
         if not HAS_NUMPY:
             # Simple implementation without numpy
             import random
+
             for policy in policies:
                 # This would contain the actual EFE computation
                 # For now, returning placeholder values
@@ -334,6 +342,7 @@ class Mathematics:
         else:
             # Use numpy implementation if available
             import numpy as np
+
             for policy in policies:
                 # This would contain the actual EFE computation
                 # For now, returning placeholder values
@@ -348,18 +357,21 @@ class Mathematics:
             "basic_probability": ["probability_basics"],
             "bayesian_inference": ["probability_basics", "bayesian_mathematics"],
             "information_theory": ["probability_basics", "entropy_mathematics"],
-            "variational_methods": ["bayesian_mathematics", "variational_inference_basics"],
+            "variational_methods": [
+                "bayesian_mathematics",
+                "variational_inference_basics",
+            ],
             "free_energy_principle": [
                 "bayesian_mathematics",
                 "information_theory",
                 "variational_methods",
-                "free_energy_calculus"
+                "free_energy_calculus",
             ],
             "active_inference_dynamics": [
                 "free_energy_principle",
                 "dynamical_systems_basics",
-                "stochastic_processes"
-            ]
+                "stochastic_processes",
+            ],
         }
 
     def create_mathematical_learning_path(self) -> List[str]:
@@ -378,7 +390,7 @@ class Mathematics:
             "stochastic_processes",
             "free_energy_calculus",
             "information_geometry",
-            "information_dynamics"
+            "information_dynamics",
         ]
 
         return learning_order
@@ -395,13 +407,19 @@ class Mathematics:
 
         # Use numpy implementation if available
         import numpy as np
+
         p_array = np.array(probabilities)
         p_array = p_array[p_array > 0]  # Remove zeros
         if len(p_array) == 0:
             return 0.0
         return float(np.sum(-p_array * np.log2(p_array)))
 
-    def compute_mutual_information(self, joint_probs: List[List[float]], marginal_x: List[float], marginal_y: List[float]) -> float:
+    def compute_mutual_information(
+        self,
+        joint_probs: List[List[float]],
+        marginal_x: List[float],
+        marginal_y: List[float],
+    ) -> float:
         """Compute mutual information between two variables"""
         if not HAS_NUMPY:
             # Simple implementation without numpy
@@ -409,11 +427,14 @@ class Mathematics:
             for i, px in enumerate(marginal_x):
                 for j, py in enumerate(marginal_y):
                     if joint_probs[i][j] > 0 and px > 0 and py > 0:
-                        mutual_info += joint_probs[i][j] * (joint_probs[i][j] / (px * py))
+                        mutual_info += joint_probs[i][j] * (
+                            joint_probs[i][j] / (px * py)
+                        )
             return mutual_info
 
         # Use numpy implementation if available
         import numpy as np
+
         joint = np.array(joint_probs)
         px = np.array(marginal_x)
         py = np.array(marginal_y)
@@ -427,11 +448,15 @@ class Mathematics:
 
         return float(mutual_info)
 
-    def compute_variational_free_energy(self, log_likelihood: float, kl_divergence: float) -> float:
+    def compute_variational_free_energy(
+        self, log_likelihood: float, kl_divergence: float
+    ) -> float:
         """Compute variational free energy"""
         return log_likelihood - kl_divergence
 
-    def optimize_free_energy(self, initial_params: List[float], num_iterations: int = 100) -> List[float]:
+    def optimize_free_energy(
+        self, initial_params: List[float], num_iterations: int = 100
+    ) -> List[float]:
         """Optimize parameters to minimize free energy"""
         if not HAS_NUMPY:
             # Simple gradient descent without numpy
@@ -440,13 +465,19 @@ class Mathematics:
 
             for _ in range(num_iterations):
                 # Simple gradient approximation
-                gradient = [0.1 * (param - 0.5) for param in params]  # Placeholder gradient
-                params = [param - learning_rate * grad for param, grad in zip(params, gradient)]
+                gradient = [
+                    0.1 * (param - 0.5) for param in params
+                ]  # Placeholder gradient
+                params = [
+                    param - learning_rate * grad
+                    for param, grad in zip(params, gradient)
+                ]
 
             return params
 
         # Use numpy implementation if available
         import numpy as np
+
         params = np.array(initial_params, dtype=float)
         learning_rate = 0.01
 
@@ -457,40 +488,43 @@ class Mathematics:
 
         return params.tolist()
 
-    def compute_expected_free_energy_components(self, risk: float, ambiguity: float, value: float) -> Dict[str, float]:
+    def compute_expected_free_energy_components(
+        self, risk: float, ambiguity: float, value: float
+    ) -> Dict[str, float]:
         """Compute components of expected free energy"""
         return {
             "risk": risk,
             "ambiguity": ambiguity,
             "value": value,
-            "total_efe": risk + ambiguity - value
+            "total_efe": risk + ambiguity - value,
         }
 
-    def validate_mathematical_consistency(self, expressions: List[str]) -> Dict[str, Any]:
+    def validate_mathematical_consistency(
+        self, expressions: List[str]
+    ) -> Dict[str, Any]:
         """Validate mathematical consistency of expressions"""
         if not HAS_SYMPY:
             # Simple validation without sympy
-            validation = {
-                "valid": True,
-                "issues": [],
-                "warnings": []
-            }
+            validation = {"valid": True, "issues": [], "warnings": []}
 
             for expr in expressions:
                 if "log" in expr.lower() and "0" in expr:
                     validation["warnings"].append(f"Potential log(0) issue in: {expr}")
                 if "divide" in expr.lower() and "0" in expr:
-                    validation["warnings"].append(f"Potential division by zero in: {expr}")
+                    validation["warnings"].append(
+                        f"Potential division by zero in: {expr}"
+                    )
 
             return validation
 
         # Use sympy implementation if available
         import sympy as sp
+
         validation = {
             "valid": True,
             "issues": [],
             "warnings": [],
-            "simplified_expressions": []
+            "simplified_expressions": [],
         }
 
         for expr_str in expressions:
@@ -507,7 +541,9 @@ class Mathematics:
                 validation["simplified_expressions"].append(str(simplified))
 
             except Exception as e:
-                validation["issues"].append(f"Failed to parse expression '{expr_str}': {str(e)}")
+                validation["issues"].append(
+                    f"Failed to parse expression '{expr_str}': {str(e)}"
+                )
                 validation["valid"] = False
 
         return validation
@@ -525,7 +561,6 @@ class Mathematics:
    - H(X) = 0 when p(x) = 1 for some x (deterministic)
    - H(X) maximized when p(x) = 1/n (maximum uncertainty)
 5. Interpretation: bits needed to encode outcome""",
-
             "kl_divergence": """Step-by-step derivation of KL divergence:
 
 1. Start with relative entropy: D_KL(P||Q) = Σ p(x) log(p(x)/q(x))
@@ -536,7 +571,6 @@ class Mathematics:
    - D_KL(P||Q) = 0 iff P = Q
    - Not symmetric: D_KL(P||Q) ≠ D_KL(Q||P)
 5. Interpretation: Information lost when Q approximates P""",
-
             "variational_free_energy": """Step-by-step derivation of variational free energy:
 
 1. Start with log-evidence: log p(x) = log ∫ p(x,θ) dθ
@@ -546,12 +580,14 @@ class Mathematics:
 5. Components:
    - Complexity: ∫ q(θ) log q(θ) dθ = H[q]
    - Accuracy: -∫ q(θ) log p(x,θ) dθ = -E[log p(x,θ)]
-6. Minimize F[q] to approximate posterior q(θ) ≈ p(θ|x)"""
+6. Minimize F[q] to approximate posterior q(θ) ≈ p(θ|x)""",
         }
 
         return derivations.get(concept, f"Derivation for {concept} concept")
 
-    def compute_information_geometry_metric(self, probabilities: List[float]) -> List[List[float]]:
+    def compute_information_geometry_metric(
+        self, probabilities: List[float]
+    ) -> List[List[float]]:
         """Compute Fisher information metric for probability distribution"""
         if not HAS_NUMPY:
             # Simple approximation without numpy
@@ -561,13 +597,16 @@ class Mathematics:
             for i in range(n):
                 for j in range(n):
                     if i == j:
-                        metric[i][j] = 1.0 / probabilities[i] if probabilities[i] > 0 else 1.0
+                        metric[i][j] = (
+                            1.0 / probabilities[i] if probabilities[i] > 0 else 1.0
+                        )
                     else:
                         metric[i][j] = 0.0
             return metric
 
         # Use numpy implementation if available
         import numpy as np
+
         p = np.array(probabilities)
 
         # Fisher information metric for multinomial distribution
@@ -588,20 +627,26 @@ class Mathematics:
         """Analyze complexity of mathematical expression"""
         complexity_metrics = {
             "expression_length": len(expression),
-            "num_operators": expression.count('+') + expression.count('-') + expression.count('*') + expression.count('/'),
-            "num_functions": expression.count('log') + expression.count('exp') + expression.count('sin') + expression.count('cos'),
+            "num_operators": expression.count("+")
+            + expression.count("-")
+            + expression.count("*")
+            + expression.count("/"),
+            "num_functions": expression.count("log")
+            + expression.count("exp")
+            + expression.count("sin")
+            + expression.count("cos"),
             "num_variables": len(set([c for c in expression if c.isalpha()])),
-            "num_parentheses": expression.count('(') + expression.count(')'),
-            "num_integrals": expression.count('∫') + expression.count('Σ'),
-            "max_nesting_depth": self._calculate_nesting_depth(expression)
+            "num_parentheses": expression.count("(") + expression.count(")"),
+            "num_integrals": expression.count("∫") + expression.count("Σ"),
+            "max_nesting_depth": self._calculate_nesting_depth(expression),
         }
 
         complexity_metrics["total_complexity"] = (
-            complexity_metrics["num_operators"] * 0.5 +
-            complexity_metrics["num_functions"] * 1.0 +
-            complexity_metrics["num_variables"] * 0.3 +
-            complexity_metrics["num_parentheses"] * 0.2 +
-            complexity_metrics["num_integrals"] * 2.0
+            complexity_metrics["num_operators"] * 0.5
+            + complexity_metrics["num_functions"] * 1.0
+            + complexity_metrics["num_variables"] * 0.3
+            + complexity_metrics["num_parentheses"] * 0.2
+            + complexity_metrics["num_integrals"] * 2.0
         )
 
         return complexity_metrics
@@ -612,15 +657,17 @@ class Mathematics:
         current_depth = 0
 
         for char in expression:
-            if char == '(':
+            if char == "(":
                 current_depth += 1
                 max_depth = max(max_depth, current_depth)
-            elif char == ')':
+            elif char == ")":
                 current_depth -= 1
 
         return max_depth
 
-    def validate_mathematical_prerequisites(self, concept_chain: List[str]) -> Dict[str, Any]:
+    def validate_mathematical_prerequisites(
+        self, concept_chain: List[str]
+    ) -> Dict[str, Any]:
         """Validate that mathematical prerequisite chain is logically consistent"""
         prerequisites = self.get_mathematical_prerequisites()
 
@@ -628,7 +675,7 @@ class Mathematics:
             "valid": True,
             "missing_prerequisites": [],
             "circular_dependencies": [],
-            "redundant_prerequisites": []
+            "redundant_prerequisites": [],
         }
 
         # Check for missing prerequisites
@@ -650,13 +697,19 @@ class Mathematics:
         concept_set = set(concept_chain)
         for concept in concept_chain:
             if concept in prerequisites:
-                redundant = [prereq for prereq in prerequisites[concept] if prereq not in concept_set]
+                redundant = [
+                    prereq
+                    for prereq in prerequisites[concept]
+                    if prereq not in concept_set
+                ]
                 if redundant:
                     validation["redundant_prerequisites"].extend(redundant)
 
         return validation
 
-    def _has_circular_dependency(self, concept: str, prerequisites: Dict[str, List[str]], visited: set) -> bool:
+    def _has_circular_dependency(
+        self, concept: str, prerequisites: Dict[str, List[str]], visited: set
+    ) -> bool:
         """Check for circular dependencies in prerequisite chain"""
         if concept in visited:
             return True
@@ -681,7 +734,9 @@ class Mathematics:
         summary.append("")
 
         summary.append(f"Total Mathematical Concepts: {len(learning_path)}")
-        summary.append(f"Total Prerequisite Relationships: {sum(len(prereqs) for prereqs in prerequisites.values())}")
+        summary.append(
+            f"Total Prerequisite Relationships: {sum(len(prereqs) for prereqs in prerequisites.values())}"
+        )
         summary.append("")
 
         summary.append("Learning Sequence:")

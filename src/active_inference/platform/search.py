@@ -7,10 +7,10 @@ Includes query processing, indexing, ranking, and result presentation.
 
 import logging
 import re
-from typing import Dict, Any, List, Optional, Set, Tuple
+import time
 from dataclasses import dataclass, field
 from enum import Enum
-import time
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -18,8 +18,15 @@ logger = logging.getLogger(__name__)
 class SearchResult:
     """Search result representation"""
 
-    def __init__(self, node_id: str, title: str, content_type: str, score: float,
-                 highlights: List[str] = None, metadata: Dict[str, Any] = None):
+    def __init__(
+        self,
+        node_id: str,
+        title: str,
+        content_type: str,
+        score: float,
+        highlights: List[str] = None,
+        metadata: Dict[str, Any] = None,
+    ):
         self.node_id = node_id
         self.title = title
         self.content_type = content_type
@@ -30,12 +37,12 @@ class SearchResult:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return {
-            'node_id': self.node_id,
-            'title': self.title,
-            'content_type': self.content_type,
-            'score': self.score,
-            'highlights': self.highlights,
-            'metadata': self.metadata
+            "node_id": self.node_id,
+            "title": self.title,
+            "content_type": self.content_type,
+            "score": self.score,
+            "highlights": self.highlights,
+            "metadata": self.metadata,
         }
 
 
@@ -45,7 +52,25 @@ class QueryProcessor:
     def __init__(self, config: Dict[str, Any]):
         """Initialize query processor"""
         self.config = config
-        self.stop_words = config.get('stop_words', {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'})
+        self.stop_words = config.get(
+            "stop_words",
+            {
+                "the",
+                "a",
+                "an",
+                "and",
+                "or",
+                "but",
+                "in",
+                "on",
+                "at",
+                "to",
+                "for",
+                "of",
+                "with",
+                "by",
+            },
+        )
 
     def preprocess_query(self, query: str) -> List[str]:
         """Preprocess search query"""
@@ -53,7 +78,7 @@ class QueryProcessor:
         query = query.lower()
 
         # Remove punctuation and split
-        query = re.sub(r'[^\w\s]', ' ', query)
+        query = re.sub(r"[^\w\s]", " ", query)
         tokens = query.split()
 
         # Remove stop words
@@ -74,33 +99,33 @@ class QueryProcessor:
         tokens = self.preprocess_query(query)
 
         intent = {
-            'primary_intent': 'general_search',
-            'query_terms': tokens,
-            'filters': {},
-            'sort_by': 'relevance'
+            "primary_intent": "general_search",
+            "query_terms": tokens,
+            "filters": {},
+            "sort_by": "relevance",
         }
 
         # Check for specific intents
-        if any(term in tokens for term in ['tutorial', 'learn', 'guide']):
-            intent['primary_intent'] = 'learning'
-        elif any(term in tokens for term in ['research', 'paper', 'study']):
-            intent['primary_intent'] = 'research'
-        elif any(term in tokens for term in ['implement', 'code', 'example']):
-            intent['primary_intent'] = 'implementation'
-        elif any(term in tokens for term in ['application', 'use', 'case']):
-            intent['primary_intent'] = 'application'
+        if any(term in tokens for term in ["tutorial", "learn", "guide"]):
+            intent["primary_intent"] = "learning"
+        elif any(term in tokens for term in ["research", "paper", "study"]):
+            intent["primary_intent"] = "research"
+        elif any(term in tokens for term in ["implement", "code", "example"]):
+            intent["primary_intent"] = "implementation"
+        elif any(term in tokens for term in ["application", "use", "case"]):
+            intent["primary_intent"] = "application"
 
         # Extract potential filters
-        content_types = ['foundation', 'mathematics', 'implementation', 'application']
+        content_types = ["foundation", "mathematics", "implementation", "application"]
         for content_type in content_types:
             if content_type in tokens:
-                intent['filters']['content_type'] = content_type
+                intent["filters"]["content_type"] = content_type
                 break
 
-        difficulty_levels = ['beginner', 'intermediate', 'advanced', 'expert']
+        difficulty_levels = ["beginner", "intermediate", "advanced", "expert"]
         for difficulty in difficulty_levels:
             if difficulty in tokens:
-                intent['filters']['difficulty'] = difficulty
+                intent["filters"]["difficulty"] = difficulty
                 break
 
         return intent
@@ -108,10 +133,14 @@ class QueryProcessor:
     def expand_query(self, query: str) -> List[str]:
         """Expand query with synonyms and related terms"""
         expansions = {
-            'active inference': ['active inference', 'free energy principle', 'predictive processing'],
-            'entropy': ['entropy', 'information', 'uncertainty'],
-            'bayesian': ['bayesian', 'probabilistic', 'statistical'],
-            'neural': ['neural', 'brain', 'cognitive']
+            "active inference": [
+                "active inference",
+                "free energy principle",
+                "predictive processing",
+            ],
+            "entropy": ["entropy", "information", "uncertainty"],
+            "bayesian": ["bayesian", "probabilistic", "statistical"],
+            "neural": ["neural", "brain", "cognitive"],
         }
 
         expanded_terms = []
@@ -121,7 +150,11 @@ class QueryProcessor:
             if key in query_lower:
                 expanded_terms.extend(synonyms)
 
-        return list(set(expanded_terms)) if expanded_terms else self.preprocess_query(query)
+        return (
+            list(set(expanded_terms))
+            if expanded_terms
+            else self.preprocess_query(query)
+        )
 
 
 class IndexManager:
@@ -208,14 +241,14 @@ class IndexManager:
         searchable_parts = []
 
         # Add title and description
-        if 'title' in content:
-            searchable_parts.append(content['title'])
-        if 'description' in content:
-            searchable_parts.append(content['description'])
+        if "title" in content:
+            searchable_parts.append(content["title"])
+        if "description" in content:
+            searchable_parts.append(content["description"])
 
         # Add content sections
-        if 'content' in content:
-            content_section = content['content']
+        if "content" in content:
+            content_section = content["content"]
             if isinstance(content_section, dict):
                 for key, value in content_section.items():
                     if isinstance(value, str):
@@ -226,18 +259,18 @@ class IndexManager:
                                 searchable_parts.append(item)
 
         # Add tags
-        if 'tags' in content:
-            tags = content['tags']
+        if "tags" in content:
+            tags = content["tags"]
             if isinstance(tags, list):
                 searchable_parts.extend(tags)
 
-        return ' '.join(searchable_parts)
+        return " ".join(searchable_parts)
 
     def _tokenize_text(self, text: str) -> List[str]:
         """Tokenize text for indexing"""
         # Simple tokenization
         text = text.lower()
-        text = re.sub(r'[^\w\s]', ' ', text)
+        text = re.sub(r"[^\w\s]", " ", text)
         tokens = text.split()
 
         # Remove short tokens and duplicates
@@ -247,9 +280,11 @@ class IndexManager:
     def get_index_statistics(self) -> Dict[str, Any]:
         """Get index statistics"""
         return {
-            'total_documents': len(self.index),
-            'total_terms': len(self.reverse_index),
-            'average_terms_per_doc': len(self.reverse_index) / len(self.index) if self.index else 0
+            "total_documents": len(self.index),
+            "total_terms": len(self.reverse_index),
+            "average_terms_per_doc": (
+                len(self.reverse_index) / len(self.index) if self.index else 0
+            ),
         }
 
 
@@ -260,55 +295,63 @@ class ResultRanker:
         """Initialize result ranker"""
         self.config = config
 
-    def rank_results(self, results: List[Dict[str, Any]], query_terms: List[str],
-                    ranking_method: str = 'relevance') -> List[Dict[str, Any]]:
+    def rank_results(
+        self,
+        results: List[Dict[str, Any]],
+        query_terms: List[str],
+        ranking_method: str = "relevance",
+    ) -> List[Dict[str, Any]]:
         """Rank search results"""
-        if ranking_method == 'relevance':
+        if ranking_method == "relevance":
             return self._rank_by_relevance(results, query_terms)
-        elif ranking_method == 'recency':
+        elif ranking_method == "recency":
             return self._rank_by_recency(results)
-        elif ranking_method == 'popularity':
+        elif ranking_method == "popularity":
             return self._rank_by_popularity(results)
         else:
             return results
 
-    def _rank_by_relevance(self, results: List[Dict[str, Any]], query_terms: List[str]) -> List[Dict[str, Any]]:
+    def _rank_by_relevance(
+        self, results: List[Dict[str, Any]], query_terms: List[str]
+    ) -> List[Dict[str, Any]]:
         """Rank by relevance to query"""
         for result in results:
             score = 0.0
 
             # Title match bonus
-            title = result.get('title', '').lower()
+            title = result.get("title", "").lower()
             for term in query_terms:
                 if term.lower() in title:
                     score += 10.0
 
             # Content match
-            content = result.get('content', '').lower()
+            content = result.get("content", "").lower()
             for term in query_terms:
                 if term.lower() in content:
                     score += 1.0
 
             # Tag match bonus
-            tags = result.get('tags', [])
+            tags = result.get("tags", [])
             for tag in tags:
                 for term in query_terms:
                     if term.lower() in tag.lower():
                         score += 5.0
 
-            result['relevance_score'] = score
+            result["relevance_score"] = score
 
-        return sorted(results, key=lambda x: x.get('relevance_score', 0), reverse=True)
+        return sorted(results, key=lambda x: x.get("relevance_score", 0), reverse=True)
 
     def _rank_by_recency(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Rank by recency"""
         # Sort by last_updated if available
-        return sorted(results, key=lambda x: x.get('last_updated', ''), reverse=True)
+        return sorted(results, key=lambda x: x.get("last_updated", ""), reverse=True)
 
-    def _rank_by_popularity(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def _rank_by_popularity(
+        self, results: List[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
         """Rank by popularity metrics"""
         # Sort by some popularity metric (placeholder)
-        return sorted(results, key=lambda x: x.get('usage_count', 0), reverse=True)
+        return sorted(results, key=lambda x: x.get("usage_count", 0), reverse=True)
 
 
 class SearchEngine:
@@ -319,19 +362,24 @@ class SearchEngine:
         self.config = config
 
         # Initialize components
-        self.query_processor = QueryProcessor(config.get('query_processor', {}))
-        self.index_manager = IndexManager(config.get('index_manager', {}))
-        self.result_ranker = ResultRanker(config.get('result_ranker', {}))
+        self.query_processor = QueryProcessor(config.get("query_processor", {}))
+        self.index_manager = IndexManager(config.get("index_manager", {}))
+        self.result_ranker = ResultRanker(config.get("result_ranker", {}))
 
         # Search statistics
         self.search_stats = {
-            'total_searches': 0,
-            'average_response_time': 0.0,
-            'popular_queries': {}
+            "total_searches": 0,
+            "average_response_time": 0.0,
+            "popular_queries": {},
         }
 
-    def search(self, query: str, filters: Dict[str, Any] = None,
-               limit: int = 10, ranking: str = 'relevance') -> List[Dict[str, Any]]:
+    def search(
+        self,
+        query: str,
+        filters: Dict[str, Any] = None,
+        limit: int = 10,
+        ranking: str = "relevance",
+    ) -> List[Dict[str, Any]]:
         """Perform search"""
         start_time = time.time()
 
@@ -351,14 +399,14 @@ class SearchEngine:
                 if node_id in self.index_manager.index:
                     content = self.index_manager.index[node_id]
                     result = {
-                        'node_id': node_id,
-                        'title': content.get('title', ''),
-                        'content_type': content.get('content_type', ''),
-                        'difficulty': content.get('difficulty', ''),
-                        'description': content.get('description', ''),
-                        'tags': content.get('tags', []),
-                        'content': content.get('content', {}),
-                        'last_updated': content.get('last_updated', '')
+                        "node_id": node_id,
+                        "title": content.get("title", ""),
+                        "content_type": content.get("content_type", ""),
+                        "difficulty": content.get("difficulty", ""),
+                        "description": content.get("description", ""),
+                        "tags": content.get("tags", []),
+                        "content": content.get("content", {}),
+                        "last_updated": content.get("last_updated", ""),
                     }
                     results.append(result)
 
@@ -383,7 +431,7 @@ class SearchEngine:
 
     def index_content(self, content: Dict[str, Any]) -> bool:
         """Index new content"""
-        node_id = content.get('id', '')
+        node_id = content.get("id", "")
         if not node_id:
             logger.error("Cannot index content without ID")
             return False
@@ -414,10 +462,12 @@ class SearchEngine:
     def get_search_statistics(self) -> Dict[str, Any]:
         """Get search statistics"""
         stats = self.search_stats.copy()
-        stats['index_stats'] = self.index_manager.get_index_statistics()
+        stats["index_stats"] = self.index_manager.get_index_statistics()
         return stats
 
-    def _apply_filters(self, results: List[Dict[str, Any]], filters: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def _apply_filters(
+        self, results: List[Dict[str, Any]], filters: Dict[str, Any]
+    ) -> List[Dict[str, Any]]:
         """Apply filters to search results"""
         filtered_results = []
 
@@ -425,19 +475,19 @@ class SearchEngine:
             include = True
 
             # Content type filter
-            if 'content_type' in filters:
-                if result.get('content_type') != filters['content_type']:
+            if "content_type" in filters:
+                if result.get("content_type") != filters["content_type"]:
                     include = False
 
             # Difficulty filter
-            if 'difficulty' in filters:
-                if result.get('difficulty') != filters['difficulty']:
+            if "difficulty" in filters:
+                if result.get("difficulty") != filters["difficulty"]:
                     include = False
 
             # Tag filter
-            if 'tags' in filters:
-                result_tags = set(result.get('tags', []))
-                filter_tags = set(filters['tags'])
+            if "tags" in filters:
+                result_tags = set(result.get("tags", []))
+                filter_tags = set(filters["tags"])
                 if not filter_tags.issubset(result_tags):
                     include = False
 
@@ -448,16 +498,16 @@ class SearchEngine:
 
     def _update_search_stats(self, query: str, response_time: float, result_count: int):
         """Update search statistics"""
-        self.search_stats['total_searches'] += 1
+        self.search_stats["total_searches"] += 1
 
         # Update average response time
-        current_avg = self.search_stats['average_response_time']
-        total_searches = self.search_stats['total_searches']
-        self.search_stats['average_response_time'] = (
+        current_avg = self.search_stats["average_response_time"]
+        total_searches = self.search_stats["total_searches"]
+        self.search_stats["average_response_time"] = (
             (current_avg * (total_searches - 1)) + response_time
         ) / total_searches
 
         # Update popular queries
-        if query not in self.search_stats['popular_queries']:
-            self.search_stats['popular_queries'][query] = 0
-        self.search_stats['popular_queries'][query] += 1
+        if query not in self.search_stats["popular_queries"]:
+            self.search_stats["popular_queries"][query] = 0
+        self.search_stats["popular_queries"][query] += 1

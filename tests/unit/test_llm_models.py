@@ -5,17 +5,14 @@ Unit tests for the model management system, ensuring proper operation of
 model registry, capability matching, and fallback strategies.
 """
 
-import pytest
 import json
 import tempfile
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-from active_inference.llm.models import (
-    ModelInfo,
-    ModelRegistry,
-    ModelManager
-)
+import pytest
+
+from active_inference.llm.models import ModelInfo, ModelManager, ModelRegistry
 
 
 class TestModelInfo:
@@ -29,7 +26,7 @@ class TestModelInfo:
             size="2b",
             quantization="4bit",
             context_window=8192,
-            capabilities={"text_generation", "reasoning"}
+            capabilities={"text_generation", "reasoning"},
         )
 
         assert model.name == "gemma3:2b"
@@ -43,10 +40,7 @@ class TestModelInfo:
     def test_capability_methods(self):
         """Test capability management methods"""
         model = ModelInfo(
-            name="test_model",
-            family="test",
-            size="1b",
-            capabilities={"generation"}
+            name="test_model", family="test", size="1b", capabilities={"generation"}
         )
 
         # Test has_capability
@@ -65,12 +59,16 @@ class TestModelInfo:
         assert memory == 14.0  # 7 * 2
 
         # Test quantized model
-        model_4bit = ModelInfo(name="test:7b", family="test", size="7b", quantization="4bit")
+        model_4bit = ModelInfo(
+            name="test:7b", family="test", size="7b", quantization="4bit"
+        )
         memory_4bit = model_4bit.get_memory_requirement()
         assert memory_4bit == 7.0  # 14 * 0.5
 
         # Test 2bit quantization
-        model_2bit = ModelInfo(name="test:7b", family="test", size="7b", quantization="2bit")
+        model_2bit = ModelInfo(
+            name="test:7b", family="test", size="7b", quantization="2bit"
+        )
         memory_2bit = model_2bit.get_memory_requirement()
         assert memory_2bit == 3.5  # 14 * 0.25
 
@@ -86,20 +84,20 @@ class TestModelRegistry:
                 name="gemma3:2b",
                 family="gemma",
                 size="2b",
-                capabilities={"text_generation", "reasoning"}
+                capabilities={"text_generation", "reasoning"},
             ),
             ModelInfo(
                 name="gemma3:4b",
                 family="gemma",
                 size="4b",
-                capabilities={"text_generation", "reasoning", "mathematical"}
+                capabilities={"text_generation", "reasoning", "mathematical"},
             ),
             ModelInfo(
                 name="llama2:7b",
                 family="llama",
                 size="7b",
-                capabilities={"text_generation", "reasoning", "code"}
-            )
+                capabilities={"text_generation", "reasoning", "code"},
+            ),
         ]
 
     def test_registry_creation(self):
@@ -241,7 +239,7 @@ class TestModelManager:
     @pytest.fixture
     def temp_registry_file(self):
         """Create temporary registry file"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             # Create empty registry file
             json.dump({"models": {}, "preferred_models": [], "fallback_chain": []}, f)
             temp_path = Path(f.name)
@@ -292,7 +290,9 @@ class TestModelManager:
         # Get models with mathematical capability
         math_models = manager.get_models_by_capability("mathematical_reasoning")
         assert len(math_models) > 0
-        assert all(model.has_capability("mathematical_reasoning") for model in math_models)
+        assert all(
+            model.has_capability("mathematical_reasoning") for model in math_models
+        )
 
     def test_add_custom_model(self):
         """Test adding custom model"""
@@ -300,6 +300,7 @@ class TestModelManager:
 
         # Use a unique model name for this test
         import uuid
+
         unique_name = f"test_model_{uuid.uuid4().hex[:8]}"
 
         # Check that the model doesn't exist before adding
@@ -310,7 +311,7 @@ class TestModelManager:
             family="custom",
             size="1b",
             capabilities=["text_generation", "custom_capability"],
-            context_window=2048
+            context_window=2048,
         )
 
         # Check that the model was added
@@ -325,10 +326,7 @@ class TestModelManager:
 
         # Add a custom model first
         manager.add_custom_model(
-            name="temp_model",
-            family="temp",
-            size="1b",
-            capabilities=["temp"]
+            name="temp_model", family="temp", size="1b", capabilities=["temp"]
         )
 
         initial_count = len(manager.registry.models)
@@ -350,17 +348,14 @@ class TestModelManager:
 
         # Add custom model for testing
         manager.add_custom_model(
-            name="performance_test",
-            family="test",
-            size="1b",
-            capabilities=["test"]
+            name="performance_test", family="test", size="1b", capabilities=["test"]
         )
 
         # Update performance metrics
         metrics = {
             "reasoning_score": 0.85,
             "generation_speed": 50.0,
-            "memory_efficiency": 0.9
+            "memory_efficiency": 0.9,
         }
 
         manager.update_model_performance("performance_test", metrics)

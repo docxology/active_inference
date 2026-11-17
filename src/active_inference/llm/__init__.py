@@ -12,10 +12,15 @@ This module enables:
 - Integration with knowledge and research systems
 """
 
-from .client import OllamaClient, LLMConfig
-from .prompts import PromptTemplate, PromptBuilder, PromptManager, ActiveInferencePromptBuilder
-from .models import ModelManager, ModelInfo, ModelRegistry
-from .conversations import ConversationManager, Conversation, ActiveInferenceTemplates
+from .client import LLMConfig, OllamaClient
+from .conversations import ActiveInferenceTemplates, Conversation, ConversationManager
+from .models import ModelInfo, ModelManager, ModelRegistry
+from .prompts import (
+    ActiveInferencePromptBuilder,
+    PromptBuilder,
+    PromptManager,
+    PromptTemplate,
+)
 
 __all__ = [
     "OllamaClient",

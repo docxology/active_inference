@@ -1,14 +1,18 @@
 """
 Tests for Knowledge Implementations Module
 """
+
+import json
+import tempfile
 import unittest
 from pathlib import Path
-import tempfile
-import json
 
-from active_inference.knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
-from active_inference.knowledge.implementations import Implementations
 from active_inference.knowledge.foundations import Foundations
+from active_inference.knowledge.implementations import Implementations
+from active_inference.knowledge.repository import (
+    KnowledgeRepository,
+    KnowledgeRepositoryConfig,
+)
 
 
 class TestKnowledgeImplementations(unittest.TestCase):
@@ -18,9 +22,7 @@ class TestKnowledgeImplementations(unittest.TestCase):
         """Set up test environment"""
         self.test_dir = Path(tempfile.mkdtemp())
         self.config = KnowledgeRepositoryConfig(
-            root_path=self.test_dir,
-            auto_index=True,
-            cache_enabled=True
+            root_path=self.test_dir, auto_index=True, cache_enabled=True
         )
         self.repository = KnowledgeRepository(self.config)
         self.implementations = Implementations(self.repository)
@@ -28,6 +30,7 @@ class TestKnowledgeImplementations(unittest.TestCase):
     def tearDown(self):
         """Clean up test environment"""
         import shutil
+
         shutil.rmtree(self.test_dir, ignore_errors=True)
 
     def test_implementations_initialization(self):
@@ -38,7 +41,11 @@ class TestKnowledgeImplementations(unittest.TestCase):
     def test_basic_implementation_creation(self):
         """Test creation of basic implementation nodes"""
         # Create a knowledge node directly for testing
-        from active_inference.knowledge.repository import KnowledgeNode, ContentType, DifficultyLevel
+        from active_inference.knowledge.repository import (
+            ContentType,
+            DifficultyLevel,
+            KnowledgeNode,
+        )
 
         impl_node = KnowledgeNode(
             id="active_inference_basic",
@@ -52,15 +59,15 @@ class TestKnowledgeImplementations(unittest.TestCase):
             content={
                 "sections": [
                     {"title": "Overview", "content": "Test implementation"},
-                    {"title": "Code", "content": "Test code example"}
+                    {"title": "Code", "content": "Test code example"},
                 ]
             },
             metadata={
                 "estimated_reading_time": 30,
                 "author": "Test Author",
                 "last_updated": "2024-10-27",
-                "version": "1.0"
-            }
+                "version": "1.0",
+            },
         )
 
         # Test node creation
@@ -72,7 +79,11 @@ class TestKnowledgeImplementations(unittest.TestCase):
     def test_implementation_validation(self):
         """Test implementation validation functionality"""
         # Create a knowledge node directly for testing
-        from active_inference.knowledge.repository import KnowledgeNode, ContentType, DifficultyLevel
+        from active_inference.knowledge.repository import (
+            ContentType,
+            DifficultyLevel,
+            KnowledgeNode,
+        )
 
         impl_node = KnowledgeNode(
             id="active_inference_basic",
@@ -86,23 +97,19 @@ class TestKnowledgeImplementations(unittest.TestCase):
             content={
                 "sections": [
                     {"title": "Overview", "content": "Test implementation"},
-                    {"title": "Code", "content": "Test code example"}
+                    {"title": "Code", "content": "Test code example"},
                 ]
             },
             metadata={
                 "estimated_reading_time": 30,
                 "author": "Test Author",
                 "last_updated": "2024-10-27",
-                "version": "1.0"
-            }
+                "version": "1.0",
+            },
         )
 
         # Test validation logic directly
-        validation_result = {
-            "valid": True,
-            "issues": [],
-            "suggestions": []
-        }
+        validation_result = {"valid": True, "issues": [], "suggestions": []}
 
         # Check if implementation has required sections
         content = impl_node.content
@@ -111,10 +118,14 @@ class TestKnowledgeImplementations(unittest.TestCase):
             validation_result["valid"] = False
 
         # Check for code examples
-        has_code = any("code" in section.get("content", "").lower()
-                      for section in content.get("sections", []))
+        has_code = any(
+            "code" in section.get("content", "").lower()
+            for section in content.get("sections", [])
+        )
         if not has_code:
-            validation_result["suggestions"].append("Add code examples to implementation")
+            validation_result["suggestions"].append(
+                "Add code examples to implementation"
+            )
 
         # Check prerequisites
         if not impl_node.prerequisites:
@@ -143,7 +154,7 @@ class TestKnowledgeImplementations(unittest.TestCase):
                     "beginner": 1,
                     "intermediate": 2,
                     "advanced": 3,
-                    "expert": 4
+                    "expert": 4,
                 }
 
                 current_order = difficulty_order.get(current_difficulty.value, 5)
@@ -165,9 +176,7 @@ class TestKnowledgeImplementations(unittest.TestCase):
         self.assertIsInstance(beginner_impls, list)
 
         # Test filtering by tags - should work with existing repository content
-        python_impls = self.implementations.get_implementation_examples(
-            tags=["python"]
-        )
+        python_impls = self.implementations.get_implementation_examples(tags=["python"])
 
         # Should return implementations (even if empty, should be a list)
         self.assertIsInstance(python_impls, list)
@@ -179,7 +188,11 @@ class TestKnowledgeImplementations(unittest.TestCase):
     def test_advanced_implementation_creation(self):
         """Test creation of advanced implementation nodes"""
         # Test that the repository can handle implementation nodes
-        from active_inference.knowledge.repository import KnowledgeNode, ContentType, DifficultyLevel
+        from active_inference.knowledge.repository import (
+            ContentType,
+            DifficultyLevel,
+            KnowledgeNode,
+        )
 
         # Create neural network implementation node
         neural_impl = KnowledgeNode(
@@ -193,19 +206,22 @@ class TestKnowledgeImplementations(unittest.TestCase):
             learning_objectives=[
                 "Implement Active Inference in neural network frameworks",
                 "Train models using free energy minimization",
-                "Scale to complex environments and tasks"
+                "Scale to complex environments and tasks",
             ],
             content={
                 "sections": [
-                    {"title": "Neural Active Inference", "content": "Neural networks provide a natural framework..."}
+                    {
+                        "title": "Neural Active Inference",
+                        "content": "Neural networks provide a natural framework...",
+                    }
                 ]
             },
             metadata={
                 "estimated_reading_time": 45,
                 "author": "Active Inference Community",
                 "last_updated": "2024-10-27",
-                "version": "1.0"
-            }
+                "version": "1.0",
+            },
         )
 
         # Test node creation
@@ -215,5 +231,5 @@ class TestKnowledgeImplementations(unittest.TestCase):
         self.assertIn("neural networks", neural_impl.tags)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

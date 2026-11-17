@@ -7,16 +7,17 @@ integration patterns and external system connectivity.
 """
 
 import logging
-from typing import Dict, List, Optional, Any, Callable
-from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
 
 class IntegrationType(Enum):
     """Types of external integrations"""
+
     DATABASE = "database"
     API = "api"
     MESSAGE_QUEUE = "message_queue"
@@ -28,6 +29,7 @@ class IntegrationType(Enum):
 @dataclass
 class APIConnector:
     """API connector configuration"""
+
     name: str
     base_url: str
     auth_type: str = "none"  # none, basic, bearer, api_key
@@ -75,7 +77,7 @@ class IntegrationManager:
             self.active_connections[connector_name] = {
                 "connector": connector,
                 "status": "connected",
-                "connected_at": "2024-10-27T12:00:00"
+                "connected_at": "2024-10-27T12:00:00",
             }
 
             return True
@@ -84,7 +86,9 @@ class IntegrationManager:
             logger.error(f"Failed to connect to {connector_name}: {e}")
             return False
 
-    def query_api(self, connector_name: str, endpoint: str, params: Dict[str, Any] = None) -> Optional[Dict[str, Any]]:
+    def query_api(
+        self, connector_name: str, endpoint: str, params: Dict[str, Any] = None
+    ) -> Optional[Dict[str, Any]]:
         """Query an API endpoint"""
         if connector_name not in self.active_connections:
             logger.error(f"No active connection to {connector_name}")
@@ -98,7 +102,7 @@ class IntegrationManager:
             "endpoint": endpoint,
             "params": params,
             "response": "mock_data",
-            "status": "success"
+            "status": "success",
         }
 
     def disconnect_api(self, connector_name: str) -> bool:
@@ -114,15 +118,14 @@ class IntegrationManager:
     def list_integrations(self) -> Dict[str, Any]:
         """List all available integrations"""
         return {
-            "connectors": {name: {
-                "name": conn.name,
-                "base_url": conn.base_url,
-                "auth_type": conn.auth_type,
-                "timeout": conn.timeout
-            } for name, conn in self.connectors.items()},
-            "active_connections": list(self.active_connections.keys())
+            "connectors": {
+                name: {
+                    "name": conn.name,
+                    "base_url": conn.base_url,
+                    "auth_type": conn.auth_type,
+                    "timeout": conn.timeout,
+                }
+                for name, conn in self.connectors.items()
+            },
+            "active_connections": list(self.active_connections.keys()),
         }
-
-
-
-

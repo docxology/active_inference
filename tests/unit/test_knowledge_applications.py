@@ -1,14 +1,18 @@
 """
 Tests for Knowledge Applications Module
 """
+
+import json
+import tempfile
 import unittest
 from pathlib import Path
-import tempfile
-import json
 
-from active_inference.knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
 from active_inference.knowledge.applications import Applications
 from active_inference.knowledge.foundations import Foundations
+from active_inference.knowledge.repository import (
+    KnowledgeRepository,
+    KnowledgeRepositoryConfig,
+)
 
 
 class TestKnowledgeApplications(unittest.TestCase):
@@ -18,9 +22,7 @@ class TestKnowledgeApplications(unittest.TestCase):
         """Set up test environment"""
         self.test_dir = Path(tempfile.mkdtemp())
         self.config = KnowledgeRepositoryConfig(
-            root_path=self.test_dir,
-            auto_index=True,
-            cache_enabled=True
+            root_path=self.test_dir, auto_index=True, cache_enabled=True
         )
         self.repository = KnowledgeRepository(self.config)
         self.applications = Applications(self.repository)
@@ -28,6 +30,7 @@ class TestKnowledgeApplications(unittest.TestCase):
     def tearDown(self):
         """Clean up test environment"""
         import shutil
+
         shutil.rmtree(self.test_dir, ignore_errors=True)
 
     def test_applications_initialization(self):
@@ -90,7 +93,9 @@ class TestKnowledgeApplications(unittest.TestCase):
     def test_domain_filtering(self):
         """Test filtering applications by domain"""
         # Test getting applications by domain
-        ai_apps = self.applications.get_applications_by_domain("artificial_intelligence")
+        ai_apps = self.applications.get_applications_by_domain(
+            "artificial_intelligence"
+        )
         self.assertIsInstance(ai_apps, list)
 
         neuro_apps = self.applications.get_applications_by_domain("neuroscience")
@@ -130,5 +135,5 @@ class TestKnowledgeApplications(unittest.TestCase):
         self.assertIsInstance(case_studies, list)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

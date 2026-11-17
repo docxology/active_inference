@@ -7,19 +7,20 @@ platform components.
 """
 
 import logging
-from typing import Dict, List, Optional, Any, Callable
-from pathlib import Path
+import threading
+import time
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-import threading
-import time
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
 
 class TaskStatus(Enum):
     """Task execution status"""
+
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"
@@ -30,6 +31,7 @@ class TaskStatus(Enum):
 @dataclass
 class Task:
     """Represents an orchestratable task"""
+
     id: str
     name: str
     function: Callable
@@ -88,7 +90,7 @@ class WorkflowManager:
             "total_tasks": len(tasks),
             "completed_tasks": 0,
             "failed_tasks": 0,
-            "task_results": {}
+            "task_results": {},
         }
 
         # Execute tasks in dependency order
@@ -96,7 +98,8 @@ class WorkflowManager:
         while len(executed) < len(tasks):
             # Find tasks that can be executed (no pending dependencies)
             ready_tasks = [
-                task for task in tasks
+                task
+                for task in tasks
                 if task.id not in executed
                 and all(dep in executed for dep in task.dependencies)
             ]
@@ -130,11 +133,13 @@ class WorkflowManager:
                 results["task_results"][task.id] = {
                     "status": task.status.value,
                     "result": task.result,
-                    "error": task.error
+                    "error": task.error,
                 }
 
         results["success"] = results["failed_tasks"] == 0
-        logger.info(f"Workflow {workflow_id} completed: {results['completed_tasks']} completed, {results['failed_tasks']} failed")
+        logger.info(
+            f"Workflow {workflow_id} completed: {results['completed_tasks']} completed, {results['failed_tasks']} failed"
+        )
 
         return results
 
@@ -152,7 +157,18 @@ class WorkflowManager:
                 status.value: len([t for t in tasks if t.status == status])
                 for status in TaskStatus
             },
-            "progress": len([t for t in tasks if t.status in [TaskStatus.COMPLETED, TaskStatus.FAILED]]) / len(tasks) if tasks else 0
+            "progress": (
+                len(
+                    [
+                        t
+                        for t in tasks
+                        if t.status in [TaskStatus.COMPLETED, TaskStatus.FAILED]
+                    ]
+                )
+                / len(tasks)
+                if tasks
+                else 0
+            ),
         }
 
 
@@ -167,8 +183,13 @@ class TaskScheduler:
 
         logger.info("TaskScheduler initialized")
 
-    def schedule_task(self, task_id: str, function: Callable, interval: float,
-                     parameters: Dict[str, Any] = None) -> bool:
+    def schedule_task(
+        self,
+        task_id: str,
+        function: Callable,
+        interval: float,
+        parameters: Dict[str, Any] = None,
+    ) -> bool:
         """Schedule a recurring task"""
         if task_id in self.scheduled_tasks:
             logger.warning(f"Task {task_id} already scheduled")
@@ -180,7 +201,7 @@ class TaskScheduler:
             "parameters": parameters or {},
             "last_run": None,
             "next_run": datetime.now(),
-            "running": False
+            "running": False,
         }
 
         logger.info(f"Scheduled task {task_id} with interval {interval}s")
@@ -193,7 +214,9 @@ class TaskScheduler:
             return
 
         self.running = True
-        self.scheduler_thread = threading.Thread(target=self._scheduler_loop, daemon=True)
+        self.scheduler_thread = threading.Thread(
+            target=self._scheduler_loop, daemon=True
+        )
         self.scheduler_thread.start()
 
         logger.info("Task scheduler started")
@@ -249,12 +272,20 @@ class TaskScheduler:
             "tasks": {
                 task_id: {
                     "interval": task_info["interval"],
-                    "last_run": task_info["last_run"].isoformat() if task_info["last_run"] else None,
-                    "next_run": datetime.fromtimestamp(task_info["next_run"]).isoformat() if task_info["next_run"] else None,
-                    "running": task_info["running"]
+                    "last_run": (
+                        task_info["last_run"].isoformat()
+                        if task_info["last_run"]
+                        else None
+                    ),
+                    "next_run": (
+                        datetime.fromtimestamp(task_info["next_run"]).isoformat()
+                        if task_info["next_run"]
+                        else None
+                    ),
+                    "running": task_info["running"],
                 }
                 for task_id, task_info in self.scheduled_tasks.items()
-            }
+            },
         }
 
 
@@ -268,8 +299,13 @@ class Orchestrator:
 
         logger.info("Orchestrator initialized")
 
-    def create_task(self, name: str, function: Callable, parameters: Dict[str, Any] = None,
-                   dependencies: List[str] = None) -> Task:
+    def create_task(
+        self,
+        name: str,
+        function: Callable,
+        parameters: Dict[str, Any] = None,
+        dependencies: List[str] = None,
+    ) -> Task:
         """Create a new task"""
         task_id = f"task_{name}_{int(datetime.now().timestamp())}"
 
@@ -278,7 +314,7 @@ class Orchestrator:
             name=name,
             function=function,
             parameters=parameters or {},
-            dependencies=dependencies or []
+            dependencies=dependencies or [],
         )
 
     def execute_task(self, task: Task) -> Any:
@@ -306,15 +342,24 @@ class Orchestrator:
 
             raise
 
-    def create_and_execute_workflow(self, workflow_name: str, tasks: List[Task]) -> Dict[str, Any]:
+    def create_and_execute_workflow(
+        self, workflow_name: str, tasks: List[Task]
+    ) -> Dict[str, Any]:
         """Create and execute a workflow"""
         workflow_id = self.workflow_manager.create_workflow(workflow_name, tasks)
         return self.workflow_manager.execute_workflow(workflow_id)
 
-    def schedule_recurring_task(self, task_id: str, function: Callable, interval: float,
-                               parameters: Dict[str, Any] = None) -> bool:
+    def schedule_recurring_task(
+        self,
+        task_id: str,
+        function: Callable,
+        interval: float,
+        parameters: Dict[str, Any] = None,
+    ) -> bool:
         """Schedule a recurring task"""
-        return self.task_scheduler.schedule_task(task_id, function, interval, parameters)
+        return self.task_scheduler.schedule_task(
+            task_id, function, interval, parameters
+        )
 
     def start_scheduled_execution(self) -> None:
         """Start scheduled task execution"""
@@ -331,9 +376,5 @@ class Orchestrator:
                 "active_workflows": len(self.workflow_manager.workflows)
             },
             "task_scheduler": self.task_scheduler.get_scheduler_status(),
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
-
-
-
-

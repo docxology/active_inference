@@ -8,8 +8,9 @@ knowledge, and practical applications across various research areas.
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any, Optional
-from .repository import KnowledgeRepository, KnowledgeNode, ContentType, DifficultyLevel
+from typing import Any, Dict, List, Optional
+
+from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository
 
 
 class Applications:
@@ -46,22 +47,26 @@ class Applications:
                 "difficulty": DifficultyLevel.ADVANCED,
                 "description": "Application of Active Inference to generative AI models",
                 "prerequisites": ["generative_models", "variational_inference"],
-                "tags": ["artificial intelligence", "generative models", "machine learning"],
+                "tags": [
+                    "artificial intelligence",
+                    "generative models",
+                    "machine learning",
+                ],
                 "learning_objectives": [
                     "Apply Active Inference to generative model training",
                     "Understand free energy in generative AI",
-                    "Implement Active Inference-based generative systems"
+                    "Implement Active Inference-based generative systems",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Generative Models and Free Energy",
-                            "content": "Generative models learn to represent data distributions..."
+                            "content": "Generative models learn to represent data distributions...",
                         },
                         {
                             "title": "Active Inference Framework",
-                            "content": "Active Inference provides a principled approach..."
-                        }
+                            "content": "Active Inference provides a principled approach...",
+                        },
                     ]
                 },
                 "metadata": {
@@ -70,8 +75,8 @@ class Applications:
                     "last_updated": "2024-10-27",
                     "version": "1.0",
                     "domain": "artificial_intelligence",
-                    "application_type": "generative_modeling"
-                }
+                    "application_type": "generative_modeling",
+                },
             },
             {
                 "id": "ai_policy_selection",
@@ -80,17 +85,21 @@ class Applications:
                 "difficulty": DifficultyLevel.ADVANCED,
                 "description": "Using Active Inference for optimal policy selection in AI systems",
                 "prerequisites": ["decision_theory", "expected_free_energy"],
-                "tags": ["policy selection", "decision making", "reinforcement learning"],
+                "tags": [
+                    "policy selection",
+                    "decision making",
+                    "reinforcement learning",
+                ],
                 "learning_objectives": [
                     "Implement Active Inference for policy evaluation",
                     "Compare with reinforcement learning approaches",
-                    "Apply to complex decision-making tasks"
+                    "Apply to complex decision-making tasks",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Policy Selection Problem",
-                            "content": "AI systems must select optimal policies..."
+                            "content": "AI systems must select optimal policies...",
                         }
                     ]
                 },
@@ -98,9 +107,9 @@ class Applications:
                     "estimated_reading_time": 40,
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
-                    "version": "1.0"
-                }
-            }
+                    "version": "1.0",
+                },
+            },
         ]
 
         # Add nodes to repository
@@ -125,13 +134,13 @@ class Applications:
                 "learning_objectives": [
                     "Understand neural perception through Active Inference",
                     "Model perceptual inference in neural systems",
-                    "Connect to empirical neuroscience findings"
+                    "Connect to empirical neuroscience findings",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Neural Perception Framework",
-                            "content": "Neural systems must infer causes from sensory data..."
+                            "content": "Neural systems must infer causes from sensory data...",
                         }
                     ]
                 },
@@ -140,8 +149,8 @@ class Applications:
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
                     "version": "1.0",
-                    "domain": "neuroscience"
-                }
+                    "domain": "neuroscience",
+                },
             }
         ]
 
@@ -167,13 +176,13 @@ class Applications:
                 "learning_objectives": [
                     "Design control systems using Active Inference",
                     "Implement adaptive control mechanisms",
-                    "Optimize system performance through free energy minimization"
+                    "Optimize system performance through free energy minimization",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Control Systems Perspective",
-                            "content": "Control systems maintain desired states..."
+                            "content": "Control systems maintain desired states...",
                         }
                     ]
                 },
@@ -182,8 +191,8 @@ class Applications:
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
                     "version": "1.0",
-                    "domain": "engineering"
-                }
+                    "domain": "engineering",
+                },
             },
             {
                 "id": "robotics_control",
@@ -196,13 +205,13 @@ class Applications:
                 "learning_objectives": [
                     "Design robotic systems using Active Inference",
                     "Implement autonomous behavior generation",
-                    "Handle uncertainty in robotic environments"
+                    "Handle uncertainty in robotic environments",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Robotics and Active Inference",
-                            "content": "Robots must operate in uncertain environments..."
+                            "content": "Robots must operate in uncertain environments...",
                         }
                     ]
                 },
@@ -210,9 +219,9 @@ class Applications:
                     "estimated_reading_time": 55,
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
-                    "version": "1.0"
-                }
-            }
+                    "version": "1.0",
+                },
+            },
         ]
 
         # Add nodes to repository
@@ -237,13 +246,13 @@ class Applications:
                 "learning_objectives": [
                     "Model human decision making with Active Inference",
                     "Understand cognitive biases through free energy",
-                    "Predict behavioral patterns"
+                    "Predict behavioral patterns",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Decision Making Framework",
-                            "content": "Human decision making involves complex cognitive processes..."
+                            "content": "Human decision making involves complex cognitive processes...",
                         }
                     ]
                 },
@@ -252,8 +261,8 @@ class Applications:
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
                     "version": "1.0",
-                    "domain": "psychology"
-                }
+                    "domain": "psychology",
+                },
             }
         ]
 
@@ -279,13 +288,13 @@ class Applications:
                 "learning_objectives": [
                     "Design adaptive learning systems with Active Inference",
                     "Personalize educational content",
-                    "Optimize learning outcomes through free energy minimization"
+                    "Optimize learning outcomes through free energy minimization",
                 ],
                 "content": {
                     "sections": [
                         {
                             "title": "Adaptive Learning Systems",
-                            "content": "Adaptive learning systems adjust to individual learner needs..."
+                            "content": "Adaptive learning systems adjust to individual learner needs...",
                         }
                     ]
                 },
@@ -294,8 +303,8 @@ class Applications:
                     "author": "Active Inference Community",
                     "last_updated": "2024-10-27",
                     "version": "1.0",
-                    "domain": "education"
-                }
+                    "domain": "education",
+                },
             }
         ]
 
@@ -309,13 +318,21 @@ class Applications:
 
     def get_applications_by_domain(self, domain: str) -> List[KnowledgeNode]:
         """Get applications filtered by domain"""
-        return self.repository.search(f"application {domain}",
-                                    content_types=[ContentType.APPLICATION])
+        return self.repository.search(
+            f"application {domain}", content_types=[ContentType.APPLICATION]
+        )
 
     def get_domain_applications(self) -> Dict[str, List[KnowledgeNode]]:
         """Get applications organized by domain"""
-        domains = ["artificial_intelligence", "neuroscience", "engineering",
-                  "psychology", "education", "climate_science", "economics"]
+        domains = [
+            "artificial_intelligence",
+            "neuroscience",
+            "engineering",
+            "psychology",
+            "education",
+            "climate_science",
+            "economics",
+        ]
 
         domain_applications = {}
         for domain in domains:
@@ -327,8 +344,9 @@ class Applications:
 
     def get_case_studies(self) -> List[KnowledgeNode]:
         """Get comprehensive case studies"""
-        return self.repository.search("case study",
-                                    content_types=[ContentType.APPLICATION])
+        return self.repository.search(
+            "case study", content_types=[ContentType.APPLICATION]
+        )
 
     def validate_application(self, node_id: str) -> Dict[str, Any]:
         """Validate application for completeness and applicability"""
@@ -336,11 +354,7 @@ class Applications:
         if not node:
             return {"valid": False, "error": "Application not found"}
 
-        validation_result = {
-            "valid": True,
-            "issues": [],
-            "suggestions": []
-        }
+        validation_result = {"valid": True, "issues": [], "suggestions": []}
 
         # Check domain specification
         if not node.metadata.get("domain"):
@@ -348,14 +362,20 @@ class Applications:
             validation_result["valid"] = False
 
         # Check for practical examples
-        has_examples = any("example" in section.get("content", "").lower()
-                          for section in node.content.get("sections", []))
+        has_examples = any(
+            "example" in section.get("content", "").lower()
+            for section in node.content.get("sections", [])
+        )
         if not has_examples:
-            validation_result["suggestions"].append("Add practical examples to application")
+            validation_result["suggestions"].append(
+                "Add practical examples to application"
+            )
 
         # Check for implementation guidance
-        has_implementation = any("implement" in section.get("content", "").lower()
-                               for section in node.content.get("sections", []))
+        has_implementation = any(
+            "implement" in section.get("content", "").lower()
+            for section in node.content.get("sections", [])
+        )
         if not has_implementation:
             validation_result["suggestions"].append("Add implementation guidance")
 

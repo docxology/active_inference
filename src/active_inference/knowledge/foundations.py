@@ -8,8 +8,9 @@ principles, and theoretical framework.
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any
-from .repository import KnowledgeRepository, KnowledgeNode, ContentType, DifficultyLevel
+from typing import Any, Dict, List
+
+from .repository import ContentType, DifficultyLevel, KnowledgeNode, KnowledgeRepository
 
 
 class Foundations:
@@ -48,8 +49,8 @@ class Foundations:
                 "learning_objectives": [
                     "Define entropy mathematically",
                     "Understand entropy as uncertainty measure",
-                    "Calculate entropy for simple distributions"
-                ]
+                    "Calculate entropy for simple distributions",
+                ],
             },
             {
                 "id": "info_theory_kl_divergence",
@@ -62,8 +63,8 @@ class Foundations:
                 "learning_objectives": [
                     "Define KL divergence mathematically",
                     "Understand KL divergence as distribution distance",
-                    "Apply KL divergence in model comparison"
-                ]
+                    "Apply KL divergence in model comparison",
+                ],
             },
             {
                 "id": "info_theory_mutual_information",
@@ -76,9 +77,9 @@ class Foundations:
                 "learning_objectives": [
                     "Define mutual information",
                     "Understand information sharing between variables",
-                    "Calculate mutual information for discrete variables"
-                ]
-            }
+                    "Calculate mutual information for discrete variables",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -97,8 +98,8 @@ class Foundations:
                 "learning_objectives": [
                     "Understand subjective probability interpretation",
                     "Apply Bayes' theorem",
-                    "Update beliefs with new evidence"
-                ]
+                    "Update beliefs with new evidence",
+                ],
             },
             {
                 "id": "bayesian_models",
@@ -111,8 +112,8 @@ class Foundations:
                 "learning_objectives": [
                     "Define generative models",
                     "Understand model parameters vs observations",
-                    "Work with hierarchical Bayesian models"
-                ]
+                    "Work with hierarchical Bayesian models",
+                ],
             },
             {
                 "id": "belief_updating",
@@ -125,9 +126,9 @@ class Foundations:
                 "learning_objectives": [
                     "Implement belief updating algorithms",
                     "Understand convergence properties",
-                    "Handle sequential data streams"
-                ]
-            }
+                    "Handle sequential data streams",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -146,8 +147,8 @@ class Foundations:
                 "learning_objectives": [
                     "State the Free Energy Principle",
                     "Understand free energy as prediction error",
-                    "Connect to information theory and Bayesian inference"
-                ]
+                    "Connect to information theory and Bayesian inference",
+                ],
             },
             {
                 "id": "fep_mathematical_formulation",
@@ -160,8 +161,8 @@ class Foundations:
                 "learning_objectives": [
                     "Derive free energy expression mathematically",
                     "Understand variational free energy",
-                    "Connect to information geometry"
-                ]
+                    "Connect to information geometry",
+                ],
             },
             {
                 "id": "fep_biological_systems",
@@ -174,9 +175,9 @@ class Foundations:
                 "learning_objectives": [
                     "Apply FEP to biological systems",
                     "Understand homeostasis as free energy minimization",
-                    "Connect to evolutionary principles"
-                ]
-            }
+                    "Connect to evolutionary principles",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -195,8 +196,8 @@ class Foundations:
                 "learning_objectives": [
                     "Define Active Inference framework",
                     "Understand planning as inference",
-                    "Connect to decision theory"
-                ]
+                    "Connect to decision theory",
+                ],
             },
             {
                 "id": "ai_generative_models",
@@ -209,8 +210,8 @@ class Foundations:
                 "learning_objectives": [
                     "Design generative models for Active Inference",
                     "Understand model structure requirements",
-                    "Implement hierarchical generative models"
-                ]
+                    "Implement hierarchical generative models",
+                ],
             },
             {
                 "id": "ai_policy_selection",
@@ -218,14 +219,17 @@ class Foundations:
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.ADVANCED,
                 "description": "How Active Inference agents select actions and plan behavior",
-                "prerequisites": ["active_inference_introduction", "ai_generative_models"],
+                "prerequisites": [
+                    "active_inference_introduction",
+                    "ai_generative_models",
+                ],
                 "tags": ["active inference", "planning", "policies"],
                 "learning_objectives": [
                     "Understand expected free energy",
                     "Implement policy selection mechanisms",
-                    "Design planning algorithms"
-                ]
-            }
+                    "Design planning algorithms",
+                ],
+            },
         ]
 
         self._save_nodes_to_repository(nodes_data)
@@ -239,14 +243,16 @@ class Foundations:
                 "author": "Active Inference Community",
                 "version": "1.0",
                 "estimated_reading_time": 15,
-                "last_updated": "2024-10-27"
+                "last_updated": "2024-10-27",
             }
 
             # Create knowledge node and add to repository
             try:
                 self.repository._nodes[node_data["id"]] = KnowledgeNode(**node_data)
             except Exception as e:
-                print(f"Warning: Failed to create foundation node {node_data['id']}: {e}")
+                print(
+                    f"Warning: Failed to create foundation node {node_data['id']}: {e}"
+                )
 
     def _generate_node_content(self, node_data: Dict[str, Any]) -> Dict[str, Any]:
         """Generate comprehensive content for foundation nodes"""
@@ -261,29 +267,29 @@ class Foundations:
                     "Entropy is always non-negative: H(X) ≥ 0",
                     "Entropy is maximized for uniform distributions",
                     "Entropy measures uncertainty, not complexity",
-                    "Units are typically bits (log₂) or nats (logₑ)"
+                    "Units are typically bits (log₂) or nats (logₑ)",
                 ],
                 "examples": [
                     {
                         "name": "Fair Coin",
                         "description": "A fair coin has maximum entropy",
                         "calculation": "H = -0.5×log₂(0.5) - 0.5×log₂(0.5) = 1 bit",
-                        "interpretation": "1 bit of information is needed to describe the outcome"
+                        "interpretation": "1 bit of information is needed to describe the outcome",
                     },
                     {
                         "name": "Biased Coin",
                         "description": "A biased coin has lower entropy",
                         "calculation": "H = -0.9×log₂(0.9) - 0.1×log₂(0.1) ≈ 0.47 bits",
-                        "interpretation": "Less information needed due to predictability"
-                    }
+                        "interpretation": "Less information needed due to predictability",
+                    },
                 ],
                 "applications": [
                     "Data compression (entropy coding)",
                     "Cryptography (key strength measurement)",
                     "Machine learning (feature selection)",
                     "Neuroscience (information processing)",
-                    "Active Inference (uncertainty quantification)"
-                ]
+                    "Active Inference (uncertainty quantification)",
+                ],
             }
 
         elif node_id == "info_theory_kl_divergence":
@@ -294,27 +300,27 @@ class Foundations:
                     "D_KL(P||Q) ≥ 0 (Gibbs' inequality)",
                     "D_KL(P||Q) ≠ D_KL(Q||P) (asymmetric)",
                     "D_KL(P||P) = 0 (minimum at equality)",
-                    "Measures relative entropy between distributions"
+                    "Measures relative entropy between distributions",
                 ],
                 "examples": [
                     {
                         "name": "Model Comparison",
                         "description": "Compare true distribution vs model approximation",
-                        "interpretation": "KL divergence quantifies model accuracy"
+                        "interpretation": "KL divergence quantifies model accuracy",
                     },
                     {
                         "name": "Free Energy Principle",
                         "description": "KL divergence between posterior and prior beliefs",
-                        "interpretation": "Measures surprise or prediction error"
-                    }
+                        "interpretation": "Measures surprise or prediction error",
+                    },
                 ],
                 "applications": [
                     "Model selection and comparison",
                     "Variational inference",
                     "Statistical hypothesis testing",
                     "Information geometry",
-                    "Active Inference (surprise minimization)"
-                ]
+                    "Active Inference (surprise minimization)",
+                ],
             }
 
         elif node_id == "info_theory_mutual_information":
@@ -325,27 +331,27 @@ class Foundations:
                     "I(X;Y) ≥ 0 (non-negative)",
                     "I(X;Y) = I(Y;X) (symmetric)",
                     "I(X;Y) = 0 if X and Y are independent",
-                    "I(X;X) = H(X) (self-information equals entropy)"
+                    "I(X;X) = H(X) (self-information equals entropy)",
                 ],
                 "examples": [
                     {
                         "name": "Feature Selection",
                         "description": "Mutual information for selecting relevant features",
-                        "interpretation": "Higher mutual information indicates better feature relevance"
+                        "interpretation": "Higher mutual information indicates better feature relevance",
                     },
                     {
                         "name": "Communication Channels",
                         "description": "Information transmission through noisy channels",
-                        "interpretation": "Mutual information quantifies channel capacity"
-                    }
+                        "interpretation": "Mutual information quantifies channel capacity",
+                    },
                 ],
                 "applications": [
                     "Feature selection in machine learning",
                     "Information bottleneck method",
                     "Causal discovery",
                     "Network analysis",
-                    "Active Inference (information flow)"
-                ]
+                    "Active Inference (information flow)",
+                ],
             }
 
         elif node_id == "bayesian_basics":
@@ -356,13 +362,13 @@ class Foundations:
                     "Prior: Initial beliefs before seeing data",
                     "Likelihood: Probability of data given parameters",
                     "Posterior: Updated beliefs after seeing data",
-                    "Evidence: Probability of data (normalizing constant)"
+                    "Evidence: Probability of data (normalizing constant)",
                 ],
                 "properties": [
                     "Beliefs are represented as probability distributions",
                     "All uncertainty is quantified probabilistically",
                     "Beliefs are updated coherently with new evidence",
-                    "No distinction between parameters and data"
+                    "No distinction between parameters and data",
                 ],
                 "examples": [
                     {
@@ -370,7 +376,7 @@ class Foundations:
                         "description": "Update disease probability with test results",
                         "prior": "P(disease) = 0.01",
                         "likelihood": "P(positive test|disease) = 0.95",
-                        "posterior": "P(disease|positive test) = 0.16"
+                        "posterior": "P(disease|positive test) = 0.16",
                     }
                 ],
                 "applications": [
@@ -378,8 +384,8 @@ class Foundations:
                     "Machine learning (Bayesian methods)",
                     "Decision making under uncertainty",
                     "Scientific hypothesis testing",
-                    "Active Inference framework"
-                ]
+                    "Active Inference framework",
+                ],
             }
 
         elif node_id == "bayesian_models":
@@ -391,20 +397,20 @@ class Foundations:
                     "Data (x): Observed evidence",
                     "Prior (p(θ)): Initial beliefs about parameters",
                     "Likelihood (p(x|θ)): Data generation process",
-                    "Posterior (p(θ|x)): Updated beliefs"
+                    "Posterior (p(θ|x)): Updated beliefs",
                 ],
                 "properties": [
                     "Generative: Can generate synthetic data",
                     "Probabilistic: All uncertainty is quantified",
                     "Hierarchical: Can model complex relationships",
-                    "Compositional: Can be combined modularly"
+                    "Compositional: Can be combined modularly",
                 ],
                 "examples": [
                     {
                         "name": "Linear Regression",
                         "description": "Bayesian treatment of linear regression",
                         "model": "y = β₀ + β₁x + ε, ε ~ N(0, σ²)",
-                        "interpretation": "Parameters have distributions, not point estimates"
+                        "interpretation": "Parameters have distributions, not point estimates",
                     }
                 ],
                 "applications": [
@@ -412,8 +418,8 @@ class Foundations:
                     "Time series modeling",
                     "Hierarchical modeling",
                     "Mixture models",
-                    "Active Inference (generative models)"
-                ]
+                    "Active Inference (generative models)",
+                ],
             }
 
         elif node_id == "belief_updating":
@@ -424,33 +430,33 @@ class Foundations:
                     "Batch updating: Update with all data at once",
                     "Sequential updating: Update with each new observation",
                     "Recursive filtering: Online belief updating",
-                    "Variational updating: Approximate belief updating"
+                    "Variational updating: Approximate belief updating",
                 ],
                 "properties": [
                     "Convergence: Beliefs stabilize with sufficient data",
                     "Consistency: Multiple updates equivalent to batch update",
                     "Robustness: Handles missing or noisy data",
-                    "Efficiency: Online algorithms for large datasets"
+                    "Efficiency: Online algorithms for large datasets",
                 ],
                 "examples": [
                     {
                         "name": "Kalman Filtering",
                         "description": "Recursive belief updating for linear systems",
-                        "interpretation": "Optimal estimation under Gaussian assumptions"
+                        "interpretation": "Optimal estimation under Gaussian assumptions",
                     },
                     {
                         "name": "Particle Filtering",
                         "description": "Sequential Monte Carlo belief updating",
-                        "interpretation": "Handles non-linear, non-Gaussian systems"
-                    }
+                        "interpretation": "Handles non-linear, non-Gaussian systems",
+                    },
                 ],
                 "applications": [
                     "Signal processing",
                     "Control systems",
                     "Robotics (state estimation)",
                     "Finance (portfolio optimization)",
-                    "Active Inference (belief dynamics)"
-                ]
+                    "Active Inference (belief dynamics)",
+                ],
             }
 
         elif node_id == "fep_introduction":
@@ -462,33 +468,33 @@ class Foundations:
                     "Perception: Inferring hidden causes of sensory data",
                     "Action: Selecting actions that fulfill predictions",
                     "Learning: Updating models to better predict sensory data",
-                    "Self-organization: Maintaining system integrity"
+                    "Self-organization: Maintaining system integrity",
                 ],
                 "properties": [
                     "Universal: Applies to all biological systems",
                     "Unifying: Connects perception, action, and learning",
                     "Information-theoretic: Based on information theory",
-                    "Variational: Uses variational inference principles"
+                    "Variational: Uses variational inference principles",
                 ],
                 "examples": [
                     {
                         "name": "Homeostasis",
                         "description": "Maintaining body temperature",
-                        "interpretation": "Actions minimize prediction error about ideal temperature"
+                        "interpretation": "Actions minimize prediction error about ideal temperature",
                     },
                     {
                         "name": "Visual Perception",
                         "description": "Recognizing objects in images",
-                        "interpretation": "Brain infers object identities to explain visual input"
-                    }
+                        "interpretation": "Brain infers object identities to explain visual input",
+                    },
                 ],
                 "applications": [
                     "Neuroscience (brain function)",
                     "Psychology (behavior)",
                     "Artificial intelligence",
                     "Systems biology",
-                    "Active Inference framework"
-                ]
+                    "Active Inference framework",
+                ],
             }
 
         elif node_id == "fep_mathematical_formulation":
@@ -502,13 +508,13 @@ class Foundations:
                     "F ≥ -log p(x) (free energy bounds log-evidence)",
                     "F = 0 when q(θ) = p(θ|x) (perfect inference)",
                     "Gradient descent converges to posterior",
-                    "Higher-order terms give information geometry"
+                    "Higher-order terms give information geometry",
                 ],
                 "examples": [
                     {
                         "name": "Variational Inference",
                         "description": "Approximating posterior distributions",
-                        "interpretation": "Free energy minimization finds best approximation"
+                        "interpretation": "Free energy minimization finds best approximation",
                     }
                 ],
                 "applications": [
@@ -516,8 +522,8 @@ class Foundations:
                     "Neural networks (variational autoencoders)",
                     "Reinforcement learning",
                     "Information geometry",
-                    "Active Inference mathematics"
-                ]
+                    "Active Inference mathematics",
+                ],
             }
 
         elif node_id == "fep_biological_systems":
@@ -531,27 +537,27 @@ class Foundations:
                     "Self-organizing: Structure emerges from dynamics",
                     "Adaptive: Systems learn and adapt to environment",
                     "Robust: Multiple mechanisms for error correction",
-                    "Hierarchical: Multi-scale organization"
+                    "Hierarchical: Multi-scale organization",
                 ],
                 "examples": [
                     {
                         "name": "Thermoregulation",
                         "description": "Maintaining body temperature",
-                        "mechanism": "Sweating, shivering, behavior changes"
+                        "mechanism": "Sweating, shivering, behavior changes",
                     },
                     {
                         "name": "Immune System",
                         "description": "Pathogen detection and elimination",
-                        "mechanism": "Pattern recognition and response generation"
-                    }
+                        "mechanism": "Pattern recognition and response generation",
+                    },
                 ],
                 "applications": [
                     "Physiology (organ systems)",
                     "Neuroscience (brain organization)",
                     "Ecology (ecosystem dynamics)",
                     "Developmental biology",
-                    "Active Inference (biological implementation)"
-                ]
+                    "Active Inference (biological implementation)",
+                ],
             }
 
         elif node_id == "active_inference_introduction":
@@ -565,29 +571,29 @@ class Foundations:
                     "Goal-directed: Actions serve to achieve preferred outcomes",
                     "Information-seeking: Agents explore to reduce uncertainty",
                     "Adaptive: Learning updates model based on experience",
-                    "Predictive: Behavior is prediction-driven"
+                    "Predictive: Behavior is prediction-driven",
                 ],
                 "examples": [
                     {
                         "name": "Foraging",
                         "description": "Animal searching for food",
                         "behavior": "Go to locations where food is expected",
-                        "inference": "Infer food locations from environmental cues"
+                        "inference": "Infer food locations from environmental cues",
                     },
                     {
                         "name": "Social Interaction",
                         "description": "Human social behavior",
                         "behavior": "Actions that fulfill social expectations",
-                        "inference": "Infer others' intentions and preferences"
-                    }
+                        "inference": "Infer others' intentions and preferences",
+                    },
                 ],
                 "applications": [
                     "Robotics (autonomous agents)",
                     "Artificial intelligence",
                     "Psychology (decision making)",
                     "Neuroscience (brain function)",
-                    "Clinical applications (mental health)"
-                ]
+                    "Clinical applications (mental health)",
+                ],
             }
 
         elif node_id == "ai_generative_models":
@@ -601,29 +607,29 @@ class Foundations:
                     "Generative: Can synthesize data from the model",
                     "Probabilistic: All uncertainty is quantified",
                     "Hierarchical: Multi-level abstraction",
-                    "Learnable: Models can be updated from experience"
+                    "Learnable: Models can be updated from experience",
                 ],
                 "examples": [
                     {
                         "name": "Visual Object Recognition",
                         "description": "Recognizing objects in images",
                         "model": "p(image|object) × p(object)",
-                        "inference": "Infer object identity from image features"
+                        "inference": "Infer object identity from image features",
                     },
                     {
                         "name": "Motor Control",
                         "description": "Controlling limb movements",
                         "model": "p(sensory feedback|motor command) × p(motor command)",
-                        "inference": "Infer motor commands from desired sensory outcomes"
-                    }
+                        "inference": "Infer motor commands from desired sensory outcomes",
+                    },
                 ],
                 "applications": [
                     "Computer vision",
                     "Robotics",
                     "Natural language processing",
                     "Cognitive modeling",
-                    "Active Inference implementations"
-                ]
+                    "Active Inference implementations",
+                ],
             }
 
         elif node_id == "ai_policy_selection":
@@ -634,7 +640,7 @@ class Foundations:
                     "Risk: Expected prediction error (epistemic)",
                     "Ambiguity: Uncertainty about outcomes (aleatoric)",
                     "Value: Expected reward or utility",
-                    "Complexity: Cost of maintaining the policy"
+                    "Complexity: Cost of maintaining the policy",
                 ],
                 "planning_horizon": "Planning considers future consequences:\n\n- Short-term: Immediate action selection\n- Long-term: Multi-step planning\n- Hierarchical: Planning at different time scales",
                 "information_seeking": "Active Inference agents seek information:\n\n- Exploration: Reduce uncertainty about the world\n- Exploitation: Maximize expected reward\n- Balance: Trade-off between exploration and exploitation",
@@ -643,29 +649,29 @@ class Foundations:
                     "Goal-directed: Actions serve preferred outcomes",
                     "Information-seeking: Agents explore to learn",
                     "Risk-sensitive: Avoids high-variance outcomes",
-                    "Adaptive: Updates based on experience"
+                    "Adaptive: Updates based on experience",
                 ],
                 "examples": [
                     {
                         "name": "Optimal Foraging",
                         "description": "Animal foraging decisions",
                         "policy": "Choose patches with highest expected food value",
-                        "considerations": "Travel cost, competition, uncertainty"
+                        "considerations": "Travel cost, competition, uncertainty",
                     },
                     {
                         "name": "Clinical Decision Making",
                         "description": "Medical treatment selection",
                         "policy": "Balance treatment efficacy with side effects",
-                        "considerations": "Patient preferences, uncertainty"
-                    }
+                        "considerations": "Patient preferences, uncertainty",
+                    },
                 ],
                 "applications": [
                     "Reinforcement learning",
                     "Decision theory",
                     "Economics (rational choice)",
                     "Artificial intelligence",
-                    "Active Inference implementations"
-                ]
+                    "Active Inference implementations",
+                ],
             }
 
         else:
@@ -674,7 +680,7 @@ class Foundations:
                 "overview": f"Content for {node_data['title']}",
                 "mathematical_definition": "Mathematical formulation to be provided",
                 "examples": [],
-                "applications": ["Active Inference", "Related fields"]
+                "applications": ["Active Inference", "Related fields"],
             }
 
     def get_foundation_tracks(self) -> Dict[str, List[str]]:
@@ -683,23 +689,23 @@ class Foundations:
             "information_theory": [
                 "info_theory_entropy",
                 "info_theory_kl_divergence",
-                "info_theory_mutual_information"
+                "info_theory_mutual_information",
             ],
             "bayesian_inference": [
                 "bayesian_basics",
                 "bayesian_models",
-                "belief_updating"
+                "belief_updating",
             ],
             "free_energy_principle": [
                 "fep_introduction",
                 "fep_mathematical_formulation",
-                "fep_biological_systems"
+                "fep_biological_systems",
             ],
             "active_inference": [
                 "active_inference_introduction",
                 "ai_generative_models",
-                "ai_policy_selection"
-            ]
+                "ai_policy_selection",
+            ],
         }
 
     def get_complete_foundation_path(self) -> List[str]:
@@ -708,7 +714,12 @@ class Foundations:
         complete_path = []
 
         # Add tracks in logical order
-        for track_name in ["information_theory", "bayesian_inference", "free_energy_principle", "active_inference"]:
+        for track_name in [
+            "information_theory",
+            "bayesian_inference",
+            "free_energy_principle",
+            "active_inference",
+        ]:
             complete_path.extend(tracks[track_name])
 
         return complete_path
@@ -723,7 +734,9 @@ class Foundations:
 
         # Filter nodes that contain the topic in their ID or tags
         # In a real implementation, this would use the repository search
-        return [node_id for node_id in related_nodes if topic.lower() in node_id.lower()]
+        return [
+            node_id for node_id in related_nodes if topic.lower() in node_id.lower()
+        ]
 
     def validate_foundation_consistency(self) -> Dict[str, Any]:
         """Validate consistency of foundation knowledge"""
@@ -732,7 +745,7 @@ class Foundations:
             "valid": True,
             "issues": [],
             "track_completeness": {},
-            "prerequisite_satisfaction": {}
+            "prerequisite_satisfaction": {},
         }
 
         # Check track completeness
@@ -784,12 +797,19 @@ class Foundations:
 
         for track_name, nodes in tracks.items():
             for node_id in nodes:
-                if query.lower() in node_id.lower() or query.lower() in track_name.lower():
-                    results.append({
-                        "id": node_id,
-                        "track": track_name,
-                        "relevance_score": 1.0 if query.lower() in node_id.lower() else 0.5
-                    })
+                if (
+                    query.lower() in node_id.lower()
+                    or query.lower() in track_name.lower()
+                ):
+                    results.append(
+                        {
+                            "id": node_id,
+                            "track": track_name,
+                            "relevance_score": (
+                                1.0 if query.lower() in node_id.lower() else 0.5
+                            ),
+                        }
+                    )
 
         # Sort by relevance
         results.sort(key=lambda x: x["relevance_score"], reverse=True)
@@ -814,7 +834,7 @@ class Foundations:
         node_index = track_nodes.index(node_id)
 
         prerequisites = track_nodes[:node_index]
-        dependents = track_nodes[node_index + 1:]
+        dependents = track_nodes[node_index + 1 :]
 
         return {
             "node_id": node_id,
@@ -822,7 +842,7 @@ class Foundations:
             "prerequisites": prerequisites,
             "dependents": dependents,
             "position": node_index,
-            "total_in_track": len(track_nodes)
+            "total_in_track": len(track_nodes),
         }
 
     def export_foundation_graph(self, format: str = "json") -> str:
@@ -837,19 +857,21 @@ class Foundations:
                 "total_tracks": len(tracks),
                 "total_nodes": sum(len(nodes) for nodes in tracks.values()),
                 "export_format": format,
-                "generated_by": "Active Inference Foundations"
-            }
+                "generated_by": "Active Inference Foundations",
+            },
         }
 
         # Add nodes
         node_id_to_track = {}
         for track_name, nodes in tracks.items():
             for node_id in nodes:
-                graph["nodes"].append({
-                    "id": node_id,
-                    "track": track_name,
-                    "label": node_id.replace("_", " ").title()
-                })
+                graph["nodes"].append(
+                    {
+                        "id": node_id,
+                        "track": track_name,
+                        "label": node_id.replace("_", " ").title(),
+                    }
+                )
                 node_id_to_track[node_id] = track_name
 
         # Add edges (prerequisite relationships)
@@ -857,12 +879,14 @@ class Foundations:
             for i in range(len(nodes) - 1):
                 from_node = nodes[i]
                 to_node = nodes[i + 1]
-                graph["edges"].append({
-                    "source": from_node,
-                    "target": to_node,
-                    "type": "prerequisite",
-                    "track": track_name
-                })
+                graph["edges"].append(
+                    {
+                        "source": from_node,
+                        "target": to_node,
+                        "type": "prerequisite",
+                        "track": track_name,
+                    }
+                )
 
         if format == "json":
             return json.dumps(graph, indent=2)
