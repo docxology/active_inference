@@ -12,12 +12,10 @@ This module provides:
 """
 
 import json
-import re
-from abc import ABC, abstractmethod
+import logging
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Union, Callable
-import logging
+from typing import Any, Callable, Dict, List, Optional, Self
 
 
 @dataclass
@@ -31,7 +29,7 @@ class PromptTemplate:
     examples: List[Dict[str, Any]] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def format(self, **kwargs) -> str:
+    def format(self, **kwargs: Any) -> str:
         """Format template with provided variables"""
         try:
             return self.template.format(**kwargs)
@@ -47,18 +45,20 @@ class PromptTemplate:
                 missing.append(var)
         return missing
 
-    def get_example_prompt(self, example_name: str = None) -> Optional[str]:
+    def get_example_prompt(self, example_name: Optional[str] = None) -> Optional[str]:
         """Get an example prompt using template examples"""
         if not self.examples:
             return None
 
         if example_name:
-            example = next((ex for ex in self.examples if ex.get('name') == example_name), None)
+            example = next(
+                (ex for ex in self.examples if ex.get("name") == example_name), None
+            )
         else:
             example = self.examples[0]
 
         if example:
-            return self.format(**example.get('variables', {}))
+            return self.format(**example.get("variables", {}))
 
         return None
 
@@ -72,9 +72,9 @@ class PromptVariable:
         var_type: str = "string",
         description: str = "",
         required: bool = True,
-        default: Any = None,
-        validator: Optional[Callable] = None
-    ):
+        default: Optional[Any] = None,
+        validator: Optional[Callable] = None,
+    ) -> None:
         self.name = name
         self.var_type = var_type
         self.description = description
@@ -85,7 +85,7 @@ class PromptVariable:
     def validate(self, value: Any) -> bool:
         """Validate the variable value"""
         if self.validator:
-            return self.validator(value)
+            return bool(self.validator(value))
         return True
 
 
@@ -106,14 +106,22 @@ class PromptSection:
 class PromptBuilder:
     """Builder for creating complex prompts with multiple sections"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.sections: List[PromptSection] = []
         self.variables: Dict[str, Any] = {}
         self.metadata: Dict[str, Any] = {}
 
-    def add_section(self, name: str, content: str, position: int = None, separator: str = "\n\n") -> 'PromptBuilder':
+    def add_section(
+        self,
+        name: str,
+        content: str,
+        position: Optional[int] = None,
+        separator: str = "\n\n",
+    ) -> Self:
         """Add a section to the prompt"""
-        section = PromptSection(name, content, position or len(self.sections), separator)
+        section = PromptSection(
+            name, content, position or len(self.sections), separator
+        )
 
         if position is not None:
             self.sections.insert(position, section)
@@ -125,17 +133,17 @@ class PromptBuilder:
 
         return self
 
-    def set_variable(self, name: str, value: Any) -> 'PromptBuilder':
+    def set_variable(self, name: str, value: Any) -> Self:
         """Set a variable value"""
         self.variables[name] = value
         return self
 
-    def set_variables(self, variables: Dict[str, Any]) -> 'PromptBuilder':
+    def set_variables(self, variables: Dict[str, Any]) -> Self:
         """Set multiple variables"""
         self.variables.update(variables)
         return self
 
-    def set_metadata(self, key: str, value: Any) -> 'PromptBuilder':
+    def set_metadata(self, key: str, value: Any) -> Self:
         """Set metadata"""
         self.metadata[key] = value
         return self
@@ -164,7 +172,7 @@ class PromptBuilder:
 
         return result
 
-    def clear(self) -> 'PromptBuilder':
+    def clear(self) -> Self:
         """Clear all sections and variables"""
         self.sections.clear()
         self.variables.clear()
@@ -175,10 +183,12 @@ class PromptBuilder:
 class PromptManager:
     """Manager for prompt templates and prompt generation"""
 
-    def __init__(self, templates_path: Optional[Path] = None):
+    def __init__(self, templates_path: Optional[Path] = None) -> None:
         self.templates: Dict[str, PromptTemplate] = {}
         self.templates_path = templates_path or Path(__file__).parent / "templates"
-        self.logger = logging.getLogger(f"active_inference.llm.{self.__class__.__name__}")
+        self.logger = logging.getLogger(
+            f"active_inference.llm.{self.__class__.__name__}"
+        )
 
         # Load default templates
         self._load_default_templates()
@@ -208,7 +218,13 @@ Provide a {response_type} that includes:
 4. Connection to Free Energy Principle
 
 Focus on making the explanation accessible while maintaining scientific accuracy.""",
-            variables=["concept", "context", "audience_level", "key_points", "response_type"],
+            variables=[
+                "concept",
+                "context",
+                "audience_level",
+                "key_points",
+                "response_type",
+            ],
             examples=[
                 {
                     "name": "beginner_entropy",
@@ -216,17 +232,22 @@ Focus on making the explanation accessible while maintaining scientific accuracy
                         "concept": "entropy",
                         "context": "information theory foundations",
                         "audience_level": "beginner",
-                        "key_points": "uncertainty, information content, probability distributions",
-                        "response_type": "comprehensive explanation"
-                    }
+                        "key_points": (
+                            "uncertainty, information content, probability"
+                            " distributions"
+                        ),
+                        "response_type": "comprehensive explanation",
+                    },
                 }
-            ]
+            ],
         )
 
         # Research question template
         research_template = PromptTemplate(
             name="research_question",
-            description="Template for generating research questions in Active Inference",
+            description=(
+                "Template for generating research questions in Active Inference"
+            ),
             template="""Generate research questions related to {topic} in Active Inference.
 
 DOMAIN:
@@ -252,7 +273,14 @@ Format each question with:
 - Rationale
 - Potential methodology
 - Expected contribution""",
-            variables=["topic", "domain", "current_knowledge", "research_gap", "methodology", "num_questions"],
+            variables=[
+                "topic",
+                "domain",
+                "current_knowledge",
+                "research_gap",
+                "methodology",
+                "num_questions",
+            ],
             examples=[
                 {
                     "name": "multi_agent_systems",
@@ -262,10 +290,10 @@ Format each question with:
                         "current_knowledge": "single agent models well established",
                         "research_gap": "coordination and communication between agents",
                         "methodology": "simulation and theoretical analysis",
-                        "num_questions": "5"
-                    }
+                        "num_questions": "5",
+                    },
                 }
-            ]
+            ],
         )
 
         # Code implementation template
@@ -300,20 +328,32 @@ Follow these coding standards:
 - Clear, descriptive variable names
 - Modular, reusable design
 - Performance considerations""",
-            variables=["algorithm", "language", "problem_description", "requirements", "constraints", "codebase_context"],
+            variables=[
+                "algorithm",
+                "language",
+                "problem_description",
+                "requirements",
+                "constraints",
+                "codebase_context",
+            ],
             examples=[
                 {
                     "name": "variational_inference",
                     "variables": {
                         "algorithm": "variational inference",
                         "language": "Python",
-                        "problem_description": "Implement variational inference for approximate Bayesian computation",
-                        "requirements": "numpy, scipy, type hints, comprehensive testing",
+                        "problem_description": (
+                            "Implement variational inference for approximate Bayesian"
+                            " computation"
+                        ),
+                        "requirements": (
+                            "numpy, scipy, type hints, comprehensive testing"
+                        ),
                         "constraints": "numerical stability, memory efficiency",
-                        "codebase_context": "Active Inference knowledge environment"
-                    }
+                        "codebase_context": "Active Inference knowledge environment",
+                    },
                 }
-            ]
+            ],
         )
 
         # Add templates
@@ -334,10 +374,7 @@ Follow these coding standards:
         return list(self.templates.keys())
 
     def generate_prompt(
-        self,
-        template_name: str,
-        variables: Dict[str, Any],
-        validate: bool = True
+        self, template_name: str, variables: Dict[str, Any], validate: bool = True
     ) -> str:
         """Generate a prompt using a template"""
         template = self.get_template(template_name)
@@ -356,8 +393,8 @@ Follow these coding standards:
         name: str,
         description: str,
         template: str,
-        variables: List[str] = None,
-        examples: List[Dict[str, Any]] = None
+        variables: Optional[List[str]] = None,
+        examples: Optional[List[Dict[str, Any]]] = None,
     ) -> PromptTemplate:
         """Create a custom prompt template"""
         return PromptTemplate(
@@ -365,10 +402,12 @@ Follow these coding standards:
             description=description,
             template=template,
             variables=variables or [],
-            examples=examples or []
+            examples=examples or [],
         )
 
-    def save_template(self, template: PromptTemplate, file_path: Optional[Path] = None) -> None:
+    def save_template(
+        self, template: PromptTemplate, file_path: Optional[Path] = None
+    ) -> None:
         """Save template to file"""
         if not file_path:
             file_path = self.templates_path / f"{template.name}.json"
@@ -381,15 +420,15 @@ Follow these coding standards:
             "template": template.template,
             "variables": template.variables,
             "examples": template.examples,
-            "metadata": template.metadata
+            "metadata": template.metadata,
         }
 
-        with open(file_path, 'w') as f:
+        with open(file_path, "w") as f:
             json.dump(data, f, indent=2)
 
     def load_template(self, file_path: Path) -> PromptTemplate:
         """Load template from file"""
-        with open(file_path, 'r') as f:
+        with open(file_path, "r") as f:
             data = json.load(f)
 
         template = PromptTemplate(
@@ -398,7 +437,7 @@ Follow these coding standards:
             template=data["template"],
             variables=data.get("variables", []),
             examples=data.get("examples", []),
-            metadata=data.get("metadata", {})
+            metadata=data.get("metadata", {}),
         )
 
         # Add to templates dictionary
@@ -417,7 +456,7 @@ Follow these coding standards:
             "description": template.description,
             "variables": template.variables,
             "examples_count": len(template.examples),
-            "metadata": template.metadata
+            "metadata": template.metadata,
         }
 
 
@@ -425,7 +464,7 @@ Follow these coding standards:
 class ActiveInferencePromptBuilder(PromptBuilder):
     """Specialized prompt builder for Active Inference content"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def add_concept_explanation(
@@ -433,8 +472,8 @@ class ActiveInferencePromptBuilder(PromptBuilder):
         concept: str,
         context: str = "",
         audience_level: str = "intermediate",
-        include_math: bool = True
-    ) -> 'ActiveInferencePromptBuilder':
+        include_math: bool = True,
+    ) -> "ActiveInferencePromptBuilder":
         """Add concept explanation section"""
         content = f"Explain {concept} in Active Inference context"
         if context:
@@ -447,10 +486,8 @@ class ActiveInferencePromptBuilder(PromptBuilder):
         return self.add_section("concept_explanation", content)
 
     def add_learning_objective(
-        self,
-        objectives: List[str],
-        difficulty: str = "intermediate"
-    ) -> 'ActiveInferencePromptBuilder':
+        self, objectives: List[str], difficulty: str = "intermediate"
+    ) -> "ActiveInferencePromptBuilder":
         """Add learning objectives section"""
         content = f"Learning Objectives ({difficulty.capitalize()} level):\n"
         for i, obj in enumerate(objectives, 1):
@@ -462,18 +499,21 @@ class ActiveInferencePromptBuilder(PromptBuilder):
         self,
         topic: str,
         domain: str = "artificial_intelligence",
-        methodology: str = "theoretical_analysis"
-    ) -> 'ActiveInferencePromptBuilder':
+        methodology: str = "theoretical_analysis",
+    ) -> "ActiveInferencePromptBuilder":
         """Add research question section"""
-        content = f"Generate research questions about {topic} in {domain} using {methodology} approaches."
+        content = (
+            f"Generate research questions about {topic} in {domain} using {methodology}"
+            " approaches."
+        )
         return self.add_section("research_questions", content)
 
     def add_code_implementation(
         self,
         algorithm: str,
         language: str = "Python",
-        requirements: List[str] = None
-    ) -> 'ActiveInferencePromptBuilder':
+        requirements: Optional[List[str]] = None,
+    ) -> "ActiveInferencePromptBuilder":
         """Add code implementation section"""
         requirements = requirements or []
         content = f"Implement {algorithm} in {language}"
@@ -486,30 +526,33 @@ class ActiveInferencePromptBuilder(PromptBuilder):
 class EducationalPromptBuilder(PromptBuilder):
     """Specialized prompt builder for educational content"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def add_learning_objective(
-        self,
-        objectives: List[str],
-        difficulty: str = "intermediate"
-    ) -> 'EducationalPromptBuilder':
+        self, objectives: List[str], difficulty: str = "intermediate"
+    ) -> "EducationalPromptBuilder":
         """Add learning objectives section"""
-        content = f"Learning Objectives ({difficulty} level):\n" + "\n".join(f"- {obj}" for obj in objectives)
+        content = f"Learning Objectives ({difficulty} level):\n" + "\n".join(
+            f"- {obj}" for obj in objectives
+        )
         return self.add_section("learning_objectives", content)
 
     def add_prerequisite_check(
-        self,
-        prerequisites: List[str]
-    ) -> 'EducationalPromptBuilder':
+        self, prerequisites: List[str]
+    ) -> "EducationalPromptBuilder":
         """Add prerequisite knowledge section"""
-        content = "Ensure explanation builds on these prerequisite concepts:\n" + "\n".join(f"- {prereq}" for prereq in prerequisites)
+        content = (
+            "Ensure explanation builds on these prerequisite concepts:\n"
+            + "\n".join(f"- {prereq}" for prereq in prerequisites)
+        )
         return self.add_section("prerequisites", content)
 
     def add_assessment_criteria(
-        self,
-        criteria: List[str]
-    ) -> 'EducationalPromptBuilder':
+        self, criteria: List[str]
+    ) -> "EducationalPromptBuilder":
         """Add assessment criteria section"""
-        content = "Content should enable assessment of:\n" + "\n".join(f"- {criterion}" for criterion in criteria)
+        content = "Content should enable assessment of:\n" + "\n".join(
+            f"- {criterion}" for criterion in criteria
+        )
         return self.add_section("assessment", content)

@@ -7,16 +7,17 @@ examples, best practices, and implementation patterns.
 """
 
 import logging
-from typing import Dict, List, Optional, Any
-from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
 
 class ApplicationDomain(Enum):
     """Application domains for case studies"""
+
     ROBOTICS = "robotics"
     DECISION_MAKING = "decision_making"
     PERCEPTION = "perception"
@@ -29,6 +30,7 @@ class ApplicationDomain(Enum):
 @dataclass
 class CaseStudy:
     """Represents a case study or example application"""
+
     id: str
     title: str
     domain: ApplicationDomain
@@ -43,12 +45,15 @@ class CaseStudy:
 class ExampleApplications:
     """Collection of example applications"""
 
-    def __init__(self, examples_dir: Path):
+    def __init__(self, examples_dir: Path) -> None:
         self.examples_dir = Path(examples_dir)
         self.case_studies: Dict[str, CaseStudy] = {}
 
         self._load_case_studies()
-        logger.info(f"ExampleApplications initialized with {len(self.case_studies)} case studies")
+        logger.info(
+            f"ExampleApplications initialized with {len(self.case_studies)} case"
+            " studies"
+        )
 
     def _load_case_studies(self) -> None:
         """Load available case studies"""
@@ -58,57 +63,93 @@ class ExampleApplications:
                 id="perceptual_inference",
                 title="Perceptual Inference in Vision",
                 domain=ApplicationDomain.PERCEPTION,
-                description="Implementation of perceptual inference for visual recognition using Active Inference",
+                description=(
+                    "Implementation of perceptual inference for visual recognition"
+                    " using Active Inference"
+                ),
                 difficulty="intermediate",
-                implementation_files=["perceptual_model.py", "visual_dataset.py", "inference_engine.py"],
+                implementation_files=[
+                    "perceptual_model.py",
+                    "visual_dataset.py",
+                    "inference_engine.py",
+                ],
                 requirements=["numpy", "scipy", "matplotlib", "pillow"],
                 learning_objectives=[
                     "Understand perceptual inference in Active Inference",
                     "Implement generative models for visual data",
-                    "Apply variational inference to vision tasks"
+                    "Apply variational inference to vision tasks",
                 ],
-                key_concepts=["perceptual_inference", "generative_models", "variational_inference", "visual_cognition"]
+                key_concepts=[
+                    "perceptual_inference",
+                    "generative_models",
+                    "variational_inference",
+                    "visual_cognition",
+                ],
             ),
-
             "decision_making": CaseStudy(
                 id="decision_making",
                 title="Decision Making Under Uncertainty",
                 domain=ApplicationDomain.DECISION_MAKING,
-                description="Active Inference model for decision making in uncertain environments",
+                description=(
+                    "Active Inference model for decision making in uncertain"
+                    " environments"
+                ),
                 difficulty="advanced",
-                implementation_files=["decision_model.py", "environment.py", "policy_selection.py"],
+                implementation_files=[
+                    "decision_model.py",
+                    "environment.py",
+                    "policy_selection.py",
+                ],
                 requirements=["numpy", "scipy", "pandas"],
                 learning_objectives=[
                     "Model decision making with Active Inference",
                     "Implement expected free energy minimization",
-                    "Handle uncertainty in decision processes"
+                    "Handle uncertainty in decision processes",
                 ],
-                key_concepts=["expected_free_energy", "policy_selection", "uncertainty", "planning"]
+                key_concepts=[
+                    "expected_free_energy",
+                    "policy_selection",
+                    "uncertainty",
+                    "planning",
+                ],
             ),
-
             "motor_control": CaseStudy(
                 id="motor_control",
                 title="Active Inference for Motor Control",
                 domain=ApplicationDomain.MOTOR_CONTROL,
-                description="Implementation of motor control using Active Inference principles",
+                description=(
+                    "Implementation of motor control using Active Inference principles"
+                ),
                 difficulty="intermediate",
-                implementation_files=["motor_model.py", "plant_dynamics.py", "control_loop.py"],
+                implementation_files=[
+                    "motor_model.py",
+                    "plant_dynamics.py",
+                    "control_loop.py",
+                ],
                 requirements=["numpy", "scipy", "control"],
                 learning_objectives=[
                     "Apply Active Inference to motor control",
                     "Implement forward and inverse models",
-                    "Understand active learning in control"
+                    "Understand active learning in control",
                 ],
-                key_concepts=["motor_control", "forward_models", "inverse_models", "active_learning"]
-            )
+                key_concepts=[
+                    "motor_control",
+                    "forward_models",
+                    "inverse_models",
+                    "active_learning",
+                ],
+            ),
         }
 
     def get_case_study(self, study_id: str) -> Optional[CaseStudy]:
         """Retrieve a specific case study"""
         return self.case_studies.get(study_id)
 
-    def list_case_studies(self, domain: Optional[ApplicationDomain] = None,
-                         difficulty: Optional[str] = None) -> List[CaseStudy]:
+    def list_case_studies(
+        self,
+        domain: Optional[ApplicationDomain] = None,
+        difficulty: Optional[str] = None,
+    ) -> List[CaseStudy]:
         """List case studies with optional filtering"""
         studies = list(self.case_studies.values())
 
@@ -540,7 +581,7 @@ if __name__ == "__main__":
 class CaseStudyManager:
     """Manages case studies and examples"""
 
-    def __init__(self, examples_dir: Path):
+    def __init__(self, examples_dir: Path) -> None:
         self.examples_dir = Path(examples_dir)
         self.example_applications = ExampleApplications(self.examples_dir / "examples")
 
@@ -550,7 +591,7 @@ class CaseStudyManager:
         """Get a specific case study"""
         return self.example_applications.get_case_study(study_id)
 
-    def list_case_studies(self, **filters) -> List[CaseStudy]:
+    def list_case_studies(self, **filters: Any) -> List[CaseStudy]:
         """List case studies with optional filters"""
         return self.example_applications.list_case_studies(**filters)
 
@@ -568,5 +609,5 @@ class CaseStudyManager:
             "title": study.title,
             "code": code,
             "requirements": study.requirements,
-            "learning_objectives": study.learning_objectives
+            "learning_objectives": study.learning_objectives,
         }

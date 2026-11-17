@@ -13,12 +13,12 @@ This module provides:
 """
 
 import json
+import logging
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Any
-import logging
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -36,17 +36,17 @@ class Message:
             "role": self.role,
             "content": self.content,
             "timestamp": self.timestamp.isoformat(),
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'Message':
+    def from_dict(cls, data: Dict[str, Any]) -> "Message":
         """Create message from dictionary"""
         return cls(
             role=data["role"],
             content=data["content"],
             timestamp=datetime.fromisoformat(data["timestamp"]),
-            metadata=data.get("metadata", {})
+            metadata=data.get("metadata", {}),
         )
 
 
@@ -61,13 +61,11 @@ class Conversation:
     created_at: datetime = field(default_factory=datetime.now)
     updated_at: datetime = field(default_factory=datetime.now)
 
-    def add_message(self, role: str, content: str, metadata: Dict[str, Any] = None) -> None:
+    def add_message(
+        self, role: str, content: str, metadata: Optional[Dict[str, Any]] = None
+    ) -> None:
         """Add a message to the conversation"""
-        message = Message(
-            role=role,
-            content=content,
-            metadata=metadata or {}
-        )
+        message = Message(role=role, content=content, metadata=metadata or {})
         self.messages.append(message)
         self.updated_at = datetime.now()
 
@@ -85,11 +83,13 @@ class Conversation:
         """Get messages within token limit for context window"""
         # Simple token estimation (rough approximation)
         context_messages = []
-        current_tokens = 0
+        current_tokens = 0.0
 
         # Add messages in chronological order, prioritizing system messages
         for message in self.messages:
-            estimated_tokens = len(message.content.split()) * 1.3  # Rough token estimate
+            estimated_tokens = (
+                len(message.content.split()) * 1.3
+            )  # Rough token estimate
             if current_tokens + estimated_tokens > max_tokens:
                 break
 
@@ -111,7 +111,7 @@ class Conversation:
             "message_count": len(self.messages),
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat(),
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
 
     def _generate_title(self, first_message: str) -> str:
@@ -130,11 +130,11 @@ class Conversation:
             "messages": [msg.to_dict() for msg in self.messages],
             "metadata": self.metadata,
             "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "updated_at": self.updated_at.isoformat(),
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'Conversation':
+    def from_dict(cls, data: Dict[str, Any]) -> "Conversation":
         """Create conversation from dictionary"""
         return cls(
             id=data["id"],
@@ -142,17 +142,19 @@ class Conversation:
             messages=[Message.from_dict(msg_data) for msg_data in data["messages"]],
             metadata=data.get("metadata", {}),
             created_at=datetime.fromisoformat(data["created_at"]),
-            updated_at=datetime.fromisoformat(data["updated_at"])
+            updated_at=datetime.fromisoformat(data["updated_at"]),
         )
 
 
 class ConversationManager:
     """Manager for multiple conversations and persistence"""
 
-    def __init__(self, storage_path: Optional[Path] = None):
+    def __init__(self, storage_path: Optional[Path] = None) -> None:
         self.storage_path = storage_path or Path(__file__).parent / "conversations"
         self.conversations: Dict[str, Conversation] = {}
-        self.logger = logging.getLogger(f"active_inference.llm.{self.__class__.__name__}")
+        self.logger = logging.getLogger(
+            f"active_inference.llm.{self.__class__.__name__}"
+        )
 
         # Ensure storage directory exists
         self.storage_path.mkdir(parents=True, exist_ok=True)
@@ -160,13 +162,13 @@ class ConversationManager:
         # Load existing conversations
         self._load_conversations()
 
-    def create_conversation(self, title: str = "", metadata: Dict[str, Any] = None) -> Conversation:
+    def create_conversation(
+        self, title: str = "", metadata: Optional[Dict[str, Any]] = None
+    ) -> Conversation:
         """Create a new conversation"""
         conversation_id = str(uuid.uuid4())
         conversation = Conversation(
-            id=conversation_id,
-            title=title,
-            metadata=metadata or {}
+            id=conversation_id, title=title, metadata=metadata or {}
         )
 
         self.conversations[conversation_id] = conversation
@@ -198,7 +200,7 @@ class ConversationManager:
         conversation_id: str,
         role: str,
         content: str,
-        metadata: Dict[str, Any] = None
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> bool:
         """Add a message to a conversation"""
         conversation = self.get_conversation(conversation_id)
@@ -231,9 +233,7 @@ class ConversationManager:
         return matching_conversations[:limit]
 
     def get_conversation_context(
-        self,
-        conversation_id: str,
-        max_tokens: int = 4000
+        self, conversation_id: str, max_tokens: int = 4000
     ) -> List[Dict[str, str]]:
         """Get conversation context for LLM API"""
         conversation = self.get_conversation(conversation_id)
@@ -241,12 +241,11 @@ class ConversationManager:
             return []
 
         context_messages = conversation.get_context_messages(max_tokens)
-        return [
-            {"role": msg.role, "content": msg.content}
-            for msg in context_messages
-        ]
+        return [{"role": msg.role, "content": msg.content} for msg in context_messages]
 
-    def export_conversation(self, conversation_id: str, format: str = "json") -> Optional[str]:
+    def export_conversation(
+        self, conversation_id: str, format: str = "json"
+    ) -> Optional[str]:
         """Export conversation in specified format"""
         conversation = self.get_conversation(conversation_id)
         if not conversation:
@@ -277,7 +276,7 @@ class ConversationManager:
         """Save conversation to file"""
         try:
             file_path = self.storage_path / f"{conversation.id}.json"
-            with open(file_path, 'w') as f:
+            with open(file_path, "w") as f:
                 json.dump(conversation.to_dict(), f, indent=2)
         except Exception as e:
             self.logger.error(f"Failed to save conversation {conversation.id}: {e}")
@@ -287,14 +286,16 @@ class ConversationManager:
         try:
             for conversation_file in self.storage_path.glob("*.json"):
                 try:
-                    with open(conversation_file, 'r') as f:
+                    with open(conversation_file, "r") as f:
                         data = json.load(f)
 
                     conversation = Conversation.from_dict(data)
                     self.conversations[conversation.id] = conversation
 
                 except Exception as e:
-                    self.logger.error(f"Failed to load conversation {conversation_file}: {e}")
+                    self.logger.error(
+                        f"Failed to load conversation {conversation_file}: {e}"
+                    )
 
         except Exception as e:
             self.logger.error(f"Failed to load conversations: {e}")
@@ -317,14 +318,15 @@ class ConversationManager:
         total_messages = sum(len(conv.messages) for conv in self.conversations.values())
 
         # Get message counts by role
-        role_counts = {}
+        role_counts: Dict[str, int] = {}
         for conversation in self.conversations.values():
             for message in conversation.messages:
                 role_counts[message.role] = role_counts.get(message.role, 0) + 1
 
         # Get recent activity
         recent_conversations = [
-            conv for conv in self.conversations.values()
+            conv
+            for conv in self.conversations.values()
             if (datetime.now() - conv.updated_at).days <= 7
         ]
 
@@ -333,8 +335,12 @@ class ConversationManager:
             "total_messages": total_messages,
             "role_distribution": role_counts,
             "recent_conversations": len(recent_conversations),
-            "oldest_conversation": min((conv.created_at for conv in self.conversations.values()), default=None),
-            "newest_conversation": max((conv.created_at for conv in self.conversations.values()), default=None)
+            "oldest_conversation": min(
+                (conv.created_at for conv in self.conversations.values()), default=None
+            ),
+            "newest_conversation": max(
+                (conv.created_at for conv in self.conversations.values()), default=None
+            ),
         }
 
 
@@ -345,18 +351,16 @@ class ConversationTemplate:
         self,
         name: str,
         system_prompt: str,
-        initial_messages: List[Dict[str, str]] = None,
-        metadata: Dict[str, Any] = None
-    ):
+        initial_messages: Optional[List[Dict[str, str]]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> None:
         self.name = name
         self.system_prompt = system_prompt
         self.initial_messages = initial_messages or []
         self.metadata = metadata or {}
 
     def create_conversation(
-        self,
-        title: str = "",
-        manager: Optional[ConversationManager] = None
+        self, title: str = "", manager: Optional[ConversationManager] = None
     ) -> Conversation:
         """Create a conversation from this template"""
         if not manager:
@@ -387,7 +391,7 @@ class ActiveInferenceTemplates:
             system_prompt="""You are an expert in Active Inference and the Free Energy Principle.
             Provide clear, accurate explanations of concepts with appropriate mathematical detail.
             Connect explanations to broader Active Inference framework.""",
-            metadata={"type": "explanation", "domain": "active_inference"}
+            metadata={"type": "explanation", "domain": "active_inference"},
         )
 
     @staticmethod
@@ -398,7 +402,7 @@ class ActiveInferenceTemplates:
             system_prompt="""You are a research assistant specializing in Active Inference methodology.
             Help develop research questions, analyze methods, and discuss theoretical implications.
             Provide critical analysis while maintaining scientific rigor.""",
-            metadata={"type": "research", "domain": "active_inference"}
+            metadata={"type": "research", "domain": "active_inference"},
         )
 
     @staticmethod
@@ -409,7 +413,7 @@ class ActiveInferenceTemplates:
             system_prompt="""You are a software engineer specializing in Active Inference implementations.
             Help with code design, algorithm implementation, and best practices.
             Provide working code examples and explain implementation choices.""",
-            metadata={"type": "implementation", "domain": "active_inference"}
+            metadata={"type": "implementation", "domain": "active_inference"},
         )
 
     @staticmethod
@@ -420,5 +424,5 @@ class ActiveInferenceTemplates:
             system_prompt="""You are an educational content developer specializing in Active Inference.
             Help create educational materials, learning paths, and assessment strategies.
             Focus on pedagogical effectiveness and accessibility.""",
-            metadata={"type": "education", "domain": "active_inference"}
+            metadata={"type": "education", "domain": "active_inference"},
         )

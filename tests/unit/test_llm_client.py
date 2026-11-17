@@ -5,13 +5,11 @@ Unit tests for the Ollama LLM client functionality, ensuring proper
 operation of model management, conversation handling, and error recovery.
 """
 
-import pytest
-import json
-from unittest.mock import Mock, patch, AsyncMock
-from pathlib import Path
-import tempfile
+from unittest.mock import AsyncMock, Mock, patch
 
-from active_inference.llm.client import OllamaClient, LLMConfig
+import pytest
+
+from active_inference.llm.client import LLMConfig, OllamaClient
 
 
 class TestLLMConfig:
@@ -34,7 +32,7 @@ class TestLLMConfig:
             base_url="http://custom:8080",
             default_model="llama2:7b",
             temperature=0.5,
-            max_tokens=4096
+            max_tokens=4096,
         )
 
         assert config.base_url == "http://custom:8080"
@@ -45,9 +43,7 @@ class TestLLMConfig:
     def test_config_to_dict(self):
         """Test configuration serialization"""
         config = LLMConfig(
-            base_url="http://localhost:11434",
-            default_model="gemma3:2b",
-            debug=True
+            base_url="http://localhost:11434", default_model="gemma3:2b", debug=True
         )
 
         config_dict = config.to_dict()
@@ -70,7 +66,7 @@ class TestOllamaClient:
             default_model="gemma3:2b",
             timeout=30.0,
             max_retries=1,
-            debug=True
+            debug=True,
         )
 
     @pytest.fixture
@@ -85,7 +81,7 @@ class TestOllamaClient:
             "prompt_eval_count": 10,
             "prompt_eval_duration": 500000000,
             "eval_count": 15,
-            "eval_duration": 400000000
+            "eval_duration": 400000000,
         }
 
     def test_client_initialization(self, client_config):
@@ -101,7 +97,7 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_initialize_success(self, client_config):
         """Test successful client initialization"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -110,8 +106,16 @@ class TestOllamaClient:
             mock_client.get.return_value.raise_for_status = Mock()
             mock_client.get.return_value.json.return_value = {
                 "models": [
-                    {"name": "gemma3:2b", "size": 2000000000, "modified_at": "2024-01-01T00:00:00Z"},
-                    {"name": "llama2:7b", "size": 7000000000, "modified_at": "2024-01-01T00:00:00Z"}
+                    {
+                        "name": "gemma3:2b",
+                        "size": 2000000000,
+                        "modified_at": "2024-01-01T00:00:00Z",
+                    },
+                    {
+                        "name": "llama2:7b",
+                        "size": 7000000000,
+                        "modified_at": "2024-01-01T00:00:00Z",
+                    },
                 ]
             }
 
@@ -126,7 +130,7 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_initialize_failure(self, client_config):
         """Test client initialization failure"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -142,7 +146,7 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_pull_model_success(self, client_config):
         """Test successful model pulling"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -155,9 +159,7 @@ class TestOllamaClient:
             mock_refresh_response = Mock()
             mock_refresh_response.raise_for_status = Mock()
             mock_refresh_response.json.return_value = {
-                "models": [
-                    {"name": "gemma3:2b", "size": 2000000000}
-                ]
+                "models": [{"name": "gemma3:2b", "size": 2000000000}]
             }
             mock_client.get.return_value = mock_refresh_response
 
@@ -169,15 +171,13 @@ class TestOllamaClient:
 
             assert success is True
             mock_client.post.assert_called_once_with(
-                "/api/pull",
-                json={"name": "gemma3:2b"},
-                timeout=client_config.timeout
+                "/api/pull", json={"name": "gemma3:2b"}, timeout=client_config.timeout
             )
 
     @pytest.mark.asyncio
     async def test_generate_text(self, client_config, mock_ollama_response):
         """Test text generation"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -203,9 +203,11 @@ class TestOllamaClient:
             assert call_args[1]["json"]["prompt"] == "Test prompt"
 
     @pytest.mark.asyncio
-    async def test_generate_with_custom_model(self, client_config, mock_ollama_response):
+    async def test_generate_with_custom_model(
+        self, client_config, mock_ollama_response
+    ):
         """Test text generation with custom model"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -236,17 +238,14 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_chat_functionality(self, client_config, mock_ollama_response):
         """Test chat functionality"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
             # Mock chat response
             chat_response = {
-                "message": {
-                    "role": "assistant",
-                    "content": "Chat response content"
-                },
-                "done": True
+                "message": {"role": "assistant", "content": "Chat response content"},
+                "done": True,
             }
             mock_response = Mock()
             mock_response.raise_for_status = Mock()
@@ -260,7 +259,7 @@ class TestOllamaClient:
 
             messages = [
                 {"role": "user", "content": "Hello"},
-                {"role": "assistant", "content": "Hi there!"}
+                {"role": "assistant", "content": "Hi there!"},
             ]
 
             result = await client.chat(messages)
@@ -274,7 +273,7 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_health_check(self, client_config):
         """Test health check functionality"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -307,7 +306,7 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_health_check_failure(self, client_config):
         """Test health check failure"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -328,13 +327,13 @@ class TestOllamaClient:
         client = OllamaClient(client_config)
 
         # Test sync context manager
-        assert hasattr(client, '__enter__')
-        assert hasattr(client, '__aexit__')
+        assert hasattr(client, "__enter__")
+        assert hasattr(client, "__aexit__")
 
     @pytest.mark.asyncio
     async def test_close_client(self, client_config):
         """Test client closing"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -351,7 +350,7 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_list_models(self, client_config):
         """Test listing available models"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -360,7 +359,7 @@ class TestOllamaClient:
             mock_response.json.return_value = {
                 "models": [
                     {"name": "gemma3:2b", "size": 2000000000},
-                    {"name": "llama2:7b", "size": 7000000000}
+                    {"name": "llama2:7b", "size": 7000000000},
                 ]
             }
             mock_client.get.return_value = mock_response
@@ -377,7 +376,7 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_get_model_info(self, client_config):
         """Test getting model information"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -397,13 +396,13 @@ class TestOllamaClient:
     @pytest.mark.asyncio
     async def test_delete_model(self, client_config):
         """Test model deletion"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
             mock_response = Mock()
             mock_response.raise_for_status = Mock()
-            mock_client.delete.return_value = mock_response
+            mock_client.request.return_value = mock_response
 
             # Mock refresh after deletion
             mock_get_response = Mock()
@@ -418,7 +417,11 @@ class TestOllamaClient:
             success = await client.delete_model("gemma3:2b")
 
             assert success is True
-            mock_client.delete.assert_called_once_with("/api/delete", json={"name": "gemma3:2b"})
+            # httpx.AsyncClient.delete() takes no body, so a DELETE with JSON
+            # has to go through request().
+            mock_client.request.assert_called_once_with(
+                "DELETE", "/api/delete", json={"name": "gemma3:2b"}
+            )
 
 
 if __name__ == "__main__":

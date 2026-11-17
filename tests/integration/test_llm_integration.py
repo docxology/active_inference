@@ -5,21 +5,20 @@ Integration tests for the complete LLM system, testing interactions between
 components, end-to-end workflows, and real-world usage scenarios.
 """
 
-import pytest
-import json
-import asyncio
 import tempfile
 from pathlib import Path
-from unittest.mock import Mock, patch, AsyncMock
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 
 from active_inference.llm import (
-    OllamaClient,
-    LLMConfig,
-    PromptManager,
-    ModelManager,
+    ActiveInferencePromptBuilder,
     ConversationManager,
+    LLMConfig,
+    ModelManager,
+    OllamaClient,
     PromptBuilder,
-    ActiveInferencePromptBuilder
+    PromptManager,
 )
 
 
@@ -33,14 +32,18 @@ class TestLLMIntegration:
             base_url="http://localhost:11434",
             default_model="gemma3:2b",
             timeout=30.0,
-            debug=True
+            debug=True,
         )
 
     @pytest.fixture
     def mock_ollama_response(self):
         """Mock Ollama API responses for integration tests"""
         return {
-            "response": "This is a comprehensive explanation of entropy in the context of Active Inference and the Free Energy Principle. Entropy measures the uncertainty or disorder in a probability distribution...",
+            "response": (
+                "This is a comprehensive explanation of entropy in the context of"
+                " Active Inference and the Free Energy Principle. Entropy measures the"
+                " uncertainty or disorder in a probability distribution..."
+            ),
             "done": True,
             "context": [1234, 5678, 9012],
             "total_duration": 1500000000,
@@ -48,7 +51,7 @@ class TestLLMIntegration:
             "prompt_eval_count": 15,
             "prompt_eval_duration": 300000000,
             "eval_count": 25,
-            "eval_duration": 1150000000
+            "eval_duration": 1150000000,
         }
 
     @pytest.fixture
@@ -64,10 +67,12 @@ class TestLLMIntegration:
             yield Path(temp_dir)
 
     @pytest.mark.asyncio
-    async def test_end_to_end_prompt_generation_and_execution(self, integration_config, mock_ollama_response):
+    async def test_end_to_end_prompt_generation_and_execution(
+        self, integration_config, mock_ollama_response
+    ):
         """Test complete workflow from prompt generation to LLM execution"""
         # Setup mock client
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -97,11 +102,15 @@ class TestLLMIntegration:
                 "concept": "entropy",
                 "context": "information theory and Active Inference",
                 "audience_level": "intermediate",
-                "key_points": "uncertainty, probability distributions, information content",
-                "response_type": "comprehensive explanation"
+                "key_points": (
+                    "uncertainty, probability distributions, information content"
+                ),
+                "response_type": "comprehensive explanation",
             }
 
-            prompt = prompt_manager.generate_prompt("active_inference_explanation", variables)
+            prompt = prompt_manager.generate_prompt(
+                "active_inference_explanation", variables
+            )
 
             # Find best model for the task
             best_model = model_manager.find_best_model("active inference explanation")
@@ -124,7 +133,7 @@ class TestLLMIntegration:
     @pytest.mark.asyncio
     async def test_conversation_workflow(self, integration_config):
         """Test complete conversation workflow"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -132,9 +141,13 @@ class TestLLMIntegration:
             chat_response = {
                 "message": {
                     "role": "assistant",
-                    "content": "I understand you're asking about variational inference in the context of Active Inference. This is a key computational method for..."
+                    "content": (
+                        "I understand you're asking about variational inference in the"
+                        " context of Active Inference. This is a key computational"
+                        " method for..."
+                    ),
                 },
-                "done": True
+                "done": True,
             }
 
             mock_response = Mock()
@@ -158,21 +171,20 @@ class TestLLMIntegration:
 
             # Create conversation
             conversation = conversation_manager.create_conversation(
-                "Active Inference Discussion",
-                {"domain": "active_inference"}
+                "Active Inference Discussion", {"domain": "active_inference"}
             )
 
             # Add initial messages
             conversation_manager.add_message(
                 conversation.id,
                 "system",
-                "You are an expert in Active Inference and the Free Energy Principle."
+                "You are an expert in Active Inference and the Free Energy Principle.",
             )
 
             conversation_manager.add_message(
                 conversation.id,
                 "user",
-                "Explain variational inference in Active Inference."
+                "Explain variational inference in Active Inference.",
             )
 
             # Get context for LLM
@@ -189,7 +201,9 @@ class TestLLMIntegration:
             conversation_manager.add_message(conversation.id, "assistant", response)
 
             # Verify conversation state
-            updated_conversation = conversation_manager.get_conversation(conversation.id)
+            updated_conversation = conversation_manager.get_conversation(
+                conversation.id
+            )
             assert len(updated_conversation.messages) == 3
 
     def test_prompt_builder_integration(self):
@@ -198,24 +212,29 @@ class TestLLMIntegration:
         builder = ActiveInferencePromptBuilder()
 
         # Build complex prompt
-        prompt = (builder
-            .add_concept_explanation(
+        prompt = (
+            builder.add_concept_explanation(
                 "variational free energy",
                 "Bayesian inference and Active Inference",
                 "advanced",
-                include_math=True
+                include_math=True,
             )
-            .add_learning_objective([
-                "Understand mathematical formulation of variational free energy",
-                "Connect variational methods to Active Inference",
-                "Apply variational inference in practice"
-            ])
-            .set_variables({
-                "mathematical_rigor": "high",
-                "include_code_examples": "true",
-                "focus_areas": "theory, implementation, applications"
-            })
-            .build())
+            .add_learning_objective(
+                [
+                    "Understand mathematical formulation of variational free energy",
+                    "Connect variational methods to Active Inference",
+                    "Apply variational inference in practice",
+                ]
+            )
+            .set_variables(
+                {
+                    "mathematical_rigor": "high",
+                    "include_code_examples": "true",
+                    "focus_areas": "theory, implementation, applications",
+                }
+            )
+            .build()
+        )
 
         # Verify prompt structure
         assert "variational free energy" in prompt
@@ -231,10 +250,12 @@ class TestLLMIntegration:
             "context": "Bayesian inference and Active Inference",
             "audience_level": "advanced",
             "key_points": "mathematical formulation, computational methods",
-            "response_type": "technical explanation"
+            "response_type": "technical explanation",
         }
 
-        template_prompt = prompt_manager.generate_prompt("active_inference_explanation", variables)
+        template_prompt = prompt_manager.generate_prompt(
+            "active_inference_explanation", variables
+        )
 
         assert "variational free energy" in template_prompt
         assert "Active Inference" in template_prompt
@@ -250,15 +271,19 @@ class TestLLMIntegration:
             ("mathematical derivation", {"mathematical_reasoning", "text_generation"}),
             ("code implementation", {"code_generation", "reasoning"}),
             ("research analysis", {"research_analysis", "reasoning"}),
-            ("active inference tutorial", {"active_inference_explanation", "text_generation"})
+            (
+                "active inference tutorial",
+                {"active_inference_explanation", "text_generation"},
+            ),
         ]
 
         for task, expected_capabilities in tasks_and_expected_capabilities:
             best_model = model_manager.find_best_model(task)
 
             assert best_model is not None, f"No model found for task: {task}"
-            assert expected_capabilities.issubset(best_model.capabilities), \
-                f"Model {best_model.name} missing required capabilities for task: {task}"
+            assert expected_capabilities.issubset(
+                best_model.capabilities
+            ), f"Model {best_model.name} missing required capabilities for task: {task}"
 
         # Test model capability search
         reasoning_models = model_manager.get_models_by_capability("reasoning")
@@ -304,10 +329,12 @@ class TestLLMIntegration:
             description="Template for integration testing",
             template="Test template: {variable1} and {variable2}",
             variables=["variable1", "variable2"],
-            examples=[{
-                "name": "test_example",
-                "variables": {"variable1": "value1", "variable2": "value2"}
-            }]
+            examples=[
+                {
+                    "name": "test_example",
+                    "variables": {"variable1": "value1", "variable2": "value2"},
+                }
+            ],
         )
 
         # Save template
@@ -315,7 +342,9 @@ class TestLLMIntegration:
 
         # Create new manager instance and load template
         new_manager = PromptManager(temp_templates_dir)
-        loaded_template = new_manager.load_template(temp_templates_dir / "integration_test.json")
+        loaded_template = new_manager.load_template(
+            temp_templates_dir / "integration_test.json"
+        )
 
         # Verify template was loaded correctly
         assert loaded_template.name == "integration_test"
@@ -323,17 +352,16 @@ class TestLLMIntegration:
         assert loaded_template.variables == ["variable1", "variable2"]
 
         # Test using loaded template
-        result = new_manager.generate_prompt("integration_test", {
-            "variable1": "test1",
-            "variable2": "test2"
-        })
+        result = new_manager.generate_prompt(
+            "integration_test", {"variable1": "test1", "variable2": "test2"}
+        )
 
         assert result == "Test template: test1 and test2"
 
     @pytest.mark.asyncio
     async def test_error_handling_integration(self, integration_config):
         """Test error handling across components"""
-        with patch('httpx.AsyncClient') as mock_client_class:
+        with patch("httpx.AsyncClient") as mock_client_class:
             mock_client = AsyncMock()
             mock_client_class.return_value = mock_client
 
@@ -357,16 +385,19 @@ class TestLLMIntegration:
 
         # Should raise error for missing variables
         with pytest.raises(ValueError, match="Missing required variables"):
-            prompt_manager.generate_prompt("active_inference_explanation", {
-                "concept": "entropy"
-                # Missing other required variables
-            })
+            prompt_manager.generate_prompt(
+                "active_inference_explanation",
+                {
+                    "concept": "entropy"
+                    # Missing other required variables
+                },
+            )
 
         # Test model manager error handling
         model_manager = ModelManager()
 
         # Should return None for unknown task
-        unknown_model = model_manager.find_best_model("unknown_task_xyz")
+        model_manager.find_best_model("unknown_task_xyz")
         # This might return a default model or None depending on implementation
 
         # Should handle non-existent model gracefully
@@ -388,15 +419,18 @@ class TestLLMPerformance:
             conversation_manager.add_message(
                 conversation.id,
                 "user" if i % 2 == 0 else "assistant",
-                f"This is message number {i} with some content to make it longer and test the context window optimization."
+                f"This is message number {i} with some content to make it longer and"
+                " test the context window optimization.",
             )
 
         # Get context with reasonable token limit
-        context = conversation_manager.get_conversation_context(conversation.id, max_tokens=1000)
+        context = conversation_manager.get_conversation_context(
+            conversation.id, max_tokens=1000
+        )
 
         # Should return reasonable number of messages
         assert len(context) <= 50  # Should not exceed total messages
-        assert len(context) > 0    # Should return some messages
+        assert len(context) > 0  # Should return some messages
 
         # Should maintain message order (system first, then chronological)
         roles = [msg["role"] for msg in context]
@@ -411,7 +445,8 @@ class TestLLMPerformance:
         for i in range(100):
             builder.add_section(
                 f"section_{i}",
-                f"This is section {i} with content that should be included in the final prompt."
+                f"This is section {i} with content that should be included in the final"
+                " prompt.",
             )
 
         # Build prompt
@@ -434,12 +469,13 @@ class TestLLMPerformance:
             model_manager.add_custom_model(
                 name=f"test_model_{i}",
                 family="test",
-                size=f"{i%10}b",
-                capabilities=[f"capability_{j}" for j in range(i%5)]
+                size=f"{i % 10}b",
+                capabilities=[f"capability_{j}" for j in range(i % 5)],
             )
 
         # Test performance of model searches
         import time
+
         start_time = time.time()
 
         # Find models by capability
@@ -456,7 +492,9 @@ class TestLLMPerformance:
         execution_time = end_time - start_time
 
         # Should complete within reasonable time (adjust threshold as needed)
-        assert execution_time < 5.0, f"Performance test took too long: {execution_time}s"
+        assert (
+            execution_time < 5.0
+        ), f"Performance test took too long: {execution_time}s"
 
 
 if __name__ == "__main__":

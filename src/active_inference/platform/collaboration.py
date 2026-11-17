@@ -1,22 +1,24 @@
 """
 Collaboration Platform Service
 
-Provides multi-user collaboration features for the Active Inference Knowledge Environment.
+Provides multi-user collaboration features for the Active Inference Knowledge
+Environment.
 Includes user management, workspace management, and collaborative content creation.
 """
 
 import logging
-from typing import Dict, Any, List, Optional, Set
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-import uuid
+from typing import Any, Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
 
 
 class UserRole(Enum):
     """User roles for access control"""
+
     ADMIN = "admin"
     RESEARCHER = "researcher"
     EDUCATOR = "educator"
@@ -26,6 +28,7 @@ class UserRole(Enum):
 
 class Permission(Enum):
     """Permissions for collaborative actions"""
+
     READ = "read"
     WRITE = "write"
     DELETE = "delete"
@@ -36,6 +39,7 @@ class Permission(Enum):
 @dataclass
 class User:
     """User representation"""
+
     id: str
     username: str
     email: str
@@ -47,11 +51,17 @@ class User:
     def has_permission(self, permission: Permission) -> bool:
         """Check if user has specific permission"""
         role_permissions = {
-            UserRole.ADMIN: {Permission.READ, Permission.WRITE, Permission.DELETE, Permission.SHARE, Permission.ADMIN},
+            UserRole.ADMIN: {
+                Permission.READ,
+                Permission.WRITE,
+                Permission.DELETE,
+                Permission.SHARE,
+                Permission.ADMIN,
+            },
             UserRole.RESEARCHER: {Permission.READ, Permission.WRITE, Permission.SHARE},
             UserRole.EDUCATOR: {Permission.READ, Permission.WRITE, Permission.SHARE},
             UserRole.STUDENT: {Permission.READ},
-            UserRole.GUEST: {Permission.READ}
+            UserRole.GUEST: {Permission.READ},
         }
 
         return permission in role_permissions.get(self.role, set())
@@ -60,6 +70,7 @@ class User:
 @dataclass
 class Workspace:
     """Workspace for collaborative work"""
+
     id: str
     name: str
     description: str
@@ -93,6 +104,7 @@ class Workspace:
 @dataclass
 class Activity:
     """Activity log entry"""
+
     id: str
     user_id: str
     workspace_id: str
@@ -106,7 +118,7 @@ class Activity:
 class UserManagement:
     """Manages user accounts and authentication"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize user management"""
         self.config = config
         self.users: Dict[str, User] = {}
@@ -169,10 +181,10 @@ class UserManagement:
                 # In a real system, verify password hash
                 session_id = str(uuid.uuid4())
                 self.sessions[session_id] = {
-                    'user_id': user.id,
-                    'username': user.username,
-                    'role': user.role.value,
-                    'created_at': datetime.now()
+                    "user_id": user.id,
+                    "username": user.username,
+                    "role": user.role.value,
+                    "created_at": datetime.now(),
                 }
                 user.last_active = datetime.now()
                 return session_id
@@ -192,26 +204,28 @@ class UserManagement:
 
     def get_user_statistics(self) -> Dict[str, Any]:
         """Get user statistics"""
-        roles = {}
+        roles: Dict[str, int] = {}
         for user in self.users.values():
             role = user.role.value
             roles[role] = roles.get(role, 0) + 1
 
         return {
-            'total_users': len(self.users),
-            'active_sessions': len(self.sessions),
-            'role_distribution': roles
+            "total_users": len(self.users),
+            "active_sessions": len(self.sessions),
+            "role_distribution": roles,
         }
 
 
 class WorkspaceManager:
     """Manages collaborative workspaces"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize workspace manager"""
         self.config = config
         self.workspaces: Dict[str, Workspace] = {}
-        self.user_workspaces: Dict[str, Set[str]] = {}  # user_id -> set of workspace_ids
+        self.user_workspaces: Dict[str, Set[str]] = (
+            {}
+        )  # user_id -> set of workspace_ids
 
         logger.info("Workspace manager initialized")
 
@@ -296,7 +310,10 @@ class WorkspaceManager:
                 return False
 
             # Check if requester has permission
-            if requester_id != workspace.owner_id and requester_id not in workspace.member_ids:
+            if (
+                requester_id != workspace.owner_id
+                and requester_id not in workspace.member_ids
+            ):
                 return False
 
             if workspace.add_member(user_id):
@@ -337,13 +354,13 @@ class WorkspaceManager:
         workspace_ids = self.user_workspaces.get(user_id, set())
         return [self.workspaces[wid] for wid in workspace_ids if wid in self.workspaces]
 
-    def _add_user_workspace(self, user_id: str, workspace_id: str):
+    def _add_user_workspace(self, user_id: str, workspace_id: str) -> None:
         """Add workspace to user's workspace list"""
         if user_id not in self.user_workspaces:
             self.user_workspaces[user_id] = set()
         self.user_workspaces[user_id].add(workspace_id)
 
-    def _remove_user_workspace(self, user_id: str, workspace_id: str):
+    def _remove_user_workspace(self, user_id: str, workspace_id: str) -> None:
         """Remove workspace from user's workspace list"""
         if user_id in self.user_workspaces:
             self.user_workspaces[user_id].discard(workspace_id)
@@ -352,31 +369,35 @@ class WorkspaceManager:
 
     def get_workspace_statistics(self) -> Dict[str, Any]:
         """Get workspace statistics"""
-        total_members = sum(len(ws.member_ids) + 1 for ws in self.workspaces.values())  # +1 for owner
+        total_members = sum(
+            len(ws.member_ids) + 1 for ws in self.workspaces.values()
+        )  # +1 for owner
 
         return {
-            'total_workspaces': len(self.workspaces),
-            'total_members': total_members,
-            'average_members_per_workspace': total_members / len(self.workspaces) if self.workspaces else 0
+            "total_workspaces": len(self.workspaces),
+            "total_members": total_members,
+            "average_members_per_workspace": (
+                total_members / len(self.workspaces) if self.workspaces else 0
+            ),
         }
 
 
 class ActivityTracker:
     """Tracks user activities for analytics"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize activity tracker"""
         self.config = config
         self.activities: List[Activity] = []
-        self.max_activities = config.get('max_activities', 10000)
+        self.max_activities = config.get("max_activities", 10000)
 
-    def log_activity(self, activity: Activity):
+    def log_activity(self, activity: Activity) -> None:
         """Log user activity"""
         self.activities.append(activity)
 
         # Maintain size limit
         if len(self.activities) > self.max_activities:
-            self.activities = self.activities[-self.max_activities:]
+            self.activities = self.activities[-self.max_activities :]
 
         logger.debug(f"Logged activity: {activity.action} by {activity.user_id}")
 
@@ -385,76 +406,87 @@ class ActivityTracker:
         user_activities = [a for a in self.activities if a.user_id == user_id]
         return sorted(user_activities, key=lambda x: x.timestamp, reverse=True)[:limit]
 
-    def get_workspace_activities(self, workspace_id: str, limit: int = 50) -> List[Activity]:
+    def get_workspace_activities(
+        self, workspace_id: str, limit: int = 50
+    ) -> List[Activity]:
         """Get activities for a workspace"""
-        workspace_activities = [a for a in self.activities if a.workspace_id == workspace_id]
-        return sorted(workspace_activities, key=lambda x: x.timestamp, reverse=True)[:limit]
+        workspace_activities = [
+            a for a in self.activities if a.workspace_id == workspace_id
+        ]
+        return sorted(workspace_activities, key=lambda x: x.timestamp, reverse=True)[
+            :limit
+        ]
 
     def get_activity_statistics(self) -> Dict[str, Any]:
         """Get activity statistics"""
         if not self.activities:
-            return {'total_activities': 0}
+            return {"total_activities": 0}
 
-        actions = {}
+        actions: Dict[str, int] = {}
         for activity in self.activities:
             actions[activity.action] = actions.get(activity.action, 0) + 1
 
         return {
-            'total_activities': len(self.activities),
-            'action_distribution': actions,
-            'unique_users': len(set(a.user_id for a in self.activities)),
-            'unique_workspaces': len(set(a.workspace_id for a in self.activities))
+            "total_activities": len(self.activities),
+            "action_distribution": actions,
+            "unique_users": len(set(a.user_id for a in self.activities)),
+            "unique_workspaces": len(set(a.workspace_id for a in self.activities)),
         }
 
 
 class CollaborationManager:
     """Main collaboration manager coordinating all collaboration services"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize collaboration manager"""
         self.config = config
 
         # Initialize services
-        self.user_management = UserManagement(config.get('user_management', {}))
-        self.workspace_manager = WorkspaceManager(config.get('workspace_manager', {}))
-        self.activity_tracker = ActivityTracker(config.get('activity_tracker', {}))
+        self.user_management = UserManagement(config.get("user_management", {}))
+        self.workspace_manager = WorkspaceManager(config.get("workspace_manager", {}))
+        self.activity_tracker = ActivityTracker(config.get("activity_tracker", {}))
 
         logger.info("Collaboration manager initialized")
 
-    def create_user(self, username: str, email: str, role: UserRole = UserRole.STUDENT) -> Optional[str]:
+    def create_user(
+        self, username: str, email: str, role: UserRole = UserRole.STUDENT
+    ) -> Optional[str]:
         """Create new user"""
         user_id = str(uuid.uuid4())
-        user = User(
-            id=user_id,
-            username=username,
-            email=email,
-            role=role
-        )
+        user = User(id=user_id, username=username, email=email, role=role)
 
         if self.user_management.add_user(user):
             return user_id
         return None
 
-    def create_workspace(self, name: str, description: str, owner_id: str) -> Optional[str]:
+    def create_workspace(
+        self, name: str, description: str, owner_id: str
+    ) -> Optional[str]:
         """Create new workspace"""
         workspace_id = str(uuid.uuid4())
         workspace = Workspace(
-            id=workspace_id,
-            name=name,
-            description=description,
-            owner_id=owner_id
+            id=workspace_id, name=name, description=description, owner_id=owner_id
         )
 
         if self.workspace_manager.create_workspace(workspace):
             return workspace_id
         return None
 
-    def invite_to_workspace(self, workspace_id: str, user_id: str, inviter_id: str) -> bool:
+    def invite_to_workspace(
+        self, workspace_id: str, user_id: str, inviter_id: str
+    ) -> bool:
         """Invite user to workspace"""
         return self.workspace_manager.add_member(workspace_id, user_id, inviter_id)
 
-    def log_activity(self, user_id: str, workspace_id: str, action: str,
-                    resource_type: str, resource_id: str, details: Dict[str, Any] = None):
+    def log_activity(
+        self,
+        user_id: str,
+        workspace_id: str,
+        action: str,
+        resource_type: str,
+        resource_id: str,
+        details: Optional[Dict[str, Any]] = None,
+    ) -> None:
         """Log user activity"""
         activity = Activity(
             id=str(uuid.uuid4()),
@@ -463,7 +495,7 @@ class CollaborationManager:
             action=action,
             resource_type=resource_type,
             resource_id=resource_id,
-            details=details or {}
+            details=details or {},
         )
         self.activity_tracker.log_activity(activity)
 
@@ -488,7 +520,7 @@ class CollaborationManager:
     def get_collaboration_statistics(self) -> Dict[str, Any]:
         """Get comprehensive collaboration statistics"""
         return {
-            'users': self.user_management.get_user_statistics(),
-            'workspaces': self.workspace_manager.get_workspace_statistics(),
-            'activities': self.activity_tracker.get_activity_statistics()
+            "users": self.user_management.get_user_statistics(),
+            "workspaces": self.workspace_manager.get_workspace_statistics(),
+            "activities": self.activity_tracker.get_activity_statistics(),
         }

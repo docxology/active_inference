@@ -6,14 +6,17 @@ Provides unit testing, integration testing, performance testing, and quality
 assurance tools for ensuring reliable and robust implementations.
 """
 
+import json
 import logging
-import unittest
 import time
-from typing import Dict, List, Optional, Any, Callable
-from pathlib import Path
+import traceback
+import unittest
 from dataclasses import dataclass
 from datetime import datetime
-import traceback
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +24,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class TestResult:
     """Result of a test execution"""
+
     test_name: str
     status: str  # passed, failed, error, skipped
     execution_time: float
@@ -31,7 +35,7 @@ class TestResult:
 class TestRunner:
     """Runs and manages test execution"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.test_results: List[TestResult] = []
 
@@ -42,11 +46,7 @@ class TestRunner:
         logger.debug(f"Running test: {test_name}")
 
         start_time = time.time()
-        result = TestResult(
-            test_name=test_name,
-            status="pending",
-            execution_time=0.0
-        )
+        result = TestResult(test_name=test_name, status="pending", execution_time=0.0)
 
         try:
             # Run the test
@@ -66,7 +66,10 @@ class TestRunner:
             result.execution_time = time.time() - start_time
 
         self.test_results.append(result)
-        logger.debug(f"Test {test_name} completed: {result.status} ({result.execution_time:.3f}s)")
+        logger.debug(
+            f"Test {test_name} completed: {result.status}"
+            f" ({result.execution_time:.3f}s)"
+        )
 
         return result
 
@@ -78,30 +81,37 @@ class TestRunner:
 
         # Get all test methods
         test_methods = [
-            method for method in dir(test_class)
-            if method.startswith('test_') and callable(getattr(test_class, method))
+            method
+            for method in dir(test_class)
+            if method.startswith("test_") and callable(getattr(test_class, method))
         ]
 
         # Create instance
         test_instance = test_class()
 
         # Run setup if available
-        if hasattr(test_instance, 'setUp'):
+        if hasattr(test_instance, "setUp"):
             test_instance.setUp()
 
         try:
             # Run each test method
             for method_name in test_methods:
                 test_function = getattr(test_instance, method_name)
-                result = self.run_test(test_function, f"{test_class.__name__}.{method_name}")
+                result = self.run_test(
+                    test_function, f"{test_class.__name__}.{method_name}"
+                )
                 results.append(result)
 
         finally:
             # Run teardown if available
-            if hasattr(test_instance, 'tearDown'):
+            if hasattr(test_instance, "tearDown"):
                 test_instance.tearDown()
 
-        logger.info(f"Test class {test_class.__name__} completed: {len([r for r in results if r.status == 'passed'])}/{len(results)} passed")
+        logger.info(
+            f"Test class {test_class.__name__} completed:"
+            f" {len([r for r in results if r.status == 'passed'])}/{len(results)}"
+            " passed"
+        )
 
         return results
 
@@ -115,14 +125,17 @@ class TestRunner:
         for module_name in test_modules:
             try:
                 # Import test module
-                module = __import__(module_name, fromlist=[''])
+                module = __import__(module_name, fromlist=[""])
 
                 # Find test classes
                 test_classes = [
-                    obj for name, obj in module.__dict__.items()
-                    if (isinstance(obj, type) and
-                        issubclass(obj, unittest.TestCase) and
-                        obj != unittest.TestCase)
+                    obj
+                    for name, obj in module.__dict__.items()
+                    if (
+                        isinstance(obj, type)
+                        and issubclass(obj, unittest.TestCase)
+                        and obj != unittest.TestCase
+                    )
                 ]
 
                 # Run each test class
@@ -132,12 +145,14 @@ class TestRunner:
 
             except Exception as e:
                 logger.error(f"Failed to run test module {module_name}: {e}")
-                all_results.append(TestResult(
-                    test_name=f"module_{module_name}",
-                    status="error",
-                    execution_time=0.0,
-                    error_message=str(e)
-                ))
+                all_results.append(
+                    TestResult(
+                        test_name=f"module_{module_name}",
+                        status="error",
+                        execution_time=0.0,
+                        error_message=str(e),
+                    )
+                )
 
         suite_time = time.time() - suite_start_time
 
@@ -153,7 +168,7 @@ class TestRunner:
             "errors": errors,
             "success_rate": passed / len(all_results) if all_results else 0,
             "total_time": suite_time,
-            "results": all_results
+            "results": all_results,
         }
 
         logger.info(f"Test suite completed: {summary}")
@@ -165,7 +180,7 @@ class TestRunner:
             logger.warning("No test results to report")
             return False
 
-        report = {
+        report: Dict[str, Any] = {
             "timestamp": datetime.now().isoformat(),
             "total_tests": len(self.test_results),
             "results_by_status": {},
@@ -174,10 +189,10 @@ class TestRunner:
                     "test_name": result.test_name,
                     "status": result.status,
                     "execution_time": result.execution_time,
-                    "error_message": result.error_message
+                    "error_message": result.error_message,
                 }
                 for result in self.test_results
-            ]
+            ],
         }
 
         # Count by status
@@ -189,7 +204,7 @@ class TestRunner:
 
         # Save report
         try:
-            with open(output_path, 'w') as f:
+            with open(output_path, "w") as f:
                 json.dump(report, f, indent=2)
 
             logger.info(f"Test report saved to {output_path}")
@@ -203,7 +218,7 @@ class TestRunner:
 class QualityAssurance:
     """Quality assurance and validation tools"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.validation_rules: Dict[str, Callable] = {}
 
@@ -216,7 +231,7 @@ class QualityAssurance:
             "probability_distribution": self._validate_probability_distribution,
             "numerical_stability": self._validate_numerical_stability,
             "parameter_ranges": self._validate_parameter_ranges,
-            "data_integrity": self._validate_data_integrity
+            "data_integrity": self._validate_data_integrity,
         }
 
     def _validate_probability_distribution(self, data: List[float]) -> Dict[str, Any]:
@@ -242,7 +257,7 @@ class QualityAssurance:
             "issues": issues,
             "sum": total,
             "min_value": min(data),
-            "max_value": max(data)
+            "max_value": max(data),
         }
 
     def _validate_numerical_stability(self, data: Dict[str, Any]) -> Dict[str, Any]:
@@ -276,7 +291,7 @@ class QualityAssurance:
         return {
             "valid": len(issues) == 0,
             "issues": issues,
-            "numerically_stable": len(issues) == 0
+            "numerically_stable": len(issues) == 0,
         }
 
     def _validate_parameter_ranges(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
@@ -287,20 +302,28 @@ class QualityAssurance:
         for param_name, value in parameters.items():
             if param_name.endswith("_rate") or param_name.endswith("_learning_rate"):
                 if not (0 < value <= 1):
-                    issues.append(f"Learning rate {param_name} should be in (0, 1], got {value}")
+                    issues.append(
+                        f"Learning rate {param_name} should be in (0, 1], got {value}"
+                    )
 
             if param_name.endswith("_temperature"):
                 if value <= 0:
-                    issues.append(f"Temperature {param_name} should be positive, got {value}")
+                    issues.append(
+                        f"Temperature {param_name} should be positive, got {value}"
+                    )
 
-            if param_name.endswith("_precision") or param_name.endswith("_inverse_temperature"):
+            if param_name.endswith("_precision") or param_name.endswith(
+                "_inverse_temperature"
+            ):
                 if value <= 0:
-                    issues.append(f"Precision {param_name} should be positive, got {value}")
+                    issues.append(
+                        f"Precision {param_name} should be positive, got {value}"
+                    )
 
         return {
             "valid": len(issues) == 0,
             "issues": issues,
-            "parameters_checked": len(parameters)
+            "parameters_checked": len(parameters),
         }
 
     def _validate_data_integrity(self, data: Dict[str, Any]) -> Dict[str, Any]:
@@ -328,21 +351,30 @@ class QualityAssurance:
                 if data_field:
                     item_types = {type(item).__name__ for item in data_field}
                     if len(item_types) > 1:
-                        issues.append(f"Inconsistent item types in data list: {item_types}")
+                        issues.append(
+                            f"Inconsistent item types in data list: {item_types}"
+                        )
 
         return {
             "valid": len(issues) == 0,
             "issues": issues,
-            "data_integrity_ok": len(issues) == 0
+            "data_integrity_ok": len(issues) == 0,
         }
 
-    def validate_component(self, component_name: str, component_data: Dict[str, Any],
-                          validation_types: List[str] = None) -> Dict[str, Any]:
+    def validate_component(
+        self,
+        component_name: str,
+        component_data: Dict[str, Any],
+        validation_types: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
         """Validate a component using specified validation rules"""
         if validation_types is None:
             validation_types = list(self.validation_rules.keys())
 
-        logger.info(f"Validating component {component_name} with {len(validation_types)} validation types")
+        logger.info(
+            f"Validating component {component_name} with {len(validation_types)}"
+            " validation types"
+        )
 
         validation_results = {}
 
@@ -355,13 +387,12 @@ class QualityAssurance:
                     logger.error(f"Validation {validation_type} failed: {e}")
                     validation_results[validation_type] = {
                         "valid": False,
-                        "error": str(e)
+                        "error": str(e),
                     }
 
         # Overall validation
         overall_valid = all(
-            result.get("valid", False)
-            for result in validation_results.values()
+            result.get("valid", False) for result in validation_results.values()
         )
 
         return {
@@ -369,14 +400,14 @@ class QualityAssurance:
             "overall_valid": overall_valid,
             "validation_results": validation_results,
             "validation_types": validation_types,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
 
 class TestingFramework:
     """Main testing framework coordinating all testing activities"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.test_runner = TestRunner(config.get("runner", {}))
         self.quality_assurance = QualityAssurance(config.get("qa", {}))
@@ -387,16 +418,19 @@ class TestingFramework:
         """Run complete test suite"""
         return self.test_runner.run_test_suite(test_modules)
 
-    def validate_model(self, model_name: str, model_data: Dict[str, Any]) -> Dict[str, Any]:
+    def validate_model(
+        self, model_name: str, model_data: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Validate an Active Inference model"""
         return self.quality_assurance.validate_component(
             model_name,
             model_data,
-            ["numerical_stability", "parameter_ranges", "probability_distribution"]
+            ["numerical_stability", "parameter_ranges", "probability_distribution"],
         )
 
-    def run_performance_test(self, test_function: Callable, test_name: str,
-                            iterations: int = 100) -> Dict[str, Any]:
+    def run_performance_test(
+        self, test_function: Callable, test_name: str, iterations: int = 100
+    ) -> Dict[str, Any]:
         """Run performance test"""
         logger.info(f"Running performance test: {test_name} ({iterations} iterations)")
 
@@ -410,7 +444,7 @@ class TestingFramework:
                 execution_times.append(execution_time)
             except Exception as e:
                 logger.error(f"Performance test iteration {i} failed: {e}")
-                execution_times.append(float('inf'))  # Mark as failed
+                execution_times.append(float("inf"))  # Mark as failed
 
         # Compute statistics
         valid_times = [t for t in execution_times if not np.isinf(t)]
@@ -426,7 +460,9 @@ class TestingFramework:
                 "mean_time": sum(valid_times) / len(valid_times),
                 "median_time": sorted(valid_times)[len(valid_times) // 2],
                 "total_time": sum(valid_times),
-                "throughput": len(valid_times) / sum(valid_times) if sum(valid_times) > 0 else 0
+                "throughput": (
+                    len(valid_times) / sum(valid_times) if sum(valid_times) > 0 else 0
+                ),
             }
         else:
             performance_stats = {
@@ -434,7 +470,7 @@ class TestingFramework:
                 "iterations": iterations,
                 "successful_iterations": 0,
                 "failed_iterations": iterations,
-                "error": "All iterations failed"
+                "error": "All iterations failed",
             }
 
         logger.info(f"Performance test completed: {performance_stats}")

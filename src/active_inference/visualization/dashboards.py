@@ -6,13 +6,13 @@ Provides live data visualization, performance monitoring, and interactive explor
 of model dynamics and learning processes.
 """
 
-import logging
 import json
-import numpy as np
-from typing import Dict, List, Optional, Any, Callable
-from pathlib import Path
+import logging
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any, Callable, Dict, List, Optional
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -20,12 +20,13 @@ logger = logging.getLogger(__name__)
 @dataclass
 class DashboardConfig:
     """Configuration for dashboard layout and components"""
+
     title: str
     refresh_interval: int = 1000  # milliseconds
     layout: str = "grid"  # grid, flex, custom
     components: List[Dict[str, Any]] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.components is None:
             self.components = []
 
@@ -33,7 +34,9 @@ class DashboardConfig:
 class DashboardComponent:
     """Base class for dashboard components"""
 
-    def __init__(self, component_id: str, component_type: str, config: Dict[str, Any]):
+    def __init__(
+        self, component_id: str, component_type: str, config: Dict[str, Any]
+    ) -> None:
         self.id = component_id
         self.type = component_type
         self.config = config
@@ -53,14 +56,19 @@ class DashboardComponent:
             "type": self.type,
             "config": self.config,
             "data": self.data,
-            "last_update": self.last_update.isoformat() if self.last_update else None
+            "last_update": self.last_update.isoformat() if self.last_update else None,
         }
 
 
 class RealTimeMonitor(DashboardComponent):
     """Real-time monitoring component for model metrics"""
 
-    def __init__(self, component_id: str, metrics: List[str], config: Dict[str, Any] = None):
+    def __init__(
+        self,
+        component_id: str,
+        metrics: List[str],
+        config: Optional[Dict[str, Any]] = None,
+    ) -> None:
         super().__init__(component_id, "realtime_monitor", config or {})
         self.metrics = metrics
         self.history_length = config.get("history_length", 100) if config else 100
@@ -86,7 +94,7 @@ class RealTimeMonitor(DashboardComponent):
             "history": history,
             "min": min(history) if history else value,
             "max": max(history) if history else value,
-            "mean": sum(history) / len(history) if history else value
+            "mean": sum(history) / len(history) if history else value,
         }
 
         self.update_data(self.data)
@@ -103,7 +111,7 @@ class RealTimeMonitor(DashboardComponent):
 class Dashboard:
     """Interactive dashboard for real-time visualization"""
 
-    def __init__(self, config: DashboardConfig):
+    def __init__(self, config: DashboardConfig) -> None:
         self.config = config
         self.components: Dict[str, DashboardComponent] = {}
         self.data_sources: Dict[str, Callable] = {}
@@ -142,38 +150,46 @@ class Dashboard:
                 "title": self.config.title,
                 "refresh_interval": self.config.refresh_interval,
                 "layout": self.config.layout,
-                "components": self.config.components
+                "components": self.config.components,
             },
-            "components": {comp_id: comp.to_dict() for comp_id, comp in self.components.items()},
+            "components": {
+                comp_id: comp.to_dict() for comp_id, comp in self.components.items()
+            },
             "is_running": self.is_running,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
     def export_config(self) -> str:
         """Export dashboard configuration as JSON"""
-        return json.dumps({
-            "title": self.config.title,
-            "refresh_interval": self.config.refresh_interval,
-            "layout": self.config.layout,
-            "components": [
-                {
-                    "id": comp.id,
-                    "type": comp.type,
-                    "config": comp.config
-                }
-                for comp in self.components.values()
-            ]
-        }, indent=2)
+        return json.dumps(
+            {
+                "title": self.config.title,
+                "refresh_interval": self.config.refresh_interval,
+                "layout": self.config.layout,
+                "components": [
+                    {"id": comp.id, "type": comp.type, "config": comp.config}
+                    for comp in self.components.values()
+                ],
+            },
+            indent=2,
+        )
 
 
 class ActiveInferenceMonitor(RealTimeMonitor):
     """Specialized monitor for Active Inference metrics"""
 
-    def __init__(self, component_id: str, config: Dict[str, Any] = None):
+    def __init__(
+        self, component_id: str, config: Optional[Dict[str, Any]] = None
+    ) -> None:
         ai_metrics = [
-            "free_energy", "prediction_error", "belief_entropy",
-            "expected_free_energy", "policy_entropy", "learning_rate",
-            "model_confidence", "information_gain"
+            "free_energy",
+            "prediction_error",
+            "belief_entropy",
+            "expected_free_energy",
+            "policy_entropy",
+            "learning_rate",
+            "model_confidence",
+            "information_gain",
         ]
         super().__init__(component_id, ai_metrics, config)
 
@@ -182,11 +198,16 @@ class ActiveInferenceMonitor(RealTimeMonitor):
             "current_phase": "perception",
             "belief_precision": 1.0,
             "prediction_confidence": 0.0,
-            "action_selection": None
+            "action_selection": None,
         }
 
-    def update_ai_state(self, phase: str, belief_precision: float = None,
-                       prediction_confidence: float = None, action: str = None):
+    def update_ai_state(
+        self,
+        phase: str,
+        belief_precision: Optional[float] = None,
+        prediction_confidence: Optional[float] = None,
+        action: Optional[str] = None,
+    ) -> None:
         """Update Active Inference specific state"""
         self.ai_state["current_phase"] = phase
         if belief_precision is not None:
@@ -213,11 +234,12 @@ class ActiveInferenceMonitor(RealTimeMonitor):
                 metrics["belief_entropy"] = belief_entropy
 
         # Information gain (change in entropy)
-        if "belief_entropy_history" in self.history and len(self.history["belief_entropy_history"]) > 1:
+        if (
+            "belief_entropy_history" in self.history
+            and len(self.history["belief_entropy_history"]) > 1
+        ):
             recent_entropy = self.history["belief_entropy_history"][-1]
             previous_entropy = self.history["belief_entropy_history"][-2]
             metrics["information_gain"] = previous_entropy - recent_entropy
 
         return metrics
-
-

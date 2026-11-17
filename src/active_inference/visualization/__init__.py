@@ -9,10 +9,35 @@ This module serves as the main entry point for all visualization functionality i
 the Active Inference Knowledge Environment.
 """
 
-from .animations import AnimationEngine, AnimationType, AnimationFrame, AnimationSequence, ProcessAnimation
-from .diagrams import VisualizationEngine, DiagramType, InteractiveDiagram, DiagramNode, DiagramEdge, ConceptDiagram
-from .dashboards import Dashboard, DashboardConfig, DashboardComponent, RealTimeMonitor, ActiveInferenceMonitor
-from .comparative import ComparisonTool, ModelComparator, StatisticalComparator, ComparisonType, ModelComparison
+from .animations import (
+    AnimationEngine,
+    AnimationFrame,
+    AnimationSequence,
+    AnimationType,
+    ProcessAnimation,
+)
+from .comparative import (
+    ComparisonTool,
+    ComparisonType,
+    ModelComparator,
+    ModelComparison,
+    StatisticalComparator,
+)
+from .dashboards import (
+    ActiveInferenceMonitor,
+    Dashboard,
+    DashboardComponent,
+    DashboardConfig,
+    RealTimeMonitor,
+)
+from .diagrams import (
+    ConceptDiagram,
+    DiagramEdge,
+    DiagramNode,
+    DiagramType,
+    InteractiveDiagram,
+    VisualizationEngine,
+)
 
 __version__ = "1.0.0"
 __all__ = [
@@ -22,7 +47,6 @@ __all__ = [
     "AnimationFrame",
     "AnimationSequence",
     "ProcessAnimation",
-
     # Diagram system
     "VisualizationEngine",
     "DiagramType",
@@ -30,18 +54,16 @@ __all__ = [
     "DiagramNode",
     "DiagramEdge",
     "ConceptDiagram",
-
     # Dashboard system
     "Dashboard",
     "DashboardConfig",
     "DashboardComponent",
     "RealTimeMonitor",
     "ActiveInferenceMonitor",
-
     # Comparative analysis
     "ComparisonTool",
     "ModelComparator",
     "StatisticalComparator",
     "ComparisonType",
-    "ModelComparison"
+    "ModelComparison",
 ]

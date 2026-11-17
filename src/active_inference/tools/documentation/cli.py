@@ -6,13 +6,13 @@ Provides comprehensive tools for maintaining high-quality documentation and code
 """
 
 import argparse
-import sys
 import logging
+import sys
 from pathlib import Path
 from typing import Optional
 
-from .generator import DocumentationGenerator
 from .analyzer import DocumentationAnalyzer
+from .generator import DocumentationGenerator
 from .reviewer import RepositoryReviewer
 from .validator import DocumentationValidator
 
@@ -27,7 +27,7 @@ class DocumentationCLI:
     validating standards, and reviewing repository health.
     """
 
-    def __init__(self, repo_path: Optional[Path] = None):
+    def __init__(self, repo_path: Optional[Path] = None) -> None:
         """
         Initialize documentation CLI
 
@@ -69,65 +69,132 @@ Examples:
 
   # Check documentation coverage
   ai-docs analyze coverage --format json
-            """
+            """,
         )
 
-        subparsers = parser.add_subparsers(dest='command', help='Available commands')
+        subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
         # Generate command
-        generate_parser = subparsers.add_parser('generate', help='Generate documentation')
-        generate_parser.add_argument('type', choices=['all', 'api', 'knowledge', 'research', 'visualization', 'applications', 'platform'],
-                                   help='Type of documentation to generate')
-        generate_parser.add_argument('--output', '-o', type=Path, default=Path('docs'),
-                                   help='Output directory')
-        generate_parser.add_argument('--source', '-s', type=Path, default=Path('src'),
-                                   help='Source directory')
-        generate_parser.add_argument('--force', '-f', action='store_true',
-                                   help='Force regeneration even if files exist')
+        generate_parser = subparsers.add_parser(
+            "generate", help="Generate documentation"
+        )
+        generate_parser.add_argument(
+            "type",
+            choices=[
+                "all",
+                "api",
+                "knowledge",
+                "research",
+                "visualization",
+                "applications",
+                "platform",
+            ],
+            help="Type of documentation to generate",
+        )
+        generate_parser.add_argument(
+            "--output", "-o", type=Path, default=Path("docs"), help="Output directory"
+        )
+        generate_parser.add_argument(
+            "--source", "-s", type=Path, default=Path("src"), help="Source directory"
+        )
+        generate_parser.add_argument(
+            "--force",
+            "-f",
+            action="store_true",
+            help="Force regeneration even if files exist",
+        )
 
         # Analyze command
-        analyze_parser = subparsers.add_parser('analyze', help='Analyze documentation and code')
-        analyze_parser.add_argument('analysis_type', choices=['quality', 'coverage', 'structure', 'complexity', 'dependencies'],
-                                  help='Type of analysis to perform')
-        analyze_parser.add_argument('--format', '-f', choices=['text', 'json', 'html'], default='text',
-                                  help='Output format')
-        analyze_parser.add_argument('--output', '-o', type=Path,
-                                  help='Output file path')
-        analyze_parser.add_argument('--threshold', '-t', type=float, default=80.0,
-                                  help='Quality threshold percentage')
+        analyze_parser = subparsers.add_parser(
+            "analyze", help="Analyze documentation and code"
+        )
+        analyze_parser.add_argument(
+            "analysis_type",
+            choices=["quality", "coverage", "structure", "complexity", "dependencies"],
+            help="Type of analysis to perform",
+        )
+        analyze_parser.add_argument(
+            "--format",
+            "-f",
+            choices=["text", "json", "html"],
+            default="text",
+            help="Output format",
+        )
+        analyze_parser.add_argument(
+            "--output", "-o", type=Path, help="Output file path"
+        )
+        analyze_parser.add_argument(
+            "--threshold",
+            "-t",
+            type=float,
+            default=80.0,
+            help="Quality threshold percentage",
+        )
 
         # Review command
-        review_parser = subparsers.add_parser('review', help='Review repository health')
-        review_parser.add_argument('review_type', choices=['repository', 'code', 'documentation', 'architecture', 'testing'],
-                                 help='Type of review to perform')
-        review_parser.add_argument('--format', '-f', choices=['text', 'json', 'html'], default='text',
-                                 help='Output format')
-        review_parser.add_argument('--output', '-o', type=Path,
-                                 help='Output file path')
-        review_parser.add_argument('--include-tests', action='store_true',
-                                 help='Include test analysis')
+        review_parser = subparsers.add_parser("review", help="Review repository health")
+        review_parser.add_argument(
+            "review_type",
+            choices=["repository", "code", "documentation", "architecture", "testing"],
+            help="Type of review to perform",
+        )
+        review_parser.add_argument(
+            "--format",
+            "-f",
+            choices=["text", "json", "html"],
+            default="text",
+            help="Output format",
+        )
+        review_parser.add_argument("--output", "-o", type=Path, help="Output file path")
+        review_parser.add_argument(
+            "--include-tests", action="store_true", help="Include test analysis"
+        )
 
         # Validate command
-        validate_parser = subparsers.add_parser('validate', help='Validate documentation standards')
-        validate_parser.add_argument('validation_type', choices=['structure', 'content', 'style', 'completeness', 'all'],
-                                   help='Type of validation to perform')
-        validate_parser.add_argument('--format', '-f', choices=['text', 'json', 'html'], default='text',
-                                   help='Output format')
-        validate_parser.add_argument('--output', '-o', type=Path,
-                                   help='Output file path')
-        validate_parser.add_argument('--strict', action='store_true',
-                                   help='Treat warnings as errors')
+        validate_parser = subparsers.add_parser(
+            "validate", help="Validate documentation standards"
+        )
+        validate_parser.add_argument(
+            "validation_type",
+            choices=["structure", "content", "style", "completeness", "all"],
+            help="Type of validation to perform",
+        )
+        validate_parser.add_argument(
+            "--format",
+            "-f",
+            choices=["text", "json", "html"],
+            default="text",
+            help="Output format",
+        )
+        validate_parser.add_argument(
+            "--output", "-o", type=Path, help="Output file path"
+        )
+        validate_parser.add_argument(
+            "--strict", action="store_true", help="Treat warnings as errors"
+        )
 
         # Report command
-        report_parser = subparsers.add_parser('report', help='Generate comprehensive reports')
-        report_parser.add_argument('report_type', choices=['summary', 'detailed', 'health', 'quality', 'all'],
-                                 help='Type of report to generate')
-        report_parser.add_argument('--format', '-f', choices=['text', 'json', 'html', 'pdf'], default='text',
-                                 help='Output format')
-        report_parser.add_argument('--output', '-o', type=Path,
-                                 help='Output file path')
-        report_parser.add_argument('--include-charts', action='store_true',
-                                 help='Include charts and visualizations')
+        report_parser = subparsers.add_parser(
+            "report", help="Generate comprehensive reports"
+        )
+        report_parser.add_argument(
+            "report_type",
+            choices=["summary", "detailed", "health", "quality", "all"],
+            help="Type of report to generate",
+        )
+        report_parser.add_argument(
+            "--format",
+            "-f",
+            choices=["text", "json", "html", "pdf"],
+            default="text",
+            help="Output format",
+        )
+        report_parser.add_argument("--output", "-o", type=Path, help="Output file path")
+        report_parser.add_argument(
+            "--include-charts",
+            action="store_true",
+            help="Include charts and visualizations",
+        )
 
         return parser
 
@@ -160,15 +227,15 @@ Examples:
 
     def _dispatch_command(self, args) -> int:
         """Dispatch command to appropriate handler"""
-        if args.command == 'generate':
+        if args.command == "generate":
             return self._handle_generate_command(args)
-        elif args.command == 'analyze':
+        elif args.command == "analyze":
             return self._handle_analyze_command(args)
-        elif args.command == 'review':
+        elif args.command == "review":
             return self._handle_review_command(args)
-        elif args.command == 'validate':
+        elif args.command == "validate":
             return self._handle_validate_command(args)
-        elif args.command == 'report':
+        elif args.command == "report":
             return self._handle_report_command(args)
         else:
             print(f"Unknown command: {args.command}")
@@ -179,18 +246,23 @@ Examples:
         self.logger.info(f"Generating {args.type} documentation")
 
         try:
-            if args.type == 'all':
-                self.generator.generate_all_docs(args.source, self.repo_path / "knowledge")
+            if args.type == "all":
+                self.generator.generate_all_docs(
+                    args.source, self.repo_path / "knowledge"
+                )
                 print("✅ All documentation generated successfully")
-            elif args.type == 'api':
+            elif args.type == "api":
                 self.generator.generate_api_docs(args.source)
                 print("✅ API documentation generated successfully")
-            elif args.type == 'knowledge':
+            elif args.type == "knowledge":
                 # Initialize knowledge repository
-                from ...knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
+                from ...knowledge.repository import (
+                    KnowledgeRepository,
+                    KnowledgeRepositoryConfig,
+                )
+
                 repo_config = KnowledgeRepositoryConfig(
-                    root_path=self.repo_path / "knowledge",
-                    auto_index=True
+                    root_path=self.repo_path / "knowledge", auto_index=True
                 )
                 repo = KnowledgeRepository(repo_config)
                 self.generator.generate_learning_paths(repo)
@@ -212,10 +284,10 @@ Examples:
         self.logger.info(f"Analyzing {args.analysis_type}")
 
         try:
-            if args.analysis_type == 'quality':
+            if args.analysis_type == "quality":
                 quality = self.analyzer.analyze_documentation()
                 self._display_quality_analysis(quality, args.format, args.output)
-            elif args.analysis_type == 'coverage':
+            elif args.analysis_type == "coverage":
                 quality = self.analyzer.analyze_documentation()
                 self._display_coverage_analysis(quality, args.format, args.output)
             else:
@@ -233,7 +305,7 @@ Examples:
         self.logger.info(f"Reviewing {args.review_type}")
 
         try:
-            if args.review_type == 'repository':
+            if args.review_type == "repository":
                 report = self.reviewer.generate_report()
                 self._display_report(report, args.format, args.output)
                 print("✅ Repository review completed")
@@ -252,12 +324,14 @@ Examples:
         self.logger.info(f"Validating {args.validation_type}")
 
         try:
-            if args.validation_type == 'structure':
+            if args.validation_type == "structure":
                 validation = self.validator.validate_documentation()
                 self._display_validation_results(validation, args.format, args.output)
                 print("✅ Validation completed")
             else:
-                print(f"⚠️  Validation type '{args.validation_type}' not yet implemented")
+                print(
+                    f"⚠️  Validation type '{args.validation_type}' not yet implemented"
+                )
                 return 0
 
             return 0
@@ -271,7 +345,7 @@ Examples:
         self.logger.info(f"Generating {args.report_type} report")
 
         try:
-            if args.report_type == 'summary':
+            if args.report_type == "summary":
                 # Generate summary report combining all analyses
                 summary = self._generate_summary_report()
                 self._display_report(summary, args.format, args.output)
@@ -286,16 +360,22 @@ Examples:
             print(f"❌ Report generation failed: {e}")
             return 1
 
-    def _display_quality_analysis(self, quality, format_type: str, output_path: Optional[Path]) -> None:
+    def _display_quality_analysis(
+        self, quality, format_type: str, output_path: Optional[Path]
+    ) -> None:
         """Display documentation quality analysis"""
-        if format_type == 'json':
+        if format_type == "json":
             import json
-            content = json.dumps({
-                'coverage_percentage': quality.coverage_percentage,
-                'total_elements': quality.total_elements,
-                'documented_elements': quality.documented_elements,
-                'average_quality': quality.average_quality
-            }, indent=2)
+
+            content = json.dumps(
+                {
+                    "coverage_percentage": quality.coverage_percentage,
+                    "total_elements": quality.total_elements,
+                    "documented_elements": quality.documented_elements,
+                    "average_quality": quality.average_quality,
+                },
+                indent=2,
+            )
         else:
             content = f"""
 📊 Documentation Quality Analysis
@@ -315,17 +395,23 @@ Missing Documentation: {len(quality.missing_docs)} elements
 
         self._output_content(content, output_path)
 
-    def _display_coverage_analysis(self, quality, format_type: str, output_path: Optional[Path]) -> None:
+    def _display_coverage_analysis(
+        self, quality, format_type: str, output_path: Optional[Path]
+    ) -> None:
         """Display coverage analysis"""
-        if format_type == 'json':
+        if format_type == "json":
             import json
-            content = json.dumps({
-                'coverage_percentage': quality.coverage_percentage,
-                'total_elements': quality.total_elements,
-                'documented_elements': quality.documented_elements,
-                'missing_docs': quality.missing_docs,
-                'poor_quality_docs': quality.poor_quality_docs
-            }, indent=2)
+
+            content = json.dumps(
+                {
+                    "coverage_percentage": quality.coverage_percentage,
+                    "total_elements": quality.total_elements,
+                    "documented_elements": quality.documented_elements,
+                    "missing_docs": quality.missing_docs,
+                    "poor_quality_docs": quality.poor_quality_docs,
+                },
+                indent=2,
+            )
         else:
             content = f"""
 📈 Documentation Coverage Analysis
@@ -347,12 +433,20 @@ Poor Quality Documentation:
 
         self._output_content(content, output_path)
 
-    def _display_validation_results(self, validation, format_type: str, output_path: Optional[Path]) -> None:
+    def _display_validation_results(
+        self, validation, format_type: str, output_path: Optional[Path]
+    ) -> None:
         """Display validation results"""
-        if format_type == 'json':
+        if format_type == "json":
             import json
+
             content = json.dumps(validation, indent=2)
         else:
+            category_lines = "\n".join(
+                f"- {category}: {len(results)} issues"
+                for category, results in validation["results_by_category"].items()
+                if results
+            )
             content = f"""
 🔍 Documentation Validation Results
 {'=' * 40}
@@ -365,20 +459,23 @@ Summary:
 - Validation Passed: {'✅ Yes' if validation['validation_passed'] else '❌ No'}
 
 Issues by Category:
-{chr(10).join(f'- {category}: {len(results)} issues' for category, results in validation['results_by_category'].items() if results)}
+{category_lines}
 """
 
         self._output_content(content, output_path)
 
-    def _display_report(self, report: str, format_type: str, output_path: Optional[Path]) -> None:
+    def _display_report(
+        self, report: str, format_type: str, output_path: Optional[Path]
+    ) -> None:
         """Display report content"""
-        if format_type == 'json':
+        if format_type == "json":
             import json
+
             # Try to parse as JSON for structured output
             try:
                 report_data = json.loads(report)
                 content = json.dumps(report_data, indent=2)
-            except:
+            except (ValueError, TypeError):
                 content = report
         else:
             content = report
@@ -417,13 +514,18 @@ Documentation Score: {quality.coverage_percentage:.1f}%
         recommendations = []
 
         if quality.coverage_percentage < 80:
-            recommendations.append(f"Improve documentation coverage from {quality.coverage_percentage:.1f}% to 80%+")
+            recommendations.append(
+                "Improve documentation coverage from"
+                f" {quality.coverage_percentage:.1f}% to 80%+"
+            )
 
-        if validation['errors'] > 0:
+        if validation["errors"] > 0:
             recommendations.append(f"Fix {validation['errors']} documentation errors")
 
-        if validation['warnings'] > 0:
-            recommendations.append(f"Address {validation['warnings']} documentation warnings")
+        if validation["warnings"] > 0:
+            recommendations.append(
+                f"Address {validation['warnings']} documentation warnings"
+            )
 
         if not recommendations:
             recommendations.append("Documentation quality is excellent!")
@@ -434,14 +536,14 @@ Documentation Score: {quality.coverage_percentage:.1f}%
         """Output content to console or file"""
         if output_path:
             output_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(output_path, 'w', encoding='utf-8') as f:
+            with open(output_path, "w", encoding="utf-8") as f:
                 f.write(content)
             print(f"📄 Report saved to: {output_path}")
         else:
             print(content)
 
 
-def main():
+def main() -> None:
     """Main entry point for documentation CLI"""
     cli = DocumentationCLI()
     exit_code = cli.run()

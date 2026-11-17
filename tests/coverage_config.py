@@ -1,11 +1,11 @@
 """
 Coverage Configuration
 
-Comprehensive test coverage configuration for the Active Inference Knowledge Environment.
+Comprehensive test coverage configuration for the Active Inference Knowledge
+Environment.
 Defines coverage requirements, exclusions, and reporting configuration.
 """
 
-import os
 from pathlib import Path
 
 # Coverage configuration
@@ -52,30 +52,24 @@ COVERAGE_THRESHOLDS = {
 REPORT_CONFIG = {
     "html": {
         "directory": "htmlcov",
-        "title": "Active Inference Knowledge Environment - Test Coverage"
+        "title": "Active Inference Knowledge Environment - Test Coverage",
     },
-    "xml": {
-        "output": "coverage.xml"
-    },
-    "json": {
-        "output": "coverage.json",
-        "pretty_print": True
-    },
-    "term": {
-        "show_missing": True,
-        "skip_covered": False,
-        "skip_empty": True
-    }
+    "xml": {"output": "coverage.xml"},
+    "json": {"output": "coverage.json", "pretty_print": True},
+    "term": {"show_missing": True, "skip_covered": False, "skip_empty": True},
 }
+
 
 def get_coverage_threshold(component: str = "overall") -> int:
     """Get coverage threshold for a component"""
     return COVERAGE_THRESHOLDS.get(component, COVERAGE_THRESHOLDS["overall"])
 
+
 def is_coverage_acceptable(coverage_percent: float, component: str = "overall") -> bool:
     """Check if coverage meets the required threshold"""
     threshold = get_coverage_threshold(component)
     return coverage_percent >= threshold
+
 
 def generate_coverage_report(output_formats: list = None) -> dict:
     """Generate comprehensive coverage report"""
@@ -87,12 +81,14 @@ def generate_coverage_report(output_formats: list = None) -> dict:
 
     # Build pytest command with coverage
     cmd = [
-        sys.executable, "-m", "pytest",
+        sys.executable,
+        "-m",
+        "pytest",
         "tests/",
         f"--cov={'src/active_inference'}",
         "--cov-report=" + ",".join(output_formats),
         "--cov-fail-under=0",  # Don't fail, just report
-        "-v"
+        "-v",
     ]
 
     # Run tests with coverage
@@ -111,20 +107,27 @@ def generate_coverage_report(output_formats: list = None) -> dict:
         print(f"❌ Failed to generate coverage report: {e}")
         return {"success": False, "error": str(e)}
 
+
 def analyze_coverage_gaps() -> dict:
     """Analyze coverage gaps and provide recommendations"""
     try:
-        import subprocess
         import json
+        import subprocess
 
         # Generate JSON coverage report
-        result = subprocess.run([
-            "python", "-m", "pytest",
-            "tests/",
-            "--cov=src/active_inference",
-            "--cov-report=json:coverage_temp.json",
-            "--cov-fail-under=0"
-        ], capture_output=True, text=True)
+        result = subprocess.run(
+            [
+                "python",
+                "-m",
+                "pytest",
+                "tests/",
+                "--cov=src/active_inference",
+                "--cov-report=json:coverage_temp.json",
+                "--cov-fail-under=0",
+            ],
+            capture_output=True,
+            text=True,
+        )
 
         if result.returncode != 0:
             return {"success": False, "error": "Failed to generate coverage data"}
@@ -132,7 +135,7 @@ def analyze_coverage_gaps() -> dict:
         # Read coverage data
         coverage_file = Path("coverage_temp.json")
         if coverage_file.exists():
-            with open(coverage_file, 'r') as f:
+            with open(coverage_file, "r") as f:
                 coverage_data = json.load(f)
 
             # Clean up temp file
@@ -146,11 +149,17 @@ def analyze_coverage_gaps() -> dict:
                 if file_path.startswith("src/active_inference/"):
                     missing_lines = file_data.get("missing_lines", [])
                     if missing_lines:
-                        gaps.append({
-                            "file": file_path,
-                            "missing_lines": len(missing_lines),
-                            "coverage_percent": file_data.get("summary", {}).get("percent_covered", 0)
-                        })
+                        gaps.append(
+                            {
+                                "file": file_path,
+                                "missing_lines": len(missing_lines),
+                                "coverage_percent": (
+                                    file_data.get("summary", {}).get(
+                                        "percent_covered", 0
+                                    )
+                                ),
+                            }
+                        )
 
             # Sort by coverage (lowest first)
             gaps.sort(key=lambda x: x["coverage_percent"])
@@ -160,7 +169,9 @@ def analyze_coverage_gaps() -> dict:
                 "total_files": len(files_data),
                 "files_with_gaps": len(gaps),
                 "gaps": gaps[:20],  # Top 20 files with worst coverage
-                "overall_coverage": coverage_data.get("totals", {}).get("percent_covered", 0)
+                "overall_coverage": (
+                    coverage_data.get("totals", {}).get("percent_covered", 0)
+                ),
             }
 
         return {"success": False, "error": "Coverage file not found"}

@@ -6,18 +6,16 @@ ensuring proper case study management, code generation, and example
 application execution.
 """
 
-import pytest
 import tempfile
-import json
 from pathlib import Path
-from unittest.mock import Mock, patch
-from typing import Dict, Any, List
+
+import pytest
 
 from active_inference.applications.case_studies import (
     ApplicationDomain,
     CaseStudy,
+    CaseStudyManager,
     ExampleApplications,
-    CaseStudyManager
 )
 
 
@@ -54,7 +52,7 @@ class TestCaseStudy:
             implementation_files=["robot.py", "controller.py"],
             requirements=["numpy", "scipy"],
             learning_objectives=["Learn robotics", "Understand control"],
-            key_concepts=["robotics", "control", "active_inference"]
+            key_concepts=["robotics", "control", "active_inference"],
         )
 
         assert study.id == "test_study"
@@ -81,7 +79,11 @@ class TestExampleApplications:
             assert len(examples.case_studies) > 0
 
             # Check that expected case studies are loaded
-            expected_studies = ["perceptual_inference", "decision_making", "motor_control"]
+            expected_studies = [
+                "perceptual_inference",
+                "decision_making",
+                "motor_control",
+            ]
             for study_id in expected_studies:
                 assert study_id in examples.case_studies
 
@@ -130,13 +132,17 @@ class TestExampleApplications:
             examples = ExampleApplications(temp_dir)
 
             # Test filtering by domain
-            perception_studies = examples.list_case_studies(domain=ApplicationDomain.PERCEPTION)
+            perception_studies = examples.list_case_studies(
+                domain=ApplicationDomain.PERCEPTION
+            )
             assert isinstance(perception_studies, list)
             assert len(perception_studies) == 1
             assert perception_studies[0].domain == ApplicationDomain.PERCEPTION
 
             # Test filtering by non-existent domain
-            clinical_studies = examples.list_case_studies(domain=ApplicationDomain.CLINICAL)
+            clinical_studies = examples.list_case_studies(
+                domain=ApplicationDomain.CLINICAL
+            )
             assert isinstance(clinical_studies, list)
             assert len(clinical_studies) == 0
 
@@ -148,7 +154,9 @@ class TestExampleApplications:
             # Test filtering by difficulty
             intermediate_studies = examples.list_case_studies(difficulty="intermediate")
             assert isinstance(intermediate_studies, list)
-            assert len(intermediate_studies) == 2  # perceptual_inference and motor_control
+            assert (
+                len(intermediate_studies) == 2
+            )  # perceptual_inference and motor_control
 
             for study in intermediate_studies:
                 assert study.difficulty == "intermediate"
@@ -166,8 +174,7 @@ class TestExampleApplications:
 
             # Test combined domain and difficulty filters
             studies = examples.list_case_studies(
-                domain=ApplicationDomain.DECISION_MAKING,
-                difficulty="advanced"
+                domain=ApplicationDomain.DECISION_MAKING, difficulty="advanced"
             )
 
             assert isinstance(studies, list)
@@ -273,7 +280,7 @@ class TestCaseStudyManager:
             manager = CaseStudyManager(temp_dir)
 
             assert manager.examples_dir == Path(temp_dir)
-            assert hasattr(manager, 'example_applications')
+            assert hasattr(manager, "example_applications")
             assert isinstance(manager.example_applications, ExampleApplications)
 
     def test_get_case_study(self):
@@ -302,7 +309,9 @@ class TestCaseStudyManager:
             assert len(studies) > 0
 
             # Test listing with filters
-            perception_studies = manager.list_case_studies(domain=ApplicationDomain.PERCEPTION)
+            perception_studies = manager.list_case_studies(
+                domain=ApplicationDomain.PERCEPTION
+            )
             assert isinstance(perception_studies, list)
             assert len(perception_studies) == 1
 
@@ -334,7 +343,9 @@ class TestCaseStudyManager:
             manager = CaseStudyManager(temp_dir)
 
             # Verify that manager delegates to example applications correctly
-            assert manager.example_applications.examples_dir == Path(temp_dir) / "examples"
+            assert (
+                manager.example_applications.examples_dir == Path(temp_dir) / "examples"
+            )
 
             # Test that manager methods work through delegation
             study = manager.get_case_study("decision_making")
@@ -351,7 +362,9 @@ class TestCaseStudyManager:
             manager = CaseStudyManager(temp_dir)
 
             assert manager.examples_dir == Path(temp_dir)
-            assert manager.example_applications.examples_dir == Path(temp_dir) / "examples"
+            assert (
+                manager.example_applications.examples_dir == Path(temp_dir) / "examples"
+            )
 
 
 if __name__ == "__main__":

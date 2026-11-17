@@ -7,14 +7,12 @@ validation, and best practice guidance systems.
 """
 
 import pytest
-from unittest.mock import Mock, patch
-from typing import Dict, Any, List
 
 from active_inference.applications.best_practices import (
     ArchitecturePattern,
-    BestPractice,
     ArchitecturePatterns,
-    BestPracticesGuide
+    BestPractice,
+    BestPracticesGuide,
 )
 
 pytestmark = pytest.mark.unit
@@ -27,7 +25,9 @@ class TestArchitecturePattern:
         """Test architecture pattern enum values"""
         # Test all expected pattern values
         assert ArchitecturePattern.MODEL_VIEW_CONTROLLER.value == "mvc"
-        assert ArchitecturePattern.ACTIVE_INFERENCE_AGENT.value == "active_inference_agent"
+        assert (
+            ArchitecturePattern.ACTIVE_INFERENCE_AGENT.value == "active_inference_agent"
+        )
         assert ArchitecturePattern.HIERARCHICAL_CONTROL.value == "hierarchical_control"
         assert ArchitecturePattern.MULTI_SCALE_MODELING.value == "multi_scale_modeling"
         assert ArchitecturePattern.DISTRIBUTED_SYSTEM.value == "distributed_system"
@@ -50,7 +50,7 @@ class TestBestPractice:
             description="A test best practice",
             examples=["example 1", "example 2"],
             rationale="Testing is important",
-            related_patterns=["pattern1"]
+            related_patterns=["pattern1"],
         )
 
         assert practice.id == "test_practice"
@@ -69,7 +69,7 @@ class TestArchitecturePatterns:
         """Test architecture patterns initialization"""
         patterns = ArchitecturePatterns()
 
-        assert hasattr(patterns, 'patterns')
+        assert hasattr(patterns, "patterns")
         assert isinstance(patterns.patterns, dict)
         assert len(patterns.patterns) > 0
 
@@ -77,7 +77,7 @@ class TestArchitecturePatterns:
         expected_patterns = [
             "active_inference_agent",
             "hierarchical_control",
-            "multi_scale_modeling"
+            "multi_scale_modeling",
         ]
 
         for pattern in expected_patterns:
@@ -123,7 +123,7 @@ class TestBestPracticesGuide:
         """Test best practices guide initialization"""
         guide = BestPracticesGuide()
 
-        assert hasattr(guide, 'practices')
+        assert hasattr(guide, "practices")
         assert isinstance(guide.practices, dict)
         assert len(guide.practices) > 0
 
@@ -184,7 +184,7 @@ class TestBestPracticesGuide:
         requirements = {
             "multi_level": False,
             "multi_scale": False,
-            "distributed": False
+            "distributed": False,
         }
 
         recommendations = guide.generate_architecture_recommendations(requirements)
@@ -199,11 +199,7 @@ class TestBestPracticesGuide:
         """Test recommendations for multi-level requirements"""
         guide = BestPracticesGuide()
 
-        requirements = {
-            "multi_level": True,
-            "multi_scale": False,
-            "distributed": False
-        }
+        requirements = {"multi_level": True, "multi_scale": False, "distributed": False}
 
         recommendations = guide.generate_architecture_recommendations(requirements)
 
@@ -214,11 +210,7 @@ class TestBestPracticesGuide:
         """Test recommendations for multi-scale requirements"""
         guide = BestPracticesGuide()
 
-        requirements = {
-            "multi_level": False,
-            "multi_scale": True,
-            "distributed": False
-        }
+        requirements = {"multi_level": False, "multi_scale": True, "distributed": False}
 
         recommendations = guide.generate_architecture_recommendations(requirements)
 
@@ -229,11 +221,7 @@ class TestBestPracticesGuide:
         """Test recommendations for distributed requirements"""
         guide = BestPracticesGuide()
 
-        requirements = {
-            "multi_level": False,
-            "multi_scale": False,
-            "distributed": True
-        }
+        requirements = {"multi_level": False, "multi_scale": False, "distributed": True}
 
         recommendations = guide.generate_architecture_recommendations(requirements)
 
@@ -244,11 +232,7 @@ class TestBestPracticesGuide:
         """Test recommendations for complex requirements"""
         guide = BestPracticesGuide()
 
-        requirements = {
-            "multi_level": True,
-            "multi_scale": True,
-            "distributed": True
-        }
+        requirements = {"multi_level": True, "multi_scale": True, "distributed": True}
 
         recommendations = guide.generate_architecture_recommendations(requirements)
 

@@ -6,10 +6,10 @@ Provides methods for analyzing model performance, information flow, and system d
 """
 
 import logging
+from typing import Any, Dict, List, Optional
+
 import numpy as np
-from typing import Dict, List, Optional, Any, Tuple
 from scipy import stats
-from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class StatisticalAnalysis:
     """Statistical analysis tools for research data"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.info("StatisticalAnalysis initialized")
 
     def compute_descriptive_stats(self, data: List[float]) -> Dict[str, float]:
@@ -31,7 +31,7 @@ class StatisticalAnalysis:
             "std": float(np.std(data)),
             "min": float(np.min(data)),
             "max": float(np.max(data)),
-            "n_samples": len(data)
+            "n_samples": len(data),
         }
 
     def correlation_analysis(self, x: List[float], y: List[float]) -> Dict[str, float]:
@@ -43,12 +43,13 @@ class StatisticalAnalysis:
 
         return {
             "pearson_r": float(correlation),
-            "pearson_r_squared": float(correlation ** 2),
-            "n_samples": len(x)
+            "pearson_r_squared": float(correlation**2),
+            "n_samples": len(x),
         }
 
-    def significance_test(self, data1: List[float], data2: List[float],
-                         test_type: str = "t_test") -> Dict[str, Any]:
+    def significance_test(
+        self, data1: List[float], data2: List[float], test_type: str = "t_test"
+    ) -> Dict[str, Any]:
         """Perform significance testing between two datasets"""
         if len(data1) == 0 or len(data2) == 0:
             return {"error": "Empty datasets"}
@@ -61,7 +62,7 @@ class StatisticalAnalysis:
                 "p_value": float(p_value),
                 "significant": p_value < 0.05,
                 "n1": len(data1),
-                "n2": len(data2)
+                "n2": len(data2),
             }
         else:
             return {"error": f"Test type {test_type} not implemented"}
@@ -77,7 +78,9 @@ class StatisticalAnalysis:
         for i, variable_data in enumerate(data):
             if len(variable_data) > 1:
                 # Discretize data for entropy calculation
-                hist, bin_edges = np.histogram(variable_data, bins=min(50, len(set(variable_data))))
+                hist, bin_edges = np.histogram(
+                    variable_data, bins=min(50, len(set(variable_data)))
+                )
                 probs = hist / np.sum(hist)
 
                 # Shannon entropy
@@ -109,7 +112,9 @@ class StatisticalAnalysis:
         y_bins = min(20, len(set(y)))
 
         # Create 2D histogram
-        hist_2d, x_edges, y_edges = np.histogram2d(x_array, y_array, bins=[x_bins, y_bins])
+        hist_2d, x_edges, y_edges = np.histogram2d(
+            x_array, y_array, bins=[x_bins, y_bins]
+        )
         hist_2d = hist_2d / np.sum(hist_2d)
 
         # Compute marginal distributions
@@ -121,7 +126,9 @@ class StatisticalAnalysis:
         for i in range(len(hist_x)):
             for j in range(len(hist_y)):
                 if hist_2d[i, j] > 0 and hist_x[i] > 0 and hist_y[j] > 0:
-                    mutual_info += hist_2d[i, j] * np.log2(hist_2d[i, j] / (hist_x[i] * hist_y[j]))
+                    mutual_info += hist_2d[i, j] * np.log2(
+                        hist_2d[i, j] / (hist_x[i] * hist_y[j])
+                    )
 
         return mutual_info
 
@@ -146,17 +153,14 @@ class StatisticalAnalysis:
 
         return kl_div
 
-    def bayesian_analysis(self, data: Dict[str, Any], prior: Dict[str, float] = None) -> Dict[str, Any]:
+    def bayesian_analysis(
+        self, data: Dict[str, Any], prior: Optional[Dict[str, float]] = None
+    ) -> Dict[str, Any]:
         """Perform Bayesian analysis on research data"""
         if prior is None:
             prior = {"mean": 0.0, "variance": 1.0}
 
-        analysis = {
-            "prior": prior,
-            "likelihood": {},
-            "posterior": {},
-            "evidence": 0.0
-        }
+        analysis = {"prior": prior, "likelihood": {}, "posterior": {}, "evidence": 0.0}
 
         # Compute likelihood (simplified Gaussian likelihood)
         if "observations" in data and data["observations"]:
@@ -176,21 +180,28 @@ class StatisticalAnalysis:
             # Posterior parameters
             posterior_precision = prior_precision + n * sample_precision
             posterior_var = 1.0 / posterior_precision
-            posterior_mean = (prior_mean * prior_precision + n * sample_mean * sample_precision) / posterior_precision
+            posterior_mean = (
+                prior_mean * prior_precision + n * sample_mean * sample_precision
+            ) / posterior_precision
 
             analysis["posterior"] = {
                 "mean": posterior_mean,
                 "variance": posterior_var,
-                "precision": posterior_precision
+                "precision": posterior_precision,
             }
 
             # Compute log likelihood (simplified)
-            log_likelihood = -0.5 * n * np.log(2 * np.pi * sample_var) - 0.5 * np.sum((np.array(observations) - sample_mean)**2) / sample_var
+            log_likelihood = (
+                -0.5 * n * np.log(2 * np.pi * sample_var)
+                - 0.5 * np.sum((np.array(observations) - sample_mean) ** 2) / sample_var
+            )
             analysis["log_likelihood"] = log_likelihood
 
         return analysis
 
-    def time_series_analysis(self, time_series: List[float], window_size: int = 10) -> Dict[str, Any]:
+    def time_series_analysis(
+        self, time_series: List[float], window_size: int = 10
+    ) -> Dict[str, Any]:
         """Analyze time series data for trends and patterns"""
         if len(time_series) < window_size:
             return {"error": "Insufficient data for time series analysis"}
@@ -199,7 +210,7 @@ class StatisticalAnalysis:
             "trend_analysis": {},
             "volatility_analysis": {},
             "autocorrelation": {},
-            "stationarity": {}
+            "stationarity": {},
         }
 
         # Trend analysis (linear regression on sliding windows)
@@ -211,47 +222,53 @@ class StatisticalAnalysis:
         analysis["trend_analysis"] = {
             "overall_slope": slope,
             "overall_intercept": intercept,
-            "trend_direction": "increasing" if slope > 0 else "decreasing"
+            "trend_direction": "increasing" if slope > 0 else "decreasing",
         }
 
         # Volatility analysis (rolling standard deviation)
         rolling_std = []
         for i in range(len(ts_array) - window_size + 1):
-            window = ts_array[i:i + window_size]
+            window = ts_array[i : i + window_size]
             rolling_std.append(np.std(window))
 
         analysis["volatility_analysis"] = {
             "mean_volatility": np.mean(rolling_std),
             "max_volatility": np.max(rolling_std),
-            "volatility_trend": "increasing" if rolling_std[-1] > rolling_std[0] else "decreasing"
+            "volatility_trend": (
+                "increasing" if rolling_std[-1] > rolling_std[0] else "decreasing"
+            ),
         }
 
         # Autocorrelation analysis
         if len(ts_array) > 10:
-            autocorr = np.correlate(ts_array, ts_array, mode='full')
-            autocorr = autocorr[autocorr.size // 2:]
+            autocorr = np.correlate(ts_array, ts_array, mode="full")
+            autocorr = autocorr[autocorr.size // 2 :]
             autocorr = autocorr / autocorr[0]  # Normalize
 
             # First few lags
             analysis["autocorrelation"] = {
                 "lag_1": autocorr[1] if len(autocorr) > 1 else 0,
                 "lag_5": autocorr[5] if len(autocorr) > 5 else 0,
-                "lag_10": autocorr[10] if len(autocorr) > 10 else 0
+                "lag_10": autocorr[10] if len(autocorr) > 10 else 0,
             }
 
         return analysis
 
-    def model_comparison_analysis(self, model_results: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def model_comparison_analysis(
+        self, model_results: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
         """Comprehensive analysis comparing multiple models"""
         if not model_results:
             return {"error": "No model results provided"}
 
         analysis = {
-            "model_names": [r.get("model_name", f"model_{i}") for i, r in enumerate(model_results)],
+            "model_names": [
+                r.get("model_name", f"model_{i}") for i, r in enumerate(model_results)
+            ],
             "performance_comparison": {},
             "statistical_tests": {},
             "ranking": {},
-            "recommendations": []
+            "recommendations": [],
         }
 
         # Extract common metrics
@@ -265,8 +282,20 @@ class StatisticalAnalysis:
                 values = [r[metric] for r in model_results]
 
                 # Determine if higher or lower is better
-                better_higher = metric in ["accuracy", "precision", "recall", "f1_score", "information_gain"]
-                better_lower = metric in ["free_energy", "prediction_error", "loss", "convergence_time", "model_complexity"]
+                better_higher = metric in [
+                    "accuracy",
+                    "precision",
+                    "recall",
+                    "f1_score",
+                    "information_gain",
+                ]
+                better_lower = metric in [
+                    "free_energy",
+                    "prediction_error",
+                    "loss",
+                    "convergence_time",
+                    "model_complexity",
+                ]
 
                 if better_higher:
                     best_idx = np.argmax(values)
@@ -288,7 +317,9 @@ class StatisticalAnalysis:
                     "worst_value": worst_value,
                     "values": values,
                     "std_deviation": np.std(values),
-                    "coefficient_of_variation": np.std(values) / np.mean(values) if np.mean(values) != 0 else 0
+                    "coefficient_of_variation": (
+                        np.std(values) / np.mean(values) if np.mean(values) != 0 else 0
+                    ),
                 }
 
         # Statistical comparison (simplified)
@@ -297,16 +328,22 @@ class StatisticalAnalysis:
             free_energy_values = []
             for result in model_results:
                 if "free_energy" in result and result["free_energy"]:
-                    free_energy_values.append(result["free_energy"][-1] if isinstance(result["free_energy"], list) else result["free_energy"])
+                    free_energy_values.append(
+                        result["free_energy"][-1]
+                        if isinstance(result["free_energy"], list)
+                        else result["free_energy"]
+                    )
 
             if len(free_energy_values) >= 2:
                 # Perform t-test between first two models
                 if len(free_energy_values) >= 2:
-                    t_stat, p_value = stats.ttest_ind([free_energy_values[0]], [free_energy_values[1]])
+                    t_stat, p_value = stats.ttest_ind(
+                        [free_energy_values[0]], [free_energy_values[1]]
+                    )
                     analysis["statistical_tests"]["free_energy_t_test"] = {
                         "t_statistic": t_stat,
                         "p_value": p_value,
-                        "significant": p_value < 0.05
+                        "significant": p_value < 0.05,
                     }
 
         # Model ranking based on composite score
@@ -321,13 +358,21 @@ class StatisticalAnalysis:
                 count += 0.3
             if "free_energy" in result:
                 # Lower is better for free energy
-                fe_value = result["free_energy"][-1] if isinstance(result["free_energy"], list) else result["free_energy"]
-                score += (1.0 - min(1.0, fe_value / 10.0)) * 0.3  # Normalize assuming max reasonable FE of 10
+                fe_value = (
+                    result["free_energy"][-1]
+                    if isinstance(result["free_energy"], list)
+                    else result["free_energy"]
+                )
+                score += (
+                    1.0 - min(1.0, fe_value / 10.0)
+                ) * 0.3  # Normalize assuming max reasonable FE of 10
                 count += 0.3
             if "convergence_time" in result:
                 # Lower is better for convergence time
                 conv_time = result["convergence_time"]
-                score += (1.0 - min(1.0, conv_time / 1000.0)) * 0.2  # Normalize assuming max reasonable time of 1000
+                score += (
+                    1.0 - min(1.0, conv_time / 1000.0)
+                ) * 0.2  # Normalize assuming max reasonable time of 1000
                 count += 0.2
 
             if count > 0:
@@ -345,22 +390,31 @@ class StatisticalAnalysis:
                 {
                     "rank": i + 1,
                     "model": analysis["model_names"][idx],
-                    "score": composite_scores[idx]
+                    "score": composite_scores[idx],
                 }
                 for i, idx in enumerate(ranked_indices)
-            ]
+            ],
         }
 
         # Generate recommendations
         if "ranking" in analysis and analysis["ranking"]["ranked_models"]:
             best_model = analysis["ranking"]["ranked_models"][0]
-            analysis["recommendations"].append(f"Recommended model: {best_model['model']} (composite score: {best_model['score']:.3f})")
+            analysis["recommendations"].append(
+                f"Recommended model: {best_model['model']} (composite score:"
+                f" {best_model['score']:.3f})"
+            )
 
             # Check for significant differences
             if len(composite_scores) >= 2:
-                score_diff = composite_scores[ranked_indices[0]] - composite_scores[ranked_indices[1]]
+                score_diff = (
+                    composite_scores[ranked_indices[0]]
+                    - composite_scores[ranked_indices[1]]
+                )
                 if score_diff > 0.1:
-                    analysis["recommendations"].append(f"Clear performance difference between top models ({score_diff:.3f} score gap)")
+                    analysis["recommendations"].append(
+                        "Clear performance difference between top models"
+                        f" ({score_diff:.3f} score gap)"
+                    )
 
         return analysis
 
@@ -368,7 +422,7 @@ class StatisticalAnalysis:
 class AnalysisTools:
     """Comprehensive analysis toolkit for research"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.statistical_analysis = StatisticalAnalysis()
         logger.info("AnalysisTools initialized")
 
@@ -378,35 +432,51 @@ class AnalysisTools:
             "experiment_id": results.get("experiment_id"),
             "performance_metrics": {},
             "statistical_analysis": {},
-            "recommendations": []
+            "recommendations": [],
         }
 
         # Analyze free energy trajectory
         if "free_energy" in results:
             free_energy = results["free_energy"]
-            analysis["performance_metrics"]["free_energy_stats"] = \
+            analysis["performance_metrics"]["free_energy_stats"] = (
                 self.statistical_analysis.compute_descriptive_stats(free_energy)
+            )
 
-            analysis["performance_metrics"]["final_free_energy"] = free_energy[-1] if free_energy else None
-            analysis["performance_metrics"]["free_energy_trend"] = \
-                "decreasing" if len(free_energy) > 1 and free_energy[-1] < free_energy[0] else "increasing"
+            analysis["performance_metrics"]["final_free_energy"] = (
+                free_energy[-1] if free_energy else None
+            )
+            analysis["performance_metrics"]["free_energy_trend"] = (
+                "decreasing"
+                if len(free_energy) > 1 and free_energy[-1] < free_energy[0]
+                else "increasing"
+            )
 
         # Analyze accuracy trajectory
         if "accuracy" in results:
             accuracy = results["accuracy"]
-            analysis["performance_metrics"]["accuracy_stats"] = \
+            analysis["performance_metrics"]["accuracy_stats"] = (
                 self.statistical_analysis.compute_descriptive_stats(accuracy)
+            )
 
-            analysis["performance_metrics"]["final_accuracy"] = accuracy[-1] if accuracy else None
-            analysis["performance_metrics"]["accuracy_trend"] = \
-                "increasing" if len(accuracy) > 1 and accuracy[-1] > accuracy[0] else "decreasing"
+            analysis["performance_metrics"]["final_accuracy"] = (
+                accuracy[-1] if accuracy else None
+            )
+            analysis["performance_metrics"]["accuracy_trend"] = (
+                "increasing"
+                if len(accuracy) > 1 and accuracy[-1] > accuracy[0]
+                else "decreasing"
+            )
 
         # Generate recommendations
         if analysis["performance_metrics"].get("free_energy_trend") == "increasing":
-            analysis["recommendations"].append("Consider adjusting model parameters to reduce free energy")
+            analysis["recommendations"].append(
+                "Consider adjusting model parameters to reduce free energy"
+            )
 
         if analysis["performance_metrics"].get("accuracy_trend") == "decreasing":
-            analysis["recommendations"].append("Model accuracy is declining, investigate learning dynamics")
+            analysis["recommendations"].append(
+                "Model accuracy is declining, investigate learning dynamics"
+            )
 
         return analysis
 
@@ -417,9 +487,11 @@ class AnalysisTools:
 
         comparison = {
             "n_models": len(model_results),
-            "model_names": [r.get("model_name", f"model_{i}") for i, r in enumerate(model_results)],
+            "model_names": [
+                r.get("model_name", f"model_{i}") for i, r in enumerate(model_results)
+            ],
             "performance_comparison": {},
-            "statistical_tests": {}
+            "statistical_tests": {},
         }
 
         # Extract performance metrics
@@ -434,13 +506,19 @@ class AnalysisTools:
 
         # Compare free energy
         if len(free_energy_values) > 1:
-            comparison["performance_comparison"]["free_energy_comparison"] = \
-                self.statistical_analysis.significance_test(free_energy_values[:1], free_energy_values[1:])
+            comparison["performance_comparison"]["free_energy_comparison"] = (
+                self.statistical_analysis.significance_test(
+                    free_energy_values[:1], free_energy_values[1:]
+                )
+            )
 
         # Compare accuracy
         if len(accuracy_values) > 1:
-            comparison["performance_comparison"]["accuracy_comparison"] = \
-                self.statistical_analysis.significance_test(accuracy_values[:1], accuracy_values[1:])
+            comparison["performance_comparison"]["accuracy_comparison"] = (
+                self.statistical_analysis.significance_test(
+                    accuracy_values[:1], accuracy_values[1:]
+                )
+            )
 
         return comparison
 
@@ -508,7 +586,9 @@ class AnalysisTools:
 
         return float(kl_div)
 
-    def analyze_time_series(self, data: List[float], window_size: int = 10) -> Dict[str, Any]:
+    def analyze_time_series(
+        self, data: List[float], window_size: int = 10
+    ) -> Dict[str, Any]:
         """
         Analyze time series data for trends and patterns
 
@@ -526,18 +606,24 @@ class AnalysisTools:
             "trend_analysis": {},
             "seasonal_analysis": {},
             "autocorrelation": {},
-            "stationarity_tests": {}
+            "stationarity_tests": {},
         }
 
         # Trend analysis
         analysis["trend_analysis"]["linear_trend"] = self._compute_linear_trend(data)
-        analysis["trend_analysis"]["moving_average"] = self._compute_moving_average(data, window_size)
+        analysis["trend_analysis"]["moving_average"] = self._compute_moving_average(
+            data, window_size
+        )
 
         # Stationarity tests (simplified)
-        analysis["stationarity_tests"]["mean_stationarity"] = self._test_mean_stationarity(data, window_size)
+        analysis["stationarity_tests"]["mean_stationarity"] = (
+            self._test_mean_stationarity(data, window_size)
+        )
 
         # Autocorrelation (simplified)
-        analysis["autocorrelation"]["lag_1"] = self._compute_autocorrelation(data, lag=1)
+        analysis["autocorrelation"]["lag_1"] = self._compute_autocorrelation(
+            data, lag=1
+        )
 
         return analysis
 
@@ -556,22 +642,26 @@ class AnalysisTools:
         return {
             "slope": float(slope),
             "intercept": float(intercept),
-            "r_squared": float(r_squared)
+            "r_squared": float(r_squared),
         }
 
-    def _compute_moving_average(self, data: List[float], window_size: int) -> List[float]:
+    def _compute_moving_average(
+        self, data: List[float], window_size: int
+    ) -> List[float]:
         """Compute moving average"""
         if len(data) < window_size:
             return []
 
         moving_avg = []
         for i in range(len(data) - window_size + 1):
-            window = data[i:i + window_size]
+            window = data[i : i + window_size]
             moving_avg.append(float(np.mean(window)))
 
         return moving_avg
 
-    def _test_mean_stationarity(self, data: List[float], window_size: int) -> Dict[str, Any]:
+    def _test_mean_stationarity(
+        self, data: List[float], window_size: int
+    ) -> Dict[str, Any]:
         """Test for mean stationarity"""
         if len(data) < window_size * 2:
             return {"stationary": False, "reason": "Insufficient data"}
@@ -579,7 +669,7 @@ class AnalysisTools:
         # Split data into windows and compare means
         windows = []
         for i in range(0, len(data) - window_size + 1, window_size // 2):
-            window = data[i:i + window_size]
+            window = data[i : i + window_size]
             if len(window) == window_size:
                 windows.append(window)
 
@@ -595,7 +685,7 @@ class AnalysisTools:
         return {
             "stationary": stationary,
             "mean_variation": float(mean_variation),
-            "window_count": len(windows)
+            "window_count": len(windows),
         }
 
     def _compute_autocorrelation(self, data: List[float], lag: int = 1) -> float:
@@ -608,14 +698,16 @@ class AnalysisTools:
 
         # Compute autocorrelation
         numerator = np.sum(data_demeaned[:-lag] * data_demeaned[lag:])
-        denominator = np.sum(data_demeaned ** 2)
+        denominator = np.sum(data_demeaned**2)
 
         if denominator == 0:
             return 0.0
 
         return float(numerator / denominator)
 
-    def perform_meta_analysis(self, study_results: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def perform_meta_analysis(
+        self, study_results: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
         """
         Perform meta-analysis on multiple study results
 
@@ -632,7 +724,7 @@ class AnalysisTools:
             "effect_sizes": [],
             "heterogeneity": {},
             "publication_bias": {},
-            "summary_statistics": {}
+            "summary_statistics": {},
         }
 
         # Extract effect sizes (simplified - assuming standardized mean differences)
@@ -653,19 +745,24 @@ class AnalysisTools:
         weights = sample_sizes
         weighted_mean = np.average(effect_sizes, weights=weights)
 
-        meta_analysis["summary_statistics"]["weighted_mean_effect"] = float(weighted_mean)
+        meta_analysis["summary_statistics"]["weighted_mean_effect"] = float(
+            weighted_mean
+        )
         meta_analysis["summary_statistics"]["total_sample_size"] = sum(sample_sizes)
 
         # Heterogeneity analysis (simplified Q statistic)
         if len(effect_sizes) > 1:
             q_stat = np.sum(weights * (np.array(effect_sizes) - weighted_mean) ** 2)
             meta_analysis["heterogeneity"]["q_statistic"] = float(q_stat)
-            meta_analysis["heterogeneity"]["heterogeneous"] = q_stat > len(effect_sizes) - 1
+            meta_analysis["heterogeneity"]["heterogeneous"] = (
+                q_stat > len(effect_sizes) - 1
+            )
 
         return meta_analysis
 
-    def validate_analysis_correctness(self, analysis_results: Dict[str, Any],
-                                    ground_truth: Dict[str, Any]) -> Dict[str, Any]:
+    def validate_analysis_correctness(
+        self, analysis_results: Dict[str, Any], ground_truth: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """
         Validate analysis results against ground truth
 
@@ -680,7 +777,7 @@ class AnalysisTools:
             "overall_accuracy": 0.0,
             "metric_validation": {},
             "error_analysis": {},
-            "recommendations": []
+            "recommendations": [],
         }
 
         # Validate key metrics
@@ -688,7 +785,9 @@ class AnalysisTools:
             if metric_name in analysis_results:
                 predicted_value = analysis_results[metric_name]
 
-                if isinstance(true_value, (int, float)) and isinstance(predicted_value, (int, float)):
+                if isinstance(true_value, (int, float)) and isinstance(
+                    predicted_value, (int, float)
+                ):
                     error = abs(predicted_value - true_value)
                     relative_error = error / abs(true_value) if true_value != 0 else 0
 
@@ -697,24 +796,36 @@ class AnalysisTools:
                         "predicted_value": predicted_value,
                         "absolute_error": error,
                         "relative_error": relative_error,
-                        "acceptable": relative_error < 0.1  # 10% tolerance
+                        "acceptable": relative_error < 0.1,  # 10% tolerance
                     }
 
         # Compute overall accuracy
         if validation["metric_validation"]:
-            acceptable_count = sum(1 for v in validation["metric_validation"].values() if v["acceptable"])
-            validation["overall_accuracy"] = acceptable_count / len(validation["metric_validation"])
+            acceptable_count = sum(
+                1 for v in validation["metric_validation"].values() if v["acceptable"]
+            )
+            validation["overall_accuracy"] = acceptable_count / len(
+                validation["metric_validation"]
+            )
 
         # Generate recommendations
         if validation["overall_accuracy"] < 0.8:
-            validation["recommendations"].append("Analysis accuracy below threshold - review methodology")
-        if any(v.get("relative_error", 0) > 0.5 for v in validation["metric_validation"].values()):
-            validation["recommendations"].append("High error in some metrics - investigate data quality")
+            validation["recommendations"].append(
+                "Analysis accuracy below threshold - review methodology"
+            )
+        if any(
+            v.get("relative_error", 0) > 0.5
+            for v in validation["metric_validation"].values()
+        ):
+            validation["recommendations"].append(
+                "High error in some metrics - investigate data quality"
+            )
 
         return validation
 
-    def generate_analysis_report(self, analysis_results: Dict[str, Any],
-                               report_format: str = "markdown") -> str:
+    def generate_analysis_report(
+        self, analysis_results: Dict[str, Any], report_format: str = "markdown"
+    ) -> str:
         """
         Generate comprehensive analysis report
 
@@ -740,7 +851,9 @@ class AnalysisTools:
 
         # Executive summary
         report_lines.append("## Executive Summary\n")
-        report_lines.append("Comprehensive statistical analysis of experimental data.\n")
+        report_lines.append(
+            "Comprehensive statistical analysis of experimental data.\n"
+        )
 
         # Results sections
         for section_name, section_data in results.items():
@@ -767,7 +880,7 @@ class AnalysisTools:
             "<html><head><title>Analysis Report</title></head><body>",
             "<h1>Analysis Report</h1>",
             "<h2>Executive Summary</h2>",
-            "<p>Comprehensive statistical analysis of experimental data.</p>"
+            "<p>Comprehensive statistical analysis of experimental data.</p>",
         ]
 
         for section_name, section_data in results.items():
@@ -792,7 +905,7 @@ class AnalysisTools:
             "\\title{Analysis Report}",
             "\\maketitle",
             "\\section{Executive Summary}",
-            "Comprehensive statistical analysis of experimental data."
+            "Comprehensive statistical analysis of experimental data.",
         ]
 
         for section_name, section_data in results.items():
@@ -804,5 +917,3 @@ class AnalysisTools:
 
         latex_parts.extend(["\\end{document}"])
         return "\n".join(latex_parts)
-
-

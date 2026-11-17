@@ -7,16 +7,17 @@ standardized testing protocols.
 """
 
 import logging
-from typing import Dict, List, Optional, Any, Callable
+import time
 from dataclasses import dataclass
 from enum import Enum
-import time
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
 
 class MetricType(Enum):
     """Types of performance metrics"""
+
     ACCURACY = "accuracy"
     PRECISION = "precision"
     RECALL = "recall"
@@ -30,6 +31,7 @@ class MetricType(Enum):
 @dataclass
 class PerformanceMetrics:
     """Container for performance metrics"""
+
     accuracy: float = 0.0
     precision: float = 0.0
     recall: float = 0.0
@@ -49,14 +51,14 @@ class PerformanceMetrics:
             "free_energy": self.free_energy,
             "convergence_time": self.convergence_time,
             "computational_cost": self.computational_cost,
-            "information_efficiency": self.information_efficiency
+            "information_efficiency": self.information_efficiency,
         }
 
 
 class BenchmarkSuite:
     """Comprehensive benchmarking suite for model evaluation"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.metrics: Dict[str, PerformanceMetrics] = {}
         self.baselines: Dict[str, PerformanceMetrics] = {}
         logger.info("BenchmarkSuite initialized")
@@ -66,8 +68,12 @@ class BenchmarkSuite:
         self.baselines[model_name] = metrics
         logger.info(f"Registered baseline for {model_name}")
 
-    def evaluate_model(self, model_name: str, evaluation_function: Callable,
-                      test_data: Dict[str, Any] = None) -> PerformanceMetrics:
+    def evaluate_model(
+        self,
+        model_name: str,
+        evaluation_function: Callable,
+        test_data: Optional[Dict[str, Any]] = None,
+    ) -> PerformanceMetrics:
         """Evaluate a model using standardized metrics"""
         logger.info(f"Evaluating model: {model_name}")
 
@@ -93,16 +99,18 @@ class BenchmarkSuite:
 
         self.metrics[model_name] = metrics
 
-        logger.info(f"Model {model_name} evaluation completed in {evaluation_time:.2f}s")
+        logger.info(
+            f"Model {model_name} evaluation completed in {evaluation_time:.2f}s"
+        )
         return metrics
 
     def compare_models(self, model_names: List[str]) -> Dict[str, Any]:
         """Compare performance across multiple models"""
-        comparison = {
+        comparison: Dict[str, Any] = {
             "models": model_names,
             "rankings": {},
             "improvements": {},
-            "summary": {}
+            "summary": {},
         }
 
         if not self.metrics:
@@ -110,8 +118,11 @@ class BenchmarkSuite:
 
         # Rank models by each metric
         for metric_name in PerformanceMetrics.__dataclass_fields__.keys():
-            values = [(name, getattr(self.metrics[name], metric_name))
-                     for name in model_names if name in self.metrics]
+            values = [
+                (name, getattr(self.metrics[name], metric_name))
+                for name in model_names
+                if name in self.metrics
+            ]
 
             if values:
                 # Sort by metric value (higher is better for most metrics)
@@ -130,7 +141,9 @@ class BenchmarkSuite:
                     baseline_val = getattr(baseline, field)
 
                     if baseline_val != 0:
-                        improvement = ((current_val - baseline_val) / baseline_val) * 100
+                        improvement = (
+                            (current_val - baseline_val) / baseline_val
+                        ) * 100
                     else:
                         improvement = 0.0
 
@@ -141,8 +154,10 @@ class BenchmarkSuite:
         # Generate summary
         comparison["summary"] = {
             "total_models": len(model_names),
-            "evaluated_models": len([name for name in model_names if name in self.metrics]),
-            "best_overall": self._determine_best_model()
+            "evaluated_models": len(
+                [name for name in model_names if name in self.metrics]
+            ),
+            "best_overall": self._determine_best_model(),
         }
 
         return comparison
@@ -153,7 +168,7 @@ class BenchmarkSuite:
             return None
 
         # Simple scoring: average normalized metrics
-        scores = {}
+        scores: Dict[str, float] = {}
 
         for model_name, metrics in self.metrics.items():
             score = 0.0
@@ -169,7 +184,7 @@ class BenchmarkSuite:
                 scores[model_name] = score / count
 
         if scores:
-            return max(scores, key=scores.get)
+            return max(scores, key=lambda name: scores[name])
 
         return None
 
@@ -178,9 +193,13 @@ class BenchmarkSuite:
         report = {
             "timestamp": "2024-10-27T12:00:00",
             "total_models": len(self.metrics),
-            "baselines": {name: metrics.to_dict() for name, metrics in self.baselines.items()},
-            "results": {name: metrics.to_dict() for name, metrics in self.metrics.items()},
-            "comparison": self.compare_models(list(self.metrics.keys()))
+            "baselines": {
+                name: metrics.to_dict() for name, metrics in self.baselines.items()
+            },
+            "results": {
+                name: metrics.to_dict() for name, metrics in self.metrics.items()
+            },
+            "comparison": self.compare_models(list(self.metrics.keys())),
         }
 
         return report

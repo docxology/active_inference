@@ -8,12 +8,11 @@ learning paths, and interactive components.
 
 import json
 import logging
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Union
 from dataclasses import dataclass, field
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
-import yaml
 from pydantic import BaseModel, Field, ValidationError
 
 logger = logging.getLogger(__name__)
@@ -21,6 +20,7 @@ logger = logging.getLogger(__name__)
 
 class ContentType(Enum):
     """Types of educational content"""
+
     FOUNDATION = "foundation"
     MATHEMATICS = "mathematics"
     IMPLEMENTATION = "implementation"
@@ -33,6 +33,7 @@ class ContentType(Enum):
 
 class DifficultyLevel(Enum):
     """Learning difficulty levels"""
+
     BEGINNER = "beginner"
     INTERMEDIATE = "intermediate"
     ADVANCED = "advanced"
@@ -41,6 +42,7 @@ class DifficultyLevel(Enum):
 
 class KnowledgeNode(BaseModel):
     """Represents a single knowledge node in the repository"""
+
     id: str
     title: str
     content_type: ContentType
@@ -56,6 +58,7 @@ class KnowledgeNode(BaseModel):
 
 class LearningPath(BaseModel):
     """Represents a structured learning path"""
+
     id: str
     name: str
     description: str
@@ -69,8 +72,16 @@ class KnowledgeNodeSchema:
     """JSON schema validation for knowledge nodes"""
 
     REQUIRED_FIELDS = {
-        "id", "title", "content_type", "difficulty", "description",
-        "prerequisites", "tags", "learning_objectives", "content", "metadata"
+        "id",
+        "title",
+        "content_type",
+        "difficulty",
+        "description",
+        "prerequisites",
+        "tags",
+        "learning_objectives",
+        "content",
+        "metadata",
     }
 
     FIELD_TYPES = {
@@ -83,7 +94,7 @@ class KnowledgeNodeSchema:
         "tags": list,
         "learning_objectives": list,
         "content": dict,
-        "metadata": dict
+        "metadata": dict,
     }
 
     CONTENT_TYPE_VALUES = {"foundation", "mathematics", "implementation", "application"}
@@ -100,10 +111,12 @@ class KnowledgeNodeSchema:
             errors.append(f"Missing required fields: {missing_fields}")
 
         # Check field types
-        for field, expected_type in cls.FIELD_TYPES.items():
-            if field in data:
-                if not isinstance(data[field], expected_type):
-                    errors.append(f"Field '{field}' must be of type {expected_type.__name__}")
+        for field_name, expected_type in cls.FIELD_TYPES.items():
+            if field_name in data:
+                if not isinstance(data[field_name], expected_type):
+                    errors.append(
+                        f"Field '{field_name}' must be of type {expected_type.__name__}"
+                    )
 
         # Check content_type values
         if "content_type" in data:
@@ -118,7 +131,9 @@ class KnowledgeNodeSchema:
         # Check that lists contain strings
         for list_field in ["prerequisites", "tags", "learning_objectives"]:
             if list_field in data and isinstance(data[list_field], list):
-                non_string_items = [item for item in data[list_field] if not isinstance(item, str)]
+                non_string_items = [
+                    item for item in data[list_field] if not isinstance(item, str)
+                ]
                 if non_string_items:
                     errors.append(f"Field '{list_field}' must contain only strings")
 
@@ -128,6 +143,7 @@ class KnowledgeNodeSchema:
 @dataclass
 class KnowledgeRepositoryConfig:
     """Configuration for the knowledge repository"""
+
     root_path: Path
     content_paths: Dict[ContentType, str] = field(default_factory=dict)
     metadata_path: str = "metadata"
@@ -144,7 +160,7 @@ class KnowledgeRepository:
     path generation capabilities.
     """
 
-    def __init__(self, config: KnowledgeRepositoryConfig):
+    def __init__(self, config: KnowledgeRepositoryConfig) -> None:
         self.config = config
         self.root_path = config.root_path
         self.content_paths = config.content_paths or self._default_content_paths()
@@ -186,7 +202,7 @@ class KnowledgeRepository:
         # Load metadata
         metadata_file = self.root_path / self.config.metadata_path / "repository.json"
         if metadata_file.exists():
-            with open(metadata_file, 'r') as f:
+            with open(metadata_file, "r") as f:
                 self._metadata = json.load(f)
 
         # Load knowledge nodes
@@ -198,12 +214,14 @@ class KnowledgeRepository:
         # Load learning paths
         paths_file = self.root_path / self.config.metadata_path / "learning_paths.json"
         if paths_file.exists():
-            with open(paths_file, 'r') as f:
+            with open(paths_file, "r") as f:
                 paths_data = json.load(f)
                 for path_data in paths_data:
                     # Convert string difficulty to enum
                     if "difficulty" in path_data:
-                        path_data["difficulty"] = DifficultyLevel(path_data["difficulty"])
+                        path_data["difficulty"] = DifficultyLevel(
+                            path_data["difficulty"]
+                        )
                     path = LearningPath(**path_data)
                     self._paths[path.id] = path
 
@@ -218,13 +236,18 @@ class KnowledgeRepository:
         # Look for knowledge definition files
         for knowledge_file in full_path.rglob("*.json"):
             try:
-                with open(knowledge_file, 'r') as f:
+                with open(knowledge_file, "r") as f:
                     node_data = json.load(f)
 
                 # Validate JSON structure
-                validation_errors = KnowledgeNodeSchema.validate_json_structure(node_data)
+                validation_errors = KnowledgeNodeSchema.validate_json_structure(
+                    node_data
+                )
                 if validation_errors:
-                    logger.error(f"JSON validation errors in {knowledge_file}: {validation_errors}")
+                    logger.error(
+                        f"JSON validation errors in {knowledge_file}:"
+                        f" {validation_errors}"
+                    )
                     continue
 
                 # Convert string enums to enum objects
@@ -232,7 +255,9 @@ class KnowledgeRepository:
                 node_data["difficulty"] = DifficultyLevel(node_data["difficulty"])
 
                 # Set content_path for reference
-                node_data["content_path"] = str(knowledge_file.relative_to(self.root_path))
+                node_data["content_path"] = str(
+                    knowledge_file.relative_to(self.root_path)
+                )
 
                 # Create knowledge node
                 node = KnowledgeNode(**node_data)
@@ -241,43 +266,46 @@ class KnowledgeRepository:
                 logger.debug(f"Successfully loaded knowledge node: {node.id}")
 
             except ValidationError as e:
-                logger.error(f"Pydantic validation error loading knowledge node {knowledge_file}: {e}")
+                logger.error(
+                    "Pydantic validation error loading knowledge node"
+                    f" {knowledge_file}: {e}"
+                )
             except Exception as e:
                 logger.error(f"Error loading knowledge node {knowledge_file}: {e}")
 
     def _build_index(self) -> None:
         """Build search index for knowledge nodes"""
         self._index = {
-            'tags': {},
-            'difficulty': {},
-            'content_type': {},
-            'prerequisites': {},
+            "tags": {},
+            "difficulty": {},
+            "content_type": {},
+            "prerequisites": {},
         }
 
         for node_id, node in self._nodes.items():
             # Index by tags
             for tag in node.tags:
-                if tag not in self._index['tags']:
-                    self._index['tags'][tag] = []
-                self._index['tags'][tag].append(node_id)
+                if tag not in self._index["tags"]:
+                    self._index["tags"][tag] = []
+                self._index["tags"][tag].append(node_id)
 
             # Index by difficulty
             difficulty = node.difficulty.value
-            if difficulty not in self._index['difficulty']:
-                self._index['difficulty'][difficulty] = []
-            self._index['difficulty'][difficulty].append(node_id)
+            if difficulty not in self._index["difficulty"]:
+                self._index["difficulty"][difficulty] = []
+            self._index["difficulty"][difficulty].append(node_id)
 
             # Index by content type
             content_type = node.content_type.value
-            if content_type not in self._index['content_type']:
-                self._index['content_type'][content_type] = []
-            self._index['content_type'][content_type].append(node_id)
+            if content_type not in self._index["content_type"]:
+                self._index["content_type"][content_type] = []
+            self._index["content_type"][content_type].append(node_id)
 
             # Index by prerequisites
             for prereq in node.prerequisites:
-                if prereq not in self._index['prerequisites']:
-                    self._index['prerequisites'][prereq] = []
-                self._index['prerequisites'][prereq].append(node_id)
+                if prereq not in self._index["prerequisites"]:
+                    self._index["prerequisites"][prereq] = []
+                self._index["prerequisites"][prereq].append(node_id)
 
     def _validate_content_consistency(self) -> Dict[str, Any]:
         """Validate content consistency and report issues"""
@@ -286,7 +314,7 @@ class KnowledgeRepository:
             "missing_prerequisites": [],
             "orphaned_nodes": [],
             "circular_dependencies": [],
-            "validation_errors": []
+            "validation_errors": [],
         }
 
         # Check that all prerequisites exist
@@ -294,10 +322,9 @@ class KnowledgeRepository:
         for node_id, node in self._nodes.items():
             for prereq_id in node.prerequisites:
                 if prereq_id not in all_node_ids:
-                    validation_report["missing_prerequisites"].append({
-                        "node": node_id,
-                        "missing_prerequisite": prereq_id
-                    })
+                    validation_report["missing_prerequisites"].append(
+                        {"node": node_id, "missing_prerequisite": prereq_id}
+                    )
                     validation_report["valid"] = False
 
         # Check for circular dependencies
@@ -311,8 +338,7 @@ class KnowledgeRepository:
         for node in self._nodes.values():
             referenced_nodes.update(node.prerequisites)
         validation_report["orphaned_nodes"] = [
-            node_id for node_id in self._nodes.keys()
-            if node_id not in referenced_nodes
+            node_id for node_id in self._nodes.keys() if node_id not in referenced_nodes
         ]
 
         return validation_report
@@ -333,12 +359,14 @@ class KnowledgeRepository:
 
         return False
 
-    def search(self,
-               query: str = "",
-               content_types: Optional[List[ContentType]] = None,
-               difficulty: Optional[List[DifficultyLevel]] = None,
-               tags: Optional[List[str]] = None,
-               limit: int = 50) -> List[KnowledgeNode]:
+    def search(
+        self,
+        query: str = "",
+        content_types: Optional[List[ContentType]] = None,
+        difficulty: Optional[List[DifficultyLevel]] = None,
+        tags: Optional[List[str]] = None,
+        limit: int = 50,
+    ) -> List[KnowledgeNode]:
         """
         Search knowledge nodes with various filters
 
@@ -366,13 +394,32 @@ class KnowledgeRepository:
                 continue
 
             # Simple text matching (could be enhanced with full-text search)
-            if query.lower() in node.title.lower() or query.lower() in node.description.lower():
+            if (
+                query.lower() in node.title.lower()
+                or query.lower() in node.description.lower()
+            ):
                 results.append(node)
 
             if len(results) >= limit:
                 break
 
         return results
+
+    def add_knowledge_node(self, node_data: Dict[str, Any]) -> KnowledgeNode:
+        """Add a node from a definition mapping and refresh the search index.
+
+        Raises:
+            ValueError: if the definition is invalid or its id already exists.
+        """
+        data = dict(node_data)
+        data["content_type"] = ContentType(data["content_type"])
+        data["difficulty"] = DifficultyLevel(data["difficulty"])
+        node = KnowledgeNode(**data)
+        if node.id in self._nodes:
+            raise ValueError(f"Knowledge node already exists: {node.id}")
+        self._nodes[node.id] = node
+        self._build_index()
+        return node
 
     def get_node(self, node_id: str) -> Optional[KnowledgeNode]:
         """Get a specific knowledge node by ID"""
@@ -389,9 +436,11 @@ class KnowledgeRepository:
         """Get a specific learning path by ID"""
         return self._paths.get(path_id)
 
-    def get_learning_paths(self,
-                          difficulty: Optional[DifficultyLevel] = None,
-                          content_types: Optional[List[ContentType]] = None) -> List[LearningPath]:
+    def get_learning_paths(
+        self,
+        difficulty: Optional[DifficultyLevel] = None,
+        content_types: Optional[List[ContentType]] = None,
+    ) -> List[LearningPath]:
         """Get learning paths with optional filters"""
         paths = list(self._paths.values())
 
@@ -402,7 +451,9 @@ class KnowledgeRepository:
             # Filter paths that contain nodes of specified content types
             filtered_paths = []
             for path in paths:
-                path_nodes = [self.get_node(nid) for nid in path.nodes if nid in self._nodes]
+                path_nodes = [
+                    self.get_node(nid) for nid in path.nodes if nid in self._nodes
+                ]
                 if any(node.content_type in content_types for node in path_nodes):
                     filtered_paths.append(path)
             paths = filtered_paths
@@ -415,25 +466,27 @@ class KnowledgeRepository:
         if not node:
             return {}
 
-        graph = {'nodes': [], 'edges': []}
+        graph = {"nodes": [], "edges": []}
         visited = set()
 
-        def add_node_and_prereqs(nid: str):
+        def add_node_and_prereqs(nid: str) -> None:
             if nid in visited:
                 return
             visited.add(nid)
 
             node = self.get_node(nid)
             if node:
-                graph['nodes'].append({
-                    'id': nid,
-                    'label': node.title,
-                    'type': node.content_type.value,
-                    'difficulty': node.difficulty.value
-                })
+                graph["nodes"].append(
+                    {
+                        "id": nid,
+                        "label": node.title,
+                        "type": node.content_type.value,
+                        "difficulty": node.difficulty.value,
+                    }
+                )
 
                 for prereq in node.prerequisites:
-                    graph['edges'].append({'from': prereq, 'to': nid})
+                    graph["edges"].append({"from": prereq, "to": nid})
                     add_node_and_prereqs(prereq)
 
         add_node_and_prereqs(node_id)
@@ -448,7 +501,7 @@ class KnowledgeRepository:
         """
         path = self.get_learning_path(path_id)
         if not path:
-            return {'valid': False, 'error': 'Path not found'}
+            return {"valid": False, "error": "Path not found"}
 
         issues = []
         completed_prereqs = set()
@@ -463,19 +516,25 @@ class KnowledgeRepository:
             for prereq_id in node.prerequisites:
                 if prereq_id not in completed_prereqs:
                     # Check if prerequisite is earlier in the path
-                    if prereq_id not in path.nodes or path.nodes.index(prereq_id) > path.nodes.index(node_id):
-                        issues.append(f"Unsatisfied prerequisite {prereq_id} for {node_id}")
+                    if prereq_id not in path.nodes or path.nodes.index(
+                        prereq_id
+                    ) > path.nodes.index(node_id):
+                        issues.append(
+                            f"Unsatisfied prerequisite {prereq_id} for {node_id}"
+                        )
 
             completed_prereqs.add(node_id)
 
         return {
-            'valid': len(issues) == 0,
-            'issues': issues,
-            'path_length': len(path.nodes),
-            'estimated_hours': path.estimated_hours
+            "valid": len(issues) == 0,
+            "issues": issues,
+            "path_length": len(path.nodes),
+            "estimated_hours": path.estimated_hours,
         }
 
-    def export_knowledge_graph(self, format: str = 'json') -> Union[str, Dict[str, Any]]:
+    def export_knowledge_graph(
+        self, format: str = "json"
+    ) -> Union[str, Dict[str, Any]]:
         """
         Export the knowledge repository as a graph structure
 
@@ -486,51 +545,57 @@ class KnowledgeRepository:
             Knowledge graph in specified format
         """
         graph = {
-            'nodes': [],
-            'edges': [],
-            'metadata': {
-                'total_nodes': len(self._nodes),
-                'total_paths': len(self._paths),
-                'content_types': list(set(node.content_type.value for node in self._nodes.values())),
-                'difficulties': list(set(node.difficulty.value for node in self._nodes.values())),
-            }
+            "nodes": [],
+            "edges": [],
+            "metadata": {
+                "total_nodes": len(self._nodes),
+                "total_paths": len(self._paths),
+                "content_types": list(
+                    set(node.content_type.value for node in self._nodes.values())
+                ),
+                "difficulties": list(
+                    set(node.difficulty.value for node in self._nodes.values())
+                ),
+            },
         }
 
         # Add nodes
         for node_id, node in self._nodes.items():
-            graph['nodes'].append({
-                'id': node_id,
-                'title': node.title,
-                'content_type': node.content_type.value,
-                'difficulty': node.difficulty.value,
-                'description': node.description,
-                'content': node.content,
-                'tags': node.tags,
-                'learning_objectives': node.learning_objectives,
-                'content_path': node.content_path,
-                'metadata': node.metadata,
-            })
+            graph["nodes"].append(
+                {
+                    "id": node_id,
+                    "title": node.title,
+                    "content_type": node.content_type.value,
+                    "difficulty": node.difficulty.value,
+                    "description": node.description,
+                    "content": node.content,
+                    "tags": node.tags,
+                    "learning_objectives": node.learning_objectives,
+                    "content_path": node.content_path,
+                    "metadata": node.metadata,
+                }
+            )
 
         # Add prerequisite edges
         for node_id, node in self._nodes.items():
             for prereq_id in node.prerequisites:
-                graph['edges'].append({
-                    'source': prereq_id,
-                    'target': node_id,
-                    'type': 'prerequisite'
-                })
+                graph["edges"].append(
+                    {"source": prereq_id, "target": node_id, "type": "prerequisite"}
+                )
 
         # Add learning path edges
         for path in self._paths.values():
             for i in range(len(path.nodes) - 1):
-                graph['edges'].append({
-                    'source': path.nodes[i],
-                    'target': path.nodes[i + 1],
-                    'type': 'learning_path',
-                    'path_id': path.id
-                })
+                graph["edges"].append(
+                    {
+                        "source": path.nodes[i],
+                        "target": path.nodes[i + 1],
+                        "type": "learning_path",
+                        "path_id": path.id,
+                    }
+                )
 
-        if format == 'json':
+        if format == "json":
             return graph
         else:
             # Could implement other formats like GraphML, GEXF
@@ -547,24 +612,19 @@ class KnowledgeRepository:
             Dictionary containing graph structure and validation
         """
         if node_id not in self._nodes:
-            return {'error': f'Node {node_id} not found'}
+            return {"error": f"Node {node_id} not found"}
 
-        graph = {
-            'nodes': [],
-            'edges': [],
-            'cycles': [],
-            'depth': 0
-        }
+        graph = {"nodes": [], "edges": [], "cycles": [], "depth": 0}
 
         visited = set()
         path = []
 
-        def dfs(current_id, depth=0):
+        def dfs(current_id, depth=0) -> None:
             if current_id in path:
                 # Cycle detected
                 cycle_start = path.index(current_id)
                 cycle = path[cycle_start:] + [current_id]
-                graph['cycles'].append(cycle)
+                graph["cycles"].append(cycle)
                 return
 
             if current_id in visited:
@@ -572,23 +632,19 @@ class KnowledgeRepository:
 
             visited.add(current_id)
             path.append(current_id)
-            graph['depth'] = max(graph['depth'], depth)
+            graph["depth"] = max(graph["depth"], depth)
 
             # Add node to graph
             node = self._nodes[current_id]
-            graph['nodes'].append({
-                'id': current_id,
-                'title': node.title,
-                'depth': depth
-            })
+            graph["nodes"].append(
+                {"id": current_id, "title": node.title, "depth": depth}
+            )
 
             # Visit prerequisites
             for prereq_id in node.prerequisites:
-                graph['edges'].append({
-                    'source': prereq_id,
-                    'target': current_id,
-                    'type': 'prerequisite'
-                })
+                graph["edges"].append(
+                    {"source": prereq_id, "target": current_id, "type": "prerequisite"}
+                )
                 dfs(prereq_id, depth + 1)
 
             path.pop()
@@ -608,42 +664,43 @@ class KnowledgeRepository:
             Validation results dictionary
         """
         if node_id not in self._nodes:
-            return {'valid': False, 'error': f'Node {node_id} not found'}
+            return {"valid": False, "error": f"Node {node_id} not found"}
 
         node = self._nodes[node_id]
-        validation = {
-            'valid': True,
-            'issues': [],
-            'warnings': [],
-            'suggestions': []
-        }
+        validation = {"valid": True, "issues": [], "warnings": [], "suggestions": []}
 
         # Check prerequisites exist
         for prereq_id in node.prerequisites:
             if prereq_id not in self._nodes:
-                validation['issues'].append(f'Missing prerequisite: {prereq_id}')
-                validation['valid'] = False
+                validation["issues"].append(f"Missing prerequisite: {prereq_id}")
+                validation["valid"] = False
 
         # Check content completeness
         if not node.content:
-            validation['issues'].append('Empty content')
-            validation['valid'] = False
+            validation["issues"].append("Empty content")
+            validation["valid"] = False
 
         if not node.learning_objectives:
-            validation['warnings'].append('No learning objectives defined')
+            validation["warnings"].append("No learning objectives defined")
 
         if not node.tags:
-            validation['suggestions'].append('Consider adding tags for better discoverability')
+            validation["suggestions"].append(
+                "Consider adding tags for better discoverability"
+            )
 
         # Check for circular dependencies
         graph = self.build_prerequisite_graph(node_id)
-        if graph.get('cycles'):
-            validation['issues'].append(f'Circular dependencies detected: {graph["cycles"]}')
-            validation['valid'] = False
+        if graph.get("cycles"):
+            validation["issues"].append(
+                f'Circular dependencies detected: {graph["cycles"]}'
+            )
+            validation["valid"] = False
 
         return validation
 
-    def generate_learning_path_recommendations(self, user_profile: Dict[str, Any]) -> List[str]:
+    def generate_learning_path_recommendations(
+        self, user_profile: Dict[str, Any]
+    ) -> List[str]:
         """
         Generate personalized learning path recommendations
 
@@ -654,13 +711,14 @@ class KnowledgeRepository:
             List of recommended learning path IDs
         """
         recommendations = []
-        user_difficulty = user_profile.get('difficulty', 'intermediate')
-        user_interests = user_profile.get('interests', [])
-        user_background = user_profile.get('background', [])
+        user_difficulty = user_profile.get("difficulty", "intermediate")
+        user_interests = user_profile.get("interests", [])
+        user_background = user_profile.get("background", [])
 
         # Filter paths by difficulty
         difficulty_paths = [
-            path_id for path_id, path in self._paths.items()
+            path_id
+            for path_id, path in self._paths.items()
             if path.difficulty.value == user_difficulty
         ]
 
@@ -691,7 +749,9 @@ class KnowledgeRepository:
 
         return recommendations
 
-    def export_knowledge_in_format(self, format_type: str, content_filter: Dict[str, Any]) -> Any:
+    def export_knowledge_in_format(
+        self, format_type: str, content_filter: Dict[str, Any]
+    ) -> Any:
         """
         Export knowledge content in various formats (JSON, XML, RDF, etc.)
 
@@ -705,100 +765,117 @@ class KnowledgeRepository:
         # Apply filters
         filtered_nodes = self._filter_nodes(content_filter)
 
-        if format_type == 'json':
+        if format_type == "json":
             return self._export_json(filtered_nodes)
-        elif format_type == 'xml':
+        elif format_type == "xml":
             return self._export_xml(filtered_nodes)
-        elif format_type == 'rdf':
+        elif format_type == "rdf":
             return self._export_rdf(filtered_nodes)
-        elif format_type == 'csv':
+        elif format_type == "csv":
             return self._export_csv(filtered_nodes)
         else:
-            raise ValueError(f'Unsupported export format: {format_type}')
+            raise ValueError(f"Unsupported export format: {format_type}")
 
     def _filter_nodes(self, content_filter: Dict[str, Any]) -> Dict[str, KnowledgeNode]:
         """Filter nodes based on criteria"""
         filtered = dict(self._nodes)
 
-        if 'content_types' in content_filter:
-            content_types = set(content_filter['content_types'])
-            filtered = {k: v for k, v in filtered.items()
-                       if v.content_type.value in content_types}
+        if "content_types" in content_filter:
+            content_types = set(content_filter["content_types"])
+            filtered = {
+                k: v
+                for k, v in filtered.items()
+                if v.content_type.value in content_types
+            }
 
-        if 'difficulties' in content_filter:
-            difficulties = set(content_filter['difficulties'])
-            filtered = {k: v for k, v in filtered.items()
-                       if v.difficulty.value in difficulties}
+        if "difficulties" in content_filter:
+            difficulties = set(content_filter["difficulties"])
+            filtered = {
+                k: v for k, v in filtered.items() if v.difficulty.value in difficulties
+            }
 
-        if 'tags' in content_filter:
-            required_tags = set(content_filter['tags'])
-            filtered = {k: v for k, v in filtered.items()
-                       if required_tags.issubset(set(v.tags))}
+        if "tags" in content_filter:
+            required_tags = set(content_filter["tags"])
+            filtered = {
+                k: v for k, v in filtered.items() if required_tags.issubset(set(v.tags))
+            }
 
         return filtered
 
     def _export_json(self, nodes: Dict[str, KnowledgeNode]) -> str:
         """Export nodes as JSON"""
         import json
+
         data = {
-            'nodes': [node.dict() for node in nodes.values()],
-            'metadata': {
-                'export_time': str(self._get_timestamp()),
-                'total_nodes': len(nodes),
-                'format': 'json'
-            }
+            "nodes": [node.dict() for node in nodes.values()],
+            "metadata": {
+                "export_time": str(self._get_timestamp()),
+                "total_nodes": len(nodes),
+                "format": "json",
+            },
         }
         return json.dumps(data, indent=2, default=str)
 
     def _export_xml(self, nodes: Dict[str, KnowledgeNode]) -> str:
         """Export nodes as XML"""
         xml_parts = ['<?xml version="1.0" encoding="UTF-8"?>']
-        xml_parts.append('<knowledge_base>')
+        xml_parts.append("<knowledge_base>")
 
         for node in nodes.values():
             xml_parts.append(f'  <node id="{node.id}">')
-            xml_parts.append(f'    <title>{node.title}</title>')
-            xml_parts.append(f'    <content_type>{node.content_type.value}</content_type>')
-            xml_parts.append(f'    <difficulty>{node.difficulty.value}</difficulty>')
-            xml_parts.append(f'    <description>{node.description}</description>')
-            xml_parts.append('    <tags>')
+            xml_parts.append(f"    <title>{node.title}</title>")
+            xml_parts.append(
+                f"    <content_type>{node.content_type.value}</content_type>"
+            )
+            xml_parts.append(f"    <difficulty>{node.difficulty.value}</difficulty>")
+            xml_parts.append(f"    <description>{node.description}</description>")
+            xml_parts.append("    <tags>")
             for tag in node.tags:
-                xml_parts.append(f'      <tag>{tag}</tag>')
-            xml_parts.append('    </tags>')
-            xml_parts.append('  </node>')
+                xml_parts.append(f"      <tag>{tag}</tag>")
+            xml_parts.append("    </tags>")
+            xml_parts.append("  </node>")
 
-        xml_parts.append('</knowledge_base>')
-        return '\n'.join(xml_parts)
+        xml_parts.append("</knowledge_base>")
+        return "\n".join(xml_parts)
 
     def _export_rdf(self, nodes: Dict[str, KnowledgeNode]) -> str:
         """Export nodes as RDF/Turtle"""
-        rdf_parts = ['@prefix kb: <http://activeinference.org/knowledge#> .']
-        rdf_parts.append('@prefix dct: <http://purl.org/dc/terms/> .')
-        rdf_parts.append('')
+        rdf_parts = ["@prefix kb: <http://activeinference.org/knowledge#> ."]
+        rdf_parts.append("@prefix dct: <http://purl.org/dc/terms/> .")
+        rdf_parts.append("")
 
         for node in nodes.values():
-            rdf_parts.append(f'kb:{node.id} a kb:KnowledgeNode ;')
+            rdf_parts.append(f"kb:{node.id} a kb:KnowledgeNode ;")
             rdf_parts.append(f'  dct:title "{node.title}" ;')
             rdf_parts.append(f'  kb:contentType "{node.content_type.value}" ;')
             rdf_parts.append(f'  kb:difficulty "{node.difficulty.value}" ;')
             rdf_parts.append(f'  dct:description "{node.description}" ;')
-            rdf_parts.append(f'  kb:prerequisites {list(node.prerequisites)} ;')
-            rdf_parts.append(f'  kb:tags {node.tags} .')
-            rdf_parts.append('')
+            rdf_parts.append(f"  kb:prerequisites {list(node.prerequisites)} ;")
+            rdf_parts.append(f"  kb:tags {node.tags} .")
+            rdf_parts.append("")
 
-        return '\n'.join(rdf_parts)
+        return "\n".join(rdf_parts)
 
     def _export_csv(self, nodes: Dict[str, KnowledgeNode]) -> str:
         """Export nodes as CSV"""
-        csv_lines = ['id,title,content_type,difficulty,description,tags,prerequisites']
+        csv_lines = ["id,title,content_type,difficulty,description,tags,prerequisites"]
 
         for node in nodes.values():
-            tags_str = ';'.join(node.tags)
-            prereqs_str = ';'.join(node.prerequisites)
-            line = f'"{node.id}","{node.title}","{node.content_type.value}","{node.difficulty.value}","{node.description}","{tags_str}","{prereqs_str}"'
+            tags_str = ";".join(node.tags)
+            prereqs_str = ";".join(node.prerequisites)
+            fields = [
+                node.id,
+                node.title,
+                node.content_type.value,
+                node.difficulty.value,
+                node.description,
+                tags_str,
+                prereqs_str,
+            ]
+            line = ",".join(f'"{value}"' for value in fields)
             csv_lines.append(line)
 
-        return '\n'.join(csv_lines)
+        return "\n".join(csv_lines)
 
     def create_content_backup(self) -> Path:
         """
@@ -807,52 +884,53 @@ class KnowledgeRepository:
         Returns:
             Path to backup file
         """
-        import tempfile
         import json
+        import tempfile
         from datetime import datetime
 
         # Create backup data
         backup_data = {
-            'metadata': {
-                'backup_time': datetime.now().isoformat(),
-                'version': '1.0',
-                'total_nodes': len(self._nodes),
-                'total_paths': len(self._paths)
+            "metadata": {
+                "backup_time": datetime.now().isoformat(),
+                "version": "1.0",
+                "total_nodes": len(self._nodes),
+                "total_paths": len(self._paths),
             },
-            'nodes': {k: v.dict() for k, v in self._nodes.items()},
-            'paths': {k: v.dict() for k, v in self._paths.items()},
-            'relationships': self._extract_relationships()
+            "nodes": {k: v.dict() for k, v in self._nodes.items()},
+            "paths": {k: v.dict() for k, v in self._paths.items()},
+            "relationships": self._extract_relationships(),
         }
 
         # Save to temporary file
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             json.dump(backup_data, f, indent=2, default=str)
             backup_path = Path(f.name)
 
-        logger.info(f'Created content backup: {backup_path}')
+        logger.info(f"Created content backup: {backup_path}")
         return backup_path
 
-    def _extract_relationships(self) -> Dict[str, List[str]]:
+    def _extract_relationships(self) -> Dict[str, Dict[str, List[str]]]:
         """Extract all relationships between nodes"""
-        relationships = {}
+        relationships: Dict[str, Dict[str, List[str]]] = {}
 
         for node_id, node in self._nodes.items():
             relationships[node_id] = {
-                'prerequisites': node.prerequisites,
-                'dependents': []
+                "prerequisites": list(node.prerequisites),
+                "dependents": [],
             }
 
         # Add dependents
         for node_id, node in self._nodes.items():
             for prereq_id in node.prerequisites:
                 if prereq_id in relationships:
-                    relationships[prereq_id]['dependents'].append(node_id)
+                    relationships[prereq_id]["dependents"].append(node_id)
 
         return relationships
 
     def _get_timestamp(self):
         """Get current timestamp"""
         from datetime import datetime
+
         return datetime.now()
 
     def get_statistics(self) -> Dict[str, Any]:
@@ -876,13 +954,15 @@ class KnowledgeRepository:
                 tag_counts[tag] = tag_counts.get(tag, 0) + 1
 
         return {
-            'total_nodes': len(self._nodes),
-            'total_paths': len(self._paths),
-            'content_types': content_type_counts,
-            'difficulties': difficulty_counts,
-            'top_tags': sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)[:20],
-            'total_tags': len(tag_counts),
-            'metadata': self._metadata,
+            "total_nodes": len(self._nodes),
+            "total_paths": len(self._paths),
+            "content_types": content_type_counts,
+            "difficulties": difficulty_counts,
+            "top_tags": sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)[
+                :20
+            ],
+            "total_tags": len(tag_counts),
+            "metadata": self._metadata,
         }
 
     def validate_repository(self) -> Dict[str, Any]:

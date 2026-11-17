@@ -5,19 +5,17 @@ Unit tests for the prompt composition and templating system, ensuring proper
 operation of template management, variable substitution, and prompt building.
 """
 
-import pytest
-import json
 import tempfile
 from pathlib import Path
-from unittest.mock import Mock, patch
+
+import pytest
 
 from active_inference.llm.prompts import (
-    PromptTemplate,
+    ActiveInferencePromptBuilder,
+    EducationalPromptBuilder,
     PromptBuilder,
     PromptManager,
-    PromptSection,
-    ActiveInferencePromptBuilder,
-    EducationalPromptBuilder
+    PromptTemplate,
 )
 
 
@@ -30,7 +28,7 @@ class TestPromptTemplate:
             name="test_template",
             description="A test template",
             template="Hello {name}, you are {age} years old.",
-            variables=["name", "age"]
+            variables=["name", "age"],
         )
 
         assert template.name == "test_template"
@@ -44,7 +42,7 @@ class TestPromptTemplate:
             name="test_template",
             description="A test template",
             template="Hello {name}, you are {age} years old.",
-            variables=["name", "age"]
+            variables=["name", "age"],
         )
 
         result = template.format(name="Alice", age=30)
@@ -57,7 +55,7 @@ class TestPromptTemplate:
             name="test_template",
             description="A test template",
             template="Hello {name}, you are {age} years old.",
-            variables=["name", "age"]
+            variables=["name", "age"],
         )
 
         with pytest.raises(ValueError, match="Missing required variable: age"):
@@ -69,7 +67,7 @@ class TestPromptTemplate:
             name="test_template",
             description="A test template",
             template="Hello {name}, you are {age} years old.",
-            variables=["name", "age"]
+            variables=["name", "age"],
         )
 
         # Valid variables
@@ -81,7 +79,9 @@ class TestPromptTemplate:
         assert "age" in missing
 
         # Extra variables (should be OK)
-        missing = template.validate_variables({"name": "Alice", "age": 30, "extra": "value"})
+        missing = template.validate_variables(
+            {"name": "Alice", "age": 30, "extra": "value"}
+        )
         assert missing == []
 
     def test_example_prompt(self):
@@ -92,15 +92,9 @@ class TestPromptTemplate:
             template="Hello {name}, you are {age} years old.",
             variables=["name", "age"],
             examples=[
-                {
-                    "name": "example1",
-                    "variables": {"name": "Bob", "age": 25}
-                },
-                {
-                    "name": "example2",
-                    "variables": {"name": "Charlie", "age": 35}
-                }
-            ]
+                {"name": "example1", "variables": {"name": "Bob", "age": 25}},
+                {"name": "example2", "variables": {"name": "Charlie", "age": 35}},
+            ],
         )
 
         # Get first example
@@ -157,15 +151,19 @@ class TestPromptBuilder:
         builder = PromptBuilder()
 
         builder.add_section("header", "Active Inference Explanation")
-        builder.add_section("content", "Explain {concept} in the context of {framework}.")
-        builder.set_variables({
-            "concept": "entropy",
-            "framework": "Free Energy Principle"
-        })
+        builder.add_section(
+            "content", "Explain {concept} in the context of {framework}."
+        )
+        builder.set_variables(
+            {"concept": "entropy", "framework": "Free Energy Principle"}
+        )
 
         result = builder.build()
 
-        expected = "Active Inference Explanation\n\nExplain entropy in the context of Free Energy Principle."
+        expected = (
+            "Active Inference Explanation\n\nExplain entropy in the context of Free"
+            " Energy Principle."
+        )
         assert result == expected
 
     def test_build_with_custom_separator(self):
@@ -219,7 +217,7 @@ class TestPromptManager:
             name="custom_template",
             description="Custom template",
             template="Custom {variable}",
-            variables=["variable"]
+            variables=["variable"],
         )
 
         manager.add_template(template)
@@ -236,7 +234,7 @@ class TestPromptManager:
             "context": "Bayesian modeling",
             "audience_level": "advanced",
             "key_points": "mathematical formulation, computational methods",
-            "response_type": "technical explanation"
+            "response_type": "technical explanation",
         }
 
         result = manager.generate_prompt("active_inference_explanation", variables)
@@ -256,7 +254,9 @@ class TestPromptManager:
         }
 
         with pytest.raises(ValueError, match="Missing required variables"):
-            manager.generate_prompt("active_inference_explanation", variables, validate=True)
+            manager.generate_prompt(
+                "active_inference_explanation", variables, validate=True
+            )
 
     def test_list_templates(self):
         """Test listing available templates"""
@@ -277,7 +277,7 @@ class TestPromptManager:
             description="Test template",
             template="Test {variable}",
             variables=["variable"],
-            examples=[{"name": "test", "variables": {"variable": "value"}}]
+            examples=[{"name": "test", "variables": {"variable": "value"}}],
         )
 
         # Save template
@@ -285,7 +285,9 @@ class TestPromptManager:
 
         # Create new manager and load template
         new_manager = PromptManager(temp_templates_dir)
-        loaded_template = new_manager.load_template(temp_templates_dir / "test_template.json")
+        loaded_template = new_manager.load_template(
+            temp_templates_dir / "test_template.json"
+        )
 
         assert loaded_template.name == template.name
         assert loaded_template.description == template.description
@@ -314,10 +316,7 @@ class TestSpecializedPromptBuilders:
         builder = ActiveInferencePromptBuilder()
 
         builder.add_concept_explanation(
-            "entropy",
-            "information theory",
-            "intermediate",
-            include_math=True
+            "entropy", "information theory", "intermediate", include_math=True
         )
 
         result = builder.build()
@@ -331,16 +330,18 @@ class TestSpecializedPromptBuilders:
         """Test educational prompt builder"""
         builder = EducationalPromptBuilder()
 
-        builder.add_learning_objective([
-            "Understand entropy concept",
-            "Calculate entropy for probability distributions",
-            "Apply entropy in information theory"
-        ], "intermediate")
+        builder.add_learning_objective(
+            [
+                "Understand entropy concept",
+                "Calculate entropy for probability distributions",
+                "Apply entropy in information theory",
+            ],
+            "intermediate",
+        )
 
-        builder.add_prerequisite_check([
-            "Basic probability theory",
-            "Information theory fundamentals"
-        ])
+        builder.add_prerequisite_check(
+            ["Basic probability theory", "Information theory fundamentals"]
+        )
 
         result = builder.build()
 

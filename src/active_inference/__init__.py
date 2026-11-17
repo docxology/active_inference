@@ -20,18 +20,19 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 # Core module imports (with optional imports for missing dependencies)
 try:
     from .knowledge import (
-        KnowledgeRepository,
-        KnowledgeRepositoryConfig,
-        KnowledgeNode,
-        LearningPath,
+        Applications,
         ContentType,
         DifficultyLevel,
-        KnowledgeNodeSchema,
         Foundations,
-        Mathematics,
         Implementations,
-        Applications
+        KnowledgeNode,
+        KnowledgeNodeSchema,
+        KnowledgeRepository,
+        KnowledgeRepositoryConfig,
+        LearningPath,
+        Mathematics,
     )
+
     _HAS_KNOWLEDGE = True
 except ImportError:
     KnowledgeRepository = None
@@ -49,21 +50,22 @@ except ImportError:
 
 try:
     from .research import (
-        ResearchFramework,
-        ExperimentManager,
-        ExperimentConfig,
-        SimulationEngine,
-        ModelRunner,
         AnalysisTools,
-        StatisticalAnalysis,
         BenchmarkSuite,
-        PerformanceMetrics,
+        DataCollectionConfig,
+        DataFormat,
         DataManager,
         DataMetadata,
-        DataCollectionConfig,
         DataSecurityLevel,
-        DataFormat
+        ExperimentConfig,
+        ExperimentManager,
+        ModelRunner,
+        PerformanceMetrics,
+        ResearchFramework,
+        SimulationEngine,
+        StatisticalAnalysis,
     )
+
     _HAS_RESEARCH = True
 except ImportError:
     ResearchFramework = None
@@ -84,6 +86,7 @@ except ImportError:
 
 try:
     from .visualization import VisualizationEngine
+
     _HAS_VISUALIZATION = True
 except ImportError:
     VisualizationEngine = None
@@ -91,6 +94,7 @@ except ImportError:
 
 try:
     from .applications import ApplicationFramework
+
     _HAS_APPLICATIONS = True
 except ImportError:
     ApplicationFramework = None
@@ -98,6 +102,7 @@ except ImportError:
 
 try:
     from .tools import Orchestrator, Utilities
+
     _HAS_TOOLS = True
 except ImportError:
     Orchestrator = None
@@ -106,6 +111,7 @@ except ImportError:
 
 try:
     from .platform import Platform
+
     _HAS_PLATFORM = True
 except ImportError:
     Platform = None
@@ -113,17 +119,18 @@ except ImportError:
 
 try:
     from .llm import (
-        OllamaClient,
+        Conversation,
+        ConversationManager,
         LLMConfig,
-        PromptTemplate,
+        ModelInfo,
+        ModelManager,
+        ModelRegistry,
+        OllamaClient,
         PromptBuilder,
         PromptManager,
-        ModelManager,
-        ModelInfo,
-        ModelRegistry,
-        ConversationManager,
-        Conversation
+        PromptTemplate,
     )
+
     _HAS_LLM = True
 except ImportError:
     OllamaClient = None

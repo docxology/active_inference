@@ -1,18 +1,19 @@
 """
 Tests for Research Data Management Module
 """
-import unittest
-from pathlib import Path
-import tempfile
+
 import json
+import tempfile
+import unittest
 from datetime import datetime
+from pathlib import Path
 
 from active_inference.research.data_management import (
+    DataCollectionConfig,
+    DataFormat,
     DataManager,
     DataMetadata,
-    DataCollectionConfig,
     DataSecurityLevel,
-    DataFormat
 )
 
 
@@ -25,13 +26,14 @@ class TestResearchDataManagement(unittest.TestCase):
         self.config = {
             "auto_validate": True,
             "backup_enabled": True,
-            "compression_enabled": False
+            "compression_enabled": False,
         }
         self.data_manager = DataManager(self.test_dir, self.config)
 
     def tearDown(self):
         """Clean up test environment"""
         import shutil
+
         shutil.rmtree(self.test_dir, ignore_errors=True)
 
     def test_data_manager_initialization(self):
@@ -41,7 +43,13 @@ class TestResearchDataManagement(unittest.TestCase):
         self.assertEqual(self.data_manager.config, self.config)
 
         # Check that directories were created
-        expected_dirs = ["raw_data", "processed_data", "validated_data", "metadata", "backups"]
+        expected_dirs = [
+            "raw_data",
+            "processed_data",
+            "validated_data",
+            "metadata",
+            "backups",
+        ]
         for dir_name in expected_dirs:
             dir_path = self.test_dir / dir_name
             self.assertTrue(dir_path.exists())
@@ -51,16 +59,14 @@ class TestResearchDataManagement(unittest.TestCase):
         """Test collection configuration validation"""
         # Valid configuration
         valid_config = DataCollectionConfig(
-            source_type="simulation",
-            collection_method="automated_sampling"
+            source_type="simulation", collection_method="automated_sampling"
         )
         self.assertIsNotNone(valid_config)
 
         # Invalid configuration (missing required fields)
         try:
-            invalid_config = DataCollectionConfig(
-                source_type="",  # Empty required field
-                collection_method="test"
+            DataCollectionConfig(
+                source_type="", collection_method="test"  # Empty required field
             )
             # This should raise an error when used
         except Exception:
@@ -69,8 +75,7 @@ class TestResearchDataManagement(unittest.TestCase):
     def test_metadata_creation(self):
         """Test metadata creation"""
         config = DataCollectionConfig(
-            source_type="simulation",
-            collection_method="test_collection"
+            source_type="simulation", collection_method="test_collection"
         )
 
         test_data = {"test": "data", "values": [1, 2, 3]}
@@ -94,7 +99,7 @@ class TestResearchDataManagement(unittest.TestCase):
         test_data = {
             "experiment_id": "exp_001",
             "parameters": {"learning_rate": 0.01, "epochs": 100},
-            "results": {"accuracy": 0.95, "loss": 0.05}
+            "results": {"accuracy": 0.95, "loss": 0.05},
         }
 
         # Store data
@@ -105,7 +110,7 @@ class TestResearchDataManagement(unittest.TestCase):
         self.assertTrue(file_path.exists())
 
         # Verify file contents
-        with open(file_path, 'r') as f:
+        with open(file_path, "r") as f:
             stored_data = json.load(f)
 
         self.assertEqual(stored_data, test_data)
@@ -118,10 +123,8 @@ class TestResearchDataManagement(unittest.TestCase):
 
         # Add a dataset
         config = DataCollectionConfig(
-            source_type="simulation",
-            collection_method="test_method"
+            source_type="simulation", collection_method="test_method"
         )
-        test_data = {"test": "dataset"}
 
         dataset_id = self.data_manager.collect_data(config)
         self.assertIsNotNone(dataset_id)
@@ -145,10 +148,7 @@ class TestResearchDataManagement(unittest.TestCase):
         # Test with valid data
         valid_data = {"experiment": "test", "results": [1, 2, 3]}
 
-        validation_rules = {
-            "required_format": "dict",
-            "min_size": 1
-        }
+        validation_rules = {"required_format": "dict", "min_size": 1}
 
         result = self.data_manager._validate_data(valid_data, validation_rules)
         self.assertTrue(result["valid"])
@@ -180,20 +180,20 @@ class TestResearchDataManagement(unittest.TestCase):
         """Test data quality checking"""
         # Test missing values check
         data_with_missing = {"a": 1, "b": None, "c": 3}
-        has_missing = self.data_manager._has_missing_values(data_with_missing)
-        # Placeholder returns False, but real implementation should detect missing values
+        self.data_manager._has_missing_values(data_with_missing)
+        # Placeholder returns False, but real implementation should detect missing
+        # values
 
         # Test outliers check
         data_with_outliers = {"values": [1, 2, 3, 1000, 4, 5]}  # 1000 is outlier
-        has_outliers = self.data_manager._has_outliers(data_with_outliers)
+        self.data_manager._has_outliers(data_with_outliers)
         # Placeholder returns False, but real implementation should detect outliers
 
     def test_backup_functionality(self):
         """Test backup functionality"""
         # Create a dataset first
         config = DataCollectionConfig(
-            source_type="simulation",
-            collection_method="backup_test"
+            source_type="simulation", collection_method="backup_test"
         )
 
         dataset_id = self.data_manager.collect_data(config)
@@ -225,5 +225,5 @@ class TestResearchDataManagement(unittest.TestCase):
         self.assertNotEqual(checksum1, checksum3)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

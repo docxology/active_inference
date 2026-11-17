@@ -9,17 +9,19 @@ and various report generation.
 import json
 import logging
 import shutil
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Union
-from dataclasses import dataclass
 import subprocess
 import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel
-from jinja2 import Environment, FileSystemLoader
+try:  # optional: only needed for custom template directories
+    from jinja2 import Environment, FileSystemLoader
+except ImportError:  # pragma: no cover - depends on the environment
+    Environment = None  # type: ignore[assignment,misc]
+    FileSystemLoader = None  # type: ignore[assignment,misc]
 
-import logging
-from ...knowledge.repository import KnowledgeRepository
+from ...knowledge.repository import KnowledgeRepository, KnowledgeRepositoryConfig
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +29,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class DocumentationConfig:
     """Configuration for documentation generation"""
+
     output_dir: Path
     template_dir: Optional[Path] = None
     api_docs_enabled: bool = True
@@ -35,29 +38,32 @@ class DocumentationConfig:
     theme: str = "sphinx_rtd_theme"
     extensions: List[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.extensions is None:
             self.extensions = [
-                'sphinx.ext.autodoc',
-                'sphinx.ext.autosummary',
-                'sphinx.ext.viewcode',
-                'sphinx.ext.napoleon',
-                'sphinx.ext.intersphinx',
-                'sphinx.ext.mathjax',
-                'myst_nb',
-                'nbsphinx'
+                "sphinx.ext.autodoc",
+                "sphinx.ext.autosummary",
+                "sphinx.ext.viewcode",
+                "sphinx.ext.napoleon",
+                "sphinx.ext.intersphinx",
+                "sphinx.ext.mathjax",
+                "myst_nb",
+                "nbsphinx",
             ]
 
 
 class DocumentationGenerator:
     """
-    Comprehensive documentation generator for the Active Inference Knowledge Environment.
+    Comprehensive documentation generator for the Active Inference Knowledge
+    Environment.
 
     Generates API documentation, knowledge base documentation, learning paths,
     concept maps, and various analysis reports.
     """
 
-    def __init__(self, output_dir: Union[str, Path], config: Optional[DocumentationConfig] = None):
+    def __init__(
+        self, output_dir: Union[str, Path], config: Optional[DocumentationConfig] = None
+    ) -> None:
         """
         Initialize documentation generator
 
@@ -72,14 +78,16 @@ class DocumentationGenerator:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         # Set up Jinja2 template environment
-        self.template_dir = self.config.template_dir or Path(__file__).parent / "templates"
-        if self.template_dir.exists():
+        self.template_dir = (
+            self.config.template_dir or Path(__file__).parent / "templates"
+        )
+        if Environment is not None and self.template_dir.exists():
             self.jinja_env = Environment(loader=FileSystemLoader(self.template_dir))
         else:
             self.jinja_env = None
 
         # Set up logging
-        self.logger = setup_logger(__name__)
+        self.logger = logging.getLogger(__name__)
 
         self.logger.info(f"Documentation generator initialized for {self.output_dir}")
 
@@ -117,21 +125,30 @@ class DocumentationGenerator:
         # Use sphinx-apidoc to generate RST files
         try:
             cmd = [
-                sys.executable, "-m", "sphinx.ext.apidoc",
-                "-f", "-e", "-T",  # Force, separate modules, no table of contents
-                "-o", str(output_dir),
+                sys.executable,
+                "-m",
+                "sphinx.ext.apidoc",
+                "-f",
+                "-e",
+                "-T",  # Force, separate modules, no table of contents
+                "-o",
+                str(output_dir),
                 str(source_path),
                 "**/test_*",
                 "**/tests/**",
-                "**/__pycache__/**"
+                "**/__pycache__/**",
             ]
 
-            result = subprocess.run(cmd, capture_output=True, text=True, cwd=self.output_dir)
+            result = subprocess.run(
+                cmd, capture_output=True, text=True, cwd=self.output_dir
+            )
 
             if result.returncode == 0:
                 self.logger.info("Module documentation generated successfully")
             else:
-                self.logger.warning(f"sphinx-apidoc completed with warnings: {result.stderr}")
+                self.logger.warning(
+                    f"sphinx-apidoc completed with warnings: {result.stderr}"
+                )
 
         except Exception as e:
             self.logger.error(f"Error running sphinx-apidoc: {e}")
@@ -144,8 +161,12 @@ class DocumentationGenerator:
 
         # Find all Python modules
         modules = list(source_path.rglob("*.py"))
-        modules = [m for m in modules if not any(part.startswith('__') for part in m.parts)]
-        modules = [m for m in modules if not any(part.startswith('test_') for part in m.parts)]
+        modules = [
+            m for m in modules if not any(part.startswith("__") for part in m.parts)
+        ]
+        modules = [
+            m for m in modules if not any(part.startswith("test_") for part in m.parts)
+        ]
 
         for module_path in modules:
             try:
@@ -156,11 +177,11 @@ class DocumentationGenerator:
     def _generate_single_module_doc(self, module_path: Path, output_dir: Path) -> None:
         """Generate documentation for a single module"""
         relative_path = module_path.relative_to(module_path.parent.parent.parent)
-        doc_path = output_dir / relative_path.with_suffix('.rst')
+        doc_path = output_dir / relative_path.with_suffix(".rst")
         doc_path.parent.mkdir(parents=True, exist_ok=True)
 
-        module_name = str(relative_path.with_suffix('')).replace('/', '.')
-        module_name = module_name.replace('src.', '')
+        module_name = str(relative_path.with_suffix("")).replace("/", ".")
+        module_name = module_name.replace("src.", "")
 
         content = f"""
 {module_name}
@@ -178,7 +199,7 @@ class DocumentationGenerator:
    :show-inheritance:
 """
 
-        with open(doc_path, 'w') as f:
+        with open(doc_path, "w") as f:
             f.write(content)
 
     def _generate_package_index(self, source_path: Path, output_dir: Path) -> None:
@@ -188,7 +209,7 @@ class DocumentationGenerator:
         # Find main package
         main_package = None
         for item in source_path.iterdir():
-            if item.is_dir() and not item.name.startswith('__'):
+            if item.is_dir() and not item.name.startswith("__"):
                 main_package = item.name
                 break
 
@@ -213,7 +234,7 @@ Indices and tables
 * :ref:`search`
 """
 
-        with open(index_path, 'w') as f:
+        with open(index_path, "w") as f:
             f.write(content)
 
     def _copy_existing_docs(self, source_path: Path, output_dir: Path) -> None:
@@ -243,7 +264,9 @@ Indices and tables
         # Generate learning paths index
         self._generate_learning_paths_index(paths, paths_dir)
 
-    def _generate_single_learning_path_doc(self, repo: KnowledgeRepository, path, output_dir: Path) -> None:
+    def _generate_single_learning_path_doc(
+        self, repo: KnowledgeRepository, path, output_dir: Path
+    ) -> None:
         """Generate documentation for a single learning path"""
         doc_path = output_dir / f"{path.id}.rst"
 
@@ -272,7 +295,7 @@ Indices and tables
         for node in nodes:
             content += f"   ../nodes/{node.id}\n"
 
-        content += f"""
+        content += """
 
 Validation Report
 -----------------
@@ -281,14 +304,14 @@ Validation Report
 
         # Add validation information
         validation = repo.validate_learning_path(path.id)
-        if validation['valid']:
+        if validation["valid"]:
             content += "✅ **Path validation: PASSED**\n\n"
         else:
             content += "⚠️  **Path validation: ISSUES FOUND**\n\n"
-            for issue in validation['issues']:
+            for issue in validation["issues"]:
                 content += f"- {issue}\n"
 
-        with open(doc_path, 'w') as f:
+        with open(doc_path, "w") as f:
             f.write(content)
 
     def _generate_learning_paths_index(self, paths: List, output_dir: Path) -> None:
@@ -315,14 +338,16 @@ Structured learning tracks for Active Inference and the Free Energy Principle.
 Search Learning Paths
 ---------------------
 
-Use the search functionality to find learning paths by topic, difficulty, or content type.
+Use the search functionality to find learning paths by topic, difficulty, or
+content type.
 
 .. seealso::
 
-   For detailed information about individual knowledge nodes, see the :doc:`../nodes/index` section.
+   For detailed information about individual knowledge nodes, see the
+   :doc:`../nodes/index` section.
 """
 
-        with open(index_path, 'w') as f:
+        with open(index_path, "w") as f:
             f.write(content)
 
     def generate_concept_maps(self, repo: KnowledgeRepository) -> None:
@@ -343,17 +368,16 @@ Use the search functionality to find learning paths by topic, difficulty, or con
         # Generate concept index
         self._generate_concept_index(repo, concepts_dir)
 
-    def _generate_concept_graphs(self, repo: KnowledgeRepository, output_dir: Path) -> None:
+    def _generate_concept_graphs(
+        self, repo: KnowledgeRepository, output_dir: Path
+    ) -> None:
         """Generate concept dependency graphs"""
-        # Get all nodes
-        nodes = list(repo._nodes.values())
-
         # Generate prerequisite graph
-        graph_data = repo.export_knowledge_graph(format='json')
+        graph_data = repo.export_knowledge_graph(format="json")
 
         # Save graph data
         graph_file = output_dir / "knowledge_graph.json"
-        with open(graph_file, 'w') as f:
+        with open(graph_file, "w") as f:
             json.dump(graph_data, f, indent=2)
 
         # Generate graph documentation
@@ -393,8 +417,8 @@ Node Types
 
         # Group nodes by content type
         content_types = {}
-        for node_data in graph_data['nodes']:
-            ct = node_data['content_type']
+        for node_data in graph_data["nodes"]:
+            ct = node_data["content_type"]
             if ct not in content_types:
                 content_types[ct] = []
             content_types[ct].append(node_data)
@@ -406,16 +430,18 @@ Node Types
 
 """
 
-            for node_data in sorted(nodes_list, key=lambda x: x['title']):
+            for node_data in sorted(nodes_list, key=lambda x: x["title"]):
                 content += f"- **{node_data['title']}**\n"
-                if node_data.get('description'):
+                if node_data.get("description"):
                     content += f"  {node_data['description'][:100]}...\n"
                 content += "\n"
 
-        with open(doc_path, 'w') as f:
+        with open(doc_path, "w") as f:
             f.write(content)
 
-    def _generate_concept_index(self, repo: KnowledgeRepository, output_dir: Path) -> None:
+    def _generate_concept_index(
+        self, repo: KnowledgeRepository, output_dir: Path
+    ) -> None:
         """Generate concept index documentation"""
         index_path = output_dir / "index.rst"
 
@@ -447,7 +473,7 @@ Concept maps help visualize:
    For detailed node information, see the :doc:`../nodes/index` section.
 """
 
-        with open(index_path, 'w') as f:
+        with open(index_path, "w") as f:
             f.write(content)
 
     def generate_statistics(self, repo: KnowledgeRepository) -> None:
@@ -494,27 +520,27 @@ Content Distribution
 
         # Content type distribution
         content += "Content Types\n~~~~~~~~~~~~~\n\n"
-        for content_type, count in stats['content_types'].items():
+        for content_type, count in stats["content_types"].items():
             content += f"- **{content_type.title()}**: {count} nodes\n"
         content += "\n"
 
         # Difficulty distribution
         content += "Difficulty Levels\n~~~~~~~~~~~~~~~~~\n\n"
-        for difficulty, count in stats['difficulties'].items():
+        for difficulty, count in stats["difficulties"].items():
             content += f"- **{difficulty.title()}**: {count} nodes\n"
         content += "\n"
 
         # Popular tags
-        if stats['top_tags']:
+        if stats["top_tags"]:
             content += "Popular Topics\n~~~~~~~~~~~~~~\n\n"
-            for tag, count in stats['top_tags'][:15]:
+            for tag, count in stats["top_tags"][:15]:
                 content += f"- **{tag}**: {count} nodes\n"
             content += "\n"
 
         # Metadata
-        if stats.get('metadata'):
+        if stats.get("metadata"):
             content += "Additional Information\n~~~~~~~~~~~~~~~~~~~~~~\n\n"
-            for key, value in stats['metadata'].items():
+            for key, value in stats["metadata"].items():
                 if isinstance(value, (str, int, float)):
                     content += f"- **{key}**: {value}\n"
             content += "\n"
@@ -538,10 +564,12 @@ This section provides insights into:
    usage_patterns
 """
 
-        with open(report_path, 'w') as f:
+        with open(report_path, "w") as f:
             f.write(content)
 
-    def _generate_trends_analysis(self, repo: KnowledgeRepository, stats: Dict[str, Any], output_dir: Path) -> None:
+    def _generate_trends_analysis(
+        self, repo: KnowledgeRepository, stats: Dict[str, Any], output_dir: Path
+    ) -> None:
         """Generate trends and analysis documentation"""
         trends_path = output_dir / "trends.rst"
 
@@ -581,7 +609,7 @@ Based on current repository analysis:
 
 """
 
-        with open(trends_path, 'w') as f:
+        with open(trends_path, "w") as f:
             f.write(content)
 
     def generate_search_index(self, repo: KnowledgeRepository) -> None:
@@ -655,10 +683,12 @@ The search interface provides:
    For command-line search, see :doc:`../cli/search`.
 """
 
-        with open(search_doc_path, 'w') as f:
+        with open(search_doc_path, "w") as f:
             f.write(content)
 
-    def generate_all_docs(self, source_dir: Union[str, Path], repo_path: Union[str, Path]) -> None:
+    def generate_all_docs(
+        self, source_dir: Union[str, Path], repo_path: Union[str, Path]
+    ) -> None:
         """
         Generate all documentation types
 
@@ -675,10 +705,8 @@ The search interface provides:
         # Generate knowledge documentation
         if self.config.knowledge_docs_enabled:
             # Initialize knowledge repository
-            config = DocumentationConfig(output_dir=self.output_dir)
             repo_config = KnowledgeRepositoryConfig(
-                root_path=Path(repo_path),
-                auto_index=True
+                root_path=Path(repo_path), auto_index=True
             )
             repo = KnowledgeRepository(repo_config)
 
