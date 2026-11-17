@@ -7,7 +7,7 @@ integration patterns and external system connectivity.
 """
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, Optional
 
@@ -32,11 +32,11 @@ class APIConnector:
     name: str
     base_url: str
     auth_type: str = "none"  # none, basic, bearer, api_key
-    headers: Dict[str, str] = None
+    headers: Dict[str, str] = field(default_factory=dict)
     timeout: int = 30
 
     def __post_init__(self) -> None:
-        if self.headers is None:
+        if not self.headers:
             self.headers = {}
 
 

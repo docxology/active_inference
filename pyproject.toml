@@ -166,6 +166,41 @@ module = [
 ]
 ignore_errors = true
 
+# Third-party packages that ship without type information.
+[[tool.mypy.overrides]]
+module = ["scipy.*", "sympy.*", "jinja2.*"]
+ignore_missing_imports = true
+
+# Legacy-module ratchet (issue #10): these modules predate the strict mypy
+# configuration and are excluded until each is brought into compliance.
+# Remove a module from this list when it passes `mypy src/` on its own; do
+# not add new modules here. Every other module is checked strictly.
+[[tool.mypy.overrides]]
+module = [
+    "active_inference",
+    "active_inference.cli",
+    "active_inference.knowledge.foundations",
+    "active_inference.knowledge.implementations",
+    "active_inference.knowledge.mathematics",
+    "active_inference.knowledge.repository",
+    "active_inference.llm.client",
+    "active_inference.platform.knowledge_graph",
+    "active_inference.platform.search",
+    "active_inference.research.analysis",
+    "active_inference.research.data_management",
+    "active_inference.research.experiments",
+    "active_inference.research.simulations",
+    "active_inference.tools.documentation.analyzer",
+    "active_inference.tools.documentation.cli",
+    "active_inference.tools.documentation.generator",
+    "active_inference.tools.documentation.reviewer",
+    "active_inference.tools.utilities",
+    "active_inference.visualization.animations",
+    "active_inference.visualization.comparative",
+    "active_inference.visualization.dashboards",
+]
+ignore_errors = true
+
 [dependency-groups]
 dev = [
     "psutil>=7.1.2",

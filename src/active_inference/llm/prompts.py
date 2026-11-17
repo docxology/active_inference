@@ -29,7 +29,7 @@ class PromptTemplate:
     examples: List[Dict[str, Any]] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def format(self, **kwargs) -> str:
+    def format(self, **kwargs: Any) -> str:
         """Format template with provided variables"""
         try:
             return self.template.format(**kwargs)
@@ -85,7 +85,7 @@ class PromptVariable:
     def validate(self, value: Any) -> bool:
         """Validate the variable value"""
         if self.validator:
-            return self.validator(value)
+            return bool(self.validator(value))
         return True
 
 

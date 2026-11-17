@@ -591,7 +591,7 @@ class CaseStudyManager:
         """Get a specific case study"""
         return self.example_applications.get_case_study(study_id)
 
-    def list_case_studies(self, **filters) -> List[CaseStudy]:
+    def list_case_studies(self, **filters: Any) -> List[CaseStudy]:
         """List case studies with optional filters"""
         return self.example_applications.list_case_studies(**filters)
 

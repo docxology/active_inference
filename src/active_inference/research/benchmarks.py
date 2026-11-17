@@ -106,7 +106,7 @@ class BenchmarkSuite:
 
     def compare_models(self, model_names: List[str]) -> Dict[str, Any]:
         """Compare performance across multiple models"""
-        comparison = {
+        comparison: Dict[str, Any] = {
             "models": model_names,
             "rankings": {},
             "improvements": {},
@@ -168,7 +168,7 @@ class BenchmarkSuite:
             return None
 
         # Simple scoring: average normalized metrics
-        scores = {}
+        scores: Dict[str, float] = {}
 
         for model_name, metrics in self.metrics.items():
             score = 0.0
@@ -184,7 +184,7 @@ class BenchmarkSuite:
                 scores[model_name] = score / count
 
         if scores:
-            return max(scores, key=scores.get)
+            return max(scores, key=lambda name: scores[name])
 
         return None
 

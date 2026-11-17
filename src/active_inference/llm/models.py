@@ -18,6 +18,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
+DEFAULT_REGISTRY_PATH = Path(__file__).parent / "model_registry.json"
+
 
 @dataclass
 class ModelInfo:
@@ -175,9 +177,7 @@ class ModelManager:
 
     def __init__(self, registry_path: Optional[Path] = None) -> None:
         self.registry = ModelRegistry()
-        self.registry_path = (
-            registry_path or Path(__file__).parent / "model_registry.json"
-        )
+        self.registry_path = registry_path or DEFAULT_REGISTRY_PATH
         self.logger = logging.getLogger(
             f"active_inference.llm.{self.__class__.__name__}"
         )
@@ -371,7 +371,7 @@ class ModelManager:
             self.save_registry()
 
     def add_custom_model(
-        self, name: str, family: str, size: str, capabilities: List[str], **kwargs
+        self, name: str, family: str, size: str, capabilities: List[str], **kwargs: Any
     ) -> ModelInfo:
         """Add a custom model to the registry"""
 

@@ -180,7 +180,7 @@ class TestRunner:
             logger.warning("No test results to report")
             return False
 
-        report = {
+        report: Dict[str, Any] = {
             "timestamp": datetime.now().isoformat(),
             "total_tests": len(self.test_results),
             "results_by_status": {},

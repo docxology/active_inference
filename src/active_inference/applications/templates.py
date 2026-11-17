@@ -8,7 +8,7 @@ generation of common application structures.
 
 import json
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -39,11 +39,11 @@ class TemplateConfig:
     name: str
     template_type: TemplateType
     description: str
-    parameters: Dict[str, Any] = None
+    parameters: Dict[str, Any] = field(default_factory=dict)
     output_directory: Optional[Path] = None
 
     def __post_init__(self) -> None:
-        if self.parameters is None:
+        if not self.parameters:
             self.parameters = {}
 
 
@@ -1063,7 +1063,7 @@ class ApplicationFramework:
         Returns:
             Validation results dictionary
         """
-        validation_results = {
+        validation_results: Dict[str, Any] = {
             "valid": True,
             "issues": [],
             "warnings": [],
@@ -1165,9 +1165,11 @@ class ApplicationFramework:
         """Validate template specification completeness"""
         required_fields = ["name", "type", "description"]
 
-        for field in required_fields:
-            if field not in spec:
-                raise ValueError(f"Missing required field in specification: {field}")
+        for field_name in required_fields:
+            if field_name not in spec:
+                raise ValueError(
+                    f"Missing required field in specification: {field_name}"
+                )
 
         # Validate template type
         template_type = spec.get("type")

@@ -262,7 +262,10 @@ class BaseOrchestrator:
 
     def get_stage_results(self, stage: ResearchStage) -> Optional[Dict[str, Any]]:
         """Get results for a specific stage"""
-        return self.research_state.get(stage.value, {}).get("results")
+        results: Optional[Dict[str, Any]] = self.research_state.get(
+            stage.value, {}
+        ).get("results")
+        return results
 
     def validate_workflow(self, stages: List[ResearchStage]) -> Dict[str, Any]:
         """
@@ -274,7 +277,7 @@ class BaseOrchestrator:
         Returns:
             Validation results and recommendations
         """
-        validation = {
+        validation: Dict[str, Any] = {
             "valid": True,
             "issues": [],
             "recommendations": [],

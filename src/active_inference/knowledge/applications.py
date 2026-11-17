@@ -381,7 +381,11 @@ class Applications:
         if not node:
             return {"valid": False, "error": "Application not found"}
 
-        validation_result = {"valid": True, "issues": [], "suggestions": []}
+        validation_result: Dict[str, Any] = {
+            "valid": True,
+            "issues": [],
+            "suggestions": [],
+        }
 
         # Check domain specification
         if not node.metadata.get("domain"):

@@ -300,13 +300,11 @@ class Implementations:
         """Get implementation examples filtered by criteria"""
         search_query = "implementation"
 
-        filters = {}
-        if difficulty:
-            filters["difficulty"] = [difficulty]
-        if tags:
-            filters["tags"] = tags
-
-        return self.repository.search(search_query, **filters)
+        return self.repository.search(
+            search_query,
+            difficulty=[difficulty] if difficulty else None,
+            tags=tags or None,
+        )
 
     def get_tutorial_path(self) -> List[KnowledgeNode]:
         """Get recommended tutorial implementation path"""

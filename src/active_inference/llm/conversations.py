@@ -83,7 +83,7 @@ class Conversation:
         """Get messages within token limit for context window"""
         # Simple token estimation (rough approximation)
         context_messages = []
-        current_tokens = 0
+        current_tokens = 0.0
 
         # Add messages in chronological order, prioritizing system messages
         for message in self.messages:
@@ -318,7 +318,7 @@ class ConversationManager:
         total_messages = sum(len(conv.messages) for conv in self.conversations.values())
 
         # Get message counts by role
-        role_counts = {}
+        role_counts: Dict[str, int] = {}
         for conversation in self.conversations.values():
             for message in conversation.messages:
                 role_counts[message.role] = role_counts.get(message.role, 0) + 1

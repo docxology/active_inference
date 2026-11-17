@@ -11,7 +11,7 @@ import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import psutil
 
@@ -291,7 +291,7 @@ class HealthMonitoring:
 
     def get_system_health(self) -> Dict[str, Any]:
         """Get comprehensive system health information"""
-        health_info = {
+        health_info: Dict[str, Any] = {
             "timestamp": datetime.now(),
             "cpu_usage": psutil.cpu_percent(),
             "memory_usage": psutil.virtual_memory().percent,
@@ -301,11 +301,12 @@ class HealthMonitoring:
         }
 
         # Record metrics
-        for metric_name, value in [
+        metric_values: List[Tuple[str, float]] = [
             ("cpu_usage", health_info["cpu_usage"]),
             ("memory_usage", health_info["memory_usage"]),
             ("disk_usage", health_info["disk_usage"]),
-        ]:
+        ]
+        for metric_name, value in metric_values:
             self.record_metric(metric_name, value)
 
         return health_info
@@ -410,11 +411,8 @@ class DeploymentAutomation:
         # Sort by start time, most recent first
         deployments.sort(key=lambda x: x.start_time, reverse=True)
 
-        return [
-            self.get_deployment_status(d.id)
-            for d in deployments[:limit]
-            if self.get_deployment_status(d.id)
-        ]
+        statuses = (self.get_deployment_status(d.id) for d in deployments[:limit])
+        return [status for status in statuses if status]
 
 
 class MonitoringTools:

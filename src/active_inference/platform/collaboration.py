@@ -204,7 +204,7 @@ class UserManagement:
 
     def get_user_statistics(self) -> Dict[str, Any]:
         """Get user statistics"""
-        roles = {}
+        roles: Dict[str, int] = {}
         for user in self.users.values():
             role = user.role.value
             roles[role] = roles.get(role, 0) + 1
@@ -422,7 +422,7 @@ class ActivityTracker:
         if not self.activities:
             return {"total_activities": 0}
 
-        actions = {}
+        actions: Dict[str, int] = {}
         for activity in self.activities:
             actions[activity.action] = actions.get(activity.action, 0) + 1
 

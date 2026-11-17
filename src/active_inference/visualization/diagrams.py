@@ -7,7 +7,7 @@ and interactive exploration capabilities.
 """
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -33,10 +33,10 @@ class DiagramNode:
     label: str
     position: Tuple[float, float] = (0, 0)
     node_type: str = "default"
-    properties: Dict[str, Any] = None
+    properties: Dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        if self.properties is None:
+        if not self.properties:
             self.properties = {}
 
 
@@ -48,10 +48,10 @@ class DiagramEdge:
     target: str
     label: str = ""
     edge_type: str = "directed"
-    properties: Dict[str, Any] = None
+    properties: Dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        if self.properties is None:
+        if not self.properties:
             self.properties = {}
 
 
