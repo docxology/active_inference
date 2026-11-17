@@ -581,8 +581,9 @@ class AnalysisTools:
         epsilon = 1e-10
         q = np.clip(q, epsilon, 1.0)
 
-        # Compute KL divergence
-        kl_div = np.sum(p * np.log2(p / q))
+        # Compute KL divergence (terms with p == 0 contribute 0 by convention)
+        mask = p > 0
+        kl_div = np.sum(p[mask] * np.log2(p[mask] / q[mask]))
 
         return float(kl_div)
 
@@ -668,7 +669,7 @@ class AnalysisTools:
 
         # Split data into windows and compare means
         windows = []
-        for i in range(0, len(data) - window_size + 1, window_size // 2):
+        for i in range(0, len(data) - window_size + 1, max(1, window_size // 2)):
             window = data[i : i + window_size]
             if len(window) == window_size:
                 windows.append(window)

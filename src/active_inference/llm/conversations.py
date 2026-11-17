@@ -146,11 +146,14 @@ class Conversation:
         )
 
 
+DEFAULT_STORAGE_PATH = Path(__file__).parent / "conversations"
+
+
 class ConversationManager:
     """Manager for multiple conversations and persistence"""
 
     def __init__(self, storage_path: Optional[Path] = None) -> None:
-        self.storage_path = storage_path or Path(__file__).parent / "conversations"
+        self.storage_path = storage_path or DEFAULT_STORAGE_PATH
         self.conversations: Dict[str, Conversation] = {}
         self.logger = logging.getLogger(
             f"active_inference.llm.{self.__class__.__name__}"

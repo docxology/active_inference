@@ -413,6 +413,9 @@ class OllamaClient:
         """Context manager entry"""
         return self
 
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        """Context manager exit (the async client is released by ``close()``)"""
+
     async def __aenter__(self):
         """Async context manager entry"""
         await self.initialize()

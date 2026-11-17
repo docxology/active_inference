@@ -333,7 +333,11 @@ class Implementations:
         if not node:
             return {"valid": False, "error": "Implementation not found"}
 
-        validation_result = {"valid": True, "issues": [], "suggestions": []}
+        validation_result: Dict[str, Any] = {
+            "valid": True,
+            "issues": [],
+            "suggestions": [],
+        }
 
         # Check if implementation has required sections
         content = node.content

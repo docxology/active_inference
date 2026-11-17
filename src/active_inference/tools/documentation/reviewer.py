@@ -487,6 +487,8 @@ class RepositoryReviewer:
             if test_path.exists():
                 test_files.extend(list(test_path.rglob("*.py")))
 
+        # Files matched by both the glob patterns and a test dir are counted once
+        test_files = list(dict.fromkeys(test_files))
         testing["test_files"] = len(test_files)
 
         # Analyze test structure
@@ -514,10 +516,9 @@ class RepositoryReviewer:
                     self.logger.warning(f"Could not analyze test file {test_file}: {e}")
 
         # Check for coverage configuration
-        coverage_config = (
-            self.repo_path / ".coveragerc" or self.repo_path / "pyproject.toml"
-        )
-        testing["coverage_available"] = coverage_config.exists()
+        testing["coverage_available"] = (self.repo_path / ".coveragerc").exists() or (
+            self.repo_path / "pyproject.toml"
+        ).exists()
 
         return testing
 

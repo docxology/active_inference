@@ -439,8 +439,16 @@ Poor Quality Documentation:
         """Display validation results"""
         if format_type == "json":
             import json
+            from dataclasses import asdict, is_dataclass
 
-            content = json.dumps(validation, indent=2)
+            # Results are ValidationResult dataclasses holding Path objects
+            content = json.dumps(
+                validation,
+                indent=2,
+                default=lambda o: (
+                    asdict(o) if is_dataclass(o) and not isinstance(o, type) else str(o)
+                ),
+            )
         else:
             category_lines = "\n".join(
                 f"- {category}: {len(results)} issues"

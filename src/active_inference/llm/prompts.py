@@ -120,7 +120,10 @@ class PromptBuilder:
     ) -> Self:
         """Add a section to the prompt"""
         section = PromptSection(
-            name, content, position or len(self.sections), separator
+            name,
+            content,
+            position if position is not None else len(self.sections),
+            separator,
         )
 
         if position is not None:

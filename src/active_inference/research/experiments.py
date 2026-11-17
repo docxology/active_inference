@@ -53,7 +53,15 @@ class ExperimentManager:
 
     def create_experiment(self, config: ExperimentConfig) -> str:
         """Create a new experiment"""
-        experiment_id = f"exp_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        base_id = f"exp_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        experiment_id = base_id
+        suffix = 1
+        while (
+            experiment_id in self.experiments
+            or (self.base_dir / experiment_id).exists()
+        ):
+            experiment_id = f"{base_id}_{suffix}"
+            suffix += 1
 
         experiment_data = {
             "id": experiment_id,
@@ -286,7 +294,7 @@ class ExperimentManager:
         # Save log file
         log_file = self.base_dir / experiment_id / "experiment_log.json"
         with open(log_file, "w") as f:
-            json.dump(log_data, f, indent=2)
+            json.dump(log_data, f, indent=2, default=str)
 
     def get_experiment(self, experiment_id: str) -> Optional[Dict]:
         """Retrieve experiment data"""
@@ -319,7 +327,7 @@ class ResearchFramework:
         """Run a complete research study"""
         logger.info(f"Starting research study: {study_config.get('name', 'Unnamed')}")
 
-        results = {
+        results: Dict[str, Any] = {
             "study_name": study_config.get("name"),
             "experiments": [],
             "summary": {},

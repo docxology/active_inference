@@ -967,7 +967,7 @@ class Foundations:
     def validate_foundation_consistency(self) -> Dict[str, Any]:
         """Validate consistency of foundation knowledge"""
         tracks = self.get_foundation_tracks()
-        validation_result = {
+        validation_result: Dict[str, Any] = {
             "valid": True,
             "issues": [],
             "track_completeness": {},
@@ -1019,7 +1019,7 @@ class Foundations:
     def search_foundation_concepts(self, query: str) -> List[Dict[str, Any]]:
         """Search for foundation concepts by query"""
         tracks = self.get_foundation_tracks()
-        results = []
+        results: List[Dict[str, Any]] = []
 
         for track_name, nodes in tracks.items():
             for node_id in nodes:
@@ -1075,7 +1075,7 @@ class Foundations:
         """Export foundation concepts as a graph structure"""
         tracks = self.get_foundation_tracks()
 
-        graph = {
+        graph: Dict[str, Any] = {
             "nodes": [],
             "edges": [],
             "tracks": tracks,

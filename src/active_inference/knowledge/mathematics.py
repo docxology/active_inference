@@ -7,6 +7,7 @@ Provides rigorous derivations, computational implementations, and mathematical t
 for understanding and working with the theoretical framework.
 """
 
+import math
 from typing import Any, Dict, List
 
 try:
@@ -312,7 +313,9 @@ class Mathematics:
             q_norm = [qi / q_sum for qi in q]
 
             # Compute KL divergence
-            kl_div = sum(pi * (pi / qi) for pi, qi in zip(p_norm, q_norm))
+            kl_div = sum(
+                pi * math.log(pi / qi) for pi, qi in zip(p_norm, q_norm) if pi > 0
+            )
             return float(kl_div)
 
         # Use numpy implementation if available
@@ -413,7 +416,7 @@ class Mathematics:
             entropy = 0.0
             for p in probabilities:
                 if p > 0:
-                    entropy -= p * (p / p)  # Simplified calculation
+                    entropy -= p * math.log2(p)
             return entropy
 
         # Use numpy implementation if available
@@ -438,7 +441,7 @@ class Mathematics:
             for i, px in enumerate(marginal_x):
                 for j, py in enumerate(marginal_y):
                     if joint_probs[i][j] > 0 and px > 0 and py > 0:
-                        mutual_info += joint_probs[i][j] * (
+                        mutual_info += joint_probs[i][j] * math.log2(
                             joint_probs[i][j] / (px * py)
                         )
             return mutual_info

@@ -221,6 +221,7 @@ class BaseOrchestrator:
         self.research_state[stage.value] = {
             "completed": True,
             "timestamp": datetime.now().isoformat(),
+            "results": results,
             "results_summary": self._summarize_results(results),
         }
 
