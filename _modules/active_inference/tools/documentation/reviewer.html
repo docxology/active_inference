@@ -1,0 +1,848 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.tools.documentation.reviewer &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.tools.documentation.reviewer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.tools.documentation.reviewer</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Repository Reviewer</span>
+
+<span class="sd">Comprehensive code analysis and repository review tools for the Active Inference</span>
+<span class="sd">Knowledge Environment. Provides automated code quality analysis, documentation</span>
+<span class="sd">coverage, and architectural insights.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CodeMetrics</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Code quality metrics for a module or repository"""</span>
+
+    <span class="n">total_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">code_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">comment_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">blank_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">function_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">class_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">docstring_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">complexity</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">test_coverage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">documentation_coverage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">linting_issues</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">type_hints</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">type_hint_coverage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentationMetrics</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Documentation quality metrics"""</span>
+
+    <span class="n">total_modules</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">documented_modules</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_functions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">documented_functions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_classes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">documented_classes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">missing_docstrings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">incomplete_docstrings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">coverage_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+
+<div class="viewcode-block" id="RepositoryReviewer">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.RepositoryReviewer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RepositoryReviewer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Comprehensive repository analysis and review system.</span>
+
+<span class="sd">    Analyzes code quality, documentation coverage, architectural patterns,</span>
+<span class="sd">    and provides actionable insights for improvement.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Initialize repository reviewer</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repo_path: Path to repository root</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">repo_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"src"</span><span class="p">,</span> <span class="s2">"tools"</span><span class="p">,</span> <span class="s2">"platform"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"tests"</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc_dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"docs"</span><span class="p">,</span> <span class="s2">"documentation"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_patterns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"__pycache__"</span><span class="p">,</span>
+            <span class="s2">".git"</span><span class="p">,</span>
+            <span class="s2">"node_modules"</span><span class="p">,</span>
+            <span class="s2">".pytest_cache"</span><span class="p">,</span>
+            <span class="s2">"build"</span><span class="p">,</span>
+            <span class="s2">"dist"</span><span class="p">,</span>
+            <span class="s2">".coverage"</span><span class="p">,</span>
+            <span class="s2">"*.egg-info"</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Repository reviewer initialized for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RepositoryReviewer.analyze_repository">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.RepositoryReviewer.analyze_repository">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Perform comprehensive repository analysis</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Complete analysis report</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Starting comprehensive repository analysis"</span><span class="p">)</span>
+
+        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"overview"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_overview</span><span class="p">(),</span>
+            <span class="s2">"code_quality"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_code_quality</span><span class="p">(),</span>
+            <span class="s2">"documentation"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_documentation</span><span class="p">(),</span>
+            <span class="s2">"architecture"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_architecture</span><span class="p">(),</span>
+            <span class="s2">"testing"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_testing</span><span class="p">(),</span>
+            <span class="s2">"dependencies"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_dependencies</span><span class="p">(),</span>
+            <span class="s2">"recommendations"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_recommendations</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Repository analysis completed"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">analysis</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_overview</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze repository overview metrics"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Analyzing repository overview"</span><span class="p">)</span>
+
+        <span class="c1"># Count files by type</span>
+        <span class="n">file_counts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_files</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*"</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+                <span class="n">total_files</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">total_size</span> <span class="o">+=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span>
+
+                <span class="c1"># Categorize by extension</span>
+                <span class="n">suffix</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="n">file_counts</span><span class="p">[</span><span class="n">suffix</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Count directories</span>
+        <span class="n">total_dirs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">source_dirs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">test_dirs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">doc_dirs</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">dir_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*"</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">dir_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">dir_path</span><span class="p">):</span>
+                <span class="n">total_dirs</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">dir_name</span> <span class="o">=</span> <span class="n">dir_path</span><span class="o">.</span><span class="n">name</span>
+
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dir_name</span> <span class="o">==</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_dirs</span><span class="p">):</span>
+                    <span class="n">source_dirs</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">dir_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_dirs</span><span class="p">):</span>
+                    <span class="n">test_dirs</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">dir_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc_dirs</span><span class="p">):</span>
+                    <span class="n">doc_dirs</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"total_files"</span><span class="p">:</span> <span class="n">total_files</span><span class="p">,</span>
+            <span class="s2">"total_directories"</span><span class="p">:</span> <span class="n">total_dirs</span><span class="p">,</span>
+            <span class="s2">"total_size_mb"</span><span class="p">:</span> <span class="n">total_size</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">),</span>
+            <span class="s2">"file_types"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">file_counts</span><span class="p">),</span>
+            <span class="s2">"source_directories"</span><span class="p">:</span> <span class="n">source_dirs</span><span class="p">,</span>
+            <span class="s2">"test_directories"</span><span class="p">:</span> <span class="n">test_dirs</span><span class="p">,</span>
+            <span class="s2">"documentation_directories"</span><span class="p">:</span> <span class="n">doc_dirs</span><span class="p">,</span>
+            <span class="s2">"python_files"</span><span class="p">:</span> <span class="n">file_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">".py"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">"json_files"</span><span class="p">:</span> <span class="n">file_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">".json"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">"markdown_files"</span><span class="p">:</span> <span class="n">file_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">".md"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">"rst_files"</span><span class="p">:</span> <span class="n">file_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">".rst"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_code_quality</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze code quality metrics"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Analyzing code quality"</span><span class="p">)</span>
+
+        <span class="n">quality_metrics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"total_modules"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"modules_with_issues"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"average_complexity"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">"average_test_coverage"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">"average_documentation_coverage"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">"linting_issues"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"type_hint_coverage"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">"module_metrics"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="n">total_complexity</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_test_coverage</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">total_doc_coverage</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">total_type_hints</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_functions</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Analyze Python modules</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_module_quality</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+                <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"module_metrics"</span><span class="p">][</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="p">))</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="n">metrics</span>
+
+                <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"total_modules"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">total_complexity</span> <span class="o">+=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">complexity</span>
+                <span class="n">total_test_coverage</span> <span class="o">+=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">test_coverage</span>
+                <span class="n">total_doc_coverage</span> <span class="o">+=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">documentation_coverage</span>
+                <span class="n">total_type_hints</span> <span class="o">+=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">type_hints</span>
+                <span class="n">total_functions</span> <span class="o">+=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">function_count</span>
+
+                <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">linting_issues</span><span class="p">:</span>
+                    <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"modules_with_issues"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"linting_issues"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">linting_issues</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not analyze </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Calculate averages</span>
+        <span class="k">if</span> <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"total_modules"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"average_complexity"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">total_complexity</span> <span class="o">/</span> <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"total_modules"</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"average_test_coverage"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">total_test_coverage</span> <span class="o">/</span> <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"total_modules"</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"average_documentation_coverage"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">total_doc_coverage</span> <span class="o">/</span> <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"total_modules"</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">quality_metrics</span><span class="p">[</span><span class="s2">"type_hint_coverage"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">total_type_hints</span> <span class="o">/</span> <span class="n">total_functions</span> <span class="k">if</span> <span class="n">total_functions</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">quality_metrics</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_module_quality</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CodeMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Analyze quality metrics for a single module"""</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="n">CodeMetrics</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="c1"># Basic metrics</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">total_lines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="n">stripped</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">stripped</span><span class="p">:</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">blank_lines</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">stripped</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"#"</span><span class="p">):</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">comment_lines</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="s1">'"""'</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">or</span> <span class="s2">"'''"</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">docstring_lines</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">code_lines</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># Parse AST for structural analysis</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+                <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                        <span class="n">metrics</span><span class="o">.</span><span class="n">function_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                            <span class="n">metrics</span><span class="o">.</span><span class="n">documentation_coverage</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span>
+                        <span class="n">metrics</span><span class="o">.</span><span class="n">class_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                            <span class="n">metrics</span><span class="o">.</span><span class="n">documentation_coverage</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">arg</span><span class="p">)</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">annotation</span><span class="p">:</span>
+                        <span class="n">metrics</span><span class="o">.</span><span class="n">type_hints</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># Calculate complexity (simplified)</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">complexity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_complexity</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">linting_issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Syntax error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">linting_issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Analysis error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">metrics</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_complexity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">:</span> <span class="n">ast</span><span class="o">.</span><span class="n">AST</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate code complexity (simplified)"""</span>
+        <span class="n">complexity</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Base complexity</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">If</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">For</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">While</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">With</span><span class="p">)):</span>
+                <span class="n">complexity</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Try</span><span class="p">):</span>
+                <span class="n">complexity</span> <span class="o">+=</span> <span class="mi">2</span>  <span class="c1"># Try blocks are more complex</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">BoolOp</span><span class="p">):</span>  <span class="c1"># and/or operations</span>
+                <span class="n">complexity</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">complexity</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DocumentationMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Analyze documentation coverage and quality"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Analyzing documentation"</span><span class="p">)</span>
+
+        <span class="n">metrics</span> <span class="o">=</span> <span class="n">DocumentationMetrics</span><span class="p">()</span>
+
+        <span class="n">python_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+                <span class="c1"># Check module docstring</span>
+                <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                    <span class="n">metrics</span><span class="o">.</span><span class="n">documented_modules</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">total_modules</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># Check functions and classes</span>
+                <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                        <span class="n">metrics</span><span class="o">.</span><span class="n">total_functions</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                            <span class="n">metrics</span><span class="o">.</span><span class="n">documented_functions</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span>
+                        <span class="n">metrics</span><span class="o">.</span><span class="n">total_classes</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                            <span class="n">metrics</span><span class="o">.</span><span class="n">documented_classes</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Could not analyze documentation for </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Calculate coverage</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">total_modules</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">coverage_percentage</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">documented_modules</span> <span class="o">/</span> <span class="n">metrics</span><span class="o">.</span><span class="n">total_modules</span>
+            <span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+        <span class="k">return</span> <span class="n">metrics</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_architecture</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze architectural patterns and structure"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Analyzing architecture"</span><span class="p">)</span>
+
+        <span class="n">architecture</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"layers"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"dependencies"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"patterns"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="c1"># Analyze package structure</span>
+        <span class="n">src_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"src"</span>
+        <span class="k">if</span> <span class="n">src_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">architecture</span><span class="p">[</span><span class="s2">"layers"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_package_layers</span><span class="p">(</span><span class="n">src_path</span><span class="p">)</span>
+
+        <span class="c1"># Check for common patterns</span>
+        <span class="n">architecture</span><span class="p">[</span><span class="s2">"patterns"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identify_patterns</span><span class="p">()</span>
+
+        <span class="c1"># Identify potential issues</span>
+        <span class="n">architecture</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_architectural_issues</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">architecture</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_package_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze package layering and organization"""</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">package_path</span> <span class="ow">in</span> <span class="n">src_path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">package_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">package_path</span><span class="p">):</span>
+                <span class="n">package_name</span> <span class="o">=</span> <span class="n">package_path</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">layers</span><span class="p">[</span><span class="n">package_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">"modules"</span><span class="p">:</span> <span class="p">[],</span>
+                    <span class="s2">"subpackages"</span><span class="p">:</span> <span class="p">[],</span>
+                    <span class="s2">"dependencies"</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+                    <span class="s2">"size"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="p">}</span>
+
+                <span class="c1"># Count modules and size</span>
+                <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">package_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+                        <span class="n">layers</span><span class="p">[</span><span class="n">package_name</span><span class="p">][</span><span class="s2">"modules"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                        <span class="n">layers</span><span class="p">[</span><span class="n">package_name</span><span class="p">][</span><span class="s2">"size"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span>
+
+                <span class="c1"># Count subpackages</span>
+                <span class="k">for</span> <span class="n">subpackage</span> <span class="ow">in</span> <span class="n">package_path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">subpackage</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">subpackage</span><span class="p">):</span>
+                        <span class="n">layers</span><span class="p">[</span><span class="n">package_name</span><span class="p">][</span><span class="s2">"subpackages"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subpackage</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">layers</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_identify_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Identify common design patterns in the codebase"""</span>
+        <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"factory"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"singleton"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"observer"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"decorator"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"strategy"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"repository"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Simple pattern detection (could be enhanced)</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                <span class="c1"># Look for pattern indicators</span>
+                <span class="k">if</span> <span class="s2">"factory"</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="s2">"create"</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">"build"</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="p">):</span>
+                    <span class="n">patterns</span><span class="p">[</span><span class="s2">"factory"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="p">))</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="s2">"__new__"</span> <span class="ow">in</span> <span class="n">content</span> <span class="ow">and</span> <span class="s2">"cls."</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+                    <span class="n">patterns</span><span class="p">[</span><span class="s2">"singleton"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="p">))</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="s2">"repository"</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                    <span class="n">patterns</span><span class="p">[</span><span class="s2">"repository"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="p">))</span>
+                    <span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not analyze patterns for </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">patterns</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_architectural_issues</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check for common architectural issues"""</span>
+        <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Check for circular imports (simplified)</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+
+        <span class="n">imports</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                <span class="c1"># Extract imports</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">):</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"from "</span><span class="p">)</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"import "</span><span class="p">):</span>
+                        <span class="n">module</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="s2">"import"</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">else</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="p">)</span>
+                        <span class="n">imports</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="p">))]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not analyze imports for </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check for potential issues</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="s2">"tests"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">):</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"No test directories found"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="s2">"docs"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">):</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"No documentation directories found"</span><span class="p">)</span>
+
+        <span class="c1"># Check for very large files</span>
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">&gt;</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">:</span>  <span class="c1"># 1MB</span>
+                <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Large file detected: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="sa">f</span><span class="s2">" (</span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">MB)"</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">issues</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_testing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze testing structure and coverage"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Analyzing testing"</span><span class="p">)</span>
+
+        <span class="n">testing</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"test_files"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"test_functions"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"coverage_available"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">"test_types"</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+            <span class="s2">"untested_modules"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Find test files</span>
+        <span class="n">test_files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"test_*.py"</span><span class="p">,</span> <span class="s2">"*_test.py"</span><span class="p">]:</span>
+            <span class="n">test_files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"**/</span><span class="si">{</span><span class="n">pattern</span><span class="si">}</span><span class="s2">"</span><span class="p">)))</span>
+
+        <span class="c1"># Also check in test directories</span>
+        <span class="k">for</span> <span class="n">test_dir</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_dirs</span><span class="p">:</span>
+            <span class="n">test_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="n">test_dir</span>
+            <span class="k">if</span> <span class="n">test_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">test_files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">test_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">)))</span>
+
+        <span class="n">testing</span><span class="p">[</span><span class="s2">"test_files"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_files</span><span class="p">)</span>
+
+        <span class="c1"># Analyze test structure</span>
+        <span class="k">for</span> <span class="n">test_file</span> <span class="ow">in</span> <span class="n">test_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">test_file</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">test_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                    <span class="c1"># Count test functions</span>
+                    <span class="n">test_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"def test_"</span><span class="p">,</span> <span class="n">content</span><span class="p">))</span>
+                    <span class="n">testing</span><span class="p">[</span><span class="s2">"test_functions"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">test_count</span>
+
+                    <span class="c1"># Categorize test types</span>
+                    <span class="k">if</span> <span class="s2">"unit"</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                        <span class="n">testing</span><span class="p">[</span><span class="s2">"test_types"</span><span class="p">][</span><span class="s2">"unit"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="s2">"integration"</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                        <span class="n">testing</span><span class="p">[</span><span class="s2">"test_types"</span><span class="p">][</span><span class="s2">"integration"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="s2">"functional"</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                        <span class="n">testing</span><span class="p">[</span><span class="s2">"test_types"</span><span class="p">][</span><span class="s2">"functional"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">testing</span><span class="p">[</span><span class="s2">"test_types"</span><span class="p">][</span><span class="s2">"other"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not analyze test file </span><span class="si">{</span><span class="n">test_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check for coverage configuration</span>
+        <span class="n">coverage_config</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">".coveragerc"</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"pyproject.toml"</span>
+        <span class="p">)</span>
+        <span class="n">testing</span><span class="p">[</span><span class="s2">"coverage_available"</span><span class="p">]</span> <span class="o">=</span> <span class="n">coverage_config</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">testing</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze project dependencies"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Analyzing dependencies"</span><span class="p">)</span>
+
+        <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"requirements_files"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"python_dependencies"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"dev_dependencies"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"optional_dependencies"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"dependency_issues"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Find requirements files</span>
+        <span class="k">for</span> <span class="n">req_file</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">"requirements.txt"</span><span class="p">,</span>
+            <span class="s2">"requirements-dev.txt"</span><span class="p">,</span>
+            <span class="s2">"requirements-test.txt"</span><span class="p">,</span>
+            <span class="s2">"pyproject.toml"</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="n">req_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="n">req_file</span>
+            <span class="k">if</span> <span class="n">req_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">dependencies</span><span class="p">[</span><span class="s2">"requirements_files"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">req_file</span><span class="p">)</span>
+
+        <span class="c1"># Analyze pyproject.toml if it exists</span>
+        <span class="n">pyproject_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"pyproject.toml"</span>
+        <span class="k">if</span> <span class="n">pyproject_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pyproject_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                <span class="c1"># Parse dependencies (simplified)</span>
+                <span class="k">if</span> <span class="s2">"dependencies"</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+                    <span class="n">deps_section</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"dependencies = ["</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"]"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">"</span><span class="se">\"</span><span class="s2">,'"</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">deps_section</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="p">]</span>
+                    <span class="n">dependencies</span><span class="p">[</span><span class="s2">"python_dependencies"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="n">dep</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"&gt;="</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">dep</span> <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">deps</span> <span class="k">if</span> <span class="n">dep</span>
+                    <span class="p">}</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">dependencies</span><span class="p">[</span><span class="s2">"dependency_issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Could not parse pyproject.toml: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dependencies</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_recommendations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate actionable recommendations"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating recommendations"</span><span class="p">)</span>
+
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Get analysis data</span>
+        <span class="n">overview</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_overview</span><span class="p">()</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_code_quality</span><span class="p">()</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_documentation</span><span class="p">()</span>
+        <span class="n">testing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_testing</span><span class="p">()</span>
+
+        <span class="c1"># Generate recommendations based on analysis</span>
+
+        <span class="c1"># Documentation recommendations</span>
+        <span class="k">if</span> <span class="n">docs</span><span class="o">.</span><span class="n">coverage_percentage</span> <span class="o">&lt;</span> <span class="mi">80</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Improve documentation coverage: currently"</span>
+                <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">docs</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">quality</span><span class="p">[</span><span class="s2">"type_hint_coverage"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">70</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Add type hints: currently </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'type_hint_coverage'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span>
+                <span class="s2">" coverage"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Testing recommendations</span>
+        <span class="k">if</span> <span class="n">testing</span><span class="p">[</span><span class="s2">"test_files"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Add comprehensive test suite"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">testing</span><span class="p">[</span><span class="s2">"coverage_available"</span><span class="p">]</span> <span class="ow">and</span> <span class="n">quality</span><span class="p">[</span><span class="s2">"average_test_coverage"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">80</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Improve test coverage: currently"</span>
+                <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'average_test_coverage'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Architecture recommendations</span>
+        <span class="k">if</span> <span class="n">quality</span><span class="p">[</span><span class="s2">"modules_with_issues"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Fix linting issues in </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'modules_with_issues'</span><span class="p">]</span><span class="si">}</span><span class="s2"> modules"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># General recommendations</span>
+        <span class="k">if</span> <span class="n">overview</span><span class="p">[</span><span class="s2">"documentation_directories"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Add documentation structure"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">overview</span><span class="p">[</span><span class="s2">"test_directories"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Add test directory structure"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">recommendations</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_should_ignore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if path should be ignored in analysis"""</span>
+        <span class="n">path_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore_patterns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">path_str</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="c1"># Check if it's a hidden file/directory</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parts</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="RepositoryReviewer.generate_report">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.RepositoryReviewer.generate_report">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate comprehensive analysis report</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            output_path: Optional path to save report</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Report content as string</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating comprehensive report"</span><span class="p">)</span>
+
+        <span class="n">analysis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_repository</span><span class="p">()</span>
+
+        <span class="c1"># Generate report</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_report</span><span class="p">(</span><span class="n">analysis</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_path</span><span class="p">:</span>
+            <span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Report saved to </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">report</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_format_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analysis</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Format analysis results into readable report"""</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"# Repository Analysis Report"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Overview</span>
+        <span class="n">overview</span> <span class="o">=</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"overview"</span><span class="p">]</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Overview"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Total Files:** </span><span class="si">{</span><span class="n">overview</span><span class="p">[</span><span class="s1">'total_files'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Total Directories:** </span><span class="si">{</span><span class="n">overview</span><span class="p">[</span><span class="s1">'total_directories'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Repository Size:** </span><span class="si">{</span><span class="n">overview</span><span class="p">[</span><span class="s1">'total_size_mb'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Python Files:** </span><span class="si">{</span><span class="n">overview</span><span class="p">[</span><span class="s1">'python_files'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Code Quality</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"code_quality"</span><span class="p">]</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Code Quality"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Total Modules:** </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'total_modules'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Modules with Issues:** </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'modules_with_issues'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Average Complexity:** </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'average_complexity'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">"- **Documentation Coverage:**"</span>
+            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'average_documentation_coverage'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span>
+        <span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Type Hint Coverage:** </span><span class="si">{</span><span class="n">quality</span><span class="p">[</span><span class="s1">'type_hint_coverage'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Documentation</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"documentation"</span><span class="p">]</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Documentation"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Coverage:** </span><span class="si">{</span><span class="n">docs</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"- **Documented Modules:** </span><span class="si">{</span><span class="n">docs</span><span class="o">.</span><span class="n">documented_modules</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">docs</span><span class="o">.</span><span class="n">total_modules</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">"- **Documented Functions:**"</span>
+            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">docs</span><span class="o">.</span><span class="n">documented_functions</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">docs</span><span class="o">.</span><span class="n">total_functions</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Testing</span>
+        <span class="n">testing</span> <span class="o">=</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"testing"</span><span class="p">]</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Testing"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Test Files:** </span><span class="si">{</span><span class="n">testing</span><span class="p">[</span><span class="s1">'test_files'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Test Functions:** </span><span class="si">{</span><span class="n">testing</span><span class="p">[</span><span class="s1">'test_functions'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">"- **Coverage Tool:**"</span>
+            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="s1">'Available'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">testing</span><span class="p">[</span><span class="s1">'coverage_available'</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'Not configured'</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Recommendations</span>
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"recommendations"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">recommendations</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Recommendations"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">recommendations</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">rec</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

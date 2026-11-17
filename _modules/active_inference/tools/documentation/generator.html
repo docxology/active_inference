@@ -1,0 +1,852 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.tools.documentation.generator &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.tools.documentation.generator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.tools.documentation.generator</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Documentation Generator</span>
+
+<span class="sd">Core class for generating comprehensive documentation for the Active Inference</span>
+<span class="sd">Knowledge Environment. Handles API documentation, knowledge base documentation,</span>
+<span class="sd">and various report generation.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="k">try</span><span class="p">:</span>  <span class="c1"># optional: only needed for custom template directories</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">jinja2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">FileSystemLoader</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># pragma: no cover - depends on the environment</span>
+    <span class="n">Environment</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment,misc]</span>
+    <span class="n">FileSystemLoader</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: ignore[assignment,misc]</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">...knowledge.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">KnowledgeRepository</span><span class="p">,</span> <span class="n">KnowledgeRepositoryConfig</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentationConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Configuration for documentation generation"""</span>
+
+    <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">template_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">api_docs_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">knowledge_docs_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">include_private</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"sphinx_rtd_theme"</span>
+    <span class="n">extensions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">"sphinx.ext.autodoc"</span><span class="p">,</span>
+                <span class="s2">"sphinx.ext.autosummary"</span><span class="p">,</span>
+                <span class="s2">"sphinx.ext.viewcode"</span><span class="p">,</span>
+                <span class="s2">"sphinx.ext.napoleon"</span><span class="p">,</span>
+                <span class="s2">"sphinx.ext.intersphinx"</span><span class="p">,</span>
+                <span class="s2">"sphinx.ext.mathjax"</span><span class="p">,</span>
+                <span class="s2">"myst_nb"</span><span class="p">,</span>
+                <span class="s2">"nbsphinx"</span><span class="p">,</span>
+            <span class="p">]</span>
+
+
+<div class="viewcode-block" id="DocumentationGenerator">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentationGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Comprehensive documentation generator for the Active Inference Knowledge</span>
+<span class="sd">    Environment.</span>
+
+<span class="sd">    Generates API documentation, knowledge base documentation, learning paths,</span>
+<span class="sd">    concept maps, and various analysis reports.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DocumentationConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Initialize documentation generator</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            output_dir: Directory for generated documentation</span>
+<span class="sd">            config: Documentation configuration</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">DocumentationConfig</span><span class="p">(</span><span class="n">output_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="p">)</span>
+
+        <span class="c1"># Create output directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Set up Jinja2 template environment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">template_dir</span> <span class="ow">or</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"templates"</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">Environment</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">jinja_env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">jinja_env</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Set up logging</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Documentation generator initialized for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationGenerator.generate_api_docs">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationGenerator.generate_api_docs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_api_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate API documentation from source code</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_dir: Source code directory to document</span>
+<span class="sd">        """</span>
+        <span class="n">source_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">source_dir</span><span class="p">)</span>
+        <span class="n">api_output_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"api"</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generating API documentation from </span><span class="si">{</span><span class="n">source_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Create API documentation structure</span>
+            <span class="n">api_output_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># Generate module documentation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_module_docs</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">api_output_dir</span><span class="p">)</span>
+
+            <span class="c1"># Generate package index</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_package_index</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">api_output_dir</span><span class="p">)</span>
+
+            <span class="c1"># Copy any existing documentation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_copy_existing_docs</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">api_output_dir</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error generating API documentation: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">raise</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_module_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate documentation for individual modules"""</span>
+        <span class="c1"># Use sphinx-apidoc to generate RST files</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>
+                <span class="s2">"-m"</span><span class="p">,</span>
+                <span class="s2">"sphinx.ext.apidoc"</span><span class="p">,</span>
+                <span class="s2">"-f"</span><span class="p">,</span>
+                <span class="s2">"-e"</span><span class="p">,</span>
+                <span class="s2">"-T"</span><span class="p">,</span>  <span class="c1"># Force, separate modules, no table of contents</span>
+                <span class="s2">"-o"</span><span class="p">,</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">output_dir</span><span class="p">),</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">source_path</span><span class="p">),</span>
+                <span class="s2">"**/test_*"</span><span class="p">,</span>
+                <span class="s2">"**/tests/**"</span><span class="p">,</span>
+                <span class="s2">"**/__pycache__/**"</span><span class="p">,</span>
+            <span class="p">]</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="n">cmd</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Module documentation generated successfully"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"sphinx-apidoc completed with warnings: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stderr</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error running sphinx-apidoc: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="c1"># Fallback to manual generation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_manual_module_docs</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_manual_module_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Manual fallback for module documentation generation"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating manual module documentation"</span><span class="p">)</span>
+
+        <span class="c1"># Find all Python modules</span>
+        <span class="n">modules</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">source_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+        <span class="n">modules</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">modules</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">modules</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">modules</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"test_"</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">module_path</span> <span class="ow">in</span> <span class="n">modules</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_generate_single_module_doc</span><span class="p">(</span><span class="n">module_path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not generate docs for </span><span class="si">{</span><span class="n">module_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_single_module_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate documentation for a single module"""</span>
+        <span class="n">relative_path</span> <span class="o">=</span> <span class="n">module_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="n">doc_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="n">relative_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">".rst"</span><span class="p">)</span>
+        <span class="n">doc_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">module_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">relative_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">""</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="s2">"."</span><span class="p">)</span>
+        <span class="n">module_name</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"src."</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="si">{</span><span class="n">module_name</span><span class="si">}</span>
+<span class="si">{</span><span class="s1">'='</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span><span class="si">}</span>
+
+<span class="s2">.. automodule:: </span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span>
+<span class="s2">   :members:</span>
+<span class="s2">   :undoc-members:</span>
+<span class="s2">   :show-inheritance:</span>
+<span class="s2">   :member-order: bysource</span>
+
+<span class="s2">.. autoclass:: </span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">.*</span>
+<span class="s2">   :members:</span>
+<span class="s2">   :undoc-members:</span>
+<span class="s2">   :show-inheritance:</span>
+<span class="s2">"""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">doc_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_package_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate package index documentation"""</span>
+        <span class="n">index_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"index.rst"</span>
+
+        <span class="c1"># Find main package</span>
+        <span class="n">main_package</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">source_path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">):</span>
+                <span class="n">main_package</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">main_package</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">API Reference</span>
+<span class="s2">=============</span>
+
+<span class="s2">.. toctree::</span>
+<span class="s2">   :maxdepth: 4</span>
+<span class="s2">   :caption: Contents:</span>
+
+<span class="s2">   </span><span class="si">{</span><span class="n">main_package</span><span class="si">}</span><span class="s2">/index</span>
+
+<span class="s2">Indices and tables</span>
+<span class="s2">==================</span>
+
+<span class="s2">* :ref:`genindex`</span>
+<span class="s2">* :ref:`modindex`</span>
+<span class="s2">* :ref:`search`</span>
+<span class="s2">"""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">index_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_copy_existing_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Copy any existing documentation files"""</span>
+        <span class="n">docs_source</span> <span class="o">=</span> <span class="n">source_path</span> <span class="o">/</span> <span class="s2">"docs"</span>
+        <span class="k">if</span> <span class="n">docs_source</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">docs_source</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"docs"</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationGenerator.generate_learning_paths">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationGenerator.generate_learning_paths">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_learning_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate learning path documentation</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repo: Knowledge repository instance</span>
+<span class="sd">        """</span>
+        <span class="n">paths_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"knowledge"</span> <span class="o">/</span> <span class="s2">"learning_paths"</span>
+        <span class="n">paths_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating learning path documentation"</span><span class="p">)</span>
+
+        <span class="c1"># Get all learning paths</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_learning_paths</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generate_single_learning_path_doc</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">paths_dir</span><span class="p">)</span>
+
+        <span class="c1"># Generate learning paths index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_learning_paths_index</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">paths_dir</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_single_learning_path_doc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate documentation for a single learning path"""</span>
+        <span class="n">doc_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">.rst"</span>
+
+        <span class="c1"># Get path nodes</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="c1"># Generate content</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span>
+<span class="si">{</span><span class="s1">'='</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span>
+
+<span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">description</span><span class="si">}</span>
+
+<span class="s2">**Difficulty:** </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span>
+<span class="s2">**Estimated Time:** </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">estimated_hours</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">'Not specified'</span><span class="si">}</span><span class="s2"> hours</span>
+
+<span class="s2">.. toctree::</span>
+<span class="s2">   :maxdepth: 2</span>
+
+<span class="s2">"""</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"   ../nodes/</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="n">content</span> <span class="o">+=</span> <span class="s2">"""</span>
+
+<span class="s2">Validation Report</span>
+<span class="s2">-----------------</span>
+
+<span class="s2">"""</span>
+
+        <span class="c1"># Add validation information</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">validate_learning_path</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]:</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="s2">"✅ **Path validation: PASSED**</span><span class="se">\n\n</span><span class="s2">"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="s2">"⚠️  **Path validation: ISSUES FOUND**</span><span class="se">\n\n</span><span class="s2">"</span>
+            <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]:</span>
+                <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">issue</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">doc_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_learning_paths_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate index for all learning paths"""</span>
+        <span class="n">index_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"index.rst"</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">Learning Paths</span>
+<span class="s2">==============</span>
+
+<span class="s2">Structured learning tracks for Active Inference and the Free Energy Principle.</span>
+
+<span class="s2">.. toctree::</span>
+<span class="s2">   :maxdepth: 2</span>
+<span class="s2">   :caption: Available Learning Paths:</span>
+
+<span class="s2">"""</span>
+
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="n">content</span> <span class="o">+=</span> <span class="s2">"""</span>
+
+<span class="s2">Search Learning Paths</span>
+<span class="s2">---------------------</span>
+
+<span class="s2">Use the search functionality to find learning paths by topic, difficulty, or</span>
+<span class="s2">content type.</span>
+
+<span class="s2">.. seealso::</span>
+
+<span class="s2">   For detailed information about individual knowledge nodes, see the</span>
+<span class="s2">   :doc:`../nodes/index` section.</span>
+<span class="s2">"""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">index_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationGenerator.generate_concept_maps">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationGenerator.generate_concept_maps">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_concept_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate concept map visualizations and documentation</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repo: Knowledge repository instance</span>
+<span class="sd">        """</span>
+        <span class="n">concepts_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"knowledge"</span> <span class="o">/</span> <span class="s2">"concepts"</span>
+        <span class="n">concepts_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating concept map documentation"</span><span class="p">)</span>
+
+        <span class="c1"># Generate concept dependency graphs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_concept_graphs</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">concepts_dir</span><span class="p">)</span>
+
+        <span class="c1"># Generate concept index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_concept_index</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">concepts_dir</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_concept_graphs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate concept dependency graphs"""</span>
+        <span class="c1"># Generate prerequisite graph</span>
+        <span class="n">graph_data</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">export_knowledge_graph</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">)</span>
+
+        <span class="c1"># Save graph data</span>
+        <span class="n">graph_file</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"knowledge_graph.json"</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">graph_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">graph_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Generate graph documentation</span>
+        <span class="n">doc_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"knowledge_graph.rst"</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">Knowledge Graph</span>
+<span class="s2">===============</span>
+
+<span class="s2">Interactive visualization of the knowledge dependency structure.</span>
+
+<span class="s2">The knowledge graph contains </span><span class="si">{</span><span class="n">graph_data</span><span class="p">[</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'total_nodes'</span><span class="p">]</span><span class="si">}</span><span class="s2"> knowledge nodes</span>
+<span class="s2">and represents the prerequisite relationships and learning paths.</span>
+
+<span class="s2">.. raw:: html</span>
+
+<span class="s2">   &lt;div id="knowledge-graph" style="width: 100%; height: 600px;"&gt;</span>
+<span class="s2">   &lt;p&gt;Knowledge graph visualization will be rendered here.&lt;/p&gt;</span>
+<span class="s2">   &lt;/div&gt;</span>
+
+<span class="s2">   &lt;script&gt;</span>
+<span class="s2">   // Graph visualization code would go here</span>
+<span class="s2">   // This would typically use D3.js or similar library</span>
+<span class="s2">   &lt;/script&gt;</span>
+
+<span class="s2">Graph Statistics</span>
+<span class="s2">----------------</span>
+
+<span class="s2">- **Total Nodes:** </span><span class="si">{</span><span class="n">graph_data</span><span class="p">[</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'total_nodes'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">- **Total Learning Paths:** </span><span class="si">{</span><span class="n">graph_data</span><span class="p">[</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'total_paths'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">- **Content Types:** </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">graph_data</span><span class="p">[</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'content_types'</span><span class="p">])</span><span class="si">}</span>
+<span class="s2">- **Difficulty Levels:** </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">graph_data</span><span class="p">[</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'difficulties'</span><span class="p">])</span><span class="si">}</span>
+
+<span class="s2">Node Types</span>
+<span class="s2">----------</span>
+
+<span class="s2">"""</span>
+
+        <span class="c1"># Group nodes by content type</span>
+        <span class="n">content_types</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="n">graph_data</span><span class="p">[</span><span class="s2">"nodes"</span><span class="p">]:</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="n">node_data</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ct</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">content_types</span><span class="p">:</span>
+                <span class="n">content_types</span><span class="p">[</span><span class="n">ct</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">content_types</span><span class="p">[</span><span class="n">ct</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">nodes_list</span> <span class="ow">in</span> <span class="n">content_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="si">{</span><span class="n">content_type</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> nodes)</span>
+<span class="si">{</span><span class="s1">'~'</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">content_type</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="si">}</span>
+
+<span class="s2">"""</span>
+
+            <span class="k">for</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]):</span>
+                <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">node_data</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span><span class="s2">**</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="k">if</span> <span class="n">node_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">):</span>
+                    <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">node_data</span><span class="p">[</span><span class="s1">'description'</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="n">content</span> <span class="o">+=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">doc_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_concept_index</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate concept index documentation"""</span>
+        <span class="n">index_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"index.rst"</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">Concept Maps</span>
+<span class="s2">============</span>
+
+<span class="s2">Visual representations of knowledge relationships and dependencies.</span>
+
+<span class="s2">.. toctree::</span>
+<span class="s2">   :maxdepth: 2</span>
+
+<span class="s2">   knowledge_graph</span>
+<span class="s2">   topic_maps</span>
+<span class="s2">   learning_flow</span>
+
+<span class="s2">Overview</span>
+<span class="s2">--------</span>
+
+<span class="s2">Concept maps help visualize:</span>
+
+<span class="s2">- **Prerequisite relationships** between knowledge nodes</span>
+<span class="s2">- **Learning path structures** and dependencies</span>
+<span class="s2">- **Topic clusters** and related concepts</span>
+<span class="s2">- **Knowledge gaps** and missing connections</span>
+
+<span class="s2">.. seealso::</span>
+
+<span class="s2">   For detailed node information, see the :doc:`../nodes/index` section.</span>
+<span class="s2">"""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">index_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationGenerator.generate_statistics">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationGenerator.generate_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate knowledge repository statistics</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repo: Knowledge repository instance</span>
+<span class="sd">        """</span>
+        <span class="n">stats_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"knowledge"</span> <span class="o">/</span> <span class="s2">"statistics"</span>
+        <span class="n">stats_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating statistics documentation"</span><span class="p">)</span>
+
+        <span class="c1"># Get comprehensive statistics</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_statistics</span><span class="p">()</span>
+
+        <span class="c1"># Generate statistics documentation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_stats_report</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">stats_dir</span><span class="p">)</span>
+
+        <span class="c1"># Generate trends and analysis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_trends_analysis</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">stats_dir</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_stats_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate comprehensive statistics report"""</span>
+        <span class="n">report_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"index.rst"</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">Knowledge Repository Statistics</span>
+<span class="s2">==============================</span>
+
+<span class="s2">Comprehensive analysis of the knowledge repository structure and content.</span>
+
+<span class="s2">Overview</span>
+<span class="s2">--------</span>
+
+<span class="s2">The repository contains **</span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">'total_nodes'</span><span class="p">]</span><span class="si">}</span><span class="s2">** knowledge nodes</span>
+<span class="s2">organized into **</span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">'total_paths'</span><span class="p">]</span><span class="si">}</span><span class="s2">** learning paths.</span>
+
+<span class="s2">Content Distribution</span>
+<span class="s2">--------------------</span>
+
+<span class="s2">"""</span>
+
+        <span class="c1"># Content type distribution</span>
+        <span class="n">content</span> <span class="o">+=</span> <span class="s2">"Content Types</span><span class="se">\n</span><span class="s2">~~~~~~~~~~~~~</span><span class="se">\n\n</span><span class="s2">"</span>
+        <span class="k">for</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">[</span><span class="s2">"content_types"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">content_type</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> nodes</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="n">content</span> <span class="o">+=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="c1"># Difficulty distribution</span>
+        <span class="n">content</span> <span class="o">+=</span> <span class="s2">"Difficulty Levels</span><span class="se">\n</span><span class="s2">~~~~~~~~~~~~~~~~~</span><span class="se">\n\n</span><span class="s2">"</span>
+        <span class="k">for</span> <span class="n">difficulty</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">[</span><span class="s2">"difficulties"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">difficulty</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> nodes</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="n">content</span> <span class="o">+=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="c1"># Popular tags</span>
+        <span class="k">if</span> <span class="n">stats</span><span class="p">[</span><span class="s2">"top_tags"</span><span class="p">]:</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="s2">"Popular Topics</span><span class="se">\n</span><span class="s2">~~~~~~~~~~~~~~</span><span class="se">\n\n</span><span class="s2">"</span>
+            <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">[</span><span class="s2">"top_tags"</span><span class="p">][:</span><span class="mi">15</span><span class="p">]:</span>
+                <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> nodes</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="c1"># Metadata</span>
+        <span class="k">if</span> <span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"metadata"</span><span class="p">):</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="s2">"Additional Information</span><span class="se">\n</span><span class="s2">~~~~~~~~~~~~~~~~~~~~~~</span><span class="se">\n\n</span><span class="s2">"</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">[</span><span class="s2">"metadata"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                    <span class="n">content</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+
+        <span class="n">content</span> <span class="o">+=</span> <span class="s2">"""</span>
+<span class="s2">Analysis</span>
+<span class="s2">--------</span>
+
+<span class="s2">This section provides insights into:</span>
+
+<span class="s2">- **Coverage gaps** in specific topic areas</span>
+<span class="s2">- **Learning path completeness** and validation status</span>
+<span class="s2">- **Content quality metrics** and improvement opportunities</span>
+<span class="s2">- **Usage patterns** and popular content areas</span>
+
+<span class="s2">.. toctree::</span>
+<span class="s2">   :maxdepth: 2</span>
+
+<span class="s2">   trends</span>
+<span class="s2">   quality_metrics</span>
+<span class="s2">   usage_patterns</span>
+<span class="s2">"""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">report_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_trends_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">,</span> <span class="n">stats</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate trends and analysis documentation"""</span>
+        <span class="n">trends_path</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"trends.rst"</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">Trends and Analysis</span>
+<span class="s2">===================</span>
+
+<span class="s2">Analysis of knowledge repository trends, patterns, and insights.</span>
+
+<span class="s2">Content Growth</span>
+<span class="s2">--------------</span>
+
+<span class="s2">.. note::</span>
+<span class="s2">   Trend analysis will be implemented in future versions.</span>
+
+<span class="s2">Quality Metrics</span>
+<span class="s2">---------------</span>
+
+<span class="s2">.. note::</span>
+<span class="s2">   Quality metrics analysis will be implemented in future versions.</span>
+
+<span class="s2">Usage Patterns</span>
+<span class="s2">--------------</span>
+
+<span class="s2">.. note::</span>
+<span class="s2">   Usage pattern analysis will be implemented in future versions.</span>
+
+<span class="s2">Recommendations</span>
+<span class="s2">---------------</span>
+
+<span class="s2">Based on current repository analysis:</span>
+
+<span class="s2">1. **Expand Coverage**: Consider adding more intermediate-level content</span>
+<span class="s2">2. **Cross-linking**: Improve connections between related topics</span>
+<span class="s2">3. **Validation**: Regular validation of learning path integrity</span>
+<span class="s2">4. **Assessment**: Add more interactive assessments and exercises</span>
+
+<span class="s2">"""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">trends_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationGenerator.generate_search_index">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationGenerator.generate_search_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_search_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate search index for the knowledge repository</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repo: Knowledge repository instance</span>
+<span class="sd">        """</span>
+        <span class="n">search_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"knowledge"</span> <span class="o">/</span> <span class="s2">"search"</span>
+        <span class="n">search_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating search index"</span><span class="p">)</span>
+
+        <span class="c1"># Generate search interface documentation</span>
+        <span class="n">search_doc_path</span> <span class="o">=</span> <span class="n">search_dir</span> <span class="o">/</span> <span class="s2">"index.rst"</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">Search and Discovery</span>
+<span class="s2">====================</span>
+
+<span class="s2">Advanced search capabilities for the knowledge repository.</span>
+
+<span class="s2">Search Features</span>
+<span class="s2">---------------</span>
+
+<span class="s2">- **Full-text search** across all knowledge nodes</span>
+<span class="s2">- **Filter by content type** (foundations, mathematics, implementations, etc.)</span>
+<span class="s2">- **Filter by difficulty level** (beginner, intermediate, advanced, expert)</span>
+<span class="s2">- **Tag-based filtering** for topic-specific searches</span>
+<span class="s2">- **Prerequisite-aware search** to find foundational concepts</span>
+
+<span class="s2">Search Syntax</span>
+<span class="s2">-------------</span>
+
+<span class="s2">.. code-block:: text</span>
+
+<span class="s2">   entropy                    # Search for exact term</span>
+<span class="s2">   "free energy"             # Search for phrase</span>
+<span class="s2">   entropy OR information    # Boolean search</span>
+<span class="s2">   type:mathematics          # Filter by content type</span>
+<span class="s2">   difficulty:beginner       # Filter by difficulty</span>
+<span class="s2">   tag:probability           # Filter by tag</span>
+
+<span class="s2">Examples</span>
+<span class="s2">--------</span>
+
+<span class="s2">.. code-block:: bash</span>
+
+<span class="s2">   # Search for information theory concepts</span>
+<span class="s2">   ai-knowledge search "information theory"</span>
+
+<span class="s2">   # Find beginner-friendly implementations</span>
+<span class="s2">   ai-knowledge search implementation --type implementation --difficulty beginner</span>
+
+<span class="s2">   # Search within specific topics</span>
+<span class="s2">   ai-knowledge search "Bayesian" --tag probability</span>
+
+<span class="s2">Search Interface</span>
+<span class="s2">----------------</span>
+
+<span class="s2">The search interface provides:</span>
+
+<span class="s2">- **Real-time results** as you type</span>
+<span class="s2">- **Result previews** with descriptions and metadata</span>
+<span class="s2">- **Breadcrumb navigation** to related concepts</span>
+<span class="s2">- **Export capabilities** for search results</span>
+
+<span class="s2">.. seealso::</span>
+
+<span class="s2">   For command-line search, see :doc:`../cli/search`.</span>
+<span class="s2">"""</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">search_doc_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DocumentationGenerator.generate_all_docs">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationGenerator.generate_all_docs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_all_docs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">source_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">repo_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate all documentation types</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_dir: Source code directory</span>
+<span class="sd">            repo_path: Knowledge repository path</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating comprehensive documentation"</span><span class="p">)</span>
+
+        <span class="c1"># Generate API documentation</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">api_docs_enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_api_docs</span><span class="p">(</span><span class="n">source_dir</span><span class="p">)</span>
+
+        <span class="c1"># Generate knowledge documentation</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">knowledge_docs_enabled</span><span class="p">:</span>
+            <span class="c1"># Initialize knowledge repository</span>
+            <span class="n">repo_config</span> <span class="o">=</span> <span class="n">KnowledgeRepositoryConfig</span><span class="p">(</span>
+                <span class="n">root_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">repo_path</span><span class="p">),</span> <span class="n">auto_index</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="n">repo</span> <span class="o">=</span> <span class="n">KnowledgeRepository</span><span class="p">(</span><span class="n">repo_config</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_learning_paths</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_concept_maps</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_statistics</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generate_search_index</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Comprehensive documentation generation completed"</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

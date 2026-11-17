@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/AGENTS.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># API Documentation - Agent Documentation</p>
+<p>This document provides comprehensive guidance for AI agents and contributors working within the API Documentation module of the Active Inference Knowledge Environment. It outlines API documentation standards, generation processes, and best practices for creating comprehensive API reference materials.</p>
+<p>## API Documentation Module Overview</p>
+<p>The API Documentation module provides complete reference documentation for all public APIs in the Active Inference Knowledge Environment. This includes REST APIs, Python APIs, command-line interfaces, and integration APIs. The documentation is automatically generated from source code where possible and maintained alongside the implementation.</p>
+<p>## Core Responsibilities</p>
+<p>### API Documentation Generation
+- <strong>Auto-Generation</strong>: Generate documentation from source code
+- <strong>Manual Documentation</strong>: Create comprehensive manual documentation
+- <strong>Example Generation</strong>: Create working API usage examples
+- <strong>Validation</strong>: Validate documentation accuracy and completeness
+- <strong>Maintenance</strong>: Keep documentation current with API changes</p>
+<p>### Documentation Standards
+- <strong>Consistency</strong>: Maintain consistent documentation format and style
+- <strong>Completeness</strong>: Ensure comprehensive coverage of all APIs
+- <strong>Clarity</strong>: Use clear, accessible language and examples
+- <strong>Accuracy</strong>: Ensure technical accuracy of all documentation
+- <strong>Currency</strong>: Keep documentation current with API changes</p>
+<p>### Quality Assurance
+- <strong>Review Processes</strong>: Implement documentation review processes
+- <strong>Testing</strong>: Test all code examples and API usage
+- <strong>Validation</strong>: Validate documentation against actual API behavior
+- <strong>User Feedback</strong>: Incorporate user feedback and suggestions
+- <strong>Standards Compliance</strong>: Ensure compliance with documentation standards</p>
+<p>## Development Workflows</p>
+<p>### API Documentation Creation Process
+1. <strong>API Analysis</strong>: Analyze API structure and functionality
+2. <strong>Documentation Planning</strong>: Plan documentation structure and content
+3. <strong>Content Creation</strong>: Write comprehensive API documentation
+4. <strong>Example Development</strong>: Create working code examples
+5. <strong>Review and Validation</strong>: Review for accuracy and completeness
+6. <strong>Integration</strong>: Integrate with documentation build system
+7. <strong>Publication</strong>: Publish documentation with proper formatting
+8. <strong>Maintenance</strong>: Update documentation as APIs evolve</p>
+<p>### Documentation Update Process
+1. <strong>Change Detection</strong>: Detect API changes that require documentation updates
+2. <strong>Impact Analysis</strong>: Analyze impact of changes on existing documentation
+3. <strong>Content Update</strong>: Update documentation to reflect changes
+4. <strong>Example Update</strong>: Update code examples if needed
+5. <strong>Validation</strong>: Validate updated documentation
+6. <strong>Review</strong>: Review changes for accuracy
+7. <strong>Publication</strong>: Publish updated documentation
+8. <strong>Notification</strong>: Notify users of significant API changes</p>
+<p>### Quality Assurance Process
+1. <strong>Completeness Check</strong>: Verify all APIs are documented
+2. <strong>Accuracy Validation</strong>: Validate documentation accuracy
+3. <strong>Example Testing</strong>: Test all code examples
+4. <strong>Cross-Reference Check</strong>: Verify cross-references work
+5. <strong>Build Testing</strong>: Test documentation build process
+6. <strong>User Testing</strong>: Validate documentation usability
+7. <strong>Feedback Integration</strong>: Incorporate user feedback</p>
+<p>## Quality Standards</p>
+<p>### Documentation Quality
+- <strong>Completeness</strong>: All public APIs must be fully documented
+- <strong>Accuracy</strong>: All technical details must be accurate
+- <strong>Clarity</strong>: Documentation must be clear and accessible
+- <strong>Consistency</strong>: Consistent format and style throughout
+- <strong>Currency</strong>: Documentation must reflect current API state</p>
+<p>### Code Example Quality
+- <strong>Functionality</strong>: All examples must be functional and tested
+- <strong>Relevance</strong>: Examples must be relevant and practical
+- <strong>Completeness</strong>: Examples must demonstrate key functionality
+- <strong>Clarity</strong>: Examples must be clear and well-commented
+- <strong>Error Handling</strong>: Examples should demonstrate proper error handling</p>
+<p>### Technical Quality
+- <strong>Build Process</strong>: Documentation must build successfully
+- <strong>Cross-References</strong>: All cross-references must work
+- <strong>Code Syntax</strong>: All code must be syntactically correct
+- <strong>API Compatibility</strong>: Examples must work with documented APIs
+- <strong>Performance</strong>: Documentation generation should be efficient</p>
+<p>## Implementation Patterns</p>
+<p>### API Documentation Generator
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+from typing import Dict, List, Any, Optional
+from pathlib import Path
+import inspect
+import json</p>
+<dl>
+<dt>class APIDocumentationGenerator:</dt><dd><p>“””Generate comprehensive API documentation”””</p>
+<dl class="simple">
+<dt>def __init__(self, source_path: Path, output_path: Path):</dt><dd><p>self.source_path = source_path
+self.output_path = output_path
+self.api_info: Dict[str, Any] = {}
+self.load_api_info()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a>python
+def load_api_info(self) -&gt; None:</p>
+<blockquote>
+<div><p>“””Load API information from source code”””
+self.api_info = {</p>
+<blockquote>
+<div><p>‘modules’: self.discover_modules(),
+‘classes’: self.discover_classes(),
+‘functions’: self.discover_functions(),
+‘endpoints’: self.discover_endpoints()</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></p>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a>python
+def discover_modules(self) -&gt; List[Dict[str, Any]]:</p>
+<blockquote>
+<div><p>“””Discover Python modules and their documentation”””
+modules = []</p>
+<dl>
+<dt>for module_file in self.source_path.rglob(’<a href="#id17"><span class="problematic" id="id18">*</span></a>.py’):</dt><dd><dl>
+<dt>if not module_file.name.startswith(‘_’):</dt><dd><p>module_info = self.extract_module_info(module_file)
+if module_info:</p>
+<blockquote>
+<div><p>modules.append(module_info)</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>return modules</p>
+</div></blockquote>
+<dl>
+<dt>def extract_module_info(self, module_file: Path) -&gt; Optional[Dict[str, Any]]:</dt><dd><p>“””Extract information from Python module”””
+try:</p>
+<blockquote>
+<div><p># Import module
+import importlib.util
+spec = importlib.util.spec_from_file_location(</p>
+<blockquote>
+<div><p>f”module_{module_file.stem}”,
+module_file</p>
+</div></blockquote>
+<p>)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)</p>
+<p># Extract module information
+docstring = inspect.getdoc(module) or “”
+members = self.get_module_members(module)</p>
+<dl>
+<dt>return {</dt><dd><p>‘name’: module.__name__,
+‘file’: str(module_file.relative_to(self.source_path)),
+‘docstring’: docstring,
+‘members’: members,
+‘classes’: [name for name, obj in members.items()</p>
+<blockquote>
+<div><p>if inspect.isclass(obj)],</p>
+</div></blockquote>
+<dl class="simple">
+<dt>‘functions’: [name for name, obj in members.items()</dt><dd><p>if callable(obj) and not inspect.isclass(obj)]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+<dl>
+<dt><a href="#id19"><span class="problematic" id="id20">``</span></a><a href="#id21"><span class="problematic" id="id22">`</span></a></dt><dd><blockquote>
+<div><p>}</p>
+</div></blockquote>
+<dl class="simple">
+<dt>except Exception as e:</dt><dd><p>print(f”Failed to extract info from {module_file}: {e}”)
+return None</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id23"><span class="problematic" id="id24">``</span></a><a href="#id25"><span class="problematic" id="id26">`</span></a>python
+def get_module_members(self, module) -&gt; Dict[str, Any]:</p>
+<blockquote>
+<div><p>“””Get public members of module”””
+members = {}
+for name in dir(module):</p>
+<blockquote>
+<div><dl>
+<dt>if not name.startswith(‘_’):</dt><dd><dl>
+<dt>try:</dt><dd><p>obj = getattr(module, name)
+if hasattr(obj, ‘__module__’) and obj.__module__ == module.__name__:</p>
+<blockquote>
+<div><p>members[name] = obj</p>
+</div></blockquote>
+</dd>
+<dt>except:</dt><dd><p>continue</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>return members</p>
+</div></blockquote>
+<p><a href="#id27"><span class="problematic" id="id28">``</span></a><a href="#id29"><span class="problematic" id="id30">`</span></a></p>
+<blockquote>
+<div><dl>
+<dt>def discover_classes(self) -&gt; List[Dict[str, Any]]:</dt><dd><p>“””Discover and document classes”””
+classes = []</p>
+<dl>
+<dt>for module_info in self.api_info[‘modules’]:</dt><dd><dl>
+<dt>for class_name in module_info[‘classes’]:</dt><dd><dl>
+<dt>try:</dt><dd><p># Import class
+module_path = module_info[‘file’]
+module_name = module_path.replace(‘/’, ‘.’).replace(‘.py’, ‘’)
+module = __import__(module_name, fromlist=[class_name])
+cls = getattr(module, class_name)</p>
+<p>class_doc = self.extract_class_info(cls)
+if class_doc:</p>
+<blockquote>
+<div><p>classes.append(class_doc)</p>
+</div></blockquote>
+</dd>
+<dt>except Exception as e:</dt><dd><p>print(f”Failed to document class {class_name}: {e}”)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>return classes</p>
+</dd>
+<dt>def extract_class_info(self, cls) -&gt; Optional[Dict[str, Any]]:</dt><dd><p>“””Extract comprehensive class information”””
+try:</p>
+<blockquote>
+<div><p>docstring = inspect.getdoc(cls) or “”</p>
+<p># Get methods
+methods = []
+for name, method in inspect.getmembers(cls, predicate=inspect.isfunction):</p>
+<blockquote>
+<div><dl>
+<dt>if not name.startswith(‘_’):</dt><dd><p>method_info = self.extract_method_info(method)
+if method_info:</p>
+<blockquote>
+<div><p>methods.append(method_info)</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<p># Get properties
+properties = []
+for name in dir(cls):</p>
+<blockquote>
+<div><dl>
+<dt>if not name.startswith(‘_’):</dt><dd><dl>
+<dt>try:</dt><dd><p>value = getattr(cls, name)
+if not callable(value):</p>
+<blockquote>
+<div><dl class="simple">
+<dt>properties.append({</dt><dd><p>‘name’: name,
+‘value’: str(value),
+‘type’: type(value).__name__</p>
+</dd>
+</dl>
+<p>})</p>
+</div></blockquote>
+</dd>
+<dt>except:</dt><dd><p>continue</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>return {</dt><dd><p>‘name’: cls.__name__,
+‘module’: cls.__module__,
+‘docstring’: docstring,
+‘methods’: methods,
+‘properties’: properties,
+‘base_classes’: [base.__name__ for base in cls.__bases__ if base != object]</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<dl class="simple">
+<dt>except Exception as e:</dt><dd><p>print(f”Failed to extract class info for {cls.__name__}: {e}”)
+return None</p>
+</dd>
+</dl>
+</dd>
+<dt>def extract_method_info(self, method) -&gt; Optional[Dict[str, Any]]:</dt><dd><p>“””Extract method information”””
+try:</p>
+<blockquote>
+<div><p>signature = inspect.signature(method)
+docstring = inspect.getdoc(method) or “”</p>
+<dl class="simple">
+<dt>return {</dt><dd><p>‘name’: method.__name__,
+‘signature’: str(signature),
+‘parameters’: list(signature.parameters.keys()),
+‘docstring’: docstring,
+‘is_static’: isinstance(inspect.getattr_static(type, method.__name__, None), staticmethod),
+‘is_class’: isinstance(inspect.getattr_static(type, method.__name__, None), classmethod)</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<dl class="simple">
+<dt>except Exception as e:</dt><dd><p>print(f”Failed to extract method info for {method.__name__}: {e}”)
+return None</p>
+</dd>
+</dl>
+</dd>
+<dt>def generate_rst_documentation(self) -&gt; None:</dt><dd><p>“””Generate reStructuredText documentation”””
+self.generate_main_index()
+self.generate_module_docs()
+self.generate_class_docs()
+self.generate_function_docs()</p>
+</dd>
+<dt>def generate_main_index(self) -&gt; None:</dt><dd><p>“””Generate main API documentation index”””
+index_content = “””</p>
+</dd>
+</dl>
+</div></blockquote>
+<section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<p>This section contains comprehensive API reference documentation for the Active Inference Knowledge Environment.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="rest-api">
+<h2>REST API<a class="headerlink" href="#rest-api" title="Link to this heading"></a></h2>
+<p>Complete reference for REST API endpoints.</p>
+</section>
+<section id="python-api">
+<h2>Python API<a class="headerlink" href="#python-api" title="Link to this heading"></a></h2>
+<p>Comprehensive Python API reference with examples.</p>
+</section>
+<section id="command-line-interface">
+<h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Link to this heading"></a></h2>
+<p>Command-line interface documentation and usage examples.</p>
+</section>
+<section id="integration-apis">
+<h2>Integration APIs<a class="headerlink" href="#integration-apis" title="Link to this heading"></a></h2>
+<p>APIs for integrating with external systems and services.</p>
+</section>
+</section>
+<section id="indices-and-search">
+<h1>Indices and Search<a class="headerlink" href="#indices-and-search" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="../genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="../py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="../search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+<p>“””</p>
+<blockquote>
+<div><blockquote>
+<div><p>(self.output_path / ‘index.rst’).write_text(index_content)</p>
+</div></blockquote>
+<dl>
+<dt>def generate_module_docs(self) -&gt; None:</dt><dd><p>“””Generate module documentation”””
+modules_dir = self.output_path / ‘modules’
+modules_dir.mkdir(exist_ok=True)</p>
+<dl class="simple">
+<dt>for module_info in self.api_info[‘modules’]:</dt><dd><p>module_content = f”””</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>{module_info[‘name’]}
+{‘=’ * len(module_info[‘name’])}</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<p><strong>Classes:</strong>
+“””</p>
+<blockquote>
+<div><dl class="simple">
+<dt>for class_name in module_info[‘classes’]:</dt><dd><p>module_content += f”* <code class="xref py py-class docutils literal notranslate"><span class="pre">{class_name}</span></code>n”</p>
+</dd>
+</dl>
+<p>module_content += “n**Functions:<a href="#id31"><span class="problematic" id="id32">**</span></a>n”
+for func_name in module_info[‘functions’]:</p>
+<blockquote>
+<div><p>module_content += f”* <code class="xref py py-func docutils literal notranslate"><span class="pre">{func_name}()</span></code>n”</p>
+</div></blockquote>
+<dl class="simple">
+<dt>if module_info[‘docstring’]:</dt><dd><p>module_content += f”n{module_info[‘docstring’]}n”</p>
+</dd>
+</dl>
+<p>(modules_dir / f”{module_info[‘name’].replace(‘.’, ‘_’)}.rst”).write_text(module_content)</p>
+</div></blockquote>
+<p><a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a></p>
+<p>### Documentation Validation Framework
+<a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a>python
+from typing import Dict, List, Any
+import requests
+import json</p>
+<dl>
+<dt>class APIDocumentationValidator:</dt><dd><p>“””Validate API documentation completeness and accuracy”””</p>
+<dl>
+<dt>def __init__(self, base_url: str = None, api_spec_path: Path = None):</dt><dd><p>self.base_url = base_url
+self.api_spec_path = api_spec_path
+self.validation_results: Dict[str, Any] = {}</p>
+</dd>
+<dt>def validate_all_apis(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate all API documentation”””
+self.validation_results = {</p>
+<blockquote>
+<div><p>‘rest_api’: self.validate_rest_api_docs(),
+‘python_api’: self.validate_python_api_docs(),
+‘cli_api’: self.validate_cli_api_docs(),
+‘integration_api’: self.validate_integration_api_docs(),
+‘overall_score’: 0</p>
+</div></blockquote>
+<p>}</p>
+<p># Calculate overall score
+total_checks = sum(len(result.get(‘checks’, []))</p>
+<blockquote>
+<div><p>for result in self.validation_results.values()
+if isinstance(result, dict))</p>
+</div></blockquote>
+<dl class="simple">
+<dt>passed_checks = sum(result.get(‘passed_checks’, 0)</dt><dd><p>for result in self.validation_results.values()
+if isinstance(result, dict))</p>
+</dd>
+<dt>self.validation_results[‘overall_score’] = (</dt><dd><p>passed_checks / total_checks if total_checks &gt; 0 else 0</p>
+</dd>
+</dl>
+<p>)</p>
+<p>return self.validation_results</p>
+</dd>
+<dt>def validate_rest_api_docs(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate REST API documentation”””
+if not self.base_url:</p>
+<blockquote>
+<div><p>return {‘error’: ‘No base URL provided for REST API validation’}</p>
+</div></blockquote>
+<p># Get API specification
+api_spec = self.load_api_specification()</p>
+<p># Test documented endpoints
+endpoint_tests = []
+for endpoint_info in api_spec.get(‘endpoints’, []):</p>
+<blockquote>
+<div><p>test_result = self.test_endpoint_documentation(endpoint_info)
+endpoint_tests.append(test_result)</p>
+</div></blockquote>
+<p># Check documentation coverage
+coverage = self.check_documentation_coverage(api_spec)</p>
+<dl class="simple">
+<dt>return {</dt><dd><p>‘endpoint_tests’: endpoint_tests,
+‘documentation_coverage’: coverage,
+‘passed_checks’: len([t for t in endpoint_tests if t.get(‘status’) == ‘pass’]),
+‘total_checks’: len(endpoint_tests)</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+<dt>def load_api_specification(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Load API specification”””
+if self.api_spec_path and self.api_spec_path.exists():</p>
+<blockquote>
+<div><dl class="simple">
+<dt>with open(self.api_spec_path, ‘r’) as f:</dt><dd><p>return json.load(f)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>return {}</p>
+</dd>
+<dt>def test_endpoint_documentation(self, endpoint_info: Dict[str, Any]) -&gt; Dict[str, Any]:</dt><dd><p>“””Test single endpoint documentation”””
+endpoint = endpoint_info.get(‘path’)
+method = endpoint_info.get(‘method’, ‘GET’)</p>
+<dl>
+<dt>try:</dt><dd><p># Test actual endpoint
+response = requests.request(</p>
+<blockquote>
+<div><p>method=method,
+url=f”{self.base_url}{endpoint}”,
+timeout=10</p>
+</div></blockquote>
+<p>)</p>
+<p># Check if documented response matches actual response
+documented_response = endpoint_info.get(‘response’)
+actual_response = {</p>
+<blockquote>
+<div><p>‘status_code’: response.status_code,
+‘headers’: dict(response.headers),
+‘content_type’: response.headers.get(‘content-type’, ‘’)</p>
+</div></blockquote>
+<p>}</p>
+<p># Simple comparison (could be enhanced)
+status_match = documented_response.get(‘status_code’) == actual_response[‘status_code’]</p>
+<dl class="simple">
+<dt>return {</dt><dd><p>‘endpoint’: endpoint,
+‘method’: method,
+‘status’: ‘pass’ if status_match else ‘fail’,
+‘actual_response’: actual_response,
+‘documented_response’: documented_response</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+<dt>except Exception as e:</dt><dd><dl class="simple">
+<dt>return {</dt><dd><p>‘endpoint’: endpoint,
+‘method’: method,
+‘status’: ‘error’,
+‘error’: str(e)</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+</dd>
+<dt>def validate_python_api_docs(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate Python API documentation”””
+# Implementation for Python API validation
+return {‘status’: ‘implemented’, ‘checks’: []}</p>
+</dd>
+<dt>def validate_cli_api_docs(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate CLI API documentation”””
+# Implementation for CLI validation
+return {‘status’: ‘implemented’, ‘checks’: []}</p>
+</dd>
+<dt>def validate_integration_api_docs(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate integration API documentation”””
+# Implementation for integration API validation
+return {‘status’: ‘implemented’, ‘checks’: []}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a></p>
+<p>## Testing Guidelines</p>
+<p>### Documentation Testing
+- <strong>Build Testing</strong>: Test documentation build process
+- <strong>Link Validation</strong>: Verify all internal and external links
+- <strong>Example Testing</strong>: Test all code examples
+- <strong>API Testing</strong>: Test documented APIs against actual implementations
+- <strong>Cross-Reference Testing</strong>: Verify cross-references work correctly</p>
+<p>### Content Quality Testing
+- <strong>Clarity Testing</strong>: Assess documentation clarity and readability
+- <strong>Completeness Testing</strong>: Verify comprehensive API coverage
+- <strong>Accuracy Testing</strong>: Validate technical accuracy
+- <strong>Consistency Testing</strong>: Ensure consistent documentation style
+- <strong>User Experience Testing</strong>: Test documentation usability</p>
+<p>## Performance Considerations</p>
+<p>### Documentation Generation
+- <strong>Generation Speed</strong>: Optimize documentation generation speed
+- <strong>Incremental Updates</strong>: Support incremental documentation updates
+- <strong>Resource Management</strong>: Manage memory and CPU usage during generation
+- <strong>Parallel Processing</strong>: Use parallel processing where beneficial</p>
+<p>### Documentation Access
+- <strong>Load Time</strong>: Ensure fast documentation loading
+- <strong>Search Performance</strong>: Optimize search functionality
+- <strong>Navigation Speed</strong>: Ensure fast navigation between sections
+- <strong>Caching</strong>: Implement caching for frequently accessed content</p>
+<p>## Maintenance and Evolution</p>
+<p>### Documentation Updates
+- <strong>Automated Updates</strong>: Automate documentation updates where possible
+- <strong>Change Detection</strong>: Detect when documentation needs updates
+- <strong>Version Management</strong>: Manage documentation versions
+- <strong>Archival</strong>: Archive outdated documentation</p>
+<p>### Quality Improvement
+- <strong>User Feedback</strong>: Incorporate user feedback for improvements
+- <strong>Analytics</strong>: Use documentation usage analytics
+- <strong>A/B Testing</strong>: Test documentation improvements
+- <strong>Standards Evolution</strong>: Update documentation standards</p>
+<p>## Common Challenges and Solutions</p>
+<p>### Challenge: API Evolution
+<strong>Solution</strong>: Implement automated change detection and update processes.</p>
+<p>### Challenge: Documentation Currency
+<strong>Solution</strong>: Maintain tight integration between code and documentation.</p>
+<p>### Challenge: Example Maintenance
+<strong>Solution</strong>: Implement automated example testing and validation.</p>
+<p>### Challenge: Cross-Reference Management
+<strong>Solution</strong>: Use automated cross-reference validation and updating.</p>
+<p>## Getting Started as an Agent</p>
+<p>### Development Setup
+1. <strong>Study API Structure</strong>: Understand current API organization
+2. <strong>Learn Documentation Tools</strong>: Master Sphinx and related tools
+3. <strong>Practice API Documentation</strong>: Practice documenting APIs
+4. <strong>Understand Standards</strong>: Learn API documentation standards</p>
+<p>### Contribution Process
+1. <strong>Identify Documentation Gaps</strong>: Find missing or outdated API documentation
+2. <strong>Research APIs</strong>: Understand API functionality and usage
+3. <strong>Document APIs</strong>: Follow documentation standards
+4. <strong>Create Examples</strong>: Add practical usage examples
+5. <strong>Review and Validate</strong>: Ensure accuracy and completeness
+6. <strong>Submit Changes</strong>: Follow contribution process</p>
+<p>### Learning Resources
+- <strong>API Documentation</strong>: Study API documentation best practices
+- <strong>Technical Writing</strong>: Learn technical writing principles
+- <strong>Code Analysis</strong>: Practice analyzing code for documentation
+- <strong>Example Creation</strong>: Master creating effective code examples
+- <strong>Review Processes</strong>: Learn documentation review techniques</p>
+<p>## Related Documentation</p>
+<ul class="simple">
+<li><p><strong>[API README](./README.md)</strong>: API documentation module overview</p></li>
+<li><p><strong>[Documentation AGENTS.md](../AGENTS.md)</strong>: Documentation module guidelines</p></li>
+<li><p><strong>[Main AGENTS.md](../../AGENTS.md)</strong>: Project-wide agent guidelines</p></li>
+<li><p><strong>[Contributing Guide](../../CONTRIBUTING.md)</strong>: Contribution processes</p></li>
+<li><p><strong>[Platform Documentation](../../platform/)</strong>: Platform APIs</p></li>
+</ul>
+<p>—</p>
+<p><em>“Active Inference for, with, by Generative AI”</em> - Enabling seamless integration through comprehensive, well-documented APIs and clear integration patterns.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

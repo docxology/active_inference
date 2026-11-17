@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.research.benchmarks &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.research.benchmarks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.research.benchmarks</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Research Framework - Benchmarking Suite</span>
+
+<span class="sd">Standardized evaluation metrics and benchmarking tools for Active Inference models.</span>
+<span class="sd">Provides comprehensive performance evaluation, comparison frameworks, and</span>
+<span class="sd">standardized testing protocols.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MetricType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Types of performance metrics"""</span>
+
+    <span class="n">ACCURACY</span> <span class="o">=</span> <span class="s2">"accuracy"</span>
+    <span class="n">PRECISION</span> <span class="o">=</span> <span class="s2">"precision"</span>
+    <span class="n">RECALL</span> <span class="o">=</span> <span class="s2">"recall"</span>
+    <span class="n">F1_SCORE</span> <span class="o">=</span> <span class="s2">"f1_score"</span>
+    <span class="n">FREE_ENERGY</span> <span class="o">=</span> <span class="s2">"free_energy"</span>
+    <span class="n">CONVERGENCE_TIME</span> <span class="o">=</span> <span class="s2">"convergence_time"</span>
+    <span class="n">COMPUTATIONAL_COST</span> <span class="o">=</span> <span class="s2">"computational_cost"</span>
+    <span class="n">INFORMATION_EFFICIENCY</span> <span class="o">=</span> <span class="s2">"information_efficiency"</span>
+
+
+<div class="viewcode-block" id="PerformanceMetrics">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.PerformanceMetrics">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PerformanceMetrics</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Container for performance metrics"""</span>
+
+    <span class="n">accuracy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">precision</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">recall</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">f1_score</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">free_energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">convergence_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">computational_cost</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">information_efficiency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<div class="viewcode-block" id="PerformanceMetrics.to_dict">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.PerformanceMetrics.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Convert to dictionary"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"accuracy"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy</span><span class="p">,</span>
+            <span class="s2">"precision"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">,</span>
+            <span class="s2">"recall"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">recall</span><span class="p">,</span>
+            <span class="s2">"f1_score"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">f1_score</span><span class="p">,</span>
+            <span class="s2">"free_energy"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">free_energy</span><span class="p">,</span>
+            <span class="s2">"convergence_time"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">convergence_time</span><span class="p">,</span>
+            <span class="s2">"computational_cost"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">computational_cost</span><span class="p">,</span>
+            <span class="s2">"information_efficiency"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">information_efficiency</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="BenchmarkSuite">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.BenchmarkSuite">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BenchmarkSuite</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Comprehensive benchmarking suite for model evaluation"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PerformanceMetrics</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baselines</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PerformanceMetrics</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"BenchmarkSuite initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BenchmarkSuite.register_baseline">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.BenchmarkSuite.register_baseline">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">register_baseline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">metrics</span><span class="p">:</span> <span class="n">PerformanceMetrics</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Register baseline performance for a model"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baselines</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Registered baseline for </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BenchmarkSuite.evaluate_model">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.BenchmarkSuite.evaluate_model">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_model</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">evaluation_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+        <span class="n">test_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PerformanceMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Evaluate a model using standardized metrics"""</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Evaluating model: </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="c1"># Run evaluation</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">evaluation_function</span><span class="p">(</span><span class="n">test_data</span> <span class="ow">or</span> <span class="p">{})</span>
+
+        <span class="n">evaluation_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+        <span class="c1"># Extract metrics from results</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="n">PerformanceMetrics</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"accuracy"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"precision"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">recall</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"recall"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">f1_score</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"f1_score"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">free_energy</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">convergence_time</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"convergence_time"</span><span class="p">,</span> <span class="n">evaluation_time</span><span class="p">)</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">computational_cost</span> <span class="o">=</span> <span class="n">evaluation_time</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">information_efficiency</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"information_efficiency"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metrics</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Model </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> evaluation completed in </span><span class="si">{</span><span class="n">evaluation_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s"</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">metrics</span></div>
+
+
+<div class="viewcode-block" id="BenchmarkSuite.compare_models">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.BenchmarkSuite.compare_models">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compare_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compare performance across multiple models"""</span>
+        <span class="n">comparison</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"models"</span><span class="p">:</span> <span class="n">model_names</span><span class="p">,</span>
+            <span class="s2">"rankings"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"improvements"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"summary"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">comparison</span>
+
+        <span class="c1"># Rank models by each metric</span>
+        <span class="k">for</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">PerformanceMetrics</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">metric_name</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">model_names</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span>
+            <span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+                <span class="c1"># Sort by metric value (higher is better for most metrics)</span>
+                <span class="n">sorted_values</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">comparison</span><span class="p">[</span><span class="s2">"rankings"</span><span class="p">][</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sorted_values</span>
+
+        <span class="c1"># Calculate improvements over baselines</span>
+        <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">model_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="ow">and</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">baselines</span><span class="p">:</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+                <span class="n">baseline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">baselines</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+
+                <span class="n">improvements</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">PerformanceMetrics</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">current_val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+                    <span class="n">baseline_val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">baseline</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">baseline_val</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">improvement</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="p">(</span><span class="n">current_val</span> <span class="o">-</span> <span class="n">baseline_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">baseline_val</span>
+                        <span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">improvement</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+                    <span class="n">improvements</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="n">improvement</span>
+
+                <span class="n">comparison</span><span class="p">[</span><span class="s2">"improvements"</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">improvements</span>
+
+        <span class="c1"># Generate summary</span>
+        <span class="n">comparison</span><span class="p">[</span><span class="s2">"summary"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"total_models"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_names</span><span class="p">),</span>
+            <span class="s2">"evaluated_models"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">model_names</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">]</span>
+            <span class="p">),</span>
+            <span class="s2">"best_overall"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_determine_best_model</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">comparison</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_determine_best_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Determine the best performing model overall"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Simple scoring: average normalized metrics</span>
+        <span class="n">scores</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"accuracy"</span><span class="p">,</span> <span class="s2">"precision"</span><span class="p">,</span> <span class="s2">"recall"</span><span class="p">,</span> <span class="s2">"f1_score"</span><span class="p">]:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">score</span> <span class="o">+=</span> <span class="n">value</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">scores</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span> <span class="o">/</span> <span class="n">count</span>
+
+        <span class="k">if</span> <span class="n">scores</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">name</span><span class="p">:</span> <span class="n">scores</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BenchmarkSuite.generate_report">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.BenchmarkSuite.generate_report">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"dict"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate comprehensive benchmark report"""</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"timestamp"</span><span class="p">:</span> <span class="s2">"2024-10-27T12:00:00"</span><span class="p">,</span>
+            <span class="s2">"total_models"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">),</span>
+            <span class="s2">"baselines"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">name</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">baselines</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">},</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">name</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">},</span>
+            <span class="s2">"comparison"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare_models</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">())),</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">report</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

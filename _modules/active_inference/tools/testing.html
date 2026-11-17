@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.tools.testing &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.tools.testing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.tools.testing</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Tools - Testing Framework</span>
+
+<span class="sd">Comprehensive testing framework for Active Inference components and applications.</span>
+<span class="sd">Provides unit testing, integration testing, performance testing, and quality</span>
+<span class="sd">assurance tools for ensuring reliable and robust implementations.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Result of a test execution"""</span>
+
+    <span class="n">test_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">status</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># passed, failed, error, skipped</span>
+    <span class="n">execution_time</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">error_message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">traceback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="TestRunner">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestRunner">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestRunner</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Runs and manages test execution"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TestResult</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"TestRunner initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TestRunner.run_test">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestRunner.run_test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">test_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Run a single test function"""</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Running test: </span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">TestResult</span><span class="p">(</span><span class="n">test_name</span><span class="o">=</span><span class="n">test_name</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">"pending"</span><span class="p">,</span> <span class="n">execution_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Run the test</span>
+            <span class="n">test_function</span><span class="p">()</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">"passed"</span>
+
+        <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">"failed"</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">error_message</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">"error"</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">error_message</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">traceback</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">execution_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Test </span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2"> completed: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">" (</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">execution_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s)"</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="TestRunner.run_test_class">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestRunner.run_test_class">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_test_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TestResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Run all tests in a test class"""</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Running test class: </span><span class="si">{</span><span class="n">test_class</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Get all test methods</span>
+        <span class="n">test_methods</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">method</span>
+            <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">test_class</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"test_"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">test_class</span><span class="p">,</span> <span class="n">method</span><span class="p">))</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Create instance</span>
+        <span class="n">test_instance</span> <span class="o">=</span> <span class="n">test_class</span><span class="p">()</span>
+
+        <span class="c1"># Run setup if available</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="s2">"setUp"</span><span class="p">):</span>
+            <span class="n">test_instance</span><span class="o">.</span><span class="n">setUp</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Run each test method</span>
+            <span class="k">for</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">test_methods</span><span class="p">:</span>
+                <span class="n">test_function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_test</span><span class="p">(</span>
+                    <span class="n">test_function</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">test_class</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Run teardown if available</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">test_instance</span><span class="p">,</span> <span class="s2">"tearDown"</span><span class="p">):</span>
+                <span class="n">test_instance</span><span class="o">.</span><span class="n">tearDown</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Test class </span><span class="si">{</span><span class="n">test_class</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> completed:"</span>
+            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="nb">len</span><span class="p">([</span><span class="n">r</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">r</span><span class="o">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'passed'</span><span class="p">])</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="s2">" passed"</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="TestRunner.run_test_suite">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestRunner.run_test_suite">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_test_suite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Run a complete test suite"""</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Running test suite with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_modules</span><span class="p">)</span><span class="si">}</span><span class="s2"> modules"</span><span class="p">)</span>
+
+        <span class="n">all_results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">suite_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="n">test_modules</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Import test module</span>
+                <span class="n">module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="s2">""</span><span class="p">])</span>
+
+                <span class="c1"># Find test classes</span>
+                <span class="n">test_classes</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">obj</span>
+                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="n">obj</span> <span class="o">!=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span>
+                    <span class="p">)</span>
+                <span class="p">]</span>
+
+                <span class="c1"># Run each test class</span>
+                <span class="k">for</span> <span class="n">test_class</span> <span class="ow">in</span> <span class="n">test_classes</span><span class="p">:</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_test_class</span><span class="p">(</span><span class="n">test_class</span><span class="p">)</span>
+                    <span class="n">all_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to run test module </span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">all_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">TestResult</span><span class="p">(</span>
+                        <span class="n">test_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"module_</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                        <span class="n">status</span><span class="o">=</span><span class="s2">"error"</span><span class="p">,</span>
+                        <span class="n">execution_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                        <span class="n">error_message</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="n">suite_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">suite_start_time</span>
+
+        <span class="c1"># Generate summary</span>
+        <span class="n">passed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">all_results</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">"passed"</span><span class="p">])</span>
+        <span class="n">failed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">all_results</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">"failed"</span><span class="p">])</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">all_results</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">"error"</span><span class="p">])</span>
+
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"total_tests"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_results</span><span class="p">),</span>
+            <span class="s2">"passed"</span><span class="p">:</span> <span class="n">passed</span><span class="p">,</span>
+            <span class="s2">"failed"</span><span class="p">:</span> <span class="n">failed</span><span class="p">,</span>
+            <span class="s2">"errors"</span><span class="p">:</span> <span class="n">errors</span><span class="p">,</span>
+            <span class="s2">"success_rate"</span><span class="p">:</span> <span class="n">passed</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_results</span><span class="p">)</span> <span class="k">if</span> <span class="n">all_results</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"total_time"</span><span class="p">:</span> <span class="n">suite_time</span><span class="p">,</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="n">all_results</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Test suite completed: </span><span class="si">{</span><span class="n">summary</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">summary</span></div>
+
+
+<div class="viewcode-block" id="TestRunner.generate_report">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestRunner.generate_report">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate test report"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_results</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"No test results to report"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">report</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"timestamp"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">"total_tests"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_results</span><span class="p">),</span>
+            <span class="s2">"results_by_status"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"test_name"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">test_name</span><span class="p">,</span>
+                    <span class="s2">"status"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+                    <span class="s2">"execution_time"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">execution_time</span><span class="p">,</span>
+                    <span class="s2">"error_message"</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">error_message</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_results</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Count by status</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_results</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">status</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">report</span><span class="p">[</span><span class="s2">"results_by_status"</span><span class="p">]:</span>
+                <span class="n">report</span><span class="p">[</span><span class="s2">"results_by_status"</span><span class="p">][</span><span class="n">status</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">report</span><span class="p">[</span><span class="s2">"results_by_status"</span><span class="p">][</span><span class="n">status</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Save report</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Test report saved to </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to save test report: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="QualityAssurance">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.QualityAssurance">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">QualityAssurance</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Quality assurance and validation tools"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validation_rules</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_validation_rules</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"QualityAssurance initialized"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_validation_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize validation rules"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validation_rules</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"probability_distribution"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_probability_distribution</span><span class="p">,</span>
+            <span class="s2">"numerical_stability"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_numerical_stability</span><span class="p">,</span>
+            <span class="s2">"parameter_ranges"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_parameter_ranges</span><span class="p">,</span>
+            <span class="s2">"data_integrity"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_data_integrity</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_probability_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate that data forms a valid probability distribution"""</span>
+        <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Empty distribution"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span><span class="p">}</span>
+
+        <span class="c1"># Check for negative values</span>
+        <span class="n">negative_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">negative_indices</span><span class="p">:</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Negative values at indices: </span><span class="si">{</span><span class="n">negative_indices</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check normalization</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">total</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+            <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Distribution does not sum to 1.0 (sum = </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span><span class="p">,</span>
+            <span class="s2">"sum"</span><span class="p">:</span> <span class="n">total</span><span class="p">,</span>
+            <span class="s2">"min_value"</span><span class="p">:</span> <span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+            <span class="s2">"max_value"</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_numerical_stability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate numerical stability of computations"""</span>
+        <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Check for NaN values</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"NaN value in </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">value</span><span class="p">)):</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"NaN values in </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check for infinite values</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Infinite value in </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">value</span><span class="p">)):</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Infinite values in </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check for extremely large values</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e10</span><span class="p">:</span>
+                <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Extremely large value in </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e10</span><span class="p">):</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Extremely large values in </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span><span class="p">,</span>
+            <span class="s2">"numerically_stable"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_parameter_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate parameter ranges"""</span>
+        <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Common parameter validations</span>
+        <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">param_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"_rate"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">param_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"_learning_rate"</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Learning rate </span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s2"> should be in (0, 1], got </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">param_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"_temperature"</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Temperature </span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s2"> should be positive, got </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">param_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"_precision"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">param_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span>
+                <span class="s2">"_inverse_temperature"</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Precision </span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s2"> should be positive, got </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span><span class="p">,</span>
+            <span class="s2">"parameters_checked"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_data_integrity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate data integrity"""</span>
+        <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Check for missing required fields</span>
+        <span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"timestamp"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">required_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required field: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check data consistency</span>
+        <span class="k">if</span> <span class="s2">"data"</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">data_field</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"data"</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_field</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="c1"># Check for consistent key types</span>
+                <span class="n">key_types</span> <span class="o">=</span> <span class="p">{</span><span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">data_field</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_types</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Inconsistent key types in data: </span><span class="si">{</span><span class="n">key_types</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_field</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="c1"># Check for consistent item types</span>
+                <span class="k">if</span> <span class="n">data_field</span><span class="p">:</span>
+                    <span class="n">item_types</span> <span class="o">=</span> <span class="p">{</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data_field</span><span class="p">}</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_types</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"Inconsistent item types in data list: </span><span class="si">{</span><span class="n">item_types</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span><span class="p">,</span>
+            <span class="s2">"data_integrity_ok"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="QualityAssurance.validate_component">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.QualityAssurance.validate_component">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_component</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">component_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">component_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">validation_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate a component using specified validation rules"""</span>
+        <span class="k">if</span> <span class="n">validation_types</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">validation_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">validation_rules</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Validating component </span><span class="si">{</span><span class="n">component_name</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">validation_types</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="s2">" validation types"</span>
+        <span class="p">)</span>
+
+        <span class="n">validation_results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">validation_type</span> <span class="ow">in</span> <span class="n">validation_types</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">validation_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">validation_rules</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validation_rules</span><span class="p">[</span><span class="n">validation_type</span><span class="p">](</span><span class="n">component_data</span><span class="p">)</span>
+                    <span class="n">validation_results</span><span class="p">[</span><span class="n">validation_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation </span><span class="si">{</span><span class="n">validation_type</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                    <span class="n">validation_results</span><span class="p">[</span><span class="n">validation_type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                        <span class="s2">"error"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+                    <span class="p">}</span>
+
+        <span class="c1"># Overall validation</span>
+        <span class="n">overall_valid</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"valid"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">validation_results</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"component"</span><span class="p">:</span> <span class="n">component_name</span><span class="p">,</span>
+            <span class="s2">"overall_valid"</span><span class="p">:</span> <span class="n">overall_valid</span><span class="p">,</span>
+            <span class="s2">"validation_results"</span><span class="p">:</span> <span class="n">validation_results</span><span class="p">,</span>
+            <span class="s2">"validation_types"</span><span class="p">:</span> <span class="n">validation_types</span><span class="p">,</span>
+            <span class="s2">"timestamp"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TestingFramework">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestingFramework">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestingFramework</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main testing framework coordinating all testing activities"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_runner</span> <span class="o">=</span> <span class="n">TestRunner</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"runner"</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_assurance</span> <span class="o">=</span> <span class="n">QualityAssurance</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"qa"</span><span class="p">,</span> <span class="p">{}))</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"TestingFramework initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TestingFramework.run_tests">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestingFramework.run_tests">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_tests</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Run complete test suite"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_runner</span><span class="o">.</span><span class="n">run_test_suite</span><span class="p">(</span><span class="n">test_modules</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestingFramework.validate_model">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestingFramework.validate_model">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_model</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate an Active Inference model"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_assurance</span><span class="o">.</span><span class="n">validate_component</span><span class="p">(</span>
+            <span class="n">model_name</span><span class="p">,</span>
+            <span class="n">model_data</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">"numerical_stability"</span><span class="p">,</span> <span class="s2">"parameter_ranges"</span><span class="p">,</span> <span class="s2">"probability_distribution"</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestingFramework.run_performance_test">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestingFramework.run_performance_test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_performance_test</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">test_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">test_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Run performance test"""</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Running performance test: </span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">iterations</span><span class="si">}</span><span class="s2"> iterations)"</span><span class="p">)</span>
+
+        <span class="n">execution_times</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">test_function</span><span class="p">()</span>
+                <span class="n">execution_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+                <span class="n">execution_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">execution_time</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Performance test iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">execution_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">))</span>  <span class="c1"># Mark as failed</span>
+
+        <span class="c1"># Compute statistics</span>
+        <span class="n">valid_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">execution_times</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="n">valid_times</span><span class="p">:</span>
+            <span class="n">performance_stats</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"test_name"</span><span class="p">:</span> <span class="n">test_name</span><span class="p">,</span>
+                <span class="s2">"iterations"</span><span class="p">:</span> <span class="n">iterations</span><span class="p">,</span>
+                <span class="s2">"successful_iterations"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_times</span><span class="p">),</span>
+                <span class="s2">"failed_iterations"</span><span class="p">:</span> <span class="n">iterations</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_times</span><span class="p">),</span>
+                <span class="s2">"min_time"</span><span class="p">:</span> <span class="nb">min</span><span class="p">(</span><span class="n">valid_times</span><span class="p">),</span>
+                <span class="s2">"max_time"</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">valid_times</span><span class="p">),</span>
+                <span class="s2">"mean_time"</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">valid_times</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_times</span><span class="p">),</span>
+                <span class="s2">"median_time"</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">valid_times</span><span class="p">)[</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_times</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="s2">"total_time"</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">valid_times</span><span class="p">),</span>
+                <span class="s2">"throughput"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">valid_times</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">valid_times</span><span class="p">)</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">valid_times</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">performance_stats</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"test_name"</span><span class="p">:</span> <span class="n">test_name</span><span class="p">,</span>
+                <span class="s2">"iterations"</span><span class="p">:</span> <span class="n">iterations</span><span class="p">,</span>
+                <span class="s2">"successful_iterations"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"failed_iterations"</span><span class="p">:</span> <span class="n">iterations</span><span class="p">,</span>
+                <span class="s2">"error"</span><span class="p">:</span> <span class="s2">"All iterations failed"</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Performance test completed: </span><span class="si">{</span><span class="n">performance_stats</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">performance_stats</span></div>
+
+
+<div class="viewcode-block" id="TestingFramework.generate_test_report">
+<a class="viewcode-back" href="../../../api/tools.html#active_inference.tools.TestingFramework.generate_test_report">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_test_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate comprehensive test report"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_runner</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

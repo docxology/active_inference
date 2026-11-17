@@ -1,0 +1,941 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.visualization.animations &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.visualization.animations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.visualization.animations</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Visualization Engine - Educational Animations</span>
+
+<span class="sd">Animated visualizations for explaining Active Inference concepts and processes.</span>
+<span class="sd">Provides step-by-step animations, process demonstrations, and interactive</span>
+<span class="sd">learning experiences for complex theoretical concepts.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="AnimationType">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AnimationType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Types of animations supported"""</span>
+
+    <span class="n">STEP_BY_STEP</span> <span class="o">=</span> <span class="s2">"step_by_step"</span>
+    <span class="n">CONTINUOUS</span> <span class="o">=</span> <span class="s2">"continuous"</span>
+    <span class="n">INTERACTIVE</span> <span class="o">=</span> <span class="s2">"interactive"</span>
+    <span class="n">TRANSITION</span> <span class="o">=</span> <span class="s2">"transition"</span>
+    <span class="n">DEMONSTRATION</span> <span class="o">=</span> <span class="s2">"demonstration"</span></div>
+
+
+
+<div class="viewcode-block" id="AnimationFrame">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationFrame">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AnimationFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Represents a single frame in an animation"""</span>
+
+    <span class="n">frame_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">components</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">narration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">highlights</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">highlights</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+
+<div class="viewcode-block" id="AnimationSequence">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationSequence">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AnimationSequence</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Complete animation sequence"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">frames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AnimationFrame</span><span class="p">]</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span>  <span class="c1"># total duration in seconds</span>
+    <span class="n">frame_rate</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>
+
+<div class="viewcode-block" id="AnimationSequence.get_frame_at_time">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationSequence.get_frame_at_time">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_frame_at_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AnimationFrame</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get frame at specific time"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">frame_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames</span><span class="p">))</span>
+        <span class="n">frame_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">frame_index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frames</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">frames</span><span class="p">[</span><span class="n">frame_index</span><span class="p">]</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ProcessAnimation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ProcessAnimation">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProcessAnimation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Animations for Active Inference processes"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">AnimationSequence</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="ProcessAnimation.create_perception_action_cycle">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ProcessAnimation.create_perception_action_cycle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_perception_action_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnimationSequence</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create animation of the perception-action cycle"""</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Frame 1: Initial state</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"sensory_input"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"intensity"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                    <span class="s2">"generative_model"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"beliefs"</span><span class="p">:</span> <span class="p">[]},</span>
+                    <span class="s2">"prediction"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                    <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"selection"</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Starting the perception-action cycle"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 2: Sensory input</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"sensory_input"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"intensity"</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">},</span>
+                    <span class="s2">"generative_model"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"beliefs"</span><span class="p">:</span> <span class="p">[]},</span>
+                    <span class="s2">"prediction"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                    <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"selection"</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Sensory input is received"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"sensory_input"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 3: Model generates prediction</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"sensory_input"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"intensity"</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">},</span>
+                    <span class="s2">"generative_model"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="s2">"beliefs"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"belief_1"</span><span class="p">,</span> <span class="s2">"belief_2"</span><span class="p">],</span>
+                    <span class="p">},</span>
+                    <span class="s2">"prediction"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">},</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                    <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"selection"</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Generative model creates prediction"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"prediction"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 4: Prediction error computed</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"sensory_input"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"intensity"</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">},</span>
+                    <span class="s2">"generative_model"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="s2">"beliefs"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"belief_1"</span><span class="p">,</span> <span class="s2">"belief_2"</span><span class="p">],</span>
+                    <span class="p">},</span>
+                    <span class="s2">"prediction"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">},</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
+                    <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"selection"</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Prediction error is calculated"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"prediction_error"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 5: Action selection</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"sensory_input"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"intensity"</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">},</span>
+                    <span class="s2">"generative_model"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="s2">"beliefs"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"belief_1"</span><span class="p">,</span> <span class="s2">"belief_2"</span><span class="p">],</span>
+                    <span class="p">},</span>
+                    <span class="s2">"prediction"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">},</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
+                    <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"selection"</span><span class="p">:</span> <span class="s2">"action_1"</span><span class="p">},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Action is selected to minimize free energy"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"action"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">AnimationSequence</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"perception_action_cycle"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Perception-Action Cycle"</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">"Animation showing the complete perception-action cycle in Active"</span>
+                <span class="s2">" Inference"</span>
+            <span class="p">),</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+            <span class="n">frame_rate</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProcessAnimation.create_belief_updating_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ProcessAnimation.create_belief_updating_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_belief_updating_animation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">initial_belief</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">observations</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnimationSequence</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create animation showing belief updating process"""</span>
+        <span class="k">if</span> <span class="n">initial_belief</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_belief</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>  <span class="c1"># Example belief distribution</span>
+        <span class="k">if</span> <span class="n">observations</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">observations</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>  <span class="c1"># Example observation</span>
+
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Initial state</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"belief_distribution"</span><span class="p">:</span> <span class="n">initial_belief</span><span class="p">,</span>
+                    <span class="s2">"observation"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                    <span class="s2">"updated_belief"</span><span class="p">:</span> <span class="n">initial_belief</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Initial belief state before observation"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Observation received</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"belief_distribution"</span><span class="p">:</span> <span class="n">initial_belief</span><span class="p">,</span>
+                    <span class="s2">"observation"</span><span class="p">:</span> <span class="n">observations</span><span class="p">,</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                    <span class="s2">"updated_belief"</span><span class="p">:</span> <span class="n">initial_belief</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Observation received"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"observation"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Prediction error calculation</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="n">initial_belief</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">prediction_error</span> <span class="o">=</span> <span class="p">[</span><span class="n">obs</span> <span class="o">-</span> <span class="n">pred</span> <span class="k">for</span> <span class="n">obs</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">observations</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)]</span>
+
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"belief_distribution"</span><span class="p">:</span> <span class="n">initial_belief</span><span class="p">,</span>
+                    <span class="s2">"observation"</span><span class="p">:</span> <span class="n">observations</span><span class="p">,</span>
+                    <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="n">prediction_error</span><span class="p">,</span>
+                    <span class="s2">"updated_belief"</span><span class="p">:</span> <span class="n">initial_belief</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Prediction error calculated"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"prediction_error"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Belief updating with different learning rates</span>
+        <span class="n">learning_rates</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">learning_rates</span><span class="p">):</span>
+            <span class="n">updated_belief</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">belief</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">error</span>
+                <span class="k">for</span> <span class="n">belief</span><span class="p">,</span> <span class="n">error</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">initial_belief</span><span class="p">,</span> <span class="n">prediction_error</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="c1"># Normalize to ensure valid probability distribution</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">updated_belief</span><span class="p">)</span>
+            <span class="n">updated_belief</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="o">/</span> <span class="n">total</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">updated_belief</span><span class="p">]</span>
+
+            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">AnimationFrame</span><span class="p">(</span>
+                    <span class="n">frame_id</span><span class="o">=</span><span class="mi">3</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span>
+                    <span class="n">timestamp</span><span class="o">=</span><span class="mf">3.0</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span>
+                    <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">"belief_distribution"</span><span class="p">:</span> <span class="n">initial_belief</span><span class="p">,</span>
+                        <span class="s2">"observation"</span><span class="p">:</span> <span class="n">observations</span><span class="p">,</span>
+                        <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="n">prediction_error</span><span class="p">,</span>
+                        <span class="s2">"updated_belief"</span><span class="p">:</span> <span class="n">updated_belief</span><span class="p">,</span>
+                        <span class="s2">"learning_rate"</span><span class="p">:</span> <span class="n">alpha</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="n">narration</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Belief update with learning rate α=</span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"updated_belief"</span><span class="p">],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">AnimationSequence</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"belief_updating"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Belief Updating Process"</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">"Animation showing Bayesian belief updating with different learning"</span>
+                <span class="s2">" rates"</span>
+            <span class="p">),</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+            <span class="n">frame_rate</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProcessAnimation.create_multi_agent_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ProcessAnimation.create_multi_agent_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_multi_agent_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_agents</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnimationSequence</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create animation showing multi-agent Active Inference interactions"""</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Initialize agent states</span>
+        <span class="n">agent_states</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">"beliefs"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="s2">"action"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"reward"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_agents</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Frame 1: Initial state</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"agents"</span><span class="p">:</span> <span class="n">agent_states</span><span class="p">,</span>
+                    <span class="s2">"environment"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="s2">"neutral"</span><span class="p">,</span> <span class="s2">"shared_info"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                    <span class="s2">"communication"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"messages"</span><span class="p">:</span> <span class="p">[]},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Initial state of multi-agent system"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 2: Environment change</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"agents"</span><span class="p">:</span> <span class="n">agent_states</span><span class="p">,</span>
+                    <span class="s2">"environment"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="s2">"changed"</span><span class="p">,</span> <span class="s2">"shared_info"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">},</span>
+                    <span class="s2">"communication"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"messages"</span><span class="p">:</span> <span class="p">[]},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Environment state changes, affecting all agents"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"environment"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 3: Individual agent updates</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_agents</span><span class="p">):</span>
+            <span class="n">updated_belief</span> <span class="o">=</span> <span class="n">agent_states</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">"beliefs"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="c1"># Simulate belief update based on environment change</span>
+            <span class="n">updated_belief</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.2</span>  <span class="c1"># Increase belief in first state</span>
+            <span class="n">updated_belief</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">0.1</span>  <span class="c1"># Decrease belief in second state</span>
+            <span class="n">updated_belief</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">0.1</span>  <span class="c1"># Decrease belief in third state</span>
+            <span class="c1"># Normalize</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">updated_belief</span><span class="p">)</span>
+            <span class="n">updated_belief</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="o">/</span> <span class="n">total</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">updated_belief</span><span class="p">]</span>
+
+            <span class="n">agent_states</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">"beliefs"</span><span class="p">]</span> <span class="o">=</span> <span class="n">updated_belief</span>
+
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"agents"</span><span class="p">:</span> <span class="n">agent_states</span><span class="p">,</span>
+                    <span class="s2">"environment"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="s2">"changed"</span><span class="p">,</span> <span class="s2">"shared_info"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">},</span>
+                    <span class="s2">"communication"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"messages"</span><span class="p">:</span> <span class="p">[]},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Agents update their beliefs individually"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"agents"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 4: Communication phase</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">"sender"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"receiver"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">agent_states</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"beliefs"</span><span class="p">]},</span>
+            <span class="p">{</span><span class="s2">"sender"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"receiver"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">agent_states</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"beliefs"</span><span class="p">]},</span>
+        <span class="p">]</span>
+
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"agents"</span><span class="p">:</span> <span class="n">agent_states</span><span class="p">,</span>
+                    <span class="s2">"environment"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="s2">"changed"</span><span class="p">,</span> <span class="s2">"shared_info"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">},</span>
+                    <span class="s2">"communication"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"messages"</span><span class="p">:</span> <span class="n">messages</span><span class="p">},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Agents communicate and share information"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"communication"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 5: Coordinated action</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_agents</span><span class="p">):</span>
+            <span class="n">agent_states</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">"action"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"coordinate"</span>
+
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">"agents"</span><span class="p">:</span> <span class="n">agent_states</span><span class="p">,</span>
+                    <span class="s2">"environment"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"state"</span><span class="p">:</span> <span class="s2">"changed"</span><span class="p">,</span> <span class="s2">"shared_info"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">},</span>
+                    <span class="s2">"communication"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"active"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"messages"</span><span class="p">:</span> <span class="n">messages</span><span class="p">},</span>
+                <span class="p">},</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Agents coordinate actions based on shared understanding"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"agents"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">AnimationSequence</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"multi_agent_interaction"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Multi-Agent Active Inference"</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">"Animation showing coordinated belief updating and action selection in"</span>
+                <span class="s2">" multi-agent systems"</span>
+            <span class="p">),</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+            <span class="n">frame_rate</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProcessAnimation.create_neural_network_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ProcessAnimation.create_neural_network_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_neural_network_animation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnimationSequence</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create animation showing Active Inference in neural networks"""</span>
+        <span class="k">if</span> <span class="n">layers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1"># Example network architecture</span>
+
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Initialize network state</span>
+        <span class="n">network_state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"input_layer"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">"hidden_layers"</span><span class="p">:</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">size</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+            <span class="s2">"output_layer"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s2">"weights"</span><span class="p">:</span> <span class="s2">"initial"</span><span class="p">,</span>
+            <span class="s2">"activation"</span><span class="p">:</span> <span class="s2">"none"</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Frame 1: Network initialization</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">network_state</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Neural network initialized for Active Inference"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 2: Forward pass (perception)</span>
+        <span class="n">network_state</span><span class="p">[</span><span class="s2">"activation"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"forward"</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">network_state</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Forward pass: Processing sensory input"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"input_layer"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 3: Prediction generation</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">network_state</span><span class="p">[</span><span class="s2">"hidden_layers"</span><span class="p">])):</span>
+            <span class="n">network_state</span><span class="p">[</span><span class="s2">"hidden_layers"</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">network_state</span><span class="p">[</span><span class="s2">"hidden_layers"</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">network_state</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Generating predictions in hidden layers"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"hidden_layers"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 4: Output prediction</span>
+        <span class="n">network_state</span><span class="p">[</span><span class="s2">"output_layer"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">network_state</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Output layer generates predictions"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"output_layer"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 5: Prediction error and learning</span>
+        <span class="n">network_state</span><span class="p">[</span><span class="s2">"weights"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"updating"</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">network_state</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Updating weights to minimize prediction error"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"weights"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 6: Free energy minimization</span>
+        <span class="n">network_state</span><span class="p">[</span><span class="s2">"activation"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"minimizing"</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">network_state</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Free energy minimization through weight updates"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"activation"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">AnimationSequence</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"neural_network_ai"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Neural Network Active Inference"</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">"Animation showing Active Inference principles in neural network"</span>
+                <span class="s2">" processing"</span>
+            <span class="p">),</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+            <span class="n">frame_rate</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProcessAnimation.create_information_flow_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ProcessAnimation.create_information_flow_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_information_flow_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnimationSequence</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create animation showing information flow in Active Inference"""</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Initialize information flow components</span>
+        <span class="n">components</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"sensory_input"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"entropy"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+            <span class="s2">"generative_model"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"complexity"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">"accuracy"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span>
+            <span class="s2">"prediction"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"confidence"</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">"information"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
+            <span class="s2">"prediction_error"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"magnitude"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"information_gain"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+            <span class="s2">"free_energy"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">"trend"</span><span class="p">:</span> <span class="s2">"decreasing"</span><span class="p">},</span>
+            <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"selection"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"expected_utility"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Frame 1: Information at rest</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Information flow begins with high uncertainty"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 2: Sensory input received</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"sensory_input"</span><span class="p">][</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.8</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"sensory_input"</span><span class="p">][</span><span class="s2">"entropy"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Sensory input reduces uncertainty"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"sensory_input"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 3: Model processes information</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"generative_model"</span><span class="p">][</span><span class="s2">"accuracy"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.6</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"prediction"</span><span class="p">][</span><span class="s2">"confidence"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Generative model processes sensory information"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"generative_model"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 4: Prediction generated</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"prediction"</span><span class="p">][</span><span class="s2">"information"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Prediction generated with increasing confidence"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"prediction"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 5: Prediction error computed</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"prediction_error"</span><span class="p">][</span><span class="s2">"magnitude"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"prediction_error"</span><span class="p">][</span><span class="s2">"information_gain"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Prediction error provides information gain"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"prediction_error"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 6: Free energy calculated</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">][</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.7</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Free energy quantifies model fit and complexity"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 7: Action selected</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"action"</span><span class="p">][</span><span class="s2">"selection"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"optimal"</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"action"</span><span class="p">][</span><span class="s2">"expected_utility"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.6</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Action selected to minimize free energy"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"action"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Frame 8: Information flow complete</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">][</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span>
+        <span class="n">components</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">][</span><span class="s2">"trend"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"stable"</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">AnimationFrame</span><span class="p">(</span>
+                <span class="n">frame_id</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span>
+                <span class="n">components</span><span class="o">=</span><span class="n">components</span><span class="p">,</span>
+                <span class="n">narration</span><span class="o">=</span><span class="s2">"Information flow stabilizes with reduced free energy"</span><span class="p">,</span>
+                <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">AnimationSequence</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"information_flow"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Information Flow in Active Inference"</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">"Animation showing complete information flow from sensory input to"</span>
+                <span class="s2">" action selection"</span>
+            <span class="p">),</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+            <span class="n">frame_rate</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProcessAnimation.create_free_energy_minimization">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ProcessAnimation.create_free_energy_minimization">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_free_energy_minimization</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnimationSequence</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create animation of free energy minimization"""</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Create frames showing progressive minimization</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">):</span>
+            <span class="n">free_energy_value</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.08</span><span class="p">))</span>  <span class="c1"># Decreasing free energy</span>
+
+            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">AnimationFrame</span><span class="p">(</span>
+                    <span class="n">frame_id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+                    <span class="n">timestamp</span><span class="o">=</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span>
+                    <span class="n">components</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">"free_energy"</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">"value"</span><span class="p">:</span> <span class="n">free_energy_value</span><span class="p">,</span>
+                            <span class="s2">"target"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+                            <span class="s2">"progress"</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">free_energy_value</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.9</span><span class="p">,</span>
+                        <span class="p">},</span>
+                        <span class="s2">"model_updates"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"count"</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s2">"active"</span><span class="p">:</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">},</span>
+                        <span class="s2">"prediction_accuracy"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="nb">min</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.4</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.05</span><span class="p">))},</span>
+                        <span class="s2">"belief_confidence"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="nb">min</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mf">0.06</span><span class="p">))},</span>
+                    <span class="p">},</span>
+                    <span class="n">narration</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Step </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: Free energy = </span><span class="si">{</span><span class="n">free_energy_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">highlights</span><span class="o">=</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">AnimationSequence</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"free_energy_minimization"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Free Energy Minimization"</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">"Animation showing progressive free energy minimization through model"</span>
+                <span class="s2">" updates"</span>
+            <span class="p">),</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+            <span class="n">frame_rate</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AnimationEngine">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationEngine">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AnimationEngine</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main animation engine for educational content"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_animation</span> <span class="o">=</span> <span class="n">ProcessAnimation</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">AnimationSequence</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"AnimationEngine initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AnimationEngine.create_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationEngine.create_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_animation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">animation_type</span><span class="p">:</span> <span class="n">AnimationType</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AnimationFrame</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnimationSequence</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create a new animation sequence"""</span>
+        <span class="n">animation</span> <span class="o">=</span> <span class="n">AnimationSequence</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">animation_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">animation_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> animation: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">frames</span><span class="o">=</span><span class="n">frames</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">if</span> <span class="n">frames</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">frame_rate</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">[</span><span class="n">animation</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">animation</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Created animation: </span><span class="si">{</span><span class="n">animation</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">animation</span></div>
+
+
+<div class="viewcode-block" id="AnimationEngine.get_process_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationEngine.get_process_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_process_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">process</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AnimationSequence</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get a pre-built process animation"""</span>
+        <span class="k">if</span> <span class="n">process</span> <span class="o">==</span> <span class="s2">"perception_action_cycle"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_animation</span><span class="o">.</span><span class="n">create_perception_action_cycle</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">process</span> <span class="o">==</span> <span class="s2">"free_energy_minimization"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_animation</span><span class="o">.</span><span class="n">create_free_energy_minimization</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Process animation not found: </span><span class="si">{</span><span class="n">process</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="AnimationEngine.play_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationEngine.play_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">play_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">animation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Play an animation and return playback info"""</span>
+        <span class="k">if</span> <span class="n">animation_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Animation not found: </span><span class="si">{</span><span class="n">animation_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">[</span><span class="n">animation_id</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"animation_id"</span><span class="p">:</span> <span class="n">animation_id</span><span class="p">,</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">"total_frames"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">animation</span><span class="o">.</span><span class="n">frames</span><span class="p">),</span>
+            <span class="s2">"duration"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">duration</span> <span class="o">/</span> <span class="n">speed</span><span class="p">,</span>
+            <span class="s2">"frame_rate"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">frame_rate</span> <span class="o">*</span> <span class="n">speed</span><span class="p">,</span>
+            <span class="s2">"is_playing"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="AnimationEngine.get_frame_at_time">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationEngine.get_frame_at_time">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_frame_at_time</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">animation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Get animation frame at specific time"""</span>
+        <span class="k">if</span> <span class="n">animation_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">[</span><span class="n">animation_id</span><span class="p">]</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">get_frame_at_time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">frame</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"frame_id"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">frame_id</span><span class="p">,</span>
+                <span class="s2">"timestamp"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                <span class="s2">"components"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">components</span><span class="p">,</span>
+                <span class="s2">"narration"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">narration</span><span class="p">,</span>
+                <span class="s2">"highlights"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">highlights</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="AnimationEngine.export_animation">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.AnimationEngine.export_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_animation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">animation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"json"</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Export animation in specified format"""</span>
+        <span class="k">if</span> <span class="n">animation_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Animation not found: </span><span class="si">{</span><span class="n">animation_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">[</span><span class="n">animation_id</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                <span class="s2">"frames"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"frame_id"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">frame_id</span><span class="p">,</span>
+                        <span class="s2">"timestamp"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                        <span class="s2">"components"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">components</span><span class="p">,</span>
+                        <span class="s2">"narration"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">narration</span><span class="p">,</span>
+                        <span class="s2">"highlights"</span><span class="p">:</span> <span class="n">frame</span><span class="o">.</span><span class="n">highlights</span><span class="p">,</span>
+                    <span class="p">}</span>
+                    <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">animation</span><span class="o">.</span><span class="n">frames</span>
+                <span class="p">],</span>
+                <span class="s2">"duration"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
+                <span class="s2">"frame_rate"</span><span class="p">:</span> <span class="n">animation</span><span class="o">.</span><span class="n">frame_rate</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Export format not supported: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

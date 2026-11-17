@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools API Reference &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tools API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/tools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tools-api-reference">
+<h1>Tools API Reference<a class="headerlink" href="#tools-api-reference" title="Link to this heading"></a></h1>
+<p>The Tools API provides access to development utilities, documentation generation, testing frameworks, orchestration components, and automation tools.</p>
+<p id="module-active_inference.tools">Tools Module</p>
+<p>Development and orchestration tools for the Active Inference Knowledge Environment.
+Provides thin orchestration components, utility functions, testing frameworks,
+and documentation generators for efficient development workflows.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.tools.Orchestrator">
+<span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">Orchestrator</span></span><a class="headerlink" href="#active_inference.tools.Orchestrator" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseOrchestrator</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.Utilities">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">Utilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#Utilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.Utilities" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Main utilities class coordinating all utility functions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.Utilities.process_time_series">
+<span class="sig-name descname"><span class="pre">process_time_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#Utilities.process_time_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.Utilities.process_time_series" title="Link to this definition"></a></dt>
+<dd><p>Process time series data with specified operations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.Utilities.load_and_merge_configs">
+<span class="sig-name descname"><span class="pre">load_and_merge_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">override_config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#Utilities.load_and_merge_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.Utilities.load_and_merge_configs" title="Link to this definition"></a></dt>
+<dd><p>Load and merge configuration files</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.Utilities.backup_and_save">
+<span class="sig-name descname"><span class="pre">backup_and_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">backup_suffix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'.backup'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#Utilities.backup_and_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.Utilities.backup_and_save" title="Link to this definition"></a></dt>
+<dd><p>Backup existing file and save new data</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.HelperFunctions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">HelperFunctions</span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#HelperFunctions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.HelperFunctions" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>General helper functions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.HelperFunctions.format_timestamp">
+<span class="sig-name descname"><span class="pre">format_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#HelperFunctions.format_timestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.HelperFunctions.format_timestamp" title="Link to this definition"></a></dt>
+<dd><p>Format timestamp as ISO string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.HelperFunctions.generate_id">
+<span class="sig-name descname"><span class="pre">generate_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'id'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#HelperFunctions.generate_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.HelperFunctions.generate_id" title="Link to this definition"></a></dt>
+<dd><p>Generate a unique ID</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.HelperFunctions.flatten_dict">
+<span class="sig-name descname"><span class="pre">flatten_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#HelperFunctions.flatten_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.HelperFunctions.flatten_dict" title="Link to this definition"></a></dt>
+<dd><p>Flatten nested dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.HelperFunctions.deep_merge">
+<span class="sig-name descname"><span class="pre">deep_merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#HelperFunctions.deep_merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.HelperFunctions.deep_merge" title="Link to this definition"></a></dt>
+<dd><p>Deep merge two dictionaries</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.DataProcessingTools">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">DataProcessingTools</span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#DataProcessingTools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DataProcessingTools" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Data processing utilities</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DataProcessingTools.normalize_data">
+<span class="sig-name descname"><span class="pre">normalize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'minmax'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#DataProcessingTools.normalize_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DataProcessingTools.normalize_data" title="Link to this definition"></a></dt>
+<dd><p>Normalize data using specified method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DataProcessingTools.smooth_data">
+<span class="sig-name descname"><span class="pre">smooth_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#DataProcessingTools.smooth_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DataProcessingTools.smooth_data" title="Link to this definition"></a></dt>
+<dd><p>Apply moving average smoothing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DataProcessingTools.compute_statistics">
+<span class="sig-name descname"><span class="pre">compute_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#DataProcessingTools.compute_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DataProcessingTools.compute_statistics" title="Link to this definition"></a></dt>
+<dd><p>Compute basic statistics for data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DataProcessingTools.resample_data">
+<span class="sig-name descname"><span class="pre">resample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/utilities.html#DataProcessingTools.resample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DataProcessingTools.resample_data" title="Link to this definition"></a></dt>
+<dd><p>Resample data to target length</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.TestingFramework">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">TestingFramework</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestingFramework"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestingFramework" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Main testing framework coordinating all testing activities</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestingFramework.run_tests">
+<span class="sig-name descname"><span class="pre">run_tests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_modules</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestingFramework.run_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestingFramework.run_tests" title="Link to this definition"></a></dt>
+<dd><p>Run complete test suite</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestingFramework.validate_model">
+<span class="sig-name descname"><span class="pre">validate_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestingFramework.validate_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestingFramework.validate_model" title="Link to this definition"></a></dt>
+<dd><p>Validate an Active Inference model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestingFramework.run_performance_test">
+<span class="sig-name descname"><span class="pre">run_performance_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.15)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestingFramework.run_performance_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestingFramework.run_performance_test" title="Link to this definition"></a></dt>
+<dd><p>Run performance test</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestingFramework.generate_test_report">
+<span class="sig-name descname"><span class="pre">generate_test_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestingFramework.generate_test_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestingFramework.generate_test_report" title="Link to this definition"></a></dt>
+<dd><p>Generate comprehensive test report</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.TestRunner">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">TestRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestRunner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Runs and manages test execution</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestRunner.run_test">
+<span class="sig-name descname"><span class="pre">run_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.15)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TestResult</span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.run_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestRunner.run_test" title="Link to this definition"></a></dt>
+<dd><p>Run a single test function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestRunner.run_test_class">
+<span class="sig-name descname"><span class="pre">run_test_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)"><span class="pre">type</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">TestResult</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.run_test_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestRunner.run_test_class" title="Link to this definition"></a></dt>
+<dd><p>Run all tests in a test class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestRunner.run_test_suite">
+<span class="sig-name descname"><span class="pre">run_test_suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_modules</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.run_test_suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestRunner.run_test_suite" title="Link to this definition"></a></dt>
+<dd><p>Run a complete test suite</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.TestRunner.generate_report">
+<span class="sig-name descname"><span class="pre">generate_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.generate_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.TestRunner.generate_report" title="Link to this definition"></a></dt>
+<dd><p>Generate test report</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.QualityAssurance">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">QualityAssurance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#QualityAssurance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.QualityAssurance" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Quality assurance and validation tools</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.QualityAssurance.validate_component">
+<span class="sig-name descname"><span class="pre">validate_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">component_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validation_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#QualityAssurance.validate_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.QualityAssurance.validate_component" title="Link to this definition"></a></dt>
+<dd><p>Validate a component using specified validation rules</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationGenerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">DocumentationGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DocumentationConfig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationGenerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Comprehensive documentation generator for the Active Inference Knowledge
+Environment.</p>
+<p>Generates API documentation, knowledge base documentation, learning paths,
+concept maps, and various analysis reports.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationGenerator.generate_api_docs">
+<span class="sig-name descname"><span class="pre">generate_api_docs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_api_docs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationGenerator.generate_api_docs" title="Link to this definition"></a></dt>
+<dd><p>Generate API documentation from source code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_dir</strong> – Source code directory to document</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationGenerator.generate_learning_paths">
+<span class="sig-name descname"><span class="pre">generate_learning_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_learning_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationGenerator.generate_learning_paths" title="Link to this definition"></a></dt>
+<dd><p>Generate learning path documentation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationGenerator.generate_concept_maps">
+<span class="sig-name descname"><span class="pre">generate_concept_maps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_concept_maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationGenerator.generate_concept_maps" title="Link to this definition"></a></dt>
+<dd><p>Generate concept map visualizations and documentation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationGenerator.generate_statistics">
+<span class="sig-name descname"><span class="pre">generate_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationGenerator.generate_statistics" title="Link to this definition"></a></dt>
+<dd><p>Generate knowledge repository statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationGenerator.generate_search_index">
+<span class="sig-name descname"><span class="pre">generate_search_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_search_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationGenerator.generate_search_index" title="Link to this definition"></a></dt>
+<dd><p>Generate search index for the knowledge repository</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationGenerator.generate_all_docs">
+<span class="sig-name descname"><span class="pre">generate_all_docs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_all_docs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationGenerator.generate_all_docs" title="Link to this definition"></a></dt>
+<dd><p>Generate all documentation types</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_dir</strong> – Source code directory</p></li>
+<li><p><strong>repo_path</strong> – Knowledge repository path</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationAnalyzer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">DocumentationAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/documentation/analyzer.html#DocumentationAnalyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationAnalyzer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Comprehensive documentation quality analyzer.</p>
+<p>Analyzes docstring quality, coverage, and provides actionable insights
+for improving documentation standards.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationAnalyzer.analyze_documentation">
+<span class="sig-name descname"><span class="pre">analyze_documentation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DocumentationQuality</span></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/analyzer.html#DocumentationAnalyzer.analyze_documentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationAnalyzer.analyze_documentation" title="Link to this definition"></a></dt>
+<dd><p>Perform comprehensive documentation analysis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Complete documentation quality report</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationAnalyzer.generate_quality_report">
+<span class="sig-name descname"><span class="pre">generate_quality_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/analyzer.html#DocumentationAnalyzer.generate_quality_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationAnalyzer.generate_quality_report" title="Link to this definition"></a></dt>
+<dd><p>Generate detailed quality report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_path</strong> – Optional path to save report</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Quality report as string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationAnalyzer.suggest_improvements">
+<span class="sig-name descname"><span class="pre">suggest_improvements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_coverage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">90.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/analyzer.html#DocumentationAnalyzer.suggest_improvements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationAnalyzer.suggest_improvements" title="Link to this definition"></a></dt>
+<dd><p>Suggest specific improvements to reach target coverage</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target_coverage</strong> – Target documentation coverage percentage</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Improvement suggestions</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.RepositoryReviewer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">RepositoryReviewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/documentation/reviewer.html#RepositoryReviewer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.RepositoryReviewer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Comprehensive repository analysis and review system.</p>
+<p>Analyzes code quality, documentation coverage, architectural patterns,
+and provides actionable insights for improvement.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.RepositoryReviewer.analyze_repository">
+<span class="sig-name descname"><span class="pre">analyze_repository</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/reviewer.html#RepositoryReviewer.analyze_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.RepositoryReviewer.analyze_repository" title="Link to this definition"></a></dt>
+<dd><p>Perform comprehensive repository analysis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Complete analysis report</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.RepositoryReviewer.generate_report">
+<span class="sig-name descname"><span class="pre">generate_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/reviewer.html#RepositoryReviewer.generate_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.RepositoryReviewer.generate_report" title="Link to this definition"></a></dt>
+<dd><p>Generate comprehensive analysis report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_path</strong> – Optional path to save report</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Report content as string</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationValidator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">DocumentationValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/documentation/validator.html#DocumentationValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Comprehensive documentation validator.</p>
+<p>Validates documentation against established standards, checks for
+completeness, consistency, and quality issues.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationValidator.validate_documentation">
+<span class="sig-name descname"><span class="pre">validate_documentation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/validator.html#DocumentationValidator.validate_documentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationValidator.validate_documentation" title="Link to this definition"></a></dt>
+<dd><p>Perform comprehensive documentation validation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Complete validation report</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationValidator.generate_validation_report">
+<span class="sig-name descname"><span class="pre">generate_validation_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/validator.html#DocumentationValidator.generate_validation_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationValidator.generate_validation_report" title="Link to this definition"></a></dt>
+<dd><p>Generate detailed validation report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_path</strong> – Optional path to save report</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Validation report as string</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationCLI">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.</span></span><span class="sig-name descname"><span class="pre">DocumentationCLI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/documentation/cli.html#DocumentationCLI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationCLI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Command-line interface for documentation tools.</p>
+<p>Provides commands for generating documentation, analyzing quality,
+validating standards, and reviewing repository health.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationCLI.create_parser">
+<span class="sig-name descname"><span class="pre">create_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.15)"><span class="pre">ArgumentParser</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/cli.html#DocumentationCLI.create_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationCLI.create_parser" title="Link to this definition"></a></dt>
+<dd><p>Create the main argument parser</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.DocumentationCLI.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/cli.html#DocumentationCLI.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.DocumentationCLI.run" title="Link to this definition"></a></dt>
+<dd><p>Run the CLI with given arguments</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – Command line arguments</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Exit code</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="core-classes">
+<h2>Core Classes<a class="headerlink" href="#core-classes" title="Link to this heading"></a></h2>
+<section id="documentationgenerator">
+<h3>DocumentationGenerator<a class="headerlink" href="#documentationgenerator" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.documentation.DocumentationGenerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.documentation.</span></span><span class="sig-name descname"><span class="pre">DocumentationGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DocumentationConfig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.documentation.DocumentationGenerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Comprehensive documentation generator for the Active Inference Knowledge
+Environment.</p>
+<p>Generates API documentation, knowledge base documentation, learning paths,
+concept maps, and various analysis reports.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.documentation.DocumentationGenerator.generate_api_docs">
+<span class="sig-name descname"><span class="pre">generate_api_docs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_api_docs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.documentation.DocumentationGenerator.generate_api_docs" title="Link to this definition"></a></dt>
+<dd><p>Generate API documentation from source code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_dir</strong> – Source code directory to document</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.documentation.DocumentationGenerator.generate_learning_paths">
+<span class="sig-name descname"><span class="pre">generate_learning_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_learning_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.documentation.DocumentationGenerator.generate_learning_paths" title="Link to this definition"></a></dt>
+<dd><p>Generate learning path documentation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.documentation.DocumentationGenerator.generate_concept_maps">
+<span class="sig-name descname"><span class="pre">generate_concept_maps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_concept_maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.documentation.DocumentationGenerator.generate_concept_maps" title="Link to this definition"></a></dt>
+<dd><p>Generate concept map visualizations and documentation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.documentation.DocumentationGenerator.generate_statistics">
+<span class="sig-name descname"><span class="pre">generate_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.documentation.DocumentationGenerator.generate_statistics" title="Link to this definition"></a></dt>
+<dd><p>Generate knowledge repository statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.documentation.DocumentationGenerator.generate_search_index">
+<span class="sig-name descname"><span class="pre">generate_search_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="knowledge.html#active_inference.knowledge.repository.KnowledgeRepository" title="active_inference.knowledge.repository.KnowledgeRepository"><span class="pre">KnowledgeRepository</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_search_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.documentation.DocumentationGenerator.generate_search_index" title="Link to this definition"></a></dt>
+<dd><p>Generate search index for the knowledge repository</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>repo</strong> – Knowledge repository instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.documentation.DocumentationGenerator.generate_all_docs">
+<span class="sig-name descname"><span class="pre">generate_all_docs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/documentation/generator.html#DocumentationGenerator.generate_all_docs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.documentation.DocumentationGenerator.generate_all_docs" title="Link to this definition"></a></dt>
+<dd><p>Generate all documentation types</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_dir</strong> – Source code directory</p></li>
+<li><p><strong>repo_path</strong> – Knowledge repository path</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="testrunner">
+<h3>TestRunner<a class="headerlink" href="#testrunner" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.tools.testing.TestRunner">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.tools.testing.</span></span><span class="sig-name descname"><span class="pre">TestRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.testing.TestRunner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Runs and manages test execution</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.testing.TestRunner.run_test">
+<span class="sig-name descname"><span class="pre">run_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.15)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TestResult</span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.run_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.testing.TestRunner.run_test" title="Link to this definition"></a></dt>
+<dd><p>Run a single test function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.testing.TestRunner.run_test_class">
+<span class="sig-name descname"><span class="pre">run_test_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)"><span class="pre">type</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">TestResult</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.run_test_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.testing.TestRunner.run_test_class" title="Link to this definition"></a></dt>
+<dd><p>Run all tests in a test class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.testing.TestRunner.run_test_suite">
+<span class="sig-name descname"><span class="pre">run_test_suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_modules</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.run_test_suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.testing.TestRunner.run_test_suite" title="Link to this definition"></a></dt>
+<dd><p>Run a complete test suite</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.tools.testing.TestRunner.generate_report">
+<span class="sig-name descname"><span class="pre">generate_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/tools/testing.html#TestRunner.generate_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.tools.testing.TestRunner.generate_report" title="Link to this definition"></a></dt>
+<dd><p>Generate test report</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="orchestrator">
+<h3>Orchestrator<a class="headerlink" href="#orchestrator" title="Link to this heading"></a></h3>
+</section>
+<section id="contentvalidator">
+<h3>ContentValidator<a class="headerlink" href="#contentvalidator" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="utility-functions">
+<h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Link to this heading"></a></h2>
+</section>
+<section id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Link to this heading"></a></h2>
+<section id="toolconfig">
+<h3>ToolConfig<a class="headerlink" href="#toolconfig" title="Link to this heading"></a></h3>
+</section>
+<section id="validationresult">
+<h3>ValidationResult<a class="headerlink" href="#validationresult" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="usage-examples">
+<h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<section id="documentation-generation">
+<h3>Documentation Generation<a class="headerlink" href="#documentation-generation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentationGenerator</span>
+
+<span class="c1"># Initialize documentation generator</span>
+<span class="n">doc_gen</span> <span class="o">=</span> <span class="n">DocumentationGenerator</span><span class="p">()</span>
+
+<span class="c1"># Generate API documentation</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"source_path"</span><span class="p">:</span> <span class="s2">"src/active_inference"</span><span class="p">,</span>
+    <span class="s2">"output_path"</span><span class="p">:</span> <span class="s2">"docs/api"</span><span class="p">,</span>
+    <span class="s2">"docstring_style"</span><span class="p">:</span> <span class="s2">"google"</span><span class="p">,</span>
+    <span class="s2">"include_private"</span><span class="p">:</span> <span class="kc">False</span>
+<span class="p">}</span>
+
+<span class="n">doc_gen</span><span class="o">.</span><span class="n">generate_api_docs</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"API documentation generated"</span><span class="p">)</span>
+
+<span class="c1"># Generate knowledge documentation</span>
+<span class="n">knowledge_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"knowledge_path"</span><span class="p">:</span> <span class="s2">"knowledge/"</span><span class="p">,</span>
+    <span class="s2">"output_path"</span><span class="p">:</span> <span class="s2">"docs/knowledge/"</span><span class="p">,</span>
+    <span class="s2">"include_metadata"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">"cross_references"</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+
+<span class="n">doc_gen</span><span class="o">.</span><span class="n">generate_knowledge_docs</span><span class="p">(</span><span class="n">knowledge_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-and-validation">
+<h3>Testing and Validation<a class="headerlink" href="#testing-and-validation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestRunner</span><span class="p">,</span> <span class="n">ContentValidator</span>
+
+<span class="c1"># Initialize test runner</span>
+<span class="n">test_runner</span> <span class="o">=</span> <span class="n">TestRunner</span><span class="p">()</span>
+
+<span class="c1"># Run comprehensive test suite</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">test_runner</span><span class="o">.</span><span class="n">run_full_suite</span><span class="p">()</span>
+
+<span class="c1"># Generate test report</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">test_runner</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tests passed: </span><span class="si">{</span><span class="n">report</span><span class="p">[</span><span class="s1">'passed'</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">report</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Initialize content validator</span>
+<span class="n">validator</span> <span class="o">=</span> <span class="n">ContentValidator</span><span class="p">()</span>
+
+<span class="c1"># Validate knowledge content</span>
+<span class="n">knowledge_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"knowledge/foundations/*.json"</span><span class="p">]</span>
+<span class="n">validation_results</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="n">validate_knowledge_content</span><span class="p">(</span><span class="n">knowledge_files</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">validation_results</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation error in </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'file'</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'errors'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="workflow-orchestration">
+<h3>Workflow Orchestration<a class="headerlink" href="#workflow-orchestration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">Orchestrator</span>
+
+<span class="c1"># Initialize orchestrator</span>
+<span class="n">orchestrator</span> <span class="o">=</span> <span class="n">Orchestrator</span><span class="p">()</span>
+
+<span class="c1"># Define workflow</span>
+<span class="n">workflow</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"content_update_workflow"</span><span class="p">,</span>
+    <span class="s2">"steps"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"validate_content"</span><span class="p">,</span> <span class="s2">"tool"</span><span class="p">:</span> <span class="s2">"ContentValidator"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"generate_docs"</span><span class="p">,</span> <span class="s2">"tool"</span><span class="p">:</span> <span class="s2">"DocumentationGenerator"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"run_tests"</span><span class="p">,</span> <span class="s2">"tool"</span><span class="p">:</span> <span class="s2">"TestRunner"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"deploy_docs"</span><span class="p">,</span> <span class="s2">"tool"</span><span class="p">:</span> <span class="s2">"DeploymentManager"</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"dependencies"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"generate_docs"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"validate_content"</span><span class="p">],</span>
+        <span class="s2">"run_tests"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"generate_docs"</span><span class="p">],</span>
+        <span class="s2">"deploy_docs"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"run_tests"</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Execute workflow</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">orchestrator</span><span class="o">.</span><span class="n">execute_workflow</span><span class="p">(</span><span class="n">workflow</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">"success"</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Workflow completed successfully"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Workflow failed at step: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'failed_step'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="content-analysis">
+<h3>Content Analysis<a class="headerlink" href="#content-analysis" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContentAnalyzer</span>
+
+<span class="c1"># Initialize content analyzer</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">ContentAnalyzer</span><span class="p">()</span>
+
+<span class="c1"># Analyze knowledge base completeness</span>
+<span class="n">analysis_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"content_paths"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"knowledge/"</span><span class="p">],</span>
+    <span class="s2">"analysis_types"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"completeness"</span><span class="p">,</span> <span class="s2">"quality"</span><span class="p">,</span> <span class="s2">"cross_references"</span><span class="p">],</span>
+    <span class="s2">"output_format"</span><span class="p">:</span> <span class="s2">"detailed"</span>
+<span class="p">}</span>
+
+<span class="n">analysis_results</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">analyze_content</span><span class="p">(</span><span class="n">analysis_config</span><span class="p">)</span>
+
+<span class="c1"># Generate improvement recommendations</span>
+<span class="n">recommendations</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">generate_recommendations</span><span class="p">(</span><span class="n">analysis_results</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Content analysis complete. </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">recommendations</span><span class="p">)</span><span class="si">}</span><span class="s2"> recommendations generated"</span><span class="p">)</span>
+
+<span class="c1"># Export analysis report</span>
+<span class="n">analyzer</span><span class="o">.</span><span class="n">export_report</span><span class="p">(</span><span class="n">analysis_results</span><span class="p">,</span> <span class="s2">"content_analysis_report.json"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="metadata-management">
+<h3>Metadata Management<a class="headerlink" href="#metadata-management" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">MetadataManager</span>
+
+<span class="c1"># Initialize metadata manager</span>
+<span class="n">metadata_mgr</span> <span class="o">=</span> <span class="n">MetadataManager</span><span class="p">()</span>
+
+<span class="c1"># Update metadata for knowledge content</span>
+<span class="n">update_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"content_type"</span><span class="p">:</span> <span class="s2">"knowledge_nodes"</span><span class="p">,</span>
+    <span class="s2">"fields_to_update"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"last_reviewed"</span><span class="p">,</span> <span class="s2">"version"</span><span class="p">],</span>
+    <span class="s2">"batch_size"</span><span class="p">:</span> <span class="mi">50</span>
+<span class="p">}</span>
+
+<span class="n">updated_count</span> <span class="o">=</span> <span class="n">metadata_mgr</span><span class="o">.</span><span class="n">batch_update_metadata</span><span class="p">(</span><span class="n">update_config</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Updated metadata for </span><span class="si">{</span><span class="n">updated_count</span><span class="si">}</span><span class="s2"> knowledge nodes"</span><span class="p">)</span>
+
+<span class="c1"># Validate metadata completeness</span>
+<span class="n">validation_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"required_fields"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">,</span> <span class="s2">"metadata"</span><span class="p">],</span>
+    <span class="s2">"content_types"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"foundations"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"implementations"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">validation_results</span> <span class="o">=</span> <span class="n">metadata_mgr</span><span class="o">.</span><span class="n">validate_metadata_completeness</span><span class="p">(</span><span class="n">validation_config</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">validation_results</span><span class="p">[</span><span class="s2">"complete"</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"All metadata requirements satisfied"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing metadata for: </span><span class="si">{</span><span class="n">validation_results</span><span class="p">[</span><span class="s1">'missing'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>Complete API documentation for all tools functionality.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For development tools, see <span class="xref std std-doc">../../tools/README.md</span>.
+For testing frameworks, see <span class="xref std std-doc">../../tests/README.md</span>.
+For documentation tools, see <span class="xref std std-doc">documentation/README.md</span>.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

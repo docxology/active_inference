@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.research.experiments &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.research.experiments</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.research.experiments</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Research Framework - Experiment Management</span>
+
+<span class="sd">Core research framework for managing experiments, simulations, and analysis</span>
+<span class="sd">in Active Inference research. Provides reproducible workflows and standardized</span>
+<span class="sd">interfaces for scientific computing.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ExperimentStatus</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Experiment execution status"""</span>
+
+    <span class="n">PENDING</span> <span class="o">=</span> <span class="s2">"pending"</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">"running"</span>
+    <span class="n">COMPLETED</span> <span class="o">=</span> <span class="s2">"completed"</span>
+    <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">"failed"</span>
+    <span class="n">CANCELLED</span> <span class="o">=</span> <span class="s2">"cancelled"</span>
+
+
+<div class="viewcode-block" id="ExperimentConfig">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentConfig">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExperimentConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Configuration for research experiments"""</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"active_inference"</span>
+    <span class="n">simulation_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">random_seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="ExperimentManager">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExperimentManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Manages research experiments and their execution"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experiments</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"ExperimentManager initialized with base directory: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="ExperimentManager.create_experiment">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentManager.create_experiment">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ExperimentConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create a new experiment"""</span>
+        <span class="n">experiment_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"exp_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+
+        <span class="n">experiment_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="n">experiment_id</span><span class="p">,</span>
+            <span class="s2">"config"</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="n">ExperimentStatus</span><span class="o">.</span><span class="n">PENDING</span><span class="p">,</span>
+            <span class="s2">"created_at"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">experiments</span><span class="p">[</span><span class="n">experiment_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">experiment_data</span>
+
+        <span class="c1"># Save to disk</span>
+        <span class="n">experiment_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">/</span> <span class="n">experiment_id</span>
+        <span class="n">experiment_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">config_file</span> <span class="o">=</span> <span class="n">experiment_dir</span> <span class="o">/</span> <span class="s2">"config.json"</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s2">"description"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                    <span class="s2">"parameters"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+                    <span class="s2">"model_type"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">model_type</span><span class="p">,</span>
+                    <span class="s2">"simulation_steps"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">simulation_steps</span><span class="p">,</span>
+                    <span class="s2">"output_dir"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">output_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">output_dir</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">"random_seed"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">random_seed</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">f</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Created experiment </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">experiment_id</span></div>
+
+
+<div class="viewcode-block" id="ExperimentManager.run_experiment">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentManager.run_experiment">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">real_execution</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Execute an experiment with optional real computation"""</span>
+        <span class="k">if</span> <span class="n">experiment_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiments</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Experiment </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2"> not found"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">experiment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiments</span><span class="p">[</span><span class="n">experiment_id</span><span class="p">]</span>
+        <span class="n">experiment</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExperimentStatus</span><span class="o">.</span><span class="n">RUNNING</span>
+        <span class="n">experiment</span><span class="p">[</span><span class="s2">"started_at"</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[</span><span class="s2">"config"</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Running experiment </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">real_execution</span><span class="p">:</span>
+                <span class="c1"># Real Active Inference experiment execution</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_active_inference_experiment</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Mock results for demonstration</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_mock_results</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+            <span class="n">experiment</span><span class="p">[</span><span class="s2">"results"</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span>
+            <span class="n">experiment</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExperimentStatus</span><span class="o">.</span><span class="n">COMPLETED</span>
+            <span class="n">experiment</span><span class="p">[</span><span class="s2">"completed_at"</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+            <span class="c1"># Save results</span>
+            <span class="n">results_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">/</span> <span class="n">experiment_id</span> <span class="o">/</span> <span class="s2">"results.json"</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">results_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+            <span class="c1"># Save detailed logs</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save_experiment_logs</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">experiment</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Experiment </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2"> completed successfully"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Experiment </span><span class="si">{</span><span class="n">experiment_id</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">experiment</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExperimentStatus</span><span class="o">.</span><span class="n">FAILED</span>
+            <span class="n">experiment</span><span class="p">[</span><span class="s2">"error"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">experiment</span><span class="p">[</span><span class="s2">"failed_at"</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_active_inference_experiment</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ExperimentConfig</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Run a real Active Inference experiment"""</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="c1"># Initialize Active Inference agent</span>
+        <span class="n">n_states</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"n_states"</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">n_observations</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"n_observations"</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="n">time_steps</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">simulation_steps</span>
+
+        <span class="c1"># Initialize beliefs (uniform prior)</span>
+        <span class="n">beliefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_states</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_states</span>
+
+        <span class="c1"># Initialize generative model (random transition/observation matrices)</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_observations</span><span class="p">,</span> <span class="n">n_states</span><span class="p">)</span>  <span class="c1"># observation likelihood</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">/</span> <span class="n">A</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># normalize columns</span>
+
+        <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">)</span>  <span class="c1"># transition likelihood</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">B</span> <span class="o">/</span> <span class="n">B</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># normalize</span>
+
+        <span class="c1"># Initialize precision parameters</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># observation precision</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># transition precision</span>
+
+        <span class="c1"># Simulation data</span>
+        <span class="n">free_energy_trajectory</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">belief_trajectory</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">accuracy_trajectory</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">time_steps</span><span class="p">):</span>
+            <span class="c1"># Generate observation (simplified: random observation given current belief)</span>
+            <span class="n">observation_probs</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">beliefs</span>
+            <span class="n">observation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_observations</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">observation_probs</span><span class="p">)</span>
+
+            <span class="c1"># Update beliefs using variational inference</span>
+            <span class="c1"># Simplified belief update (would use more sophisticated VI in practice)</span>
+            <span class="n">likelihood</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">observation</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">posterior</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">likelihood</span> <span class="o">*</span> <span class="n">beliefs</span>
+            <span class="n">posterior</span> <span class="o">=</span> <span class="n">posterior</span> <span class="o">/</span> <span class="n">posterior</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">beliefs</span> <span class="o">=</span> <span class="n">posterior</span>
+
+            <span class="c1"># Calculate free energy (simplified)</span>
+            <span class="c1"># F = E[log Q(s|o)] - E[log P(o,s)]</span>
+            <span class="n">log_likelihood</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">likelihood</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">))</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">beliefs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">beliefs</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)))</span>
+            <span class="n">free_energy</span> <span class="o">=</span> <span class="o">-</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">entropy</span>
+            <span class="n">free_energy_trajectory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">free_energy</span><span class="p">))</span>
+
+            <span class="c1"># Store belief trajectory</span>
+            <span class="n">belief_trajectory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">beliefs</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+            <span class="c1"># Calculate accuracy (simplified: max belief confidence)</span>
+            <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">beliefs</span><span class="p">))</span>
+            <span class="n">accuracy_trajectory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"experiment_id"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"exp_</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
+            <span class="s2">"model_type"</span><span class="p">:</span> <span class="s2">"active_inference"</span><span class="p">,</span>
+            <span class="s2">"parameters"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"n_states"</span><span class="p">:</span> <span class="n">n_states</span><span class="p">,</span>
+                <span class="s2">"n_observations"</span><span class="p">:</span> <span class="n">n_observations</span><span class="p">,</span>
+                <span class="s2">"time_steps"</span><span class="p">:</span> <span class="n">time_steps</span><span class="p">,</span>
+                <span class="s2">"alpha"</span><span class="p">:</span> <span class="n">alpha</span><span class="p">,</span>
+                <span class="s2">"beta"</span><span class="p">:</span> <span class="n">beta</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"free_energy"</span><span class="p">:</span> <span class="n">free_energy_trajectory</span><span class="p">,</span>
+            <span class="s2">"belief_trajectory"</span><span class="p">:</span> <span class="n">belief_trajectory</span><span class="p">,</span>
+            <span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">accuracy_trajectory</span><span class="p">,</span>
+            <span class="s2">"final_beliefs"</span><span class="p">:</span> <span class="n">beliefs</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s2">"convergence_time"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">f</span>
+                        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">free_energy_trajectory</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
+                        <span class="k">if</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="n">free_energy_trajectory</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.9</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="o">*</span> <span class="mi">10</span>
+            <span class="p">),</span>
+            <span class="s2">"timestamp"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_mock_results</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ExperimentConfig</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate mock results for demonstration"""</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="c1"># Generate realistic-looking trajectories</span>
+        <span class="n">time_steps</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">simulation_steps</span>
+        <span class="n">base_free_energy</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="n">free_energy</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_free_energy</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">):</span>
+            <span class="c1"># Free energy decreases over time (convergence)</span>
+            <span class="n">fe</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">free_energy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.98</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
+            <span class="n">free_energy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fe</span><span class="p">)</span>
+
+        <span class="c1"># Accuracy increases over time</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">):</span>
+            <span class="n">acc</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
+            <span class="n">accuracy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">acc</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"experiment_id"</span><span class="p">:</span> <span class="n">experiment_id</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
+            <span class="s2">"model_type"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">model_type</span><span class="p">,</span>
+            <span class="s2">"parameters"</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+            <span class="s2">"free_energy"</span><span class="p">:</span> <span class="n">free_energy</span><span class="p">,</span>
+            <span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">,</span>
+            <span class="s2">"convergence_time"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">([</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">free_energy</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span> <span class="k">if</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="n">base_free_energy</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">])</span> <span class="o">*</span> <span class="mi">10</span>
+            <span class="p">),</span>
+            <span class="s2">"timestamp"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_save_experiment_logs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">experiment</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Save detailed experiment logs"""</span>
+        <span class="n">log_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"experiment_id"</span><span class="p">:</span> <span class="n">experiment_id</span><span class="p">,</span>
+            <span class="s2">"config"</span><span class="p">:</span> <span class="n">experiment</span><span class="p">[</span><span class="s2">"config"</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="n">experiment</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">"started_at"</span><span class="p">:</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"started_at"</span><span class="p">),</span>
+            <span class="s2">"completed_at"</span><span class="p">:</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"completed_at"</span><span class="p">),</span>
+            <span class="s2">"duration_seconds"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"results_summary"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="s2">"started_at"</span> <span class="ow">in</span> <span class="n">experiment</span> <span class="ow">and</span> <span class="s2">"completed_at"</span> <span class="ow">in</span> <span class="n">experiment</span><span class="p">:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">experiment</span><span class="p">[</span><span class="s2">"started_at"</span><span class="p">])</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">experiment</span><span class="p">[</span><span class="s2">"completed_at"</span><span class="p">])</span>
+            <span class="n">log_data</span><span class="p">[</span><span class="s2">"duration_seconds"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="s2">"results"</span> <span class="ow">in</span> <span class="n">experiment</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">experiment</span><span class="p">[</span><span class="s2">"results"</span><span class="p">]</span>
+            <span class="n">log_data</span><span class="p">[</span><span class="s2">"results_summary"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"final_free_energy"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">,</span> <span class="p">[])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="kc">None</span>
+                <span class="p">),</span>
+                <span class="s2">"final_accuracy"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"accuracy"</span><span class="p">,</span> <span class="p">[])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"accuracy"</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="p">),</span>
+                <span class="s2">"convergence_time"</span><span class="p">:</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"convergence_time"</span><span class="p">),</span>
+                <span class="s2">"total_steps"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">,</span> <span class="p">[])),</span>
+            <span class="p">}</span>
+
+        <span class="c1"># Save log file</span>
+        <span class="n">log_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">/</span> <span class="n">experiment_id</span> <span class="o">/</span> <span class="s2">"experiment_log.json"</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ExperimentManager.get_experiment">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentManager.get_experiment">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Retrieve experiment data"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ExperimentManager.list_experiments">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ExperimentManager.list_experiments">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExperimentStatus</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""List experiments, optionally filtered by status"""</span>
+        <span class="n">experiments</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experiments</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+            <span class="n">experiments</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">experiments</span> <span class="k">if</span> <span class="n">exp</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="n">status</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">"created_at"</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ResearchFramework">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ResearchFramework">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResearchFramework</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main research framework coordinating experiments and analysis"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experiment_manager</span> <span class="o">=</span> <span class="n">ExperimentManager</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"experiments_dir"</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"./experiments"</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_engine</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Placeholder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysis_tools</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Placeholder</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"ResearchFramework initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ResearchFramework.run_study">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.ResearchFramework.run_study">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_study</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">study_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Run a complete research study"""</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Starting research study: </span><span class="si">{</span><span class="n">study_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Unnamed'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"study_name"</span><span class="p">:</span> <span class="n">study_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">),</span>
+            <span class="s2">"experiments"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"summary"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Create and run experiments</span>
+        <span class="k">for</span> <span class="n">exp_config</span> <span class="ow">in</span> <span class="n">study_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"experiments"</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">ExperimentConfig</span><span class="p">(</span><span class="o">**</span><span class="n">exp_config</span><span class="p">)</span>
+            <span class="n">exp_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_manager</span><span class="o">.</span><span class="n">create_experiment</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+            <span class="n">success</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_manager</span><span class="o">.</span><span class="n">run_experiment</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+            <span class="n">experiment_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_manager</span><span class="o">.</span><span class="n">get_experiment</span><span class="p">(</span><span class="n">exp_id</span><span class="p">)</span>
+
+            <span class="n">results</span><span class="p">[</span><span class="s2">"experiments"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="n">exp_id</span><span class="p">,</span> <span class="s2">"success"</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">:</span> <span class="n">experiment_data</span><span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Generate summary</span>
+        <span class="n">completed_experiments</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">exp</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s2">"experiments"</span><span class="p">]</span> <span class="k">if</span> <span class="n">exp</span><span class="p">[</span><span class="s2">"success"</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">"summary"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"total_experiments"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"experiments"</span><span class="p">]),</span>
+            <span class="s2">"successful_experiments"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">completed_experiments</span><span class="p">),</span>
+            <span class="s2">"success_rate"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">completed_experiments</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"experiments"</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="s2">"experiments"</span><span class="p">]</span>
+                <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Research study completed: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'summary'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

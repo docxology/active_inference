@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Platform Infrastructure &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Platform Infrastructure</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/platform/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="platform-infrastructure">
+<h1>Platform Infrastructure<a class="headerlink" href="#platform-infrastructure" title="Link to this heading"></a></h1>
+<p>Platform infrastructure and deployment tools for the Active Inference Knowledge
+Environment. This section covers system architecture, deployment, monitoring,
+and operational aspects of the platform.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The platform infrastructure provides:</p>
+<dl class="simple">
+<dt>🕸️ <strong>Knowledge Graph</strong></dt><dd><p>Semantic knowledge representation and querying</p>
+</dd>
+<dt>🔍 <strong>Search Engine</strong></dt><dd><p>Intelligent search and discovery capabilities</p>
+</dd>
+<dt>🤝 <strong>Collaboration Tools</strong></dt><dd><p>Multi-user features and content management</p>
+</dd>
+<dt>🚀 <strong>Deployment System</strong></dt><dd><p>Scalable deployment and operations</p>
+</dd>
+</dl>
+</section>
+<section id="system-architecture">
+<h2>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h2>
+<p>The platform follows a modular architecture:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Knowledge     │    │   Research      │    │  Visualization   │
+│   Repository    │    │   Framework     │    │    Engine       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+        │                       │                       │
+        └───────────────────────┼───────────────────────┘
+                                │
+                ┌─────────────────┐
+                │    Platform     │
+                │  Infrastructure  │
+                └─────────────────┘
+                                │
+        ┌─────────────────┐    │    ┌─────────────────┐
+        │  Knowledge Graph │    │    │  Search Engine   │
+        └─────────────────┘    │    └─────────────────┘
+                                │
+        ┌─────────────────┐    │    ┌─────────────────┐
+        │ Collaboration   │    │    │   Deployment     │
+        │     Tools       │    │    │    System       │
+        └─────────────────┘    └─────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="knowledge-graph">
+<h2>Knowledge Graph<a class="headerlink" href="#knowledge-graph" title="Link to this heading"></a></h2>
+<p>Semantic knowledge management:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">KnowledgeGraph</span>
+
+<span class="c1"># Initialize knowledge graph</span>
+<span class="n">kg</span> <span class="o">=</span> <span class="n">KnowledgeGraph</span><span class="p">()</span>
+<span class="n">kg</span><span class="o">.</span><span class="n">load_from_repository</span><span class="p">()</span>
+
+<span class="c1"># Query relationships</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"free_energy_principle"</span><span class="p">)</span>
+<span class="n">paths</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">find_shortest_path</span><span class="p">(</span><span class="s2">"perception"</span><span class="p">,</span> <span class="s2">"action"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="search-engine">
+<h2>Search Engine<a class="headerlink" href="#search-engine" title="Link to this heading"></a></h2>
+<p>Advanced search capabilities:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">SearchEngine</span>
+
+<span class="c1"># Configure search</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">SearchEngine</span><span class="p">()</span>
+<span class="n">search</span><span class="o">.</span><span class="n">index_knowledge</span><span class="p">()</span>
+<span class="n">search</span><span class="o">.</span><span class="n">index_research</span><span class="p">()</span>
+<span class="n">search</span><span class="o">.</span><span class="n">index_applications</span><span class="p">()</span>
+
+<span class="c1"># Perform searches</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">semantic_search</span><span class="p">(</span><span class="s2">"active inference"</span><span class="p">)</span>
+<span class="n">suggestions</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">get_suggestions</span><span class="p">(</span><span class="s2">"free energy"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="collaboration-features">
+<h2>Collaboration Features<a class="headerlink" href="#collaboration-features" title="Link to this heading"></a></h2>
+<p>Multi-user collaboration tools:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">CollaborationManager</span>
+
+<span class="c1"># User management</span>
+<span class="n">collab</span> <span class="o">=</span> <span class="n">CollaborationManager</span><span class="p">()</span>
+<span class="n">collab</span><span class="o">.</span><span class="n">add_user</span><span class="p">(</span><span class="s2">"researcher"</span><span class="p">,</span> <span class="n">permissions</span><span class="o">=</span><span class="p">[</span><span class="s2">"read"</span><span class="p">,</span> <span class="s2">"write"</span><span class="p">])</span>
+<span class="n">collab</span><span class="o">.</span><span class="n">create_workspace</span><span class="p">(</span><span class="s2">"neural_modeling"</span><span class="p">)</span>
+
+<span class="c1"># Content management</span>
+<span class="n">collab</span><span class="o">.</span><span class="n">review_content</span><span class="p">(</span><span class="s2">"tutorial_1"</span><span class="p">)</span>
+<span class="n">collab</span><span class="o">.</span><span class="n">merge_changes</span><span class="p">(</span><span class="s2">"branch_feature_x"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="deployment-and-operations">
+<h2>Deployment and Operations<a class="headerlink" href="#deployment-and-operations" title="Link to this heading"></a></h2>
+<p>Production deployment tools:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeploymentManager</span>
+
+<span class="c1"># Infrastructure setup</span>
+<span class="n">deployer</span> <span class="o">=</span> <span class="n">DeploymentManager</span><span class="p">()</span>
+<span class="n">deployer</span><span class="o">.</span><span class="n">setup_infrastructure</span><span class="p">(</span><span class="s2">"production"</span><span class="p">)</span>
+<span class="n">deployer</span><span class="o">.</span><span class="n">deploy_services</span><span class="p">()</span>
+
+<span class="c1"># Monitoring</span>
+<span class="n">deployer</span><span class="o">.</span><span class="n">setup_monitoring</span><span class="p">()</span>
+<span class="n">deployer</span><span class="o">.</span><span class="n">configure_alerts</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="api-management">
+<h2>API Management<a class="headerlink" href="#api-management" title="Link to this heading"></a></h2>
+<p>Platform API endpoints:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIManager</span>
+
+<span class="c1"># API configuration</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">APIManager</span><span class="p">()</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_endpoint</span><span class="p">(</span><span class="s2">"/knowledge/search"</span><span class="p">,</span> <span class="n">KnowledgeSearchHandler</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_endpoint</span><span class="p">(</span><span class="s2">"/research/experiments"</span><span class="p">,</span> <span class="n">ExperimentHandler</span><span class="p">)</span>
+
+<span class="c1"># Rate limiting and security</span>
+<span class="n">api</span><span class="o">.</span><span class="n">enable_rate_limiting</span><span class="p">()</span>
+<span class="n">api</span><span class="o">.</span><span class="n">setup_authentication</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-monitoring">
+<h2>Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Link to this heading"></a></h2>
+<p>System performance and health monitoring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">MonitoringSystem</span>
+
+<span class="c1"># Performance monitoring</span>
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">MonitoringSystem</span><span class="p">()</span>
+<span class="n">monitor</span><span class="o">.</span><span class="n">track_metrics</span><span class="p">([</span><span class="s2">"cpu"</span><span class="p">,</span> <span class="s2">"memory"</span><span class="p">,</span> <span class="s2">"latency"</span><span class="p">])</span>
+<span class="n">monitor</span><span class="o">.</span><span class="n">set_alerts</span><span class="p">(</span><span class="n">critical_thresholds</span><span class="p">)</span>
+
+<span class="c1"># Health checks</span>
+<span class="n">monitor</span><span class="o">.</span><span class="n">add_health_check</span><span class="p">(</span><span class="s2">"knowledge_service"</span><span class="p">)</span>
+<span class="n">monitor</span><span class="o">.</span><span class="n">add_health_check</span><span class="p">(</span><span class="s2">"search_service"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="scaling-and-load-balancing">
+<h2>Scaling and Load Balancing<a class="headerlink" href="#scaling-and-load-balancing" title="Link to this heading"></a></h2>
+<p>Handle growth and traffic:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalingManager</span>
+
+<span class="c1"># Auto-scaling</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">ScalingManager</span><span class="p">()</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">set_auto_scaling</span><span class="p">(</span><span class="s2">"knowledge_service"</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">set_load_balancer</span><span class="p">(</span><span class="s2">"round_robin"</span><span class="p">)</span>
+
+<span class="c1"># Resource optimization</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">optimize_resources</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="backup-and-recovery">
+<h2>Backup and Recovery<a class="headerlink" href="#backup-and-recovery" title="Link to this heading"></a></h2>
+<p>Data protection and disaster recovery:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.platform</span><span class="w"> </span><span class="kn">import</span> <span class="n">BackupManager</span>
+
+<span class="c1"># Backup configuration</span>
+<span class="n">backup</span> <span class="o">=</span> <span class="n">BackupManager</span><span class="p">()</span>
+<span class="n">backup</span><span class="o">.</span><span class="n">schedule_backups</span><span class="p">(</span><span class="s2">"daily"</span><span class="p">,</span> <span class="s2">"knowledge_data"</span><span class="p">)</span>
+<span class="n">backup</span><span class="o">.</span><span class="n">schedule_backups</span><span class="p">(</span><span class="s2">"hourly"</span><span class="p">,</span> <span class="s2">"user_data"</span><span class="p">)</span>
+
+<span class="c1"># Recovery procedures</span>
+<span class="n">backup</span><span class="o">.</span><span class="n">setup_disaster_recovery</span><span class="p">()</span>
+<span class="n">backup</span><span class="o">.</span><span class="n">test_recovery_procedures</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="command-line-tools">
+<h2>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Link to this heading"></a></h2>
+<p>Platform management commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Platform status</span>
+ai-platform<span class="w"> </span>status
+
+<span class="c1"># Start services</span>
+ai-platform<span class="w"> </span>serve
+
+<span class="c1"># Deploy updates</span>
+ai-platform<span class="w"> </span>deploy
+
+<span class="c1"># Monitor system</span>
+ai-platform<span class="w"> </span>monitor
+</pre></div>
+</div>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<p>Set up the platform infrastructure:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize platform</span>
+ai-platform<span class="w"> </span>setup
+
+<span class="c1"># Configure services</span>
+ai-platform<span class="w"> </span>configure
+
+<span class="c1"># Deploy platform</span>
+ai-platform<span class="w"> </span>deploy
+
+<span class="c1"># Start monitoring</span>
+ai-platform<span class="w"> </span>monitor<span class="w"> </span>start
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For development setup, see <span class="xref std std-doc">../contributing/development_setup</span>.
+For API documentation, see <a class="reference internal" href="../api/platform.html"><span class="doc">Platform API Reference</span></a>.
+For deployment guides, see <span class="xref std std-doc">deployment/index</span>.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

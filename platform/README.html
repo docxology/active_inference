@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>) &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/platform/README.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Platform Documentation</p>
+<p><strong>Comprehensive documentation for the Active Inference platform infrastructure, services, and deployment systems.</strong></p>
+<p>## 📖 Overview</p>
+<p><strong>Complete documentation ecosystem for the Active Inference platform, including web services, APIs, deployment, and infrastructure.</strong></p>
+<p>This directory contains comprehensive documentation for all platform components including the REST API server, knowledge graph engine, intelligent search system, collaboration tools, and deployment infrastructure.</p>
+<p>### 🎯 Mission &amp; Role</p>
+<p>This platform documentation contributes to operational excellence by:</p>
+<ul class="simple">
+<li><p><strong>Infrastructure Guidance</strong>: Complete setup and deployment documentation</p></li>
+<li><p><strong>API Documentation</strong>: Comprehensive REST and Python API references</p></li>
+<li><p><strong>Service Management</strong>: Platform service configuration and management</p></li>
+<li><p><strong>Deployment Support</strong>: Production deployment and scaling guidance</p></li>
+</ul>
+<p>## 🏗️ Architecture</p>
+<p>### Documentation Structure</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">docs/platform/</span>
+<span class="pre">├──</span> <span class="pre">collaboration/</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Multi-user</span> <span class="pre">collaboration</span> <span class="pre">features</span>
+<span class="pre">├──</span> <span class="pre">deployment/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Deployment</span> <span class="pre">and</span> <span class="pre">scaling</span> <span class="pre">infrastructure</span>
+<span class="pre">├──</span> <span class="pre">knowledge_graph/</span>&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Semantic</span> <span class="pre">knowledge</span> <span class="pre">representation</span>
+<span class="pre">├──</span> <span class="pre">search/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Intelligent</span> <span class="pre">search</span> <span class="pre">and</span> <span class="pre">retrieval</span>
+<span class="pre">└──</span> <span class="pre">README.md</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">This</span> <span class="pre">overview</span> <span class="pre">documentation</span>
+<span class="pre">`</span></code></p>
+<p>### Integration Points</p>
+<p><strong>Platform documentation integrates with platform components:</strong></p>
+<ul class="simple">
+<li><p><strong>Platform Services</strong>: Web services and backend infrastructure</p></li>
+<li><p><strong>Knowledge Graph</strong>: Semantic representation and reasoning systems</p></li>
+<li><p><strong>Search Engine</strong>: Multi-modal content search and retrieval</p></li>
+<li><p><strong>Collaboration Hub</strong>: Multi-user content creation and discussion</p></li>
+<li><p><strong>Deployment System</strong>: Production scaling and infrastructure management</p></li>
+</ul>
+<p>### Platform Categories</p>
+<p>#### Web Services
+Platform service infrastructure:</p>
+<ul class="simple">
+<li><p><strong>REST API Server</strong>: Comprehensive platform service APIs</p></li>
+<li><p><strong>Web Interface</strong>: User-facing platform interface</p></li>
+<li><p><strong>Service Management</strong>: Platform service lifecycle management</p></li>
+<li><p><strong>Monitoring</strong>: Platform health and performance monitoring</p></li>
+</ul>
+<p>#### Knowledge Graph
+Semantic representation systems:</p>
+<ul class="simple">
+<li><p><strong>Graph Engine</strong>: Semantic knowledge representation and storage</p></li>
+<li><p><strong>Reasoning</strong>: Knowledge graph reasoning and inference</p></li>
+<li><p><strong>Query Interface</strong>: Graph query and manipulation APIs</p></li>
+<li><p><strong>Visualization</strong>: Knowledge graph exploration and visualization</p></li>
+</ul>
+<p>#### Search System
+Intelligent content discovery:</p>
+<ul class="simple">
+<li><p><strong>Multi-Modal Search</strong>: Text, code, and semantic search capabilities</p></li>
+<li><p><strong>Ranking Algorithms</strong>: Intelligent result ranking and relevance</p></li>
+<li><p><strong>Indexing</strong>: Content indexing and metadata management</p></li>
+<li><p><strong>Personalization</strong>: User-specific search customization</p></li>
+</ul>
+<p>#### Collaboration
+Multi-user content systems:</p>
+<ul class="simple">
+<li><p><strong>Content Creation</strong>: Collaborative content authoring and editing</p></li>
+<li><p><strong>Discussion Forums</strong>: Community discussion and Q&amp;A systems</p></li>
+<li><p><strong>Version Control</strong>: Content versioning and change management</p></li>
+<li><p><strong>User Management</strong>: User accounts, permissions, and access control</p></li>
+</ul>
+<p>#### Deployment
+Production infrastructure:</p>
+<ul class="simple">
+<li><p><strong>Containerization</strong>: Docker-based deployment and scaling</p></li>
+<li><p><strong>Orchestration</strong>: Kubernetes and service orchestration</p></li>
+<li><p><strong>Monitoring</strong>: Infrastructure monitoring and alerting</p></li>
+<li><p><strong>Backup/Recovery</strong>: Data backup and disaster recovery systems</p></li>
+</ul>
+<p>## 🚀 Usage</p>
+<p>### Platform Development Workflow</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+# Load platform documentation and services
+from docs.platform.deployment import DeploymentGuide
+from docs.platform.services import ServiceDocumentation</p>
+<p># Initialize platform documentation
+deployment_guide = DeploymentGuide()
+service_docs = ServiceDocumentation()</p>
+<p># Access deployment documentation
+deployment_config = deployment_guide.get_deployment_config(“production”)
+deployment_steps = deployment_guide.get_deployment_steps()</p>
+<p># Access service documentation
+api_docs = service_docs.get_api_documentation(“rest”)
+service_config = service_docs.get_service_configuration(“knowledge_graph”)</p>
+<p># Deploy platform services
+deployment = deployment_guide.deploy_platform(deployment_config)
+print(f”Platform deployed: {deployment[‘status’]}”)
+<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>### Platform Service Management</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+# Manage platform services
+from docs.platform.services import PlatformServiceManager</p>
+<p># Initialize service manager
+service_manager = PlatformServiceManager()</p>
+<p># Start platform services
+services = service_manager.start_all_services()</p>
+<p># Monitor service health
+health_status = service_manager.monitor_service_health()</p>
+<p># Scale services based on demand
+scaling_config = service_manager.get_scaling_config(“auto”)
+scaled_services = service_manager.scale_services(scaling_config)</p>
+<p># Backup and recovery
+backup_result = service_manager.create_backup()
+recovery_result = service_manager.perform_recovery(“emergency”)
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>### API Integration</p>
+<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
+# Access platform APIs
+from docs.platform.api import APIDocumentation</p>
+<p># Load API documentation
+api_docs = APIDocumentation()</p>
+<p># Get knowledge API documentation
+knowledge_api = api_docs.get_knowledge_api_docs()
+search_api = api_docs.get_search_api_docs()
+collaboration_api = api_docs.get_collaboration_api_docs()</p>
+<p># Generate API client code
+client_code = api_docs.generate_api_client(“python”, “knowledge_api”)
+print(f”Generated client: {len(client_code)} lines”)
+<a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
+<p>## 🔧 Documentation Categories</p>
+<p>### Platform Services Documentation</p>
+<p>#### REST API Server
+<a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>markdown
+# Platform REST API Server</p>
+<p>## Service Overview</p>
+<p>The REST API server provides comprehensive HTTP API access to all Active Inference platform functionality, including knowledge management, research tools, visualization, and collaboration features.</p>
+<p>### API Architecture</p>
+<p>#### Core Endpoints
+<a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a>python
+# Knowledge API endpoints
+GET    /api/knowledge/search?q=entropy&amp;limit=10
+GET    /api/knowledge/nodes/{node_id}
+GET    /api/knowledge/paths/{path_id}
+POST   /api/knowledge/nodes
+PUT    /api/knowledge/nodes/{node_id}
+DELETE /api/knowledge/nodes/{node_id}</p>
+<p># Research API endpoints
+GET    /api/research/experiments
+POST   /api/research/experiments
+GET    /api/research/experiments/{experiment_id}
+POST   /api/research/experiments/{experiment_id}/run
+GET    /api/research/results/{result_id}</p>
+<p># Visualization API endpoints
+GET    /api/visualization/diagrams/{diagram_id}
+POST   /api/visualization/diagrams
+GET    /api/visualization/dashboards
+POST   /api/visualization/dashboards/{dashboard_id}/widgets</p>
+<p># Collaboration API endpoints
+GET    /api/collaboration/users
+POST   /api/collaboration/users
+GET    /api/collaboration/discussions
+POST   /api/collaboration/discussions/{discussion_id}/messages
+<a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a></p>
+<p>#### Authentication
+<a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a>python
+# API authentication patterns
+headers = {</p>
+<blockquote>
+<div><p>“Authorization”: “Bearer your_api_token”,
+“Content-Type”: “application/json”,
+“X-Platform-Version”: “1.0.0”</p>
+</div></blockquote>
+<p>}</p>
+<p># Authenticated request
+response = requests.get(</p>
+<blockquote>
+<div><p>“<a class="reference external" href="https://api.activeinference.org/api/knowledge/search">https://api.activeinference.org/api/knowledge/search</a>”,
+headers=headers,
+params={“q”: “entropy”, “limit”: 10}</p>
+</div></blockquote>
+<section id="id41">
+<h1>)<a class="headerlink" href="#id41" title="Link to this heading"></a></h1>
+<p>#### Error Handling
+<a href="#id42"><span class="problematic" id="id43">``</span></a><a href="#id44"><span class="problematic" id="id45">`</span></a>python
+# API error response format
+{</p>
+<blockquote>
+<div><dl>
+<dt>“error”: {</dt><dd><p>“code”: “VALIDATION_ERROR”,
+“message”: “Invalid search parameters”,
+“details”: {</p>
+<blockquote>
+<div><p>“field”: “query”,
+“issue”: “Query parameter ‘q’ is required”</p>
+</div></blockquote>
+<p>},
+“timestamp”: “2024-10-27T12:00:00Z”,
+“request_id”: “req_123456789”</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+<p># Error handling in client code
+try:</p>
+<blockquote>
+<div><p>response = api_client.search(“entropy”)
+results = response.json()</p>
+</div></blockquote>
+<dl class="simple">
+<dt>except APIError as e:</dt><dd><dl class="simple">
+<dt>if e.code == “RATE_LIMITED”:</dt><dd><p># Handle rate limiting
+time.sleep(e.retry_after)
+response = api_client.search(“entropy”)</p>
+</dd>
+<dt>elif e.code == “VALIDATION_ERROR”:</dt><dd><p># Handle validation errors
+print(f”Validation error: {e.details}”)</p>
+</dd>
+<dt>else:</dt><dd><p># Handle other errors
+raise</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id46"><span class="problematic" id="id47">``</span></a><a href="#id48"><span class="problematic" id="id49">`</span></a></p>
+<p>### Knowledge Graph Documentation</p>
+<p>#### Graph Engine
+<a href="#id50"><span class="problematic" id="id51">``</span></a><a href="#id52"><span class="problematic" id="id53">`</span></a>python
+# Knowledge graph operations
+from docs.platform.knowledge_graph import KnowledgeGraphDocumentation</p>
+<p># Initialize graph documentation
+graph_docs = KnowledgeGraphDocumentation()</p>
+<p># Graph structure documentation
+graph_structure = graph_docs.get_graph_structure()
+node_types = graph_docs.get_node_types()
+relationship_types = graph_docs.get_relationship_types()</p>
+<p># Graph operations
+graph_operations = {</p>
+<blockquote>
+<div><p>“node_creation”: graph_docs.get_node_creation_guide(),
+“relationship_creation”: graph_docs.get_relationship_creation_guide(),
+“query_operations”: graph_docs.get_query_operations_guide(),
+“graph_traversal”: graph_docs.get_traversal_guide()</p>
+</div></blockquote>
+<p>}</p>
+<p># Generate graph visualization
+graph_viz = graph_docs.generate_graph_visualization(“active_inference_core”)
+<a href="#id54"><span class="problematic" id="id55">``</span></a><a href="#id56"><span class="problematic" id="id57">`</span></a></p>
+<p>### Search System Documentation</p>
+<p>#### Multi-Modal Search
+<a href="#id58"><span class="problematic" id="id59">``</span></a><a href="#id60"><span class="problematic" id="id61">`</span></a>markdown
+# Intelligent Search System</p>
+<p>## Search Architecture</p>
+<p>The search system provides multi-modal search capabilities across text, code, and semantic content with intelligent ranking and personalization.</p>
+<p>### Search Types</p>
+<p>#### Text Search
+<a href="#id62"><span class="problematic" id="id63">``</span></a><a href="#id64"><span class="problematic" id="id65">`</span></a>python
+# Text-based search
+from docs.platform.search import TextSearchDocumentation</p>
+<p># Initialize text search
+text_search = TextSearchDocumentation()</p>
+<p># Basic text search
+results = text_search.search_text(</p>
+<blockquote>
+<div><p>query=”entropy in active inference”,
+filters={“content_type”: “foundation”},
+limit=10</p>
+</div></blockquote>
+<p>)</p>
+<p># Advanced text search with ranking
+advanced_results = text_search.advanced_search({</p>
+<blockquote>
+<div><p>“query”: “free energy principle”,
+“filters”: {</p>
+<blockquote>
+<div><p>“difficulty”: [“beginner”, “intermediate”],
+“content_type”: “mathematics”</p>
+</div></blockquote>
+<p>},
+“ranking”: “relevance”,
+“personalization”: True</p>
+</div></blockquote>
+</section>
+<section id="id66">
+<h1>})<a class="headerlink" href="#id66" title="Link to this heading"></a></h1>
+<p>#### Semantic Search
+<a href="#id67"><span class="problematic" id="id68">``</span></a><a href="#id69"><span class="problematic" id="id70">`</span></a>python
+# Semantic similarity search
+semantic_search = SemanticSearchDocumentation()</p>
+<p># Concept-based search
+concept_results = semantic_search.search_by_concept(</p>
+<blockquote>
+<div><p>concept=”variational_inference”,
+domain=”mathematics”,
+similarity_threshold=0.8</p>
+</div></blockquote>
+<p>)</p>
+<p># Related content discovery
+related_content = semantic_search.find_related_content(</p>
+<blockquote>
+<div><p>content_id=”entropy_basics”,
+relationship_types=[“prerequisite”, “related”, “application”],
+max_results=15</p>
+</div></blockquote>
+</section>
+<section id="id71">
+<h1>)<a class="headerlink" href="#id71" title="Link to this heading"></a></h1>
+<p>#### Code Search
+<a href="#id72"><span class="problematic" id="id73">``</span></a><a href="#id74"><span class="problematic" id="id75">`</span></a>python
+# Code and implementation search
+code_search = CodeSearchDocumentation()</p>
+<p># Search code examples
+code_results = code_search.search_code(</p>
+<blockquote>
+<div><p>query=”active inference implementation”,
+language=”python”,
+complexity=”intermediate”</p>
+</div></blockquote>
+<p>)</p>
+<p># Search by function signature
+function_results = code_search.search_by_signature(</p>
+<blockquote>
+<div><p>signature=”def active_inference_agent(config)”,
+include_examples=True</p>
+</div></blockquote>
+</section>
+<section id="id76">
+<h1>)<a class="headerlink" href="#id76" title="Link to this heading"></a></h1>
+<p>### Deployment Documentation</p>
+<p>#### Production Deployment
+<a href="#id77"><span class="problematic" id="id78">``</span></a><a href="#id79"><span class="problematic" id="id80">`</span></a>markdown
+# Platform Deployment Guide</p>
+<p>## Deployment Architecture</p>
+<p>The Active Inference platform supports multiple deployment strategies including local development, containerized deployment, and cloud-based scaling.</p>
+<p>### Local Development Deployment</p>
+<p>#### Quick Start
+<a href="#id81"><span class="problematic" id="id82">``</span></a><a href="#id83"><span class="problematic" id="id84">`</span></a>bash
+# Clone repository
+git clone <a class="reference external" href="https://github.com/docxology/active_inference.git">https://github.com/docxology/active_inference.git</a>
+cd active_inference</p>
+<p># Set up development environment
+make setup</p>
+<p># Start platform services
+make serve</p>
+<p># Access platform
+open <a class="reference external" href="http://localhost:8000">http://localhost:8000</a>
+<a href="#id85"><span class="problematic" id="id86">``</span></a><a href="#id87"><span class="problematic" id="id88">`</span></a></p>
+<p>#### Docker Deployment
+<a href="#id89"><span class="problematic" id="id90">``</span></a><a href="#id91"><span class="problematic" id="id92">`</span></a>bash
+# Build platform container
+docker build -t active-inference-platform .</p>
+<p># Run platform container
+docker run -d </p>
+<blockquote>
+<div><p>–name active-inference -p 8000:8000 -v $(pwd)/knowledge:/app/knowledge active-inference-platform</p>
+</div></blockquote>
+<p># Monitor container
+docker logs -f active-inference
+<a href="#id93"><span class="problematic" id="id94">``</span></a><a href="#id95"><span class="problematic" id="id96">`</span></a></p>
+<p>#### Production Deployment
+<a href="#id97"><span class="problematic" id="id98">``</span></a><a href="#id99"><span class="problematic" id="id100">`</span></a>bash
+# Kubernetes deployment
+kubectl apply -f k8s/platform-deployment.yaml</p>
+<p># Scale platform services
+kubectl scale deployment platform-api –replicas=3</p>
+<p># Monitor production health
+kubectl get pods -l app=platform
+kubectl logs -l app=platform –tail=100
+<a href="#id101"><span class="problematic" id="id102">``</span></a><a href="#id103"><span class="problematic" id="id104">`</span></a></p>
+<p>### Infrastructure Management</p>
+<p>#### Service Monitoring
+<a href="#id105"><span class="problematic" id="id106">``</span></a><a href="#id107"><span class="problematic" id="id108">`</span></a>python
+# Platform monitoring and health checks
+from docs.platform.deployment import InfrastructureMonitor</p>
+<p># Initialize monitoring
+monitor = InfrastructureMonitor()</p>
+<p># Health checks
+health_status = monitor.check_platform_health()</p>
+<p># Performance monitoring
+performance_metrics = monitor.get_performance_metrics()</p>
+<p># Alert configuration
+alerts = monitor.configure_alerts({</p>
+<blockquote>
+<div><p>“cpu_threshold”: 80,
+“memory_threshold”: 85,
+“response_time_threshold”: 1000</p>
+</div></blockquote>
+<p>})</p>
+<p># Resource scaling
+scaling_result = monitor.scale_resources(“auto”, performance_metrics)
+<a href="#id109"><span class="problematic" id="id110">``</span></a><a href="#id111"><span class="problematic" id="id112">`</span></a></p>
+<p>#### Backup and Recovery
+<a href="#id113"><span class="problematic" id="id114">``</span></a><a href="#id115"><span class="problematic" id="id116">`</span></a>python
+# Data backup and recovery
+from docs.platform.deployment import BackupRecoveryManager</p>
+<p># Initialize backup system
+backup_manager = BackupRecoveryManager()</p>
+<p># Create platform backup
+backup_result = backup_manager.create_full_backup({</p>
+<blockquote>
+<div><p>“include_knowledge_base”: True,
+“include_user_data”: True,
+“include_configurations”: True,
+“compression”: “gzip”</p>
+</div></blockquote>
+<p>})</p>
+<p># Recovery procedures
+recovery_result = backup_manager.perform_recovery(</p>
+<blockquote>
+<div><p>backup_id=backup_result[“backup_id”],
+recovery_type=”full”,
+target_environment=”production”</p>
+</div></blockquote>
+</section>
+<section id="id117">
+<h1>)<a class="headerlink" href="#id117" title="Link to this heading"></a></h1>
+<p>### Collaboration Documentation</p>
+<p>#### Multi-User Features
+<a href="#id118"><span class="problematic" id="id119">``</span></a><a href="#id120"><span class="problematic" id="id121">`</span></a>markdown
+# Collaboration System Documentation</p>
+<p>## User Management</p>
+<p>The platform supports multi-user collaboration with role-based access control, user profiles, and collaborative content creation.</p>
+<p>### User Roles and Permissions</p>
+<p>#### User Roles
+- <strong>Administrator</strong>: Full platform access and configuration
+- <strong>Researcher</strong>: Research tools and experiment management
+- <strong>Educator</strong>: Content creation and learning path management
+- <strong>Student</strong>: Learning content access and progress tracking
+- <strong>Guest</strong>: Read-only access to public content</p>
+<p>#### Permission System
+<a href="#id122"><span class="problematic" id="id123">``</span></a><a href="#id124"><span class="problematic" id="id125">`</span></a>python
+# User permission management
+from docs.platform.collaboration import UserManagement</p>
+<p># Initialize user management
+user_manager = UserManagement()</p>
+<p># Create user with role
+new_user = user_manager.create_user({</p>
+<blockquote>
+<div><p>“username”: “researcher_john”,
+“email”: “<a class="reference external" href="mailto:john&#46;researcher&#37;&#52;&#48;university&#46;edu">john<span>&#46;</span>researcher<span>&#64;</span>university<span>&#46;</span>edu</a>”,
+“role”: “researcher”,
+“permissions”: [“read”, “write”, “research”]</p>
+</div></blockquote>
+<p>})</p>
+<p># Check user permissions
+permissions = user_manager.get_user_permissions(“researcher_john”)
+can_access_research = “research” in permissions[“allowed_operations”]</p>
+<p># Update user permissions
+user_manager.update_user_permissions(“researcher_john”, {</p>
+<blockquote>
+<div><p>“add_permissions”: [“advanced_research”],
+“remove_permissions”: []</p>
+</div></blockquote>
+</section>
+<section id="id126">
+<h1>})<a class="headerlink" href="#id126" title="Link to this heading"></a></h1>
+<p>#### Content Collaboration
+<a href="#id127"><span class="problematic" id="id128">``</span></a><a href="#id129"><span class="problematic" id="id130">`</span></a>python
+# Collaborative content creation
+from docs.platform.collaboration import ContentCollaboration</p>
+<p># Initialize collaboration system
+collaboration = ContentCollaboration()</p>
+<p># Create collaborative workspace
+workspace = collaboration.create_workspace({</p>
+<blockquote>
+<div><p>“name”: “active_inference_research”,
+“description”: “Collaborative research on Active Inference applications”,
+“participants”: [“researcher_john”, “educator_sarah”, “student_alex”],
+“permissions”: {</p>
+<blockquote>
+<div><p>“researcher_john”: [“read”, “write”, “admin”],
+“educator_sarah”: [“read”, “write”],
+“student_alex”: [“read”]</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>})</p>
+<p># Collaborative editing
+collaboration.start_collaborative_session(workspace.id, “entropy_foundation_paper”)</p>
+<p># Track changes and versions
+version_history = collaboration.get_version_history(workspace.id)
+conflict_resolution = collaboration.resolve_edit_conflicts(version_history)
+<a href="#id131"><span class="problematic" id="id132">``</span></a><a href="#id133"><span class="problematic" id="id134">`</span></a></p>
+<p>### Search System Documentation</p>
+<p>#### Advanced Search Features
+<a href="#id135"><span class="problematic" id="id136">``</span></a><a href="#id137"><span class="problematic" id="id138">`</span></a>markdown
+# Advanced Search Documentation</p>
+<p>## Search Architecture</p>
+<p>The search system provides multi-modal search capabilities with intelligent ranking, personalization, and semantic understanding.</p>
+<p>### Search Types and Features</p>
+<p>#### 1. Text Search
+Basic text-based search with filtering and ranking:</p>
+<p><a href="#id139"><span class="problematic" id="id140">``</span></a><a href="#id141"><span class="problematic" id="id142">`</span></a>python
+# Text search with filters
+from docs.platform.search import AdvancedSearch</p>
+<p>search = AdvancedSearch()</p>
+<dl>
+<dt>results = search.text_search({</dt><dd><p>“query”: “entropy in active inference”,
+“filters”: {</p>
+<blockquote>
+<div><p>“content_type”: [“foundation”, “mathematics”],
+“difficulty”: [“beginner”, “intermediate”],
+“tags”: [“information_theory”, “bayesian_inference”]</p>
+</div></blockquote>
+<p>},
+“ranking”: {</p>
+<blockquote>
+<div><p>“algorithm”: “tf_idf”,
+“personalization”: True,
+“recency_boost”: True</p>
+</div></blockquote>
+<p>},
+“limit”: 20</p>
+</dd>
+</dl>
+</section>
+<section id="id143">
+<h1>})<a class="headerlink" href="#id143" title="Link to this heading"></a></h1>
+<p>#### 2. Semantic Search
+Concept-based search using semantic similarity:</p>
+<p><a href="#id144"><span class="problematic" id="id145">``</span></a><a href="#id146"><span class="problematic" id="id147">`</span></a>python
+# Semantic search for related concepts
+semantic_results = search.semantic_search({</p>
+<blockquote>
+<div><p>“query”: “variational free energy”,
+“domain”: “mathematics”,
+“similarity_threshold”: 0.8,
+“relationship_types”: [“prerequisite”, “application”, “related”],
+“include_explanations”: True</p>
+</div></blockquote>
+</section>
+<section id="id148">
+<h1>})<a class="headerlink" href="#id148" title="Link to this heading"></a></h1>
+<p>#### 3. Code Search
+Search within code examples and implementations:</p>
+<p><a href="#id149"><span class="problematic" id="id150">``</span></a><a href="#id151"><span class="problematic" id="id152">`</span></a>python
+# Code search with syntax highlighting
+code_results = search.code_search({</p>
+<blockquote>
+<div><p>“query”: “active inference implementation”,
+“language”: “python”,
+“complexity”: “intermediate”,
+“include_examples”: True,
+“syntax_highlight”: True</p>
+</div></blockquote>
+</section>
+<section id="id153">
+<h1>})<a class="headerlink" href="#id153" title="Link to this heading"></a></h1>
+<p>#### 4. Learning Path Search
+Search for learning content and paths:</p>
+<p><a href="#id154"><span class="problematic" id="id155">``</span></a><a href="#id156"><span class="problematic" id="id157">`</span></a>python
+# Learning-focused search
+learning_results = search.learning_search({</p>
+<blockquote>
+<div><p>“query”: “understand free energy principle”,
+“learning_objectives”: [“comprehend_fep”, “apply_active_inference”],
+“difficulty”: “beginner”,
+“include_prerequisites”: True,
+“suggest_learning_path”: True</p>
+</div></blockquote>
+</section>
+<section id="id158">
+<h1>})<a class="headerlink" href="#id158" title="Link to this heading"></a></h1>
+<p>### Search Indexing and Optimization</p>
+<p>#### Indexing Strategy
+<a href="#id159"><span class="problematic" id="id160">``</span></a><a href="#id161"><span class="problematic" id="id162">`</span></a>python
+# Content indexing for search
+from docs.platform.search import SearchIndexer</p>
+<p>indexer = SearchIndexer()</p>
+<p># Index knowledge content
+indexer.index_knowledge_content({</p>
+<blockquote>
+<div><p>“content_type”: “foundation”,
+“difficulty”: “beginner”,
+“tags”: [“information_theory”, “entropy”],
+“full_text”: “Entropy measures uncertainty in probability distributions…”</p>
+</div></blockquote>
+<p>})</p>
+<p># Index code examples
+indexer.index_code_examples({</p>
+<blockquote>
+<div><p>“language”: “python”,
+“complexity”: “intermediate”,
+“tags”: [“active_inference”, “implementation”],
+“code”: “def active_inference_agent(config): …”</p>
+</div></blockquote>
+<p>})</p>
+<p># Index research results
+indexer.index_research_results({</p>
+<blockquote>
+<div><p>“experiment_type”: “simulation”,
+“domain”: “neuroscience”,
+“tags”: [“neural_control”, “active_inference”],
+“results”: {“accuracy”: 0.95, “efficiency”: 0.87}</p>
+</div></blockquote>
+</section>
+<section id="id163">
+<h1>})<a class="headerlink" href="#id163" title="Link to this heading"></a></h1>
+<p>#### Search Performance Optimization
+<a href="#id164"><span class="problematic" id="id165">``</span></a><a href="#id166"><span class="problematic" id="id167">`</span></a>python
+# Search performance monitoring and optimization
+from docs.platform.search import SearchPerformance</p>
+<p>performance = SearchPerformance()</p>
+<p># Monitor search performance
+metrics = performance.monitor_search_performance({</p>
+<blockquote>
+<div><p>“query_types”: [“text”, “semantic”, “code”],
+“response_times”: [],
+“result_quality”: [],
+“user_satisfaction”: []</p>
+</div></blockquote>
+<p>})</p>
+<p># Optimize search algorithms
+optimizations = performance.optimize_search_algorithms(metrics)</p>
+<p># Update search configuration
+updated_config = performance.update_search_config(optimizations)
+<a href="#id168"><span class="problematic" id="id169">``</span></a><a href="#id170"><span class="problematic" id="id171">`</span></a></p>
+<p>## 🧪 Testing</p>
+<p>### Platform Testing Framework</p>
+<p><a href="#id172"><span class="problematic" id="id173">``</span></a><a href="#id174"><span class="problematic" id="id175">`</span></a>python
+# Platform testing
+def test_platform_services():</p>
+<blockquote>
+<div><p>“””Test platform service functionality”””
+from docs.platform.services import PlatformServiceTester</p>
+<p>tester = PlatformServiceTester()</p>
+<p># Test API endpoints
+api_tests = tester.test_api_endpoints()
+assert api_tests[“overall_status”] == “passed”</p>
+<p># Test service integration
+integration_tests = tester.test_service_integration()
+assert integration_tests[“status”] == “passed”</p>
+<p># Test performance
+performance_tests = tester.test_platform_performance()
+assert performance_tests[“response_time”] &lt; 100  # ms</p>
+</div></blockquote>
+<dl>
+<dt>def test_knowledge_graph():</dt><dd><p>“””Test knowledge graph functionality”””
+from docs.platform.knowledge_graph import KnowledgeGraphTester</p>
+<p>tester = KnowledgeGraphTester()</p>
+<p># Test graph operations
+graph_tests = tester.test_graph_operations()
+assert graph_tests[“node_creation”] == “passed”
+assert graph_tests[“relationship_creation”] == “passed”</p>
+<p># Test query functionality
+query_tests = tester.test_graph_queries()
+assert query_tests[“traversal”] == “passed”
+assert query_tests[“reasoning”] == “passed”</p>
+</dd>
+<dt>def test_search_system():</dt><dd><p>“””Test search system functionality”””
+from docs.platform.search import SearchSystemTester</p>
+<p>tester = SearchSystemTester()</p>
+<p># Test search types
+search_tests = tester.test_all_search_types()
+assert all(test[“status”] == “passed” for test in search_tests)</p>
+<p># Test indexing
+indexing_tests = tester.test_indexing_functionality()
+assert indexing_tests[“performance”] == “passed”</p>
+<p># Test ranking
+ranking_tests = tester.test_ranking_algorithms()
+assert ranking_tests[“accuracy”] &gt;= 0.9</p>
+</dd>
+</dl>
+<p><a href="#id176"><span class="problematic" id="id177">``</span></a><a href="#id178"><span class="problematic" id="id179">`</span></a></p>
+<p>## 🔄 Development Workflow</p>
+<p>### Platform Documentation Development</p>
+<ol class="arabic">
+<li><p><strong>Service Analysis</strong>:
+<a href="#id180"><span class="problematic" id="id181">``</span></a><a href="#id182"><span class="problematic" id="id183">`</span></a>bash
+# Analyze platform services
+ai-docs analyze –platform –services –output services.json</p>
+<p># Study API patterns
+ai-docs analyze –apis –patterns –output api_patterns.json
+<a href="#id184"><span class="problematic" id="id185">``</span></a><a href="#id186"><span class="problematic" id="id187">`</span></a></p>
+</li>
+<li><p><strong>Documentation Creation</strong>:
+<a href="#id188"><span class="problematic" id="id189">``</span></a><a href="#id190"><span class="problematic" id="id191">`</span></a>bash
+# Create platform documentation
+ai-docs generate –platform –services –deployment</p>
+<p># Generate API documentation
+ai-docs generate –apis –rest –graphql –output api_docs/
+<a href="#id192"><span class="problematic" id="id193">``</span></a><a href="#id194"><span class="problematic" id="id195">`</span></a></p>
+</li>
+<li><p><strong>Documentation Validation</strong>:
+<a href="#id196"><span class="problematic" id="id197">``</span></a><a href="#id198"><span class="problematic" id="id199">`</span></a>bash
+# Validate platform documentation
+ai-docs validate –platform –completeness –accuracy</p>
+<p># Check API documentation
+ai-docs validate –apis –endpoints –examples
+<a href="#id200"><span class="problematic" id="id201">``</span></a><a href="#id202"><span class="problematic" id="id203">`</span></a></p>
+</li>
+<li><p><strong>Documentation Maintenance</strong>:
+<a href="#id204"><span class="problematic" id="id205">``</span></a><a href="#id206"><span class="problematic" id="id207">`</span></a>bash
+# Update platform documentation
+ai-docs maintain –platform –auto-update –validate</p>
+<p># Generate maintenance reports
+ai-docs maintain –report –output platform_report.html
+<a href="#id208"><span class="problematic" id="id209">``</span></a><a href="#id210"><span class="problematic" id="id211">`</span></a></p>
+</li>
+</ol>
+<p>### Platform Documentation Quality Assurance</p>
+<p><a href="#id212"><span class="problematic" id="id213">``</span></a><a href="#id214"><span class="problematic" id="id215">`</span></a>python
+# Platform documentation quality validation
+def validate_platform_documentation_quality(documentation: Dict[str, Any]) -&gt; Dict[str, Any]:</p>
+<blockquote>
+<div><p>“””Validate platform documentation quality and completeness”””</p>
+<dl class="simple">
+<dt>quality_metrics = {</dt><dd><p>“service_completeness”: validate_service_documentation_completeness(documentation),
+“api_accuracy”: validate_api_documentation_accuracy(documentation),
+“deployment_clarity”: validate_deployment_documentation_clarity(documentation),
+“integration_completeness”: validate_integration_documentation_completeness(documentation),
+“example_quality”: validate_example_quality(documentation)</p>
+</dd>
+</dl>
+<p>}</p>
+<p># Overall quality assessment
+overall_score = calculate_overall_platform_documentation_quality(quality_metrics)</p>
+<dl class="simple">
+<dt>return {</dt><dd><p>“metrics”: quality_metrics,
+“overall_score”: overall_score,
+“compliant”: overall_score &gt;= PLATFORM_DOCUMENTATION_QUALITY_THRESHOLD,
+“improvements”: generate_platform_documentation_improvements(quality_metrics)</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p><a href="#id216"><span class="problematic" id="id217">``</span></a><a href="#id218"><span class="problematic" id="id219">`</span></a></p>
+<p>## 🤝 Contributing</p>
+<p>### Platform Documentation Guidelines</p>
+<p>When contributing platform documentation:</p>
+<ol class="arabic simple">
+<li><p><strong>Service Focus</strong>: Emphasize practical service usage and configuration</p></li>
+<li><p><strong>API Completeness</strong>: Provide comprehensive API documentation with examples</p></li>
+<li><p><strong>Deployment Clarity</strong>: Include clear deployment and scaling instructions</p></li>
+<li><p><strong>Integration Guidance</strong>: Provide detailed integration instructions</p></li>
+<li><p><strong>Troubleshooting</strong>: Include comprehensive troubleshooting guides</p></li>
+</ol>
+<p>### Platform Documentation Review Process</p>
+<ol class="arabic simple">
+<li><p><strong>Completeness Review</strong>: Verify all platform components are documented</p></li>
+<li><p><strong>Accuracy Review</strong>: Validate technical accuracy of service descriptions</p></li>
+<li><p><strong>API Review</strong>: Test all API examples and validate functionality</p></li>
+<li><p><strong>Deployment Review</strong>: Verify deployment instructions work correctly</p></li>
+<li><p><strong>Quality Review</strong>: Ensure documentation meets quality standards</p></li>
+</ol>
+<p>## 📚 Resources</p>
+<p>### Platform Documentation
+- <strong>[Collaboration](collaboration/README.md)</strong>: Multi-user collaboration features
+- <strong>[Deployment](deployment/README.md)</strong>: Deployment and scaling infrastructure
+- <strong>[Knowledge Graph](knowledge_graph/README.md)</strong>: Semantic knowledge representation
+- <strong>[Search](search/README.md)</strong>: Intelligent search and retrieval</p>
+<p>### Development References
+- <strong>[Platform Services](../../platform/README.md)</strong>: Platform service implementation
+- <strong>[API Standards](../api/README.md)</strong>: API design and documentation standards
+- <strong>[Deployment Guide](../../platform/deployment/README.md)</strong>: Production deployment documentation</p>
+<p>## 📄 License</p>
+<p>This platform documentation is part of the Active Inference Knowledge Environment and follows the same MIT License <cite>../../../LICENSE</cite>.</p>
+<p>—</p>
+<p><strong>Platform Documentation Version</strong>: 1.0.0 | <strong>Last Updated</strong>: October 2024 | <strong>Development Status</strong>: Active Development</p>
+<p><em>“Active Inference for, with, by Generative AI”</em> - Supporting platform operations through comprehensive infrastructure and service documentation.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

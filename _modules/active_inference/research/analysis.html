@@ -1,0 +1,1077 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.research.analysis &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.research.analysis</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.research.analysis</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Research Framework - Analysis Tools</span>
+
+<span class="sd">Statistical and information-theoretic analysis tools for Active Inference research.</span>
+<span class="sd">Provides methods for analyzing model performance, information flow, and system dynamics.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="StatisticalAnalysis">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">StatisticalAnalysis</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Statistical analysis tools for research data"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"StatisticalAnalysis initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StatisticalAnalysis.compute_descriptive_stats">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis.compute_descriptive_stats">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_descriptive_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compute descriptive statistics for a dataset"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"mean"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span>
+            <span class="s2">"median"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span>
+            <span class="s2">"std"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span>
+            <span class="s2">"min"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span>
+            <span class="s2">"max"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span>
+            <span class="s2">"n_samples"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="StatisticalAnalysis.correlation_analysis">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis.correlation_analysis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">correlation_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compute correlation between two variables"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">correlation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"pearson_r"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">correlation</span><span class="p">),</span>
+            <span class="s2">"pearson_r_squared"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">correlation</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
+            <span class="s2">"n_samples"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="StatisticalAnalysis.significance_test">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis.significance_test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">significance_test</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data1</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">data2</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">test_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"t_test"</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Perform significance testing between two datasets"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"Empty datasets"</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">test_type</span> <span class="o">==</span> <span class="s2">"t_test"</span><span class="p">:</span>
+            <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"test_type"</span><span class="p">:</span> <span class="s2">"independent_t_test"</span><span class="p">,</span>
+                <span class="s2">"t_statistic"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">t_stat</span><span class="p">),</span>
+                <span class="s2">"p_value"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">p_value</span><span class="p">),</span>
+                <span class="s2">"significant"</span><span class="p">:</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">,</span>
+                <span class="s2">"n1"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data1</span><span class="p">),</span>
+                <span class="s2">"n2"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data2</span><span class="p">),</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Test type </span><span class="si">{</span><span class="n">test_type</span><span class="si">}</span><span class="s2"> not implemented"</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="StatisticalAnalysis.information_theory_metrics">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis.information_theory_metrics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">information_theory_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compute comprehensive information-theoretic metrics"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"Empty data"</span><span class="p">}</span>
+
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Compute entropy for each variable</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">variable_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variable_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Discretize data for entropy calculation</span>
+                <span class="n">hist</span><span class="p">,</span> <span class="n">bin_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span>
+                    <span class="n">variable_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">variable_data</span><span class="p">)))</span>
+                <span class="p">)</span>
+                <span class="n">probs</span> <span class="o">=</span> <span class="n">hist</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+
+                <span class="c1"># Shannon entropy</span>
+                <span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">probs</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">))</span>
+                <span class="n">metrics</span><span class="p">[</span><span class="sa">f</span><span class="s2">"entropy_var_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">entropy</span>
+
+        <span class="c1"># Compute mutual information between pairs of variables</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">mutual_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_mutual_information</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="n">metrics</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mutual_info_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mutual_info</span>
+
+        <span class="c1"># Compute KL divergence between first two variables if available</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">kl_div</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_kl_divergence</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">metrics</span><span class="p">[</span><span class="s2">"kl_divergence_0_1"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kl_div</span>
+
+        <span class="k">return</span> <span class="n">metrics</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_mutual_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Compute mutual information between two variables"""</span>
+        <span class="c1"># Convert to numpy arrays</span>
+        <span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># Discretize data</span>
+        <span class="n">x_bins</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="n">y_bins</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+
+        <span class="c1"># Create 2D histogram</span>
+        <span class="n">hist_2d</span><span class="p">,</span> <span class="n">x_edges</span><span class="p">,</span> <span class="n">y_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span>
+            <span class="n">x_array</span><span class="p">,</span> <span class="n">y_array</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">x_bins</span><span class="p">,</span> <span class="n">y_bins</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">hist_2d</span> <span class="o">=</span> <span class="n">hist_2d</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">)</span>
+
+        <span class="c1"># Compute marginal distributions</span>
+        <span class="n">hist_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">hist_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Mutual information calculation</span>
+        <span class="n">mutual_info</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist_x</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hist_y</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">hist_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">hist_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">hist_y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">mutual_info</span> <span class="o">+=</span> <span class="n">hist_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span>
+                        <span class="n">hist_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">hist_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">hist_y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">mutual_info</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_kl_divergence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">q_data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Compute KL divergence between two distributions"""</span>
+        <span class="c1"># Discretize both distributions</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p_data</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">q_data</span><span class="p">)))</span>
+
+        <span class="n">p_hist</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">p_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">q_hist</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">q_data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Add small epsilon to avoid division by zero</span>
+        <span class="n">p_hist</span> <span class="o">=</span> <span class="n">p_hist</span> <span class="o">+</span> <span class="mf">1e-10</span>
+        <span class="n">q_hist</span> <span class="o">=</span> <span class="n">q_hist</span> <span class="o">+</span> <span class="mf">1e-10</span>
+
+        <span class="c1"># Normalize</span>
+        <span class="n">p_hist</span> <span class="o">=</span> <span class="n">p_hist</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p_hist</span><span class="p">)</span>
+        <span class="n">q_hist</span> <span class="o">=</span> <span class="n">q_hist</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">q_hist</span><span class="p">)</span>
+
+        <span class="c1"># KL divergence</span>
+        <span class="n">kl_div</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p_hist</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">p_hist</span> <span class="o">/</span> <span class="n">q_hist</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">kl_div</span>
+
+<div class="viewcode-block" id="StatisticalAnalysis.bayesian_analysis">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis.bayesian_analysis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bayesian_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">prior</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Perform Bayesian analysis on research data"""</span>
+        <span class="k">if</span> <span class="n">prior</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">prior</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"mean"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"variance"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
+
+        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"prior"</span><span class="p">:</span> <span class="n">prior</span><span class="p">,</span> <span class="s2">"likelihood"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"posterior"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"evidence"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+
+        <span class="c1"># Compute likelihood (simplified Gaussian likelihood)</span>
+        <span class="k">if</span> <span class="s2">"observations"</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s2">"observations"</span><span class="p">]:</span>
+            <span class="n">observations</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"observations"</span><span class="p">]</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span>
+
+            <span class="c1"># Maximum likelihood estimates</span>
+            <span class="n">sample_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span>
+            <span class="n">sample_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span>
+
+            <span class="c1"># Bayesian posterior (conjugate prior for Gaussian)</span>
+            <span class="n">prior_mean</span> <span class="o">=</span> <span class="n">prior</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">]</span>
+            <span class="n">prior_var</span> <span class="o">=</span> <span class="n">prior</span><span class="p">[</span><span class="s2">"variance"</span><span class="p">]</span>
+            <span class="n">prior_precision</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">prior_var</span>
+            <span class="n">sample_precision</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">sample_var</span> <span class="k">if</span> <span class="n">sample_var</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
+
+            <span class="c1"># Posterior parameters</span>
+            <span class="n">posterior_precision</span> <span class="o">=</span> <span class="n">prior_precision</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sample_precision</span>
+            <span class="n">posterior_var</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">posterior_precision</span>
+            <span class="n">posterior_mean</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">prior_mean</span> <span class="o">*</span> <span class="n">prior_precision</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sample_mean</span> <span class="o">*</span> <span class="n">sample_precision</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="n">posterior_precision</span>
+
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"posterior"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"mean"</span><span class="p">:</span> <span class="n">posterior_mean</span><span class="p">,</span>
+                <span class="s2">"variance"</span><span class="p">:</span> <span class="n">posterior_var</span><span class="p">,</span>
+                <span class="s2">"precision"</span><span class="p">:</span> <span class="n">posterior_precision</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="c1"># Compute log likelihood (simplified)</span>
+            <span class="n">log_likelihood</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">sample_var</span><span class="p">)</span>
+                <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span> <span class="o">-</span> <span class="n">sample_mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sample_var</span>
+            <span class="p">)</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"log_likelihood"</span><span class="p">]</span> <span class="o">=</span> <span class="n">log_likelihood</span>
+
+        <span class="k">return</span> <span class="n">analysis</span></div>
+
+
+<div class="viewcode-block" id="StatisticalAnalysis.time_series_analysis">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis.time_series_analysis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">time_series_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">time_series</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze time series data for trends and patterns"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_series</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">window_size</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"Insufficient data for time series analysis"</span><span class="p">}</span>
+
+        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"trend_analysis"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"volatility_analysis"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"autocorrelation"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"stationarity"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Trend analysis (linear regression on sliding windows)</span>
+        <span class="n">ts_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time_series</span><span class="p">)</span>
+
+        <span class="c1"># Simple linear trend for entire series</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_array</span><span class="p">))</span>
+        <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ts_array</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">"trend_analysis"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"overall_slope"</span><span class="p">:</span> <span class="n">slope</span><span class="p">,</span>
+            <span class="s2">"overall_intercept"</span><span class="p">:</span> <span class="n">intercept</span><span class="p">,</span>
+            <span class="s2">"trend_direction"</span><span class="p">:</span> <span class="s2">"increasing"</span> <span class="k">if</span> <span class="n">slope</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">"decreasing"</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Volatility analysis (rolling standard deviation)</span>
+        <span class="n">rolling_std</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_array</span><span class="p">)</span> <span class="o">-</span> <span class="n">window_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">window</span> <span class="o">=</span> <span class="n">ts_array</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">window_size</span><span class="p">]</span>
+            <span class="n">rolling_std</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">window</span><span class="p">))</span>
+
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">"volatility_analysis"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"mean_volatility"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rolling_std</span><span class="p">),</span>
+            <span class="s2">"max_volatility"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">rolling_std</span><span class="p">),</span>
+            <span class="s2">"volatility_trend"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">"increasing"</span> <span class="k">if</span> <span class="n">rolling_std</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">rolling_std</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="s2">"decreasing"</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Autocorrelation analysis</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ts_array</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">autocorr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">ts_array</span><span class="p">,</span> <span class="n">ts_array</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"full"</span><span class="p">)</span>
+            <span class="n">autocorr</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">[</span><span class="n">autocorr</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span> <span class="p">:]</span>
+            <span class="n">autocorr</span> <span class="o">=</span> <span class="n">autocorr</span> <span class="o">/</span> <span class="n">autocorr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Normalize</span>
+
+            <span class="c1"># First few lags</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"autocorrelation"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"lag_1"</span><span class="p">:</span> <span class="n">autocorr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">autocorr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"lag_5"</span><span class="p">:</span> <span class="n">autocorr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">autocorr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"lag_10"</span><span class="p">:</span> <span class="n">autocorr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">autocorr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">analysis</span></div>
+
+
+<div class="viewcode-block" id="StatisticalAnalysis.model_comparison_analysis">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.StatisticalAnalysis.model_comparison_analysis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">model_comparison_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">model_results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Comprehensive analysis comparing multiple models"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">model_results</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"No model results provided"</span><span class="p">}</span>
+
+        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"model_names"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"model_name"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"model_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">"performance_comparison"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"statistical_tests"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"ranking"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"recommendations"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Extract common metrics</span>
+        <span class="n">all_metrics</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">model_results</span><span class="p">:</span>
+            <span class="n">all_metrics</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="c1"># Compare each metric across models</span>
+        <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">all_metrics</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">metric</span><span class="p">),</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model_results</span><span class="p">):</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model_results</span><span class="p">]</span>
+
+                <span class="c1"># Determine if higher or lower is better</span>
+                <span class="n">better_higher</span> <span class="o">=</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="s2">"accuracy"</span><span class="p">,</span>
+                    <span class="s2">"precision"</span><span class="p">,</span>
+                    <span class="s2">"recall"</span><span class="p">,</span>
+                    <span class="s2">"f1_score"</span><span class="p">,</span>
+                    <span class="s2">"information_gain"</span><span class="p">,</span>
+                <span class="p">]</span>
+                <span class="n">better_lower</span> <span class="o">=</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="s2">"free_energy"</span><span class="p">,</span>
+                    <span class="s2">"prediction_error"</span><span class="p">,</span>
+                    <span class="s2">"loss"</span><span class="p">,</span>
+                    <span class="s2">"convergence_time"</span><span class="p">,</span>
+                    <span class="s2">"model_complexity"</span><span class="p">,</span>
+                <span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">better_higher</span><span class="p">:</span>
+                    <span class="n">best_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                    <span class="n">best_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                    <span class="n">worst_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">better_lower</span><span class="p">:</span>
+                    <span class="n">best_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                    <span class="n">best_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                    <span class="n">worst_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Neutral metric</span>
+                    <span class="n">best_idx</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">best_value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">worst_value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_comparison"</span><span class="p">][</span><span class="n">metric</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">"best_model"</span><span class="p">:</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"model_names"</span><span class="p">][</span><span class="n">best_idx</span><span class="p">],</span>
+                    <span class="s2">"best_value"</span><span class="p">:</span> <span class="n">best_value</span><span class="p">,</span>
+                    <span class="s2">"worst_value"</span><span class="p">:</span> <span class="n">worst_value</span><span class="p">,</span>
+                    <span class="s2">"values"</span><span class="p">:</span> <span class="n">values</span><span class="p">,</span>
+                    <span class="s2">"std_deviation"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">values</span><span class="p">),</span>
+                    <span class="s2">"coefficient_of_variation"</span><span class="p">:</span> <span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+                    <span class="p">),</span>
+                <span class="p">}</span>
+
+        <span class="c1"># Statistical comparison (simplified)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Compare free energy if available</span>
+            <span class="n">free_energy_values</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">model_results</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">"free_energy"</span> <span class="ow">in</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">]:</span>
+                    <span class="n">free_energy_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
+                        <span class="k">else</span> <span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">]</span>
+                    <span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">free_energy_values</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="c1"># Perform t-test between first two models</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">free_energy_values</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">free_energy_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">free_energy_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                    <span class="p">)</span>
+                    <span class="n">analysis</span><span class="p">[</span><span class="s2">"statistical_tests"</span><span class="p">][</span><span class="s2">"free_energy_t_test"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">"t_statistic"</span><span class="p">:</span> <span class="n">t_stat</span><span class="p">,</span>
+                        <span class="s2">"p_value"</span><span class="p">:</span> <span class="n">p_value</span><span class="p">,</span>
+                        <span class="s2">"significant"</span><span class="p">:</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">,</span>
+                    <span class="p">}</span>
+
+        <span class="c1"># Model ranking based on composite score</span>
+        <span class="n">composite_scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model_results</span><span class="p">):</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Weight different metrics</span>
+            <span class="k">if</span> <span class="s2">"accuracy"</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">score</span> <span class="o">+=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.3</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mf">0.3</span>
+            <span class="k">if</span> <span class="s2">"free_energy"</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="c1"># Lower is better for free energy</span>
+                <span class="n">fe_value</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">score</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">fe_value</span> <span class="o">/</span> <span class="mf">10.0</span><span class="p">)</span>
+                <span class="p">)</span> <span class="o">*</span> <span class="mf">0.3</span>  <span class="c1"># Normalize assuming max reasonable FE of 10</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mf">0.3</span>
+            <span class="k">if</span> <span class="s2">"convergence_time"</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+                <span class="c1"># Lower is better for convergence time</span>
+                <span class="n">conv_time</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"convergence_time"</span><span class="p">]</span>
+                <span class="n">score</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">conv_time</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
+                <span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span>  <span class="c1"># Normalize assuming max reasonable time of 1000</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mf">0.2</span>
+
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">composite_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">/</span> <span class="n">count</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">composite_score</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+            <span class="n">composite_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">composite_score</span><span class="p">)</span>
+
+        <span class="c1"># Rank models by composite score</span>
+        <span class="n">ranked_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">composite_scores</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Sort descending</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">"ranking"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"composite_scores"</span><span class="p">:</span> <span class="n">composite_scores</span><span class="p">,</span>
+            <span class="s2">"ranked_models"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"rank"</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">"model"</span><span class="p">:</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"model_names"</span><span class="p">][</span><span class="n">idx</span><span class="p">],</span>
+                    <span class="s2">"score"</span><span class="p">:</span> <span class="n">composite_scores</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ranked_indices</span><span class="p">)</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Generate recommendations</span>
+        <span class="k">if</span> <span class="s2">"ranking"</span> <span class="ow">in</span> <span class="n">analysis</span> <span class="ow">and</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"ranking"</span><span class="p">][</span><span class="s2">"ranked_models"</span><span class="p">]:</span>
+            <span class="n">best_model</span> <span class="o">=</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"ranking"</span><span class="p">][</span><span class="s2">"ranked_models"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"recommendations"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Recommended model: </span><span class="si">{</span><span class="n">best_model</span><span class="p">[</span><span class="s1">'model'</span><span class="p">]</span><span class="si">}</span><span class="s2"> (composite score:"</span>
+                <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">best_model</span><span class="p">[</span><span class="s1">'score'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Check for significant differences</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">composite_scores</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">score_diff</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">composite_scores</span><span class="p">[</span><span class="n">ranked_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                    <span class="o">-</span> <span class="n">composite_scores</span><span class="p">[</span><span class="n">ranked_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">score_diff</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+                    <span class="n">analysis</span><span class="p">[</span><span class="s2">"recommendations"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">"Clear performance difference between top models"</span>
+                        <span class="sa">f</span><span class="s2">" (</span><span class="si">{</span><span class="n">score_diff</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> score gap)"</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">analysis</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AnalysisTools">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.AnalysisTools">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AnalysisTools</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Comprehensive analysis toolkit for research"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statistical_analysis</span> <span class="o">=</span> <span class="n">StatisticalAnalysis</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"AnalysisTools initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AnalysisTools.analyze_experiment_results">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.AnalysisTools.analyze_experiment_results">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_experiment_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze results from experiment runs"""</span>
+        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"experiment_id"</span><span class="p">:</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"experiment_id"</span><span class="p">),</span>
+            <span class="s2">"performance_metrics"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"statistical_analysis"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"recommendations"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Analyze free energy trajectory</span>
+        <span class="k">if</span> <span class="s2">"free_energy"</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">free_energy</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">]</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">][</span><span class="s2">"free_energy_stats"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statistical_analysis</span><span class="o">.</span><span class="n">compute_descriptive_stats</span><span class="p">(</span><span class="n">free_energy</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">][</span><span class="s2">"final_free_energy"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">free_energy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">free_energy</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">][</span><span class="s2">"free_energy_trend"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">"decreasing"</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">free_energy</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">free_energy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">free_energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span> <span class="s2">"increasing"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Analyze accuracy trajectory</span>
+        <span class="k">if</span> <span class="s2">"accuracy"</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">accuracy</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">]</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">][</span><span class="s2">"accuracy_stats"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statistical_analysis</span><span class="o">.</span><span class="n">compute_descriptive_stats</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">][</span><span class="s2">"final_accuracy"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">accuracy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">accuracy</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">][</span><span class="s2">"accuracy_trend"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">"increasing"</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">accuracy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">accuracy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span> <span class="s2">"decreasing"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Generate recommendations</span>
+        <span class="k">if</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"free_energy_trend"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"increasing"</span><span class="p">:</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"recommendations"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Consider adjusting model parameters to reduce free energy"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">"performance_metrics"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"accuracy_trend"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"decreasing"</span><span class="p">:</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">"recommendations"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Model accuracy is declining, investigate learning dynamics"</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">analysis</span></div>
+
+
+<div class="viewcode-block" id="AnalysisTools.compare_models">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.AnalysisTools.compare_models">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compare_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compare multiple model results"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">model_results</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">comparison</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"n_models"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_results</span><span class="p">),</span>
+            <span class="s2">"model_names"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"model_name"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"model_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">"performance_comparison"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"statistical_tests"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Extract performance metrics</span>
+        <span class="n">free_energy_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">accuracy_values</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">model_results</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">"free_energy"</span> <span class="ow">in</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">]:</span>
+                <span class="n">free_energy_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"free_energy"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Final value</span>
+            <span class="k">if</span> <span class="s2">"accuracy"</span> <span class="ow">in</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">result</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">]:</span>
+                <span class="n">accuracy_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Final value</span>
+
+        <span class="c1"># Compare free energy</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">free_energy_values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">comparison</span><span class="p">[</span><span class="s2">"performance_comparison"</span><span class="p">][</span><span class="s2">"free_energy_comparison"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statistical_analysis</span><span class="o">.</span><span class="n">significance_test</span><span class="p">(</span>
+                    <span class="n">free_energy_values</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">free_energy_values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Compare accuracy</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">accuracy_values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">comparison</span><span class="p">[</span><span class="s2">"performance_comparison"</span><span class="p">][</span><span class="s2">"accuracy_comparison"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statistical_analysis</span><span class="o">.</span><span class="n">significance_test</span><span class="p">(</span>
+                    <span class="n">accuracy_values</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">accuracy_values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">comparison</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_mutual_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Compute mutual information between two variables</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x: First variable data</span>
+<span class="sd">            y: Second variable data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Mutual information value</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Discretize data for mutual information calculation</span>
+        <span class="n">x_hist</span><span class="p">,</span> <span class="n">x_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="p">))))</span>
+        <span class="n">y_hist</span><span class="p">,</span> <span class="n">y_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y</span><span class="p">))))</span>
+
+        <span class="c1"># Create 2D histogram</span>
+        <span class="n">hist_2d</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">x_edges</span><span class="p">,</span> <span class="n">y_edges</span><span class="p">])</span>
+
+        <span class="c1"># Convert to probabilities</span>
+        <span class="n">hist_2d</span> <span class="o">=</span> <span class="n">hist_2d</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">)</span>
+
+        <span class="c1"># Marginal probabilities</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Compute mutual information</span>
+        <span class="n">mi</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">px</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">py</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">hist_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">mi</span> <span class="o">+=</span> <span class="n">hist_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">px</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">py</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">mi</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_kl_divergence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">q</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Compute KL divergence between two distributions</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            p: First distribution</span>
+<span class="sd">            q: Second distribution</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            KL divergence value</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Ensure distributions sum to 1</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+        <span class="c1"># Add small epsilon to avoid division by zero</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-10</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+        <span class="c1"># Compute KL divergence</span>
+        <span class="n">kl_div</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="n">q</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">kl_div</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AnalysisTools.analyze_time_series">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.AnalysisTools.analyze_time_series">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_time_series</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Analyze time series data for trends and patterns</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: Time series data</span>
+<span class="sd">            window_size: Window size for rolling statistics</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Time series analysis results</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">window_size</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"Data too short for analysis"</span><span class="p">}</span>
+
+        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"trend_analysis"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"seasonal_analysis"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"autocorrelation"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"stationarity_tests"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Trend analysis</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">"trend_analysis"</span><span class="p">][</span><span class="s2">"linear_trend"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_linear_trend</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">"trend_analysis"</span><span class="p">][</span><span class="s2">"moving_average"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_moving_average</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">window_size</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Stationarity tests (simplified)</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">"stationarity_tests"</span><span class="p">][</span><span class="s2">"mean_stationarity"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_test_mean_stationarity</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Autocorrelation (simplified)</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">"autocorrelation"</span><span class="p">][</span><span class="s2">"lag_1"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_autocorrelation</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">analysis</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_linear_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compute linear trend in data"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"slope"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"intercept"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"r_squared"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># Linear regression</span>
+        <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">r_squared</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"slope"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">slope</span><span class="p">),</span>
+            <span class="s2">"intercept"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">intercept</span><span class="p">),</span>
+            <span class="s2">"r_squared"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">r_squared</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_moving_average</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compute moving average"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">window_size</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">moving_avg</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">window_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">window_size</span><span class="p">]</span>
+            <span class="n">moving_avg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">window</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="n">moving_avg</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_test_mean_stationarity</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Test for mean stationarity"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">window_size</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"stationary"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Insufficient data"</span><span class="p">}</span>
+
+        <span class="c1"># Split data into windows and compare means</span>
+        <span class="n">windows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">window_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">window</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">window_size</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">window</span><span class="p">)</span> <span class="o">==</span> <span class="n">window_size</span><span class="p">:</span>
+                <span class="n">windows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">windows</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"stationary"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Insufficient windows"</span><span class="p">}</span>
+
+        <span class="n">window_means</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">windows</span><span class="p">]</span>
+
+        <span class="c1"># Test if means are similar (simplified stationarity test)</span>
+        <span class="n">mean_variation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">window_means</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">window_means</span><span class="p">)</span>
+        <span class="n">stationary</span> <span class="o">=</span> <span class="n">mean_variation</span> <span class="o">&lt;</span> <span class="mf">0.1</span>  <span class="c1"># Arbitrary threshold</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"stationary"</span><span class="p">:</span> <span class="n">stationary</span><span class="p">,</span>
+            <span class="s2">"mean_variation"</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">mean_variation</span><span class="p">),</span>
+            <span class="s2">"window_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">windows</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_autocorrelation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">lag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Compute autocorrelation at specified lag"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">lag</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Remove mean</span>
+        <span class="n">data_demeaned</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># Compute autocorrelation</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_demeaned</span><span class="p">[:</span><span class="o">-</span><span class="n">lag</span><span class="p">]</span> <span class="o">*</span> <span class="n">data_demeaned</span><span class="p">[</span><span class="n">lag</span><span class="p">:])</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data_demeaned</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">denominator</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AnalysisTools.perform_meta_analysis">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.AnalysisTools.perform_meta_analysis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_meta_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">study_results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Perform meta-analysis on multiple study results</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            study_results: List of study result dictionaries</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Meta-analysis results</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">study_results</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"No study results provided"</span><span class="p">}</span>
+
+        <span class="n">meta_analysis</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"effect_sizes"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"heterogeneity"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"publication_bias"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"summary_statistics"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Extract effect sizes (simplified - assuming standardized mean differences)</span>
+        <span class="n">effect_sizes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sample_sizes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">study</span> <span class="ow">in</span> <span class="n">study_results</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">"effect_size"</span> <span class="ow">in</span> <span class="n">study</span> <span class="ow">and</span> <span class="s2">"sample_size"</span> <span class="ow">in</span> <span class="n">study</span><span class="p">:</span>
+                <span class="n">effect_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">study</span><span class="p">[</span><span class="s2">"effect_size"</span><span class="p">])</span>
+                <span class="n">sample_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">study</span><span class="p">[</span><span class="s2">"sample_size"</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">effect_sizes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"No effect sizes found in studies"</span><span class="p">}</span>
+
+        <span class="n">meta_analysis</span><span class="p">[</span><span class="s2">"effect_sizes"</span><span class="p">]</span> <span class="o">=</span> <span class="n">effect_sizes</span>
+
+        <span class="c1"># Compute weighted average effect size</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">sample_sizes</span>
+        <span class="n">weighted_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">effect_sizes</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+
+        <span class="n">meta_analysis</span><span class="p">[</span><span class="s2">"summary_statistics"</span><span class="p">][</span><span class="s2">"weighted_mean_effect"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+            <span class="n">weighted_mean</span>
+        <span class="p">)</span>
+        <span class="n">meta_analysis</span><span class="p">[</span><span class="s2">"summary_statistics"</span><span class="p">][</span><span class="s2">"total_sample_size"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">)</span>
+
+        <span class="c1"># Heterogeneity analysis (simplified Q statistic)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect_sizes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">q_stat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">effect_sizes</span><span class="p">)</span> <span class="o">-</span> <span class="n">weighted_mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">meta_analysis</span><span class="p">[</span><span class="s2">"heterogeneity"</span><span class="p">][</span><span class="s2">"q_statistic"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">q_stat</span><span class="p">)</span>
+            <span class="n">meta_analysis</span><span class="p">[</span><span class="s2">"heterogeneity"</span><span class="p">][</span><span class="s2">"heterogeneous"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">q_stat</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">effect_sizes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">meta_analysis</span></div>
+
+
+<div class="viewcode-block" id="AnalysisTools.validate_analysis_correctness">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.AnalysisTools.validate_analysis_correctness">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_analysis_correctness</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">analysis_results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">ground_truth</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Validate analysis results against ground truth</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            analysis_results: Results from analysis</span>
+<span class="sd">            ground_truth: Known correct results</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Validation results</span>
+<span class="sd">        """</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"overall_accuracy"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">"metric_validation"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"error_analysis"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"recommendations"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Validate key metrics</span>
+        <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">true_value</span> <span class="ow">in</span> <span class="n">ground_truth</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">analysis_results</span><span class="p">:</span>
+                <span class="n">predicted_value</span> <span class="o">=</span> <span class="n">analysis_results</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">true_value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+                    <span class="n">predicted_value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="n">error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">predicted_value</span> <span class="o">-</span> <span class="n">true_value</span><span class="p">)</span>
+                    <span class="n">relative_error</span> <span class="o">=</span> <span class="n">error</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">true_value</span><span class="p">)</span> <span class="k">if</span> <span class="n">true_value</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+                    <span class="n">validation</span><span class="p">[</span><span class="s2">"metric_validation"</span><span class="p">][</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">"true_value"</span><span class="p">:</span> <span class="n">true_value</span><span class="p">,</span>
+                        <span class="s2">"predicted_value"</span><span class="p">:</span> <span class="n">predicted_value</span><span class="p">,</span>
+                        <span class="s2">"absolute_error"</span><span class="p">:</span> <span class="n">error</span><span class="p">,</span>
+                        <span class="s2">"relative_error"</span><span class="p">:</span> <span class="n">relative_error</span><span class="p">,</span>
+                        <span class="s2">"acceptable"</span><span class="p">:</span> <span class="n">relative_error</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># 10% tolerance</span>
+                    <span class="p">}</span>
+
+        <span class="c1"># Compute overall accuracy</span>
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"metric_validation"</span><span class="p">]:</span>
+            <span class="n">acceptable_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"metric_validation"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">[</span><span class="s2">"acceptable"</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"overall_accuracy"</span><span class="p">]</span> <span class="o">=</span> <span class="n">acceptable_count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"metric_validation"</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Generate recommendations</span>
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"overall_accuracy"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"recommendations"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Analysis accuracy below threshold - review methodology"</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relative_error"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"metric_validation"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"recommendations"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"High error in some metrics - investigate data quality"</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">validation</span></div>
+
+
+<div class="viewcode-block" id="AnalysisTools.generate_analysis_report">
+<a class="viewcode-back" href="../../../api/research.html#active_inference.research.AnalysisTools.generate_analysis_report">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_analysis_report</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">analysis_results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">report_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"markdown"</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate comprehensive analysis report</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            analysis_results: Results from analysis</span>
+<span class="sd">            report_format: Report format ('markdown', 'html', 'latex')</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Formatted analysis report</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">report_format</span> <span class="o">==</span> <span class="s2">"markdown"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_markdown_report</span><span class="p">(</span><span class="n">analysis_results</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">report_format</span> <span class="o">==</span> <span class="s2">"html"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_html_report</span><span class="p">(</span><span class="n">analysis_results</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">report_format</span> <span class="o">==</span> <span class="s2">"latex"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_latex_report</span><span class="p">(</span><span class="n">analysis_results</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported report format: </span><span class="si">{</span><span class="n">report_format</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_markdown_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate markdown analysis report"""</span>
+        <span class="n">report_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"# Analysis Report</span><span class="se">\n</span><span class="s2">"</span><span class="p">]</span>
+
+        <span class="c1"># Executive summary</span>
+        <span class="n">report_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Executive Summary</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">"Comprehensive statistical analysis of experimental data.</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Results sections</span>
+        <span class="k">for</span> <span class="n">section_name</span><span class="p">,</span> <span class="n">section_data</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">report_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"## </span><span class="si">{</span><span class="n">section_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">section_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">section_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                        <span class="n">report_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">report_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">**: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">section_data</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">section_data</span><span class="p">:</span>
+                    <span class="n">report_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">report_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">section_data</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report_lines</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_html_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate HTML analysis report"""</span>
+        <span class="n">html_parts</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"&lt;!DOCTYPE html&gt;"</span><span class="p">,</span>
+            <span class="s2">"&lt;html&gt;&lt;head&gt;&lt;title&gt;Analysis Report&lt;/title&gt;&lt;/head&gt;&lt;body&gt;"</span><span class="p">,</span>
+            <span class="s2">"&lt;h1&gt;Analysis Report&lt;/h1&gt;"</span><span class="p">,</span>
+            <span class="s2">"&lt;h2&gt;Executive Summary&lt;/h2&gt;"</span><span class="p">,</span>
+            <span class="s2">"&lt;p&gt;Comprehensive statistical analysis of experimental data.&lt;/p&gt;"</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">section_name</span><span class="p">,</span> <span class="n">section_data</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">html_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&lt;h2&gt;</span><span class="si">{</span><span class="n">section_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">&lt;/h2&gt;"</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">section_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">html_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"&lt;ul&gt;"</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">section_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">html_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&lt;li&gt;&lt;strong&gt;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&lt;/strong&gt; </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&lt;/li&gt;"</span><span class="p">)</span>
+                <span class="n">html_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"&lt;/ul&gt;"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">html_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&lt;p&gt;</span><span class="si">{</span><span class="n">section_data</span><span class="si">}</span><span class="s2">&lt;/p&gt;"</span><span class="p">)</span>
+
+        <span class="n">html_parts</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">"&lt;/body&gt;&lt;/html&gt;"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">html_parts</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_latex_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate LaTeX analysis report"""</span>
+        <span class="n">latex_parts</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"</span><span class="se">\\</span><span class="s2">documentclass</span><span class="si">{article}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"</span><span class="se">\\</span><span class="s2">begin</span><span class="si">{document}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"</span><span class="se">\\</span><span class="s2">title{Analysis Report}"</span><span class="p">,</span>
+            <span class="s2">"</span><span class="se">\\</span><span class="s2">maketitle"</span><span class="p">,</span>
+            <span class="s2">"</span><span class="se">\\</span><span class="s2">section{Executive Summary}"</span><span class="p">,</span>
+            <span class="s2">"Comprehensive statistical analysis of experimental data."</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">section_name</span><span class="p">,</span> <span class="n">section_data</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">latex_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\\</span><span class="s2">section</span><span class="se">{{</span><span class="si">{</span><span class="n">section_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="se">}}</span><span class="s2">"</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">section_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">section_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">latex_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\\</span><span class="s2">textbf</span><span class="se">{{</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="se">}}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="se">\\\\</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">latex_parts</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">"</span><span class="se">\\</span><span class="s2">end</span><span class="si">{document}</span><span class="s2">"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">latex_parts</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

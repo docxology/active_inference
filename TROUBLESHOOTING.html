@@ -1,0 +1,725 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b676973c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/TROUBLESHOOTING.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Troubleshooting Guide - Active Inference Knowledge Environment</p>
+<p><strong>Comprehensive troubleshooting guide for common issues, debugging strategies, and solutions.</strong></p>
+<p>## Overview</p>
+<p>This guide provides solutions to common issues encountered when working with the Active Inference Knowledge Environment. It covers setup problems, runtime errors, integration issues, and optimization challenges.</p>
+<p>## Table of Contents</p>
+<ol class="arabic simple">
+<li><p>[Installation and Setup Issues](#installation-and-setup-issues)</p></li>
+<li><p>[Runtime Errors](#runtime-errors)</p></li>
+<li><p>[Integration Problems](#integration-problems)</p></li>
+<li><p>[Performance Issues](#performance-issues)</p></li>
+<li><p>[Testing and Validation Issues](#testing-and-validation-issues)</p></li>
+<li><p>[Documentation and Development Issues](#documentation-and-development-issues)</p></li>
+</ol>
+<p>—</p>
+<p>## Installation and Setup Issues</p>
+<p>### Issue: Python Version Incompatibility</p>
+<p><strong>Symptoms</strong>: Package installation fails or runtime errors occur</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">ERROR:</span> <span class="pre">This</span> <span class="pre">package</span> <span class="pre">requires</span> <span class="pre">Python</span> <span class="pre">&gt;=3.9,</span> <span class="pre">but</span> <span class="pre">you</span> <span class="pre">have</span> <span class="pre">Python</span> <span class="pre">3.8</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Check Python Version</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">python</span> <span class="pre">--version</span>
+<span class="pre">python3</span> <span class="pre">--version</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Install Correct Python Version</strong>:
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash
+# Using pyenv (recommended)
+pyenv install 3.11
+pyenv local 3.11</p>
+<p># Or use system package manager
+sudo apt install python3.11 python3.11-venv
+<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+</li>
+<li><p><strong>Create Virtual Environment with Correct Version</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">python3.11</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">venv</span>
+<span class="pre">source</span> <span class="pre">venv/bin/activate</span>
+<span class="pre">`</span></code></p></li>
+</ol>
+<p>—</p>
+<p>### Issue: Dependency Installation Failures</p>
+<p><strong>Symptoms</strong>: <cite>pip install</cite> or <cite>uv sync</cite> fails with dependency conflicts</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">ERROR:</span> <span class="pre">Could</span> <span class="pre">not</span> <span class="pre">resolve</span> <span class="pre">dependencies</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Use uv for Dependency Management</strong> (recommended):</p>
+<blockquote>
+<div><p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>bash
+# Install uv
+curl -LsSf <a class="reference external" href="https://astral.sh/uv/install.sh">https://astral.sh/uv/install.sh</a> | sh</p>
+<p># Sync dependencies
+uv sync
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Clean Shared Environment</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">uv.lock</span>
+<span class="pre">uv</span> <span class="pre">sync</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Check for Conflicting Packages</strong>:
+<a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>bash
+# List installed packages
+uv pip list</p>
+<p># Try upgrading specific problematic packages
+uv pip install –upgrade &lt;package_name&gt;
+<a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
+</li>
+<li><p><strong>Reset Environment</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">venv</span>
+<span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">venv</span>
+<span class="pre">source</span> <span class="pre">venv/bin/activate</span>
+<span class="pre">uv</span> <span class="pre">sync</span>
+<span class="pre">`</span></code></p></li>
+</ol>
+<p>—</p>
+<p>### Issue: Virtual Environment Not Activating</p>
+<p><strong>Symptoms</strong>: Commands fail because virtual environment is not active</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">bash:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Activate Virtual Environment</strong>:</p>
+<blockquote>
+<div><p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>bash
+# macOS/Linux
+source venv/bin/activate</p>
+<p># Windows
+venvScriptsactivate
+<a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Check Activation</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">which</span> <span class="pre">python</span>&#160; <span class="pre">#</span> <span class="pre">Should</span> <span class="pre">show</span> <span class="pre">venv</span> <span class="pre">path</span>
+<span class="pre">echo</span> <span class="pre">$VIRTUAL_ENV</span>&#160; <span class="pre">#</span> <span class="pre">Should</span> <span class="pre">show</span> <span class="pre">venv</span> <span class="pre">directory</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Auto-activate with direnv</strong> (recommended):
+<a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a>bash
+# Install direnv
+brew install direnv  # macOS
+sudo apt install direnv  # Linux</p>
+<p># Add to shell config (.bashrc, .zshrc, etc.)
+eval “$(direnv hook bash)”</p>
+<p># Create .envrc in project root
+echo “source venv/bin/activate” &gt; .envrc
+direnv allow
+<a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
+</li>
+</ol>
+<p>—</p>
+<p>## Runtime Errors</p>
+<p>### Issue: Module Import Errors</p>
+<p><strong>Symptoms</strong>: Python fails to import modules</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'active_inference'</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Check Installation</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">active_inference</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Reinstall in Development Mode</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Check Python Path</strong>:
+<code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">import</span> <span class="pre">sys</span>
+<span class="pre">print(sys.path)</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Add Project to PYTHONPATH</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">export</span> <span class="pre">PYTHONPATH=&quot;${PYTHONPATH}:/path/to/active_inference&quot;</span>
+<span class="pre">#</span> <span class="pre">Or</span> <span class="pre">in</span> <span class="pre">your</span> <span class="pre">shell</span> <span class="pre">config</span>
+<span class="pre">echo</span> <span class="pre">'export</span> <span class="pre">PYTHONPATH=&quot;${PYTHONPATH}:$(pwd)&quot;'</span> <span class="pre">&gt;&gt;</span> <span class="pre">~/.bashrc</span>
+<span class="pre">`</span></code></p></li>
+</ol>
+<p>—</p>
+<p>### Issue: LLM Service Connection Errors</p>
+<p><strong>Symptoms</strong>: LLM operations fail with connection errors</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">ConnectionError:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">connect</span> <span class="pre">to</span> <span class="pre">Ollama</span> <span class="pre">service</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Check Ollama Service Status</strong>:</p>
+<blockquote>
+<div><p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a>bash
+# Check if Ollama is running
+curl <a class="reference external" href="http://localhost:11434/api/tags">http://localhost:11434/api/tags</a></p>
+<p># Start Ollama if not running
+ollama serve
+<a href="#id45"><span class="problematic" id="id46">``</span></a><a href="#id47"><span class="problematic" id="id48">`</span></a></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Verify Service URL</strong>:
+<a href="#id49"><span class="problematic" id="id50">``</span></a><a href="#id51"><span class="problematic" id="id52">`</span></a>python
+# Check configuration
+from active_inference.llm import OllamaClient
+client = OllamaClient({“base_url”: “<a class="reference external" href="http://localhost:11434">http://localhost:11434</a>”})</p>
+<p># Test connection
+await client.check_connection()
+<a href="#id53"><span class="problematic" id="id54">``</span></a><a href="#id55"><span class="problematic" id="id56">`</span></a></p>
+</li>
+<li><p><strong>Check Firewall and Network</strong>:
+<a href="#id57"><span class="problematic" id="id58">``</span></a><a href="#id59"><span class="problematic" id="id60">`</span></a>bash
+# Test connectivity
+curl -v <a class="reference external" href="http://localhost:11434">http://localhost:11434</a></p>
+<p># Check firewall
+sudo ufw status  # Linux
+<a href="#id61"><span class="problematic" id="id62">``</span></a><a href="#id63"><span class="problematic" id="id64">`</span></a></p>
+</li>
+<li><p><strong>Use Alternative Configuration</strong>:
+<a href="#id65"><span class="problematic" id="id66">``</span></a><a href="#id67"><span class="problematic" id="id68">`</span></a>python
+# Configure with explicit settings
+config = {</p>
+<blockquote>
+<div><p>“base_url”: “<a class="reference external" href="http://localhost:11434">http://localhost:11434</a>”,
+“timeout”: 30,
+“max_retries”: 3</p>
+</div></blockquote>
+</li>
+</ol>
+<p>—</p>
+<p>### Issue: Knowledge Repository Loading Errors</p>
+<p><strong>Symptoms</strong>: Knowledge content fails to load or validate</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">ValidationError:</span> <span class="pre">Invalid</span> <span class="pre">knowledge</span> <span class="pre">node</span> <span class="pre">structure</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Validate Knowledge Files</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Use</span> <span class="pre">validation</span> <span class="pre">tool</span>
+<span class="pre">python</span> <span class="pre">tools/json_validation.py</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Check JSON Syntax</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Validate</span> <span class="pre">JSON</span> <span class="pre">files</span>
+<span class="pre">python</span> <span class="pre">-m</span> <span class="pre">json.tool</span> <span class="pre">knowledge/foundations/*.json</span> <span class="pre">&gt;</span> <span class="pre">/dev/null</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Verify Schema Compliance</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Run</span> <span class="pre">knowledge</span> <span class="pre">validation</span>
+<span class="pre">python</span> <span class="pre">tools/knowledge_validation.py</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Fix Common Schema Issues</strong>:
+<a href="#id69"><span class="problematic" id="id70">``</span></a><a href="#id71"><span class="problematic" id="id72">`</span></a>json
+{</p>
+<blockquote>
+<div><p>“id”: “correct_id”,
+“title”: “Title”,
+“content_type”: “foundation”,
+“difficulty”: “beginner”,
+“description”: “Description”,
+“prerequisites”: [],
+“tags”: [“tag1”, “tag2”],
+“learning_objectives”: [“objective1”],
+“content”: {</p>
+<blockquote>
+<div><p>“overview”: “Overview text”</p>
+</div></blockquote>
+<p>},
+“metadata”: {</p>
+<blockquote>
+<div><p>“estimated_reading_time”: 15,
+“author”: “Author”,
+“last_updated”: “2024-12-01”,
+“version”: “1.0”</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</li>
+</ol>
+<p>—</p>
+<p>## Integration Problems</p>
+<p>### Issue: Platform Server Won’t Start</p>
+<p><strong>Symptoms</strong>: Platform server fails to start or crashes</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">OSError:</span> <span class="pre">[Errno</span> <span class="pre">48]</span> <span class="pre">Address</span> <span class="pre">already</span> <span class="pre">in</span> <span class="pre">use</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Check Port Availability</strong>:</p>
+<blockquote>
+<div><p><a href="#id73"><span class="problematic" id="id74">``</span></a><a href="#id75"><span class="problematic" id="id76">`</span></a>bash
+# Find process using port
+lsof -i :8080</p>
+<p># Kill process if needed
+kill -9 &lt;PID&gt;
+<a href="#id77"><span class="problematic" id="id78">``</span></a><a href="#id79"><span class="problematic" id="id80">`</span></a></p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Use Different Port</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Configure</span> <span class="pre">different</span> <span class="pre">port</span>
+<span class="pre">export</span> <span class="pre">PLATFORM_PORT=8081</span>
+<span class="pre">python</span> <span class="pre">platform/serve.py</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Check Configuration</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Verify</span> <span class="pre">server</span> <span class="pre">configuration</span>
+<span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;from</span> <span class="pre">platform.serve</span> <span class="pre">import</span> <span class="pre">config;</span> <span class="pre">print(config)&quot;</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Check Dependencies</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Ensure</span> <span class="pre">all</span> <span class="pre">dependencies</span> <span class="pre">are</span> <span class="pre">installed</span>
+<span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--extra</span> <span class="pre">platform</span>
+<span class="pre">`</span></code></p></li>
+</ol>
+<p>—</p>
+<p>### Issue: Cross-Component Integration Failures</p>
+<p><strong>Symptoms</strong>: Components fail to communicate</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">IntegrationError:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">connect</span> <span class="pre">to</span> <span class="pre">knowledge</span> <span class="pre">repository</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Verify Component Initialization</strong>:</p>
+<blockquote>
+<div><p><a href="#id81"><span class="problematic" id="id82">``</span></a><a href="#id83"><span class="problematic" id="id84">`</span></a>python
+from active_inference.platform import Platform</p>
+<p>platform = Platform(config)
+assert platform.knowledge_repository is not None
+assert platform.search_engine is not None
+<a href="#id85"><span class="problematic" id="id86">``</span></a><a href="#id87"><span class="problematic" id="id88">`</span></a></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Check Service Health</strong>:
+<code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">#</span> <span class="pre">Check</span> <span class="pre">component</span> <span class="pre">health</span>
+<span class="pre">health</span> <span class="pre">=</span> <span class="pre">platform.health_check()</span>
+<span class="pre">print(health)</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Enable Debug Logging</strong>:
+<code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">import</span> <span class="pre">logging</span>
+<span class="pre">logging.basicConfig(level=logging.DEBUG)</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Test Individual Components</strong>:
+<a href="#id89"><span class="problematic" id="id90">``</span></a><a href="#id91"><span class="problematic" id="id92">`</span></a>python
+# Test components independently
+from active_inference.knowledge import KnowledgeRepository</p>
+<p>repo = KnowledgeRepository(config)
+results = repo.search(“entropy”)
+print(f”Found {len(results)} results”)
+<a href="#id93"><span class="problematic" id="id94">``</span></a><a href="#id95"><span class="problematic" id="id96">`</span></a></p>
+</li>
+</ol>
+<p>—</p>
+<p>## Performance Issues</p>
+<p>### Issue: Slow Knowledge Search</p>
+<p><strong>Symptoms</strong>: Search operations take too long</p>
+<p><strong>Solutions</strong>:
+1. <strong>Enable Indexing</strong>:</p>
+<blockquote>
+<div><p><a href="#id97"><span class="problematic" id="id98">``</span></a><a href="#id99"><span class="problematic" id="id100">`</span></a>python
+from active_inference.knowledge import KnowledgeRepository</p>
+<dl class="simple">
+<dt>config = {</dt><dd><p>“root_path”: “./knowledge”,
+“auto_index”: True,
+“index_optimization”: True</p>
+</dd>
+</dl>
+<p>}
+repo = KnowledgeRepository(config)
+<a href="#id101"><span class="problematic" id="id102">``</span></a><a href="#id103"><span class="problematic" id="id104">`</span></a></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Use Appropriate Limits</strong>:
+<code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">#</span> <span class="pre">Limit</span> <span class="pre">search</span> <span class="pre">results</span>
+<span class="pre">results</span> <span class="pre">=</span> <span class="pre">repo.search(&quot;query&quot;,</span> <span class="pre">limit=10)</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Optimize Search Query</strong>:
+<a href="#id105"><span class="problematic" id="id106">``</span></a><a href="#id107"><span class="problematic" id="id108">`</span></a>python
+# Use specific filters
+results = repo.search(</p>
+<blockquote>
+<div><p>query=”entropy”,
+content_types=[“foundation”],
+difficulty=[“beginner”, “intermediate”],
+limit=20</p>
+</div></blockquote>
+</li>
+<li><p><strong>Enable Caching</strong>:
+<a href="#id109"><span class="problematic" id="id110">``</span></a><a href="#id111"><span class="problematic" id="id112">`</span></a>python
+config = {</p>
+<blockquote>
+<div><p>“cache_enabled”: True,
+“cache_size”: 1000,
+“cache_ttl”: 3600</p>
+</div></blockquote>
+</li>
+</ol>
+<p>—</p>
+<p>### Issue: Memory Leaks or High Memory Usage</p>
+<p><strong>Symptoms</strong>: Application uses too much memory</p>
+<p><strong>Solutions</strong>:
+1. <strong>Enable Memory Profiling</strong>:</p>
+<blockquote>
+<div><p><a href="#id113"><span class="problematic" id="id114">``</span></a><a href="#id115"><span class="problematic" id="id116">`</span></a>bash
+# Install memory profiler
+uv pip install memory-profiler</p>
+<p># Profile specific function
+python -m memory_profiler script.py
+<a href="#id117"><span class="problematic" id="id118">``</span></a><a href="#id119"><span class="problematic" id="id120">`</span></a></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Check for Circular References</strong>:
+<a href="#id121"><span class="problematic" id="id122">``</span></a><a href="#id123"><span class="problematic" id="id124">`</span></a>python
+import gc</p>
+<p># Force garbage collection
+gc.collect()</p>
+<p># Check object counts
+print(gc.get_count())
+<a href="#id125"><span class="problematic" id="id126">``</span></a><a href="#id127"><span class="problematic" id="id128">`</span></a></p>
+</li>
+<li><p><strong>Optimize Data Structures</strong>:
+<a href="#id129"><span class="problematic" id="id130">``</span></a><a href="#id131"><span class="problematic" id="id132">`</span></a>python
+# Use generators instead of lists
+def large_iterable():</p>
+<blockquote>
+<div><dl class="simple">
+<dt>for item in source:</dt><dd><p>yield process(item)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p># Clear large caches
+cache.clear()
+<a href="#id133"><span class="problematic" id="id134">``</span></a><a href="#id135"><span class="problematic" id="id136">`</span></a></p>
+</li>
+<li><p><strong>Monitor Memory Usage</strong>:
+<a href="#id137"><span class="problematic" id="id138">``</span></a><a href="#id139"><span class="problematic" id="id140">`</span></a>python
+import psutil
+import os</p>
+<p>process = psutil.Process(os.getpid())
+memory_info = process.memory_info()
+print(f”Memory usage: {memory_info.rss / 1024 / 1024} MB”)
+<a href="#id141"><span class="problematic" id="id142">``</span></a><a href="#id143"><span class="problematic" id="id144">`</span></a></p>
+</li>
+</ol>
+<p>—</p>
+<p>## Testing and Validation Issues</p>
+<p>### Issue: Tests Fail After Code Changes</p>
+<p><strong>Symptoms</strong>: Previously passing tests now fail</p>
+<p><strong>Solutions</strong>:
+1. <strong>Run Tests in Isolation</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Run</span> <span class="pre">specific</span> <span class="pre">test</span> <span class="pre">file</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pytest</span> <span class="pre">tests/unit/test_specific.py</span> <span class="pre">-v</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Clear Test Cache</strong>:
+<a href="#id145"><span class="problematic" id="id146">``</span></a><a href="#id147"><span class="problematic" id="id148">`</span></a>bash
+# Clear pytest cache
+rm -rf .pytest_cache</p>
+<p># Run tests with cache disabled
+uv run pytest –cache-clear
+<a href="#id149"><span class="problematic" id="id150">``</span></a><a href="#id151"><span class="problematic" id="id152">`</span></a></p>
+</li>
+<li><p><strong>Check Test Dependencies</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Ensure</span> <span class="pre">test</span> <span class="pre">dependencies</span> <span class="pre">are</span> <span class="pre">up</span> <span class="pre">to</span> <span class="pre">date</span>
+<span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--extra</span> <span class="pre">test</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Run Tests with Verbose Output</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Detailed</span> <span class="pre">test</span> <span class="pre">output</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pytest</span> <span class="pre">-vv</span> <span class="pre">-s</span>
+<span class="pre">`</span></code></p></li>
+</ol>
+<p>—</p>
+<p>### Issue: Coverage Reports Show Low Coverage</p>
+<p><strong>Symptoms</strong>: Coverage below target thresholds</p>
+<p><strong>Solutions</strong>:
+1. <strong>Generate Detailed Coverage Report</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pytest</span> <span class="pre">--cov=src/active_inference</span> <span class="pre">--cov-report=html</span> <span class="pre">--cov-report=term-missing</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Identify Coverage Gaps</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Show</span> <span class="pre">uncovered</span> <span class="pre">lines</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pytest</span> <span class="pre">--cov=src/active_inference</span> <span class="pre">--cov-report=term-missing</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Focus on Critical Paths</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Check</span> <span class="pre">specific</span> <span class="pre">module</span> <span class="pre">coverage</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pytest</span> <span class="pre">--cov=src/active_inference/knowledge</span> <span class="pre">tests/unit/</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Update Coverage Configuration</strong>:
+<a href="#id153"><span class="problematic" id="id154">``</span></a><a href="#id155"><span class="problematic" id="id156">`</span></a>python
+# In pytest.ini or coverage_config.py
+[coverage:run]
+omit = [</p>
+<blockquote>
+<div><p>“<em>/tests/</em>”,
+“<em>/__pycache__/</em>”,
+“<em>/venv/</em>”</p>
+</div></blockquote>
+</li>
+</ol>
+<p>—</p>
+<p>## Documentation and Development Issues</p>
+<p>### Issue: Documentation Build Failures</p>
+<p><strong>Symptoms</strong>: Sphinx documentation won’t build</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">Sphinx</span> <span class="pre">error:</span> <span class="pre">toctree</span> <span class="pre">contains</span> <span class="pre">reference</span> <span class="pre">to</span> <span class="pre">nonexisting</span> <span class="pre">document</span>
+<span class="pre">`</span></code></p>
+<p><strong>Solutions</strong>:
+1. <strong>Check Sphinx Configuration</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Validate</span> <span class="pre">conf.py</span>
+<span class="pre">sphinx-build</span> <span class="pre">-b</span> <span class="pre">linkcheck</span> <span class="pre">docs/</span> <span class="pre">docs/_build/</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Check for Broken References</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Find</span> <span class="pre">broken</span> <span class="pre">links</span>
+<span class="pre">sphinx-build</span> <span class="pre">-b</span> <span class="pre">linkcheck</span> <span class="pre">docs/</span> <span class="pre">docs/_build/</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">broken</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Rebuild Documentation</strong>:
+<a href="#id157"><span class="problematic" id="id158">``</span></a><a href="#id159"><span class="problematic" id="id160">`</span></a>bash
+# Clean build directory
+rm -rf docs/_build/</p>
+<p># Rebuild documentation
+make docs
+<a href="#id161"><span class="problematic" id="id162">``</span></a><a href="#id163"><span class="problematic" id="id164">`</span></a></p>
+</li>
+<li><p><strong>Check Dependencies</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Ensure</span> <span class="pre">documentation</span> <span class="pre">dependencies</span> <span class="pre">are</span> <span class="pre">installed</span>
+<span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--extra</span> <span class="pre">docs</span>
+<span class="pre">`</span></code></p></li>
+</ol>
+<p>—</p>
+<p>### Issue: Code Quality Checks Fail</p>
+<p><strong>Symptoms</strong>: Linting or formatting checks fail</p>
+<p><strong>Solutions</strong>:
+1. <strong>Run Auto-formatting</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Format</span> <span class="pre">code</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">black</span> <span class="pre">src/</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">isort</span> <span class="pre">src/</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p><strong>Fix Linting Issues</strong>:
+<a href="#id165"><span class="problematic" id="id166">``</span></a><a href="#id167"><span class="problematic" id="id168">`</span></a>bash
+# Show linting errors
+uv run flake8 src/</p>
+<p># Auto-fix what’s possible
+uv run autopep8 –in-place –recursive src/
+<a href="#id169"><span class="problematic" id="id170">``</span></a><a href="#id171"><span class="problematic" id="id172">`</span></a></p>
+</li>
+<li><p><strong>Type Checking</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Run</span> <span class="pre">type</span> <span class="pre">checker</span>
+<span class="pre">uv</span> <span class="pre">run</span> <span class="pre">mypy</span> <span class="pre">src/active_inference</span>
+<span class="pre">`</span></code></p></li>
+<li><p><strong>Update Configuration</strong>:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">#</span> <span class="pre">Check</span> <span class="pre">configuration</span> <span class="pre">files</span>
+<span class="pre">cat</span> <span class="pre">pyproject.toml</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-A</span> <span class="pre">5</span> <span class="pre">black</span>
+<span class="pre">cat</span> <span class="pre">pyproject.toml</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-A</span> <span class="pre">5</span> <span class="pre">flake8</span>
+<span class="pre">`</span></code></p></li>
+</ol>
+<p>—</p>
+<p>## Advanced Debugging</p>
+<p>### Enable Debug Logging</p>
+<p><a href="#id173"><span class="problematic" id="id174">``</span></a><a href="#id175"><span class="problematic" id="id176">`</span></a>python
+import logging</p>
+<p># Configure logging
+logging.basicConfig(</p>
+<blockquote>
+<div><p>level=logging.DEBUG,
+format=’%(asctime)s - %(name)s - %(levelname)s - %(message)s’,
+handlers=[</p>
+<blockquote>
+<div><p>logging.FileHandler(‘debug.log’),
+logging.StreamHandler()</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>)</p>
+<p># Set specific module logging
+logging.getLogger(‘active_inference’).setLevel(logging.DEBUG)
+<a href="#id177"><span class="problematic" id="id178">``</span></a><a href="#id179"><span class="problematic" id="id180">`</span></a></p>
+<p>### Use Debugger</p>
+<p><a href="#id181"><span class="problematic" id="id182">``</span></a><a href="#id183"><span class="problematic" id="id184">`</span></a>bash
+# Run with Python debugger
+uv run python -m pdb script.py</p>
+<p># Or use pytest debugger
+uv run pytest –pdb tests/
+<a href="#id185"><span class="problematic" id="id186">``</span></a><a href="#id187"><span class="problematic" id="id188">`</span></a></p>
+<p>### Profiling</p>
+<p><a href="#id189"><span class="problematic" id="id190">``</span></a><a href="#id191"><span class="problematic" id="id192">`</span></a>python
+# Profile execution time
+import cProfile
+import pstats</p>
+<p>profiler = cProfile.Profile()
+profiler.enable()</p>
+<p># Your code here
+do_work()</p>
+<p>profiler.disable()
+stats = pstats.Stats(profiler)
+stats.sort_stats(‘cumulative’)
+stats.print_stats(20)  # Top 20 functions
+<a href="#id193"><span class="problematic" id="id194">``</span></a><a href="#id195"><span class="problematic" id="id196">`</span></a></p>
+<p>—</p>
+<p>## Getting Help</p>
+<p>### Community Resources</p>
+<ul class="simple">
+<li><p><strong>GitHub Issues</strong>: [Report issues and bugs](<a class="reference external" href="https://github.com/docxology/active_inference/issues">https://github.com/docxology/active_inference/issues</a>)</p></li>
+<li><p><strong>Discussions</strong>: [Ask questions](<a class="reference external" href="https://github.com/docxology/active_inference/discussions">https://github.com/docxology/active_inference/discussions</a>)</p></li>
+<li><p><strong>Documentation</strong>: [Comprehensive docs](<a class="reference external" href="https://active-inference.readthedocs.io">https://active-inference.readthedocs.io</a>)</p></li>
+</ul>
+<p>### Diagnostic Information</p>
+<p>When reporting issues, include:</p>
+<p><a href="#id197"><span class="problematic" id="id198">``</span></a><a href="#id199"><span class="problematic" id="id200">`</span></a>bash
+# System information
+python –version
+pip list
+uname -a  # Linux/Mac
+systeminfo  # Windows</p>
+<p># Environment information
+uv –version
+echo $VIRTUAL_ENV
+python -c “import sys; print(sys.path)”
+<a href="#id201"><span class="problematic" id="id202">``</span></a><a href="#id203"><span class="problematic" id="id204">`</span></a></p>
+<p>—</p>
+<p><strong>Last Updated</strong>: December 2024
+<strong>Version</strong>: 1.0.0</p>
+<p><em>“Active Inference for, with, South AI”</em> - Resolving issues through comprehensive troubleshooting and community support.</p>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

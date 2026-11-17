@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.platform.search &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.platform.search</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.platform.search</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Search Platform Service</span>
+
+<span class="sd">Provides intelligent search capabilities for the Active Inference Knowledge Environment.</span>
+<span class="sd">Includes query processing, indexing, ranking, and result presentation.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SearchResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search result representation"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">content_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">score</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">highlights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span> <span class="o">=</span> <span class="n">node_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content_type</span> <span class="o">=</span> <span class="n">content_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlights</span> <span class="o">=</span> <span class="n">highlights</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Convert to dictionary"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"node_id"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s2">"content_type"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_type</span><span class="p">,</span>
+            <span class="s2">"score"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="s2">"highlights"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">highlights</span><span class="p">,</span>
+            <span class="s2">"metadata"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+        <span class="p">}</span>
+
+
+<div class="viewcode-block" id="QueryProcessor">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.QueryProcessor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">QueryProcessor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Processes and analyzes search queries"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize query processor"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">"stop_words"</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">"the"</span><span class="p">,</span>
+                <span class="s2">"a"</span><span class="p">,</span>
+                <span class="s2">"an"</span><span class="p">,</span>
+                <span class="s2">"and"</span><span class="p">,</span>
+                <span class="s2">"or"</span><span class="p">,</span>
+                <span class="s2">"but"</span><span class="p">,</span>
+                <span class="s2">"in"</span><span class="p">,</span>
+                <span class="s2">"on"</span><span class="p">,</span>
+                <span class="s2">"at"</span><span class="p">,</span>
+                <span class="s2">"to"</span><span class="p">,</span>
+                <span class="s2">"for"</span><span class="p">,</span>
+                <span class="s2">"of"</span><span class="p">,</span>
+                <span class="s2">"with"</span><span class="p">,</span>
+                <span class="s2">"by"</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="QueryProcessor.preprocess_query">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.QueryProcessor.preprocess_query">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Preprocess search query"""</span>
+        <span class="c1"># Convert to lowercase</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="c1"># Remove punctuation and split</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\w\s]"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+        <span class="c1"># Remove stop words</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_words</span><span class="p">]</span>
+
+        <span class="c1"># Remove duplicates while preserving order</span>
+        <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">unique_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+                <span class="n">unique_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">unique_tokens</span></div>
+
+
+<div class="viewcode-block" id="QueryProcessor.extract_intent">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.QueryProcessor.extract_intent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Extract search intent from query"""</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">intent</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"primary_intent"</span><span class="p">:</span> <span class="s2">"general_search"</span><span class="p">,</span>
+            <span class="s2">"query_terms"</span><span class="p">:</span> <span class="n">tokens</span><span class="p">,</span>
+            <span class="s2">"filters"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"sort_by"</span><span class="p">:</span> <span class="s2">"relevance"</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Check for specific intents</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">term</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"tutorial"</span><span class="p">,</span> <span class="s2">"learn"</span><span class="p">,</span> <span class="s2">"guide"</span><span class="p">]):</span>
+            <span class="n">intent</span><span class="p">[</span><span class="s2">"primary_intent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"learning"</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">term</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"research"</span><span class="p">,</span> <span class="s2">"paper"</span><span class="p">,</span> <span class="s2">"study"</span><span class="p">]):</span>
+            <span class="n">intent</span><span class="p">[</span><span class="s2">"primary_intent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"research"</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">term</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"implement"</span><span class="p">,</span> <span class="s2">"code"</span><span class="p">,</span> <span class="s2">"example"</span><span class="p">]):</span>
+            <span class="n">intent</span><span class="p">[</span><span class="s2">"primary_intent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"implementation"</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">term</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"application"</span><span class="p">,</span> <span class="s2">"use"</span><span class="p">,</span> <span class="s2">"case"</span><span class="p">]):</span>
+            <span class="n">intent</span><span class="p">[</span><span class="s2">"primary_intent"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application"</span>
+
+        <span class="c1"># Extract potential filters</span>
+        <span class="n">content_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"foundation"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"implementation"</span><span class="p">,</span> <span class="s2">"application"</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">content_type</span> <span class="ow">in</span> <span class="n">content_types</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">content_type</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+                <span class="n">intent</span><span class="p">[</span><span class="s2">"filters"</span><span class="p">][</span><span class="s2">"content_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">content_type</span>
+                <span class="k">break</span>
+
+        <span class="n">difficulty_levels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"beginner"</span><span class="p">,</span> <span class="s2">"intermediate"</span><span class="p">,</span> <span class="s2">"advanced"</span><span class="p">,</span> <span class="s2">"expert"</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">difficulty</span> <span class="ow">in</span> <span class="n">difficulty_levels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">difficulty</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+                <span class="n">intent</span><span class="p">[</span><span class="s2">"filters"</span><span class="p">][</span><span class="s2">"difficulty"</span><span class="p">]</span> <span class="o">=</span> <span class="n">difficulty</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">intent</span></div>
+
+
+<div class="viewcode-block" id="QueryProcessor.expand_query">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.QueryProcessor.expand_query">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Expand query with synonyms and related terms"""</span>
+        <span class="n">expansions</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"active inference"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"active inference"</span><span class="p">,</span>
+                <span class="s2">"free energy principle"</span><span class="p">,</span>
+                <span class="s2">"predictive processing"</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">"entropy"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"entropy"</span><span class="p">,</span> <span class="s2">"information"</span><span class="p">,</span> <span class="s2">"uncertainty"</span><span class="p">],</span>
+            <span class="s2">"bayesian"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian"</span><span class="p">,</span> <span class="s2">"probabilistic"</span><span class="p">,</span> <span class="s2">"statistical"</span><span class="p">],</span>
+            <span class="s2">"neural"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"neural"</span><span class="p">,</span> <span class="s2">"brain"</span><span class="p">,</span> <span class="s2">"cognitive"</span><span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="n">expanded_terms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">query_lower</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">synonyms</span> <span class="ow">in</span> <span class="n">expansions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">query_lower</span><span class="p">:</span>
+                <span class="n">expanded_terms</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">synonyms</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">expanded_terms</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">expanded_terms</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="IndexManager">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.IndexManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IndexManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Manages search index operations"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize index manager"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># term -&gt; set of node_ids</span>
+
+<div class="viewcode-block" id="IndexManager.add_to_index">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.IndexManager.add_to_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_to_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add content to search index"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Store full content</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">content</span>
+
+            <span class="c1"># Update reverse index</span>
+            <span class="n">searchable_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_searchable_text</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+            <span class="c1"># Tokenize and add to reverse index</span>
+            <span class="n">tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tokenize_text</span><span class="p">(</span><span class="n">searchable_text</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">[</span><span class="n">token</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">[</span><span class="n">token</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Indexed content for node: </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error indexing content for </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="IndexManager.remove_from_index">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.IndexManager.remove_from_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_from_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Remove content from search index"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                <span class="c1"># Remove from reverse index</span>
+                <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                    <span class="n">searchable_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_searchable_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">node_id</span><span class="p">])</span>
+                    <span class="n">tokens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tokenize_text</span><span class="p">(</span><span class="n">searchable_text</span><span class="p">)</span>
+
+                    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">token</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">[</span><span class="n">token</span><span class="p">]</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">[</span><span class="n">token</span><span class="p">]:</span>
+                                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">[</span><span class="n">token</span><span class="p">]</span>
+
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Removed content from index: </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error removing content from index for </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="IndexManager.search_index">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.IndexManager.search_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Search index for matching node IDs"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">query_terms</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Find intersection of all query terms</span>
+        <span class="n">matching_nodes</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">query_terms</span><span class="p">:</span>
+            <span class="n">term_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="nb">set</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">matching_nodes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">matching_nodes</span> <span class="o">=</span> <span class="n">term_nodes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">matching_nodes</span> <span class="o">&amp;=</span> <span class="n">term_nodes</span>
+
+            <span class="c1"># Early exit if no matches</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">matching_nodes</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">matching_nodes</span> <span class="ow">or</span> <span class="nb">set</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_searchable_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Extract searchable text from content"""</span>
+        <span class="n">searchable_parts</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Add title and description</span>
+        <span class="k">if</span> <span class="s2">"title"</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+            <span class="n">searchable_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="s2">"title"</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s2">"description"</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+            <span class="n">searchable_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="s2">"description"</span><span class="p">])</span>
+
+        <span class="c1"># Add content sections</span>
+        <span class="k">if</span> <span class="s2">"content"</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+            <span class="n">content_section</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="s2">"content"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content_section</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">content_section</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                        <span class="n">searchable_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                                <span class="n">searchable_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="c1"># Add tags</span>
+        <span class="k">if</span> <span class="s2">"tags"</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="s2">"tags"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">searchable_parts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">searchable_parts</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_tokenize_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Tokenize text for indexing"""</span>
+        <span class="c1"># Simple tokenization</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\w\s]"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+        <span class="c1"># Remove short tokens and duplicates</span>
+        <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
+
+<div class="viewcode-block" id="IndexManager.get_index_statistics">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.IndexManager.get_index_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_index_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get index statistics"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"total_documents"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+            <span class="s2">"total_terms"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">),</span>
+            <span class="s2">"average_terms_per_doc"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reverse_index</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">),</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_flatten_text</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Join the string leaves of a content value (str, list or nested dict)."""</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_flatten_text</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_flatten_text</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">""</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ResultRanker</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Ranks and sorts search results"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize result ranker"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rank_results</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+        <span class="n">query_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">ranking_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"relevance"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Rank search results"""</span>
+        <span class="k">if</span> <span class="n">ranking_method</span> <span class="o">==</span> <span class="s2">"relevance"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank_by_relevance</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">query_terms</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ranking_method</span> <span class="o">==</span> <span class="s2">"recency"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank_by_recency</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ranking_method</span> <span class="o">==</span> <span class="s2">"popularity"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank_by_popularity</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_rank_by_relevance</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">query_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Rank by relevance to query"""</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+            <span class="c1"># Title match bonus</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">query_terms</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">term</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">title</span><span class="p">:</span>
+                    <span class="n">score</span> <span class="o">+=</span> <span class="mf">10.0</span>
+
+            <span class="c1"># Content match: "content" is a section mapping (or plain text)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">_flatten_text</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"content"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">query_terms</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">term</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+                    <span class="n">score</span> <span class="o">+=</span> <span class="mf">1.0</span>
+
+            <span class="c1"># Tag match bonus</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tags"</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">query_terms</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">term</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                        <span class="n">score</span> <span class="o">+=</span> <span class="mf">5.0</span>
+
+            <span class="n">result</span><span class="p">[</span><span class="s2">"relevance_score"</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
+
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relevance_score"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_rank_by_recency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Rank by recency"""</span>
+        <span class="c1"># Sort by last_updated if available</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"last_updated"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_rank_by_popularity</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Rank by popularity metrics"""</span>
+        <span class="c1"># Sort by some popularity metric (placeholder)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"usage_count"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SearchEngine">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SearchEngine">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SearchEngine</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main search engine coordinating all search components"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize search engine"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+
+        <span class="c1"># Initialize components</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_processor</span> <span class="o">=</span> <span class="n">QueryProcessor</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"query_processor"</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span> <span class="o">=</span> <span class="n">IndexManager</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"index_manager"</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_ranker</span> <span class="o">=</span> <span class="n">ResultRanker</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"result_ranker"</span><span class="p">,</span> <span class="p">{}))</span>
+
+        <span class="c1"># Search statistics</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"total_searches"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"average_response_time"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">"popular_queries"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="SearchEngine.search">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SearchEngine.search">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">ranking</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"relevance"</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Perform search"""</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Process query</span>
+            <span class="n">query_terms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_processor</span><span class="o">.</span><span class="n">preprocess_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">query_terms</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[]</span>
+
+            <span class="c1"># Search index</span>
+            <span class="n">matching_node_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span><span class="o">.</span><span class="n">search_index</span><span class="p">(</span><span class="n">query_terms</span><span class="p">)</span>
+
+            <span class="c1"># Convert to results</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">matching_node_ids</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                    <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">"node_id"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
+                        <span class="s2">"title"</span><span class="p">:</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"title"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+                        <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"content_type"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+                        <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"difficulty"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+                        <span class="s2">"tags"</span><span class="p">:</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tags"</span><span class="p">,</span> <span class="p">[]),</span>
+                        <span class="s2">"content"</span><span class="p">:</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"content"</span><span class="p">,</span> <span class="p">{}),</span>
+                        <span class="s2">"last_updated"</span><span class="p">:</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"last_updated"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+                    <span class="p">}</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+            <span class="c1"># Apply filters</span>
+            <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_filters</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span>
+
+            <span class="c1"># Rank results</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_ranker</span><span class="o">.</span><span class="n">rank_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">query_terms</span><span class="p">,</span> <span class="n">ranking</span><span class="p">)</span>
+
+            <span class="c1"># Limit results</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="p">[:</span><span class="n">limit</span><span class="p">]</span>
+
+            <span class="c1"># Update statistics</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_search_stats</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">results</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Search error for query '</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">': </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="SearchEngine.index_content">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SearchEngine.index_content">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Index new content"""</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node_id</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Cannot index content without ID"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span><span class="o">.</span><span class="n">add_to_index</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SearchEngine.remove_content">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SearchEngine.remove_content">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Remove content from index"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span><span class="o">.</span><span class="n">remove_from_index</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SearchEngine.get_search_suggestions">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SearchEngine.get_search_suggestions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_search_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partial_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get search suggestions for partial query"""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">partial_query</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">suggestions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">partial_lower</span> <span class="o">=</span> <span class="n">partial_query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="c1"># Look for terms in reverse index that start with partial query</span>
+        <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span><span class="o">.</span><span class="n">reverse_index</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">term</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">partial_lower</span><span class="p">)</span> <span class="ow">and</span> <span class="n">term</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">suggestions</span><span class="p">:</span>
+                <span class="n">suggestions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">suggestions</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">limit</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">suggestions</span></div>
+
+
+<div class="viewcode-block" id="SearchEngine.get_search_statistics">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SearchEngine.get_search_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_search_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get search statistics"""</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s2">"index_stats"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_manager</span><span class="o">.</span><span class="n">get_index_statistics</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">stats</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_filters</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">filters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Apply filters to search results"""</span>
+        <span class="n">filtered_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">include</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Content type filter</span>
+            <span class="k">if</span> <span class="s2">"content_type"</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"content_type"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">filters</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">]:</span>
+                    <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># Difficulty filter</span>
+            <span class="k">if</span> <span class="s2">"difficulty"</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"difficulty"</span><span class="p">)</span> <span class="o">!=</span> <span class="n">filters</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]:</span>
+                    <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># Tag filter</span>
+            <span class="k">if</span> <span class="s2">"tags"</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+                <span class="n">result_tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tags"</span><span class="p">,</span> <span class="p">[]))</span>
+                <span class="n">filter_tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">filters</span><span class="p">[</span><span class="s2">"tags"</span><span class="p">])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">filter_tags</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">result_tags</span><span class="p">):</span>
+                    <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
+                <span class="n">filtered_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">filtered_results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_search_stats</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">response_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">result_count</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Update search statistics"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="p">[</span><span class="s2">"total_searches"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Update average response time</span>
+        <span class="n">current_avg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="p">[</span><span class="s2">"average_response_time"</span><span class="p">]</span>
+        <span class="n">total_searches</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="p">[</span><span class="s2">"total_searches"</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="p">[</span><span class="s2">"average_response_time"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">current_avg</span> <span class="o">*</span> <span class="p">(</span><span class="n">total_searches</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">response_time</span>
+        <span class="p">)</span> <span class="o">/</span> <span class="n">total_searches</span>
+
+        <span class="c1"># Update popular queries</span>
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="p">[</span><span class="s2">"popular_queries"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="p">[</span><span class="s2">"popular_queries"</span><span class="p">][</span><span class="n">query</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_stats</span><span class="p">[</span><span class="s2">"popular_queries"</span><span class="p">][</span><span class="n">query</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

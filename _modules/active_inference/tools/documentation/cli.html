@@ -1,0 +1,676 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.tools.documentation.cli &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.tools.documentation.cli</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.tools.documentation.cli</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Documentation CLI Tool</span>
+
+<span class="sd">Command-line interface for documentation generation, analysis, and repository review.</span>
+<span class="sd">Provides comprehensive tools for maintaining high-quality documentation and codebase.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentationAnalyzer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentationGenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.reviewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">RepositoryReviewer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.validator</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentationValidator</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DocumentationCLI">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationCLI">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentationCLI</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Command-line interface for documentation tools.</span>
+
+<span class="sd">    Provides commands for generating documentation, analyzing quality,</span>
+<span class="sd">    validating standards, and reviewing repository health.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Initialize documentation CLI</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repo_path: Path to repository root</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">=</span> <span class="n">repo_path</span> <span class="ow">or</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="c1"># Initialize tools</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="n">DocumentationGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"docs"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">DocumentationAnalyzer</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"src"</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reviewer</span> <span class="o">=</span> <span class="n">RepositoryReviewer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validator</span> <span class="o">=</span> <span class="n">DocumentationValidator</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"src"</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Documentation CLI initialized for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationCLI.create_parser">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationCLI.create_parser">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create the main argument parser"""</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"Active Inference Documentation Tools"</span><span class="p">,</span>
+            <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
+            <span class="n">epilog</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">Examples:</span>
+<span class="s2">  # Generate all documentation</span>
+<span class="s2">  ai-docs generate all</span>
+
+<span class="s2">  # Analyze documentation quality</span>
+<span class="s2">  ai-docs analyze quality</span>
+
+<span class="s2">  # Review repository health</span>
+<span class="s2">  ai-docs review repository</span>
+
+<span class="s2">  # Validate documentation standards</span>
+<span class="s2">  ai-docs validate structure</span>
+
+<span class="s2">  # Generate API documentation only</span>
+<span class="s2">  ai-docs generate api --output docs/api</span>
+
+<span class="s2">  # Check documentation coverage</span>
+<span class="s2">  ai-docs analyze coverage --format json</span>
+<span class="s2">            """</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s2">"command"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Available commands"</span><span class="p">)</span>
+
+        <span class="c1"># Generate command</span>
+        <span class="n">generate_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+            <span class="s2">"generate"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Generate documentation"</span>
+        <span class="p">)</span>
+        <span class="n">generate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"type"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">"all"</span><span class="p">,</span>
+                <span class="s2">"api"</span><span class="p">,</span>
+                <span class="s2">"knowledge"</span><span class="p">,</span>
+                <span class="s2">"research"</span><span class="p">,</span>
+                <span class="s2">"visualization"</span><span class="p">,</span>
+                <span class="s2">"applications"</span><span class="p">,</span>
+                <span class="s2">"platform"</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Type of documentation to generate"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">generate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--output"</span><span class="p">,</span> <span class="s2">"-o"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">"docs"</span><span class="p">),</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Output directory"</span>
+        <span class="p">)</span>
+        <span class="n">generate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--source"</span><span class="p">,</span> <span class="s2">"-s"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">"src"</span><span class="p">),</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Source directory"</span>
+        <span class="p">)</span>
+        <span class="n">generate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--force"</span><span class="p">,</span>
+            <span class="s2">"-f"</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Force regeneration even if files exist"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Analyze command</span>
+        <span class="n">analyze_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+            <span class="s2">"analyze"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Analyze documentation and code"</span>
+        <span class="p">)</span>
+        <span class="n">analyze_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"analysis_type"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"quality"</span><span class="p">,</span> <span class="s2">"coverage"</span><span class="p">,</span> <span class="s2">"structure"</span><span class="p">,</span> <span class="s2">"complexity"</span><span class="p">,</span> <span class="s2">"dependencies"</span><span class="p">],</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Type of analysis to perform"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">analyze_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--format"</span><span class="p">,</span>
+            <span class="s2">"-f"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"text"</span><span class="p">,</span> <span class="s2">"json"</span><span class="p">,</span> <span class="s2">"html"</span><span class="p">],</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">"text"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Output format"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">analyze_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--output"</span><span class="p">,</span> <span class="s2">"-o"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Output file path"</span>
+        <span class="p">)</span>
+        <span class="n">analyze_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--threshold"</span><span class="p">,</span>
+            <span class="s2">"-t"</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+            <span class="n">default</span><span class="o">=</span><span class="mf">80.0</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Quality threshold percentage"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Review command</span>
+        <span class="n">review_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s2">"review"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Review repository health"</span><span class="p">)</span>
+        <span class="n">review_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"review_type"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"repository"</span><span class="p">,</span> <span class="s2">"code"</span><span class="p">,</span> <span class="s2">"documentation"</span><span class="p">,</span> <span class="s2">"architecture"</span><span class="p">,</span> <span class="s2">"testing"</span><span class="p">],</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Type of review to perform"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">review_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--format"</span><span class="p">,</span>
+            <span class="s2">"-f"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"text"</span><span class="p">,</span> <span class="s2">"json"</span><span class="p">,</span> <span class="s2">"html"</span><span class="p">],</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">"text"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Output format"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">review_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--output"</span><span class="p">,</span> <span class="s2">"-o"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Output file path"</span><span class="p">)</span>
+        <span class="n">review_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--include-tests"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Include test analysis"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Validate command</span>
+        <span class="n">validate_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+            <span class="s2">"validate"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Validate documentation standards"</span>
+        <span class="p">)</span>
+        <span class="n">validate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"validation_type"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"structure"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">,</span> <span class="s2">"style"</span><span class="p">,</span> <span class="s2">"completeness"</span><span class="p">,</span> <span class="s2">"all"</span><span class="p">],</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Type of validation to perform"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">validate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--format"</span><span class="p">,</span>
+            <span class="s2">"-f"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"text"</span><span class="p">,</span> <span class="s2">"json"</span><span class="p">,</span> <span class="s2">"html"</span><span class="p">],</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">"text"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Output format"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">validate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--output"</span><span class="p">,</span> <span class="s2">"-o"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Output file path"</span>
+        <span class="p">)</span>
+        <span class="n">validate_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--strict"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Treat warnings as errors"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Report command</span>
+        <span class="n">report_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+            <span class="s2">"report"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Generate comprehensive reports"</span>
+        <span class="p">)</span>
+        <span class="n">report_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"report_type"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"summary"</span><span class="p">,</span> <span class="s2">"detailed"</span><span class="p">,</span> <span class="s2">"health"</span><span class="p">,</span> <span class="s2">"quality"</span><span class="p">,</span> <span class="s2">"all"</span><span class="p">],</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Type of report to generate"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">report_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--format"</span><span class="p">,</span>
+            <span class="s2">"-f"</span><span class="p">,</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">"text"</span><span class="p">,</span> <span class="s2">"json"</span><span class="p">,</span> <span class="s2">"html"</span><span class="p">,</span> <span class="s2">"pdf"</span><span class="p">],</span>
+            <span class="n">default</span><span class="o">=</span><span class="s2">"text"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Output format"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">report_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--output"</span><span class="p">,</span> <span class="s2">"-o"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">Path</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Output file path"</span><span class="p">)</span>
+        <span class="n">report_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">"--include-charts"</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">"Include charts and visualizations"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">parser</span></div>
+
+
+<div class="viewcode-block" id="DocumentationCLI.run">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationCLI.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Run the CLI with given arguments</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            args: Command line arguments</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Exit code</span>
+<span class="sd">        """</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_parser</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="n">parsed_args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_args</span><span class="o">.</span><span class="n">command</span><span class="p">:</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dispatch_command</span><span class="p">(</span><span class="n">parsed_args</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Command execution failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_dispatch_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Dispatch command to appropriate handler"""</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">"generate"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_generate_command</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">"analyze"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_analyze_command</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">"review"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_review_command</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">"validate"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_validate_command</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">"report"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_report_command</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown command: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">command</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_generate_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Handle documentation generation commands"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generating </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> documentation"</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"all"</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">generate_all_docs</span><span class="p">(</span>
+                    <span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"knowledge"</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ All documentation generated successfully"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"api"</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">generate_api_docs</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ API documentation generated successfully"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"knowledge"</span><span class="p">:</span>
+                <span class="c1"># Initialize knowledge repository</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">...knowledge.repository</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+                    <span class="n">KnowledgeRepository</span><span class="p">,</span>
+                    <span class="n">KnowledgeRepositoryConfig</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="n">repo_config</span> <span class="o">=</span> <span class="n">KnowledgeRepositoryConfig</span><span class="p">(</span>
+                    <span class="n">root_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_path</span> <span class="o">/</span> <span class="s2">"knowledge"</span><span class="p">,</span> <span class="n">auto_index</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+                <span class="n">repo</span> <span class="o">=</span> <span class="n">KnowledgeRepository</span><span class="p">(</span><span class="n">repo_config</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">generate_learning_paths</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">generate_concept_maps</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">generate_statistics</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Knowledge documentation generated successfully"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"⚠️  Documentation type '</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">' not yet implemented"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ Documentation generation failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_analyze_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Handle documentation analysis commands"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Analyzing </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">analysis_type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">analysis_type</span> <span class="o">==</span> <span class="s2">"quality"</span><span class="p">:</span>
+                <span class="n">quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">analyze_documentation</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_display_quality_analysis</span><span class="p">(</span><span class="n">quality</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">analysis_type</span> <span class="o">==</span> <span class="s2">"coverage"</span><span class="p">:</span>
+                <span class="n">quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">analyze_documentation</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_display_coverage_analysis</span><span class="p">(</span><span class="n">quality</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"⚠️  Analysis type '</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">analysis_type</span><span class="si">}</span><span class="s2">' not yet implemented"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ Analysis failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_review_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Handle repository review commands"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Reviewing </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">review_type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">review_type</span> <span class="o">==</span> <span class="s2">"repository"</span><span class="p">:</span>
+                <span class="n">report</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reviewer</span><span class="o">.</span><span class="n">generate_report</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_display_report</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Repository review completed"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"⚠️  Review type '</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">review_type</span><span class="si">}</span><span class="s2">' not yet implemented"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ Review failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_validate_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Handle validation commands"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validating </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">validation_type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">validation_type</span> <span class="o">==</span> <span class="s2">"structure"</span><span class="p">:</span>
+                <span class="n">validation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="o">.</span><span class="n">validate_documentation</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_display_validation_results</span><span class="p">(</span><span class="n">validation</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Validation completed"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"⚠️  Validation type '</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">validation_type</span><span class="si">}</span><span class="s2">' not yet implemented"</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ Validation failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_handle_report_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Handle report generation commands"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generating </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">report_type</span><span class="si">}</span><span class="s2"> report"</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">report_type</span> <span class="o">==</span> <span class="s2">"summary"</span><span class="p">:</span>
+                <span class="c1"># Generate summary report combining all analyses</span>
+                <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_summary_report</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_display_report</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Summary report generated"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"⚠️  Report type '</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">report_type</span><span class="si">}</span><span class="s2">' not yet implemented"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"❌ Report generation failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_display_quality_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">quality</span><span class="p">,</span> <span class="n">format_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Display documentation quality analysis"""</span>
+        <span class="k">if</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+            <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">"coverage_percentage"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="p">,</span>
+                    <span class="s2">"total_elements"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span><span class="p">,</span>
+                    <span class="s2">"documented_elements"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span><span class="p">,</span>
+                    <span class="s2">"average_quality"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">average_quality</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">📊 Documentation Quality Analysis</span>
+<span class="si">{</span><span class="s1">'='</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">40</span><span class="si">}</span>
+
+<span class="s2">Coverage: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%</span>
+<span class="s2">Total Elements: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span><span class="si">}</span>
+<span class="s2">Documented Elements: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span><span class="si">}</span>
+<span class="s2">Average Quality Score: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">average_quality</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span>
+
+<span class="s2">Quality Distribution:</span>
+<span class="s2">- Excellent: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">excellent_docs</span><span class="p">)</span><span class="si">}</span><span class="s2"> elements</span>
+<span class="s2">- Poor: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span><span class="si">}</span><span class="s2"> elements</span>
+
+<span class="s2">Missing Documentation: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">)</span><span class="si">}</span><span class="s2"> elements</span>
+<span class="s2">"""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_content</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">output_path</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_display_coverage_analysis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">quality</span><span class="p">,</span> <span class="n">format_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Display coverage analysis"""</span>
+        <span class="k">if</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+            <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">"coverage_percentage"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="p">,</span>
+                    <span class="s2">"total_elements"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span><span class="p">,</span>
+                    <span class="s2">"documented_elements"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span><span class="p">,</span>
+                    <span class="s2">"missing_docs"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">,</span>
+                    <span class="s2">"poor_quality_docs"</span><span class="p">:</span> <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">📈 Documentation Coverage Analysis</span>
+<span class="si">{</span><span class="s1">'='</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">40</span><span class="si">}</span>
+
+<span class="s2">Overall Coverage: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%</span>
+
+<span class="s2">Elements:</span>
+<span class="s2">- Total: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span><span class="si">}</span>
+<span class="s2">- Documented: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span><span class="si">}</span>
+<span class="s2">- Missing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">)</span><span class="si">}</span>
+
+<span class="s2">Missing Documentation:</span>
+<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'- </span><span class="si">{</span><span class="n">doc</span><span class="si">}</span><span class="s1">'</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">doc</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span><span class="si">}</span>
+
+<span class="s2">Poor Quality Documentation:</span>
+<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'- </span><span class="si">{</span><span class="n">doc</span><span class="si">}</span><span class="s1">'</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">doc</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span><span class="si">}</span>
+<span class="s2">"""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_content</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">output_path</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_display_validation_results</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">validation</span><span class="p">,</span> <span class="n">format_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Display validation results"""</span>
+        <span class="k">if</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+            <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">validation</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">category_lines</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> issues"</span>
+                <span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"results_by_category"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">results</span>
+            <span class="p">)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">🔍 Documentation Validation Results</span>
+<span class="si">{</span><span class="s1">'='</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">40</span><span class="si">}</span>
+
+<span class="s2">Summary:</span>
+<span class="s2">- Total Issues: </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'total_issues'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">- Errors: </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'errors'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">- Warnings: </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'warnings'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">- Info: </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'info'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">- Validation Passed: </span><span class="si">{</span><span class="s1">'✅ Yes'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">validation</span><span class="p">[</span><span class="s1">'validation_passed'</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'❌ No'</span><span class="si">}</span>
+
+<span class="s2">Issues by Category:</span>
+<span class="si">{</span><span class="n">category_lines</span><span class="si">}</span>
+<span class="s2">"""</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_content</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">output_path</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_display_report</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">report</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">format_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Display report content"""</span>
+        <span class="k">if</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+            <span class="c1"># Try to parse as JSON for structured output</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">report_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">report_data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">report</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">report</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_content</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">output_path</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_summary_report</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate comprehensive summary report"""</span>
+        <span class="c1"># Combine multiple analyses</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyzer</span><span class="o">.</span><span class="n">analyze_documentation</span><span class="p">()</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validator</span><span class="o">.</span><span class="n">validate_documentation</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">📋 Active Inference Documentation Summary Report</span>
+<span class="si">{</span><span class="s1">'='</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">50</span><span class="si">}</span>
+
+<span class="s2">📊 Documentation Quality</span>
+<span class="s2">Coverage: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%</span>
+<span class="s2">Quality Score: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">average_quality</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span>
+
+<span class="s2">🔍 Validation Status</span>
+<span class="s2">Errors: </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'errors'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">Warnings: </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'warnings'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">Validation Passed: </span><span class="si">{</span><span class="s1">'✅ Yes'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">validation</span><span class="p">[</span><span class="s1">'validation_passed'</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'❌ No'</span><span class="si">}</span>
+
+<span class="s2">📈 Repository Health</span>
+<span class="s2">Total Issues: </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'total_issues'</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">Documentation Score: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%</span>
+
+<span class="s2">🔧 Recommendations</span>
+<span class="si">{</span><span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'- </span><span class="si">{</span><span class="n">rec</span><span class="si">}</span><span class="s1">'</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_get_recommendations</span><span class="p">(</span><span class="n">quality</span><span class="p">,</span><span class="w"> </span><span class="n">validation</span><span class="p">))</span><span class="si">}</span>
+<span class="s2">"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_recommendations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality</span><span class="p">,</span> <span class="n">validation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate recommendations based on analysis"""</span>
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span> <span class="o">&lt;</span> <span class="mi">80</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Improve documentation coverage from"</span>
+                <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% to 80%+"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"errors"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fix </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'errors'</span><span class="p">]</span><span class="si">}</span><span class="s2"> documentation errors"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"warnings"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Address </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'warnings'</span><span class="p">]</span><span class="si">}</span><span class="s2"> documentation warnings"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">recommendations</span><span class="p">:</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Documentation quality is excellent!"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">recommendations</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_output_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Output content to console or file"""</span>
+        <span class="k">if</span> <span class="n">output_path</span><span class="p">:</span>
+            <span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"📄 Report saved to: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main entry point for documentation CLI"""</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">DocumentationCLI</span><span class="p">()</span>
+    <span class="n">exit_code</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">exit_code</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

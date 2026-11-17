@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.knowledge.implementations &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.knowledge.implementations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.knowledge.implementations</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Implementations Module</span>
+
+<span class="sd">Practical code implementations and tutorials for Active Inference and the Free Energy</span>
+<span class="sd">Principle. Provides comprehensive examples, working code, and educational materials</span>
+<span class="sd">for implementing theoretical concepts in practice.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContentType</span><span class="p">,</span> <span class="n">DifficultyLevel</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">,</span> <span class="n">KnowledgeRepository</span>
+
+
+<div class="viewcode-block" id="Implementations">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Implementations">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Implementations</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Implementation examples and practical code for Active Inference</span>
+
+<span class="sd">    Provides structured access to practical implementations including:</span>
+<span class="sd">    - Basic Active Inference implementations</span>
+<span class="sd">    - Computational examples and tutorials</span>
+<span class="sd">    - Algorithm implementations with explanations</span>
+<span class="sd">    - Educational code samples and projects</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="n">repository</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_implementations</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_implementations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize implementation knowledge nodes"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_basic_implementations</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_advanced_implementations</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_tutorial_implementations</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_basic_implementations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create basic implementation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"active_inference_basic"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Basic Active Inference Implementation"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Complete implementation of basic Active Inference agent"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian_fundamentals"</span><span class="p">,</span> <span class="s2">"probability_basics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"active inference"</span><span class="p">,</span> <span class="s2">"implementation"</span><span class="p">,</span> <span class="s2">"python"</span><span class="p">,</span> <span class="s2">"tutorial"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Implement basic Active Inference loop"</span><span class="p">,</span>
+                    <span class="s2">"Understand belief updating and policy selection"</span><span class="p">,</span>
+                    <span class="s2">"Create simple agent-environment interaction"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"content"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"sections"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Overview"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"This implementation provides a complete Active"</span>
+                                <span class="s2">" Inference agent..."</span>
+                            <span class="p">),</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Mathematical Foundation"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"The implementation follows the mathematical"</span>
+                                <span class="s2">" framework..."</span>
+                            <span class="p">),</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Code Implementation"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"Complete working Python code with explanations..."</span>
+                            <span class="p">),</span>
+                        <span class="p">},</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"estimated_reading_time"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+                    <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Active Inference Community"</span><span class="p">,</span>
+                    <span class="s2">"last_updated"</span><span class="p">:</span> <span class="s2">"2024-10-27"</span><span class="p">,</span>
+                    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                    <span class="s2">"implementation_type"</span><span class="p">:</span> <span class="s2">"tutorial"</span><span class="p">,</span>
+                    <span class="s2">"language"</span><span class="p">:</span> <span class="s2">"python"</span><span class="p">,</span>
+                    <span class="s2">"dependencies"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="s2">"scipy"</span><span class="p">],</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"expected_free_energy_calculation"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Expected Free Energy Calculation"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Implementation of Expected Free Energy for policy selection"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"variational_free_energy"</span><span class="p">,</span> <span class="s2">"information_geometry"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"expected free energy"</span><span class="p">,</span> <span class="s2">"policy selection"</span><span class="p">,</span> <span class="s2">"computation"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Compute Expected Free Energy for multiple policies"</span><span class="p">,</span>
+                    <span class="s2">"Understand risk and ambiguity decomposition"</span><span class="p">,</span>
+                    <span class="s2">"Implement policy comparison algorithms"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"content"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"sections"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Mathematical Background"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"Expected Free Energy (EFE) provides a principled"</span>
+                                <span class="s2">" approach..."</span>
+                            <span class="p">),</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Implementation Details"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"The implementation computes EFE for policy"</span>
+                                <span class="s2">" evaluation..."</span>
+                            <span class="p">),</span>
+                        <span class="p">},</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"estimated_reading_time"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+                    <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Active Inference Community"</span><span class="p">,</span>
+                    <span class="s2">"last_updated"</span><span class="p">:</span> <span class="s2">"2024-10-27"</span><span class="p">,</span>
+                    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"mcmc_sampling"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"MCMC Sampling for Active Inference"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Markov Chain Monte Carlo methods for Active Inference"</span><span class="p">,</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian_inference"</span><span class="p">,</span> <span class="s2">"stochastic_processes"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"mcmc"</span><span class="p">,</span> <span class="s2">"sampling"</span><span class="p">,</span> <span class="s2">"bayesian"</span><span class="p">,</span> <span class="s2">"computation"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Implement MCMC sampling for posterior inference"</span><span class="p">,</span>
+                    <span class="s2">"Understand Metropolis-Hastings algorithm"</span><span class="p">,</span>
+                    <span class="s2">"Apply sampling to Active Inference models"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"content"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"sections"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"MCMC Fundamentals"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"Markov Chain Monte Carlo provides a framework..."</span>
+                            <span class="p">),</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"estimated_reading_time"</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+                    <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Active Inference Community"</span><span class="p">,</span>
+                    <span class="s2">"last_updated"</span><span class="p">:</span> <span class="s2">"2024-10-27"</span><span class="p">,</span>
+                    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Add nodes to repository</span>
+        <span class="k">for</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="n">nodes_data</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">add_knowledge_node</span><span class="p">(</span><span class="n">node_data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="c1"># Node might already exist, that's okay</span>
+                <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_advanced_implementations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create advanced implementation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"neural_network_implementation"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Neural Network Implementation of Active Inference"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Deep learning implementation of Active Inference principles"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"neural_networks"</span><span class="p">,</span> <span class="s2">"variational_inference"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"neural networks"</span><span class="p">,</span> <span class="s2">"deep learning"</span><span class="p">,</span> <span class="s2">"tensorflow"</span><span class="p">,</span> <span class="s2">"pytorch"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Implement Active Inference in neural network frameworks"</span><span class="p">,</span>
+                    <span class="s2">"Train models using free energy minimization"</span><span class="p">,</span>
+                    <span class="s2">"Scale to complex environments and tasks"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"content"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"sections"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Neural Active Inference"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"Neural networks provide a natural framework..."</span><span class="p">,</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"estimated_reading_time"</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span>
+                    <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Active Inference Community"</span><span class="p">,</span>
+                    <span class="s2">"last_updated"</span><span class="p">:</span> <span class="s2">"2024-10-27"</span><span class="p">,</span>
+                    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"variational_inference"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Variational Inference Implementation"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Practical implementation of variational inference methods"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian_inference"</span><span class="p">,</span> <span class="s2">"optimization"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"variational inference"</span><span class="p">,</span> <span class="s2">"optimization"</span><span class="p">,</span> <span class="s2">"computation"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Implement variational inference algorithms"</span><span class="p">,</span>
+                    <span class="s2">"Optimize variational approximations"</span><span class="p">,</span>
+                    <span class="s2">"Apply to Active Inference models"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"content"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"sections"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Variational Methods"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"Variational inference provides efficient"</span>
+                                <span class="s2">" approximations..."</span>
+                            <span class="p">),</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"estimated_reading_time"</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+                    <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Active Inference Community"</span><span class="p">,</span>
+                    <span class="s2">"last_updated"</span><span class="p">:</span> <span class="s2">"2024-10-27"</span><span class="p">,</span>
+                    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Add nodes to repository</span>
+        <span class="k">for</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="n">nodes_data</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">add_knowledge_node</span><span class="p">(</span><span class="n">node_data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="c1"># Node might already exist, that's okay</span>
+                <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_tutorial_implementations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create tutorial implementation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"tutorial_grid_world"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Grid World Tutorial Implementation"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">BEGINNER</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Step-by-step tutorial implementing Active Inference in a grid"</span>
+                    <span class="s2">" world"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"active_inference_basic"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"tutorial"</span><span class="p">,</span> <span class="s2">"grid world"</span><span class="p">,</span> <span class="s2">"step-by-step"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Build simple grid world environment"</span><span class="p">,</span>
+                    <span class="s2">"Implement Active Inference agent"</span><span class="p">,</span>
+                    <span class="s2">"Visualize belief updating and action selection"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"content"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"sections"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Setting Up the Environment"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"First, we'll create a simple grid world..."</span><span class="p">,</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Implementing the Agent"</span><span class="p">,</span>
+                            <span class="s2">"content"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="s2">"Now we'll implement the Active Inference agent..."</span>
+                            <span class="p">),</span>
+                        <span class="p">},</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"estimated_reading_time"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                    <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Active Inference Community"</span><span class="p">,</span>
+                    <span class="s2">"last_updated"</span><span class="p">:</span> <span class="s2">"2024-10-27"</span><span class="p">,</span>
+                    <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                    <span class="s2">"tutorial_type"</span><span class="p">:</span> <span class="s2">"interactive"</span><span class="p">,</span>
+                    <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Add nodes to repository</span>
+        <span class="k">for</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="n">nodes_data</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">add_knowledge_node</span><span class="p">(</span><span class="n">node_data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="c1"># Node might already exist, that's okay</span>
+                <span class="k">pass</span>
+
+<div class="viewcode-block" id="Implementations.get_implementation_examples">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Implementations.get_implementation_examples">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_implementation_examples</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">difficulty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DifficultyLevel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get implementation examples filtered by criteria"""</span>
+        <span class="n">search_query</span> <span class="o">=</span> <span class="s2">"implementation"</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+            <span class="n">search_query</span><span class="p">,</span>
+            <span class="n">difficulty</span><span class="o">=</span><span class="p">[</span><span class="n">difficulty</span><span class="p">]</span> <span class="k">if</span> <span class="n">difficulty</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">tags</span><span class="o">=</span><span class="n">tags</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Implementations.get_tutorial_path">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Implementations.get_tutorial_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_tutorial_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get recommended tutorial implementation path"""</span>
+        <span class="c1"># Find tutorial nodes and sort by prerequisites</span>
+        <span class="n">tutorials</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+            <span class="s2">"tutorial"</span><span class="p">,</span> <span class="n">content_types</span><span class="o">=</span><span class="p">[</span><span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Sort by difficulty level</span>
+        <span class="n">difficulty_order</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">BEGINNER</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">sorted_tutorials</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">tutorials</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">difficulty_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">difficulty</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sorted_tutorials</span></div>
+
+
+<div class="viewcode-block" id="Implementations.validate_implementation">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Implementations.validate_implementation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate implementation for correctness and completeness"""</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="s2">"Implementation not found"</span><span class="p">}</span>
+
+        <span class="n">validation_result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"suggestions"</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="c1"># Check if implementation has required sections</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">content</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sections"</span><span class="p">):</span>
+            <span class="n">validation_result</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Missing implementation sections"</span><span class="p">)</span>
+            <span class="n">validation_result</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check for code examples</span>
+        <span class="n">has_code</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="s2">"code"</span> <span class="ow">in</span> <span class="n">section</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"content"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sections"</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_code</span><span class="p">:</span>
+            <span class="n">validation_result</span><span class="p">[</span><span class="s2">"suggestions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Add code examples to implementation"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Check prerequisites</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+            <span class="n">validation_result</span><span class="p">[</span><span class="s2">"suggestions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Add prerequisite knowledge nodes"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">validation_result</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

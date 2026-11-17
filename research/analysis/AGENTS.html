@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/research/analysis/AGENTS.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Research Analysis Documentation - Agent Development Guide</p>
+<p><strong>Guidelines for AI agents working with research analysis documentation in the Active Inference Knowledge Environment.</strong></p>
+<p>## 🤖 Agent Role &amp; Responsibilities</p>
+<p><strong>What agents should do when working with research analysis documentation:</strong></p>
+<p>### Primary Responsibilities
+- <strong>Analysis Documentation</strong>: Create comprehensive documentation for statistical and analytical methods
+- <strong>Method Validation</strong>: Document validation procedures and statistical rigor
+- <strong>Code Example Development</strong>: Provide working examples of analysis techniques
+- <strong>Statistical Education</strong>: Explain complex statistical concepts in accessible ways
+- <strong>Research Integration</strong>: Connect analysis methods with research workflows</p>
+<p>### Development Focus Areas
+1. <strong>Statistical Documentation</strong>: Document rigorous statistical methods and procedures
+2. <strong>Information Theory Documentation</strong>: Explain information-theoretic analysis techniques
+3. <strong>Model Validation Documentation</strong>: Document model assessment and validation methods
+4. <strong>Performance Analysis Documentation</strong>: Document computational performance evaluation
+5. <strong>Educational Content</strong>: Create accessible explanations of complex analytical concepts</p>
+<p>## 🏗️ Architecture &amp; Integration</p>
+<p>### Analysis Documentation Architecture</p>
+<p><strong>Understanding how analysis documentation fits into the larger system:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Research</span> <span class="pre">Documentation</span> <span class="pre">Layer</span>
+<span class="pre">├──</span> <span class="pre">Analysis</span> <span class="pre">Methods</span> <span class="pre">(Statistical,</span> <span class="pre">Information</span> <span class="pre">Theory,</span> <span class="pre">Validation)</span>
+<span class="pre">├──</span> <span class="pre">Implementation</span> <span class="pre">Examples</span> <span class="pre">(Working</span> <span class="pre">code,</span> <span class="pre">tutorials,</span> <span class="pre">guides)</span>
+<span class="pre">├──</span> <span class="pre">Educational</span> <span class="pre">Content</span> <span class="pre">(Explanations,</span> <span class="pre">interpretations,</span> <span class="pre">applications)</span>
+<span class="pre">└──</span> <span class="pre">Integration</span> <span class="pre">Documentation</span> <span class="pre">(Workflows,</span> <span class="pre">best</span> <span class="pre">practices,</span> <span class="pre">standards)</span>
+<span class="pre">`</span></code></p>
+<p>### Integration Points</p>
+<p><strong>Key integration points and dependencies:</strong></p>
+<p>#### Upstream Components
+- <strong>Research Framework</strong>: Core analysis tools and statistical methods
+- <strong>Simulation Engine</strong>: Analysis of simulated Active Inference systems
+- <strong>Data Management</strong>: Research data processing and validation
+- <strong>Knowledge Base</strong>: Theoretical foundations for analysis methods</p>
+<p>#### Downstream Components
+- <strong>Visualization Systems</strong>: Statistical data visualization and exploration
+- <strong>Publication Systems</strong>: Research reporting and academic writing
+- <strong>Application Development</strong>: Analysis-driven application features
+- <strong>Educational Content</strong>: Research-based learning materials</p>
+<p>#### External Systems
+- <strong>Statistical Software</strong>: R, MATLAB, SPSS, specialized statistical packages
+- <strong>Scientific Libraries</strong>: NumPy, SciPy, StatsModels, scikit-learn, TensorFlow
+- <strong>Visualization Tools</strong>: Matplotlib, Seaborn, Plotly, Bokeh for statistical graphics
+- <strong>Academic Resources</strong>: Research papers, textbooks, statistical references</p>
+<p>### Documentation Flow Patterns</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">#</span> <span class="pre">Typical</span> <span class="pre">analysis</span> <span class="pre">documentation</span> <span class="pre">workflow</span>
+<span class="pre">research_question</span> <span class="pre">→</span> <span class="pre">method_selection</span> <span class="pre">→</span> <span class="pre">implementation</span> <span class="pre">→</span> <span class="pre">validation</span> <span class="pre">→</span> <span class="pre">documentation</span> <span class="pre">→</span> <span class="pre">review</span>
+<span class="pre">`</span></code></p>
+<p>## 💻 Development Patterns</p>
+<p>### Required Implementation Patterns</p>
+<p><strong>All analysis documentation must follow these patterns:</strong></p>
+<p>#### 1. Statistical Method Documentation Pattern (PREFERRED)</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+def document_statistical_method(method_config: Dict[str, Any]) -&gt; str:</p>
+<blockquote>
+<div><p>“””Document statistical method following scientific standards”””</p>
+<p># Structure documentation following statistical reporting guidelines
+documentation_sections = {</p>
+<blockquote>
+<div><p>“method_overview”: create_method_overview(method_config),
+“theoretical_background”: document_theoretical_foundation(method_config),
+“assumptions”: document_statistical_assumptions(method_config),
+“implementation”: document_computational_implementation(method_config),
+“validation”: document_method_validation(method_config),
+“interpretation”: document_result_interpretation(method_config),
+“examples”: create_working_examples(method_config),
+“references”: format_scientific_references(method_config)</p>
+</div></blockquote>
+<p>}</p>
+<p># Validate statistical rigor
+validation_result = validate_statistical_documentation(documentation_sections)
+if not validation_result[“valid”]:</p>
+<blockquote>
+<div><p>raise ValueError(f”Statistical documentation invalid: {validation_result[‘issues’]}”)</p>
+</div></blockquote>
+<p>return format_statistical_documentation(documentation_sections)</p>
+</div></blockquote>
+<dl>
+<dt>def validate_statistical_documentation(sections: Dict[str, str]) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate statistical documentation meets scientific standards”””</p>
+<dl class="simple">
+<dt>validation_checks = {</dt><dd><p>“assumptions_documented”: check_assumptions_documented(sections),
+“validation_included”: check_validation_methodology(sections),
+“interpretation_guided”: check_interpretation_guidance(sections),
+“examples_provided”: check_examples_completeness(sections),
+“references_cited”: check_references_adequacy(sections)</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="simple">
+<dt>return {</dt><dd><p>“valid”: all(validation_checks.values()),
+“checks”: validation_checks,
+“score”: calculate_documentation_quality_score(validation_checks)</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>#### 2. Analysis Example Pattern (MANDATORY)</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+from dataclasses import dataclass
+from typing import List, Dict, Any, Optional, Tuple</p>
+<p>&#64;dataclass
+class AnalysisExample:</p>
+<blockquote>
+<div><p>“””Standardized analysis example documentation”””</p>
+<p>title: str
+description: str
+learning_objectives: List[str]
+prerequisites: List[str]
+code: str
+expected_output: Any
+interpretation: str
+extensions: List[str]</p>
+<dl>
+<dt>def validate_example(self) -&gt; List[str]:</dt><dd><p>“””Validate example completeness and correctness”””
+errors = []</p>
+<p>required_fields = [‘title’, ‘description’, ‘code’, ‘expected_output’, ‘interpretation’]
+for field in required_fields:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if not getattr(self, field):</dt><dd><p>errors.append(f”Missing required field: {field}”)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p># Validate code execution
+try:</p>
+<blockquote>
+<div><p>execution_result = execute_analysis_code(self.code)
+if execution_result[“error”]:</p>
+<blockquote>
+<div><p>errors.append(f”Code execution failed: {execution_result[‘error’]}”)</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
+<dt>except Exception as e:</dt><dd><p>errors.append(f”Code validation error: {e}”)</p>
+</dd>
+</dl>
+<p># Validate output matches expectations
+if not validate_expected_output(self.expected_output, execution_result):</p>
+<blockquote>
+<div><p>errors.append(“Expected output does not match actual output”)</p>
+</div></blockquote>
+<p>return errors</p>
+</dd>
+<dt>def generate_documentation(self) -&gt; str:</dt><dd><p>“””Generate comprehensive example documentation”””
+return f”””</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>### {self.title}</p>
+<p>{self.description}</p>
+<p><strong>Learning Objectives:</strong>
+{self._format_learning_objectives()}</p>
+<p><strong>Prerequisites:</strong>
+{self._format_prerequisites()}</p>
+<p><strong>Implementation:</strong>
+<code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">{self.code}</span>
+<span class="pre">`</span></code></p>
+<p><strong>Expected Results:</strong>
+{self._format_expected_output()}</p>
+<p><strong>Interpretation:</strong>
+{self.interpretation}</p>
+<p><strong>Extensions:</strong>
+{self._format_extensions()}
+“””
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>#### 3. Validation Documentation Pattern (MANDATORY)</p>
+<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
+def document_analysis_validation(validation_config: Dict[str, Any]) -&gt; str:</p>
+<blockquote>
+<div><p>“””Document analysis validation procedures and standards”””</p>
+<p># Comprehensive validation documentation
+validation_documentation = {</p>
+<blockquote>
+<div><p>“statistical_assumptions”: document_assumptions_checking(validation_config),
+“method_validation”: document_method_validation_procedures(validation_config),
+“result_validation”: document_result_validation_approach(validation_config),
+“robustness_checks”: document_robustness_analysis(validation_config),
+“reproducibility”: document_reproducibility_standards(validation_config)</p>
+</div></blockquote>
+<p>}</p>
+<p># Add validation examples
+validation_examples = create_validation_examples(validation_config)
+validation_documentation[“examples”] = validation_examples</p>
+<p>return format_validation_documentation(validation_documentation)</p>
+</div></blockquote>
+<dl>
+<dt>def create_validation_examples(validation_config: Dict[str, Any]) -&gt; List[str]:</dt><dd><p>“””Create comprehensive validation examples”””</p>
+<p>examples = []</p>
+<p># Assumption checking example
+assumption_example = “””</p>
+</dd>
+</dl>
+<p># Example: Checking statistical assumptions
+from scipy import stats</p>
+<p># Check normality assumption
+normality_test = stats.shapiro(data)
+if normality_test.pvalue &lt; 0.05:</p>
+<blockquote>
+<div><p>print(“Warning: Data may not be normally distributed”)</p>
+</div></blockquote>
+<p># Check homoscedasticity
+homoscedasticity_test = stats.levene(<a href="#id21"><span class="problematic" id="id22">*</span></a>groups)
+if homoscedasticity_test.pvalue &lt; 0.05:</p>
+<blockquote>
+<div><p>print(“Warning: Variances may not be equal”)</p>
+</div></blockquote>
+<dl>
+<dt>“””</dt><dd><p>examples.append(assumption_example)</p>
+<p># Cross-validation example
+cv_example = “””</p>
+</dd>
+</dl>
+<p># Example: K-fold cross-validation
+from sklearn.model_selection import KFold
+from sklearn.metrics import accuracy_score</p>
+<p>kf = KFold(n_splits=10, shuffle=True, random_state=42)
+scores = []</p>
+<dl>
+<dt>for train_idx, test_idx in kf.split(X):</dt><dd><p>X_train, X_test = X[train_idx], X[test_idx]
+y_train, y_test = y[train_idx], y[test_idx]</p>
+<p>model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+score = accuracy_score(y_test, predictions)
+scores.append(score)</p>
+</dd>
+</dl>
+<p>print(f”Mean CV score: {np.mean(scores):.3f} (+/- {np.std(scores):.3f})”)
+“””</p>
+<blockquote>
+<div><p>examples.append(cv_example)</p>
+<p>return examples</p>
+</div></blockquote>
+<p><a href="#id23"><span class="problematic" id="id24">``</span></a><a href="#id25"><span class="problematic" id="id26">`</span></a></p>
+<p>## 🧪 Documentation Testing Standards</p>
+<p>### Documentation Testing Categories (MANDATORY)</p>
+<p>#### 1. Statistical Accuracy Tests
+<strong>Test statistical accuracy of documented methods:</strong></p>
+<p><a href="#id27"><span class="problematic" id="id28">``</span></a><a href="#id29"><span class="problematic" id="id30">`</span></a>python
+def test_statistical_accuracy():</p>
+<blockquote>
+<div><p>“””Test statistical accuracy of analysis documentation”””
+documentation = load_analysis_documentation(“entropy_analysis.md”)</p>
+<p># Extract statistical formulas
+formulas = extract_mathematical_formulas(documentation)</p>
+<p># Validate formulas
+for formula in formulas:</p>
+<blockquote>
+<div><p>validation = validate_mathematical_formula(formula)
+assert validation[“correct”], f”Invalid formula: {formula}”</p>
+</div></blockquote>
+<p># Test numerical examples
+examples = extract_numerical_examples(documentation)
+for example in examples:</p>
+<blockquote>
+<div><p>result = execute_numerical_example(example)
+assert abs(result[“computed”] - result[“documented”]) &lt; tolerance</p>
+</div></blockquote>
+</div></blockquote>
+<dl>
+<dt>def test_method_implementation():</dt><dd><p>“””Test documented methods produce correct results”””
+# Test entropy calculation
+data = generate_test_data(distribution=”normal”, size=1000)
+documented_result = calculate_entropy_documented_method(data)
+implemented_result = calculate_entropy_implementation(data)</p>
+<p>assert abs(documented_result - implemented_result) &lt; tolerance</p>
+<p># Test statistical significance
+p_value = calculate_documented_p_value(test_statistic, data)
+assert p_value == pytest.approx(calculate_implementation_p_value(test_statistic, data))</p>
+</dd>
+</dl>
+<p><a href="#id31"><span class="problematic" id="id32">``</span></a><a href="#id33"><span class="problematic" id="id34">`</span></a></p>
+<p>#### 2. Code Example Validation Tests
+<strong>Test all code examples execute correctly and produce expected results:</strong></p>
+<p><a href="#id35"><span class="problematic" id="id36">``</span></a><a href="#id37"><span class="problematic" id="id38">`</span></a>python
+def test_analysis_examples():</p>
+<blockquote>
+<div><p>“””Test all analysis code examples work correctly”””
+documentation = load_analysis_documentation(“information_theory.md”)</p>
+<dl>
+<dt>for example in documentation.get_code_examples():</dt><dd><p># Extract and execute code
+code = extract_code_from_markdown(example)
+result = execute_analysis_code(code)</p>
+<p># Validate execution
+assert result[“success”], f”Code example failed: {result[‘error’]}”</p>
+<p># Validate output
+expected_output = example[“expected_output”]
+assert validate_output_matches(result[“output”], expected_output)</p>
+<p># Validate interpretation
+interpretation = example[“interpretation”]
+assert interpretation_provides_guidance(interpretation)</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>def test_example_reproducibility():</dt><dd><p>“””Test analysis examples produce consistent results”””
+example = get_analysis_example(“mutual_information”)</p>
+<p># Run multiple times with same data
+results = []
+test_data = generate_standard_test_data()</p>
+<dl class="simple">
+<dt>for _ in range(10):</dt><dd><p>result = execute_example_with_data(example, test_data)
+results.append(result[“value”])</p>
+</dd>
+</dl>
+<p># Check statistical consistency
+assert statistical_variance(results) &lt; reproducibility_threshold
+assert all_results_positive(results)  # For mutual information</p>
+</dd>
+</dl>
+<p><a href="#id39"><span class="problematic" id="id40">``</span></a><a href="#id41"><span class="problematic" id="id42">`</span></a></p>
+<p>#### 3. Cross-Reference Validation Tests
+<strong>Test all cross-references and statistical relationships:</strong></p>
+<p><a href="#id43"><span class="problematic" id="id44">``</span></a><a href="#id45"><span class="problematic" id="id46">`</span></a>python
+def test_cross_references():</p>
+<blockquote>
+<div><p>“””Test all cross-references in analysis documentation”””
+docs = load_all_analysis_documentation()</p>
+<p># Validate statistical relationship references
+for doc in docs:</p>
+<blockquote>
+<div><p>statistical_refs = extract_statistical_references(doc)</p>
+<dl>
+<dt>for ref in statistical_refs:</dt><dd><p># Check reference exists and is accurate
+referenced_content = find_referenced_content(ref)
+assert referenced_content is not None, f”Missing reference: {ref}”</p>
+<p># Validate statistical relationship
+relationship_validation = validate_statistical_relationship(ref, referenced_content)
+assert relationship_validation[“valid”], f”Invalid statistical relationship: {ref}”</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl>
+<dt>def test_method_consistency():</dt><dd><p>“””Test consistency across related analysis methods”””
+# Load related method documentation
+entropy_docs = load_entropy_documentation()
+divergence_docs = load_divergence_documentation()</p>
+<p># Check mathematical consistency
+consistency_check = validate_mathematical_consistency(entropy_docs, divergence_docs)
+assert consistency_check[“consistent”], “Mathematical inconsistency found”</p>
+<p># Check notation consistency
+notation_check = validate_notation_consistency(entropy_docs, divergence_docs)
+assert notation_check[“consistent”], “Notation inconsistency found”</p>
+</dd>
+</dl>
+<p><a href="#id47"><span class="problematic" id="id48">``</span></a><a href="#id49"><span class="problematic" id="id50">`</span></a></p>
+<p>### Documentation Coverage Requirements</p>
+<ul class="simple">
+<li><p><strong>Method Coverage</strong>: 100% of analysis methods documented</p></li>
+<li><p><strong>Example Coverage</strong>: Working examples for all major methods</p></li>
+<li><p><strong>Validation Coverage</strong>: All validation procedures documented</p></li>
+<li><p><strong>Interpretation Coverage</strong>: Clear interpretation guidelines provided</p></li>
+<li><p><strong>Cross-Reference Coverage</strong>: All statistical relationships linked</p></li>
+</ul>
+<p>### Documentation Testing Commands</p>
+<p><a href="#id51"><span class="problematic" id="id52">``</span></a><a href="#id53"><span class="problematic" id="id54">`</span></a>bash
+# Validate all analysis documentation
+make validate-analysis-docs</p>
+<p># Test statistical accuracy
+pytest docs/research/analysis/tests/test_accuracy.py -v</p>
+<p># Test code examples
+pytest docs/research/analysis/tests/test_examples.py -v</p>
+<p># Check cross-references
+python tools/documentation/test_cross_references.py docs/research/analysis/</p>
+<p># Validate statistical consistency
+python tools/documentation/test_statistical_consistency.py docs/research/analysis/
+<a href="#id55"><span class="problematic" id="id56">``</span></a><a href="#id57"><span class="problematic" id="id58">`</span></a></p>
+<p>## 📖 Documentation Standards</p>
+<p>### Documentation Requirements (MANDATORY)</p>
+<p>#### 1. Statistical Reporting Standards
+<strong>All analysis documentation must follow statistical reporting guidelines:</strong></p>
+<p><a href="#id59"><span class="problematic" id="id60">``</span></a><a href="#id61"><span class="problematic" id="id62">`</span></a>python
+def validate_statistical_reporting(documentation: str) -&gt; Dict[str, Any]:</p>
+<blockquote>
+<div><p>“””Validate documentation follows statistical reporting standards”””</p>
+<dl class="simple">
+<dt>reporting_checks = {</dt><dd><p>“effect_sizes”: check_effect_size_reporting(documentation),
+“confidence_intervals”: check_confidence_interval_reporting(documentation),
+“p_values”: check_p_value_reporting(documentation),
+“sample_sizes”: check_sample_size_reporting(documentation),
+“assumptions”: check_assumption_reporting(documentation)</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="simple">
+<dt>return {</dt><dd><p>“compliant”: all(reporting_checks.values()),
+“checks”: reporting_checks,
+“missing_elements”: [k for k, v in reporting_checks.items() if not v]</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<dl>
+<dt>def format_statistical_results(results: Dict[str, Any]) -&gt; str:</dt><dd><p>“””Format statistical results following APA guidelines”””</p>
+<p>formatted_results = []</p>
+<dl>
+<dt>for test_name, test_result in results.items():</dt><dd><dl class="simple">
+<dt>if test_result[“type”] == “t_test”:</dt><dd><p>formatted = f”t({test_result[‘df’]}) = {test_result[‘statistic’]:.2f}, p = {test_result[‘p_value’]:.3f}”</p>
+</dd>
+<dt>elif test_result[“type”] == “correlation”:</dt><dd><p>formatted = f”r({test_result[‘df’]}) = {test_result[‘coefficient’]:.2f}, p = {test_result[‘p_value’]:.3f}”</p>
+</dd>
+<dt>elif test_result[“type”] == “anova”:</dt><dd><p>formatted = f”F({test_result[‘df_num’]}, {test_result[‘df_den’]}) = {test_result[‘statistic’]:.2f}, p = {test_result[‘p_value’]:.3f}”</p>
+</dd>
+</dl>
+<p>formatted_results.append(f”{test_name}: {formatted}”)</p>
+</dd>
+</dl>
+<p>return “; “.join(formatted_results)</p>
+</dd>
+</dl>
+<p><a href="#id63"><span class="problematic" id="id64">``</span></a><a href="#id65"><span class="problematic" id="id66">`</span></a></p>
+<p>#### 2. Method Documentation Standards
+<strong>Analysis methods must be documented comprehensively:</strong></p>
+<p><a href="#id67"><span class="problematic" id="id68">``</span></a><a href="#id69"><span class="problematic" id="id70">`</span></a>python
+def document_analysis_method(method_config: Dict[str, Any]) -&gt; str:</p>
+<blockquote>
+<div><p>“””Document analysis method following established standards”””</p>
+<p># Required sections for analysis methods
+required_sections = [</p>
+<blockquote>
+<div><p>“method_overview”,
+“theoretical_background”,
+“mathematical_formulation”,
+“computational_implementation”,
+“statistical_properties”,
+“validation_procedures”,
+“interpretation_guidelines”,
+“usage_examples”,
+“limitations_and_assumptions”,
+“references_and_further_reading”</p>
+</div></blockquote>
+<p>]</p>
+<p># Generate comprehensive documentation
+documentation = f”# {method_config[‘name’]}nn”</p>
+<dl class="simple">
+<dt>for section in required_sections:</dt><dd><dl class="simple">
+<dt>if section in method_config:</dt><dd><p>documentation += f”## {format_section_title(section)}nn”
+documentation += f”{method_config[section]}nn”</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p># Add mathematical validation
+documentation += validate_mathematical_correctness(method_config)</p>
+<p>return documentation</p>
+</div></blockquote>
+<p><a href="#id71"><span class="problematic" id="id72">``</span></a><a href="#id73"><span class="problematic" id="id74">`</span></a></p>
+<p>#### 3. Educational Content Standards
+<strong>Analysis documentation must support learning objectives:</strong></p>
+<p><a href="#id75"><span class="problematic" id="id76">``</span></a><a href="#id77"><span class="problematic" id="id78">`</span></a>python
+def document_educational_content(analysis_method: str, educational_config: Dict[str, Any]) -&gt; str:</p>
+<blockquote>
+<div><p>“””Document analysis method with educational focus”””</p>
+<dl class="simple">
+<dt>educational_documentation = {</dt><dd><p>“learning_objectives”: define_learning_objectives(analysis_method, educational_config),
+“conceptual_explanation”: provide_conceptual_explanation(analysis_method),
+“mathematical_derivation”: provide_mathematical_derivation(analysis_method),
+“step_by_step_implementation”: create_step_by_step_guide(analysis_method),
+“practical_examples”: create_practical_examples(analysis_method),
+“interpretation_guidance”: provide_interpretation_guidance(analysis_method),
+“common_mistakes”: document_common_mistakes(analysis_method),
+“further_resources”: provide_further_resources(analysis_method)</p>
+</dd>
+</dl>
+<p>}</p>
+<p>return format_educational_documentation(educational_documentation)</p>
+</div></blockquote>
+<p><a href="#id79"><span class="problematic" id="id80">``</span></a><a href="#id81"><span class="problematic" id="id82">`</span></a></p>
+<p>## 🚀 Performance Optimization</p>
+<p>### Documentation Performance Requirements</p>
+<p><strong>Analysis documentation must meet these performance standards:</strong></p>
+<ul class="simple">
+<li><p><strong>Load Time</strong>: Documentation pages load in &lt;1.5 seconds</p></li>
+<li><p><strong>Code Execution</strong>: Analysis examples run in reasonable time</p></li>
+<li><p><strong>Search Efficiency</strong>: Statistical methods easily discoverable</p></li>
+<li><p><strong>Cross-Reference Speed</strong>: Instant navigation between related methods</p></li>
+<li><p><strong>Example Performance</strong>: Code examples demonstrate good practices</p></li>
+</ul>
+<p>### Optimization Techniques</p>
+<p>#### 1. Mathematical Notation Optimization</p>
+<p><a href="#id83"><span class="problematic" id="id84">``</span></a><a href="#id85"><span class="problematic" id="id86">`</span></a>python
+def optimize_mathematical_notation(documentation: str) -&gt; str:</p>
+<blockquote>
+<div><p>“””Optimize mathematical notation for clarity and performance”””</p>
+<p># Standardize notation
+notation_mapping = {</p>
+<blockquote>
+<div><p>“H(X)”: “H(X)”,  # Shannon entropy
+“D_KL(P||Q)”: “D_{KL}(P\parallel Q)”,  # KL divergence
+“I(X;Y)”: “I(X;Y)”,  # Mutual information
+“F(X)”: “\mathcal{F}(X)”  # Free energy</p>
+</div></blockquote>
+<p>}</p>
+<p>optimized_doc = documentation
+for original, optimized in notation_mapping.items():</p>
+<blockquote>
+<div><p>optimized_doc = optimized_doc.replace(original, optimized)</p>
+</div></blockquote>
+<p>return optimized_doc</p>
+</div></blockquote>
+<dl>
+<dt>def validate_mathematical_notation(documentation: str) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate mathematical notation consistency”””</p>
+<p># Check notation standards
+notation_standards = load_mathematical_notation_standards()</p>
+<p># Validate consistency
+consistency_check = check_notation_consistency(documentation, notation_standards)</p>
+<p># Check readability
+readability_check = check_mathematical_readability(documentation)</p>
+<dl class="simple">
+<dt>return {</dt><dd><p>“notation_valid”: consistency_check[“valid”],
+“readability_score”: readability_check[“score”],
+“standardized_notation”: consistency_check[“standardized”]</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+<p><a href="#id87"><span class="problematic" id="id88">``</span></a><a href="#id89"><span class="problematic" id="id90">`</span></a></p>
+<p>#### 2. Code Example Optimization</p>
+<p><a href="#id91"><span class="problematic" id="id92">``</span></a><a href="#id93"><span class="problematic" id="id94">`</span></a>python
+def optimize_analysis_examples(examples: List[str]) -&gt; List[str]:</p>
+<blockquote>
+<div><p>“””Optimize analysis examples for performance and clarity”””</p>
+<p>optimized_examples = []</p>
+<dl>
+<dt>for example in examples:</dt><dd><p># Optimize code structure
+optimized_code = optimize_code_structure(example)</p>
+<p># Add performance comments
+optimized_code = add_performance_guidance(optimized_code)</p>
+<p># Ensure reproducibility
+optimized_code = ensure_reproducible_results(optimized_code)</p>
+<p>optimized_examples.append(optimized_code)</p>
+</dd>
+</dl>
+<p>return optimized_examples</p>
+</div></blockquote>
+<dl>
+<dt>def ensure_reproducible_results(code: str) -&gt; str:</dt><dd><p>“””Ensure code examples produce reproducible results”””</p>
+<p># Add random seed setting
+if “np.random” in code or “torch” in code:</p>
+<blockquote>
+<div><p>code = add_random_seed_setting(code)</p>
+</div></blockquote>
+<p># Add deterministic operations
+code = ensure_deterministic_operations(code)</p>
+<p># Document reproducibility requirements
+code = add_reproducibility_documentation(code)</p>
+<p>return code</p>
+</dd>
+</dl>
+<p><a href="#id95"><span class="problematic" id="id96">``</span></a><a href="#id97"><span class="problematic" id="id98">`</span></a></p>
+<p>## 🔒 Documentation Security Standards</p>
+<p>### Documentation Security Requirements (MANDATORY)</p>
+<p>#### 1. Statistical Data Security</p>
+<p><a href="#id99"><span class="problematic" id="id100">``</span></a><a href="#id101"><span class="problematic" id="id102">`</span></a>python
+def validate_data_security_in_examples(examples: List[str]) -&gt; Dict[str, Any]:</p>
+<blockquote>
+<div><p>“””Validate data security in analysis examples”””</p>
+<dl class="simple">
+<dt>security_checks = {</dt><dd><p>“data_anonymization”: check_data_anonymization(examples),
+“sensitive_data_handling”: check_sensitive_data_protection(examples),
+“reproducible_synthetic_data”: check_synthetic_data_usage(examples),
+“data_sharing_compliance”: check_data_sharing_compliance(examples)</p>
+</dd>
+</dl>
+<p>}</p>
+<p>return security_checks</p>
+</div></blockquote>
+<dl>
+<dt>def create_synthetic_analysis_data(data_config: Dict[str, Any]) -&gt; str:</dt><dd><p>“””Create synthetic data for analysis examples”””</p>
+<p># Generate synthetic data following statistical properties
+synthetic_data_code = f”””</p>
+</dd>
+</dl>
+<p>import numpy as np</p>
+<p># Set random seed for reproducibility
+np.random.seed(42)</p>
+<p># Generate synthetic data with specified properties
+{synthetic_data_generation_code(data_config)}</p>
+<p># Validate synthetic data properties
+{synthetic_data_validation_code(data_config)}
+“””</p>
+<blockquote>
+<div><p>return synthetic_data_code</p>
+</div></blockquote>
+<p><a href="#id103"><span class="problematic" id="id104">``</span></a><a href="#id105"><span class="problematic" id="id106">`</span></a></p>
+<p>#### 2. Reproducibility Security</p>
+<p><a href="#id107"><span class="problematic" id="id108">``</span></a><a href="#id109"><span class="problematic" id="id110">`</span></a>python
+def document_reproducibility_standards(method_config: Dict[str, Any]) -&gt; str:</p>
+<blockquote>
+<div><p>“””Document reproducibility standards for analysis methods”””</p>
+<dl class="simple">
+<dt>reproducibility_documentation = {</dt><dd><p>“random_seed_management”: document_random_seed_handling(method_config),
+“data_versioning”: document_data_versioning_requirements(method_config),
+“environment_specification”: document_environment_requirements(method_config),
+“result_validation”: document_result_validation_procedures(method_config),
+“reproducibility_checklist”: create_reproducibility_checklist(method_config)</p>
+</dd>
+</dl>
+<p>}</p>
+<p>return format_reproducibility_documentation(reproducibility_documentation)</p>
+</div></blockquote>
+<p><a href="#id111"><span class="problematic" id="id112">``</span></a><a href="#id113"><span class="problematic" id="id114">`</span></a></p>
+<p>## 🐛 Documentation Debugging &amp; Troubleshooting</p>
+<p>### Debug Configuration</p>
+<p><a href="#id115"><span class="problematic" id="id116">``</span></a><a href="#id117"><span class="problematic" id="id118">`</span></a>python
+# Enable analysis documentation debugging
+debug_config = {</p>
+<blockquote>
+<div><p>“debug”: True,
+“statistical_validation”: True,
+“code_execution_testing”: True,
+“cross_reference_validation”: True,
+“performance_monitoring”: True</p>
+</div></blockquote>
+<p>}</p>
+<p># Debug analysis documentation development
+debug_analysis_documentation_workflow(debug_config)
+<a href="#id119"><span class="problematic" id="id120">``</span></a><a href="#id121"><span class="problematic" id="id122">`</span></a></p>
+<p>### Common Debugging Patterns</p>
+<p>#### 1. Statistical Accuracy Debugging</p>
+<p><a href="#id123"><span class="problematic" id="id124">``</span></a><a href="#id125"><span class="problematic" id="id126">`</span></a>python
+def debug_statistical_accuracy(documentation_path: str) -&gt; Dict[str, Any]:</p>
+<blockquote>
+<div><p>“””Debug statistical accuracy issues in analysis documentation”””</p>
+<p>doc = load_analysis_documentation(documentation_path)</p>
+<p># Check mathematical formulations
+math_issues = validate_mathematical_formulations(doc)
+if math_issues:</p>
+<blockquote>
+<div><p>return {“type”: “mathematical”, “issues”: math_issues}</p>
+</div></blockquote>
+<p># Check statistical examples
+example_issues = validate_statistical_examples(doc)
+if example_issues:</p>
+<blockquote>
+<div><p>return {“type”: “examples”, “issues”: example_issues}</p>
+</div></blockquote>
+<p># Check interpretation guidance
+interpretation_issues = validate_interpretation_guidance(doc)
+if interpretation_issues:</p>
+<blockquote>
+<div><p>return {“type”: “interpretation”, “issues”: interpretation_issues}</p>
+</div></blockquote>
+<p>return {“status”: “accurate”}</p>
+</div></blockquote>
+<dl>
+<dt>def validate_mathematical_formulations(documentation: str) -&gt; List[str]:</dt><dd><p>“””Validate mathematical formulations in documentation”””</p>
+<p>issues = []</p>
+<p># Extract formulas
+formulas = extract_mathematical_formulas(documentation)</p>
+<dl>
+<dt>for formula in formulas:</dt><dd><p># Validate formula syntax
+syntax_valid = validate_latex_syntax(formula)
+if not syntax_valid:</p>
+<blockquote>
+<div><p>issues.append(f”Invalid LaTeX syntax: {formula}”)</p>
+</div></blockquote>
+<p># Validate mathematical correctness
+correctness = validate_mathematical_correctness(formula)
+if not correctness[“valid”]:</p>
+<blockquote>
+<div><p>issues.append(f”Mathematically incorrect: {formula} - {correctness[‘error’]}”)</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>return issues</p>
+</dd>
+</dl>
+<p><a href="#id127"><span class="problematic" id="id128">``</span></a><a href="#id129"><span class="problematic" id="id130">`</span></a></p>
+<p>#### 2. Code Example Debugging</p>
+<p><a href="#id131"><span class="problematic" id="id132">``</span></a><a href="#id133"><span class="problematic" id="id134">`</span></a>python
+def debug_code_examples(documentation_path: str) -&gt; Dict[str, Any]:</p>
+<blockquote>
+<div><p>“””Debug code example issues in analysis documentation”””</p>
+<p>doc = load_analysis_documentation(documentation_path)</p>
+<p># Extract all code examples
+examples = extract_code_examples(doc)</p>
+<dl class="simple">
+<dt>debugging_results = {</dt><dd><p>“total_examples”: len(examples),
+“working_examples”: 0,
+“failed_examples”: [],
+“performance_issues”: []</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>for i, example in enumerate(examples):</dt><dd><p># Test execution
+execution_result = test_example_execution(example)</p>
+<dl>
+<dt>if execution_result[“success”]:</dt><dd><p>debugging_results[“working_examples”] += 1</p>
+</dd>
+<dt>else:</dt><dd><dl class="simple">
+<dt>debugging_results[“failed_examples”].append({</dt><dd><p>“example_index”: i,
+“error”: execution_result[“error”],
+“code”: example</p>
+</dd>
+</dl>
+<p>})</p>
+</dd>
+</dl>
+<p># Check performance
+performance_result = test_example_performance(example)
+if performance_result[“slow”]:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>debugging_results[“performance_issues”].append({</dt><dd><p>“example_index”: i,
+“performance_issue”: performance_result[“issue”]</p>
+</dd>
+</dl>
+<p>})</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>return debugging_results</p>
+</div></blockquote>
+<p><a href="#id135"><span class="problematic" id="id136">``</span></a><a href="#id137"><span class="problematic" id="id138">`</span></a></p>
+<p>## 🔄 Development Workflow</p>
+<p>### Agent Development Process</p>
+<ol class="arabic simple">
+<li><p><strong>Analysis Documentation Assessment</strong>
+- Understand current analysis documentation state
+- Identify gaps in statistical method documentation
+- Review existing scientific writing quality</p></li>
+<li><p><strong>Documentation Architecture Planning</strong>
+- Design comprehensive documentation structure
+- Plan integration with research workflows
+- Consider user needs and research requirements</p></li>
+<li><p><strong>Scientific Writing Implementation</strong>
+- Write clear, accurate research documentation
+- Create comprehensive method descriptions
+- Develop educational examples and tutorials</p></li>
+<li><p><strong>Quality Assurance Implementation</strong>
+- Implement comprehensive testing for documentation
+- Validate scientific accuracy and completeness
+- Ensure cross-reference integrity</p></li>
+<li><p><strong>Integration and Validation</strong>
+- Test integration with research workflows
+- Validate documentation effectiveness
+- Update related documentation systems</p></li>
+</ol>
+<p>### Code Review Checklist</p>
+<p><strong>Before submitting analysis documentation for review:</strong></p>
+<ul class="simple">
+<li><p>[ ] <strong>Statistical Accuracy</strong>: All methods and concepts accurately described</p></li>
+<li><p>[ ] <strong>Complete Coverage</strong>: All aspects of analysis method documented</p></li>
+<li><p>[ ] <strong>Working Examples</strong>: All code examples execute successfully</p></li>
+<li><p>[ ] <strong>Clear Interpretation</strong>: Statistical results clearly explained and interpreted</p></li>
+<li><p>[ ] <strong>Scientific Standards</strong>: Documentation follows statistical reporting guidelines</p></li>
+<li><p>[ ] <strong>Cross-References</strong>: All statistical relationships and methods properly linked</p></li>
+<li><p>[ ] <strong>Validation</strong>: Documentation passes all quality checks</p></li>
+<li><p>[ ] <strong>Standards Compliance</strong>: Follows all documentation standards</p></li>
+</ul>
+<p>## 📚 Learning Resources</p>
+<p>### Analysis Documentation Resources</p>
+<ul class="simple">
+<li><p><strong>[Research Analysis AGENTS.md](../../research/analysis/AGENTS.md)</strong>: Analysis development guidelines</p></li>
+<li><p><strong>[Statistical Writing Guide](https://example.com)</strong>: Statistical reporting standards</p></li>
+<li><p><strong>[Mathematical Notation Standards](https://example.com)</strong>: Mathematical writing conventions</p></li>
+<li><p><strong>[APA Statistical Reporting](https://example.com)</strong>: APA style for statistical reporting</p></li>
+</ul>
+<p>### Technical References</p>
+<ul class="simple">
+<li><p><strong>[Statistical Analysis Best Practices](https://example.com)</strong>: Statistical methodology guidelines</p></li>
+<li><p><strong>[Information Theory Documentation](https://example.com)</strong>: Information theory reference</p></li>
+<li><p><strong>[Bayesian Analysis Guide](https://example.com)</strong>: Bayesian statistical methods</p></li>
+<li><p><strong>[Model Validation Standards](https://example.com)</strong>: Model assessment best practices</p></li>
+</ul>
+<p>### Related Components</p>
+<p>Study these related components for integration patterns:</p>
+<ul class="simple">
+<li><p><strong>[Research Tools](../../../research/tools)</strong>: Research tool development patterns</p></li>
+<li><p><strong>Statistical Methods `../../research/analysis/statistical/`</strong>: Statistical analysis implementations</p></li>
+<li><p><strong>[Information Theory Methods](../../../research/analysis/information_theory)</strong>: Information theory tools</p></li>
+<li><p><strong>Validation Framework `../../research/analysis/validation/`</strong>: Model validation systems</p></li>
+</ul>
+<p>## 🎯 Success Metrics</p>
+<p>### Documentation Quality Metrics</p>
+<ul class="simple">
+<li><p><strong>Statistical Accuracy Score</strong>: &gt;98% mathematical and statistical accuracy</p></li>
+<li><p><strong>Completeness Score</strong>: 100% of analysis methods comprehensively documented</p></li>
+<li><p><strong>Example Success Rate</strong>: 100% working code examples with valid results</p></li>
+<li><p><strong>Educational Effectiveness</strong>: &gt;90% user comprehension of statistical concepts</p></li>
+<li><p><strong>Cross-Reference Integrity</strong>: 100% valid statistical and methodological links</p></li>
+</ul>
+<p>### Development Metrics</p>
+<ul class="simple">
+<li><p><strong>Documentation Speed</strong>: Analysis methods documented within 2 weeks</p></li>
+<li><p><strong>Quality Score</strong>: Consistent high-quality scientific writing</p></li>
+<li><p><strong>Integration Success</strong>: Seamless integration with analysis workflows</p></li>
+<li><p><strong>User Adoption</strong>: Positive feedback on statistical documentation usefulness</p></li>
+<li><p><strong>Maintenance Efficiency</strong>: Easy to update and maintain statistical documentation</p></li>
+</ul>
+<p>—</p>
+<p><strong>Research Analysis Documentation</strong>: Agent Guide | <strong>Version</strong>: 1.0.0 | <strong>Last Updated</strong>: October 2024</p>
+<p><em>“Active Inference for, with, by Generative AI”</em> - Advancing scientific understanding through rigorous statistical documentation, mathematical accuracy, and comprehensive research methods.</p>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

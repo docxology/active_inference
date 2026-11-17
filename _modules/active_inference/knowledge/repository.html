@@ -1,0 +1,1155 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.knowledge.repository &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.knowledge.repository</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.knowledge.repository</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Knowledge Repository</span>
+
+<span class="sd">Core class for managing the structured knowledge environment for Active Inference</span>
+<span class="sd">and the Free Energy Principle. Provides unified access to educational content,</span>
+<span class="sd">learning paths, and interactive components.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">ValidationError</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ContentType">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.ContentType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ContentType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Types of educational content"""</span>
+
+    <span class="n">FOUNDATION</span> <span class="o">=</span> <span class="s2">"foundation"</span>
+    <span class="n">MATHEMATICS</span> <span class="o">=</span> <span class="s2">"mathematics"</span>
+    <span class="n">IMPLEMENTATION</span> <span class="o">=</span> <span class="s2">"implementation"</span>
+    <span class="n">APPLICATION</span> <span class="o">=</span> <span class="s2">"application"</span>
+    <span class="n">TUTORIAL</span> <span class="o">=</span> <span class="s2">"tutorial"</span>
+    <span class="n">PAPER</span> <span class="o">=</span> <span class="s2">"paper"</span>
+    <span class="n">EXERCISE</span> <span class="o">=</span> <span class="s2">"exercise"</span>
+    <span class="n">SIMULATION</span> <span class="o">=</span> <span class="s2">"simulation"</span></div>
+
+
+
+<div class="viewcode-block" id="DifficultyLevel">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.DifficultyLevel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DifficultyLevel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Learning difficulty levels"""</span>
+
+    <span class="n">BEGINNER</span> <span class="o">=</span> <span class="s2">"beginner"</span>
+    <span class="n">INTERMEDIATE</span> <span class="o">=</span> <span class="s2">"intermediate"</span>
+    <span class="n">ADVANCED</span> <span class="o">=</span> <span class="s2">"advanced"</span>
+    <span class="n">EXPERT</span> <span class="o">=</span> <span class="s2">"expert"</span></div>
+
+
+
+<div class="viewcode-block" id="KnowledgeNode">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeNode">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KnowledgeNode</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Represents a single knowledge node in the repository"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">content_type</span><span class="p">:</span> <span class="n">ContentType</span>
+    <span class="n">difficulty</span><span class="p">:</span> <span class="n">DifficultyLevel</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">prerequisites</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">content_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">content</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">learning_objectives</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="LearningPath">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.LearningPath">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LearningPath</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Represents a structured learning path"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">nodes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">estimated_hours</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">difficulty</span><span class="p">:</span> <span class="n">DifficultyLevel</span> <span class="o">=</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">BEGINNER</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="KnowledgeNodeSchema">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeNodeSchema">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KnowledgeNodeSchema</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""JSON schema validation for knowledge nodes"""</span>
+
+    <span class="n">REQUIRED_FIELDS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">,</span>
+        <span class="s2">"content_type"</span><span class="p">,</span>
+        <span class="s2">"difficulty"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">,</span>
+        <span class="s2">"prerequisites"</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">,</span>
+        <span class="s2">"learning_objectives"</span><span class="p">,</span>
+        <span class="s2">"content"</span><span class="p">,</span>
+        <span class="s2">"metadata"</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">FIELD_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">"content_type"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">"difficulty"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="s2">"content"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="s2">"metadata"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">CONTENT_TYPE_VALUES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"foundation"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"implementation"</span><span class="p">,</span> <span class="s2">"application"</span><span class="p">}</span>
+    <span class="n">DIFFICULTY_VALUES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"beginner"</span><span class="p">,</span> <span class="s2">"intermediate"</span><span class="p">,</span> <span class="s2">"advanced"</span><span class="p">,</span> <span class="s2">"expert"</span><span class="p">}</span>
+
+<div class="viewcode-block" id="KnowledgeNodeSchema.validate_json_structure">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeNodeSchema.validate_json_structure">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_json_structure</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate JSON structure against schema"""</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Check required fields</span>
+        <span class="n">missing_fields</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">REQUIRED_FIELDS</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">missing_fields</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required fields: </span><span class="si">{</span><span class="n">missing_fields</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check field types</span>
+        <span class="k">for</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">expected_type</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">FIELD_TYPES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">field_name</span><span class="p">],</span> <span class="n">expected_type</span><span class="p">):</span>
+                    <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Field '</span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2">' must be of type </span><span class="si">{</span><span class="n">expected_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+
+        <span class="c1"># Check content_type values</span>
+        <span class="k">if</span> <span class="s2">"content_type"</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">CONTENT_TYPE_VALUES</span><span class="p">:</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"content_type must be one of: </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">CONTENT_TYPE_VALUES</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check difficulty values</span>
+        <span class="k">if</span> <span class="s2">"difficulty"</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">DIFFICULTY_VALUES</span><span class="p">:</span>
+                <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"difficulty must be one of: </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">DIFFICULTY_VALUES</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Check that lists contain strings</span>
+        <span class="k">for</span> <span class="n">list_field</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"prerequisites"</span><span class="p">,</span> <span class="s2">"tags"</span><span class="p">,</span> <span class="s2">"learning_objectives"</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">list_field</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">list_field</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">non_string_items</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">list_field</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="n">non_string_items</span><span class="p">:</span>
+                    <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Field '</span><span class="si">{</span><span class="n">list_field</span><span class="si">}</span><span class="s2">' must contain only strings"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">errors</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="KnowledgeRepositoryConfig">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepositoryConfig">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">KnowledgeRepositoryConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Configuration for the knowledge repository"""</span>
+
+    <span class="n">root_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">content_paths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ContentType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">metadata_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"metadata"</span>
+    <span class="n">index_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"index"</span>
+    <span class="n">cache_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">auto_index</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="KnowledgeRepository">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KnowledgeRepository</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Central repository for Active Inference educational content and learning paths.</span>
+
+<span class="sd">    Provides structured access to knowledge with search, filtering, and learning</span>
+<span class="sd">    path generation capabilities.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">KnowledgeRepositoryConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_path</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">root_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content_paths</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">content_paths</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_content_paths</span><span class="p">()</span>
+
+        <span class="c1"># Knowledge storage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LearningPath</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Load knowledge base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_knowledge_base</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">auto_index</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_index</span><span class="p">()</span>
+
+        <span class="c1"># Validate content consistency</span>
+        <span class="n">validation_report</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_content_consistency</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">validation_report</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Content validation issues found: </span><span class="si">{</span><span class="n">validation_report</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Knowledge repository initialized with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> nodes"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_default_content_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ContentType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Default content paths for different content types"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">:</span> <span class="s2">"foundations"</span><span class="p">,</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">:</span> <span class="s2">"mathematics"</span><span class="p">,</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">IMPLEMENTATION</span><span class="p">:</span> <span class="s2">"implementations"</span><span class="p">,</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">APPLICATION</span><span class="p">:</span> <span class="s2">"applications"</span><span class="p">,</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">TUTORIAL</span><span class="p">:</span> <span class="s2">"tutorials"</span><span class="p">,</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">PAPER</span><span class="p">:</span> <span class="s2">"papers"</span><span class="p">,</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">EXERCISE</span><span class="p">:</span> <span class="s2">"exercises"</span><span class="p">,</span>
+            <span class="n">ContentType</span><span class="o">.</span><span class="n">SIMULATION</span><span class="p">:</span> <span class="s2">"simulations"</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_knowledge_base</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Load all knowledge nodes and learning paths from disk"""</span>
+        <span class="c1"># Load metadata</span>
+        <span class="n">metadata_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">metadata_path</span> <span class="o">/</span> <span class="s2">"repository.json"</span>
+        <span class="k">if</span> <span class="n">metadata_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">metadata_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># Load knowledge nodes</span>
+        <span class="k">for</span> <span class="n">content_type</span> <span class="ow">in</span> <span class="n">ContentType</span><span class="p">:</span>
+            <span class="n">content_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_paths</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">content_type</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">content_path</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_load_content_type</span><span class="p">(</span><span class="n">content_type</span><span class="p">,</span> <span class="n">content_path</span><span class="p">)</span>
+
+        <span class="c1"># Load learning paths</span>
+        <span class="n">paths_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">metadata_path</span> <span class="o">/</span> <span class="s2">"learning_paths.json"</span>
+        <span class="k">if</span> <span class="n">paths_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">paths_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">paths_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">path_data</span> <span class="ow">in</span> <span class="n">paths_data</span><span class="p">:</span>
+                    <span class="c1"># Convert string difficulty to enum</span>
+                    <span class="k">if</span> <span class="s2">"difficulty"</span> <span class="ow">in</span> <span class="n">path_data</span><span class="p">:</span>
+                        <span class="n">path_data</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]</span> <span class="o">=</span> <span class="n">DifficultyLevel</span><span class="p">(</span>
+                            <span class="n">path_data</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]</span>
+                        <span class="p">)</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">LearningPath</span><span class="p">(</span><span class="o">**</span><span class="n">path_data</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_content_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_type</span><span class="p">:</span> <span class="n">ContentType</span><span class="p">,</span> <span class="n">content_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Load knowledge nodes for a specific content type"""</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_path</span> <span class="o">/</span> <span class="n">content_path</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Content path </span><span class="si">{</span><span class="n">full_path</span><span class="si">}</span><span class="s2"> does not exist"</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Look for knowledge definition files</span>
+        <span class="k">for</span> <span class="n">knowledge_file</span> <span class="ow">in</span> <span class="n">full_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.json"</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">knowledge_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">node_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+                <span class="c1"># Validate JSON structure</span>
+                <span class="n">validation_errors</span> <span class="o">=</span> <span class="n">KnowledgeNodeSchema</span><span class="o">.</span><span class="n">validate_json_structure</span><span class="p">(</span>
+                    <span class="n">node_data</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">validation_errors</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"JSON validation errors in </span><span class="si">{</span><span class="n">knowledge_file</span><span class="si">}</span><span class="s2">:"</span>
+                        <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">validation_errors</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Convert string enums to enum objects</span>
+                <span class="n">node_data</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ContentType</span><span class="p">(</span><span class="n">node_data</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">])</span>
+                <span class="n">node_data</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]</span> <span class="o">=</span> <span class="n">DifficultyLevel</span><span class="p">(</span><span class="n">node_data</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">])</span>
+
+                <span class="c1"># Set content_path for reference</span>
+                <span class="n">node_data</span><span class="p">[</span><span class="s2">"content_path"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                    <span class="n">knowledge_file</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root_path</span><span class="p">)</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Create knowledge node</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">KnowledgeNode</span><span class="p">(</span><span class="o">**</span><span class="n">node_data</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Successfully loaded knowledge node: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">"Pydantic validation error loading knowledge node"</span>
+                    <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">knowledge_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error loading knowledge node </span><span class="si">{</span><span class="n">knowledge_file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Build search index for knowledge nodes"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_index</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"tags"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"difficulty"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"content_type"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Index by tags</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tag</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"tags"</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"tags"</span><span class="p">][</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"tags"</span><span class="p">][</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+            <span class="c1"># Index by difficulty</span>
+            <span class="n">difficulty</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">difficulty</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">][</span><span class="n">difficulty</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">][</span><span class="n">difficulty</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+            <span class="c1"># Index by content type</span>
+            <span class="n">content_type</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">content_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">][</span><span class="n">content_type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">][</span><span class="n">content_type</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+            <span class="c1"># Index by prerequisites</span>
+            <span class="k">for</span> <span class="n">prereq</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">prereq</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"prerequisites"</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"prerequisites"</span><span class="p">][</span><span class="n">prereq</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_index</span><span class="p">[</span><span class="s2">"prerequisites"</span><span class="p">][</span><span class="n">prereq</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_content_consistency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate content consistency and report issues"""</span>
+        <span class="n">validation_report</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"missing_prerequisites"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"orphaned_nodes"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"circular_dependencies"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"validation_errors"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Check that all prerequisites exist</span>
+        <span class="n">all_node_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">prereq_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_node_ids</span><span class="p">:</span>
+                    <span class="n">validation_report</span><span class="p">[</span><span class="s2">"missing_prerequisites"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">{</span><span class="s2">"node"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span> <span class="s2">"missing_prerequisite"</span><span class="p">:</span> <span class="n">prereq_id</span><span class="p">}</span>
+                    <span class="p">)</span>
+                    <span class="n">validation_report</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check for circular dependencies</span>
+        <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_circular_dependency</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="nb">set</span><span class="p">()):</span>
+                <span class="n">validation_report</span><span class="p">[</span><span class="s2">"circular_dependencies"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+                <span class="n">validation_report</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check for orphaned nodes (nodes that are not prerequisites for anything)</span>
+        <span class="n">referenced_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">referenced_nodes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">)</span>
+        <span class="n">validation_report</span><span class="p">[</span><span class="s2">"orphaned_nodes"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">node_id</span> <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">node_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">referenced_nodes</span>
+        <span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">validation_report</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_has_circular_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">visited</span><span class="p">:</span> <span class="nb">set</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if node has circular dependency"""</span>
+        <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_circular_dependency</span><span class="p">(</span><span class="n">prereq_id</span><span class="p">,</span> <span class="n">visited</span><span class="o">.</span><span class="n">copy</span><span class="p">()):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="KnowledgeRepository.search">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.search">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="n">content_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ContentType</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">difficulty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">DifficultyLevel</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Search knowledge nodes with various filters</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            query: Text search query</span>
+<span class="sd">            content_types: Filter by content types</span>
+<span class="sd">            difficulty: Filter by difficulty levels</span>
+<span class="sd">            tags: Filter by tags</span>
+<span class="sd">            limit: Maximum number of results</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of matching knowledge nodes</span>
+<span class="sd">        """</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Apply filters</span>
+            <span class="k">if</span> <span class="n">content_types</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">content_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">content_types</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">difficulty</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">difficulty</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">difficulty</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">tags</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Simple text matching (could be enhanced with full-text search)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="ow">or</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="p">):</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">limit</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.add_knowledge_node">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.add_knowledge_node">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_knowledge_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">KnowledgeNode</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add a node from a definition mapping and refresh the search index.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: if the definition is invalid or its id already exists.</span>
+<span class="sd">        """</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">node_data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ContentType</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"content_type"</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">]</span> <span class="o">=</span> <span class="n">DifficultyLevel</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"difficulty"</span><span class="p">])</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">KnowledgeNode</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Knowledge node already exists: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build_index</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.get_node">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.get_node">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get a specific knowledge node by ID"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.get_node_content">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.get_node_content">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_node_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Get the detailed content of a knowledge node"""</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">content</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.get_learning_path">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.get_learning_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_learning_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LearningPath</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get a specific learning path by ID"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">path_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.get_learning_paths">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.get_learning_paths">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_learning_paths</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">difficulty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DifficultyLevel</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">content_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ContentType</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LearningPath</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get learning paths with optional filters"""</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">difficulty</span><span class="p">:</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">difficulty</span> <span class="o">==</span> <span class="n">difficulty</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">content_types</span><span class="p">:</span>
+            <span class="c1"># Filter paths that contain nodes of specified content types</span>
+            <span class="n">filtered_paths</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+                <span class="n">path_nodes</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span> <span class="k">for</span> <span class="n">nid</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span> <span class="k">if</span> <span class="n">nid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">content_type</span> <span class="ow">in</span> <span class="n">content_types</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">path_nodes</span><span class="p">):</span>
+                    <span class="n">filtered_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">paths</span> <span class="o">=</span> <span class="n">filtered_paths</span>
+
+        <span class="k">return</span> <span class="n">paths</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.get_prerequisites_graph">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.get_prerequisites_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_prerequisites_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get prerequisite dependency graph for a node"""</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"nodes"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"edges"</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">add_node_and_prereqs</span><span class="p">(</span><span class="n">nid</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">nid</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span>
+
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">node</span><span class="p">:</span>
+                <span class="n">graph</span><span class="p">[</span><span class="s2">"nodes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">"id"</span><span class="p">:</span> <span class="n">nid</span><span class="p">,</span>
+                        <span class="s2">"label"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                        <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">prereq</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+                    <span class="n">graph</span><span class="p">[</span><span class="s2">"edges"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"from"</span><span class="p">:</span> <span class="n">prereq</span><span class="p">,</span> <span class="s2">"to"</span><span class="p">:</span> <span class="n">nid</span><span class="p">})</span>
+                    <span class="n">add_node_and_prereqs</span><span class="p">(</span><span class="n">prereq</span><span class="p">)</span>
+
+        <span class="n">add_node_and_prereqs</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">graph</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.validate_learning_path">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.validate_learning_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_learning_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Validate a learning path for completeness and prerequisite satisfaction</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Validation report with issues and suggestions</span>
+<span class="sd">        """</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_learning_path</span><span class="p">(</span><span class="n">path_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="s2">"Path not found"</span><span class="p">}</span>
+
+        <span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">completed_prereqs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="p">:</span>
+                <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing node: </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Check prerequisites</span>
+            <span class="k">for</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">prereq_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">completed_prereqs</span><span class="p">:</span>
+                    <span class="c1"># Check if prerequisite is earlier in the path</span>
+                    <span class="k">if</span> <span class="n">prereq_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span> <span class="ow">or</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
+                        <span class="n">prereq_id</span>
+                    <span class="p">)</span> <span class="o">&gt;</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">node_id</span><span class="p">):</span>
+                        <span class="n">issues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"Unsatisfied prerequisite </span><span class="si">{</span><span class="n">prereq_id</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="p">)</span>
+
+            <span class="n">completed_prereqs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="n">issues</span><span class="p">,</span>
+            <span class="s2">"path_length"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span>
+            <span class="s2">"estimated_hours"</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">estimated_hours</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.export_knowledge_graph">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.export_knowledge_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_knowledge_graph</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"json"</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Export the knowledge repository as a graph structure</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            format: Export format ('json', 'graphml', 'gexf')</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Knowledge graph in specified format</span>
+<span class="sd">        """</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"nodes"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"edges"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"total_nodes"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">),</span>
+                <span class="s2">"total_paths"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">),</span>
+                <span class="s2">"content_types"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span>
+                    <span class="nb">set</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="p">),</span>
+                <span class="s2">"difficulties"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span>
+                    <span class="nb">set</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Add nodes</span>
+        <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">graph</span><span class="p">[</span><span class="s2">"nodes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
+                    <span class="s2">"title"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                    <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                    <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                    <span class="s2">"description"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                    <span class="s2">"content"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+                    <span class="s2">"tags"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span>
+                    <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">learning_objectives</span><span class="p">,</span>
+                    <span class="s2">"content_path"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">content_path</span><span class="p">,</span>
+                    <span class="s2">"metadata"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Add prerequisite edges</span>
+        <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+                <span class="n">graph</span><span class="p">[</span><span class="s2">"edges"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="n">prereq_id</span><span class="p">,</span> <span class="s2">"target"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"prerequisite"</span><span class="p">}</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Add learning path edges</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">graph</span><span class="p">[</span><span class="s2">"edges"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">"source"</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="s2">"target"</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"learning_path"</span><span class="p">,</span>
+                        <span class="s2">"path_id"</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">graph</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Could implement other formats like GraphML, GEXF</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.build_prerequisite_graph">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.build_prerequisite_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_prerequisite_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Build complete prerequisite dependency graph with cycle detection</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node_id: Starting node ID</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary containing graph structure and validation</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">node_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Node </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2"> not found"</span><span class="p">}</span>
+
+        <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"nodes"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"edges"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"cycles"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"depth"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+        <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">current_id</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_id</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+                <span class="c1"># Cycle detected</span>
+                <span class="n">cycle_start</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">current_id</span><span class="p">)</span>
+                <span class="n">cycle</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">cycle_start</span><span class="p">:]</span> <span class="o">+</span> <span class="p">[</span><span class="n">current_id</span><span class="p">]</span>
+                <span class="n">graph</span><span class="p">[</span><span class="s2">"cycles"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cycle</span><span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="k">if</span> <span class="n">current_id</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_id</span><span class="p">)</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_id</span><span class="p">)</span>
+            <span class="n">graph</span><span class="p">[</span><span class="s2">"depth"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="s2">"depth"</span><span class="p">],</span> <span class="n">depth</span><span class="p">)</span>
+
+            <span class="c1"># Add node to graph</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">current_id</span><span class="p">]</span>
+            <span class="n">graph</span><span class="p">[</span><span class="s2">"nodes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="n">current_id</span><span class="p">,</span> <span class="s2">"title"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="s2">"depth"</span><span class="p">:</span> <span class="n">depth</span><span class="p">}</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Visit prerequisites</span>
+            <span class="k">for</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+                <span class="n">graph</span><span class="p">[</span><span class="s2">"edges"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="n">prereq_id</span><span class="p">,</span> <span class="s2">"target"</span><span class="p">:</span> <span class="n">current_id</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"prerequisite"</span><span class="p">}</span>
+                <span class="p">)</span>
+                <span class="n">dfs</span><span class="p">(</span><span class="n">prereq_id</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+        <span class="n">dfs</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">graph</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.validate_content_integrity">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.validate_content_integrity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_content_integrity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Validate content integrity including references and prerequisites</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node_id: Node ID to validate</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Validation results dictionary</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">node_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Node </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2"> not found"</span><span class="p">}</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span>
+        <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"warnings"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"suggestions"</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="c1"># Check prerequisites exist</span>
+        <span class="k">for</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">prereq_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing prerequisite: </span><span class="si">{</span><span class="n">prereq_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check content completeness</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Empty content"</span><span class="p">)</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">learning_objectives</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"warnings"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"No learning objectives defined"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"suggestions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Consider adding tags for better discoverability"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Check for circular dependencies</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_prerequisite_graph</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cycles"</span><span class="p">):</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Circular dependencies detected: </span><span class="si">{</span><span class="n">graph</span><span class="p">[</span><span class="s2">"cycles"</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span>
+            <span class="p">)</span>
+            <span class="n">validation</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">validation</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.generate_learning_path_recommendations">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.generate_learning_path_recommendations">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_learning_path_recommendations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">user_profile</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate personalized learning path recommendations</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_profile: User profile with preferences and background</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of recommended learning path IDs</span>
+<span class="sd">        """</span>
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">user_difficulty</span> <span class="o">=</span> <span class="n">user_profile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"difficulty"</span><span class="p">,</span> <span class="s2">"intermediate"</span><span class="p">)</span>
+        <span class="n">user_interests</span> <span class="o">=</span> <span class="n">user_profile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"interests"</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">user_background</span> <span class="o">=</span> <span class="n">user_profile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"background"</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="c1"># Filter paths by difficulty</span>
+        <span class="n">difficulty_paths</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">path_id</span>
+            <span class="k">for</span> <span class="n">path_id</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">user_difficulty</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Score paths based on user interests</span>
+        <span class="n">scored_paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">path_id</span> <span class="ow">in</span> <span class="n">difficulty_paths</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">[</span><span class="n">path_id</span><span class="p">]</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Check if path covers user interests</span>
+            <span class="n">path_tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span>
+                    <span class="n">path_tags</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+
+            <span class="n">interest_overlap</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path_tags</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">user_interests</span><span class="p">)))</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="n">interest_overlap</span> <span class="o">*</span> <span class="mi">2</span>
+
+            <span class="c1"># Check if path builds on user background</span>
+            <span class="n">background_overlap</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">user_background</span><span class="p">)))</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="n">background_overlap</span>
+
+            <span class="n">scored_paths</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">path_id</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
+
+        <span class="c1"># Sort by score and return top recommendations</span>
+        <span class="n">scored_paths</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[</span><span class="n">path_id</span> <span class="k">for</span> <span class="n">path_id</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">scored_paths</span><span class="p">[:</span><span class="mi">5</span><span class="p">]]</span>
+
+        <span class="k">return</span> <span class="n">recommendations</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.export_knowledge_in_format">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.export_knowledge_in_format">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_knowledge_in_format</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">format_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content_filter</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Export knowledge content in various formats (JSON, XML, RDF, etc.)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            format_type: Export format ('json', 'xml', 'rdf', 'csv')</span>
+<span class="sd">            content_filter: Filter criteria for content selection</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Exported content in specified format</span>
+<span class="sd">        """</span>
+        <span class="c1"># Apply filters</span>
+        <span class="n">filtered_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_nodes</span><span class="p">(</span><span class="n">content_filter</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_json</span><span class="p">(</span><span class="n">filtered_nodes</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"xml"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_xml</span><span class="p">(</span><span class="n">filtered_nodes</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"rdf"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_rdf</span><span class="p">(</span><span class="n">filtered_nodes</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s2">"csv"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_csv</span><span class="p">(</span><span class="n">filtered_nodes</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported export format: </span><span class="si">{</span><span class="n">format_type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_filter_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_filter</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Filter nodes based on criteria"""</span>
+        <span class="n">filtered</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">"content_types"</span> <span class="ow">in</span> <span class="n">content_filter</span><span class="p">:</span>
+            <span class="n">content_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">content_filter</span><span class="p">[</span><span class="s2">"content_types"</span><span class="p">])</span>
+            <span class="n">filtered</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filtered</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="n">content_types</span>
+            <span class="p">}</span>
+
+        <span class="k">if</span> <span class="s2">"difficulties"</span> <span class="ow">in</span> <span class="n">content_filter</span><span class="p">:</span>
+            <span class="n">difficulties</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">content_filter</span><span class="p">[</span><span class="s2">"difficulties"</span><span class="p">])</span>
+            <span class="n">filtered</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filtered</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span> <span class="ow">in</span> <span class="n">difficulties</span>
+            <span class="p">}</span>
+
+        <span class="k">if</span> <span class="s2">"tags"</span> <span class="ow">in</span> <span class="n">content_filter</span><span class="p">:</span>
+            <span class="n">required_tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">content_filter</span><span class="p">[</span><span class="s2">"tags"</span><span class="p">])</span>
+            <span class="n">filtered</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filtered</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">required_tags</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">tags</span><span class="p">))</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">filtered</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_export_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Export nodes as JSON"""</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"nodes"</span><span class="p">:</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span>
+            <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"export_time"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_timestamp</span><span class="p">()),</span>
+                <span class="s2">"total_nodes"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">),</span>
+                <span class="s2">"format"</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_export_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Export nodes as XML"""</span>
+        <span class="n">xml_parts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'&lt;?xml version="1.0" encoding="UTF-8"?&gt;'</span><span class="p">]</span>
+        <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"&lt;knowledge_base&gt;"</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  &lt;node id="</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">"&gt;'</span><span class="p">)</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    &lt;title&gt;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">&lt;/title&gt;"</span><span class="p">)</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"    &lt;content_type&gt;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&lt;/content_type&gt;"</span>
+            <span class="p">)</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    &lt;difficulty&gt;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&lt;/difficulty&gt;"</span><span class="p">)</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    &lt;description&gt;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&lt;/description&gt;"</span><span class="p">)</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"    &lt;tags&gt;"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"      &lt;tag&gt;</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&lt;/tag&gt;"</span><span class="p">)</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"    &lt;/tags&gt;"</span><span class="p">)</span>
+            <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"  &lt;/node&gt;"</span><span class="p">)</span>
+
+        <span class="n">xml_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"&lt;/knowledge_base&gt;"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xml_parts</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_export_rdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Export nodes as RDF/Turtle"""</span>
+        <span class="n">rdf_parts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"@prefix kb: &lt;http://activeinference.org/knowledge#&gt; ."</span><span class="p">]</span>
+        <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"@prefix dct: &lt;http://purl.org/dc/terms/&gt; ."</span><span class="p">)</span>
+        <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"kb:</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> a kb:KnowledgeNode ;"</span><span class="p">)</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  dct:title "</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1">" ;'</span><span class="p">)</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  kb:contentType "</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">" ;'</span><span class="p">)</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  kb:difficulty "</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">" ;'</span><span class="p">)</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'  dct:description "</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s1">" ;'</span><span class="p">)</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  kb:prerequisites </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">)</span><span class="si">}</span><span class="s2"> ;"</span><span class="p">)</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  kb:tags </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="si">}</span><span class="s2"> ."</span><span class="p">)</span>
+            <span class="n">rdf_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rdf_parts</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_export_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Export nodes as CSV"""</span>
+        <span class="n">csv_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"id,title,content_type,difficulty,description,tags,prerequisites"</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">tags_str</span> <span class="o">=</span> <span class="s2">";"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+            <span class="n">prereqs_str</span> <span class="o">=</span> <span class="s2">";"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">)</span>
+            <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                <span class="n">tags_str</span><span class="p">,</span>
+                <span class="n">prereqs_str</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'"</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">"'</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">)</span>
+            <span class="n">csv_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">csv_lines</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KnowledgeRepository.create_content_backup">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.create_content_backup">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_content_backup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create comprehensive content backup with metadata and relationships</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Path to backup file</span>
+<span class="sd">        """</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+        <span class="c1"># Create backup data</span>
+        <span class="n">backup_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"backup_time"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+                <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                <span class="s2">"total_nodes"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">),</span>
+                <span class="s2">"total_paths"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">),</span>
+            <span class="p">},</span>
+            <span class="s2">"nodes"</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+            <span class="s2">"paths"</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+            <span class="s2">"relationships"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_relationships</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Save to temporary file</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">"w"</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">".json"</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">backup_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">backup_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Created content backup: </span><span class="si">{</span><span class="n">backup_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">backup_path</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_extract_relationships</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
+<span class="w">        </span><span class="sd">"""Extract all relationships between nodes"""</span>
+        <span class="n">relationships</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">relationships</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">),</span>
+                <span class="s2">"dependents"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="p">}</span>
+
+        <span class="c1"># Add dependents</span>
+        <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">prerequisites</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">prereq_id</span> <span class="ow">in</span> <span class="n">relationships</span><span class="p">:</span>
+                    <span class="n">relationships</span><span class="p">[</span><span class="n">prereq_id</span><span class="p">][</span><span class="s2">"dependents"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">relationships</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Get current timestamp"""</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+<div class="viewcode-block" id="KnowledgeRepository.get_statistics">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.get_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get comprehensive statistics about the knowledge repository"""</span>
+        <span class="n">content_type_counts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">difficulty_counts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">tag_counts</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="c1"># Count content types</span>
+            <span class="n">ct</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">content_type_counts</span><span class="p">[</span><span class="n">ct</span><span class="p">]</span> <span class="o">=</span> <span class="n">content_type_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="c1"># Count difficulties</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">difficulty</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">difficulty_counts</span><span class="p">[</span><span class="n">diff</span><span class="p">]</span> <span class="o">=</span> <span class="n">difficulty_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Count tags</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                <span class="n">tag_counts</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"total_nodes"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">),</span>
+            <span class="s2">"total_paths"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_paths</span><span class="p">),</span>
+            <span class="s2">"content_types"</span><span class="p">:</span> <span class="n">content_type_counts</span><span class="p">,</span>
+            <span class="s2">"difficulties"</span><span class="p">:</span> <span class="n">difficulty_counts</span><span class="p">,</span>
+            <span class="s2">"top_tags"</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tag_counts</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span>
+                <span class="p">:</span><span class="mi">20</span>
+            <span class="p">],</span>
+            <span class="s2">"total_tags"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">tag_counts</span><span class="p">),</span>
+            <span class="s2">"metadata"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeRepository.validate_repository">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.KnowledgeRepository.validate_repository">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get validation report for the entire repository"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_content_consistency</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

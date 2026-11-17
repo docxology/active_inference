@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.platform.collaboration &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.platform.collaboration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.platform.collaboration</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Collaboration Platform Service</span>
+
+<span class="sd">Provides multi-user collaboration features for the Active Inference Knowledge</span>
+<span class="sd">Environment.</span>
+<span class="sd">Includes user management, workspace management, and collaborative content creation.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">UserRole</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""User roles for access control"""</span>
+
+    <span class="n">ADMIN</span> <span class="o">=</span> <span class="s2">"admin"</span>
+    <span class="n">RESEARCHER</span> <span class="o">=</span> <span class="s2">"researcher"</span>
+    <span class="n">EDUCATOR</span> <span class="o">=</span> <span class="s2">"educator"</span>
+    <span class="n">STUDENT</span> <span class="o">=</span> <span class="s2">"student"</span>
+    <span class="n">GUEST</span> <span class="o">=</span> <span class="s2">"guest"</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Permission</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Permissions for collaborative actions"""</span>
+
+    <span class="n">READ</span> <span class="o">=</span> <span class="s2">"read"</span>
+    <span class="n">WRITE</span> <span class="o">=</span> <span class="s2">"write"</span>
+    <span class="n">DELETE</span> <span class="o">=</span> <span class="s2">"delete"</span>
+    <span class="n">SHARE</span> <span class="o">=</span> <span class="s2">"share"</span>
+    <span class="n">ADMIN</span> <span class="o">=</span> <span class="s2">"admin"</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">User</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""User representation"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">role</span><span class="p">:</span> <span class="n">UserRole</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">last_active</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">profile</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">has_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">permission</span><span class="p">:</span> <span class="n">Permission</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if user has specific permission"""</span>
+        <span class="n">role_permissions</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">UserRole</span><span class="o">.</span><span class="n">ADMIN</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">Permission</span><span class="o">.</span><span class="n">READ</span><span class="p">,</span>
+                <span class="n">Permission</span><span class="o">.</span><span class="n">WRITE</span><span class="p">,</span>
+                <span class="n">Permission</span><span class="o">.</span><span class="n">DELETE</span><span class="p">,</span>
+                <span class="n">Permission</span><span class="o">.</span><span class="n">SHARE</span><span class="p">,</span>
+                <span class="n">Permission</span><span class="o">.</span><span class="n">ADMIN</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">UserRole</span><span class="o">.</span><span class="n">RESEARCHER</span><span class="p">:</span> <span class="p">{</span><span class="n">Permission</span><span class="o">.</span><span class="n">READ</span><span class="p">,</span> <span class="n">Permission</span><span class="o">.</span><span class="n">WRITE</span><span class="p">,</span> <span class="n">Permission</span><span class="o">.</span><span class="n">SHARE</span><span class="p">},</span>
+            <span class="n">UserRole</span><span class="o">.</span><span class="n">EDUCATOR</span><span class="p">:</span> <span class="p">{</span><span class="n">Permission</span><span class="o">.</span><span class="n">READ</span><span class="p">,</span> <span class="n">Permission</span><span class="o">.</span><span class="n">WRITE</span><span class="p">,</span> <span class="n">Permission</span><span class="o">.</span><span class="n">SHARE</span><span class="p">},</span>
+            <span class="n">UserRole</span><span class="o">.</span><span class="n">STUDENT</span><span class="p">:</span> <span class="p">{</span><span class="n">Permission</span><span class="o">.</span><span class="n">READ</span><span class="p">},</span>
+            <span class="n">UserRole</span><span class="o">.</span><span class="n">GUEST</span><span class="p">:</span> <span class="p">{</span><span class="n">Permission</span><span class="o">.</span><span class="n">READ</span><span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">permission</span> <span class="ow">in</span> <span class="n">role_permissions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">role</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Workspace</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Workspace for collaborative work"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">owner_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">member_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">last_modified</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add member to workspace"""</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">member_ids</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">member_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_modified</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Remove member from workspace"""</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">member_ids</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">member_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_modified</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if user is a member"""</span>
+        <span class="k">return</span> <span class="n">user_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">owner_id</span> <span class="ow">or</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">member_ids</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Activity</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Activity log entry"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">action</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">resource_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">resource_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">details</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="UserManagement">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UserManagement</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Manages user accounts and authentication"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize user management"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">User</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># session_id -&gt; user info</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"User management initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UserManagement.add_user">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.add_user">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">User</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add new user"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"User </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> already exists"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">[</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Added user: </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error adding user </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="UserManagement.get_user">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.get_user">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">User</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get user by ID"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UserManagement.update_user">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.update_user">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">User</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Update user information"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">[</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Updated user: </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error updating user </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="UserManagement.delete_user">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.delete_user">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Delete user"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">user_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Deleted user: </span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error deleting user </span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="UserManagement.authenticate_user">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.authenticate_user">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">authenticate_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Authenticate user and return session ID"""</span>
+        <span class="c1"># Simplified authentication (in real implementation, this would verify password)</span>
+        <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span> <span class="o">==</span> <span class="n">username</span><span class="p">:</span>
+                <span class="c1"># In a real system, verify password hash</span>
+                <span class="n">session_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">"user_id"</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s2">"username"</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                    <span class="s2">"role"</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">role</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                    <span class="s2">"created_at"</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+                <span class="p">}</span>
+                <span class="n">user</span><span class="o">.</span><span class="n">last_active</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">session_id</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="UserManagement.validate_session">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.validate_session">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Validate session and return user info"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UserManagement.logout_user">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.logout_user">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">logout_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""End user session"""</span>
+        <span class="k">if</span> <span class="n">session_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="UserManagement.get_user_statistics">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.UserManagement.get_user_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get user statistics"""</span>
+        <span class="n">roles</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">role</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">role</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">roles</span><span class="p">[</span><span class="n">role</span><span class="p">]</span> <span class="o">=</span> <span class="n">roles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">role</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"total_users"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">),</span>
+            <span class="s2">"active_sessions"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sessions</span><span class="p">),</span>
+            <span class="s2">"role_distribution"</span><span class="p">:</span> <span class="n">roles</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="WorkspaceManager">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WorkspaceManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Manages collaborative workspaces"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize workspace manager"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Workspace</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">{}</span>
+        <span class="p">)</span>  <span class="c1"># user_id -&gt; set of workspace_ids</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Workspace manager initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WorkspaceManager.create_workspace">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.create_workspace">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace</span><span class="p">:</span> <span class="n">Workspace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create new workspace"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">workspace</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Workspace </span><span class="si">{</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> already exists"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">[</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">workspace</span>
+
+            <span class="c1"># Update user-workspace mapping</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_user_workspace</span><span class="p">(</span><span class="n">workspace</span><span class="o">.</span><span class="n">owner_id</span><span class="p">,</span> <span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">member_id</span> <span class="ow">in</span> <span class="n">workspace</span><span class="o">.</span><span class="n">member_ids</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_user_workspace</span><span class="p">(</span><span class="n">member_id</span><span class="p">,</span> <span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Created workspace: </span><span class="si">{</span><span class="n">workspace</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error creating workspace </span><span class="si">{</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="WorkspaceManager.get_workspace">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.get_workspace">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Workspace</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get workspace by ID"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workspace_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WorkspaceManager.update_workspace">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.update_workspace">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace</span><span class="p">:</span> <span class="n">Workspace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Update workspace information"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">workspace</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="n">old_workspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">[</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">[</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">workspace</span>
+
+            <span class="c1"># Update user-workspace mappings if membership changed</span>
+            <span class="n">old_members</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">old_workspace</span><span class="o">.</span><span class="n">owner_id</span><span class="p">]</span> <span class="o">+</span> <span class="n">old_workspace</span><span class="o">.</span><span class="n">member_ids</span><span class="p">)</span>
+            <span class="n">new_members</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">workspace</span><span class="o">.</span><span class="n">owner_id</span><span class="p">]</span> <span class="o">+</span> <span class="n">workspace</span><span class="o">.</span><span class="n">member_ids</span><span class="p">)</span>
+
+            <span class="c1"># Remove old members</span>
+            <span class="k">for</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="n">old_members</span> <span class="o">-</span> <span class="n">new_members</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_remove_user_workspace</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+            <span class="c1"># Add new members</span>
+            <span class="k">for</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="n">new_members</span> <span class="o">-</span> <span class="n">old_members</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_user_workspace</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Updated workspace: </span><span class="si">{</span><span class="n">workspace</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error updating workspace </span><span class="si">{</span><span class="n">workspace</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="WorkspaceManager.delete_workspace">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.delete_workspace">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Delete workspace"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">workspace_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="n">workspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">[</span><span class="n">workspace_id</span><span class="p">]</span>
+
+            <span class="c1"># Remove from user-workspace mappings</span>
+            <span class="k">for</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="p">[</span><span class="n">workspace</span><span class="o">.</span><span class="n">owner_id</span><span class="p">]</span> <span class="o">+</span> <span class="n">workspace</span><span class="o">.</span><span class="n">member_ids</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_remove_user_workspace</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">)</span>
+
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">[</span><span class="n">workspace_id</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Deleted workspace: </span><span class="si">{</span><span class="n">workspace_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error deleting workspace </span><span class="si">{</span><span class="n">workspace_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="WorkspaceManager.add_member">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.add_member">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">requester_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add member to workspace"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">workspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workspace_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">workspace</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="c1"># Check if requester has permission</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">requester_id</span> <span class="o">!=</span> <span class="n">workspace</span><span class="o">.</span><span class="n">owner_id</span>
+                <span class="ow">and</span> <span class="n">requester_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">workspace</span><span class="o">.</span><span class="n">member_ids</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">workspace</span><span class="o">.</span><span class="n">add_member</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_user_workspace</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Added member </span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2"> to workspace </span><span class="si">{</span><span class="n">workspace_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error adding member to workspace </span><span class="si">{</span><span class="n">workspace_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="WorkspaceManager.remove_member">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.remove_member">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_member</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">requester_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Remove member from workspace"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">workspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workspace_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">workspace</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="c1"># Only owner can remove members</span>
+            <span class="k">if</span> <span class="n">requester_id</span> <span class="o">!=</span> <span class="n">workspace</span><span class="o">.</span><span class="n">owner_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="n">workspace</span><span class="o">.</span><span class="n">remove_member</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_remove_user_workspace</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Removed member </span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2"> from workspace </span><span class="si">{</span><span class="n">workspace_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error removing member from workspace </span><span class="si">{</span><span class="n">workspace_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="WorkspaceManager.get_user_workspaces">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.get_user_workspaces">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_workspaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Workspace</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get all workspaces for a user"""</span>
+        <span class="n">workspace_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">[</span><span class="n">wid</span><span class="p">]</span> <span class="k">for</span> <span class="n">wid</span> <span class="ow">in</span> <span class="n">workspace_ids</span> <span class="k">if</span> <span class="n">wid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">]</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_user_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add workspace to user's workspace list"""</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">workspace_id</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_remove_user_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Remove workspace from user's workspace list"""</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">workspace_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">[</span><span class="n">user_id</span><span class="p">]:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_workspaces</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span>
+
+<div class="viewcode-block" id="WorkspaceManager.get_workspace_statistics">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.WorkspaceManager.get_workspace_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_workspace_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get workspace statistics"""</span>
+        <span class="n">total_members</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">member_ids</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">ws</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="p">)</span>  <span class="c1"># +1 for owner</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"total_workspaces"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">),</span>
+            <span class="s2">"total_members"</span><span class="p">:</span> <span class="n">total_members</span><span class="p">,</span>
+            <span class="s2">"average_members_per_workspace"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">total_members</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspaces</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">),</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivityTracker</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Tracks user activities for analytics"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize activity tracker"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Activity</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_activities</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"max_activities"</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_activity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Log user activity"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+
+        <span class="c1"># Maintain size limit</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_activities</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">max_activities</span> <span class="p">:]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Logged activity: </span><span class="si">{</span><span class="n">activity</span><span class="o">.</span><span class="n">action</span><span class="si">}</span><span class="s2"> by </span><span class="si">{</span><span class="n">activity</span><span class="o">.</span><span class="n">user_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_activities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Activity</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get activities for a user"""</span>
+        <span class="n">user_activities</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">user_id</span> <span class="o">==</span> <span class="n">user_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">user_activities</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">limit</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_workspace_activities</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Activity</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get activities for a workspace"""</span>
+        <span class="n">workspace_activities</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">workspace_id</span> <span class="o">==</span> <span class="n">workspace_id</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">workspace_activities</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span>
+            <span class="p">:</span><span class="n">limit</span>
+        <span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_activity_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get activity statistics"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"total_activities"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+        <span class="n">actions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">activity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">:</span>
+            <span class="n">actions</span><span class="p">[</span><span class="n">activity</span><span class="o">.</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">actions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">activity</span><span class="o">.</span><span class="n">action</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"total_activities"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">),</span>
+            <span class="s2">"action_distribution"</span><span class="p">:</span> <span class="n">actions</span><span class="p">,</span>
+            <span class="s2">"unique_users"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">user_id</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">)),</span>
+            <span class="s2">"unique_workspaces"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">workspace_id</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">activities</span><span class="p">)),</span>
+        <span class="p">}</span>
+
+
+<div class="viewcode-block" id="CollaborationManager">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CollaborationManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main collaboration manager coordinating all collaboration services"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize collaboration manager"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+
+        <span class="c1"># Initialize services</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_management</span> <span class="o">=</span> <span class="n">UserManagement</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"user_management"</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workspace_manager</span> <span class="o">=</span> <span class="n">WorkspaceManager</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"workspace_manager"</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker</span> <span class="o">=</span> <span class="n">ActivityTracker</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"activity_tracker"</span><span class="p">,</span> <span class="p">{}))</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Collaboration manager initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CollaborationManager.create_user">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager.create_user">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_user</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="n">UserRole</span> <span class="o">=</span> <span class="n">UserRole</span><span class="o">.</span><span class="n">STUDENT</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Create new user"""</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="n">role</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">add_user</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">user_id</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="CollaborationManager.create_workspace">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager.create_workspace">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_workspace</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">owner_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Create new workspace"""</span>
+        <span class="n">workspace_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="n">workspace</span> <span class="o">=</span> <span class="n">Workspace</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">workspace_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">owner_id</span><span class="o">=</span><span class="n">owner_id</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace_manager</span><span class="o">.</span><span class="n">create_workspace</span><span class="p">(</span><span class="n">workspace</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">workspace_id</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="CollaborationManager.invite_to_workspace">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager.invite_to_workspace">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">invite_to_workspace</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">inviter_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Invite user to workspace"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace_manager</span><span class="o">.</span><span class="n">add_member</span><span class="p">(</span><span class="n">workspace_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">inviter_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CollaborationManager.log_activity">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager.log_activity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_activity</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">action</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">resource_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">resource_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">details</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Log user activity"""</span>
+        <span class="n">activity</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()),</span>
+            <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
+            <span class="n">workspace_id</span><span class="o">=</span><span class="n">workspace_id</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">,</span>
+            <span class="n">resource_type</span><span class="o">=</span><span class="n">resource_type</span><span class="p">,</span>
+            <span class="n">resource_id</span><span class="o">=</span><span class="n">resource_id</span><span class="p">,</span>
+            <span class="n">details</span><span class="o">=</span><span class="n">details</span> <span class="ow">or</span> <span class="p">{},</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker</span><span class="o">.</span><span class="n">log_activity</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CollaborationManager.get_user_workspaces">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager.get_user_workspaces">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_workspaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Workspace</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get workspaces for user"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace_manager</span><span class="o">.</span><span class="n">get_user_workspaces</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CollaborationManager.get_workspace_members">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager.get_workspace_members">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_workspace_members</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">User</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get members of workspace"""</span>
+        <span class="n">workspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace_manager</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span><span class="n">workspace_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">workspace</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">members</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">user_id</span> <span class="ow">in</span> <span class="p">[</span><span class="n">workspace</span><span class="o">.</span><span class="n">owner_id</span><span class="p">]</span> <span class="o">+</span> <span class="n">workspace</span><span class="o">.</span><span class="n">member_ids</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+                <span class="n">members</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">members</span></div>
+
+
+<div class="viewcode-block" id="CollaborationManager.get_collaboration_statistics">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.CollaborationManager.get_collaboration_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_collaboration_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get comprehensive collaboration statistics"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"users"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_management</span><span class="o">.</span><span class="n">get_user_statistics</span><span class="p">(),</span>
+            <span class="s2">"workspaces"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace_manager</span><span class="o">.</span><span class="n">get_workspace_statistics</span><span class="p">(),</span>
+            <span class="s2">"activities"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">activity_tracker</span><span class="o">.</span><span class="n">get_activity_statistics</span><span class="p">(),</span>
+        <span class="p">}</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

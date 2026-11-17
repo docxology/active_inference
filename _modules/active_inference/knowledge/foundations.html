@@ -1,0 +1,1260 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.knowledge.foundations &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.knowledge.foundations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.knowledge.foundations</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Foundations Module</span>
+
+<span class="sd">Core theoretical foundations of Active Inference and the Free Energy Principle.</span>
+<span class="sd">Provides structured educational content covering the fundamental concepts,</span>
+<span class="sd">principles, and theoretical framework.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContentType</span><span class="p">,</span> <span class="n">DifficultyLevel</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">,</span> <span class="n">KnowledgeRepository</span>
+
+
+<div class="viewcode-block" id="Foundations">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Foundations</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Foundations of Active Inference and the Free Energy Principle</span>
+
+<span class="sd">    Provides structured access to fundamental concepts including:</span>
+<span class="sd">    - Information theory basics</span>
+<span class="sd">    - Bayesian inference</span>
+<span class="sd">    - Free Energy Principle</span>
+<span class="sd">    - Active Inference framework</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="n">repository</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_foundations</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_foundations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize foundation knowledge nodes"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_information_theory_nodes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_bayesian_inference_nodes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_free_energy_nodes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_active_inference_nodes</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_information_theory_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create information theory foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"info_theory_entropy"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Entropy and Information"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">BEGINNER</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Understanding entropy as a measure of uncertainty and information"</span>
+                    <span class="s2">" content"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"information theory"</span><span class="p">,</span> <span class="s2">"entropy"</span><span class="p">,</span> <span class="s2">"uncertainty"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Define entropy mathematically"</span><span class="p">,</span>
+                    <span class="s2">"Understand entropy as uncertainty measure"</span><span class="p">,</span>
+                    <span class="s2">"Calculate entropy for simple distributions"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"info_theory_kl_divergence"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Kullback-Leibler Divergence"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Measuring the difference between probability distributions"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"info_theory_entropy"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"information theory"</span><span class="p">,</span> <span class="s2">"KL divergence"</span><span class="p">,</span> <span class="s2">"distance"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Define KL divergence mathematically"</span><span class="p">,</span>
+                    <span class="s2">"Understand KL divergence as distribution distance"</span><span class="p">,</span>
+                    <span class="s2">"Apply KL divergence in model comparison"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"info_theory_mutual_information"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Mutual Information"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Quantifying dependence between random variables"</span><span class="p">,</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"info_theory_entropy"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"information theory"</span><span class="p">,</span> <span class="s2">"mutual information"</span><span class="p">,</span> <span class="s2">"dependence"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Define mutual information"</span><span class="p">,</span>
+                    <span class="s2">"Understand information sharing between variables"</span><span class="p">,</span>
+                    <span class="s2">"Calculate mutual information for discrete variables"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_bayesian_inference_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create Bayesian inference foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"bayesian_basics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Bayesian Probability"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">BEGINNER</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Fundamental concepts of Bayesian probability and inference"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian"</span><span class="p">,</span> <span class="s2">"probability"</span><span class="p">,</span> <span class="s2">"inference"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Understand subjective probability interpretation"</span><span class="p">,</span>
+                    <span class="s2">"Apply Bayes' theorem"</span><span class="p">,</span>
+                    <span class="s2">"Update beliefs with new evidence"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"bayesian_models"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Bayesian Models"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Building and working with Bayesian probabilistic models"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian_basics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian"</span><span class="p">,</span> <span class="s2">"models"</span><span class="p">,</span> <span class="s2">"generative"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Define generative models"</span><span class="p">,</span>
+                    <span class="s2">"Understand model parameters vs observations"</span><span class="p">,</span>
+                    <span class="s2">"Work with hierarchical Bayesian models"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"belief_updating"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Belief Updating"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mechanisms for updating probabilistic beliefs over time"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian_basics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian"</span><span class="p">,</span> <span class="s2">"updating"</span><span class="p">,</span> <span class="s2">"dynamics"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Implement belief updating algorithms"</span><span class="p">,</span>
+                    <span class="s2">"Understand convergence properties"</span><span class="p">,</span>
+                    <span class="s2">"Handle sequential data streams"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_free_energy_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create Free Energy Principle foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"fep_introduction"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Free Energy Principle Overview"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Introduction to the Free Energy Principle as a unifying theory"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"info_theory_kl_divergence"</span><span class="p">,</span> <span class="s2">"bayesian_models"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"free energy principle"</span><span class="p">,</span> <span class="s2">"theory"</span><span class="p">,</span> <span class="s2">"unification"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"State the Free Energy Principle"</span><span class="p">,</span>
+                    <span class="s2">"Understand free energy as prediction error"</span><span class="p">,</span>
+                    <span class="s2">"Connect to information theory and Bayesian inference"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"fep_mathematical_formulation"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Mathematical Foundations of FEP"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Rigorous mathematical formulation of the Free Energy Principle"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"fep_introduction"</span><span class="p">,</span> <span class="s2">"info_theory_kl_divergence"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"free energy principle"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"variational"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Derive free energy expression mathematically"</span><span class="p">,</span>
+                    <span class="s2">"Understand variational free energy"</span><span class="p">,</span>
+                    <span class="s2">"Connect to information geometry"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"fep_biological_systems"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"FEP in Biological Systems"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"How the Free Energy Principle explains biological"</span>
+                    <span class="s2">" self-organization"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"fep_introduction"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"free energy principle"</span><span class="p">,</span> <span class="s2">"biology"</span><span class="p">,</span> <span class="s2">"self-organization"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Apply FEP to biological systems"</span><span class="p">,</span>
+                    <span class="s2">"Understand homeostasis as free energy minimization"</span><span class="p">,</span>
+                    <span class="s2">"Connect to evolutionary principles"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_active_inference_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create Active Inference foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"active_inference_introduction"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Active Inference Overview"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Introduction to Active Inference as a framework for behavior"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"fep_introduction"</span><span class="p">,</span> <span class="s2">"belief_updating"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"active inference"</span><span class="p">,</span> <span class="s2">"behavior"</span><span class="p">,</span> <span class="s2">"planning"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Define Active Inference framework"</span><span class="p">,</span>
+                    <span class="s2">"Understand planning as inference"</span><span class="p">,</span>
+                    <span class="s2">"Connect to decision theory"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"ai_generative_models"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Generative Models in Active Inference"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Structure and role of generative models in Active Inference"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"active_inference_introduction"</span><span class="p">,</span> <span class="s2">"bayesian_models"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"active inference"</span><span class="p">,</span> <span class="s2">"generative models"</span><span class="p">,</span> <span class="s2">"representation"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Design generative models for Active Inference"</span><span class="p">,</span>
+                    <span class="s2">"Understand model structure requirements"</span><span class="p">,</span>
+                    <span class="s2">"Implement hierarchical generative models"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"ai_policy_selection"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Policy Selection and Planning"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">FOUNDATION</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"How Active Inference agents select actions and plan behavior"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"active_inference_introduction"</span><span class="p">,</span>
+                    <span class="s2">"ai_generative_models"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"active inference"</span><span class="p">,</span> <span class="s2">"planning"</span><span class="p">,</span> <span class="s2">"policies"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Understand expected free energy"</span><span class="p">,</span>
+                    <span class="s2">"Implement policy selection mechanisms"</span><span class="p">,</span>
+                    <span class="s2">"Design planning algorithms"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_save_nodes_to_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes_data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Save knowledge nodes to the repository"""</span>
+        <span class="k">for</span> <span class="n">node_data</span> <span class="ow">in</span> <span class="n">nodes_data</span><span class="p">:</span>
+            <span class="c1"># Add comprehensive content for each node</span>
+            <span class="n">node_data</span><span class="p">[</span><span class="s2">"content"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_node_content</span><span class="p">(</span><span class="n">node_data</span><span class="p">)</span>
+            <span class="n">node_data</span><span class="p">[</span><span class="s2">"metadata"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"author"</span><span class="p">:</span> <span class="s2">"Active Inference Community"</span><span class="p">,</span>
+                <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                <span class="s2">"estimated_reading_time"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="s2">"last_updated"</span><span class="p">:</span> <span class="s2">"2024-10-27"</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="c1"># Create knowledge node and add to repository</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">node_data</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]]</span> <span class="o">=</span> <span class="n">KnowledgeNode</span><span class="p">(</span><span class="o">**</span><span class="n">node_data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Warning: Failed to create foundation node </span><span class="si">{</span><span class="n">node_data</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_node_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate comprehensive content for foundation nodes"""</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="n">node_data</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span>
+
+        <span class="c1"># Generate content based on node type</span>
+        <span class="k">if</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"info_theory_entropy"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Entropy measures the uncertainty or disorder in a probability"</span>
+                    <span class="s2">" distribution. It quantifies how much information is needed to"</span>
+                    <span class="s2">" describe the outcome of a random variable."</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"For a discrete random variable X with probability mass function"</span>
+                    <span class="s2">" p(x), the entropy H(X) is defined as:</span><span class="se">\n\n</span><span class="s2">H(X) = -Σ_x p(x) log₂"</span>
+                    <span class="s2">" p(x)</span><span class="se">\n\n</span><span class="s2">For continuous variables, differential entropy is"</span>
+                    <span class="s2">" used:</span><span class="se">\n\n</span><span class="s2">h(X) = -∫ p(x) log p(x) dx"</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Entropy is always non-negative: H(X) ≥ 0"</span><span class="p">,</span>
+                    <span class="s2">"Entropy is maximized for uniform distributions"</span><span class="p">,</span>
+                    <span class="s2">"Entropy measures uncertainty, not complexity"</span><span class="p">,</span>
+                    <span class="s2">"Units are typically bits (log₂) or nats (logₑ)"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Fair Coin"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"A fair coin has maximum entropy"</span><span class="p">,</span>
+                        <span class="s2">"calculation"</span><span class="p">:</span> <span class="s2">"H = -0.5×log₂(0.5) - 0.5×log₂(0.5) = 1 bit"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"1 bit of information is needed to describe the outcome"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Biased Coin"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"A biased coin has lower entropy"</span><span class="p">,</span>
+                        <span class="s2">"calculation"</span><span class="p">:</span> <span class="s2">"H = -0.9×log₂(0.9) - 0.1×log₂(0.1) ≈ 0.47 bits"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Less information needed due to predictability"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Data compression (entropy coding)"</span><span class="p">,</span>
+                    <span class="s2">"Cryptography (key strength measurement)"</span><span class="p">,</span>
+                    <span class="s2">"Machine learning (feature selection)"</span><span class="p">,</span>
+                    <span class="s2">"Neuroscience (information processing)"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference (uncertainty quantification)"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"info_theory_kl_divergence"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Kullback-Leibler divergence measures how much a probability"</span>
+                    <span class="s2">" distribution Q differs from a reference distribution P. It"</span>
+                    <span class="s2">" quantifies the information lost when Q is used to approximate P."</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"For discrete distributions:</span><span class="se">\n\n</span><span class="s2">D_KL(P||Q) = Σ_x p(x)"</span>
+                    <span class="s2">" log(p(x)/q(x))</span><span class="se">\n\n</span><span class="s2">For continuous distributions:</span><span class="se">\n\n</span><span class="s2">D_KL(P||Q) = ∫"</span>
+                    <span class="s2">" p(x) log(p(x)/q(x)) dx"</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"D_KL(P||Q) ≥ 0 (Gibbs' inequality)"</span><span class="p">,</span>
+                    <span class="s2">"D_KL(P||Q) ≠ D_KL(Q||P) (asymmetric)"</span><span class="p">,</span>
+                    <span class="s2">"D_KL(P||P) = 0 (minimum at equality)"</span><span class="p">,</span>
+                    <span class="s2">"Measures relative entropy between distributions"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Model Comparison"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Compare true distribution vs model approximation"</span>
+                        <span class="p">),</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="s2">"KL divergence quantifies model accuracy"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Free Energy Principle"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"KL divergence between posterior and prior beliefs"</span>
+                        <span class="p">),</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="s2">"Measures surprise or prediction error"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Model selection and comparison"</span><span class="p">,</span>
+                    <span class="s2">"Variational inference"</span><span class="p">,</span>
+                    <span class="s2">"Statistical hypothesis testing"</span><span class="p">,</span>
+                    <span class="s2">"Information geometry"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference (surprise minimization)"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"info_theory_mutual_information"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mutual information measures the amount of information shared"</span>
+                    <span class="s2">" between two random variables. It quantifies how much knowing one"</span>
+                    <span class="s2">" variable reduces uncertainty about the other."</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"I(X;Y) = H(X) + H(Y) - H(X,Y)</span><span class="se">\n\n</span><span class="s2">I(X;Y) = Σ_{x,y} p(x,y)"</span>
+                    <span class="s2">" log(p(x,y)/(p(x)p(y)))</span><span class="se">\n\n</span><span class="s2">I(X;Y) = D_KL(p(x,y) || p(x)p(y))"</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"I(X;Y) ≥ 0 (non-negative)"</span><span class="p">,</span>
+                    <span class="s2">"I(X;Y) = I(Y;X) (symmetric)"</span><span class="p">,</span>
+                    <span class="s2">"I(X;Y) = 0 if X and Y are independent"</span><span class="p">,</span>
+                    <span class="s2">"I(X;X) = H(X) (self-information equals entropy)"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Feature Selection"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Mutual information for selecting relevant features"</span>
+                        <span class="p">),</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Higher mutual information indicates better feature"</span>
+                            <span class="s2">" relevance"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Communication Channels"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Information transmission through noisy channels"</span>
+                        <span class="p">),</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Mutual information quantifies channel capacity"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Feature selection in machine learning"</span><span class="p">,</span>
+                    <span class="s2">"Information bottleneck method"</span><span class="p">,</span>
+                    <span class="s2">"Causal discovery"</span><span class="p">,</span>
+                    <span class="s2">"Network analysis"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference (information flow)"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"bayesian_basics"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Bayesian probability interprets probability as a measure of belief"</span>
+                    <span class="s2">" or uncertainty about an event, rather than long-run frequency."</span>
+                    <span class="s2">" This allows for coherent updating of beliefs as new evidence"</span>
+                    <span class="s2">" becomes available."</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Bayesian inference updates beliefs using Bayes'"</span>
+                    <span class="s2">" theorem:</span><span class="se">\n\n</span><span class="s2">P(θ|data) = P(data|θ) × P(θ) / P(data)</span><span class="se">\n\n</span><span class="s2">Posterior ="</span>
+                    <span class="s2">" Likelihood × Prior / Evidence"</span>
+                <span class="p">),</span>
+                <span class="s2">"key_concepts"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Prior: Initial beliefs before seeing data"</span><span class="p">,</span>
+                    <span class="s2">"Likelihood: Probability of data given parameters"</span><span class="p">,</span>
+                    <span class="s2">"Posterior: Updated beliefs after seeing data"</span><span class="p">,</span>
+                    <span class="s2">"Evidence: Probability of data (normalizing constant)"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Beliefs are represented as probability distributions"</span><span class="p">,</span>
+                    <span class="s2">"All uncertainty is quantified probabilistically"</span><span class="p">,</span>
+                    <span class="s2">"Beliefs are updated coherently with new evidence"</span><span class="p">,</span>
+                    <span class="s2">"No distinction between parameters and data"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Medical Diagnosis"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Update disease probability with test results"</span><span class="p">,</span>
+                        <span class="s2">"prior"</span><span class="p">:</span> <span class="s2">"P(disease) = 0.01"</span><span class="p">,</span>
+                        <span class="s2">"likelihood"</span><span class="p">:</span> <span class="s2">"P(positive test|disease) = 0.95"</span><span class="p">,</span>
+                        <span class="s2">"posterior"</span><span class="p">:</span> <span class="s2">"P(disease|positive test) = 0.16"</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Statistical inference"</span><span class="p">,</span>
+                    <span class="s2">"Machine learning (Bayesian methods)"</span><span class="p">,</span>
+                    <span class="s2">"Decision making under uncertainty"</span><span class="p">,</span>
+                    <span class="s2">"Scientific hypothesis testing"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference framework"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"bayesian_models"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Bayesian models are generative models that specify how observed"</span>
+                    <span class="s2">" data is generated from underlying parameters. They provide a"</span>
+                    <span class="s2">" complete probabilistic description of the data generation"</span>
+                    <span class="s2">" process."</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"A Bayesian model consists of:</span><span class="se">\n\n</span><span class="s2">1. Prior distribution: p(θ)</span><span class="se">\n</span><span class="s2">2."</span>
+                    <span class="s2">" Likelihood function: p(data|θ)</span><span class="se">\n</span><span class="s2">3. Posterior distribution:"</span>
+                    <span class="s2">" p(θ|data) ∝ p(data|θ) × p(θ)"</span>
+                <span class="p">),</span>
+                <span class="s2">"model_components"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Parameters (θ): Unknown quantities we want to learn"</span><span class="p">,</span>
+                    <span class="s2">"Data (x): Observed evidence"</span><span class="p">,</span>
+                    <span class="s2">"Prior (p(θ)): Initial beliefs about parameters"</span><span class="p">,</span>
+                    <span class="s2">"Likelihood (p(x|θ)): Data generation process"</span><span class="p">,</span>
+                    <span class="s2">"Posterior (p(θ|x)): Updated beliefs"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Generative: Can generate synthetic data"</span><span class="p">,</span>
+                    <span class="s2">"Probabilistic: All uncertainty is quantified"</span><span class="p">,</span>
+                    <span class="s2">"Hierarchical: Can model complex relationships"</span><span class="p">,</span>
+                    <span class="s2">"Compositional: Can be combined modularly"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Linear Regression"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Bayesian treatment of linear regression"</span><span class="p">,</span>
+                        <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"y = β₀ + β₁x + ε, ε ~ N(0, σ²)"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Parameters have distributions, not point estimates"</span>
+                        <span class="p">),</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Regression and classification"</span><span class="p">,</span>
+                    <span class="s2">"Time series modeling"</span><span class="p">,</span>
+                    <span class="s2">"Hierarchical modeling"</span><span class="p">,</span>
+                    <span class="s2">"Mixture models"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference (generative models)"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"belief_updating"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Belief updating is the process of revising probabilistic beliefs"</span>
+                    <span class="s2">" as new evidence becomes available. In Bayesian inference, this is"</span>
+                    <span class="s2">" done coherently using Bayes' theorem."</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Sequential updating:</span><span class="se">\n\n</span><span class="s2">p(θ|x₁, x₂, ..., xₜ) ∝ p(xₜ|θ, x₁, ...,"</span>
+                    <span class="s2">" xₜ₋₁) × p(θ|x₁, ..., xₜ₋₁)"</span>
+                <span class="p">),</span>
+                <span class="s2">"updating_mechanisms"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Batch updating: Update with all data at once"</span><span class="p">,</span>
+                    <span class="s2">"Sequential updating: Update with each new observation"</span><span class="p">,</span>
+                    <span class="s2">"Recursive filtering: Online belief updating"</span><span class="p">,</span>
+                    <span class="s2">"Variational updating: Approximate belief updating"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Convergence: Beliefs stabilize with sufficient data"</span><span class="p">,</span>
+                    <span class="s2">"Consistency: Multiple updates equivalent to batch update"</span><span class="p">,</span>
+                    <span class="s2">"Robustness: Handles missing or noisy data"</span><span class="p">,</span>
+                    <span class="s2">"Efficiency: Online algorithms for large datasets"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Kalman Filtering"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Recursive belief updating for linear systems"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Optimal estimation under Gaussian assumptions"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Particle Filtering"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Sequential Monte Carlo belief updating"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="s2">"Handles non-linear, non-Gaussian systems"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Signal processing"</span><span class="p">,</span>
+                    <span class="s2">"Control systems"</span><span class="p">,</span>
+                    <span class="s2">"Robotics (state estimation)"</span><span class="p">,</span>
+                    <span class="s2">"Finance (portfolio optimization)"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference (belief dynamics)"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"fep_introduction"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The Free Energy Principle (FEP) proposes that all biological"</span>
+                    <span class="s2">" systems minimize free energy to maintain their structural and"</span>
+                    <span class="s2">" functional integrity. Free energy serves as a unified measure of"</span>
+                    <span class="s2">" surprise or prediction error."</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The free energy F for a model with parameters θ and data x"</span>
+                    <span class="s2">" is:</span><span class="se">\n\n</span><span class="s2">F = -log p(x|θ) + D_KL(q(θ) || p(θ))</span><span class="se">\n\n</span><span class="s2">where:</span><span class="se">\n</span><span class="s2">- -log"</span>
+                    <span class="s2">" p(x|θ) is accuracy (negative log-likelihood)</span><span class="se">\n</span><span class="s2">- D_KL(q(θ) ||"</span>
+                    <span class="s2">" p(θ)) is complexity (KL divergence)"</span>
+                <span class="p">),</span>
+                <span class="s2">"core_principle"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"All biological systems act to minimize their free energy, which"</span>
+                    <span class="s2">" bounds the surprise or negative log-evidence of their sensory"</span>
+                    <span class="s2">" inputs."</span>
+                <span class="p">),</span>
+                <span class="s2">"key_implications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Perception: Inferring hidden causes of sensory data"</span><span class="p">,</span>
+                    <span class="s2">"Action: Selecting actions that fulfill predictions"</span><span class="p">,</span>
+                    <span class="s2">"Learning: Updating models to better predict sensory data"</span><span class="p">,</span>
+                    <span class="s2">"Self-organization: Maintaining system integrity"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Universal: Applies to all biological systems"</span><span class="p">,</span>
+                    <span class="s2">"Unifying: Connects perception, action, and learning"</span><span class="p">,</span>
+                    <span class="s2">"Information-theoretic: Based on information theory"</span><span class="p">,</span>
+                    <span class="s2">"Variational: Uses variational inference principles"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Homeostasis"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Maintaining body temperature"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Actions minimize prediction error about ideal temperature"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Visual Perception"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Recognizing objects in images"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Brain infers object identities to explain visual input"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Neuroscience (brain function)"</span><span class="p">,</span>
+                    <span class="s2">"Psychology (behavior)"</span><span class="p">,</span>
+                    <span class="s2">"Artificial intelligence"</span><span class="p">,</span>
+                    <span class="s2">"Systems biology"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference framework"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"fep_mathematical_formulation"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The mathematical foundations of the Free Energy Principle provide"</span>
+                    <span class="s2">" a rigorous framework for understanding how systems minimize"</span>
+                    <span class="s2">" surprise through variational inference."</span>
+                <span class="p">),</span>
+                <span class="s2">"variational_free_energy"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The variational free energy F[q] for an approximate posterior q(θ)"</span>
+                    <span class="s2">" is:</span><span class="se">\n\n</span><span class="s2">F[q] = E_q[log q(θ)] - E_q[log p(x,θ)]</span><span class="se">\n\n</span><span class="s2">= D_KL(q(θ) ||"</span>
+                    <span class="s2">" p(θ|x)) - log p(x)"</span>
+                <span class="p">),</span>
+                <span class="s2">"free_energy_bound"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The variational free energy provides an upper bound on"</span>
+                    <span class="s2">" surprise:</span><span class="se">\n\n</span><span class="s2">-log p(x) ≤ F[q]</span><span class="se">\n\n</span><span class="s2">Minimizing free energy minimizes"</span>
+                    <span class="s2">" surprise."</span>
+                <span class="p">),</span>
+                <span class="s2">"gradient_descent"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Free energy can be minimized using gradient descent:</span><span class="se">\n\n</span><span class="s2">∂F/∂θ ="</span>
+                    <span class="s2">" E_q[∂log p(x,θ)/∂θ] - ∂log q(θ)/∂θ"</span>
+                <span class="p">),</span>
+                <span class="s2">"information_geometry"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The free energy landscape defines an information geometry"</span>
+                    <span class="s2">" where:</span><span class="se">\n</span><span class="s2">- Riemannian metric given by Fisher information</span><span class="se">\n</span><span class="s2">-"</span>
+                    <span class="s2">" Geodesics correspond to optimal inference paths</span><span class="se">\n</span><span class="s2">- Curvature"</span>
+                    <span class="s2">" reflects model complexity"</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"F ≥ -log p(x) (free energy bounds log-evidence)"</span><span class="p">,</span>
+                    <span class="s2">"F = 0 when q(θ) = p(θ|x) (perfect inference)"</span><span class="p">,</span>
+                    <span class="s2">"Gradient descent converges to posterior"</span><span class="p">,</span>
+                    <span class="s2">"Higher-order terms give information geometry"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Variational Inference"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Approximating posterior distributions"</span><span class="p">,</span>
+                        <span class="s2">"interpretation"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Free energy minimization finds best approximation"</span>
+                        <span class="p">),</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Variational Bayesian methods"</span><span class="p">,</span>
+                    <span class="s2">"Neural networks (variational autoencoders)"</span><span class="p">,</span>
+                    <span class="s2">"Reinforcement learning"</span><span class="p">,</span>
+                    <span class="s2">"Information geometry"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference mathematics"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"fep_biological_systems"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The Free Energy Principle explains how biological systems maintain"</span>
+                    <span class="s2">" their integrity by minimizing free energy, leading to emergent"</span>
+                    <span class="s2">" behaviors like homeostasis, perception, and action."</span>
+                <span class="p">),</span>
+                <span class="s2">"homeostasis"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Homeostasis can be understood as free energy minimization:</span><span class="se">\n\n</span><span class="s2">-"</span>
+                    <span class="s2">" Set point: Predicted state of the system</span><span class="se">\n</span><span class="s2">- Error signal:"</span>
+                    <span class="s2">" Difference between prediction and actual state</span><span class="se">\n</span><span class="s2">- Action:"</span>
+                    <span class="s2">" Behavior that reduces prediction error"</span>
+                <span class="p">),</span>
+                <span class="s2">"self_organization"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Biological systems self-organize to minimize free energy:</span><span class="se">\n\n</span><span class="s2">-"</span>
+                    <span class="s2">" Structure formation minimizes free energy</span><span class="se">\n</span><span class="s2">- Function follows"</span>
+                    <span class="s2">" from structure that minimizes surprise</span><span class="se">\n</span><span class="s2">- Evolution selects for"</span>
+                    <span class="s2">" free energy minimizing architectures"</span>
+                <span class="p">),</span>
+                <span class="s2">"perception_action_cycle"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The perception-action cycle implements free energy"</span>
+                    <span class="s2">" minimization:</span><span class="se">\n\n</span><span class="s2">1. Generate predictions about sensory input</span><span class="se">\n</span><span class="s2">2."</span>
+                    <span class="s2">" Compare predictions with actual sensory data</span><span class="se">\n</span><span class="s2">3. Update model to"</span>
+                    <span class="s2">" reduce prediction error</span><span class="se">\n</span><span class="s2">4. Select actions that fulfill"</span>
+                    <span class="s2">" predictions"</span>
+                <span class="p">),</span>
+                <span class="s2">"hierarchical_structure"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Biological systems have hierarchical organization:</span><span class="se">\n\n</span><span class="s2">- Lower"</span>
+                    <span class="s2">" levels: Fast, local control (reflexes)</span><span class="se">\n</span><span class="s2">- Higher levels: Slow,"</span>
+                    <span class="s2">" global control (goals)</span><span class="se">\n</span><span class="s2">- Top level: Ultimate goals (survival,"</span>
+                    <span class="s2">" reproduction)"</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Self-organizing: Structure emerges from dynamics"</span><span class="p">,</span>
+                    <span class="s2">"Adaptive: Systems learn and adapt to environment"</span><span class="p">,</span>
+                    <span class="s2">"Robust: Multiple mechanisms for error correction"</span><span class="p">,</span>
+                    <span class="s2">"Hierarchical: Multi-scale organization"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Thermoregulation"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Maintaining body temperature"</span><span class="p">,</span>
+                        <span class="s2">"mechanism"</span><span class="p">:</span> <span class="s2">"Sweating, shivering, behavior changes"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Immune System"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Pathogen detection and elimination"</span><span class="p">,</span>
+                        <span class="s2">"mechanism"</span><span class="p">:</span> <span class="s2">"Pattern recognition and response generation"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Physiology (organ systems)"</span><span class="p">,</span>
+                    <span class="s2">"Neuroscience (brain organization)"</span><span class="p">,</span>
+                    <span class="s2">"Ecology (ecosystem dynamics)"</span><span class="p">,</span>
+                    <span class="s2">"Developmental biology"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference (biological implementation)"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"active_inference_introduction"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Active Inference is a theoretical framework that explains behavior"</span>
+                    <span class="s2">" as the process of minimizing expected free energy. Agents act to"</span>
+                    <span class="s2">" fulfill their predictions about the world."</span>
+                <span class="p">),</span>
+                <span class="s2">"core_idea"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Active Inference posits that:</span><span class="se">\n\n</span><span class="s2">1. Agents have generative models"</span>
+                    <span class="s2">" of their environment</span><span class="se">\n</span><span class="s2">2. They select actions that minimize"</span>
+                    <span class="s2">" expected surprise</span><span class="se">\n</span><span class="s2">3. Action is planning as inference</span><span class="se">\n</span><span class="s2">4."</span>
+                    <span class="s2">" Behavior maximizes evidence for the agent's model"</span>
+                <span class="p">),</span>
+                <span class="s2">"mathematical_framework"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Expected Free Energy (EFE) for policy π:</span><span class="se">\n\n</span><span class="s2">G(π) = Σ_τ E[log"</span>
+                    <span class="s2">" q(o_τ|s_τ)] - E[log p(o_τ)]</span><span class="se">\n\n</span><span class="s2">where:</span><span class="se">\n</span><span class="s2">- First term: Risk"</span>
+                    <span class="s2">" (expected prediction error)</span><span class="se">\n</span><span class="s2">- Second term: Ambiguity"</span>
+                    <span class="s2">" (uncertainty about outcomes)"</span>
+                <span class="p">),</span>
+                <span class="s2">"planning_as_inference"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Policy selection is cast as Bayesian inference:</span><span class="se">\n\n</span><span class="s2">p(π) ∝"</span>
+                    <span class="s2">" exp(-G(π))</span><span class="se">\n\n</span><span class="s2">Optimal policies minimize expected free energy."</span>
+                <span class="p">),</span>
+                <span class="s2">"perception_action_loop"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The Active Inference cycle:</span><span class="se">\n\n</span><span class="s2">1. Perceive: Update beliefs about"</span>
+                    <span class="s2">" hidden states</span><span class="se">\n</span><span class="s2">2. Plan: Select policies that minimize expected"</span>
+                    <span class="s2">" free energy</span><span class="se">\n</span><span class="s2">3. Act: Execute selected actions</span><span class="se">\n</span><span class="s2">4. Learn: Update"</span>
+                    <span class="s2">" generative model based on outcomes"</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Goal-directed: Actions serve to achieve preferred outcomes"</span><span class="p">,</span>
+                    <span class="s2">"Information-seeking: Agents explore to reduce uncertainty"</span><span class="p">,</span>
+                    <span class="s2">"Adaptive: Learning updates model based on experience"</span><span class="p">,</span>
+                    <span class="s2">"Predictive: Behavior is prediction-driven"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Foraging"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Animal searching for food"</span><span class="p">,</span>
+                        <span class="s2">"behavior"</span><span class="p">:</span> <span class="s2">"Go to locations where food is expected"</span><span class="p">,</span>
+                        <span class="s2">"inference"</span><span class="p">:</span> <span class="s2">"Infer food locations from environmental cues"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Social Interaction"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Human social behavior"</span><span class="p">,</span>
+                        <span class="s2">"behavior"</span><span class="p">:</span> <span class="s2">"Actions that fulfill social expectations"</span><span class="p">,</span>
+                        <span class="s2">"inference"</span><span class="p">:</span> <span class="s2">"Infer others' intentions and preferences"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Robotics (autonomous agents)"</span><span class="p">,</span>
+                    <span class="s2">"Artificial intelligence"</span><span class="p">,</span>
+                    <span class="s2">"Psychology (decision making)"</span><span class="p">,</span>
+                    <span class="s2">"Neuroscience (brain function)"</span><span class="p">,</span>
+                    <span class="s2">"Clinical applications (mental health)"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"ai_generative_models"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"In Active Inference, generative models specify how sensory data is"</span>
+                    <span class="s2">" generated from hidden causes. These models encode the agent's"</span>
+                    <span class="s2">" understanding of the world and guide both perception and action."</span>
+                <span class="p">),</span>
+                <span class="s2">"model_structure"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"A generative model typically includes:</span><span class="se">\n\n</span><span class="s2">1. Likelihood: p(o|s) -"</span>
+                    <span class="s2">" how observations are generated</span><span class="se">\n</span><span class="s2">2. Prior: p(s) - prior beliefs"</span>
+                    <span class="s2">" about hidden states</span><span class="se">\n</span><span class="s2">3. Transition: p(s_t|s_t₋₁, a) - state"</span>
+                    <span class="s2">" dynamics</span><span class="se">\n</span><span class="s2">4. Preferences: p(o*) - preferred observations"</span>
+                <span class="p">),</span>
+                <span class="s2">"hierarchical_models"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Active Inference often uses hierarchical models:</span><span class="se">\n\n</span><span class="s2">- Lower"</span>
+                    <span class="s2">" levels: Sensory and motor representations</span><span class="se">\n</span><span class="s2">- Higher levels:"</span>
+                    <span class="s2">" Abstract concepts and goals</span><span class="se">\n</span><span class="s2">- Top level: Ultimate objectives"</span>
+                    <span class="s2">" (survival, well-being)"</span>
+                <span class="p">),</span>
+                <span class="s2">"model_learning"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Models are learned through:</span><span class="se">\n\n</span><span class="s2">1. Variational inference for"</span>
+                    <span class="s2">" parameter estimation</span><span class="se">\n</span><span class="s2">2. Structure learning for model"</span>
+                    <span class="s2">" selection</span><span class="se">\n</span><span class="s2">3. Active learning for efficient data collection</span><span class="se">\n</span><span class="s2">4."</span>
+                    <span class="s2">" Meta-learning for learning to learn"</span>
+                <span class="p">),</span>
+                <span class="s2">"recognition_models"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Recognition models (variational posteriors) approximate:</span><span class="se">\n\n</span><span class="s2">q(s|o)"</span>
+                    <span class="s2">" ≈ p(s|o)</span><span class="se">\n\n</span><span class="s2">These provide beliefs about hidden states given"</span>
+                    <span class="s2">" observations."</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Generative: Can synthesize data from the model"</span><span class="p">,</span>
+                    <span class="s2">"Probabilistic: All uncertainty is quantified"</span><span class="p">,</span>
+                    <span class="s2">"Hierarchical: Multi-level abstraction"</span><span class="p">,</span>
+                    <span class="s2">"Learnable: Models can be updated from experience"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Visual Object Recognition"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Recognizing objects in images"</span><span class="p">,</span>
+                        <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"p(image|object) × p(object)"</span><span class="p">,</span>
+                        <span class="s2">"inference"</span><span class="p">:</span> <span class="s2">"Infer object identity from image features"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Motor Control"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Controlling limb movements"</span><span class="p">,</span>
+                        <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"p(sensory feedback|motor command) × p(motor command)"</span><span class="p">,</span>
+                        <span class="s2">"inference"</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="s2">"Infer motor commands from desired sensory outcomes"</span>
+                        <span class="p">),</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Computer vision"</span><span class="p">,</span>
+                    <span class="s2">"Robotics"</span><span class="p">,</span>
+                    <span class="s2">"Natural language processing"</span><span class="p">,</span>
+                    <span class="s2">"Cognitive modeling"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference implementations"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">node_id</span> <span class="o">==</span> <span class="s2">"ai_policy_selection"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Policy selection in Active Inference chooses actions that minimize"</span>
+                    <span class="s2">" expected free energy. This framework casts planning as Bayesian"</span>
+                    <span class="s2">" inference over future courses of action."</span>
+                <span class="p">),</span>
+                <span class="s2">"expected_free_energy"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"The expected free energy G(π) for policy π is:</span><span class="se">\n\n</span><span class="s2">G(π) = Σ_τ"</span>
+                    <span class="s2">" [E[log q(o_τ|s_τ)] - E[log p(o_τ)]] + complexity terms</span><span class="se">\n\n</span><span class="s2">= Risk"</span>
+                    <span class="s2">" + Ambiguity - Value"</span>
+                <span class="p">),</span>
+                <span class="s2">"policy_components"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Risk: Expected prediction error (epistemic)"</span><span class="p">,</span>
+                    <span class="s2">"Ambiguity: Uncertainty about outcomes (aleatoric)"</span><span class="p">,</span>
+                    <span class="s2">"Value: Expected reward or utility"</span><span class="p">,</span>
+                    <span class="s2">"Complexity: Cost of maintaining the policy"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"planning_horizon"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Planning considers future consequences:</span><span class="se">\n\n</span><span class="s2">- Short-term: Immediate"</span>
+                    <span class="s2">" action selection</span><span class="se">\n</span><span class="s2">- Long-term: Multi-step planning</span><span class="se">\n</span><span class="s2">-"</span>
+                    <span class="s2">" Hierarchical: Planning at different time scales"</span>
+                <span class="p">),</span>
+                <span class="s2">"information_seeking"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Active Inference agents seek information:</span><span class="se">\n\n</span><span class="s2">- Exploration: Reduce"</span>
+                    <span class="s2">" uncertainty about the world</span><span class="se">\n</span><span class="s2">- Exploitation: Maximize expected"</span>
+                    <span class="s2">" reward</span><span class="se">\n</span><span class="s2">- Balance: Trade-off between exploration and exploitation"</span>
+                <span class="p">),</span>
+                <span class="s2">"decision_making"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Decision making under uncertainty:</span><span class="se">\n\n</span><span class="s2">1. Evaluate all possible"</span>
+                    <span class="s2">" policies</span><span class="se">\n</span><span class="s2">2. Compute expected free energy for each</span><span class="se">\n</span><span class="s2">3. Select"</span>
+                    <span class="s2">" policy with minimal expected free energy</span><span class="se">\n</span><span class="s2">4. Execute action and"</span>
+                    <span class="s2">" update beliefs"</span>
+                <span class="p">),</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Goal-directed: Actions serve preferred outcomes"</span><span class="p">,</span>
+                    <span class="s2">"Information-seeking: Agents explore to learn"</span><span class="p">,</span>
+                    <span class="s2">"Risk-sensitive: Avoids high-variance outcomes"</span><span class="p">,</span>
+                    <span class="s2">"Adaptive: Updates based on experience"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Optimal Foraging"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Animal foraging decisions"</span><span class="p">,</span>
+                        <span class="s2">"policy"</span><span class="p">:</span> <span class="s2">"Choose patches with highest expected food value"</span><span class="p">,</span>
+                        <span class="s2">"considerations"</span><span class="p">:</span> <span class="s2">"Travel cost, competition, uncertainty"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Clinical Decision Making"</span><span class="p">,</span>
+                        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Medical treatment selection"</span><span class="p">,</span>
+                        <span class="s2">"policy"</span><span class="p">:</span> <span class="s2">"Balance treatment efficacy with side effects"</span><span class="p">,</span>
+                        <span class="s2">"considerations"</span><span class="p">:</span> <span class="s2">"Patient preferences, uncertainty"</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Reinforcement learning"</span><span class="p">,</span>
+                    <span class="s2">"Decision theory"</span><span class="p">,</span>
+                    <span class="s2">"Economics (rational choice)"</span><span class="p">,</span>
+                    <span class="s2">"Artificial intelligence"</span><span class="p">,</span>
+                    <span class="s2">"Active Inference implementations"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Default content for unknown nodes</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">"overview"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Content for </span><span class="si">{</span><span class="n">node_data</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                <span class="s2">"mathematical_definition"</span><span class="p">:</span> <span class="s2">"Mathematical formulation to be provided"</span><span class="p">,</span>
+                <span class="s2">"examples"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"applications"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Active Inference"</span><span class="p">,</span> <span class="s2">"Related fields"</span><span class="p">],</span>
+            <span class="p">}</span>
+
+<div class="viewcode-block" id="Foundations.get_foundation_tracks">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.get_foundation_tracks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_foundation_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Get organized foundation learning tracks"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"information_theory"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"info_theory_entropy"</span><span class="p">,</span>
+                <span class="s2">"info_theory_kl_divergence"</span><span class="p">,</span>
+                <span class="s2">"info_theory_mutual_information"</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">"bayesian_inference"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"bayesian_basics"</span><span class="p">,</span>
+                <span class="s2">"bayesian_models"</span><span class="p">,</span>
+                <span class="s2">"belief_updating"</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">"free_energy_principle"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"fep_introduction"</span><span class="p">,</span>
+                <span class="s2">"fep_mathematical_formulation"</span><span class="p">,</span>
+                <span class="s2">"fep_biological_systems"</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">"active_inference"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"active_inference_introduction"</span><span class="p">,</span>
+                <span class="s2">"ai_generative_models"</span><span class="p">,</span>
+                <span class="s2">"ai_policy_selection"</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Foundations.get_complete_foundation_path">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.get_complete_foundation_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_complete_foundation_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get a comprehensive foundation learning path"""</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
+        <span class="n">complete_path</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Add tracks in logical order</span>
+        <span class="k">for</span> <span class="n">track_name</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">"information_theory"</span><span class="p">,</span>
+            <span class="s2">"bayesian_inference"</span><span class="p">,</span>
+            <span class="s2">"free_energy_principle"</span><span class="p">,</span>
+            <span class="s2">"active_inference"</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="n">complete_path</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_name</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">complete_path</span></div>
+
+
+<div class="viewcode-block" id="Foundations.get_foundation_by_topic">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.get_foundation_by_topic">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_foundation_by_topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get foundation nodes related to a specific topic"""</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
+        <span class="n">related_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">related_nodes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+
+        <span class="c1"># Filter nodes that contain the topic in their ID or tags</span>
+        <span class="c1"># In a real implementation, this would use the repository search</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">node_id</span> <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">related_nodes</span> <span class="k">if</span> <span class="n">topic</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">node_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Foundations.validate_foundation_consistency">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.validate_foundation_consistency">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_foundation_consistency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate consistency of foundation knowledge"""</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
+        <span class="n">validation_result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"track_completeness"</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">"prerequisite_satisfaction"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Check track completeness</span>
+        <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">completeness</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+            <span class="n">validation_result</span><span class="p">[</span><span class="s2">"track_completeness"</span><span class="p">][</span><span class="n">track_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">completeness</span>
+            <span class="k">if</span> <span class="n">completeness</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">validation_result</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Empty track: </span><span class="si">{</span><span class="n">track_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">validation_result</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check prerequisite chains</span>
+        <span class="n">complete_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_complete_foundation_path</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">complete_path</span><span class="p">):</span>
+            <span class="c1"># In a real implementation, this would check if prerequisites are satisfied</span>
+            <span class="n">validation_result</span><span class="p">[</span><span class="s2">"prerequisite_satisfaction"</span><span class="p">][</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">validation_result</span></div>
+
+
+<div class="viewcode-block" id="Foundations.generate_foundation_summary">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.generate_foundation_summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_foundation_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate a comprehensive summary of all foundation concepts"""</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
+        <span class="n">complete_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_complete_foundation_path</span><span class="p">()</span>
+
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Active Inference Foundations Summary"</span><span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Learning Tracks: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tracks</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Foundation Nodes: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">complete_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">track_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">:"</span><span class="p">)</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Nodes: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Path: </span><span class="si">{</span><span class="s1">' -&gt; '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Complete Learning Sequence:"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">complete_path</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">node_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Foundations.search_foundation_concepts">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.search_foundation_concepts">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_foundation_concepts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Search for foundation concepts by query"""</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">node_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="ow">or</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">track_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="p">):</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">{</span>
+                            <span class="s2">"id"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
+                            <span class="s2">"track"</span><span class="p">:</span> <span class="n">track_name</span><span class="p">,</span>
+                            <span class="s2">"relevance_score"</span><span class="p">:</span> <span class="p">(</span>
+                                <span class="mf">1.0</span> <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">node_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="mf">0.5</span>
+                            <span class="p">),</span>
+                        <span class="p">}</span>
+                    <span class="p">)</span>
+
+        <span class="c1"># Sort by relevance</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">"relevance_score"</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="Foundations.get_foundation_dependencies">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.get_foundation_dependencies">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_foundation_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get dependency information for a foundation node"""</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
+
+        <span class="c1"># Find which track contains this node</span>
+        <span class="n">containing_track</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="n">containing_track</span> <span class="o">=</span> <span class="n">track_name</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">containing_track</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Node </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2"> not found in foundation tracks"</span><span class="p">}</span>
+
+        <span class="c1"># Find prerequisites and dependents</span>
+        <span class="n">track_nodes</span> <span class="o">=</span> <span class="n">tracks</span><span class="p">[</span><span class="n">containing_track</span><span class="p">]</span>
+        <span class="n">node_index</span> <span class="o">=</span> <span class="n">track_nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+        <span class="n">prerequisites</span> <span class="o">=</span> <span class="n">track_nodes</span><span class="p">[:</span><span class="n">node_index</span><span class="p">]</span>
+        <span class="n">dependents</span> <span class="o">=</span> <span class="n">track_nodes</span><span class="p">[</span><span class="n">node_index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"node_id"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
+            <span class="s2">"track"</span><span class="p">:</span> <span class="n">containing_track</span><span class="p">,</span>
+            <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="n">prerequisites</span><span class="p">,</span>
+            <span class="s2">"dependents"</span><span class="p">:</span> <span class="n">dependents</span><span class="p">,</span>
+            <span class="s2">"position"</span><span class="p">:</span> <span class="n">node_index</span><span class="p">,</span>
+            <span class="s2">"total_in_track"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">track_nodes</span><span class="p">),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Foundations.export_foundation_graph">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Foundations.export_foundation_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_foundation_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"json"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Export foundation concepts as a graph structure"""</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_foundation_tracks</span><span class="p">()</span>
+
+        <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"nodes"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"edges"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"tracks"</span><span class="p">:</span> <span class="n">tracks</span><span class="p">,</span>
+            <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"total_tracks"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">tracks</span><span class="p">),</span>
+                <span class="s2">"total_nodes"</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="k">for</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
+                <span class="s2">"export_format"</span><span class="p">:</span> <span class="nb">format</span><span class="p">,</span>
+                <span class="s2">"generated_by"</span><span class="p">:</span> <span class="s2">"Active Inference Foundations"</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Add nodes</span>
+        <span class="n">node_id_to_track</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="n">graph</span><span class="p">[</span><span class="s2">"nodes"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">"id"</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
+                        <span class="s2">"track"</span><span class="p">:</span> <span class="n">track_name</span><span class="p">,</span>
+                        <span class="s2">"label"</span><span class="p">:</span> <span class="n">node_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+                <span class="n">node_id_to_track</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">track_name</span>
+
+        <span class="c1"># Add edges (prerequisite relationships)</span>
+        <span class="k">for</span> <span class="n">track_name</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">tracks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">from_node</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">to_node</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">graph</span><span class="p">[</span><span class="s2">"edges"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">"source"</span><span class="p">:</span> <span class="n">from_node</span><span class="p">,</span>
+                        <span class="s2">"target"</span><span class="p">:</span> <span class="n">to_node</span><span class="p">,</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"prerequisite"</span><span class="p">,</span>
+                        <span class="s2">"track"</span><span class="p">:</span> <span class="n">track_name</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

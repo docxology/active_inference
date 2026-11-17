@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/applications/best_practices/AGENTS.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Best Practices - Agent Development Guide</p>
+<p><strong>Guidelines for AI agents working with Best Practices in the Active Inference Knowledge Environment.</strong></p>
+<p><strong>“Active Inference for, with, by Generative AI”</strong></p>
+<p>## 🤖 Agent Role &amp; Responsibilities</p>
+<p><strong>What agents should do when working with Best Practices:</strong></p>
+<p>### Primary Responsibilities
+- <strong>Create application templates, ensure domain compatibility, validate integrations</strong>
+- <strong>Quality Assurance</strong>: Build validation and quality control systems
+- <strong>Pattern Analysis</strong>: Extract and formalize development patterns
+- <strong>Integration Systems</strong>: Ensure seamless integration with platform workflows</p>
+<p>### Development Focus Areas
+1. <strong>Application Development and Domain Integration</strong>
+2. <strong>Quality Control</strong>: Create systems for validating functionality
+3. <strong>Pattern Recognition</strong>: Develop tools for analyzing development patterns
+4. <strong>Integration</strong>: Ensure seamless integration with platform workflows</p>
+<p>## 🏗️ Architecture &amp; Integration</p>
+<p>### Component Architecture</p>
+<p><strong>Understanding how Best Practices fits into the platform:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">Platform</span> <span class="pre">Layer</span>
+<span class="pre">├──</span> <span class="pre">Knowledge</span> <span class="pre">Layer</span> <span class="pre">(foundations/,</span> <span class="pre">mathematics/,</span> <span class="pre">implementations/)</span>
+<span class="pre">├──</span> <span class="pre">Application</span> <span class="pre">Layer</span> <span class="pre">←</span> <span class="pre">Best</span> <span class="pre">Practices</span>
+<span class="pre">└──</span> <span class="pre">Integration</span> <span class="pre">Layer</span> <span class="pre">(platform/,</span> <span class="pre">visualization/,</span> <span class="pre">tools/)</span>
+<span class="pre">`</span></code></p>
+<p>### Integration Points</p>
+<p><strong>Best Practices integrates with multiple platform components:</strong></p>
+<p>#### Upstream Components
+- <strong>Knowledge Repository</strong>: Provides theoretical foundations
+- <strong>Development Standards</strong>: Must follow documentation standards
+- <strong>Quality Requirements</strong>: Integrate with validation systems</p>
+<p>#### Downstream Components
+- <strong>Platform Services</strong>: Leverages infrastructure for deployment
+- <strong>User Interfaces</strong>: Provides functionality through UIs
+- <strong>Integration APIs</strong>: Connects with external systems</p>
+<p>## 💻 Development Patterns</p>
+<p>### Required Implementation Patterns</p>
+<p><strong>All application_framework development must follow these patterns:</strong></p>
+<p>#### 1. Component Factory Pattern (PREFERRED)
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+def create_best practices(config: Dict[str, Any]) -&gt; Best Practices:</p>
+<blockquote>
+<div><p>“””Create Best Practices using factory pattern with validation”””</p>
+<p># Validate configuration
+validate_best practices_config(config)</p>
+<p># Create component with validation
+component = Best Practices(config)</p>
+<p># Validate functionality
+validate_component_functionality(component)</p>
+<p>return component</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>#### 2. Component Configuration Pattern (MANDATORY)
+<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+from dataclasses import dataclass
+from typing import Dict, Any, Optional</p>
+<p>&#64;dataclass
+class Best PracticesConfig:</p>
+<blockquote>
+<div><p>“””Configuration for Best Practices”””</p>
+<p># Required fields
+component_name: str
+config_field: str</p>
+<p># Optional fields with defaults
+debug_mode: bool = False
+optimization_level: str = “standard”</p>
+<dl>
+<dt>def validate(self) -&gt; List[str]:</dt><dd><p>“””Validate configuration”””
+errors = []</p>
+<dl class="simple">
+<dt>if not self.component_name:</dt><dd><p>errors.append(“component_name cannot be empty”)</p>
+</dd>
+</dl>
+<p>return errors</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>## 🧪 Testing Standards</p>
+<p>### Component Testing Categories (MANDATORY)</p>
+<p>#### 1. Unit Tests
+<strong>Test individual functions and methods:</strong>
+<a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
+def test_best practices_initialization():</p>
+<blockquote>
+<div><p>“””Test Best Practices initialization”””
+config = Best PracticesConfig(</p>
+<blockquote>
+<div><p>component_name=”Best Practices”,
+config_field=”test_value”</p>
+</div></blockquote>
+<p>)</p>
+<p>component = create_best practices(config.to_dict())</p>
+<p># Validate initialization
+assert component.config == config.to_dict()
+assert component.initialized == True</p>
+</div></blockquote>
+<dl>
+<dt>def test_best practices_functionality():</dt><dd><p>“””Test core Best Practices functionality”””
+config = Best PracticesConfig(</p>
+<blockquote>
+<div><p>component_name=”Best Practices”,
+config_field=”test_value”</p>
+</div></blockquote>
+<p>)</p>
+<p>component = create_best practices(config.to_dict())</p>
+<p># Test functionality
+result = component.process(test_input)
+assert result is not None</p>
+</dd>
+</dl>
+<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
+<p>## 📖 Documentation Standards</p>
+<p>### Documentation Requirements (MANDATORY)</p>
+<p>#### 1. README.md Structure
+<strong>Every component must have comprehensive README.md:</strong>
+- Component overview and mission
+- Architecture and integration points
+- Usage examples and configuration
+- API reference and testing information
+- Development workflow and contribution guidelines</p>
+<p>#### 2. AGENTS.md Structure
+<strong>Agent development guidelines must include:</strong>
+- Role and responsibilities for agents
+- Architecture and integration patterns
+- Development workflow and standards
+- Testing and validation requirements
+- Quality assurance and best practices</p>
+<p>## 🔄 Development Workflow</p>
+<p>### Agent Development Process
+1. <strong>Task Assessment</strong>: Analyze component requirements
+2. <strong>Architecture Planning</strong>: Design solutions following established patterns
+3. <strong>Test-Driven Development</strong>: Write tests before implementation
+4. <strong>Implementation</strong>: Follow coding standards and best practices
+5. <strong>Documentation</strong>: Create comprehensive documentation
+6. <strong>Quality Assurance</strong>: Ensure all tests pass and quality standards met
+7. <strong>Integration</strong>: Integrate with existing platform components</p>
+<p>### Quality Assurance Workflow
+1. <strong>Code Quality</strong>: Test coverage &gt;95%, type safety, documentation
+2. <strong>Integration Testing</strong>: Component interaction validation
+3. <strong>Performance Validation</strong>: Performance characteristics verified
+4. <strong>Documentation Review</strong>: README.md and AGENTS.md completeness
+5. <strong>Standards Compliance</strong>: Follow all established standards</p>
+<p>## 🎯 Quality Standards</p>
+<p>### Code Quality Gates
+- <strong>Test Coverage</strong>: &gt;95% for core components, &gt;80% overall
+- <strong>Type Safety</strong>: Complete type annotations for all interfaces
+- <strong>Documentation Coverage</strong>: 100% for public APIs and interfaces
+- <strong>Code Style</strong>: PEP 8 compliance with automated formatting
+- <strong>Error Handling</strong>: Comprehensive error handling with informative messages</p>
+<p>### Component Quality Gates
+- <strong>Functionality</strong>: All specified features implemented and tested
+- <strong>Integration</strong>: Seamless integration with platform components
+- <strong>Performance</strong>: Meets performance requirements for target use cases
+- <strong>Reliability</strong>: Robust operation under various conditions
+- <strong>Maintainability</strong>: Clean, extensible code following established patterns</p>
+<p>## 🔧 Integration Guidelines</p>
+<p>### Platform Integration
+- <strong>Service Integration</strong>: Connect with platform services as needed
+- <strong>Data Flow</strong>: Ensure proper data flow and transformation
+- <strong>Error Handling</strong>: Implement comprehensive error handling
+- <strong>Logging</strong>: Add appropriate logging for monitoring and debugging
+- <strong>Configuration</strong>: Support flexible configuration options</p>
+<p>### Cross-Component Compatibility
+- <strong>API Compatibility</strong>: Maintain compatible interfaces
+- <strong>Data Format Standards</strong>: Follow established data format standards
+- <strong>Communication Protocols</strong>: Use standard communication methods
+- <strong>Version Management</strong>: Handle version compatibility appropriately</p>
+<p>## 🐛 Troubleshooting and Support</p>
+<p>### Common Development Issues
+1. <strong>Configuration Problems</strong>: Validate configuration schema and values
+2. <strong>Integration Issues</strong>: Check component dependencies and interfaces
+3. <strong>Performance Issues</strong>: Profile and optimize bottlenecks
+4. <strong>Testing Failures</strong>: Debug test cases and fix implementation</p>
+<p>### Debug Mode
+<a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
+# Enable debug logging
+import logging
+logging.basicConfig(level=logging.DEBUG)</p>
+<p># Or use debug configuration
+debug_config = {“debug”: True, “logging_level”: “DEBUG”}
+component = Best Practices(debug_config)
+<a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
+<p>## 📚 Resources and References</p>
+<p>### Core Documentation
+- <strong>[Main README](../../../README.md)</strong>: Project overview and navigation
+- <strong>[AGENTS.md](../../../AGENTS.md)</strong>: Master agent guidelines
+- <strong>[Development Standards](../../../.cursorrules)</strong>: Complete development standards</p>
+<p>### Component-Specific Resources
+- <strong>[API Documentation](../../api/README.md)</strong>: Component API reference
+- <strong>Integration Guide `../../integration/README.md`</strong>: Integration patterns
+- <strong>Testing Guide `../../testing/README.md`</strong>: Testing standards and methods</p>
+<p>### Related Components
+- <strong>Related Component 1 `../related1/README.md`</strong>: Description of related functionality
+- <strong>Related Component 2 `../related2/README.md`</strong>: Description of related functionality</p>
+<p>—</p>
+<p><strong>“Active Inference for, with, by Generative AI”</strong> - Enhancing platform development through structured guidance, comprehensive documentation, and collaborative intelligence.</p>
+<p><strong>Component</strong>: Best Practices | <strong>Version</strong>: 1.0.0 | <strong>Last Updated</strong>: October 2024</p>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.tools.documentation.analyzer &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.tools.documentation.analyzer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.tools.documentation.analyzer</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Documentation Analyzer</span>
+
+<span class="sd">Analyzes documentation quality, coverage, and provides insights for improvement.</span>
+<span class="sd">Provides comprehensive analysis of docstrings, documentation structure, and</span>
+<span class="sd">content quality metrics.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocstringMetrics</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Metrics for a single docstring"""</span>
+
+    <span class="n">has_summary</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_description</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_parameters</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_returns</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_examples</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_raises</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">parameter_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">word_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">quality_score</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentationQuality</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Overall documentation quality metrics"""</span>
+
+    <span class="n">total_elements</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">documented_elements</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">coverage_percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">average_quality</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">missing_docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">poor_quality_docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">excellent_docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">quality_distribution</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DocumentationAnalyzer">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationAnalyzer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentationAnalyzer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Comprehensive documentation quality analyzer.</span>
+
+<span class="sd">    Analyzes docstring quality, coverage, and provides actionable insights</span>
+<span class="sd">    for improving documentation standards.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Initialize documentation analyzer</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_paths: List of source directories to analyze</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">source_paths</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="c1"># Quality thresholds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"excellent"</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s2">"good"</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s2">"poor"</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Documentation analyzer initialized for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_paths</span><span class="p">)</span><span class="si">}</span><span class="s2"> source"</span>
+            <span class="s2">" paths"</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationAnalyzer.analyze_documentation">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationAnalyzer.analyze_documentation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DocumentationQuality</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Perform comprehensive documentation analysis</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Complete documentation quality report</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Starting comprehensive documentation analysis"</span><span class="p">)</span>
+
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">DocumentationQuality</span><span class="p">()</span>
+
+        <span class="c1"># Analyze each source path</span>
+        <span class="k">for</span> <span class="n">source_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_paths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">source_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">path_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_path_documentation</span><span class="p">(</span><span class="n">source_path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_merge_quality_reports</span><span class="p">(</span><span class="n">quality</span><span class="p">,</span> <span class="n">path_quality</span><span class="p">)</span>
+
+        <span class="c1"># Calculate overall metrics</span>
+        <span class="k">if</span> <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span> <span class="o">/</span> <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span>
+            <span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="n">quality</span><span class="o">.</span><span class="n">average_quality</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="nb">sum</span><span class="p">(</span>
+                    <span class="n">score</span>
+                    <span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="p">[</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_element_quality_score</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">quality</span><span class="o">.</span><span class="n">excellent_docs</span> <span class="o">+</span> <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">excellent_docs</span> <span class="o">+</span> <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">excellent_docs</span> <span class="o">+</span> <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span>
+                <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Documentation analysis completed: </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span>
+            <span class="s2">" coverage"</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">quality</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_path_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DocumentationQuality</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Analyze documentation for a specific source path"""</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">DocumentationQuality</span><span class="p">()</span>
+
+        <span class="c1"># Find all Python files</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">source_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+        <span class="n">python_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">file_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_file_documentation</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_merge_quality_reports</span><span class="p">(</span><span class="n">quality</span><span class="p">,</span> <span class="n">file_quality</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Could not analyze documentation for </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">quality</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_file_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DocumentationQuality</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Analyze documentation for a single file"""</span>
+        <span class="n">quality</span> <span class="o">=</span> <span class="n">DocumentationQuality</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="c1"># Analyze module docstring</span>
+            <span class="n">module_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+            <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">module_docstring</span><span class="p">:</span>
+                <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">docstring_metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_docstring</span><span class="p">(</span><span class="n">module_docstring</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_docstring_quality</span><span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span> <span class="s2">"module"</span><span class="p">,</span> <span class="n">docstring_metrics</span><span class="p">,</span> <span class="n">quality</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Analyze functions and classes</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                    <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                        <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">func_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                        <span class="n">docstring_metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_docstring</span><span class="p">(</span><span class="n">func_docstring</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_docstring_quality</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                            <span class="s2">"function"</span><span class="p">,</span>
+                            <span class="n">docstring_metrics</span><span class="p">,</span>
+                            <span class="n">quality</span><span class="p">,</span>
+                        <span class="p">)</span>
+
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span>
+                    <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                        <span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">class_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                        <span class="n">docstring_metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_analyze_docstring</span><span class="p">(</span><span class="n">class_docstring</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_categorize_docstring_quality</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">::</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                            <span class="s2">"class"</span><span class="p">,</span>
+                            <span class="n">docstring_metrics</span><span class="p">,</span>
+                            <span class="n">quality</span><span class="p">,</span>
+                        <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error analyzing </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">quality</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_analyze_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DocstringMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Analyze quality metrics for a single docstring"""</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="n">DocstringMetrics</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">docstring</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">metrics</span>
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">metrics</span><span class="o">.</span><span class="n">word_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">docstring</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+        <span class="c1"># Remove leading/trailing whitespace and empty lines</span>
+        <span class="n">content_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">content_lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">metrics</span>
+
+        <span class="c1"># Check for summary (first non-empty line)</span>
+        <span class="n">first_line</span> <span class="o">=</span> <span class="n">content_lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">metrics</span><span class="o">.</span><span class="n">has_summary</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">3</span>
+
+        <span class="c1"># Check for sections</span>
+        <span class="n">current_section</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content_lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>  <span class="c1"># Skip first line (summary)</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"Args:"</span><span class="p">,</span> <span class="s2">"Arguments:"</span><span class="p">,</span> <span class="s2">"Parameters:"</span><span class="p">)):</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">has_parameters</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">current_section</span> <span class="o">=</span> <span class="s2">"parameters"</span>
+                <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"Returns:"</span><span class="p">,</span> <span class="s2">"Return:"</span><span class="p">,</span> <span class="s2">"Yields:"</span><span class="p">)):</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">has_returns</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">current_section</span> <span class="o">=</span> <span class="s2">"returns"</span>
+                <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"Examples:"</span><span class="p">,</span> <span class="s2">"Example:"</span><span class="p">)):</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">has_examples</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">current_section</span> <span class="o">=</span> <span class="s2">"examples"</span>
+                <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"Raises:"</span><span class="p">,</span> <span class="s2">"Exceptions:"</span><span class="p">)):</span>
+                <span class="n">metrics</span><span class="o">.</span><span class="n">has_raises</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">current_section</span> <span class="o">=</span> <span class="s2">"raises"</span>
+                <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"Note:"</span><span class="p">,</span> <span class="s2">"Notes:"</span><span class="p">,</span> <span class="s2">"Warning:"</span><span class="p">,</span> <span class="s2">"See also:"</span><span class="p">)):</span>
+                <span class="n">current_section</span> <span class="o">=</span> <span class="s2">"other"</span>
+                <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">elif</span> <span class="n">current_section</span> <span class="ow">and</span> <span class="n">line</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">" "</span><span class="p">):</span>
+                <span class="c1"># New section or end of current section</span>
+                <span class="n">current_section</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">section_content</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">elif</span> <span class="n">current_section</span><span class="p">:</span>
+                <span class="n">section_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="c1"># Count parameters in Args section</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_parameters</span><span class="p">:</span>
+            <span class="n">param_lines</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content_lines</span> <span class="k">if</span> <span class="s2">"    "</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="s2">":"</span> <span class="ow">in</span> <span class="n">line</span>
+            <span class="p">]</span>
+            <span class="n">metrics</span><span class="o">.</span><span class="n">parameter_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_lines</span><span class="p">)</span>
+
+        <span class="c1"># Calculate quality score</span>
+        <span class="n">metrics</span><span class="o">.</span><span class="n">quality_score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_docstring_quality_score</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">metrics</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_docstring_quality_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">:</span> <span class="n">DocstringMetrics</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate quality score for a docstring (0.0 to 1.0)"""</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Basic sections (weighted)</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_summary</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.3</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_parameters</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_returns</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_examples</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_raises</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.1</span>
+
+        <span class="c1"># Length bonus (prefer informative but not verbose)</span>
+        <span class="k">if</span> <span class="mi">20</span> <span class="o">&lt;=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">word_count</span> <span class="o">&lt;=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.1</span>
+        <span class="k">elif</span> <span class="n">metrics</span><span class="o">.</span><span class="n">word_count</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.05</span>  <span class="c1"># Still good but very long</span>
+
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_categorize_docstring_quality</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">element_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">element_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">metrics</span><span class="p">:</span> <span class="n">DocstringMetrics</span><span class="p">,</span>
+        <span class="n">quality</span><span class="p">:</span> <span class="n">DocumentationQuality</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Categorize docstring quality and update quality report"""</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">quality_score</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span><span class="p">[</span><span class="s2">"excellent"</span><span class="p">]:</span>
+            <span class="n">quality</span><span class="o">.</span><span class="n">excellent_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">element_type</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">element_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">metrics</span><span class="o">.</span><span class="n">quality_score</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_thresholds</span><span class="p">[</span><span class="s2">"poor"</span><span class="p">]:</span>
+            <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">element_type</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">element_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element_name</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_merge_quality_reports</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">DocumentationQuality</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">DocumentationQuality</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Merge two quality reports"""</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">+=</span> <span class="n">source</span><span class="o">.</span><span class="n">total_elements</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">documented_elements</span> <span class="o">+=</span> <span class="n">source</span><span class="o">.</span><span class="n">documented_elements</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">excellent_docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">excellent_docs</span><span class="p">)</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">missing_docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">)</span>
+
+        <span class="c1"># Merge quality distribution</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">quality_distribution</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">target</span><span class="o">.</span><span class="n">quality_distribution</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">target</span><span class="o">.</span><span class="n">quality_distribution</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">value</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_element_quality_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate quality score for a documented element"""</span>
+        <span class="c1"># This would be implemented based on specific quality criteria</span>
+        <span class="c1"># For now, return a placeholder score</span>
+        <span class="k">return</span> <span class="mf">0.7</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_should_ignore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if file should be ignored in analysis"""</span>
+        <span class="n">path_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="c1"># Ignore common patterns</span>
+        <span class="n">ignore_patterns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"__pycache__"</span><span class="p">,</span>
+            <span class="s2">".git"</span><span class="p">,</span>
+            <span class="s2">"node_modules"</span><span class="p">,</span>
+            <span class="s2">".pytest_cache"</span><span class="p">,</span>
+            <span class="s2">"build"</span><span class="p">,</span>
+            <span class="s2">"dist"</span><span class="p">,</span>
+            <span class="s2">".coverage"</span><span class="p">,</span>
+            <span class="s2">"*.egg-info"</span><span class="p">,</span>
+            <span class="s2">"test_"</span><span class="p">,</span>
+            <span class="s2">"_test"</span><span class="p">,</span>
+            <span class="s2">"tests"</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">ignore_patterns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">path_str</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="c1"># Check if it's a hidden file/directory</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">parts</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="DocumentationAnalyzer.generate_quality_report">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationAnalyzer.generate_quality_report">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_quality_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate detailed quality report</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            output_path: Optional path to save report</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Quality report as string</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating documentation quality report"</span><span class="p">)</span>
+
+        <span class="n">quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_documentation</span><span class="p">()</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_quality_report</span><span class="p">(</span><span class="n">quality</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_path</span><span class="p">:</span>
+            <span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Quality report saved to </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">report</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_format_quality_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality</span><span class="p">:</span> <span class="n">DocumentationQuality</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Format quality analysis into readable report"""</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"# Documentation Quality Report"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Overall metrics</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Overview"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Coverage:** </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Total Elements:** </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Documented Elements:** </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">documented_elements</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Average Quality Score:** </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">average_quality</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Quality distribution</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Quality Distribution"</span><span class="p">)</span>
+        <span class="n">excellent_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">excellent_docs</span><span class="p">)</span>
+        <span class="n">good_count</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">quality</span><span class="o">.</span><span class="n">total_elements</span> <span class="o">-</span> <span class="n">excellent_count</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">poor_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span>
+
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Excellent Documentation:** </span><span class="si">{</span><span class="n">excellent_count</span><span class="si">}</span><span class="s2"> elements"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Good Documentation:** </span><span class="si">{</span><span class="n">good_count</span><span class="si">}</span><span class="s2"> elements"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Poor Documentation:** </span><span class="si">{</span><span class="n">poor_count</span><span class="si">}</span><span class="s2"> elements"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Missing documentation</span>
+        <span class="k">if</span> <span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Missing Documentation"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">[:</span><span class="mi">20</span><span class="p">]:</span>  <span class="c1"># Show first 20</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- ... and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">20</span><span class="si">}</span><span class="s2"> more"</span><span class="p">)</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Poor quality documentation</span>
+        <span class="k">if</span> <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Poor Quality Documentation"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">[:</span><span class="mi">20</span><span class="p">]:</span>  <span class="c1"># Show first 20</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- ... and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">20</span><span class="si">}</span><span class="s2"> more"</span><span class="p">)</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Recommendations</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Recommendations"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span> <span class="o">&lt;</span> <span class="mi">80</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"1. Improve documentation coverage from"</span>
+                <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% to 80%+"</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">poor_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"2. Review and improve </span><span class="si">{</span><span class="n">poor_count</span><span class="si">}</span><span class="s2"> poorly documented elements"</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">quality</span><span class="o">.</span><span class="n">average_quality</span> <span class="o">&lt;</span> <span class="mf">0.7</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"3. Add comprehensive docstrings with examples and parameter"</span>
+                <span class="s2">" descriptions"</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">quality</span><span class="o">.</span><span class="n">missing_docs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"1. Excellent! Documentation quality is very good."</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationAnalyzer.suggest_improvements">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationAnalyzer.suggest_improvements">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">suggest_improvements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_coverage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">90.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Suggest specific improvements to reach target coverage</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target_coverage: Target documentation coverage percentage</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Improvement suggestions</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Generating improvement suggestions for </span><span class="si">{</span><span class="n">target_coverage</span><span class="si">}</span><span class="s2">% coverage"</span>
+        <span class="p">)</span>
+
+        <span class="n">current_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_documentation</span><span class="p">()</span>
+
+        <span class="n">suggestions</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"current_coverage"</span><span class="p">:</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="p">,</span>
+            <span class="s2">"target_coverage"</span><span class="p">:</span> <span class="n">target_coverage</span><span class="p">,</span>
+            <span class="s2">"gap"</span><span class="p">:</span> <span class="n">target_coverage</span> <span class="o">-</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="p">,</span>
+            <span class="s2">"missing_elements"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_quality</span><span class="o">.</span><span class="n">missing_docs</span><span class="p">),</span>
+            <span class="s2">"poor_quality_elements"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">),</span>
+            <span class="s2">"priority_actions"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"estimated_effort"</span><span class="p">:</span> <span class="s2">"medium"</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Generate priority actions</span>
+        <span class="k">if</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">coverage_percentage</span> <span class="o">&lt;</span> <span class="n">target_coverage</span><span class="p">:</span>
+            <span class="n">elements_needed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">target_coverage</span> <span class="o">-</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">coverage_percentage</span><span class="p">)</span>
+                <span class="o">/</span> <span class="mi">100</span>
+                <span class="o">*</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">total_elements</span>
+            <span class="p">)</span>
+            <span class="n">suggestions</span><span class="p">[</span><span class="s2">"priority_actions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Add documentation for </span><span class="si">{</span><span class="n">elements_needed</span><span class="si">}</span><span class="s2"> more elements"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">:</span>
+            <span class="n">suggestions</span><span class="p">[</span><span class="s2">"priority_actions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Improve </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">current_quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">)</span><span class="si">}</span><span class="s2"> poor quality"</span>
+                <span class="s2">" docstrings"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">missing_docs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">current_quality</span><span class="o">.</span><span class="n">poor_quality_docs</span><span class="p">:</span>
+            <span class="n">suggestions</span><span class="p">[</span><span class="s2">"priority_actions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">"Focus on adding examples and comprehensive parameter descriptions"</span>
+            <span class="p">)</span>
+            <span class="n">suggestions</span><span class="p">[</span><span class="s2">"estimated_effort"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"low"</span>
+
+        <span class="c1"># Estimate effort</span>
+        <span class="n">total_actions</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">suggestions</span><span class="p">[</span><span class="s2">"priority_actions"</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">total_actions</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">suggestions</span><span class="p">[</span><span class="s2">"estimated_effort"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"high"</span>
+        <span class="k">elif</span> <span class="n">total_actions</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">suggestions</span><span class="p">[</span><span class="s2">"estimated_effort"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"none"</span>
+
+        <span class="k">return</span> <span class="n">suggestions</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

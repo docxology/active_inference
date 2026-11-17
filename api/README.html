@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>) &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/README.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># API Documentation</p>
+<p>This directory contains comprehensive API reference documentation for the Active Inference Knowledge Environment. The API documentation provides detailed information about all public interfaces, including parameters, return values, examples, and usage patterns.</p>
+<p>## Overview</p>
+<p>The API Documentation module provides complete reference documentation for all public APIs in the Active Inference Knowledge Environment. This includes REST APIs, Python APIs, command-line interfaces, and integration APIs. The documentation is automatically generated from source code and maintained alongside the implementation.</p>
+<p>## Directory Structure</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">api/</span>
+<span class="pre">├──</span> <span class="pre">rest/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">REST</span> <span class="pre">API</span> <span class="pre">documentation</span>
+<span class="pre">├──</span> <span class="pre">python/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Python</span> <span class="pre">API</span> <span class="pre">reference</span>
+<span class="pre">├──</span> <span class="pre">cli/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Command-line</span> <span class="pre">interface</span> <span class="pre">documentation</span>
+<span class="pre">├──</span> <span class="pre">integration/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">Integration</span> <span class="pre">API</span> <span class="pre">documentation</span>
+<span class="pre">├──</span> <span class="pre">examples/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">API</span> <span class="pre">usage</span> <span class="pre">examples</span>
+<span class="pre">└──</span> <span class="pre">changelog/</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">API</span> <span class="pre">changes</span> <span class="pre">and</span> <span class="pre">deprecations</span>
+<span class="pre">`</span></code></p>
+<p>## Core Components</p>
+<p>### 🌐 REST API Documentation
+- <strong>Knowledge API</strong>: Endpoints for accessing knowledge repository
+- <strong>Research API</strong>: Endpoints for research tools and experiments
+- <strong>Platform API</strong>: Endpoints for platform management
+- <strong>Integration API</strong>: Endpoints for external system integration
+- <strong>Authentication</strong>: API authentication and authorization</p>
+<p>### 🐍 Python API Reference
+- <strong>Core Classes</strong>: Main Active Inference classes and interfaces
+- <strong>Utilities</strong>: Helper functions and utilities
+- <strong>Configuration</strong>: Configuration management APIs
+- <strong>Data Structures</strong>: Data structures and models
+- <strong>Exceptions</strong>: Exception classes and error handling</p>
+<p>### 💻 Command-Line Interface
+- <strong>Learning Commands</strong>: Commands for accessing educational content
+- <strong>Research Commands</strong>: Commands for research tools and experiments
+- <strong>Platform Commands</strong>: Commands for platform management
+- <strong>Development Commands</strong>: Commands for development and testing
+- <strong>Utility Commands</strong>: General utility commands</p>
+<p>### 🔗 Integration APIs
+- <strong>Data Import/Export</strong>: APIs for data import and export
+- <strong>External Services</strong>: Integration with external platforms
+- <strong>Webhooks</strong>: Webhook endpoints and handlers
+- <strong>Streaming</strong>: Real-time data streaming APIs</p>
+<p>## Getting Started</p>
+<p>### For API Users
+1. <strong>Explore Available APIs</strong>: Browse available API endpoints and methods
+2. <strong>Authentication</strong>: Set up API authentication if required
+3. <strong>Study Examples</strong>: Review API usage examples
+4. <strong>Test Endpoints</strong>: Test API endpoints with sample data
+5. <strong>Integration</strong>: Integrate APIs into your applications</p>
+<p>### For API Developers
+1. <strong>API Standards</strong>: Follow established API design standards
+2. <strong>Documentation</strong>: Document all public APIs comprehensively
+3. <strong>Testing</strong>: Implement comprehensive API testing
+4. <strong>Versioning</strong>: Follow API versioning best practices
+5. <strong>Security</strong>: Implement appropriate security measures</p>
+<p>## API Usage Examples</p>
+<p>### REST API Usage
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash
+# Get knowledge node
+curl -X GET “<a class="reference external" href="https://api.activeinference.org/knowledge/nodes/fep_introduction">https://api.activeinference.org/knowledge/nodes/fep_introduction</a>” </p>
+<blockquote>
+<div><p>-H “Authorization: Bearer your_token”</p>
+</div></blockquote>
+<p># Search knowledge base
+curl -X GET “<a class="reference external" href="https://api.activeinference.org/knowledge/search?q=entropy&amp;limit=10">https://api.activeinference.org/knowledge/search?q=entropy&amp;limit=10</a>” </p>
+<blockquote>
+<div><p>-H “Authorization: Bearer your_token”</p>
+</div></blockquote>
+<p># Run experiment
+curl -X POST “<a class="reference external" href="https://api.activeinference.org/research/experiments">https://api.activeinference.org/research/experiments</a>” </p>
+<blockquote>
+<div><p>-H “Authorization: Bearer your_token” -H “Content-Type: application/json” -d ‘{</p>
+<blockquote>
+<div><p>“experiment_type”: “active_inference_simulation”,
+“parameters”: {“steps”: 100, “agents”: 5},
+“repetitions”: 10</p>
+</div></blockquote>
+<p>}’</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>### Python API Usage
+<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+from active_inference.knowledge import KnowledgeRepository
+from active_inference.research import ExperimentFramework
+from active_inference.applications import TemplateManager</p>
+<p># Initialize knowledge repository
+repo = KnowledgeRepository(config={‘root_path’: ‘./knowledge’})</p>
+<p># Search for knowledge
+results = repo.search(‘entropy’, limit=10)
+for result in results:</p>
+<blockquote>
+<div><p>print(f”Found: {result.title}”)</p>
+</div></blockquote>
+<p># Run experiment
+framework = ExperimentFramework(config={‘output_dir’: ‘./results’})
+experiment = framework.create_experiment(‘active_inference_study’)
+results = framework.run_experiment(experiment)</p>
+<p># Use templates
+template_manager = TemplateManager()
+project = template_manager.create_project_from_template(</p>
+<blockquote>
+<div><p>‘basic_agent’,
+{</p>
+<blockquote>
+<div><p>‘name’: ‘my_first_agent’,
+‘description’: ‘My first Active Inference agent’,
+‘author’: ‘Your Name’</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<section id="id13">
+<h1>)<a class="headerlink" href="#id13" title="Link to this heading"></a></h1>
+<p>### Command-Line Usage
+<a href="#id14"><span class="problematic" id="id15">``</span></a><a href="#id16"><span class="problematic" id="id17">`</span></a>bash
+# Learning commands
+ai-knowledge learn foundations          # Start foundations learning track
+ai-knowledge search “free energy”       # Search knowledge base
+ai-knowledge path show complete        # Display learning path
+ai-knowledge export pdf foundations    # Export learning path as PDF</p>
+<p># Research commands
+ai-research experiments run             # Execute experiment suite
+ai-research simulations benchmark       # Run simulation benchmarks
+ai-research analyze results             # Analyze experimental results</p>
+<p># Platform commands
+ai-platform serve                      # Start web platform
+ai-platform status                     # Show system status
+ai-platform backup                     # Create system backup
+ai-platform update                     # Update platform components
+<a href="#id18"><span class="problematic" id="id19">``</span></a><a href="#id20"><span class="problematic" id="id21">`</span></a></p>
+<p>## API Reference Structure</p>
+<p>### REST API Reference
+<a href="#id22"><span class="problematic" id="id23">``</span></a><a href="#id24"><span class="problematic" id="id25">`</span></a>rst
+REST API Reference
+=================</p>
+<section id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h2>
+</section>
+<section id="knowledge-api">
+<h2>Knowledge API<a class="headerlink" href="#knowledge-api" title="Link to this heading"></a></h2>
+</section>
+<section id="research-api">
+<h2>Research API<a class="headerlink" href="#research-api" title="Link to this heading"></a></h2>
+</section>
+<section id="platform-api">
+<h2>Platform API<a class="headerlink" href="#platform-api" title="Link to this heading"></a></h2>
+<p><a href="#id26"><span class="problematic" id="id27">``</span></a><a href="#id28"><span class="problematic" id="id29">`</span></a></p>
+<p>### Python API Reference
+<a href="#id30"><span class="problematic" id="id31">``</span></a><a href="#id32"><span class="problematic" id="id33">`</span></a>rst
+Python API Reference
+====================</p>
+</section>
+<section id="core-classes">
+<h2>Core Classes<a class="headerlink" href="#core-classes" title="Link to this heading"></a></h2>
+<section id="active-inference-agent">
+<h3>Active Inference Agent<a class="headerlink" href="#active-inference-agent" title="Link to this heading"></a></h3>
+</section>
+<section id="generative-model">
+<h3>Generative Model<a class="headerlink" href="#generative-model" title="Link to this heading"></a></h3>
+</section>
+<section id="inference-engine">
+<h3>Inference Engine<a class="headerlink" href="#inference-engine" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Link to this heading"></a></h2>
+<p><a href="#id34"><span class="problematic" id="id35">``</span></a><a href="#id36"><span class="problematic" id="id37">`</span></a></p>
+<p>## API Standards</p>
+<p>### REST API Standards
+- <strong>HTTP Methods</strong>: Use appropriate HTTP methods (GET, POST, PUT, DELETE)
+- <strong>Status Codes</strong>: Use standard HTTP status codes consistently
+- <strong>Response Format</strong>: Consistent JSON response format
+- <strong>Error Handling</strong>: Comprehensive error responses with details
+- <strong>Pagination</strong>: Implement pagination for list endpoints
+- <strong>Filtering</strong>: Support filtering and search parameters</p>
+<p>### Python API Standards
+- <strong>Type Hints</strong>: Complete type annotations for all parameters and returns
+- <strong>Docstrings</strong>: Comprehensive docstrings following NumPy style
+- <strong>Error Handling</strong>: Clear exception hierarchy and error messages
+- <strong>Backward Compatibility</strong>: Maintain backward compatibility
+- <strong>Performance</strong>: Consider performance implications of API design</p>
+<p>### Command-Line Standards
+- <strong>Consistent Interface</strong>: Consistent command structure and options
+- <strong>Help Documentation</strong>: Comprehensive help for all commands
+- <strong>Error Messages</strong>: Clear, actionable error messages
+- <strong>Configuration</strong>: Support configuration files and environment variables
+- <strong>Output Formats</strong>: Support multiple output formats (JSON, YAML, etc.)</p>
+<p>## Contributing</p>
+<p>We welcome contributions to the API documentation! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.</p>
+<p>### Contribution Types
+- <strong>API Documentation</strong>: Document new or updated APIs
+- <strong>Example Code</strong>: Add API usage examples
+- <strong>Error Documentation</strong>: Document error conditions and handling
+- <strong>Integration Examples</strong>: Create integration examples
+- <strong>Standards Updates</strong>: Update API standards and guidelines</p>
+<p>### Quality Standards
+- <strong>Complete Coverage</strong>: Document all public APIs comprehensively
+- <strong>Working Examples</strong>: All examples must be functional and tested
+- <strong>Clear Documentation</strong>: Use clear, accessible language
+- <strong>Current Information</strong>: Keep documentation current with API changes
+- <strong>Consistency</strong>: Maintain consistency with established patterns</p>
+<p>## Learning Resources</p>
+<ul class="simple">
+<li><p><strong>API Design</strong>: Study REST API and Python API design principles</p></li>
+<li><p><strong>Documentation Standards</strong>: Learn API documentation best practices</p></li>
+<li><p><strong>Example Study</strong>: Study existing API documentation and examples</p></li>
+<li><p><strong>Testing</strong>: Learn API testing methodologies</p></li>
+<li><p><strong>Integration</strong>: Understand integration patterns and practices</p></li>
+</ul>
+<p>## Related Documentation</p>
+<ul class="simple">
+<li><p><strong>[Documentation README](../README.md)</strong>: Documentation module overview</p></li>
+<li><p><strong>[Main README](../../README.md)</strong>: Project overview and getting started</p></li>
+<li><p><strong>[Platform Documentation](../../platform/)</strong>: Platform APIs and services</p></li>
+<li><p><strong>[Contributing Guide](../../CONTRIBUTING.md)</strong>: Contribution guidelines</p></li>
+<li><p><strong>[Integration Documentation](../../applications/integrations/)</strong>: Integration APIs</p></li>
+</ul>
+<p>## API Testing</p>
+<p>### Automated Testing
+<a href="#id38"><span class="problematic" id="id39">``</span></a><a href="#id40"><span class="problematic" id="id41">`</span></a>python
+import pytest
+from active_inference.knowledge.api import KnowledgeAPI</p>
+<dl>
+<dt>class TestKnowledgeAPI:</dt><dd><p>“””Test cases for Knowledge API”””</p>
+<dl>
+<dt>def setup_method(self):</dt><dd><p>“””Set up test environment”””
+self.api = KnowledgeAPI(test_mode=True)</p>
+</dd>
+<dt>def test_search_knowledge(self):</dt><dd><p>“””Test knowledge search functionality”””
+results = self.api.search(‘entropy’, limit=5)
+assert len(results) &lt;= 5
+assert all(‘id’ in result for result in results)</p>
+</dd>
+<dt>def test_get_knowledge_node(self):</dt><dd><p>“””Test knowledge node retrieval”””
+node = self.api.get_node(‘fep_introduction’)
+assert node is not None
+assert ‘content’ in node
+assert ‘metadata’ in node</p>
+</dd>
+<dt>def test_invalid_search(self):</dt><dd><p>“””Test error handling for invalid searches”””
+with pytest.raises(ValueError):</p>
+<blockquote>
+<div><p>self.api.search(‘’, limit=-1)</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id42"><span class="problematic" id="id43">``</span></a><a href="#id44"><span class="problematic" id="id45">`</span></a></p>
+<p>### API Documentation Validation
+<a href="#id46"><span class="problematic" id="id47">``</span></a><a href="#id48"><span class="problematic" id="id49">`</span></a>python
+def validate_api_documentation():</p>
+<blockquote>
+<div><p>“””Validate API documentation completeness”””
+validation_results = {</p>
+<blockquote>
+<div><p>‘missing_docs’: [],
+‘incomplete_examples’: [],
+‘broken_links’: [],
+‘outdated_info’: []</p>
+</div></blockquote>
+<p>}</p>
+<p># Check all API endpoints are documented
+api_endpoints = get_all_api_endpoints()
+documented_endpoints = get_documented_endpoints()</p>
+<dl class="simple">
+<dt>for endpoint in api_endpoints:</dt><dd><dl class="simple">
+<dt>if endpoint not in documented_endpoints:</dt><dd><p>validation_results[‘missing_docs’].append(endpoint)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p># Check examples are working
+for example in get_all_examples():</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if not test_example(example):</dt><dd><p>validation_results[‘incomplete_examples’].append(example)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>return validation_results</p>
+</div></blockquote>
+<p><a href="#id50"><span class="problematic" id="id51">``</span></a><a href="#id52"><span class="problematic" id="id53">`</span></a></p>
+<p>—</p>
+<p><em>“Active Inference for, with, by Generative AI”</em> - Enabling seamless integration through comprehensive, well-documented APIs and clear integration patterns.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

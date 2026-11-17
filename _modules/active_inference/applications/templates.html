@@ -1,0 +1,1411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.applications.templates &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.applications.templates</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.applications.templates</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Application Framework - Templates and Code Generation</span>
+
+<span class="sd">Template library and code generation system for Active Inference applications.</span>
+<span class="sd">Provides ready-to-use implementation patterns, boilerplate code, and automated</span>
+<span class="sd">generation of common application structures.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TemplateType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Types of application templates"""</span>
+
+    <span class="n">BASIC_MODEL</span> <span class="o">=</span> <span class="s2">"basic_model"</span>
+    <span class="n">RESEARCH_PIPELINE</span> <span class="o">=</span> <span class="s2">"research_pipeline"</span>
+    <span class="n">SIMULATION_STUDY</span> <span class="o">=</span> <span class="s2">"simulation_study"</span>
+    <span class="n">WEB_APPLICATION</span> <span class="o">=</span> <span class="s2">"web_application"</span>
+    <span class="n">API_SERVICE</span> <span class="o">=</span> <span class="s2">"api_service"</span>
+    <span class="n">EDUCATIONAL_TOOL</span> <span class="o">=</span> <span class="s2">"educational_tool"</span>
+    <span class="n">ROBOTICS_CONTROL</span> <span class="o">=</span> <span class="s2">"robotics_control"</span>
+    <span class="n">NEURAL_INTERFACE</span> <span class="o">=</span> <span class="s2">"neural_interface"</span>
+    <span class="n">DECISION_SUPPORT</span> <span class="o">=</span> <span class="s2">"decision_support"</span>
+    <span class="n">MULTI_AGENT_SYSTEM</span> <span class="o">=</span> <span class="s2">"multi_agent_system"</span>
+    <span class="n">REINFORCEMENT_LEARNING</span> <span class="o">=</span> <span class="s2">"reinforcement_learning"</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TemplateConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Configuration for template generation"""</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">template_type</span><span class="p">:</span> <span class="n">TemplateType</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">output_directory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<div class="viewcode-block" id="CodeGenerator">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.CodeGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CodeGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Code generation engine for Active Inference applications"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">templates_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">templates_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">templates_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">templates_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">templates</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"CodeGenerator initialized with templates directory: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">templates_dir</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="CodeGenerator.generate_basic_model">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.CodeGenerator.generate_basic_model">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_basic_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TemplateConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate a basic Active Inference model"""</span>
+        <span class="n">model_code</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'''</span>
+<span class="s1">"""</span>
+<span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> - Active Inference Model</span>
+
+<span class="s1">Generated by Active Inference Application Framework</span>
+<span class="s1">"""</span>
+
+<span class="s1">import numpy as np</span>
+<span class="s1">from typing import Dict, List, Optional, Any</span>
+<span class="s1">import logging</span>
+
+<span class="s1">logger = logging.getLogger(__name__)</span>
+
+
+<span class="s1">class </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s1">:</span>
+<span class="s1">    """</span>
+<span class="s1">    Basic Active Inference model implementation.</span>
+
+<span class="s1">    This model demonstrates core Active Inference principles including:</span>
+<span class="s1">    - Generative model specification</span>
+<span class="s1">    - Variational inference</span>
+<span class="s1">    - Free energy minimization</span>
+<span class="s1">    - Perception-action cycle</span>
+<span class="s1">    """</span>
+
+<span class="s1">    def __init__(self, config: Dict[str, Any]):</span>
+<span class="s1">        self.config = config</span>
+<span class="s1">        self.n_states = config.parameters.get("n_states", 4)</span>
+<span class="s1">        self.n_observations = config.parameters.get("n_observations", 8)</span>
+<span class="s1">        self.time_horizon = config.parameters.get("time_horizon", 1000)</span>
+
+<span class="s1">        # Initialize generative model parameters</span>
+<span class="s1">        self.initialize_model()</span>
+
+<span class="s1">        logger.info(f"Initialized </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> with </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'n_states'</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s1"> states and </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'n_observations'</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="si">}</span><span class="s1"> observations")</span>
+
+<span class="s1">    def initialize_model(self) -&gt; None:</span>
+<span class="s1">        """Initialize the generative model parameters"""</span>
+<span class="s1">        # Transition matrix (A)</span>
+<span class="s1">        self.A = np.random.dirichlet(np.ones(self.n_observations), self.n_states)</span>
+
+<span class="s1">        # Transition beliefs (B)</span>
+<span class="s1">        self.B = np.random.dirichlet(np.ones(self.n_states), self.n_states)</span>
+
+<span class="s1">        # Prior preferences (C)</span>
+<span class="s1">        self.C = np.random.uniform(0, 1, self.n_observations)</span>
+
+<span class="s1">        # Initial state prior (D)</span>
+<span class="s1">        self.D = np.random.dirichlet(np.ones(self.n_states))</span>
+
+<span class="s1">    def perceive(self, observation: np.ndarray) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Process sensory input and update beliefs</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            observation: Sensory observation vector</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Dictionary containing updated beliefs and prediction error</span>
+<span class="s1">        """</span>
+<span class="s1">        # Compute prediction error</span>
+<span class="s1">        prediction = self.A.dot(self.D)</span>
+<span class="s1">        prediction_error = observation - prediction</span>
+
+<span class="s1">        # Update posterior beliefs using variational inference</span>
+<span class="s1">        # (Simplified implementation)</span>
+<span class="s1">        posterior = self.D + 0.1 * prediction_error</span>
+
+<span class="s1">        # Normalize</span>
+<span class="s1">        posterior = posterior / np.sum(posterior)</span>
+
+<span class="s1">        # Update state beliefs</span>
+<span class="s1">        self.D = posterior</span>
+
+<span class="s1">        return </span><span class="se">{{</span>
+<span class="s1">            "posterior": posterior,</span>
+<span class="s1">            "prediction_error": prediction_error,</span>
+<span class="s1">            "prediction": prediction</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">    def act(self) -&gt; int:</span>
+<span class="s1">        """</span>
+<span class="s1">        Select action based on expected free energy minimization</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Selected action</span>
+<span class="s1">        """</span>
+<span class="s1">        # Compute expected free energy for each action</span>
+<span class="s1">        expected_fe = []</span>
+
+<span class="s1">        for action in range(self.n_states):</span>
+<span class="s1">            # Simplified expected free energy calculation</span>
+<span class="s1">            fe = -np.dot(self.C, self.A[action])</span>
+<span class="s1">            expected_fe.append(fe)</span>
+
+<span class="s1">        # Select action with minimum expected free energy</span>
+<span class="s1">        selected_action = np.argmin(expected_fe)</span>
+
+<span class="s1">        logger.debug(f"Selected action </span><span class="se">{{</span><span class="s1">selected_action</span><span class="se">}}</span><span class="s1"> with expected FE </span><span class="se">{{</span><span class="s1">expected_fe[selected_action]</span><span class="se">}}</span><span class="s1">")</span>
+
+<span class="s1">        return selected_action</span>
+
+<span class="s1">    def run_simulation(self, n_steps: int = 100) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Run a complete simulation</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            n_steps: Number of simulation steps</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Simulation results</span>
+<span class="s1">        """</span>
+<span class="s1">        results = </span><span class="se">{{</span>
+<span class="s1">            "free_energy_history": [],</span>
+<span class="s1">            "accuracy_history": [],</span>
+<span class="s1">            "actions": [],</span>
+<span class="s1">            "beliefs_history": []</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">        for step in range(n_steps):</span>
+<span class="s1">            # Generate observation (simplified)</span>
+<span class="s1">            true_state = np.random.choice(self.n_states)</span>
+<span class="s1">            observation = np.random.multinomial(1, self.A[true_state])</span>
+
+<span class="s1">            # Perception step</span>
+<span class="s1">            perception_result = self.perceive(observation)</span>
+
+<span class="s1">            # Action step</span>
+<span class="s1">            action = self.act()</span>
+
+<span class="s1">            # Compute free energy</span>
+<span class="s1">            free_energy = -np.log(np.dot(observation, self.A.dot(self.D)))</span>
+
+<span class="s1">            # Store results</span>
+<span class="s1">            results["free_energy_history"].append(float(free_energy))</span>
+<span class="s1">            results["actions"].append(int(action))</span>
+<span class="s1">            results["beliefs_history"].append(perception_result["posterior"].tolist())</span>
+
+<span class="s1">            # Compute accuracy</span>
+<span class="s1">            accuracy = 1.0 if action == true_state else 0.0</span>
+<span class="s1">            results["accuracy_history"].append(accuracy)</span>
+
+<span class="s1">        logger.info(f"Simulation completed: </span><span class="se">{{</span><span class="s1">n_steps</span><span class="se">}}</span><span class="s1"> steps")</span>
+<span class="s1">        return results</span>
+
+
+<span class="s1"># Example usage</span>
+<span class="s1">if __name__ == "__main__":</span>
+<span class="s1">    config = </span><span class="se">{{</span>
+<span class="s1">        "n_states": 4,</span>
+<span class="s1">        "n_observations": 8,</span>
+<span class="s1">        "time_horizon": 1000</span>
+<span class="s1">    </span><span class="se">}}</span>
+
+<span class="s1">    model = </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s1">(config)</span>
+<span class="s1">    results = model.run_simulation(100)</span>
+
+<span class="s1">    print(f"Final free energy: </span><span class="se">{{</span><span class="s1">results['free_energy_history'][-1]".3f"</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">    print(f"Average accuracy: </span><span class="se">{{</span><span class="s1">np.mean(results['accuracy_history'])".3f"</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">'''</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"files"</span><span class="p">:</span> <span class="p">{</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s2">.py"</span><span class="p">:</span> <span class="n">model_code</span><span class="p">},</span>
+            <span class="s2">"requirements"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="s2">"typing"</span><span class="p">],</span>
+            <span class="s2">"readme"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"# </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Generated Active Inference"</span>
+                <span class="s2">" model implementation."</span>
+            <span class="p">),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="CodeGenerator.generate_research_pipeline">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.CodeGenerator.generate_research_pipeline">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_research_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TemplateConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate a complete research pipeline template"""</span>
+        <span class="c1"># Similar implementation for research pipeline</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"files"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"requirements"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"readme"</span><span class="p">:</span> <span class="s2">"Research pipeline template"</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="CodeGenerator.generate_robotics_control">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.CodeGenerator.generate_robotics_control">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_robotics_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TemplateConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate a robotics control application template"""</span>
+        <span class="n">robotics_code</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'''</span>
+<span class="s1">"""</span>
+<span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> - Robotics Control with Active Inference</span>
+
+<span class="s1">Generated by Active Inference Application Framework</span>
+<span class="s1">"""</span>
+
+<span class="s1">import numpy as np</span>
+<span class="s1">from typing import Dict, List, Optional, Any, Tuple</span>
+<span class="s1">import logging</span>
+
+<span class="s1">logger = logging.getLogger(__name__)</span>
+
+
+<span class="s1">class RoboticsController:</span>
+<span class="s1">    """</span>
+<span class="s1">    Robotics control system using Active Inference principles.</span>
+
+<span class="s1">    This controller implements:</span>
+<span class="s1">    - Proprioceptive and exteroceptive perception</span>
+<span class="s1">    - Action selection for motor control</span>
+<span class="s1">    - Goal-directed behavior through free energy minimization</span>
+<span class="s1">    - Safety constraints and obstacle avoidance</span>
+<span class="s1">    """</span>
+
+<span class="s1">    def __init__(self, config: Dict[str, Any]):</span>
+<span class="s1">        self.config = config</span>
+
+<span class="s1">        # Robot configuration</span>
+<span class="s1">        self.n_joints = config.get("n_joints", 6)</span>
+<span class="s1">        self.n_sensors = config.get("n_sensors", 12)</span>
+<span class="s1">        self.workspace_bounds = config.get("workspace_bounds", [-2.0, 2.0, -2.0, 2.0, 0.0, 2.0])</span>
+
+<span class="s1">        # Active Inference parameters</span>
+<span class="s1">        self.n_states = config.get("n_states", 8)</span>
+<span class="s1">        self.n_observations = config.get("n_observations", self.n_sensors)</span>
+<span class="s1">        self.n_actions = config.get("n_actions", self.n_joints * 3)  # 3 actions per joint</span>
+
+<span class="s1">        # Initialize generative model</span>
+<span class="s1">        self.initialize_model()</span>
+
+<span class="s1">        # Control parameters</span>
+<span class="s1">        self.control_frequency = config.get("control_frequency", 100)  # Hz</span>
+<span class="s1">        self.safety_margin = config.get("safety_margin", 0.1)</span>
+
+<span class="s1">        logger.info(f"Initialized robotics controller with </span><span class="se">{{</span><span class="s1">self.n_joints</span><span class="se">}}</span><span class="s1"> joints and </span><span class="se">{{</span><span class="s1">self.n_sensors</span><span class="se">}}</span><span class="s1"> sensors")</span>
+
+<span class="s1">    def initialize_model(self) -&gt; None:</span>
+<span class="s1">        """Initialize the generative model for robotics control"""</span>
+<span class="s1">        # State representation: joint positions + velocities + external forces</span>
+<span class="s1">        state_dims = self.n_joints * 3  # position, velocity, torque per joint</span>
+
+<span class="s1">        # Observation model: sensors measuring position, forces, vision</span>
+<span class="s1">        self.A = np.random.rand(self.n_observations, self.n_states)</span>
+<span class="s1">        self.A = self.A / self.A.sum(axis=0)  # Normalize</span>
+
+<span class="s1">        # Transition model: physics-based transitions</span>
+<span class="s1">        self.B = np.random.rand(self.n_states, self.n_states, self.n_actions)</span>
+<span class="s1">        self.B = self.B / self.B.sum(axis=0)</span>
+
+<span class="s1">        # Preferences: goal positions, safety, efficiency</span>
+<span class="s1">        self.C = np.zeros(self.n_observations)</span>
+<span class="s1">        # Set preferences for desired joint positions</span>
+<span class="s1">        goal_indices = range(min(6, self.n_observations))</span>
+<span class="s1">        self.C[list(goal_indices)] = 1.0</span>
+
+<span class="s1">        # Initial state beliefs</span>
+<span class="s1">        self.beliefs = np.ones(self.n_states) / self.n_states</span>
+
+<span class="s1">    def perceive(self, sensor_data: np.ndarray) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Process sensor data and update beliefs about robot state</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            sensor_data: Sensor readings (joint positions, forces, vision)</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Perception results with updated beliefs</span>
+<span class="s1">        """</span>
+<span class="s1">        # Compute prediction error</span>
+<span class="s1">        predicted_obs = self.A @ self.beliefs</span>
+<span class="s1">        prediction_error = sensor_data - predicted_obs</span>
+
+<span class="s1">        # Update beliefs (simplified variational inference)</span>
+<span class="s1">        likelihood = np.exp(-0.1 * np.abs(prediction_error))  # Gaussian likelihood</span>
+<span class="s1">        posterior = likelihood * self.beliefs</span>
+<span class="s1">        posterior = posterior / posterior.sum()</span>
+
+<span class="s1">        self.beliefs = posterior</span>
+
+<span class="s1">        # Detect anomalies or safety issues</span>
+<span class="s1">        safety_status = self.check_safety(sensor_data)</span>
+
+<span class="s1">        return </span><span class="se">{{</span>
+<span class="s1">            "posterior_beliefs": posterior,</span>
+<span class="s1">            "prediction_error": prediction_error,</span>
+<span class="s1">            "predicted_observations": predicted_obs,</span>
+<span class="s1">            "safety_status": safety_status,</span>
+<span class="s1">            "anomaly_score": np.linalg.norm(prediction_error)</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">    def plan_action(self, goal: np.ndarray) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Plan action using expected free energy minimization</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            goal: Desired goal state (target position/orientation)</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Action plan with expected outcomes</span>
+<span class="s1">        """</span>
+<span class="s1">        actions = []</span>
+<span class="s1">        expected_free_energy = []</span>
+
+<span class="s1">        # Evaluate each possible action</span>
+<span class="s1">        for action_idx in range(self.n_actions):</span>
+<span class="s1">            # Predict next state</span>
+<span class="s1">            predicted_beliefs = self.B[:, :, action_idx] @ self.beliefs</span>
+
+<span class="s1">            # Predict observations</span>
+<span class="s1">            predicted_obs = self.A @ predicted_beliefs</span>
+
+<span class="s1">            # Compute expected free energy</span>
+<span class="s1">            # Epistemic affordance (information gain)</span>
+<span class="s1">            epistemic_fe = -0.5 * np.sum(predicted_obs * np.log(predicted_obs + 1e-10))</span>
+
+<span class="s1">            # Extrinsic affordance (goal achievement)</span>
+<span class="s1">            goal_error = np.linalg.norm(predicted_obs[:3] - goal[:3])  # Position error</span>
+<span class="s1">            extrinsic_fe = goal_error</span>
+
+<span class="s1">            # Total expected free energy</span>
+<span class="s1">            total_fe = extrinsic_fe + epistemic_fe</span>
+<span class="s1">            expected_free_energy.append(total_fe)</span>
+
+<span class="s1">        # Select best action</span>
+<span class="s1">        best_action_idx = np.argmin(expected_free_energy)</span>
+<span class="s1">        best_action = self.decode_action(best_action_idx)</span>
+
+<span class="s1">        return </span><span class="se">{{</span>
+<span class="s1">            "selected_action": best_action,</span>
+<span class="s1">            "action_index": best_action_idx,</span>
+<span class="s1">            "expected_free_energy": expected_free_energy[best_action_idx],</span>
+<span class="s1">            "all_expected_fe": expected_free_energy,</span>
+<span class="s1">            "goal_error": np.linalg.norm(self.A[:3] @ self.beliefs - goal[:3])</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">    def decode_action(self, action_idx: int) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Decode action index into joint commands</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            action_idx: Action index</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Joint commands dictionary</span>
+<span class="s1">        """</span>
+<span class="s1">        # Convert action index to joint commands</span>
+<span class="s1">        joint_commands = </span><span class="se">{{}}</span>
+
+<span class="s1">        for joint_idx in range(self.n_joints):</span>
+<span class="s1">            # Each joint has 3 possible actions: decrease, maintain, increase</span>
+<span class="s1">            joint_action_type = action_idx % 3</span>
+<span class="s1">            action_idx = action_idx // 3</span>
+
+<span class="s1">            if joint_action_type == 0:  # Decrease</span>
+<span class="s1">                joint_commands[f"joint_</span><span class="se">{{</span><span class="s1">joint_idx</span><span class="se">}}</span><span class="s1">_command"] = -0.1</span>
+<span class="s1">            elif joint_action_type == 1:  # Maintain</span>
+<span class="s1">                joint_commands[f"joint_</span><span class="se">{{</span><span class="s1">joint_idx</span><span class="se">}}</span><span class="s1">_command"] = 0.0</span>
+<span class="s1">            else:  # Increase</span>
+<span class="s1">                joint_commands[f"joint_</span><span class="se">{{</span><span class="s1">joint_idx</span><span class="se">}}</span><span class="s1">_command"] = 0.1</span>
+
+<span class="s1">        return joint_commands</span>
+
+<span class="s1">    def check_safety(self, sensor_data: np.ndarray) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """Check safety constraints"""</span>
+<span class="s1">        safety_status = </span><span class="se">{{</span>
+<span class="s1">            "safe": True,</span>
+<span class="s1">            "warnings": [],</span>
+<span class="s1">            "violations": []</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">        # Check joint limits</span>
+<span class="s1">        joint_positions = sensor_data[:self.n_joints]</span>
+<span class="s1">        if np.any(np.abs(joint_positions) &gt; 3.0):  # Joint limits</span>
+<span class="s1">            safety_status["safe"] = False</span>
+<span class="s1">            safety_status["violations"].append("Joint limit violation")</span>
+
+<span class="s1">        # Check collision avoidance (simplified)</span>
+<span class="s1">        if len(sensor_data) &gt; self.n_joints:</span>
+<span class="s1">            proximity_sensors = sensor_data[self.n_joints:self.n_joints+6]</span>
+<span class="s1">            if np.any(proximity_sensors &lt; self.safety_margin):</span>
+<span class="s1">                safety_status["warnings"].append("Obstacle detected")</span>
+
+<span class="s1">        return safety_status</span>
+
+<span class="s1">    def execute_control_loop(self, goal: np.ndarray, max_steps: int = 1000) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Execute complete control loop</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            goal: Target goal state</span>
+<span class="s1">            max_steps: Maximum control steps</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Control loop results</span>
+<span class="s1">        """</span>
+<span class="s1">        results = </span><span class="se">{{</span>
+<span class="s1">            "trajectory": [],</span>
+<span class="s1">            "actions": [],</span>
+<span class="s1">            "free_energy_history": [],</span>
+<span class="s1">            "safety_events": [],</span>
+<span class="s1">            "success": False</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">        for step in range(max_steps):</span>
+<span class="s1">            # Get current sensor data (simulated)</span>
+<span class="s1">            sensor_data = self.simulate_sensor_data(goal, step)</span>
+
+<span class="s1">            # Perception</span>
+<span class="s1">            perception = self.perceive(sensor_data)</span>
+
+<span class="s1">            # Check safety</span>
+<span class="s1">            if not perception["safety_status"]["safe"]:</span>
+<span class="s1">                logger.warning("Safety violation detected, stopping control")</span>
+<span class="s1">                break</span>
+
+<span class="s1">            # Action planning</span>
+<span class="s1">            action_plan = self.plan_action(goal)</span>
+
+<span class="s1">            # Store results</span>
+<span class="s1">            results["trajectory"].append(sensor_data.tolist())</span>
+<span class="s1">            results["actions"].append(action_plan["selected_action"])</span>
+<span class="s1">            results["free_energy_history"].append(action_plan["expected_free_energy"])</span>
+
+<span class="s1">            # Check goal achievement</span>
+<span class="s1">            current_position = sensor_data[:3]</span>
+<span class="s1">            distance_to_goal = np.linalg.norm(current_position - goal[:3])</span>
+
+<span class="s1">            if distance_to_goal &lt; 0.05:  # Goal threshold</span>
+<span class="s1">                results["success"] = True</span>
+<span class="s1">                logger.info(f"Goal achieved in </span><span class="se">{{</span><span class="s1">step + 1</span><span class="se">}}</span><span class="s1"> steps")</span>
+<span class="s1">                break</span>
+
+<span class="s1">        return results</span>
+
+<span class="s1">    def simulate_sensor_data(self, goal: np.ndarray, step: int) -&gt; np.ndarray:</span>
+<span class="s1">        """Simulate sensor data for testing"""</span>
+<span class="s1">        # Simple simulation: move towards goal</span>
+<span class="s1">        current_pos = np.random.uniform(-1, 1, 3)  # Current position</span>
+<span class="s1">        direction_to_goal = goal[:3] - current_pos</span>
+<span class="s1">        direction_to_goal = direction_to_goal / (np.linalg.norm(direction_to_goal) + 1e-6)</span>
+
+<span class="s1">        # Add some noise and movement</span>
+<span class="s1">        noise = np.random.normal(0, 0.1, 3)</span>
+<span class="s1">        simulated_pos = current_pos + 0.1 * direction_to_goal + noise</span>
+
+<span class="s1">        # Simulate joint positions</span>
+<span class="s1">        joint_positions = simulated_pos[:self.n_joints] if self.n_joints &lt;= 3 else </span><span class="se">\</span>
+<span class="s1">                         np.concatenate([simulated_pos, np.random.uniform(-1, 1, self.n_joints - 3)])</span>
+
+<span class="s1">        # Simulate sensor readings</span>
+<span class="s1">        sensor_data = np.concatenate([</span>
+<span class="s1">            joint_positions,</span>
+<span class="s1">            np.random.uniform(0.2, 2.0, 6),  # Proximity sensors</span>
+<span class="s1">            np.random.uniform(-10, 10, 3)     # Force sensors</span>
+<span class="s1">        ])</span>
+
+<span class="s1">        return sensor_data</span>
+
+
+<span class="s1"># Example usage</span>
+<span class="s1">if __name__ == "__main__":</span>
+<span class="s1">    config = </span><span class="se">{{</span>
+<span class="s1">        "n_joints": 6,</span>
+<span class="s1">        "n_sensors": 12,</span>
+<span class="s1">        "n_states": 8,</span>
+<span class="s1">        "control_frequency": 100</span>
+<span class="s1">    </span><span class="se">}}</span>
+
+<span class="s1">    controller = RoboticsController(config)</span>
+
+<span class="s1">    # Define goal position</span>
+<span class="s1">    goal = np.array([1.0, 0.5, 0.8, 0.0, 0.0, 0.0])  # Target pose</span>
+
+<span class="s1">    # Execute control</span>
+<span class="s1">    results = controller.execute_control_loop(goal, max_steps=100)</span>
+
+<span class="s1">    print(f"Control completed. Success: </span><span class="se">{{</span><span class="s1">results['success']</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">    print(f"Steps taken: </span><span class="se">{{</span><span class="s1">len(results['trajectory'])</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">    if results["free_energy_history"]:</span>
+<span class="s1">        print(f"Final free energy: </span><span class="se">{{</span><span class="s1">results['free_energy_history'][-1]:.3f</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">'''</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"files"</span><span class="p">:</span> <span class="p">{</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s2">.py"</span><span class="p">:</span> <span class="n">robotics_code</span><span class="p">},</span>
+            <span class="s2">"requirements"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="s2">"scipy"</span><span class="p">,</span> <span class="s2">"matplotlib"</span><span class="p">],</span>
+            <span class="s2">"readme"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"# </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">nRobotics control system using Active"</span>
+                <span class="s2">" Inference principles.</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">nFeatures:</span><span class="se">\\</span><span class="s2">n- Multi-joint control</span><span class="se">\\</span><span class="s2">n-"</span>
+                <span class="s2">" Safety constraints</span><span class="se">\\</span><span class="s2">n- Goal-directed behavior</span><span class="se">\\</span><span class="s2">n- Sensor fusion"</span>
+            <span class="p">),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="CodeGenerator.generate_neural_interface">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.CodeGenerator.generate_neural_interface">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_neural_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TemplateConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate a neural interface application template"""</span>
+        <span class="n">neural_code</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'''</span>
+<span class="s1">"""</span>
+<span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> - Neural Interface with Active Inference</span>
+
+<span class="s1">Generated by Active Inference Application Framework</span>
+<span class="s1">"""</span>
+
+<span class="s1">import numpy as np</span>
+<span class="s1">from typing import Dict, List, Optional, Any, Tuple</span>
+<span class="s1">from scipy import signal</span>
+<span class="s1">import logging</span>
+
+<span class="s1">logger = logging.getLogger(__name__)</span>
+
+
+<span class="s1">class NeuralInterface:</span>
+<span class="s1">    """</span>
+<span class="s1">    Brain-machine interface using Active Inference for neural decoding.</span>
+
+<span class="s1">    Features:</span>
+<span class="s1">    - Neural signal processing and feature extraction</span>
+<span class="s1">    - Intent decoding using generative models</span>
+<span class="s1">    - Adaptive learning from neural feedback</span>
+<span class="s1">    - Real-time performance monitoring</span>
+<span class="s1">    """</span>
+
+<span class="s1">    def __init__(self, config: Dict[str, Any]):</span>
+<span class="s1">        self.config = config</span>
+
+<span class="s1">        # Neural interface parameters</span>
+<span class="s1">        self.n_channels = config.get("n_channels", 64)</span>
+<span class="s1">        self.sampling_rate = config.get("sampling_rate", 1000)  # Hz</span>
+<span class="s1">        self.n_features = config.get("n_features", 128)</span>
+<span class="s1">        self.n_intents = config.get("n_intents", 8)  # Number of decodable intents</span>
+
+<span class="s1">        # Active Inference parameters</span>
+<span class="s1">        self.n_states = config.get("n_states", 16)</span>
+<span class="s1">        self.n_observations = config.get("n_observations", self.n_features)</span>
+
+<span class="s1">        # Initialize components</span>
+<span class="s1">        self.initialize_neural_model()</span>
+
+<span class="s1">        logger.info(f"Initialized neural interface with </span><span class="se">{{</span><span class="s1">self.n_channels</span><span class="se">}}</span><span class="s1"> channels")</span>
+
+<span class="s1">    def initialize_neural_model(self) -&gt; None:</span>
+<span class="s1">        """Initialize the neural decoding model"""</span>
+<span class="s1">        # Neural feature extraction</span>
+<span class="s1">        self.feature_extractor = </span><span class="se">{{</span>
+<span class="s1">            "bandpass_filters": self.create_bandpass_filters(),</span>
+<span class="s1">            "spatial_filters": self.create_spatial_filters(),</span>
+<span class="s1">            "temporal_features": []</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">        # Active Inference model</span>
+<span class="s1">        self.A = np.random.rand(self.n_observations, self.n_states)</span>
+<span class="s1">        self.A = self.A / self.A.sum(axis=0)</span>
+
+<span class="s1">        self.B = np.random.rand(self.n_states, self.n_states, self.n_intents)</span>
+<span class="s1">        self.B = self.B / self.B.sum(axis=0)</span>
+
+<span class="s1">        # Intent preferences</span>
+<span class="s1">        self.C = np.zeros(self.n_observations)</span>
+<span class="s1">        # Set preferences for clear neural signals</span>
+<span class="s1">        self.C[:self.n_intents] = 1.0</span>
+
+<span class="s1">        # Initial beliefs</span>
+<span class="s1">        self.beliefs = np.ones(self.n_states) / self.n_states</span>
+
+<span class="s1">    def create_bandpass_filters(self) -&gt; List[Tuple[float, float]]:</span>
+<span class="s1">        """Create bandpass filters for different frequency bands"""</span>
+<span class="s1">        return [</span>
+<span class="s1">            (8, 12),    # Alpha</span>
+<span class="s1">            (13, 30),   # Beta</span>
+<span class="s1">            (30, 50),   # Gamma</span>
+<span class="s1">            (50, 100),  # High gamma</span>
+<span class="s1">        ]</span>
+
+<span class="s1">    def create_spatial_filters(self) -&gt; np.ndarray:</span>
+<span class="s1">        """Create spatial filters for feature extraction"""</span>
+<span class="s1">        # Common spatial patterns or Laplacian filters</span>
+<span class="s1">        return np.random.rand(self.n_channels, self.n_channels // 2)</span>
+
+<span class="s1">    def process_neural_signal(self, raw_signal: np.ndarray) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Process raw neural signal and extract features</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            raw_signal: Raw EEG/ECoG signal (channels x time)</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Processed features and signal characteristics</span>
+<span class="s1">        """</span>
+<span class="s1">        if raw_signal.shape[0] != self.n_channels:</span>
+<span class="s1">            raise ValueError(f"Expected </span><span class="se">{{</span><span class="s1">self.n_channels</span><span class="se">}}</span><span class="s1"> channels, got </span><span class="se">{{</span><span class="s1">raw_signal.shape[0]</span><span class="se">}}</span><span class="s1">")</span>
+
+<span class="s1">        # Apply bandpass filtering</span>
+<span class="s1">        filtered_signals = []</span>
+<span class="s1">        for low_freq, high_freq in self.feature_extractor["bandpass_filters"]:</span>
+<span class="s1">            b, a = signal.butter(4, [low_freq, high_freq], btype='band', fs=self.sampling_rate)</span>
+<span class="s1">            filtered = signal.filtfilt(b, a, raw_signal, axis=1)</span>
+<span class="s1">            filtered_signals.append(filtered)</span>
+
+<span class="s1">        # Apply spatial filtering</span>
+<span class="s1">        spatial_features = []</span>
+<span class="s1">        for filtered in filtered_signals:</span>
+<span class="s1">            spatial_filtered = self.feature_extractor["spatial_filters"].T @ filtered</span>
+<span class="s1">            spatial_features.append(spatial_filtered)</span>
+
+<span class="s1">        # Extract temporal features</span>
+<span class="s1">        features = []</span>
+<span class="s1">        for spatial_feature in spatial_features:</span>
+<span class="s1">            # Time-domain features</span>
+<span class="s1">            rms = np.sqrt(np.mean(spatial_feature**2, axis=1))</span>
+<span class="s1">            variance = np.var(spatial_feature, axis=1)</span>
+<span class="s1">            skewness = np.apply_along_axis(lambda x: np.mean((x - np.mean(x))**3) / np.std(x)**3, 1, spatial_feature)</span>
+
+<span class="s1">            # Frequency-domain features</span>
+<span class="s1">            freq_features = []</span>
+<span class="s1">            for channel_data in spatial_feature:</span>
+<span class="s1">                fft = np.fft.fft(channel_data)</span>
+<span class="s1">                freq_power = np.abs(fft)**2</span>
+<span class="s1">                # Extract power in different frequency bins</span>
+<span class="s1">                freq_bins = np.array_split(freq_power, 8)</span>
+<span class="s1">                freq_features.extend([np.mean(bin_power) for bin_power in freq_bins])</span>
+
+<span class="s1">            # Combine features</span>
+<span class="s1">            channel_features = np.concatenate([rms, variance, skewness, freq_features])</span>
+<span class="s1">            features.append(channel_features)</span>
+
+<span class="s1">        features = np.array(features).flatten()</span>
+
+<span class="s1">        return </span><span class="se">{{</span>
+<span class="s1">            "features": features,</span>
+<span class="s1">            "filtered_signals": filtered_signals,</span>
+<span class="s1">            "spatial_features": spatial_features,</span>
+<span class="s1">            "signal_quality": self.assess_signal_quality(raw_signal)</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">    def decode_intent(self, neural_features: np.ndarray) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Decode user intent from neural features using Active Inference</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            neural_features: Extracted neural features</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Decoded intent and confidence</span>
+<span class="s1">        """</span>
+<span class="s1">        # Update beliefs based on neural features</span>
+<span class="s1">        likelihood = np.exp(-0.1 * np.linalg.norm(neural_features[:, np.newaxis] - self.A, axis=0))</span>
+<span class="s1">        posterior = likelihood * self.beliefs</span>
+<span class="s1">        posterior = posterior / posterior.sum()</span>
+
+<span class="s1">        self.beliefs = posterior</span>
+
+<span class="s1">        # Decode intent using expected free energy</span>
+<span class="s1">        intent_probabilities = np.zeros(self.n_intents)</span>
+
+<span class="s1">        for intent in range(self.n_intents):</span>
+<span class="s1">            # Predict next beliefs given intent</span>
+<span class="s1">            predicted_beliefs = self.B[:, :, intent] @ posterior</span>
+
+<span class="s1">            # Expected observations</span>
+<span class="s1">            expected_features = self.A @ predicted_beliefs</span>
+
+<span class="s1">            # Free energy for this intent</span>
+<span class="s1">            prediction_error = neural_features - expected_features</span>
+<span class="s1">            free_energy = 0.5 * np.sum(prediction_error**2)</span>
+
+<span class="s1">            intent_probabilities[intent] = np.exp(-free_energy)</span>
+
+<span class="s1">        # Normalize intent probabilities</span>
+<span class="s1">        intent_probabilities = intent_probabilities / intent_probabilities.sum()</span>
+
+<span class="s1">        # Select most likely intent</span>
+<span class="s1">        decoded_intent = np.argmax(intent_probabilities)</span>
+<span class="s1">        confidence = intent_probabilities[decoded_intent]</span>
+
+<span class="s1">        return </span><span class="se">{{</span>
+<span class="s1">            "decoded_intent": decoded_intent,</span>
+<span class="s1">            "confidence": float(confidence),</span>
+<span class="s1">            "intent_probabilities": intent_probabilities.tolist(),</span>
+<span class="s1">            "beliefs": posterior.tolist(),</span>
+<span class="s1">            "prediction_error": float(np.linalg.norm(prediction_error))</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">    def assess_signal_quality(self, raw_signal: np.ndarray) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """Assess quality of neural signal"""</span>
+<span class="s1">        quality_metrics = </span><span class="se">{{}}</span>
+
+<span class="s1">        # Signal-to-noise ratio</span>
+<span class="s1">        signal_power = np.mean(raw_signal**2)</span>
+<span class="s1">        noise_power = np.var(raw_signal - np.mean(raw_signal, axis=1, keepdims=True))</span>
+<span class="s1">        quality_metrics["snr"] = float(signal_power / (noise_power + 1e-10))</span>
+
+<span class="s1">        # Line noise (60Hz or 50Hz)</span>
+<span class="s1">        line_freq = 60 if self.sampling_rate &gt; 120 else 50</span>
+<span class="s1">        fft = np.fft.fft(raw_signal, axis=1)</span>
+<span class="s1">        freq_axis = np.fft.fftfreq(raw_signal.shape[1], 1/self.sampling_rate)</span>
+<span class="s1">        line_idx = np.argmin(np.abs(freq_axis - line_freq))</span>
+<span class="s1">        line_noise = np.mean(np.abs(fft[:, line_idx])**2)</span>
+<span class="s1">        quality_metrics["line_noise"] = float(line_noise)</span>
+
+<span class="s1">        # Electrode impedance (simulated)</span>
+<span class="s1">        quality_metrics["electrode_impedance"] = np.random.uniform(1000, 10000, self.n_channels).tolist()</span>
+
+<span class="s1">        # Overall quality score</span>
+<span class="s1">        quality_metrics["overall_quality"] = min(1.0, quality_metrics["snr"] / 10.0)</span>
+
+<span class="s1">        return quality_metrics</span>
+
+<span class="s1">    def adapt_to_user(self, feedback: Dict[str, Any]) -&gt; None:</span>
+<span class="s1">        """</span>
+<span class="s1">        Adapt the interface based on user feedback and performance</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            feedback: User feedback and performance data</span>
+<span class="s1">        """</span>
+<span class="s1">        # Update model based on feedback</span>
+<span class="s1">        if "correct_intent" in feedback:</span>
+<span class="s1">            correct_intent = feedback["correct_intent"]</span>
+<span class="s1">            decoded_intent = feedback.get("decoded_intent", 0)</span>
+
+<span class="s1">            if correct_intent != decoded_intent:</span>
+<span class="s1">                # Update model parameters to reduce error</span>
+<span class="s1">                learning_rate = 0.01</span>
+<span class="s1">                error_signal = np.zeros(self.n_states)</span>
+
+<span class="s1">                # Simple learning rule</span>
+<span class="s1">                error_signal[correct_intent] += learning_rate</span>
+<span class="s1">                error_signal[decoded_intent] -= learning_rate</span>
+
+<span class="s1">                # Update transition matrix</span>
+<span class="s1">                self.B[:, :, correct_intent] += learning_rate * error_signal[:, np.newaxis]</span>
+
+<span class="s1">                # Renormalize</span>
+<span class="s1">                self.B = self.B / self.B.sum(axis=0)</span>
+
+<span class="s1">                logger.info(f"Adapted model based on feedback: </span><span class="se">{{</span><span class="s1">correct_intent</span><span class="se">}}</span><span class="s1"> vs </span><span class="se">{{</span><span class="s1">decoded_intent</span><span class="se">}}</span><span class="s1">")</span>
+
+<span class="s1">    def run_calibration(self, calibration_data: List[np.ndarray]) -&gt; Dict[str, Any]:</span>
+<span class="s1">        """</span>
+<span class="s1">        Calibrate the interface using known intent data</span>
+
+<span class="s1">        Args:</span>
+<span class="s1">            calibration_data: List of neural data for each intent</span>
+
+<span class="s1">        Returns:</span>
+<span class="s1">            Calibration results and model updates</span>
+<span class="s1">        """</span>
+<span class="s1">        logger.info(f"Running calibration with </span><span class="se">{{</span><span class="s1">len(calibration_data)</span><span class="se">}}</span><span class="s1"> intent examples")</span>
+
+<span class="s1">        calibration_results = </span><span class="se">{{</span>
+<span class="s1">            "intent_templates": [],</span>
+<span class="s1">            "model_updates": [],</span>
+<span class="s1">            "performance_metrics": []</span>
+<span class="s1">        </span><span class="se">}}</span>
+
+<span class="s1">        # Create intent templates</span>
+<span class="s1">        for intent_idx, intent_data in enumerate(calibration_data):</span>
+<span class="s1">            features = self.process_neural_signal(intent_data)["features"]</span>
+<span class="s1">            calibration_results["intent_templates"].append(</span><span class="se">{{</span>
+<span class="s1">                "intent": intent_idx,</span>
+<span class="s1">                "features": features.tolist(),</span>
+<span class="s1">                "mean_activation": float(np.mean(features)),</span>
+<span class="s1">                "std_activation": float(np.std(features))</span>
+<span class="s1">            </span><span class="se">}}</span><span class="s1">)</span>
+
+<span class="s1">        # Update generative model based on calibration</span>
+<span class="s1">        self.update_model_from_calibration(calibration_results["intent_templates"])</span>
+
+<span class="s1">        logger.info("Calibration completed")</span>
+<span class="s1">        return calibration_results</span>
+
+<span class="s1">    def update_model_from_calibration(self, intent_templates: List[Dict[str, Any]]) -&gt; None:</span>
+<span class="s1">        """Update the generative model using calibration data"""</span>
+<span class="s1">        # Simple model update based on calibration</span>
+<span class="s1">        for template in intent_templates:</span>
+<span class="s1">            intent = template["intent"]</span>
+<span class="s1">            features = np.array(template["features"])</span>
+
+<span class="s1">            # Update observation model for this intent</span>
+<span class="s1">            self.A[:, intent] = 0.9 * self.A[:, intent] + 0.1 * features</span>
+
+<span class="s1">        # Renormalize</span>
+<span class="s1">        self.A = self.A / self.A.sum(axis=0)</span>
+
+
+<span class="s1"># Example usage</span>
+<span class="s1">if __name__ == "__main__":</span>
+<span class="s1">    config = </span><span class="se">{{</span>
+<span class="s1">        "n_channels": 64,</span>
+<span class="s1">        "sampling_rate": 1000,</span>
+<span class="s1">        "n_features": 128,</span>
+<span class="s1">        "n_intents": 8</span>
+<span class="s1">    </span><span class="se">}}</span>
+
+<span class="s1">    interface = NeuralInterface(config)</span>
+
+<span class="s1">    # Simulate neural data</span>
+<span class="s1">    n_samples = 1000</span>
+<span class="s1">    raw_signal = np.random.randn(config["n_channels"], n_samples)</span>
+
+<span class="s1">    # Process signal</span>
+<span class="s1">    processed = interface.process_neural_signal(raw_signal)</span>
+<span class="s1">    print(f"Extracted </span><span class="se">{{</span><span class="s1">len(processed['features'])</span><span class="se">}}</span><span class="s1"> features")</span>
+
+<span class="s1">    # Decode intent</span>
+<span class="s1">    decoded = interface.decode_intent(processed["features"])</span>
+<span class="s1">    print(f"Decoded intent: </span><span class="se">{{</span><span class="s1">decoded['decoded_intent']</span><span class="se">}}</span><span class="s1"> with confidence </span><span class="se">{{</span><span class="s1">decoded['confidence']:.3f</span><span class="se">}}</span><span class="s1">")</span>
+
+<span class="s1">    print(f"Signal quality SNR: </span><span class="se">{{</span><span class="s1">processed['signal_quality']['snr']:.1f</span><span class="se">}}</span><span class="s1">")</span>
+<span class="s1">'''</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"files"</span><span class="p">:</span> <span class="p">{</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s2">.py"</span><span class="p">:</span> <span class="n">neural_code</span><span class="p">},</span>
+            <span class="s2">"requirements"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="s2">"scipy"</span><span class="p">,</span> <span class="s2">"matplotlib"</span><span class="p">,</span> <span class="s2">"mne"</span><span class="p">],</span>
+            <span class="s2">"readme"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"# </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">nNeural interface using Active Inference for"</span>
+                <span class="s2">" brain-machine interfaces.</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">nFeatures:</span><span class="se">\\</span><span class="s2">n- Real-time neural"</span>
+                <span class="s2">" signal processing</span><span class="se">\\</span><span class="s2">n- Intent decoding</span><span class="se">\\</span><span class="s2">n- Adaptive learning</span><span class="se">\\</span><span class="s2">n-"</span>
+                <span class="s2">" Signal quality assessment"</span>
+            <span class="p">),</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TemplateManager">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.TemplateManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TemplateManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Manages application templates and generation"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">templates_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">templates_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">templates_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_generator</span> <span class="o">=</span> <span class="n">CodeGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">templates_dir</span> <span class="o">/</span> <span class="s2">"generated"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">templates</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TemplateType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"TemplateManager initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TemplateManager.generate_application">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.TemplateManager.generate_application">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TemplateConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate a complete application from template"""</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Generating application: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">template_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">template_type</span> <span class="o">==</span> <span class="n">TemplateType</span><span class="o">.</span><span class="n">BASIC_MODEL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_generator</span><span class="o">.</span><span class="n">generate_basic_model</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">template_type</span> <span class="o">==</span> <span class="n">TemplateType</span><span class="o">.</span><span class="n">RESEARCH_PIPELINE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_generator</span><span class="o">.</span><span class="n">generate_research_pipeline</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">template_type</span> <span class="o">==</span> <span class="n">TemplateType</span><span class="o">.</span><span class="n">ROBOTICS_CONTROL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_generator</span><span class="o">.</span><span class="n">generate_robotics_control</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">template_type</span> <span class="o">==</span> <span class="n">TemplateType</span><span class="o">.</span><span class="n">NEURAL_INTERFACE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">code_generator</span><span class="o">.</span><span class="n">generate_neural_interface</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Template type not implemented: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">template_type</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="TemplateManager.list_available_templates">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.TemplateManager.list_available_templates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_available_templates</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""List all available templates"""</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="n">template_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="s2">"type"</span><span class="p">:</span> <span class="n">template_type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Template for </span><span class="si">{</span><span class="n">template_type</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">template_type</span> <span class="ow">in</span> <span class="n">TemplateType</span>
+        <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="TemplateManager.create_custom_template">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.TemplateManager.create_custom_template">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_custom_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create a custom template"""</span>
+        <span class="n">template_name</span> <span class="o">=</span> <span class="n">template_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">template_name</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Template name required"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">template_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">templates_dir</span> <span class="o">/</span> <span class="s2">"custom"</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">template_name</span><span class="si">}</span><span class="s2">.json"</span>
+        <span class="n">template_file</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">template_file</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">template_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Created custom template: </span><span class="si">{</span><span class="n">template_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ApplicationFramework">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ApplicationFramework</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main application framework coordinating templates and case studies"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span> <span class="o">=</span> <span class="n">TemplateManager</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"templates_dir"</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"./templates"</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"ApplicationFramework initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ApplicationFramework.create_application">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.create_application">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_application</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">template_type</span><span class="p">:</span> <span class="n">TemplateType</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Create a new application from template"""</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">TemplateConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">template_type</span><span class="o">=</span><span class="n">template_type</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Application generated from </span><span class="si">{</span><span class="n">template_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> template"</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span> <span class="ow">or</span> <span class="p">{},</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span><span class="o">.</span><span class="n">generate_application</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApplicationFramework.get_template_info">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.get_template_info">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_template_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_type</span><span class="p">:</span> <span class="n">TemplateType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get information about a specific template"""</span>
+        <span class="n">templates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span><span class="o">.</span><span class="n">list_available_templates</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">((</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">templates</span> <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">==</span> <span class="n">template_type</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="p">{})</span></div>
+
+
+<div class="viewcode-block" id="ApplicationFramework.generate_basic_model">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.generate_basic_model">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_basic_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate complete basic Active Inference model with all required components</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: Model configuration parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Generated model components and code</span>
+<span class="sd">        """</span>
+        <span class="n">template_config</span> <span class="o">=</span> <span class="n">TemplateConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"basic_model"</span><span class="p">),</span>
+            <span class="n">template_type</span><span class="o">=</span><span class="n">TemplateType</span><span class="o">.</span><span class="n">BASIC_MODEL</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"Basic Active Inference model implementation"</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span><span class="o">.</span><span class="n">generate_application</span><span class="p">(</span><span class="n">template_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApplicationFramework.generate_research_pipeline">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.generate_research_pipeline">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_research_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate end-to-end research pipeline with experiment management</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: Pipeline configuration parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Generated pipeline components and code</span>
+<span class="sd">        """</span>
+        <span class="n">template_config</span> <span class="o">=</span> <span class="n">TemplateConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"research_pipeline"</span><span class="p">),</span>
+            <span class="n">template_type</span><span class="o">=</span><span class="n">TemplateType</span><span class="o">.</span><span class="n">RESEARCH_PIPELINE</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"Research pipeline with experiment management"</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span><span class="o">.</span><span class="n">generate_application</span><span class="p">(</span><span class="n">template_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApplicationFramework.generate_web_application">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.generate_web_application">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_web_application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate web application template with Active Inference backend</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: Web application configuration parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Generated web application components and code</span>
+<span class="sd">        """</span>
+        <span class="n">template_config</span> <span class="o">=</span> <span class="n">TemplateConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"web_app"</span><span class="p">),</span>
+            <span class="n">template_type</span><span class="o">=</span><span class="n">TemplateType</span><span class="o">.</span><span class="n">WEB_APPLICATION</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"Web application with Active Inference backend"</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span><span class="o">.</span><span class="n">generate_application</span><span class="p">(</span><span class="n">template_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApplicationFramework.generate_api_service">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.generate_api_service">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_api_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate REST API service for Active Inference model deployment</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: API service configuration parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Generated API service components and code</span>
+<span class="sd">        """</span>
+        <span class="n">template_config</span> <span class="o">=</span> <span class="n">TemplateConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"api_service"</span><span class="p">),</span>
+            <span class="n">template_type</span><span class="o">=</span><span class="n">TemplateType</span><span class="o">.</span><span class="n">API_SERVICE</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"REST API service for Active Inference models"</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span><span class="o">.</span><span class="n">generate_application</span><span class="p">(</span><span class="n">template_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApplicationFramework.generate_educational_tool">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.generate_educational_tool">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_educational_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate interactive educational tool with Active Inference concepts</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: Educational tool configuration parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Generated educational tool components and code</span>
+<span class="sd">        """</span>
+        <span class="n">template_config</span> <span class="o">=</span> <span class="n">TemplateConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"educational_tool"</span><span class="p">),</span>
+            <span class="n">template_type</span><span class="o">=</span><span class="n">TemplateType</span><span class="o">.</span><span class="n">EDUCATIONAL_TOOL</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"Interactive educational tool for Active Inference"</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_manager</span><span class="o">.</span><span class="n">generate_application</span><span class="p">(</span><span class="n">template_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApplicationFramework.validate_generated_code">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.validate_generated_code">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_generated_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">template_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Validate generated code for syntax, functionality, and best practices</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            code: Generated code to validate</span>
+<span class="sd">            template_type: Type of template used for generation</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Validation results dictionary</span>
+<span class="sd">        """</span>
+        <span class="n">validation_results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"warnings"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"suggestions"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Basic syntax validation</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">compile</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s2">"&lt;string&gt;"</span><span class="p">,</span> <span class="s2">"exec"</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">validation_results</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Syntax error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">validation_results</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Template-specific validation</span>
+        <span class="k">if</span> <span class="n">template_type</span> <span class="o">==</span> <span class="s2">"basic_model"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_validate_basic_model_code</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">validation_results</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">template_type</span> <span class="o">==</span> <span class="s2">"research_pipeline"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_validate_research_pipeline_code</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">validation_results</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">template_type</span> <span class="o">==</span> <span class="s2">"web_application"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_validate_web_app_code</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">validation_results</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">validation_results</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_basic_model_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Validate basic model code structure"""</span>
+        <span class="n">required_elements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"class.*Model"</span><span class="p">,</span> <span class="s2">"def __init__"</span><span class="p">,</span> <span class="s2">"def perceive"</span><span class="p">,</span> <span class="s2">"def act"</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">required_elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">element</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)):</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required element: </span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_research_pipeline_code</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Validate research pipeline code structure"""</span>
+        <span class="n">required_elements</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"def run_experiment"</span><span class="p">,</span>
+            <span class="s2">"def analyze_results"</span><span class="p">,</span>
+            <span class="s2">"def save_data"</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">required_elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">element</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)):</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required element: </span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_web_app_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Validate web application code structure"""</span>
+        <span class="n">required_elements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"from flask import"</span><span class="p">,</span> <span class="s2">"@app.route"</span><span class="p">,</span> <span class="s2">"def index"</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">required_elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">element</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)):</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required element: </span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="ApplicationFramework.create_template_from_specification">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.create_template_from_specification">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_template_from_specification</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TemplateConfig</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create custom template from detailed specification</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            spec: Template specification dictionary</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured template object</span>
+<span class="sd">        """</span>
+        <span class="c1"># Extract basic information</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"custom_template"</span><span class="p">)</span>
+        <span class="n">template_type</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"type"</span><span class="p">,</span> <span class="n">TemplateType</span><span class="o">.</span><span class="n">BASIC_MODEL</span><span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">,</span> <span class="s2">"Custom template"</span><span class="p">)</span>
+
+        <span class="c1"># Convert string type to enum if needed</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">template_type</span> <span class="o">=</span> <span class="n">TemplateType</span><span class="p">(</span><span class="n">template_type</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Unknown template type: </span><span class="si">{</span><span class="n">template_type</span><span class="si">}</span><span class="s2">, using BASIC_MODEL"</span>
+                <span class="p">)</span>
+                <span class="n">template_type</span> <span class="o">=</span> <span class="n">TemplateType</span><span class="o">.</span><span class="n">BASIC_MODEL</span>
+
+        <span class="c1"># Create template configuration</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">TemplateConfig</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">template_type</span><span class="o">=</span><span class="n">template_type</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"parameters"</span><span class="p">,</span> <span class="p">{}),</span>
+            <span class="n">output_directory</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"output_directory"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Validate specification</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_template_specification</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">config</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_template_specification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Validate template specification completeness"""</span>
+        <span class="n">required_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="n">required_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Missing required field in specification: </span><span class="si">{</span><span class="n">field_name</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Validate template type</span>
+        <span class="n">template_type</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"type"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">template_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template_type</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">TemplateType</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Template type must be string or TemplateType enum"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ApplicationFramework.optimize_template_performance">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ApplicationFramework.optimize_template_performance">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimize_template_performance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Optimize generated template code for performance and efficiency</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            template_code: Generated template code</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Optimized code</span>
+<span class="sd">        """</span>
+        <span class="n">optimized_code</span> <span class="o">=</span> <span class="n">template_code</span>
+
+        <span class="c1"># Apply performance optimizations</span>
+        <span class="n">optimizations</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_optimize_imports</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_optimize_loops</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_optimize_memory_usage</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_optimize_computations</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">optimization</span> <span class="ow">in</span> <span class="n">optimizations</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">optimized_code</span> <span class="o">=</span> <span class="n">optimization</span><span class="p">(</span><span class="n">optimized_code</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Optimization failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">optimized_code</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_optimize_imports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Optimize import statements"""</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">import_lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">other_lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"import "</span><span class="p">)</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"from "</span><span class="p">):</span>
+                <span class="n">import_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">other_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="c1"># Sort and deduplicate imports</span>
+        <span class="n">import_lines</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">import_lines</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">import_lines</span> <span class="o">+</span> <span class="p">[</span><span class="s2">""</span><span class="p">]</span> <span class="o">+</span> <span class="n">other_lines</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_optimize_loops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Optimize loop constructs"""</span>
+        <span class="c1"># Basic loop optimization - this would be more sophisticated in practice</span>
+        <span class="k">return</span> <span class="n">code</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"for i in range(len(list)):"</span><span class="p">,</span> <span class="s2">"for item in list:"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_optimize_memory_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Optimize memory usage patterns"""</span>
+        <span class="c1"># Basic memory optimization - replace list comprehensions where appropriate</span>
+        <span class="k">return</span> <span class="n">code</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_optimize_computations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Optimize computational patterns"""</span>
+        <span class="c1"># Basic computational optimization</span>
+        <span class="k">return</span> <span class="n">code</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"x * 2"</span><span class="p">,</span> <span class="s2">"x &lt;&lt; 1"</span><span class="p">)</span>  <span class="c1"># For integers only</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

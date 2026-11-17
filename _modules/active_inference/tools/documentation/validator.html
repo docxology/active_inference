@@ -1,0 +1,1063 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.tools.documentation.validator &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.tools.documentation.validator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.tools.documentation.validator</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Documentation Validator</span>
+
+<span class="sd">Validates documentation structure, content, and adherence to standards.</span>
+<span class="sd">Provides comprehensive validation of documentation completeness and quality.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_node_kind</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">ast</span><span class="o">.</span><span class="n">AST</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Class"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Label an AST node as Function/Class, falling back to ``default``."""</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"Function"</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"Class"</span>
+    <span class="k">return</span> <span class="n">default</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ValidationRule</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A documentation validation rule"""</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">severity</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># 'error', 'warning', 'info'</span>
+    <span class="n">category</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># 'structure', 'content', 'style', 'completeness'</span>
+    <span class="n">check_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Path</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="s2">"ValidationResult"</span><span class="p">]]</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ValidationResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Result of a validation check"""</span>
+
+    <span class="n">rule_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">severity</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">line_number</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">element_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">suggestion</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="DocumentationValidator">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationValidator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentationValidator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Comprehensive documentation validator.</span>
+
+<span class="sd">    Validates documentation against established standards, checks for</span>
+<span class="sd">    completeness, consistency, and quality issues.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Initialize documentation validator</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_paths: List of source directories to validate</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">source_paths</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="c1"># Initialize validation rules</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rules</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_validation_rules</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Documentation validator initialized with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rules</span><span class="p">)</span><span class="si">}</span><span class="s2"> rules"</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_validation_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationRule</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Initialize validation rules"""</span>
+        <span class="n">rules</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Structure rules</span>
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"module_docstring_required"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Module must have a docstring"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"error"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"structure"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_module_docstring</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"class_docstring_required"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Class must have a docstring"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"error"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"structure"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_class_docstring</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"function_docstring_required"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Public function must have a docstring"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"structure"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_function_docstring</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Content rules</span>
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"docstring_has_summary"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Docstring must have a summary line"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"content"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_docstring_summary</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"docstring_has_description"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">"Docstring should have a description beyond just the summary"</span>
+                <span class="p">),</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"content"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_docstring_description</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"parameters_documented"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Function parameters should be documented"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"content"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_parameter_documentation</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"returns_documented"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Function return values should be documented"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"content"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_return_documentation</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Style rules</span>
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"docstring_format_consistent"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Docstring format should be consistent"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"style"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_docstring_format</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"no_broken_links"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Documentation should not contain broken links"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"content"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_broken_links</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Completeness rules</span>
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"examples_provided"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Important functions should have usage examples"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"completeness"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_examples</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ValidationRule</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">"raises_documented"</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Functions that can raise exceptions should document them"</span><span class="p">,</span>
+                <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                <span class="n">category</span><span class="o">=</span><span class="s2">"completeness"</span><span class="p">,</span>
+                <span class="n">check_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_exception_documentation</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">rules</span>
+
+<div class="viewcode-block" id="DocumentationValidator.validate_documentation">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationValidator.validate_documentation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Perform comprehensive documentation validation</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Complete validation report</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Starting comprehensive documentation validation"</span><span class="p">)</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">warnings</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Run all validation rules</span>
+        <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rules</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">rule_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_validation_rule</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">rule_results</span><span class="p">)</span>
+
+                <span class="c1"># Count by severity</span>
+                <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">rule_results</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="s2">"error"</span><span class="p">:</span>
+                        <span class="n">errors</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="s2">"warning"</span><span class="p">:</span>
+                        <span class="n">warnings</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="s2">"info"</span><span class="p">:</span>
+                        <span class="n">info</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error running validation rule </span><span class="si">{</span><span class="n">rule</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Generate summary</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"total_issues"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">),</span>
+            <span class="s2">"errors"</span><span class="p">:</span> <span class="n">errors</span><span class="p">,</span>
+            <span class="s2">"warnings"</span><span class="p">:</span> <span class="n">warnings</span><span class="p">,</span>
+            <span class="s2">"info"</span><span class="p">:</span> <span class="n">info</span><span class="p">,</span>
+            <span class="s2">"validation_passed"</span><span class="p">:</span> <span class="n">errors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"results_by_category"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_results_by_category</span><span class="p">(</span><span class="n">results</span><span class="p">),</span>
+            <span class="s2">"results_by_file"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_results_by_file</span><span class="p">(</span><span class="n">results</span><span class="p">),</span>
+            <span class="s2">"results"</span><span class="p">:</span> <span class="n">results</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Documentation validation completed: </span><span class="si">{</span><span class="n">errors</span><span class="si">}</span><span class="s2"> errors, </span><span class="si">{</span><span class="n">warnings</span><span class="si">}</span><span class="s2"> warnings,"</span>
+            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">info</span><span class="si">}</span><span class="s2"> info"</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">summary</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_validation_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule</span><span class="p">:</span> <span class="n">ValidationRule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Run a single validation rule"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">source_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_paths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">source_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Find Python files</span>
+            <span class="n">python_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">source_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+            <span class="n">python_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">python_files</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_ignore</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
+
+            <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">file_results</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">check_function</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">file_results</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Error checking </span><span class="si">{</span><span class="n">rule</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_module_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if module has docstring"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+            <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">docstring</span><span class="p">:</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">ValidationResult</span><span class="p">(</span>
+                        <span class="n">rule_name</span><span class="o">=</span><span class="s2">"module_docstring_required"</span><span class="p">,</span>
+                        <span class="n">severity</span><span class="o">=</span><span class="s2">"error"</span><span class="p">,</span>
+                        <span class="n">message</span><span class="o">=</span><span class="s2">"Module is missing docstring"</span><span class="p">,</span>
+                        <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                        <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                            <span class="s2">"Add a module docstring describing the module's purpose and"</span>
+                            <span class="s2">" functionality"</span>
+                        <span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">ValidationResult</span><span class="p">(</span>
+                    <span class="n">rule_name</span><span class="o">=</span><span class="s2">"module_docstring_required"</span><span class="p">,</span>
+                    <span class="n">severity</span><span class="o">=</span><span class="s2">"error"</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Could not parse module: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_class_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if classes have docstrings"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">):</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">docstring</span><span class="p">:</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">ValidationResult</span><span class="p">(</span>
+                                <span class="n">rule_name</span><span class="o">=</span><span class="s2">"class_docstring_required"</span><span class="p">,</span>
+                                <span class="n">severity</span><span class="o">=</span><span class="s2">"error"</span><span class="p">,</span>
+                                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Class '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' is missing docstring"</span><span class="p">,</span>
+                                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="s2">"Add a class docstring describing the class"</span>
+                                    <span class="s2">" purpose, parameters, and methods"</span>
+                                <span class="p">),</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error checking classes in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_function_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if public functions have docstrings"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                    <span class="c1"># Skip private functions (starting with _)</span>
+                    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"_"</span><span class="p">):</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">docstring</span><span class="p">:</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">ValidationResult</span><span class="p">(</span>
+                                <span class="n">rule_name</span><span class="o">=</span><span class="s2">"function_docstring_required"</span><span class="p">,</span>
+                                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Function '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' is missing docstring"</span><span class="p">,</span>
+                                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="s2">"Add a function docstring describing parameters,"</span>
+                                    <span class="s2">" return value, and behavior"</span>
+                                <span class="p">),</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error checking functions in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_docstring_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if docstrings have proper summaries"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="c1"># Check module docstring</span>
+            <span class="n">module_docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">module_docstring</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_proper_summary</span><span class="p">(</span><span class="n">module_docstring</span><span class="p">):</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">ValidationResult</span><span class="p">(</span>
+                            <span class="n">rule_name</span><span class="o">=</span><span class="s2">"docstring_has_summary"</span><span class="p">,</span>
+                            <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                            <span class="n">message</span><span class="o">=</span><span class="s2">"Module docstring missing proper summary"</span><span class="p">,</span>
+                            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                            <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                <span class="s2">"Add a concise summary line at the beginning of the"</span>
+                                <span class="s2">" module docstring"</span>
+                            <span class="p">),</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+            <span class="c1"># Check function and class docstrings</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)):</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">docstring</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_proper_summary</span><span class="p">(</span><span class="n">docstring</span><span class="p">):</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">ValidationResult</span><span class="p">(</span>
+                                <span class="n">rule_name</span><span class="o">=</span><span class="s2">"docstring_has_summary"</span><span class="p">,</span>
+                                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">_node_kind</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                                    <span class="sa">f</span><span class="s2">" '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' docstring missing proper summary"</span>
+                                <span class="p">),</span>
+                                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="s2">"Add a concise summary line at the beginning of the"</span>
+                                    <span class="s2">" docstring"</span>
+                                <span class="p">),</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Error checking docstring summaries in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_docstring_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if docstrings have descriptions beyond summary"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">)):</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">docstring</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_description</span><span class="p">(</span><span class="n">docstring</span><span class="p">):</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">ValidationResult</span><span class="p">(</span>
+                                <span class="n">rule_name</span><span class="o">=</span><span class="s2">"docstring_has_description"</span><span class="p">,</span>
+                                <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">_node_kind</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                                    <span class="sa">f</span><span class="s2">" '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' docstring could use more detailed"</span>
+                                    <span class="s2">" description"</span>
+                                <span class="p">),</span>
+                                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="s2">"Add a more detailed description of the"</span>
+                                    <span class="s2">" functionality and behavior"</span>
+                                <span class="p">),</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Error checking docstring descriptions in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_parameter_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if function parameters are documented"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">docstring</span><span class="p">:</span>
+                        <span class="c1"># Get function parameters</span>
+                        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">arg</span><span class="o">.</span><span class="n">arg</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">arg</span> <span class="o">!=</span> <span class="s2">"self"</span><span class="p">]</span>
+
+                        <span class="c1"># Check if parameters are documented in docstring</span>
+                        <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters_documented</span><span class="p">(</span><span class="n">docstring</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+                            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">ValidationResult</span><span class="p">(</span>
+                                    <span class="n">rule_name</span><span class="o">=</span><span class="s2">"parameters_documented"</span><span class="p">,</span>
+                                    <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="sa">f</span><span class="s2">"Function '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' parameters not"</span>
+                                        <span class="s2">" documented"</span>
+                                    <span class="p">),</span>
+                                    <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                    <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                    <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="s2">"Add parameter documentation in Args section:"</span>
+                                        <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                                    <span class="p">),</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Error checking parameter documentation in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_return_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if function return values are documented"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">docstring</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">returns</span><span class="p">:</span>
+                        <span class="c1"># Check if return value is documented</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_return_documented</span><span class="p">(</span><span class="n">docstring</span><span class="p">):</span>
+                            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">ValidationResult</span><span class="p">(</span>
+                                    <span class="n">rule_name</span><span class="o">=</span><span class="s2">"returns_documented"</span><span class="p">,</span>
+                                    <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="sa">f</span><span class="s2">"Function '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' return value not"</span>
+                                        <span class="s2">" documented"</span>
+                                    <span class="p">),</span>
+                                    <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                    <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                    <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="s2">"Add return value documentation in Returns"</span>
+                                        <span class="s2">" section"</span>
+                                    <span class="p">),</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Error checking return documentation in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_docstring_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check docstring format consistency"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">ClassDef</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Module</span><span class="p">)):</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">docstring</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_docstring_format</span><span class="p">(</span><span class="n">docstring</span><span class="p">):</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">ValidationResult</span><span class="p">(</span>
+                                <span class="n">rule_name</span><span class="o">=</span><span class="s2">"docstring_format_consistent"</span><span class="p">,</span>
+                                <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">_node_kind</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">default</span><span class="o">=</span><span class="s1">'Module'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                                    <span class="s2">" docstring format could be improved"</span>
+                                <span class="p">),</span>
+                                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                <span class="n">line_number</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">"lineno"</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                                <span class="n">element_name</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"module"</span><span class="p">),</span>
+                                <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="s2">"Use consistent docstring format with proper"</span>
+                                    <span class="s2">" sections and formatting"</span>
+                                <span class="p">),</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error checking docstring format in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_broken_links</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check for broken links in documentation"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="c1"># Look for links in docstrings and comments</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="c1"># Check for URLs</span>
+                <span class="n">urls</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"https?://[^\s)]+"</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+                    <span class="c1"># Simple validation - could be enhanced with actual HTTP checks</span>
+                    <span class="k">if</span> <span class="s2">"localhost"</span> <span class="ow">in</span> <span class="n">url</span> <span class="ow">or</span> <span class="s2">"127.0.0.1"</span> <span class="ow">in</span> <span class="n">url</span><span class="p">:</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">ValidationResult</span><span class="p">(</span>
+                                <span class="n">rule_name</span><span class="o">=</span><span class="s2">"no_broken_links"</span><span class="p">,</span>
+                                <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+                                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Localhost URL found in documentation: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                <span class="n">line_number</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+                                <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                    <span class="s2">"Replace localhost URLs with relative paths or"</span>
+                                    <span class="s2">" proper documentation links"</span>
+                                <span class="p">),</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error checking links in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if important functions have examples"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Define which functions should have examples (could be configurable)</span>
+        <span class="n">important_functions</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"main"</span><span class="p">,</span>
+            <span class="s2">"run"</span><span class="p">,</span>
+            <span class="s2">"execute"</span><span class="p">,</span>
+            <span class="s2">"process"</span><span class="p">,</span>
+            <span class="s2">"generate"</span><span class="p">,</span>
+            <span class="s2">"create"</span><span class="p">,</span>
+            <span class="s2">"build"</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+                        <span class="n">important</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                        <span class="k">for</span> <span class="n">important</span> <span class="ow">in</span> <span class="n">important_functions</span>
+                    <span class="p">):</span>
+                        <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">docstring</span> <span class="ow">and</span> <span class="s2">"example"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">docstring</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">ValidationResult</span><span class="p">(</span>
+                                    <span class="n">rule_name</span><span class="o">=</span><span class="s2">"examples_provided"</span><span class="p">,</span>
+                                    <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="sa">f</span><span class="s2">"Important function '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' should have"</span>
+                                        <span class="s2">" usage examples"</span>
+                                    <span class="p">),</span>
+                                    <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                    <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                    <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="s2">"Add usage examples in Examples section of"</span>
+                                        <span class="s2">" docstring"</span>
+                                    <span class="p">),</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error checking examples in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_exception_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Check if functions document exceptions they can raise"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">docstring</span><span class="p">:</span>
+                        <span class="c1"># Check if function has exception handling</span>
+                        <span class="n">has_exceptions</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+                            <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">Try</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Raise</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                        <span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">has_exceptions</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exceptions_documented</span><span class="p">(</span>
+                            <span class="n">docstring</span>
+                        <span class="p">):</span>
+                            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">ValidationResult</span><span class="p">(</span>
+                                    <span class="n">rule_name</span><span class="o">=</span><span class="s2">"raises_documented"</span><span class="p">,</span>
+                                    <span class="n">severity</span><span class="o">=</span><span class="s2">"info"</span><span class="p">,</span>
+                                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="sa">f</span><span class="s2">"Function '</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' should document"</span>
+                                        <span class="s2">" exceptions it can raise"</span>
+                                    <span class="p">),</span>
+                                    <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                                    <span class="n">line_number</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span>
+                                    <span class="n">element_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="n">suggestion</span><span class="o">=</span><span class="p">(</span>
+                                        <span class="s2">"Add exception documentation in Raises section"</span>
+                                    <span class="p">),</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Error checking exception documentation in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="c1"># Helper methods for validation checks</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_has_proper_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if docstring has a proper summary line"""</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">summary</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_has_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if docstring has description beyond summary"""</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Check if there are lines after the summary that contain substantial content</span>
+        <span class="n">content_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">content_lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content_lines</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parameters_documented</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if function parameters are documented"""</span>
+        <span class="n">docstring_lower</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">docstring_lower</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_return_documented</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if return value is documented"""</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">keyword</span> <span class="ow">in</span> <span class="n">docstring</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"returns"</span><span class="p">,</span> <span class="s2">"return"</span><span class="p">,</span> <span class="s2">"yields"</span><span class="p">,</span> <span class="s2">"yield"</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_valid_docstring_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if docstring follows good formatting practices"""</span>
+        <span class="c1"># Check for common formatting issues</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="c1"># Should not be too long without sections</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="s2">":"</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Should not have inconsistent indentation</span>
+        <span class="n">non_empty_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">non_empty_lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">indentations</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">non_empty_lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">indentations</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># More than 2 different indentations</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_exceptions_documented</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if exceptions are documented"""</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">keyword</span> <span class="ow">in</span> <span class="n">docstring</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"raises"</span><span class="p">,</span> <span class="s2">"exceptions"</span><span class="p">,</span> <span class="s2">"exception"</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_should_ignore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check if file should be ignored in validation"""</span>
+        <span class="n">path_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="n">ignore_patterns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"__pycache__"</span><span class="p">,</span>
+            <span class="s2">".git"</span><span class="p">,</span>
+            <span class="s2">"node_modules"</span><span class="p">,</span>
+            <span class="s2">".pytest_cache"</span><span class="p">,</span>
+            <span class="s2">"build"</span><span class="p">,</span>
+            <span class="s2">"dist"</span><span class="p">,</span>
+            <span class="s2">".coverage"</span><span class="p">,</span>
+            <span class="s2">"*.egg-info"</span><span class="p">,</span>
+            <span class="s2">"test_"</span><span class="p">,</span>
+            <span class="s2">"_test"</span><span class="p">,</span>
+            <span class="s2">"tests"</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">ignore_patterns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">path_str</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_group_results_by_category</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Group validation results by category"""</span>
+        <span class="n">categories</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="c1"># Find the rule that generated this result</span>
+            <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rules</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">rule</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">result</span><span class="o">.</span><span class="n">rule_name</span><span class="p">:</span>
+                    <span class="n">categories</span><span class="p">[</span><span class="n">rule</span><span class="o">.</span><span class="n">category</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_group_results_by_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ValidationResult</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Group validation results by file"""</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">file_path</span><span class="p">:</span>
+                <span class="n">files</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">file_path</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DocumentationValidator.generate_validation_report">
+<a class="viewcode-back" href="../../../../api/tools.html#active_inference.tools.DocumentationValidator.generate_validation_report">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_validation_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate detailed validation report</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            output_path: Optional path to save report</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Validation report as string</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Generating validation report"</span><span class="p">)</span>
+
+        <span class="n">validation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_documentation</span><span class="p">()</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_validation_report</span><span class="p">(</span><span class="n">validation</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_path</span><span class="p">:</span>
+            <span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Validation report saved to </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">report</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_format_validation_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">validation</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Format validation results into readable report"""</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"# Documentation Validation Report"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">45</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Summary</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Summary"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Total Issues:** </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'total_issues'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Errors:** </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'errors'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Warnings:** </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'warnings'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **Info:** </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'info'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">"- **Validation Passed:**"</span>
+            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="s1">'✅ Yes'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">validation</span><span class="p">[</span><span class="s1">'validation_passed'</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'❌ No'</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Results by category</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Issues by Category"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"results_by_category"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"### </span><span class="si">{</span><span class="n">category</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> issues)"</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>  <span class="c1"># Show first 10</span>
+                    <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">severity</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">:** </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">file_path</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">element_name</span><span class="p">:</span>
+                        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"  - File: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">file_path</span><span class="si">}</span><span class="s2">, Element:"</span>
+                            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">element_name</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">file_path</span><span class="p">:</span>
+                        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - File: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">file_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">suggestion</span><span class="p">:</span>
+                        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - Suggestion: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">suggestion</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+                    <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- ... and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="si">}</span><span class="s2"> more"</span><span class="p">)</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Results by file</span>
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"results_by_file"</span><span class="p">]:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Issues by File"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"results_by_file"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
+                    <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"### </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> issues)"</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">severity</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">:** </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">element_name</span><span class="p">:</span>
+                            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - Element: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">element_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">suggestion</span><span class="p">:</span>
+                            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - Suggestion: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">suggestion</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                    <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="c1"># Recommendations</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"## Recommendations"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"errors"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"1. **Fix all errors** before proceeding"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"warnings"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"2. **Address </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'warnings'</span><span class="p">]</span><span class="si">}</span><span class="s2"> warnings** to improve"</span>
+                <span class="s2">" documentation quality"</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"info"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"3. **Review </span><span class="si">{</span><span class="n">validation</span><span class="p">[</span><span class="s1">'info'</span><span class="p">]</span><span class="si">}</span><span class="s2"> suggestions** for best practices"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">validation</span><span class="p">[</span><span class="s2">"validation_passed"</span><span class="p">]:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"🎉 **All validation checks passed!**"</span><span class="p">)</span>
+
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

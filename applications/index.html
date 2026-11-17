@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Framework &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Application Framework</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/applications/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="application-framework">
+<h1>Application Framework<a class="headerlink" href="#application-framework" title="Link to this heading"></a></h1>
+<p>Practical applications and case studies for Active Inference. This framework
+provides templates, examples, and best practices for applying active inference
+principles in real-world scenarios.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The application framework includes:</p>
+<dl class="simple">
+<dt>📋 <strong>Template Library</strong></dt><dd><p>Ready-to-use implementation patterns</p>
+</dd>
+<dt>📖 <strong>Case Studies</strong></dt><dd><p>Real-world application examples</p>
+</dd>
+<dt>🔗 <strong>Integration Tools</strong></dt><dd><p>APIs and connectors for external systems</p>
+</dd>
+<dt>📋 <strong>Best Practices</strong></dt><dd><p>Guidelines and architectural patterns</p>
+</dd>
+</dl>
+</section>
+<section id="application-types">
+<h2>Application Types<a class="headerlink" href="#application-types" title="Link to this heading"></a></h2>
+<section id="robotics-and-control">
+<h3>Robotics and Control<a class="headerlink" href="#robotics-and-control" title="Link to this heading"></a></h3>
+<p>Active inference in robotic systems:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">RoboticsController</span>
+
+<span class="c1"># Configure robot controller</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">RoboticsController</span><span class="p">()</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">set_model</span><span class="p">(</span><span class="s2">"hierarchical_control"</span><span class="p">)</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">add_sensors</span><span class="p">([</span><span class="s2">"camera"</span><span class="p">,</span> <span class="s2">"lidar"</span><span class="p">,</span> <span class="s2">"imu"</span><span class="p">])</span>
+
+<span class="c1"># Run control loop</span>
+<span class="k">while</span> <span class="n">running</span><span class="p">:</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">update_beliefs</span><span class="p">()</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">select_action</span><span class="p">()</span>
+    <span class="n">controller</span><span class="o">.</span><span class="n">execute_action</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="neuroscience-applications">
+<h3>Neuroscience Applications<a class="headerlink" href="#neuroscience-applications" title="Link to this heading"></a></h3>
+<p>Modeling neural systems:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">NeuralModel</span>
+
+<span class="c1"># Create neural model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">NeuralModel</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="s2">"sensory"</span><span class="p">,</span> <span class="n">neurons</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="s2">"hidden"</span><span class="p">,</span> <span class="n">neurons</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="s2">"motor"</span><span class="p">,</span> <span class="n">neurons</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Train and simulate</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train_on_data</span><span class="p">(</span><span class="n">neural_data</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">simulate_activity</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="cognitive-modeling">
+<h3>Cognitive Modeling<a class="headerlink" href="#cognitive-modeling" title="Link to this heading"></a></h3>
+<p>Human cognition and behavior:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">CognitiveModel</span>
+
+<span class="c1"># Model decision making</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CognitiveModel</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">set_task</span><span class="p">(</span><span class="s2">"multiarmed_bandit"</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">set_preferences</span><span class="p">([</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span>
+
+<span class="c1"># Simulate behavior</span>
+<span class="n">choices</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate_choices</span><span class="p">(</span><span class="n">n_trials</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="machine-learning">
+<h3>Machine Learning<a class="headerlink" href="#machine-learning" title="Link to this heading"></a></h3>
+<p>Integration with ML frameworks:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">MLIntegration</span>
+
+<span class="c1"># Enhance neural network</span>
+<span class="n">network</span> <span class="o">=</span> <span class="n">MLIntegration</span><span class="o">.</span><span class="n">wrap_model</span><span class="p">(</span><span class="n">neural_net</span><span class="p">)</span>
+<span class="n">network</span><span class="o">.</span><span class="n">add_active_inference_layer</span><span class="p">()</span>
+
+<span class="c1"># Train with active inference</span>
+<span class="n">network</span><span class="o">.</span><span class="n">train_with_preference_learning</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Link to this heading"></a></h2>
+<p>Ready-to-use application templates:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate application templates</span>
+ai-applications<span class="w"> </span>templates<span class="w"> </span>generate<span class="w"> </span>robotics
+
+<span class="c1"># List available templates</span>
+ai-applications<span class="w"> </span>templates<span class="w"> </span>list
+
+<span class="c1"># Customize template</span>
+ai-applications<span class="w"> </span>templates<span class="w"> </span>customize<span class="w"> </span>neuroscience
+</pre></div>
+</div>
+</section>
+<section id="case-studies">
+<h2>Case Studies<a class="headerlink" href="#case-studies" title="Link to this heading"></a></h2>
+<p>Real-world implementation examples:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run case study examples</span>
+ai-applications<span class="w"> </span>examples<span class="w"> </span>run<span class="w"> </span>perception
+
+<span class="c1"># Analyze case study results</span>
+ai-applications<span class="w"> </span>examples<span class="w"> </span>analyze
+
+<span class="c1"># Generate case study report</span>
+ai-applications<span class="w"> </span>examples<span class="w"> </span>report
+</pre></div>
+</div>
+</section>
+<section id="integration-tools">
+<h2>Integration Tools<a class="headerlink" href="#integration-tools" title="Link to this heading"></a></h2>
+<p>Connect with external systems:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntegrationManager</span>
+
+<span class="c1"># Set up integrations</span>
+<span class="n">integrations</span> <span class="o">=</span> <span class="n">IntegrationManager</span><span class="p">()</span>
+<span class="n">integrations</span><span class="o">.</span><span class="n">add_ros_bridge</span><span class="p">()</span>
+<span class="n">integrations</span><span class="o">.</span><span class="n">add_matlab_interface</span><span class="p">()</span>
+<span class="n">integrations</span><span class="o">.</span><span class="n">add_web_api</span><span class="p">()</span>
+
+<span class="c1"># Configure data flow</span>
+<span class="n">integrations</span><span class="o">.</span><span class="n">setup_data_pipeline</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<p>Architectural and implementation guidelines:</p>
+<ol class="arabic simple">
+<li><p><strong>Modular Design</strong> - Separate concerns clearly</p></li>
+<li><p><strong>Error Handling</strong> - Robust exception management</p></li>
+<li><p><strong>Performance</strong> - Optimize for real-time applications</p></li>
+<li><p><strong>Testing</strong> - Comprehensive test coverage</p></li>
+<li><p><strong>Documentation</strong> - Clear API documentation</p></li>
+</ol>
+</section>
+<section id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Link to this heading"></a></h2>
+<p>Deploy applications in various environments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeploymentManager</span>
+
+<span class="c1"># Container deployment</span>
+<span class="n">deployer</span> <span class="o">=</span> <span class="n">DeploymentManager</span><span class="p">()</span>
+<span class="n">deployer</span><span class="o">.</span><span class="n">build_docker_image</span><span class="p">()</span>
+<span class="n">deployer</span><span class="o">.</span><span class="n">deploy_to_kubernetes</span><span class="p">()</span>
+
+<span class="c1"># Edge deployment</span>
+<span class="n">deployer</span><span class="o">.</span><span class="n">deploy_to_edge_device</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-optimization">
+<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<p>Optimize for production use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Performance tuning</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">PerformanceOptimizer</span><span class="p">()</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">enable_gpu_acceleration</span><span class="p">()</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">optimize_memory_usage</span><span class="p">()</span>
+<span class="n">optimizer</span><span class="o">.</span><span class="n">parallelize_computation</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<p>Start with application templates:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create your first application</span>
+ai-applications<span class="w"> </span>templates<span class="w"> </span>generate<span class="w"> </span>simple_agent
+
+<span class="c1"># Run example applications</span>
+ai-applications<span class="w"> </span>examples<span class="w"> </span>run<span class="w"> </span>all
+
+<span class="c1"># Set up development environment</span>
+ai-applications<span class="w"> </span>setup<span class="w"> </span>dev
+</pre></div>
+</div>
+</section>
+<section id="community-applications">
+<h2>Community Applications<a class="headerlink" href="#community-applications" title="Link to this heading"></a></h2>
+<p>Contribute and share applications:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Submit your application</span>
+ai-applications<span class="w"> </span>submit<span class="w"> </span>my_application
+
+<span class="c1"># Browse community applications</span>
+ai-applications<span class="w"> </span>browse<span class="w"> </span>community
+
+<span class="c1"># Get application support</span>
+ai-applications<span class="w"> </span>support
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For theoretical background, see <a class="reference internal" href="../knowledge/index.html"><span class="doc">Knowledge Repository</span></a>.
+For research tools, see <a class="reference internal" href="../research/index.html"><span class="doc">Research Tools</span></a>.
+For visualization tools, see <a class="reference internal" href="../visualization/index.html"><span class="doc">Visualization System</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

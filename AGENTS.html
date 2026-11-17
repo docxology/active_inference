@@ -1,0 +1,646 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b676973c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/AGENTS.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Documentation - Agent Documentation</p>
+<p>This document provides comprehensive guidance for AI agents and contributors working within the Documentation module of the Active Inference Knowledge Environment. It outlines documentation standards, content organization, and best practices for creating comprehensive, accessible documentation.</p>
+<p>## Documentation Module Overview</p>
+<p>The Documentation module provides a centralized location for all project documentation, ensuring that users, developers, and contributors have access to comprehensive, up-to-date information. The documentation is organized to support different user types and use cases, with clear pathways for learning, development, and contribution.</p>
+<p>## Core Responsibilities</p>
+<p>### Content Creation and Management
+- <strong>User Documentation</strong>: Create and maintain user guides and tutorials
+- <strong>Developer Documentation</strong>: Maintain API reference and development guides
+- <strong>Educational Content</strong>: Develop and organize educational materials
+- <strong>Platform Documentation</strong>: Document system administration and deployment
+- <strong>Quality Assurance</strong>: Ensure documentation accuracy and completeness</p>
+<p>### Documentation Infrastructure
+- <strong>Build System</strong>: Maintain Sphinx documentation build system
+- <strong>Content Organization</strong>: Organize documentation for optimal accessibility
+- <strong>Cross-Referencing</strong>: Implement comprehensive cross-reference systems
+- <strong>Search and Navigation</strong>: Ensure effective search and navigation
+- <strong>Version Management</strong>: Manage documentation versions and updates</p>
+<p>### Community Support
+- <strong>User Support</strong>: Provide clear documentation for user questions
+- <strong>Developer Support</strong>: Maintain comprehensive developer resources
+- <strong>Contribution Support</strong>: Support documentation contributors
+- <strong>Feedback Integration</strong>: Incorporate community feedback
+- <strong>Accessibility</strong>: Ensure documentation accessibility for all users</p>
+<p>## Development Workflows</p>
+<p>### Content Creation Process
+1. <strong>Identify Documentation Needs</strong>: Analyze gaps in current documentation
+2. <strong>Research Requirements</strong>: Understand target audience and requirements
+3. <strong>Content Planning</strong>: Plan documentation structure and content
+4. <strong>Content Creation</strong>: Write comprehensive documentation
+5. <strong>Review and Editing</strong>: Review for clarity, accuracy, and completeness
+6. <strong>Integration</strong>: Integrate with documentation build system
+7. <strong>Publication</strong>: Publish and make documentation available
+8. <strong>Maintenance</strong>: Update documentation as needed</p>
+<p>### Documentation Update Process
+1. <strong>Change Detection</strong>: Identify when documentation needs updates
+2. <strong>Content Analysis</strong>: Analyze what needs to be updated
+3. <strong>Content Update</strong>: Update documentation content
+4. <strong>Cross-Reference Update</strong>: Update related documentation
+5. <strong>Review</strong>: Review changes for accuracy
+6. <strong>Build and Test</strong>: Build and test documentation
+7. <strong>Publication</strong>: Publish updated documentation
+8. <strong>Notification</strong>: Notify relevant stakeholders</p>
+<p>### Quality Assurance Process
+1. <strong>Content Review</strong>: Review documentation for accuracy
+2. <strong>Technical Validation</strong>: Validate technical content correctness
+3. <strong>Clarity Assessment</strong>: Assess documentation clarity and accessibility
+4. <strong>Completeness Check</strong>: Ensure comprehensive coverage
+5. <strong>Build Testing</strong>: Test documentation build process
+6. <strong>Cross-Reference Validation</strong>: Verify cross-references work
+7. <strong>User Testing</strong>: Test documentation usability
+8. <strong>Feedback Integration</strong>: Incorporate feedback and improvements</p>
+<p>## Quality Standards</p>
+<p>### Content Quality
+- <strong>Accuracy</strong>: All information must be technically accurate
+- <strong>Clarity</strong>: Use clear, accessible language with progressive disclosure
+- <strong>Completeness</strong>: Cover all important aspects and features
+- <strong>Currency</strong>: Keep documentation current with software changes
+- <strong>Consistency</strong>: Maintain consistent terminology and style throughout</p>
+<p>### Technical Quality
+- <strong>Build System</strong>: Documentation must build successfully
+- <strong>Cross-References</strong>: All cross-references must work correctly
+- <strong>Code Examples</strong>: All code examples must be functional
+- <strong>Screenshots</strong>: Visual elements must be current and relevant
+- <strong>Navigation</strong>: Documentation must be easily navigable</p>
+<p>### Accessibility Quality
+- <strong>Language</strong>: Use inclusive, accessible language
+- <strong>Structure</strong>: Organize content for easy scanning and reading
+- <strong>Visual Elements</strong>: Ensure visual elements are accessible
+- <strong>Search</strong>: Enable effective search functionality
+- <strong>Mobile-Friendly</strong>: Ensure mobile compatibility</p>
+<p>## Implementation Patterns</p>
+<p>### Documentation Structure Pattern
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+from pathlib import Path
+from typing import Dict, List, Any
+import yaml</p>
+<dl>
+<dt>class DocumentationStructure:</dt><dd><p>“””Documentation structure management”””</p>
+<dl>
+<dt>def __init__(self, docs_path: Path):</dt><dd><p>self.docs_path = docs_path
+self.structure: Dict[str, Any] = {}
+self.load_structure()</p>
+</dd>
+<dt>def load_structure(self) -&gt; None:</dt><dd><p>“””Load documentation structure”””
+structure_file = self.docs_path / ‘_structure.yml’
+if structure_file.exists():</p>
+<blockquote>
+<div><dl class="simple">
+<dt>with open(structure_file, ‘r’) as f:</dt><dd><p>self.structure = yaml.safe_load(f)</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>def create_section(self, section_name: str, config: Dict[str, Any]) -&gt; None:</dt><dd><p>“””Create new documentation section”””
+section_path = self.docs_path / section_name
+section_path.mkdir(exist_ok=True)</p>
+<p># Create section index
+index_content = self.generate_section_index(section_name, config)
+(section_path / ‘index.rst’).write_text(index_content)</p>
+<p># Update structure
+self.structure[section_name] = config
+self.save_structure()</p>
+</dd>
+<dt>def generate_section_index(self, section_name: str, config: Dict[str, Any]) -&gt; str:</dt><dd><p>“””Generate index.rst for documentation section”””
+content = f”””</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>{config.get(‘title’, section_name).replace(‘_’, ‘ ‘).title()}
+{‘=’ * len(config.get(‘title’, section_name))}</p>
+<p>{config.get(‘description’, ‘’)}</p>
+<div class="toctree-wrapper compound">
+</div>
+<p>“””</p>
+<blockquote>
+<div><blockquote>
+<div><p># Add subsections
+for subsection in config.get(‘subsections’, []):</p>
+<blockquote>
+<div><p>content += f”   {subsection}n”</p>
+</div></blockquote>
+<p># Add related sections
+if ‘related’ in config:</p>
+<blockquote>
+<div><p>content += “nRelated Sectionsn—————-nn”
+content += “.. toctree::n   :maxdepth: 1nn”
+for related in config[‘related’]:</p>
+<blockquote>
+<div><p>content += f”   ../{related}/indexn”</p>
+</div></blockquote>
+</div></blockquote>
+<p>return content</p>
+</div></blockquote>
+<dl>
+<dt>def save_structure(self) -&gt; None:</dt><dd><p>“””Save documentation structure”””
+structure_file = self.docs_path / ‘_structure.yml’
+with open(structure_file, ‘w’) as f:</p>
+<blockquote>
+<div><p>yaml.dump(self.structure, f, default_flow_style=False)</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>class DocumentationBuilder:</dt><dd><p>“””Documentation build and validation”””</p>
+<dl>
+<dt>def __init__(self, docs_path: Path):</dt><dd><p>self.docs_path = docs_path
+self.build_config = self.load_build_config()</p>
+</dd>
+<dt>def load_build_config(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Load Sphinx build configuration”””
+config_file = self.docs_path / ‘conf.py’
+# Load and parse configuration
+return self.parse_conf_py(config_file)</p>
+</dd>
+<dt>def parse_conf_py(self, config_file: Path) -&gt; Dict[str, Any]:</dt><dd><p>“””Parse Sphinx conf.py file”””
+# Implementation for parsing Sphinx configuration
+pass</p>
+</dd>
+<dt>def build_documentation(self, output_path: Path = None) -&gt; bool:</dt><dd><p>“””Build documentation using Sphinx”””
+if output_path is None:</p>
+<blockquote>
+<div><p>output_path = self.docs_path / ‘_build’</p>
+</div></blockquote>
+<dl>
+<dt>try:</dt><dd><p># Run Sphinx build
+import subprocess
+result = subprocess.run([</p>
+<blockquote>
+<div><p>‘sphinx-build’,
+‘-b’, ‘html’,
+str(self.docs_path),
+str(output_path)</p>
+</div></blockquote>
+<p>], capture_output=True, text=True)</p>
+<dl class="simple">
+<dt>if result.returncode == 0:</dt><dd><p>print(f”Documentation built successfully: {output_path}”)
+return True</p>
+</dd>
+<dt>else:</dt><dd><p>print(f”Build failed: {result.stderr}”)
+return False</p>
+</dd>
+</dl>
+</dd>
+<dt>except Exception as e:</dt><dd><p>print(f”Build error: {e}”)
+return False</p>
+</dd>
+</dl>
+</dd>
+<dt>def validate_documentation(self) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate documentation completeness and correctness”””
+validation_results = {</p>
+<blockquote>
+<div><p>‘missing_files’: [],
+‘broken_links’: [],
+‘orphaned_files’: [],
+‘validation_errors’: []</p>
+</div></blockquote>
+<p>}</p>
+<p># Check for missing required files
+required_files = [‘index.rst’, ‘conf.py’]
+for file in required_files:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if not (self.docs_path / file).exists():</dt><dd><p>validation_results[‘missing_files’].append(file)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p># Check for broken cross-references
+validation_results[‘broken_links’] = self.find_broken_links()</p>
+<p># Check for orphaned files
+validation_results[‘orphaned_files’] = self.find_orphaned_files()</p>
+<p>return validation_results</p>
+</dd>
+<dt>def find_broken_links(self) -&gt; List[str]:</dt><dd><p>“””Find broken cross-references”””
+# Implementation for finding broken links
+return []</p>
+</dd>
+<dt>def find_orphaned_files(self) -&gt; List[str]:</dt><dd><p>“””Find files not referenced in toctree”””
+# Implementation for finding orphaned files
+return []</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>### Content Management Pattern
+<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+from dataclasses import dataclass
+from typing import Dict, List, Any, Optional
+from pathlib import Path
+import re</p>
+<p>&#64;dataclass
+class DocumentationSection:</p>
+<blockquote>
+<div><p>“””Documentation section metadata”””
+name: str
+title: str
+description: str
+target_audience: List[str]
+difficulty: str  # beginner, intermediate, advanced
+prerequisites: List[str]
+content_type: str  # guide, tutorial, reference, example
+subsections: List[str]</p>
+</div></blockquote>
+<dl>
+<dt>class ContentManager:</dt><dd><p>“””Documentation content management”””</p>
+<dl>
+<dt>def __init__(self, docs_path: Path):</dt><dd><p>self.docs_path = docs_path
+self.sections: Dict[str, DocumentationSection] = {}
+self.load_sections()</p>
+</dd>
+<dt>def load_sections(self) -&gt; None:</dt><dd><p>“””Load section metadata”””
+metadata_file = self.docs_path / ‘_sections.yml’
+if metadata_file.exists():</p>
+<blockquote>
+<div><p>import yaml
+with open(metadata_file, ‘r’) as f:</p>
+<blockquote>
+<div><p>sections_data = yaml.safe_load(f)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>for name, data in sections_data.items():</dt><dd><p>self.sections[name] = DocumentationSection(<a href="#id13"><span class="problematic" id="id14">**</span></a>data)</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+<dt>def create_content_plan(self, section_name: str) -&gt; Dict[str, Any]:</dt><dd><p>“””Create content development plan”””
+section = self.sections.get(section_name)
+if not section:</p>
+<blockquote>
+<div><p>return {}</p>
+</div></blockquote>
+<dl class="simple">
+<dt>plan = {</dt><dd><p>‘section’: section_name,
+‘title’: section.title,
+‘content_type’: section.content_type,
+‘target_audience’: section.target_audience,
+‘tasks’: self.generate_content_tasks(section),
+‘resources’: self.identify_resources(section),
+‘review_criteria’: self.define_review_criteria(section)</p>
+</dd>
+</dl>
+<p>}</p>
+<p>return plan</p>
+</dd>
+<dt>def generate_content_tasks(self, section: DocumentationSection) -&gt; List[Dict[str, Any]]:</dt><dd><p>“””Generate content development tasks”””
+tasks = []</p>
+<p># Main content task
+tasks.append({</p>
+<blockquote>
+<div><p>‘id’: f’content_{section.name}’,
+‘type’: ‘content_creation’,
+‘title’: f’Create {section.title}’,
+‘description’: section.description,
+‘estimated_hours’: self.estimate_content_hours(section),
+‘deliverables’: [f’{section.name}/index.rst’]</p>
+</div></blockquote>
+<p>})</p>
+<p># Example tasks
+if section.content_type in [‘tutorial’, ‘guide’]:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>tasks.append({</dt><dd><p>‘id’: f’examples_{section.name}’,
+‘type’: ‘examples’,
+‘title’: f’Create examples for {section.title}’,
+‘description’: f’Create practical examples for {section.description}’,
+‘estimated_hours’: 4,
+‘deliverables’: [f’{section.name}/examples.rst’]</p>
+</dd>
+</dl>
+<p>})</p>
+</div></blockquote>
+<p># Review task
+tasks.append({</p>
+<blockquote>
+<div><p>‘id’: f’review_{section.name}’,
+‘type’: ‘review’,
+‘title’: f’Review {section.title}’,
+‘description’: ‘Technical and editorial review’,
+‘estimated_hours’: 2,
+‘deliverables’: [‘review_feedback.md’]</p>
+</div></blockquote>
+<p>})</p>
+<p>return tasks</p>
+</dd>
+<dt>def estimate_content_hours(self, section: DocumentationSection) -&gt; int:</dt><dd><p>“””Estimate hours needed for content creation”””
+base_hours = {</p>
+<blockquote>
+<div><p>‘reference’: 4,
+‘guide’: 8,
+‘tutorial’: 12,
+‘example’: 6</p>
+</div></blockquote>
+<p>}
+return base_hours.get(section.content_type, 6)</p>
+</dd>
+<dt>def identify_resources(self, section: DocumentationSection) -&gt; List[str]:</dt><dd><p>“””Identify resources needed for content creation”””
+resources = []</p>
+<p># Add prerequisite documentation
+for prereq in section.prerequisites:</p>
+<blockquote>
+<div><p>resources.append(f’../{prereq}/index.rst’)</p>
+</div></blockquote>
+<p># Add related resources
+if section.content_type == ‘tutorial’:</p>
+<blockquote>
+<div><p>resources.extend([‘code_examples/’, ‘data_samples/’])</p>
+</div></blockquote>
+<p>return resources</p>
+</dd>
+<dt>def define_review_criteria(self, section: DocumentationSection) -&gt; List[str]:</dt><dd><p>“””Define review criteria for content”””
+criteria = [</p>
+<blockquote>
+<div><p>‘Technical accuracy verified’,
+‘Language clear and accessible’,
+‘Examples working and relevant’,
+‘Cross-references functional’,
+‘Target audience appropriate’</p>
+</div></blockquote>
+<p>]</p>
+<dl>
+<dt>if section.content_type == ‘tutorial’:</dt><dd><dl class="simple">
+<dt>criteria.extend([</dt><dd><p>‘Step-by-step instructions clear’,
+‘All code examples functional’,
+‘Expected outputs documented’</p>
+</dd>
+</dl>
+<p>])</p>
+</dd>
+<dt>if section.content_type == ‘reference’:</dt><dd><dl class="simple">
+<dt>criteria.extend([</dt><dd><p>‘Complete API coverage’,
+‘Parameter documentation complete’,
+‘Return values documented’</p>
+</dd>
+</dl>
+<p>])</p>
+</dd>
+</dl>
+<p>return criteria</p>
+</dd>
+<dt>def validate_content_completeness(self, section_name: str) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate content completeness”””
+section = self.sections.get(section_name)
+if not section:</p>
+<blockquote>
+<div><p>return {‘error’: ‘Section not found’}</p>
+</div></blockquote>
+<p>section_path = self.docs_path / section_name
+validation = {</p>
+<blockquote>
+<div><p>‘section’: section_name,
+‘required_files’: self.get_required_files(section),
+‘missing_files’: [],
+‘content_quality’: {},
+‘cross_references’: []</p>
+</div></blockquote>
+<p>}</p>
+<p># Check required files
+for file in validation[‘required_files’]:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if not (section_path / file).exists():</dt><dd><p>validation[‘missing_files’].append(file)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p># Validate content quality
+validation[‘content_quality’] = self.validate_content_quality(section_path, section)</p>
+<p># Check cross-references
+validation[‘cross_references’] = self.validate_cross_references(section_path)</p>
+<p>return validation</p>
+</dd>
+<dt>def get_required_files(self, section: DocumentationSection) -&gt; List[str]:</dt><dd><p>“””Get required files for section”””
+files = [‘index.rst’]</p>
+<dl class="simple">
+<dt>if section.content_type in [‘tutorial’, ‘guide’]:</dt><dd><p>files.append(‘examples.rst’)</p>
+</dd>
+<dt>if section.content_type == ‘reference’:</dt><dd><p>files.append(‘api.rst’)</p>
+</dd>
+</dl>
+<p>return files</p>
+</dd>
+<dt>def validate_content_quality(self, section_path: Path, section: DocumentationSection) -&gt; Dict[str, Any]:</dt><dd><p>“””Validate content quality”””
+quality = {</p>
+<blockquote>
+<div><p>‘word_count’: 0,
+‘headings_count’: 0,
+‘code_blocks’: 0,
+‘links’: 0,
+‘images’: 0</p>
+</div></blockquote>
+<p>}</p>
+<dl class="simple">
+<dt>if not section_path.exists():</dt><dd><p>return quality</p>
+</dd>
+</dl>
+<p># Analyze index file
+index_file = section_path / ‘index.rst’
+if index_file.exists():</p>
+<blockquote>
+<div><p>content = index_file.read_text()
+quality[‘word_count’] = len(content.split())
+quality[‘headings_count’] = len(re.findall(r’^=+$’, content, re.MULTILINE))
+quality[‘code_blocks’] = len(re.findall(r’.. code-block::’, content))
+quality[‘links’] = len(re.findall(r’<cite>[^</cite>]+`_’, content))</p>
+</div></blockquote>
+<p>return quality</p>
+</dd>
+<dt>def validate_cross_references(self, section_path: Path) -&gt; List[str]:</dt><dd><p>“””Validate cross-references in section”””
+# Implementation for cross-reference validation
+return []</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><a href="#id15"><span class="problematic" id="id16">``</span></a><a href="#id17"><span class="problematic" id="id18">`</span></a></p>
+<p>## Testing Guidelines</p>
+<p>### Documentation Testing
+- <strong>Build Testing</strong>: Test documentation build process
+- <strong>Link Testing</strong>: Verify all links and cross-references work
+- <strong>Content Testing</strong>: Test documentation content for accuracy
+- <strong>Navigation Testing</strong>: Test documentation navigation
+- <strong>Search Testing</strong>: Test documentation search functionality</p>
+<p>### Content Quality Testing
+- <strong>Clarity Testing</strong>: Assess documentation clarity
+- <strong>Completeness Testing</strong>: Verify comprehensive coverage
+- <strong>Accuracy Testing</strong>: Validate technical accuracy
+- <strong>Accessibility Testing</strong>: Test accessibility features
+- <strong>Mobile Testing</strong>: Test mobile compatibility</p>
+<p>### User Experience Testing
+- <strong>Navigation Testing</strong>: Test ease of navigation
+- <strong>Search Testing</strong>: Test search functionality
+- <strong>Readability Testing</strong>: Test content readability
+- <strong>Task Completion</strong>: Test user task completion
+- <strong>Feedback Collection</strong>: Collect user feedback</p>
+<p>## Performance Considerations</p>
+<p>### Build Performance
+- <strong>Build Speed</strong>: Optimize documentation build speed
+- <strong>Incremental Builds</strong>: Support incremental documentation builds
+- <strong>Resource Usage</strong>: Manage build resource usage
+- <strong>Caching</strong>: Implement build caching for efficiency</p>
+<p>### Documentation Access
+- <strong>Load Time</strong>: Ensure fast documentation loading
+- <strong>Search Speed</strong>: Optimize search performance
+- <strong>Navigation Speed</strong>: Ensure fast navigation
+- <strong>Mobile Performance</strong>: Optimize for mobile access</p>
+<p>## Maintenance and Evolution</p>
+<p>### Content Updates
+- <strong>Change Detection</strong>: Automatically detect when updates are needed
+- <strong>Update Automation</strong>: Automate documentation updates where possible
+- <strong>Version Management</strong>: Manage documentation versions
+- <strong>Archival</strong>: Archive outdated documentation appropriately</p>
+<p>### Quality Improvement
+- <strong>User Feedback</strong>: Incorporate user feedback for improvements
+- <strong>Analytics</strong>: Use usage analytics to improve documentation
+- <strong>A/B Testing</strong>: Test documentation improvements
+- <strong>Community Review</strong>: Regular community review processes</p>
+<p>## Common Challenges and Solutions</p>
+<p>### Challenge: Documentation Currency
+<strong>Solution</strong>: Implement automated change detection and update processes.</p>
+<p>### Challenge: Content Organization
+<strong>Solution</strong>: Maintain clear documentation structure with comprehensive cross-references.</p>
+<p>### Challenge: Technical Accuracy
+<strong>Solution</strong>: Implement technical review processes and validation procedures.</p>
+<p>### Challenge: User Accessibility
+<strong>Solution</strong>: Follow accessibility guidelines and test with diverse user groups.</p>
+<p>## Getting Started as an Agent</p>
+<p>### Development Setup
+1. <strong>Study Documentation Structure</strong>: Understand current documentation organization
+2. <strong>Learn Sphinx</strong>: Master Sphinx documentation system
+3. <strong>Practice Writing</strong>: Practice technical writing skills
+4. <strong>Understand Standards</strong>: Learn documentation standards and guidelines</p>
+<p>### Contribution Process
+1. <strong>Identify Documentation Needs</strong>: Find gaps or outdated content
+2. <strong>Research Requirements</strong>: Understand what needs to be documented
+3. <strong>Plan Content</strong>: Create detailed content plan
+4. <strong>Write Documentation</strong>: Follow writing and formatting standards
+5. <strong>Review and Edit</strong>: Ensure quality and accuracy
+6. <strong>Submit Changes</strong>: Follow contribution process</p>
+<p>### Learning Resources
+- <strong>Technical Writing</strong>: Study technical writing principles
+- <strong>Documentation Tools</strong>: Learn Sphinx and related tools
+- <strong>Content Strategy</strong>: Understand documentation organization
+- <strong>User Experience</strong>: Learn about documentation UX
+- <strong>Community Standards</strong>: Follow established documentation practices</p>
+<p>## Related Documentation</p>
+<ul class="simple">
+<li><p><strong>[Documentation README](./README.md)</strong>: Documentation module overview</p></li>
+<li><p><strong>[Main AGENTS.md](../AGENTS.md)</strong>: Project-wide agent guidelines</p></li>
+<li><p><strong>[Contributing Guide](../CONTRIBUTING.md)</strong>: Contribution processes</p></li>
+<li><p><strong>[Knowledge Repository](../knowledge/)</strong>: Educational content</p></li>
+<li><p><strong>[Platform Documentation](../platform/)</strong>: Platform information</p></li>
+</ul>
+<p>—</p>
+<p><em>“Active Inference for, with, by Generative AI”</em> - Building comprehensive understanding through clear, accessible, and well-organized documentation.</p>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

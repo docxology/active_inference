@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.applications.best_practices &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.applications.best_practices</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.applications.best_practices</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Application Framework - Best Practices and Architecture Patterns</span>
+
+<span class="sd">Guidelines and architectural patterns for building robust Active Inference</span>
+<span class="sd">applications. Provides design principles, coding standards, and proven</span>
+<span class="sd">patterns for scalable and maintainable implementations.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ArchitecturePattern</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Common architecture patterns"""</span>
+
+    <span class="n">MODEL_VIEW_CONTROLLER</span> <span class="o">=</span> <span class="s2">"mvc"</span>
+    <span class="n">ACTIVE_INFERENCE_AGENT</span> <span class="o">=</span> <span class="s2">"active_inference_agent"</span>
+    <span class="n">HIERARCHICAL_CONTROL</span> <span class="o">=</span> <span class="s2">"hierarchical_control"</span>
+    <span class="n">MULTI_SCALE_MODELING</span> <span class="o">=</span> <span class="s2">"multi_scale_modeling"</span>
+    <span class="n">DISTRIBUTED_SYSTEM</span> <span class="o">=</span> <span class="s2">"distributed_system"</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BestPractice</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Represents a best practice guideline"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">category</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">examples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">rationale</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">related_patterns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="ArchitecturePatterns">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ArchitecturePatterns">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ArchitecturePatterns</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Collection of architecture patterns"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_patterns</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"ArchitecturePatterns initialized"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize common architecture patterns"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"active_inference_agent"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Active Inference Agent"</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Basic agent architecture using Active Inference"</span><span class="p">,</span>
+                <span class="s2">"components"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"GenerativeModel"</span><span class="p">,</span>
+                    <span class="s2">"InferenceEngine"</span><span class="p">,</span>
+                    <span class="s2">"ActionSelection"</span><span class="p">,</span>
+                    <span class="s2">"LearningModule"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"data_flow"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Perception"</span><span class="p">,</span> <span class="s2">"Inference"</span><span class="p">,</span> <span class="s2">"Planning"</span><span class="p">,</span> <span class="s2">"Action"</span><span class="p">],</span>
+                <span class="s2">"scalability"</span><span class="p">:</span> <span class="s2">"Single agent, local computation"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"hierarchical_control"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Hierarchical Control"</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Multi-level control hierarchy with Active Inference"</span><span class="p">,</span>
+                <span class="s2">"components"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"HighLevelController"</span><span class="p">,</span>
+                    <span class="s2">"LowLevelController"</span><span class="p">,</span>
+                    <span class="s2">"CoordinationLayer"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"data_flow"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Goals"</span><span class="p">,</span> <span class="s2">"Subgoals"</span><span class="p">,</span> <span class="s2">"Actions"</span><span class="p">,</span> <span class="s2">"Feedback"</span><span class="p">],</span>
+                <span class="s2">"scalability"</span><span class="p">:</span> <span class="s2">"Multiple levels, distributed control"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"multi_scale_modeling"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Multi-Scale Modeling"</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Models operating at different temporal and spatial scales"</span>
+                <span class="p">),</span>
+                <span class="s2">"components"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"FastDynamics"</span><span class="p">,</span> <span class="s2">"SlowDynamics"</span><span class="p">,</span> <span class="s2">"CouplingMechanism"</span><span class="p">],</span>
+                <span class="s2">"data_flow"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"MicroScale"</span><span class="p">,</span> <span class="s2">"MesoScale"</span><span class="p">,</span> <span class="s2">"MacroScale"</span><span class="p">],</span>
+                <span class="s2">"scalability"</span><span class="p">:</span> <span class="s2">"Complex systems, large scale"</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="ArchitecturePatterns.get_pattern">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ArchitecturePatterns.get_pattern">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Get details of a specific pattern"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pattern_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ArchitecturePatterns.list_patterns">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.ArchitecturePatterns.list_patterns">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""List all available patterns"""</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">"details"</span><span class="p">:</span> <span class="n">details</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">details</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">]</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="BestPracticesGuide">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.BestPracticesGuide">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BestPracticesGuide</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Guide for best practices in Active Inference development"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">practices</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">BestPractice</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_best_practices</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"BestPracticesGuide initialized"</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_best_practices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize best practices"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">practices</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"model_design"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">BestPractice</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">"generative_model_clarity"</span><span class="p">,</span>
+                    <span class="n">category</span><span class="o">=</span><span class="s2">"model_design"</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">"Clear Generative Model Specification"</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Always explicitly specify the generative model including"</span>
+                        <span class="s2">" likelihood (A), transitions (B), preferences (C), and"</span>
+                        <span class="s2">" priors (D)"</span>
+                    <span class="p">),</span>
+                    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+                        <span class="s2">"Use descriptive variable names for model parameters"</span><span class="p">,</span>
+                        <span class="s2">"Document the meaning of each parameter"</span><span class="p">,</span>
+                        <span class="s2">"Validate parameter dimensions match expectations"</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="n">rationale</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Clear specifications enable better understanding, debugging,"</span>
+                        <span class="s2">" and reproducibility"</span>
+                    <span class="p">),</span>
+                    <span class="n">related_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">"active_inference_agent"</span><span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">BestPractice</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">"parameter_validation"</span><span class="p">,</span>
+                    <span class="n">category</span><span class="o">=</span><span class="s2">"model_design"</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">"Parameter Validation"</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Validate all model parameters for correct dimensions, ranges,"</span>
+                        <span class="s2">" and probabilistic constraints"</span>
+                    <span class="p">),</span>
+                    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+                        <span class="s2">"Check that transition matrices are stochastic"</span><span class="p">,</span>
+                        <span class="s2">"Ensure prior preferences sum appropriately"</span><span class="p">,</span>
+                        <span class="s2">"Validate observation likelihood matrices"</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="n">rationale</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Invalid parameters lead to numerical instability and incorrect"</span>
+                        <span class="s2">" inference"</span>
+                    <span class="p">),</span>
+                    <span class="n">related_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">"active_inference_agent"</span><span class="p">,</span> <span class="s2">"hierarchical_control"</span><span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="s2">"implementation"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">BestPractice</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">"numerical_stability"</span><span class="p">,</span>
+                    <span class="n">category</span><span class="o">=</span><span class="s2">"implementation"</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">"Numerical Stability"</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Implement numerical safeguards to prevent overflow, underflow,"</span>
+                        <span class="s2">" and division by zero"</span>
+                    <span class="p">),</span>
+                    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+                        <span class="s2">"Add small constants to prevent log(0)"</span><span class="p">,</span>
+                        <span class="s2">"Normalize probabilities after updates"</span><span class="p">,</span>
+                        <span class="s2">"Use stable matrix operations"</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="n">rationale</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Active Inference involves many probabilistic computations that"</span>
+                        <span class="s2">" can become numerically unstable"</span>
+                    <span class="p">),</span>
+                    <span class="n">related_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">"all"</span><span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">BestPractice</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">"modular_design"</span><span class="p">,</span>
+                    <span class="n">category</span><span class="o">=</span><span class="s2">"implementation"</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">"Modular Architecture"</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Structure code into clear modules with well-defined interfaces"</span>
+                        <span class="s2">" and responsibilities"</span>
+                    <span class="p">),</span>
+                    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+                        <span class="s2">"Separate inference from action selection"</span><span class="p">,</span>
+                        <span class="s2">"Use configuration objects for parameters"</span><span class="p">,</span>
+                        <span class="s2">"Implement clear error handling"</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="n">rationale</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Modular design improves maintainability and allows for easier"</span>
+                        <span class="s2">" testing and extension"</span>
+                    <span class="p">),</span>
+                    <span class="n">related_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">"all"</span><span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="s2">"testing"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">BestPractice</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">"unit_testing"</span><span class="p">,</span>
+                    <span class="n">category</span><span class="o">=</span><span class="s2">"testing"</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">"Comprehensive Unit Testing"</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">"Write tests for individual components and functions"</span><span class="p">,</span>
+                    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+                        <span class="s2">"Test inference functions with known inputs"</span><span class="p">,</span>
+                        <span class="s2">"Validate model updates produce expected changes"</span><span class="p">,</span>
+                        <span class="s2">"Test edge cases and error conditions"</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="n">rationale</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Thorough testing ensures reliability and helps catch bugs"</span>
+                        <span class="s2">" early"</span>
+                    <span class="p">),</span>
+                    <span class="n">related_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">"all"</span><span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">BestPractice</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">"integration_testing"</span><span class="p">,</span>
+                    <span class="n">category</span><span class="o">=</span><span class="s2">"testing"</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">"Integration Testing"</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Test how components work together in realistic scenarios"</span>
+                    <span class="p">),</span>
+                    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
+                        <span class="s2">"Test complete perception-action cycles"</span><span class="p">,</span>
+                        <span class="s2">"Verify end-to-end functionality"</span><span class="p">,</span>
+                        <span class="s2">"Test with various parameter configurations"</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="n">rationale</span><span class="o">=</span><span class="s2">"Integration tests ensure the system works as a whole"</span><span class="p">,</span>
+                    <span class="n">related_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">"active_inference_agent"</span><span class="p">,</span> <span class="s2">"hierarchical_control"</span><span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="BestPracticesGuide.get_practices">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.BestPracticesGuide.get_practices">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_practices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">BestPractice</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get best practices, optionally filtered by category"""</span>
+        <span class="k">if</span> <span class="n">category</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">practices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="c1"># Return all practices</span>
+        <span class="n">all_practices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">practices_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">practices</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">all_practices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">practices_list</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">all_practices</span></div>
+
+
+<div class="viewcode-block" id="BestPracticesGuide.get_practice">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.BestPracticesGuide.get_practice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_practice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">practice_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BestPractice</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get a specific best practice"""</span>
+        <span class="k">for</span> <span class="n">practices_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">practices</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">practice</span> <span class="ow">in</span> <span class="n">practices_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">practice</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">practice_id</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">practice</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="BestPracticesGuide.generate_architecture_recommendations">
+<a class="viewcode-back" href="../../../api/applications.html#active_inference.applications.BestPracticesGuide.generate_architecture_recommendations">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_architecture_recommendations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">requirements</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Generate architecture recommendations based on requirements"""</span>
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Analyze requirements and suggest patterns</span>
+        <span class="k">if</span> <span class="n">requirements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"multi_level"</span><span class="p">):</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"hierarchical_control"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">requirements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"multi_scale"</span><span class="p">):</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"multi_scale_modeling"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">requirements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"distributed"</span><span class="p">):</span>
+            <span class="n">recommendations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"distributed_system"</span><span class="p">)</span>
+
+        <span class="c1"># Add general recommendations</span>
+        <span class="n">recommendations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">"active_inference_agent"</span><span class="p">,</span>  <span class="c1"># Always applicable</span>
+                <span class="s2">"numerical_stability"</span><span class="p">,</span>
+                <span class="s2">"modular_design"</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">recommendations</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

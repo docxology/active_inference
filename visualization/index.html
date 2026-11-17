@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visualization System &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Visualization System</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/visualization/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="visualization-system">
+<h1>Visualization System<a class="headerlink" href="#visualization-system" title="Link to this heading"></a></h1>
+<p>Interactive visualization tools for Active Inference concepts, models, and data.
+This comprehensive visualization system provides multiple ways to explore and
+understand active inference principles and applications.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The visualization system offers:</p>
+<dl class="simple">
+<dt>👁️ <strong>Interactive Diagrams</strong></dt><dd><p>Dynamic concept visualizations and flowcharts</p>
+</dd>
+<dt>📊 <strong>Simulation Dashboards</strong></dt><dd><p>Real-time model exploration and parameter tuning</p>
+</dd>
+<dt>🎬 <strong>Educational Animations</strong></dt><dd><p>Step-by-step process demonstrations</p>
+</dd>
+<dt>🔍 <strong>Comparative Analysis</strong></dt><dd><p>Side-by-side model and method comparisons</p>
+</dd>
+</dl>
+</section>
+<section id="core-features">
+<h2>Core Features<a class="headerlink" href="#core-features" title="Link to this heading"></a></h2>
+<section id="interactive-exploration">
+<h3>Interactive Exploration<a class="headerlink" href="#interactive-exploration" title="Link to this heading"></a></h3>
+<p>Explore concepts through interaction:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConceptExplorer</span>
+
+<span class="c1"># Create interactive diagram</span>
+<span class="n">explorer</span> <span class="o">=</span> <span class="n">ConceptExplorer</span><span class="p">()</span>
+<span class="n">explorer</span><span class="o">.</span><span class="n">show_concept</span><span class="p">(</span><span class="s2">"free_energy_principle"</span><span class="p">)</span>
+<span class="n">explorer</span><span class="o">.</span><span class="n">interactive_mode</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="real-time-dashboards">
+<h3>Real-time Dashboards<a class="headerlink" href="#real-time-dashboards" title="Link to this heading"></a></h3>
+<p>Monitor simulations and experiments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationDashboard</span>
+
+<span class="c1"># Create dashboard</span>
+<span class="n">dashboard</span> <span class="o">=</span> <span class="n">SimulationDashboard</span><span class="p">()</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">add_metric</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"line"</span><span class="p">)</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">add_metric</span><span class="p">(</span><span class="s2">"belief_precision"</span><span class="p">,</span> <span class="s2">"heatmap"</span><span class="p">)</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="educational-animations">
+<h3>Educational Animations<a class="headerlink" href="#educational-animations" title="Link to this heading"></a></h3>
+<p>Learn through animated explanations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">LearningAnimation</span>
+
+<span class="c1"># Create educational animation</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">LearningAnimation</span><span class="p">(</span><span class="s2">"bayesian_inference"</span><span class="p">)</span>
+<span class="n">anim</span><span class="o">.</span><span class="n">add_step</span><span class="p">(</span><span class="s2">"prior_belief"</span><span class="p">,</span> <span class="s2">"Show prior distribution"</span><span class="p">)</span>
+<span class="n">anim</span><span class="o">.</span><span class="n">add_step</span><span class="p">(</span><span class="s2">"likelihood"</span><span class="p">,</span> <span class="s2">"Add likelihood function"</span><span class="p">)</span>
+<span class="n">anim</span><span class="o">.</span><span class="n">add_step</span><span class="p">(</span><span class="s2">"posterior"</span><span class="p">,</span> <span class="s2">"Compute posterior"</span><span class="p">)</span>
+<span class="n">anim</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="comparative-analysis">
+<h3>Comparative Analysis<a class="headerlink" href="#comparative-analysis" title="Link to this heading"></a></h3>
+<p>Compare models and methods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelComparison</span>
+
+<span class="c1"># Compare different models</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">ModelComparison</span><span class="p">()</span>
+<span class="n">comparison</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="s2">"active_inference"</span><span class="p">,</span> <span class="n">results_ai</span><span class="p">)</span>
+<span class="n">comparison</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="s2">"kalman_filter"</span><span class="p">,</span> <span class="n">results_kf</span><span class="p">)</span>
+<span class="n">comparison</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="s2">"particle_filter"</span><span class="p">,</span> <span class="n">results_pf</span><span class="p">)</span>
+<span class="n">comparison</span><span class="o">.</span><span class="n">show_metrics</span><span class="p">([</span><span class="s2">"accuracy"</span><span class="p">,</span> <span class="s2">"efficiency"</span><span class="p">,</span> <span class="s2">"robustness"</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="command-line-tools">
+<h2>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Link to this heading"></a></h2>
+<p>Quick visualization commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start concept visualization</span>
+ai-visualize<span class="w"> </span>concepts
+
+<span class="c1"># Show model comparison</span>
+ai-visualize<span class="w"> </span>models
+
+<span class="c1"># Start interactive dashboard</span>
+ai-visualize<span class="w"> </span>dashboard
+
+<span class="c1"># Generate animations</span>
+ai-visualize<span class="w"> </span>animations
+</pre></div>
+</div>
+</section>
+<section id="integration">
+<h2>Integration<a class="headerlink" href="#integration" title="Link to this heading"></a></h2>
+<p>Seamless integration with other tools:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Integrated workflow</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">active_inference</span><span class="w"> </span><span class="kn">import</span> <span class="n">KnowledgeRepository</span><span class="p">,</span> <span class="n">VisualizationEngine</span>
+
+<span class="n">repo</span> <span class="o">=</span> <span class="n">KnowledgeRepository</span><span class="p">()</span>
+<span class="n">viz</span> <span class="o">=</span> <span class="n">VisualizationEngine</span><span class="p">()</span>
+
+<span class="c1"># Get knowledge content</span>
+<span class="n">concept</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">)</span>
+
+<span class="c1"># Visualize automatically</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">render_concept</span><span class="p">(</span><span class="n">concept</span><span class="p">)</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">add_interactions</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="export-options">
+<h2>Export Options<a class="headerlink" href="#export-options" title="Link to this heading"></a></h2>
+<p>Multiple export formats:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export visualizations</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">"report.pdf"</span><span class="p">)</span>
+<span class="n">animation</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">"tutorial.mp4"</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">"presentation.svg"</span><span class="p">)</span>
+
+<span class="c1"># Web-ready formats</span>
+<span class="n">dashboard</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">"web/index.html"</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">"web/concept.json"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading"></a></h2>
+<p>Highly customizable visualizations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Custom styling</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="s2">"dark"</span><span class="p">)</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">set_colorscheme</span><span class="p">(</span><span class="s2">"scientific"</span><span class="p">)</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">set_layout</span><span class="p">(</span><span class="s2">"hierarchical"</span><span class="p">)</span>
+
+<span class="c1"># Custom interactions</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">add_hover_tooltips</span><span class="p">()</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">add_click_handlers</span><span class="p">()</span>
+<span class="n">viz</span><span class="o">.</span><span class="n">add_zoom_controls</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<p>Effective visualization guidelines:</p>
+<ol class="arabic simple">
+<li><p><strong>Choose appropriate visualization</strong> type for your data</p></li>
+<li><p><strong>Use consistent color schemes</strong> for related concepts</p></li>
+<li><p><strong>Provide interactive elements</strong> for exploration</p></li>
+<li><p><strong>Include clear labels</strong> and legends</p></li>
+<li><p><strong>Consider accessibility</strong> in color choices</p></li>
+<li><p><strong>Optimize performance</strong> for large datasets</p></li>
+</ol>
+</section>
+<section id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Link to this heading"></a></h2>
+<p>Optimized for performance:</p>
+<ul class="simple">
+<li><p><strong>WebGL rendering</strong> for smooth animations</p></li>
+<li><p><strong>Efficient algorithms</strong> for large graphs</p></li>
+<li><p><strong>Caching system</strong> for repeated visualizations</p></li>
+<li><p><strong>Streaming updates</strong> for real-time data</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<p>Begin with simple visualizations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick concept diagram</span>
+ai-visualize<span class="w"> </span>concepts<span class="w"> </span>free_energy
+
+<span class="c1"># Simple dashboard</span>
+ai-visualize<span class="w"> </span>dashboard<span class="w"> </span>--template<span class="w"> </span>simple
+
+<span class="c1"># Basic animation</span>
+ai-visualize<span class="w"> </span>animations<span class="w"> </span>--concept<span class="w"> </span>bayesian
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For learning resources, see <a class="reference internal" href="../knowledge/index.html"><span class="doc">Knowledge Repository</span></a>.
+For research tools, see <a class="reference internal" href="../research/index.html"><span class="doc">Research Tools</span></a>.
+For application examples, see <a class="reference internal" href="../applications/index.html"><span class="doc">Application Framework</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

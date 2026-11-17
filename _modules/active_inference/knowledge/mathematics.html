@@ -1,0 +1,941 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.knowledge.mathematics &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.knowledge.mathematics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.knowledge.mathematics</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Mathematics Module</span>
+
+<span class="sd">Mathematical foundations and formulations for Active Inference and the Free Energy</span>
+<span class="sd">Principle.</span>
+<span class="sd">Provides rigorous derivations, computational implementations, and mathematical tools</span>
+<span class="sd">for understanding and working with the theoretical framework.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">HAS_NUMPY</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">np</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">HAS_NUMPY</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+
+    <span class="n">HAS_SYMPY</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">sp</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">HAS_SYMPY</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">ContentType</span><span class="p">,</span> <span class="n">DifficultyLevel</span><span class="p">,</span> <span class="n">KnowledgeRepository</span>
+
+
+<div class="viewcode-block" id="Mathematics">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Mathematics</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Mathematical foundations for Active Inference and Free Energy Principle</span>
+
+<span class="sd">    Provides:</span>
+<span class="sd">    - Rigorous mathematical derivations</span>
+<span class="sd">    - Computational implementations</span>
+<span class="sd">    - Mathematical tools and utilities</span>
+<span class="sd">    - Proofs and theorems</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">:</span> <span class="n">KnowledgeRepository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="n">repository</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_mathematical_foundations</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_mathematical_foundations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize mathematical foundation knowledge nodes"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_probability_math_nodes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_information_theory_math_nodes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_variational_math_nodes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_dynamical_systems_nodes</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_probability_math_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create probability theory mathematical foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"probability_basics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Probability Theory Foundations"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">BEGINNER</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Mathematical foundations of probability theory"</span><span class="p">,</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"probability"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"measure theory"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Define probability spaces formally"</span><span class="p">,</span>
+                    <span class="s2">"Understand conditional probability and independence"</span><span class="p">,</span>
+                    <span class="s2">"Work with probability distributions"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"bayesian_mathematics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Bayesian Mathematics"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Mathematical foundations of Bayesian inference"</span><span class="p">,</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"probability_basics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"inference"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Derive Bayes' theorem mathematically"</span><span class="p">,</span>
+                    <span class="s2">"Understand posterior, likelihood, and prior"</span><span class="p">,</span>
+                    <span class="s2">"Work with conjugate priors"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"graphical_models"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Graphical Models"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Mathematical theory of probabilistic graphical models"</span><span class="p">,</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian_mathematics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"graphical models"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"factor graphs"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Represent probabilistic dependencies graphically"</span><span class="p">,</span>
+                    <span class="s2">"Understand factor graphs and message passing"</span><span class="p">,</span>
+                    <span class="s2">"Design efficient inference algorithms"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_information_theory_math_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create information theory mathematical foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"entropy_mathematics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Entropy: Mathematical Foundations"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Rigorous mathematical treatment of entropy and information"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"probability_basics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"information theory"</span><span class="p">,</span> <span class="s2">"entropy"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Derive entropy from first principles"</span><span class="p">,</span>
+                    <span class="s2">"Prove entropy properties mathematically"</span><span class="p">,</span>
+                    <span class="s2">"Connect entropy to statistical mechanics"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"kl_divergence_mathematics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"KL Divergence: Mathematical Theory"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mathematical foundations of Kullback-Leibler divergence"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"entropy_mathematics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"KL divergence"</span><span class="p">,</span> <span class="s2">"information theory"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Prove KL divergence properties"</span><span class="p">,</span>
+                    <span class="s2">"Understand KL divergence as Bregman divergence"</span><span class="p">,</span>
+                    <span class="s2">"Connect to information geometry"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"information_geometry"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Information Geometry"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Geometric structure of probability distributions"</span><span class="p">,</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"kl_divergence_mathematics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"information geometry"</span><span class="p">,</span> <span class="s2">"riemannian"</span><span class="p">,</span> <span class="s2">"fisher metric"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Understand Fisher information metric"</span><span class="p">,</span>
+                    <span class="s2">"Work with statistical manifolds"</span><span class="p">,</span>
+                    <span class="s2">"Apply information geometry to inference"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_variational_math_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create variational methods mathematical foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"variational_inference_basics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Variational Inference Fundamentals"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mathematical foundations of variational inference methods"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"bayesian_mathematics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"variational inference"</span><span class="p">,</span> <span class="s2">"optimization"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Understand variational lower bounds"</span><span class="p">,</span>
+                    <span class="s2">"Derive evidence lower bound (ELBO)"</span><span class="p">,</span>
+                    <span class="s2">"Implement coordinate ascent algorithms"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"free_energy_calculus"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Free Energy Calculus"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mathematical theory of free energy and variational free energy"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"variational_inference_basics"</span><span class="p">,</span>
+                    <span class="s2">"kl_divergence_mathematics"</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"free energy"</span><span class="p">,</span> <span class="s2">"variational"</span><span class="p">,</span> <span class="s2">"calculus"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Derive variational free energy expression"</span><span class="p">,</span>
+                    <span class="s2">"Understand path integral formulations"</span><span class="p">,</span>
+                    <span class="s2">"Connect to statistical physics"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"stochastic_optimization"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Stochastic Optimization in Inference"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mathematical foundations of stochastic optimization for inference"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"variational_inference_basics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"stochastic optimization"</span><span class="p">,</span> <span class="s2">"inference"</span><span class="p">,</span> <span class="s2">"algorithms"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Understand stochastic gradient methods"</span><span class="p">,</span>
+                    <span class="s2">"Analyze convergence properties"</span><span class="p">,</span>
+                    <span class="s2">"Design efficient sampling algorithms"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_dynamical_systems_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create dynamical systems mathematical foundation nodes"""</span>
+        <span class="n">nodes_data</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"dynamical_systems_basics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Dynamical Systems Theory"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">INTERMEDIATE</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Mathematical foundations of dynamical systems"</span><span class="p">,</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"probability_basics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"dynamical systems"</span><span class="p">,</span> <span class="s2">"mathematics"</span><span class="p">,</span> <span class="s2">"trajectories"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Understand state space and trajectories"</span><span class="p">,</span>
+                    <span class="s2">"Analyze system stability"</span><span class="p">,</span>
+                    <span class="s2">"Work with differential equations"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"stochastic_processes"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Stochastic Processes and Active Inference"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">ADVANCED</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mathematical theory of stochastic processes in Active Inference"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"dynamical_systems_basics"</span><span class="p">,</span> <span class="s2">"bayesian_mathematics"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"stochastic processes"</span><span class="p">,</span> <span class="s2">"active inference"</span><span class="p">,</span> <span class="s2">"dynamics"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Model belief dynamics as stochastic processes"</span><span class="p">,</span>
+                    <span class="s2">"Understand Markov decision processes"</span><span class="p">,</span>
+                    <span class="s2">"Design continuous-time Active Inference models"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"information_dynamics"</span><span class="p">,</span>
+                <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Information Dynamics"</span><span class="p">,</span>
+                <span class="s2">"content_type"</span><span class="p">:</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">MATHEMATICS</span><span class="p">,</span>
+                <span class="s2">"difficulty"</span><span class="p">:</span> <span class="n">DifficultyLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"Mathematical theory of information flow in dynamical systems"</span>
+                <span class="p">),</span>
+                <span class="s2">"prerequisites"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"stochastic_processes"</span><span class="p">,</span> <span class="s2">"information_geometry"</span><span class="p">],</span>
+                <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"information dynamics"</span><span class="p">,</span> <span class="s2">"transfer entropy"</span><span class="p">,</span> <span class="s2">"causality"</span><span class="p">],</span>
+                <span class="s2">"learning_objectives"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"Understand transfer entropy"</span><span class="p">,</span>
+                    <span class="s2">"Analyze information flow in networks"</span><span class="p">,</span>
+                    <span class="s2">"Model causal relationships mathematically"</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_nodes_to_repository</span><span class="p">(</span><span class="n">nodes_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_save_nodes_to_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes_data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Save knowledge nodes to the repository (placeholder implementation)"""</span>
+        <span class="c1"># In a real implementation, this would save to the repository's storage</span>
+        <span class="c1"># For now, this is a placeholder</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="Mathematics.derive_free_energy_expression">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.derive_free_energy_expression">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">derive_free_energy_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Derive the mathematical expression for variational free energy</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary containing the derivation steps and final expression</span>
+<span class="sd">        """</span>
+        <span class="c1"># This would contain a detailed mathematical derivation</span>
+        <span class="c1"># For now, returning a structured representation</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"expression"</span><span class="p">:</span> <span class="s2">"F = ∫ q(θ) log(q(θ)/p(x,θ)) dθ"</span><span class="p">,</span>
+            <span class="s2">"components"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"cross_entropy"</span><span class="p">:</span> <span class="s2">"∫ q(θ) log q(θ) dθ"</span><span class="p">,</span>
+                <span class="s2">"entropy"</span><span class="p">:</span> <span class="s2">"-∫ q(θ) log p(x,θ) dθ"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"interpretation"</span><span class="p">:</span> <span class="s2">"Free energy as upper bound on negative log evidence"</span><span class="p">,</span>
+            <span class="s2">"proof_sketch"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"Start with log evidence: log p(x) = log ∫ p(x,θ) dθ"</span><span class="p">,</span>
+                <span class="s2">"Apply Jensen's inequality with variational distribution q(θ)"</span><span class="p">,</span>
+                <span class="s2">"Arrive at free energy bound: F ≥ -log p(x)"</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.compute_kl_divergence">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.compute_kl_divergence">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_kl_divergence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">q</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Compute KL divergence between two discrete probability distributions</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            p: First probability distribution</span>
+<span class="sd">            q: Second probability distribution</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            KL divergence D_KL(p||q)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_NUMPY</span><span class="p">:</span>
+            <span class="c1"># Simple implementation without numpy</span>
+            <span class="c1"># Normalize inputs</span>
+            <span class="n">p_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">q_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+            <span class="n">p_norm</span> <span class="o">=</span> <span class="p">[</span><span class="n">pi</span> <span class="o">/</span> <span class="n">p_sum</span> <span class="k">for</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="p">]</span>
+            <span class="n">q_norm</span> <span class="o">=</span> <span class="p">[</span><span class="n">qi</span> <span class="o">/</span> <span class="n">q_sum</span> <span class="k">for</span> <span class="n">qi</span> <span class="ow">in</span> <span class="n">q</span><span class="p">]</span>
+
+            <span class="c1"># Compute KL divergence</span>
+            <span class="n">kl_div</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="n">qi</span><span class="p">)</span> <span class="k">for</span> <span class="n">pi</span><span class="p">,</span> <span class="n">qi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">p_norm</span><span class="p">,</span> <span class="n">q_norm</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">kl_div</span><span class="p">)</span>
+
+        <span class="c1"># Use numpy implementation if available</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="n">p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">q_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">p_array</span> <span class="o">=</span> <span class="n">p_array</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p_array</span><span class="p">)</span>
+        <span class="n">q_array</span> <span class="o">=</span> <span class="n">q_array</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">q_array</span><span class="p">)</span>
+        <span class="n">kl_div</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p_array</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p_array</span> <span class="o">/</span> <span class="n">q_array</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">kl_div</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.expected_free_energy">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.expected_free_energy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expected_free_energy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">policies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="n">observations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Compute expected free energy for policy selection in Active Inference</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            policies: List of policy distributions</span>
+<span class="sd">            observations: Current observations</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Expected free energy for each policy</span>
+<span class="sd">        """</span>
+        <span class="c1"># Placeholder implementation</span>
+        <span class="c1"># In practice, this would compute:</span>
+        <span class="c1"># EFE = E[Risk] + E[Ambiguity] - E[Value]</span>
+        <span class="n">efe_values</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_NUMPY</span><span class="p">:</span>
+            <span class="c1"># Simple implementation without numpy</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+            <span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
+                <span class="c1"># This would contain the actual EFE computation</span>
+                <span class="c1"># For now, returning placeholder values</span>
+                <span class="n">efe</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>  <span class="c1"># Placeholder</span>
+                <span class="n">efe_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">efe</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use numpy implementation if available</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+            <span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
+                <span class="c1"># This would contain the actual EFE computation</span>
+                <span class="c1"># For now, returning placeholder values</span>
+                <span class="n">efe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>  <span class="c1"># Placeholder</span>
+                <span class="n">efe_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">efe</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">efe_values</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.get_mathematical_prerequisites">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.get_mathematical_prerequisites">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_mathematical_prerequisites</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Get mathematical prerequisite chains for Active Inference"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"basic_probability"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"probability_basics"</span><span class="p">],</span>
+            <span class="s2">"bayesian_inference"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"probability_basics"</span><span class="p">,</span> <span class="s2">"bayesian_mathematics"</span><span class="p">],</span>
+            <span class="s2">"information_theory"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"probability_basics"</span><span class="p">,</span> <span class="s2">"entropy_mathematics"</span><span class="p">],</span>
+            <span class="s2">"variational_methods"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"bayesian_mathematics"</span><span class="p">,</span>
+                <span class="s2">"variational_inference_basics"</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">"free_energy_principle"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"bayesian_mathematics"</span><span class="p">,</span>
+                <span class="s2">"information_theory"</span><span class="p">,</span>
+                <span class="s2">"variational_methods"</span><span class="p">,</span>
+                <span class="s2">"free_energy_calculus"</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">"active_inference_dynamics"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"free_energy_principle"</span><span class="p">,</span>
+                <span class="s2">"dynamical_systems_basics"</span><span class="p">,</span>
+                <span class="s2">"stochastic_processes"</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.create_mathematical_learning_path">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.create_mathematical_learning_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_mathematical_learning_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Create a comprehensive mathematical learning path"""</span>
+        <span class="c1"># Topological sort of mathematical topics</span>
+        <span class="n">learning_order</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"probability_basics"</span><span class="p">,</span>
+            <span class="s2">"bayesian_mathematics"</span><span class="p">,</span>
+            <span class="s2">"entropy_mathematics"</span><span class="p">,</span>
+            <span class="s2">"dynamical_systems_basics"</span><span class="p">,</span>
+            <span class="s2">"variational_inference_basics"</span><span class="p">,</span>
+            <span class="s2">"kl_divergence_mathematics"</span><span class="p">,</span>
+            <span class="s2">"graphical_models"</span><span class="p">,</span>
+            <span class="s2">"stochastic_processes"</span><span class="p">,</span>
+            <span class="s2">"free_energy_calculus"</span><span class="p">,</span>
+            <span class="s2">"information_geometry"</span><span class="p">,</span>
+            <span class="s2">"information_dynamics"</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">learning_order</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.compute_entropy">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.compute_entropy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Compute Shannon entropy for a probability distribution"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_NUMPY</span><span class="p">:</span>
+            <span class="c1"># Simple implementation without numpy</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">probabilities</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">entropy</span> <span class="o">-=</span> <span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span>  <span class="c1"># Simplified calculation</span>
+            <span class="k">return</span> <span class="n">entropy</span>
+
+        <span class="c1"># Use numpy implementation if available</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="n">p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+        <span class="n">p_array</span> <span class="o">=</span> <span class="n">p_array</span><span class="p">[</span><span class="n">p_array</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># Remove zeros</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_array</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="n">p_array</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">p_array</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.compute_mutual_information">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.compute_mutual_information">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_mutual_information</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">joint_probs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+        <span class="n">marginal_x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">marginal_y</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Compute mutual information between two variables"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_NUMPY</span><span class="p">:</span>
+            <span class="c1"># Simple implementation without numpy</span>
+            <span class="n">mutual_info</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">px</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">marginal_x</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">py</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">marginal_y</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">joint_probs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">px</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">py</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">mutual_info</span> <span class="o">+=</span> <span class="n">joint_probs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                            <span class="n">joint_probs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">px</span> <span class="o">*</span> <span class="n">py</span><span class="p">)</span>
+                        <span class="p">)</span>
+            <span class="k">return</span> <span class="n">mutual_info</span>
+
+        <span class="c1"># Use numpy implementation if available</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="n">joint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">joint_probs</span><span class="p">)</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marginal_x</span><span class="p">)</span>
+        <span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marginal_y</span><span class="p">)</span>
+
+        <span class="c1"># Compute mutual information</span>
+        <span class="n">mutual_info</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">px</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">py</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">joint</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">px</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">py</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">mutual_info</span> <span class="o">+=</span> <span class="n">joint</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">joint</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">px</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">py</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">mutual_info</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.compute_variational_free_energy">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.compute_variational_free_energy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_variational_free_energy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">log_likelihood</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">kl_divergence</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Compute variational free energy"""</span>
+        <span class="k">return</span> <span class="n">log_likelihood</span> <span class="o">-</span> <span class="n">kl_divergence</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.optimize_free_energy">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.optimize_free_energy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimize_free_energy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">num_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Optimize parameters to minimize free energy"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_NUMPY</span><span class="p">:</span>
+            <span class="c1"># Simple gradient descent without numpy</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">initial_params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
+                <span class="c1"># Simple gradient approximation</span>
+                <span class="n">gradient</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">param</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span>
+                <span class="p">]</span>  <span class="c1"># Placeholder gradient</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">param</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span>
+                    <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">grad</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">gradient</span><span class="p">)</span>
+                <span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">params</span>
+
+        <span class="c1"># Use numpy implementation if available</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">initial_params</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
+            <span class="c1"># Simple gradient approximation (placeholder)</span>
+            <span class="n">gradient</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">params</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># Placeholder gradient</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span>
+
+        <span class="k">return</span> <span class="n">params</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.compute_expected_free_energy_components">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.compute_expected_free_energy_components">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_expected_free_energy_components</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">risk</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ambiguity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Compute components of expected free energy"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"risk"</span><span class="p">:</span> <span class="n">risk</span><span class="p">,</span>
+            <span class="s2">"ambiguity"</span><span class="p">:</span> <span class="n">ambiguity</span><span class="p">,</span>
+            <span class="s2">"value"</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+            <span class="s2">"total_efe"</span><span class="p">:</span> <span class="n">risk</span> <span class="o">+</span> <span class="n">ambiguity</span> <span class="o">-</span> <span class="n">value</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.validate_mathematical_consistency">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.validate_mathematical_consistency">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_mathematical_consistency</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">expressions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate mathematical consistency of expressions"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_SYMPY</span><span class="p">:</span>
+            <span class="c1"># Simple validation without sympy</span>
+            <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">"warnings"</span><span class="p">:</span> <span class="p">[]}</span>
+
+            <span class="k">for</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">expressions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">"log"</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">"0"</span> <span class="ow">in</span> <span class="n">expr</span><span class="p">:</span>
+                    <span class="n">validation</span><span class="p">[</span><span class="s2">"warnings"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Potential log(0) issue in: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">"divide"</span> <span class="ow">in</span> <span class="n">expr</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">"0"</span> <span class="ow">in</span> <span class="n">expr</span><span class="p">:</span>
+                    <span class="n">validation</span><span class="p">[</span><span class="s2">"warnings"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"Potential division by zero in: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">"</span>
+                    <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">validation</span>
+
+        <span class="c1"># Use sympy implementation if available</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+
+        <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"issues"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"warnings"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"simplified_expressions"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">expr_str</span> <span class="ow">in</span> <span class="n">expressions</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Parse expression</span>
+                <span class="n">expr</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sympify</span><span class="p">(</span><span class="n">expr_str</span><span class="p">)</span>
+
+                <span class="c1"># Check for common issues</span>
+                <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">log</span><span class="p">)</span> <span class="ow">and</span> <span class="n">expr</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">Zero</span><span class="p">):</span>
+                    <span class="n">validation</span><span class="p">[</span><span class="s2">"warnings"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Potential log(0) in: </span><span class="si">{</span><span class="n">expr_str</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+                <span class="c1"># Simplify expression</span>
+                <span class="n">simplified</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"simplified_expressions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">simplified</span><span class="p">))</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"issues"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Failed to parse expression '</span><span class="si">{</span><span class="n">expr_str</span><span class="si">}</span><span class="s2">': </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+                <span class="p">)</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">validation</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.generate_mathematical_derivation">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.generate_mathematical_derivation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_mathematical_derivation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concept</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate step-by-step mathematical derivation"""</span>
+        <span class="n">derivations</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"entropy"</span><span class="p">:</span> <span class="p">(</span>
+<span class="w">                </span><span class="sd">"""Step-by-step derivation of entropy:</span>
+
+<span class="sd">1. Start with uncertainty measure: H(X) = -Σ p(x) log p(x)</span>
+<span class="sd">2. Use base-2 logarithm for bits: H(X) = -Σ p(x) log₂ p(x)</span>
+<span class="sd">3. For uniform distribution over n outcomes: H(X) = log₂ n</span>
+<span class="sd">4. Properties emerge:</span>
+<span class="sd">   - H(X) ≥ 0 (non-negative)</span>
+<span class="sd">   - H(X) = 0 when p(x) = 1 for some x (deterministic)</span>
+<span class="sd">   - H(X) maximized when p(x) = 1/n (maximum uncertainty)</span>
+<span class="sd">5. Interpretation: bits needed to encode outcome"""</span>
+            <span class="p">),</span>
+            <span class="s2">"kl_divergence"</span><span class="p">:</span> <span class="p">(</span>
+<span class="w">                </span><span class="sd">"""Step-by-step derivation of KL divergence:</span>
+
+<span class="sd">1. Start with relative entropy: D_KL(P||Q) = Σ p(x) log(p(x)/q(x))</span>
+<span class="sd">2. Use log properties: D_KL(P||Q) = Σ p(x) log p(x) - Σ p(x) log q(x)</span>
+<span class="sd">3. Recognize as difference of entropies: D_KL(P||Q) = H(P,Q) - H(P)</span>
+<span class="sd">4. Properties:</span>
+<span class="sd">   - D_KL(P||Q) ≥ 0 (Gibbs' inequality)</span>
+<span class="sd">   - D_KL(P||Q) = 0 iff P = Q</span>
+<span class="sd">   - Not symmetric: D_KL(P||Q) ≠ D_KL(Q||P)</span>
+<span class="sd">5. Interpretation: Information lost when Q approximates P"""</span>
+            <span class="p">),</span>
+            <span class="s2">"variational_free_energy"</span><span class="p">:</span> <span class="p">(</span>
+<span class="w">                </span><span class="sd">"""Step-by-step derivation of variational free energy:</span>
+
+<span class="sd">1. Start with log-evidence: log p(x) = log ∫ p(x,θ) dθ</span>
+<span class="sd">2. Use Jensen's inequality: log p(x) ≥ ∫ q(θ) log(p(x,θ)/q(θ)) dθ</span>
+<span class="sd">3. Define free energy: F[q] = -∫ q(θ) log(p(x,θ)/q(θ)) dθ</span>
+<span class="sd">4. Rewrite: F[q] = ∫ q(θ) log q(θ) dθ - ∫ q(θ) log p(x,θ) dθ</span>
+<span class="sd">5. Components:</span>
+<span class="sd">   - Complexity: ∫ q(θ) log q(θ) dθ = H[q]</span>
+<span class="sd">   - Accuracy: -∫ q(θ) log p(x,θ) dθ = -E[log p(x,θ)]</span>
+<span class="sd">6. Minimize F[q] to approximate posterior q(θ) ≈ p(θ|x)"""</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">derivations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">concept</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Derivation for </span><span class="si">{</span><span class="n">concept</span><span class="si">}</span><span class="s2"> concept"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.compute_information_geometry_metric">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.compute_information_geometry_metric">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_information_geometry_metric</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Compute Fisher information metric for probability distribution"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAS_NUMPY</span><span class="p">:</span>
+            <span class="c1"># Simple approximation without numpy</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+            <span class="c1"># Simple Fisher metric approximation</span>
+            <span class="n">metric</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                        <span class="n">metric</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="mf">1.0</span> <span class="o">/</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
+                        <span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">metric</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">return</span> <span class="n">metric</span>
+
+        <span class="c1"># Use numpy implementation if available</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+
+        <span class="c1"># Fisher information metric for multinomial distribution</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                        <span class="n">metric</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">metric</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">return</span> <span class="n">metric</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Mathematics.analyze_mathematical_complexity">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.analyze_mathematical_complexity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_mathematical_complexity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Analyze complexity of mathematical expression"""</span>
+        <span class="n">complexity_metrics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"expression_length"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">expression</span><span class="p">),</span>
+            <span class="s2">"num_operators"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"+"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"*"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">"num_functions"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"exp"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"sin"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"cos"</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">"num_variables"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">expression</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()])),</span>
+            <span class="s2">"num_parentheses"</span><span class="p">:</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"("</span><span class="p">)</span> <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">")"</span><span class="p">),</span>
+            <span class="s2">"num_integrals"</span><span class="p">:</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"∫"</span><span class="p">)</span> <span class="o">+</span> <span class="n">expression</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"Σ"</span><span class="p">),</span>
+            <span class="s2">"max_nesting_depth"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_nesting_depth</span><span class="p">(</span><span class="n">expression</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="n">complexity_metrics</span><span class="p">[</span><span class="s2">"total_complexity"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">complexity_metrics</span><span class="p">[</span><span class="s2">"num_operators"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span>
+            <span class="o">+</span> <span class="n">complexity_metrics</span><span class="p">[</span><span class="s2">"num_functions"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span>
+            <span class="o">+</span> <span class="n">complexity_metrics</span><span class="p">[</span><span class="s2">"num_variables"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.3</span>
+            <span class="o">+</span> <span class="n">complexity_metrics</span><span class="p">[</span><span class="s2">"num_parentheses"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span>
+            <span class="o">+</span> <span class="n">complexity_metrics</span><span class="p">[</span><span class="s2">"num_integrals"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">2.0</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">complexity_metrics</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_nesting_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate maximum nesting depth of parentheses in expression"""</span>
+        <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">current_depth</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">expression</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">"("</span><span class="p">:</span>
+                <span class="n">current_depth</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">max_depth</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_depth</span><span class="p">,</span> <span class="n">current_depth</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">char</span> <span class="o">==</span> <span class="s2">")"</span><span class="p">:</span>
+                <span class="n">current_depth</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">max_depth</span>
+
+<div class="viewcode-block" id="Mathematics.validate_mathematical_prerequisites">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.validate_mathematical_prerequisites">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_mathematical_prerequisites</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">concept_chain</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Validate that mathematical prerequisite chain is logically consistent"""</span>
+        <span class="n">prerequisites</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mathematical_prerequisites</span><span class="p">()</span>
+
+        <span class="n">validation</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"valid"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"missing_prerequisites"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"circular_dependencies"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"redundant_prerequisites"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Check for missing prerequisites</span>
+        <span class="n">all_prerequisites</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">concept_chain</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">:</span>
+                <span class="n">all_prerequisites</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prerequisites</span><span class="p">[</span><span class="n">concept</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"missing_prerequisites"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">concept</span><span class="p">)</span>
+
+        <span class="c1"># Check for circular dependencies</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">concept_chain</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_circular_dependency</span><span class="p">(</span><span class="n">concept</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">,</span> <span class="n">visited</span><span class="o">.</span><span class="n">copy</span><span class="p">()):</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"circular_dependencies"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">concept</span><span class="p">)</span>
+                <span class="n">validation</span><span class="p">[</span><span class="s2">"valid"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check for redundant prerequisites</span>
+        <span class="n">concept_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">concept_chain</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">concept_chain</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">:</span>
+                <span class="n">redundant</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">prereq</span>
+                    <span class="k">for</span> <span class="n">prereq</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">[</span><span class="n">concept</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">prereq</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">concept_set</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="n">redundant</span><span class="p">:</span>
+                    <span class="n">validation</span><span class="p">[</span><span class="s2">"redundant_prerequisites"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">redundant</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">validation</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_has_circular_dependency</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">concept</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">visited</span><span class="p">:</span> <span class="nb">set</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Check for circular dependencies in prerequisite chain"""</span>
+        <span class="k">if</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">concept</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">concept</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">prereq</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">[</span><span class="n">concept</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_circular_dependency</span><span class="p">(</span><span class="n">prereq</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">,</span> <span class="n">visited</span><span class="o">.</span><span class="n">copy</span><span class="p">()):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="Mathematics.generate_mathematical_summary">
+<a class="viewcode-back" href="../../../api/knowledge.html#active_inference.knowledge.Mathematics.generate_mathematical_summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_mathematical_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Generate comprehensive mathematical foundations summary"""</span>
+        <span class="n">learning_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_mathematical_learning_path</span><span class="p">()</span>
+        <span class="n">prerequisites</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mathematical_prerequisites</span><span class="p">()</span>
+
+        <span class="n">summary</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Mathematical Foundations Summary"</span><span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">35</span><span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Mathematical Concepts: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">learning_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">"Total Prerequisite Relationships:"</span>
+            <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prereqs</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">prereqs</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">prerequisites</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Learning Sequence:"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">concept</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">learning_path</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">prereqs</span> <span class="o">=</span> <span class="n">prerequisites</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">concept</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">concept</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prereqs</span><span class="p">:</span>
+                <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    Prerequisites: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prereqs</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+
+        <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Prerequisite Network:"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">concept</span><span class="p">,</span> <span class="n">prereqs</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">prereqs</span><span class="p">:</span>
+                <span class="n">summary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">concept</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">' -&gt; '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prereqs</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

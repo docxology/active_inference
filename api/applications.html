@@ -1,0 +1,829 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Applications API Reference &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Platform API Reference" href="platform.html" />
+    <link rel="prev" title="Visualization API Reference" href="visualization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Applications API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.ApplicationFramework"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.create_application"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.create_application()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.get_template_info"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.get_template_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.generate_basic_model"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.generate_basic_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.generate_research_pipeline"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.generate_research_pipeline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.generate_web_application"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.generate_web_application()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.generate_api_service"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.generate_api_service()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.generate_educational_tool"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.generate_educational_tool()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.validate_generated_code"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.validate_generated_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.create_template_from_specification"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.create_template_from_specification()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ApplicationFramework.optimize_template_performance"><code class="docutils literal notranslate"><span class="pre">ApplicationFramework.optimize_template_performance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.TemplateManager"><code class="docutils literal notranslate"><span class="pre">TemplateManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.TemplateManager.generate_application"><code class="docutils literal notranslate"><span class="pre">TemplateManager.generate_application()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.TemplateManager.list_available_templates"><code class="docutils literal notranslate"><span class="pre">TemplateManager.list_available_templates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.TemplateManager.create_custom_template"><code class="docutils literal notranslate"><span class="pre">TemplateManager.create_custom_template()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.CodeGenerator"><code class="docutils literal notranslate"><span class="pre">CodeGenerator</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.CodeGenerator.generate_basic_model"><code class="docutils literal notranslate"><span class="pre">CodeGenerator.generate_basic_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.CodeGenerator.generate_research_pipeline"><code class="docutils literal notranslate"><span class="pre">CodeGenerator.generate_research_pipeline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.CodeGenerator.generate_robotics_control"><code class="docutils literal notranslate"><span class="pre">CodeGenerator.generate_robotics_control()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.CodeGenerator.generate_neural_interface"><code class="docutils literal notranslate"><span class="pre">CodeGenerator.generate_neural_interface()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.CaseStudyManager"><code class="docutils literal notranslate"><span class="pre">CaseStudyManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.CaseStudyManager.get_case_study"><code class="docutils literal notranslate"><span class="pre">CaseStudyManager.get_case_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.CaseStudyManager.list_case_studies"><code class="docutils literal notranslate"><span class="pre">CaseStudyManager.list_case_studies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.CaseStudyManager.run_example"><code class="docutils literal notranslate"><span class="pre">CaseStudyManager.run_example()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.ExampleApplications"><code class="docutils literal notranslate"><span class="pre">ExampleApplications</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ExampleApplications.get_case_study"><code class="docutils literal notranslate"><span class="pre">ExampleApplications.get_case_study()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ExampleApplications.list_case_studies"><code class="docutils literal notranslate"><span class="pre">ExampleApplications.list_case_studies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ExampleApplications.generate_example_code"><code class="docutils literal notranslate"><span class="pre">ExampleApplications.generate_example_code()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.IntegrationManager"><code class="docutils literal notranslate"><span class="pre">IntegrationManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.IntegrationManager.register_api_connector"><code class="docutils literal notranslate"><span class="pre">IntegrationManager.register_api_connector()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.IntegrationManager.connect_to_api"><code class="docutils literal notranslate"><span class="pre">IntegrationManager.connect_to_api()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.IntegrationManager.query_api"><code class="docutils literal notranslate"><span class="pre">IntegrationManager.query_api()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.IntegrationManager.disconnect_api"><code class="docutils literal notranslate"><span class="pre">IntegrationManager.disconnect_api()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.IntegrationManager.list_integrations"><code class="docutils literal notranslate"><span class="pre">IntegrationManager.list_integrations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.APIConnector"><code class="docutils literal notranslate"><span class="pre">APIConnector</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.APIConnector.name"><code class="docutils literal notranslate"><span class="pre">APIConnector.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.APIConnector.base_url"><code class="docutils literal notranslate"><span class="pre">APIConnector.base_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.APIConnector.auth_type"><code class="docutils literal notranslate"><span class="pre">APIConnector.auth_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.APIConnector.headers"><code class="docutils literal notranslate"><span class="pre">APIConnector.headers</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.APIConnector.timeout"><code class="docutils literal notranslate"><span class="pre">APIConnector.timeout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.BestPracticesGuide"><code class="docutils literal notranslate"><span class="pre">BestPracticesGuide</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.BestPracticesGuide.get_practices"><code class="docutils literal notranslate"><span class="pre">BestPracticesGuide.get_practices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.BestPracticesGuide.get_practice"><code class="docutils literal notranslate"><span class="pre">BestPracticesGuide.get_practice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.BestPracticesGuide.generate_architecture_recommendations"><code class="docutils literal notranslate"><span class="pre">BestPracticesGuide.generate_architecture_recommendations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#active_inference.applications.ArchitecturePatterns"><code class="docutils literal notranslate"><span class="pre">ArchitecturePatterns</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ArchitecturePatterns.get_pattern"><code class="docutils literal notranslate"><span class="pre">ArchitecturePatterns.get_pattern()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active_inference.applications.ArchitecturePatterns.list_patterns"><code class="docutils literal notranslate"><span class="pre">ArchitecturePatterns.list_patterns()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#core-classes">Core Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#templatemanager">TemplateManager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#active_inference.applications.templates.TemplateManager"><code class="docutils literal notranslate"><span class="pre">TemplateManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#casestudyanalyzer">CaseStudyAnalyzer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integrationmanager">IntegrationManager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#active_inference.applications.integrations.IntegrationManager"><code class="docutils literal notranslate"><span class="pre">IntegrationManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bestpracticesguide">BestPracticesGuide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#active_inference.applications.best_practices.BestPracticesGuide"><code class="docutils literal notranslate"><span class="pre">BestPracticesGuide</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility-functions">Utility Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-structures">Data Structures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#applicationtemplate">ApplicationTemplate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integrationconfig">IntegrationConfig</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-application-templates">Using Application Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analyzing-case-studies">Analyzing Case Studies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-integrations">Managing Integrations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#applying-best-practices">Applying Best Practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Applications API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/applications.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="applications-api-reference">
+<h1>Applications API Reference<a class="headerlink" href="#applications-api-reference" title="Link to this heading"></a></h1>
+<p>The Applications API provides access to implementation templates, case studies, integration patterns, and best practices for deploying Active Inference in real-world applications.</p>
+<p id="module-active_inference.applications">Application Framework Module</p>
+<p>Practical application development framework for Active Inference and Free Energy
+Principle implementations. Provides templates, case studies, integration tools,
+and architectural patterns for building real-world applications.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">ApplicationFramework</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Main application framework coordinating templates and case studies</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.create_application">
+<span class="sig-name descname"><span class="pre">create_application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.create_application"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.create_application" title="Link to this definition"></a></dt>
+<dd><p>Create a new application from template</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.get_template_info">
+<span class="sig-name descname"><span class="pre">get_template_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateType</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.get_template_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.get_template_info" title="Link to this definition"></a></dt>
+<dd><p>Get information about a specific template</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.generate_basic_model">
+<span class="sig-name descname"><span class="pre">generate_basic_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.generate_basic_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.generate_basic_model" title="Link to this definition"></a></dt>
+<dd><p>Generate complete basic Active Inference model with all required components</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Model configuration parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generated model components and code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.generate_research_pipeline">
+<span class="sig-name descname"><span class="pre">generate_research_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.generate_research_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.generate_research_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Generate end-to-end research pipeline with experiment management</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Pipeline configuration parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generated pipeline components and code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.generate_web_application">
+<span class="sig-name descname"><span class="pre">generate_web_application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.generate_web_application"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.generate_web_application" title="Link to this definition"></a></dt>
+<dd><p>Generate web application template with Active Inference backend</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Web application configuration parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generated web application components and code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.generate_api_service">
+<span class="sig-name descname"><span class="pre">generate_api_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.generate_api_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.generate_api_service" title="Link to this definition"></a></dt>
+<dd><p>Generate REST API service for Active Inference model deployment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – API service configuration parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generated API service components and code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.generate_educational_tool">
+<span class="sig-name descname"><span class="pre">generate_educational_tool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.generate_educational_tool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.generate_educational_tool" title="Link to this definition"></a></dt>
+<dd><p>Generate interactive educational tool with Active Inference concepts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – Educational tool configuration parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generated educational tool components and code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.validate_generated_code">
+<span class="sig-name descname"><span class="pre">validate_generated_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.validate_generated_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.validate_generated_code" title="Link to this definition"></a></dt>
+<dd><p>Validate generated code for syntax, functionality, and best practices</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code</strong> – Generated code to validate</p></li>
+<li><p><strong>template_type</strong> – Type of template used for generation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Validation results dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.create_template_from_specification">
+<span class="sig-name descname"><span class="pre">create_template_from_specification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TemplateConfig</span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.create_template_from_specification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.create_template_from_specification" title="Link to this definition"></a></dt>
+<dd><p>Create custom template from detailed specification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>spec</strong> – Template specification dictionary</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configured template object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ApplicationFramework.optimize_template_performance">
+<span class="sig-name descname"><span class="pre">optimize_template_performance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#ApplicationFramework.optimize_template_performance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ApplicationFramework.optimize_template_performance" title="Link to this definition"></a></dt>
+<dd><p>Optimize generated template code for performance and efficiency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>template_code</strong> – Generated template code</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optimized code</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.TemplateManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">TemplateManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">templates_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.TemplateManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Manages application templates and generation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.TemplateManager.generate_application">
+<span class="sig-name descname"><span class="pre">generate_application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager.generate_application"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.TemplateManager.generate_application" title="Link to this definition"></a></dt>
+<dd><p>Generate a complete application from template</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.TemplateManager.list_available_templates">
+<span class="sig-name descname"><span class="pre">list_available_templates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager.list_available_templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.TemplateManager.list_available_templates" title="Link to this definition"></a></dt>
+<dd><p>List all available templates</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.TemplateManager.create_custom_template">
+<span class="sig-name descname"><span class="pre">create_custom_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager.create_custom_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.TemplateManager.create_custom_template" title="Link to this definition"></a></dt>
+<dd><p>Create a custom template</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.CodeGenerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">CodeGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">templates_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#CodeGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CodeGenerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Code generation engine for Active Inference applications</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.CodeGenerator.generate_basic_model">
+<span class="sig-name descname"><span class="pre">generate_basic_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#CodeGenerator.generate_basic_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CodeGenerator.generate_basic_model" title="Link to this definition"></a></dt>
+<dd><p>Generate a basic Active Inference model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.CodeGenerator.generate_research_pipeline">
+<span class="sig-name descname"><span class="pre">generate_research_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#CodeGenerator.generate_research_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CodeGenerator.generate_research_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Generate a complete research pipeline template</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.CodeGenerator.generate_robotics_control">
+<span class="sig-name descname"><span class="pre">generate_robotics_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#CodeGenerator.generate_robotics_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CodeGenerator.generate_robotics_control" title="Link to this definition"></a></dt>
+<dd><p>Generate a robotics control application template</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.CodeGenerator.generate_neural_interface">
+<span class="sig-name descname"><span class="pre">generate_neural_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#CodeGenerator.generate_neural_interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CodeGenerator.generate_neural_interface" title="Link to this definition"></a></dt>
+<dd><p>Generate a neural interface application template</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.CaseStudyManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">CaseStudyManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">examples_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#CaseStudyManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CaseStudyManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Manages case studies and examples</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.CaseStudyManager.get_case_study">
+<span class="sig-name descname"><span class="pre">get_case_study</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaseStudy</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#CaseStudyManager.get_case_study"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CaseStudyManager.get_case_study" title="Link to this definition"></a></dt>
+<dd><p>Get a specific case study</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.CaseStudyManager.list_case_studies">
+<span class="sig-name descname"><span class="pre">list_case_studies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">CaseStudy</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#CaseStudyManager.list_case_studies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CaseStudyManager.list_case_studies" title="Link to this definition"></a></dt>
+<dd><p>List case studies with optional filters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.CaseStudyManager.run_example">
+<span class="sig-name descname"><span class="pre">run_example</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#CaseStudyManager.run_example"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.CaseStudyManager.run_example" title="Link to this definition"></a></dt>
+<dd><p>Run an example case study</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.ExampleApplications">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">ExampleApplications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">examples_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#ExampleApplications"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ExampleApplications" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Collection of example applications</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ExampleApplications.get_case_study">
+<span class="sig-name descname"><span class="pre">get_case_study</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CaseStudy</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#ExampleApplications.get_case_study"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ExampleApplications.get_case_study" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a specific case study</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ExampleApplications.list_case_studies">
+<span class="sig-name descname"><span class="pre">list_case_studies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ApplicationDomain</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difficulty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">CaseStudy</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#ExampleApplications.list_case_studies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ExampleApplications.list_case_studies" title="Link to this definition"></a></dt>
+<dd><p>List case studies with optional filtering</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ExampleApplications.generate_example_code">
+<span class="sig-name descname"><span class="pre">generate_example_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/case_studies.html#ExampleApplications.generate_example_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ExampleApplications.generate_example_code" title="Link to this definition"></a></dt>
+<dd><p>Generate example code for a case study</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.IntegrationManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">IntegrationManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.IntegrationManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Manages integrations with external systems</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.IntegrationManager.register_api_connector">
+<span class="sig-name descname"><span class="pre">register_api_connector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#active_inference.applications.APIConnector" title="active_inference.applications.integrations.APIConnector"><span class="pre">APIConnector</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.register_api_connector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.IntegrationManager.register_api_connector" title="Link to this definition"></a></dt>
+<dd><p>Register a new API connector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.IntegrationManager.connect_to_api">
+<span class="sig-name descname"><span class="pre">connect_to_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.connect_to_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.IntegrationManager.connect_to_api" title="Link to this definition"></a></dt>
+<dd><p>Establish connection to an API</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.IntegrationManager.query_api">
+<span class="sig-name descname"><span class="pre">query_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.query_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.IntegrationManager.query_api" title="Link to this definition"></a></dt>
+<dd><p>Query an API endpoint</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.IntegrationManager.disconnect_api">
+<span class="sig-name descname"><span class="pre">disconnect_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.disconnect_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.IntegrationManager.disconnect_api" title="Link to this definition"></a></dt>
+<dd><p>Disconnect from an API</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.IntegrationManager.list_integrations">
+<span class="sig-name descname"><span class="pre">list_integrations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.list_integrations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.IntegrationManager.list_integrations" title="Link to this definition"></a></dt>
+<dd><p>List all available integrations</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.APIConnector">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">APIConnector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#APIConnector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.APIConnector" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>API connector configuration</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.applications.APIConnector.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><a class="headerlink" href="#active_inference.applications.APIConnector.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.applications.APIConnector.base_url">
+<span class="sig-name descname"><span class="pre">base_url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><a class="headerlink" href="#active_inference.applications.APIConnector.base_url" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.applications.APIConnector.auth_type">
+<span class="sig-name descname"><span class="pre">auth_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'none'</span></span><a class="headerlink" href="#active_inference.applications.APIConnector.auth_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.applications.APIConnector.headers">
+<span class="sig-name descname"><span class="pre">headers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#active_inference.applications.APIConnector.headers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.applications.APIConnector.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></span><a class="headerlink" href="#active_inference.applications.APIConnector.timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.BestPracticesGuide">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">BestPracticesGuide</span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.BestPracticesGuide" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Guide for best practices in Active Inference development</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.BestPracticesGuide.get_practices">
+<span class="sig-name descname"><span class="pre">get_practices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BestPractice</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide.get_practices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.BestPracticesGuide.get_practices" title="Link to this definition"></a></dt>
+<dd><p>Get best practices, optionally filtered by category</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.BestPracticesGuide.get_practice">
+<span class="sig-name descname"><span class="pre">get_practice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">practice_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BestPractice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide.get_practice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.BestPracticesGuide.get_practice" title="Link to this definition"></a></dt>
+<dd><p>Get a specific best practice</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.BestPracticesGuide.generate_architecture_recommendations">
+<span class="sig-name descname"><span class="pre">generate_architecture_recommendations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide.generate_architecture_recommendations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.BestPracticesGuide.generate_architecture_recommendations" title="Link to this definition"></a></dt>
+<dd><p>Generate architecture recommendations based on requirements</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.ArchitecturePatterns">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.</span></span><span class="sig-name descname"><span class="pre">ArchitecturePatterns</span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#ArchitecturePatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ArchitecturePatterns" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Collection of architecture patterns</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ArchitecturePatterns.get_pattern">
+<span class="sig-name descname"><span class="pre">get_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#ArchitecturePatterns.get_pattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ArchitecturePatterns.get_pattern" title="Link to this definition"></a></dt>
+<dd><p>Get details of a specific pattern</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.ArchitecturePatterns.list_patterns">
+<span class="sig-name descname"><span class="pre">list_patterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#ArchitecturePatterns.list_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.ArchitecturePatterns.list_patterns" title="Link to this definition"></a></dt>
+<dd><p>List all available patterns</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="core-classes">
+<h2>Core Classes<a class="headerlink" href="#core-classes" title="Link to this heading"></a></h2>
+<section id="templatemanager">
+<h3>TemplateManager<a class="headerlink" href="#templatemanager" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.templates.TemplateManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.templates.</span></span><span class="sig-name descname"><span class="pre">TemplateManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">templates_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.15)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.templates.TemplateManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Manages application templates and generation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.templates.TemplateManager.generate_application">
+<span class="sig-name descname"><span class="pre">generate_application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TemplateConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager.generate_application"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.templates.TemplateManager.generate_application" title="Link to this definition"></a></dt>
+<dd><p>Generate a complete application from template</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.templates.TemplateManager.list_available_templates">
+<span class="sig-name descname"><span class="pre">list_available_templates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager.list_available_templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.templates.TemplateManager.list_available_templates" title="Link to this definition"></a></dt>
+<dd><p>List all available templates</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.templates.TemplateManager.create_custom_template">
+<span class="sig-name descname"><span class="pre">create_custom_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/templates.html#TemplateManager.create_custom_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.templates.TemplateManager.create_custom_template" title="Link to this definition"></a></dt>
+<dd><p>Create a custom template</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="casestudyanalyzer">
+<h3>CaseStudyAnalyzer<a class="headerlink" href="#casestudyanalyzer" title="Link to this heading"></a></h3>
+</section>
+<section id="integrationmanager">
+<h3>IntegrationManager<a class="headerlink" href="#integrationmanager" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.integrations.</span></span><span class="sig-name descname"><span class="pre">IntegrationManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Manages integrations with external systems</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager.connectors">
+<span class="sig-name descname"><span class="pre">connectors</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#active_inference.applications.APIConnector" title="active_inference.applications.integrations.APIConnector"><span class="pre">APIConnector</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager.connectors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager.active_connections">
+<span class="sig-name descname"><span class="pre">active_connections</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager.active_connections" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager.register_api_connector">
+<span class="sig-name descname"><span class="pre">register_api_connector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#active_inference.applications.APIConnector" title="active_inference.applications.integrations.APIConnector"><span class="pre">APIConnector</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.register_api_connector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager.register_api_connector" title="Link to this definition"></a></dt>
+<dd><p>Register a new API connector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager.connect_to_api">
+<span class="sig-name descname"><span class="pre">connect_to_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.connect_to_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager.connect_to_api" title="Link to this definition"></a></dt>
+<dd><p>Establish connection to an API</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager.query_api">
+<span class="sig-name descname"><span class="pre">query_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.query_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager.query_api" title="Link to this definition"></a></dt>
+<dd><p>Query an API endpoint</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager.disconnect_api">
+<span class="sig-name descname"><span class="pre">disconnect_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connector_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.disconnect_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager.disconnect_api" title="Link to this definition"></a></dt>
+<dd><p>Disconnect from an API</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.integrations.IntegrationManager.list_integrations">
+<span class="sig-name descname"><span class="pre">list_integrations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/integrations.html#IntegrationManager.list_integrations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.integrations.IntegrationManager.list_integrations" title="Link to this definition"></a></dt>
+<dd><p>List all available integrations</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="bestpracticesguide">
+<h3>BestPracticesGuide<a class="headerlink" href="#bestpracticesguide" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="active_inference.applications.best_practices.BestPracticesGuide">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">active_inference.applications.best_practices.</span></span><span class="sig-name descname"><span class="pre">BestPracticesGuide</span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.best_practices.BestPracticesGuide" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Guide for best practices in Active Inference development</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.best_practices.BestPracticesGuide.get_practices">
+<span class="sig-name descname"><span class="pre">get_practices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><span class="pre">BestPractice</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide.get_practices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.best_practices.BestPracticesGuide.get_practices" title="Link to this definition"></a></dt>
+<dd><p>Get best practices, optionally filtered by category</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.best_practices.BestPracticesGuide.get_practice">
+<span class="sig-name descname"><span class="pre">get_practice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">practice_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BestPractice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide.get_practice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.best_practices.BestPracticesGuide.get_practice" title="Link to this definition"></a></dt>
+<dd><p>Get a specific best practice</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="active_inference.applications.best_practices.BestPracticesGuide.generate_architecture_recommendations">
+<span class="sig-name descname"><span class="pre">generate_architecture_recommendations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.15)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/active_inference/applications/best_practices.html#BestPracticesGuide.generate_architecture_recommendations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#active_inference.applications.best_practices.BestPracticesGuide.generate_architecture_recommendations" title="Link to this definition"></a></dt>
+<dd><p>Generate architecture recommendations based on requirements</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="utility-functions">
+<h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Link to this heading"></a></h2>
+</section>
+<section id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Link to this heading"></a></h2>
+<section id="applicationtemplate">
+<h3>ApplicationTemplate<a class="headerlink" href="#applicationtemplate" title="Link to this heading"></a></h3>
+</section>
+<section id="integrationconfig">
+<h3>IntegrationConfig<a class="headerlink" href="#integrationconfig" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="usage-examples">
+<h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<section id="using-application-templates">
+<h3>Using Application Templates<a class="headerlink" href="#using-application-templates" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemplateManager</span>
+
+<span class="c1"># Initialize template manager</span>
+<span class="n">templates</span> <span class="o">=</span> <span class="n">TemplateManager</span><span class="p">()</span>
+
+<span class="c1"># Get available templates</span>
+<span class="n">available_templates</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">list_templates</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Available templates: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">available_templates</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Load neural control template</span>
+<span class="n">neural_template</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">"neural_control_system"</span><span class="p">)</span>
+
+<span class="c1"># Customize template for specific use case</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"domain"</span><span class="p">:</span> <span class="s2">"robotics"</span><span class="p">,</span>
+    <span class="s2">"sensors"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"camera"</span><span class="p">,</span> <span class="s2">"imu"</span><span class="p">,</span> <span class="s2">"lidar"</span><span class="p">],</span>
+    <span class="s2">"actuators"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"servo_motors"</span><span class="p">,</span> <span class="s2">"wheels"</span><span class="p">],</span>
+    <span class="s2">"control_frequency"</span><span class="p">:</span> <span class="mi">100</span>  <span class="c1"># Hz</span>
+<span class="p">}</span>
+
+<span class="n">customized_template</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">customize_template</span><span class="p">(</span><span class="n">neural_template</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+<span class="c1"># Generate application code</span>
+<span class="n">application_code</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">generate_code</span><span class="p">(</span><span class="n">customized_template</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Application code generated"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="analyzing-case-studies">
+<h3>Analyzing Case Studies<a class="headerlink" href="#analyzing-case-studies" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">CaseStudyAnalyzer</span>
+
+<span class="c1"># Initialize case study analyzer</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">CaseStudyAnalyzer</span><span class="p">()</span>
+
+<span class="c1"># Load case studies for specific domain</span>
+<span class="n">robotics_studies</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">get_case_studies</span><span class="p">(</span><span class="s2">"robotics"</span><span class="p">)</span>
+
+<span class="c1"># Analyze success patterns</span>
+<span class="n">patterns</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">extract_patterns</span><span class="p">(</span><span class="n">robotics_studies</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Identified </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span><span class="si">}</span><span class="s2"> success patterns"</span><span class="p">)</span>
+
+<span class="c1"># Generate implementation recommendations</span>
+<span class="n">recommendations</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">generate_recommendations</span><span class="p">(</span><span class="n">patterns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Implementation recommendations generated"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="managing-integrations">
+<h3>Managing Integrations<a class="headerlink" href="#managing-integrations" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntegrationManager</span>
+
+<span class="c1"># Initialize integration manager</span>
+<span class="n">integrations</span> <span class="o">=</span> <span class="n">IntegrationManager</span><span class="p">()</span>
+
+<span class="c1"># Configure external API integration</span>
+<span class="n">api_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"api_type"</span><span class="p">:</span> <span class="s2">"rest"</span><span class="p">,</span>
+    <span class="s2">"endpoint"</span><span class="p">:</span> <span class="s2">"https://api.external-service.com/v1"</span><span class="p">,</span>
+    <span class="s2">"authentication"</span><span class="p">:</span> <span class="s2">"bearer_token"</span><span class="p">,</span>
+    <span class="s2">"data_format"</span><span class="p">:</span> <span class="s2">"json"</span>
+<span class="p">}</span>
+
+<span class="n">integration</span> <span class="o">=</span> <span class="n">integrations</span><span class="o">.</span><span class="n">create_integration</span><span class="p">(</span><span class="n">api_config</span><span class="p">)</span>
+
+<span class="c1"># Test integration</span>
+<span class="n">test_result</span> <span class="o">=</span> <span class="n">integrations</span><span class="o">.</span><span class="n">test_integration</span><span class="p">(</span><span class="n">integration</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">test_result</span><span class="p">[</span><span class="s2">"success"</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Integration test passed"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Integration test failed: </span><span class="si">{</span><span class="n">test_result</span><span class="p">[</span><span class="s1">'error'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="applying-best-practices">
+<h3>Applying Best Practices<a class="headerlink" href="#applying-best-practices" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">BestPracticesGuide</span>
+
+<span class="c1"># Initialize best practices guide</span>
+<span class="n">guide</span> <span class="o">=</span> <span class="n">BestPracticesGuide</span><span class="p">()</span>
+
+<span class="c1"># Get best practices for neural control</span>
+<span class="n">neural_practices</span> <span class="o">=</span> <span class="n">guide</span><span class="o">.</span><span class="n">get_best_practices</span><span class="p">(</span><span class="s2">"neural_control"</span><span class="p">)</span>
+
+<span class="c1"># Get scalability guidelines</span>
+<span class="n">scalability_guide</span> <span class="o">=</span> <span class="n">guide</span><span class="o">.</span><span class="n">get_scalability_guide</span><span class="p">(</span><span class="s2">"distributed_systems"</span><span class="p">)</span>
+
+<span class="c1"># Generate implementation checklist</span>
+<span class="n">checklist</span> <span class="o">=</span> <span class="n">guide</span><span class="o">.</span><span class="n">generate_checklist</span><span class="p">(</span><span class="s2">"production_deployment"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Implementation checklist has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">checklist</span><span class="p">)</span><span class="si">}</span><span class="s2"> items"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-optimization">
+<h3>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">active_inference.applications</span><span class="w"> </span><span class="kn">import</span> <span class="n">PerformanceOptimizer</span>
+
+<span class="c1"># Initialize performance optimizer</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">PerformanceOptimizer</span><span class="p">()</span>
+
+<span class="c1"># Analyze current application performance</span>
+<span class="n">performance_report</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">analyze_performance</span><span class="p">(</span><span class="n">current_app</span><span class="p">)</span>
+
+<span class="c1"># Get optimization recommendations</span>
+<span class="n">recommendations</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">get_recommendations</span><span class="p">(</span><span class="n">performance_report</span><span class="p">)</span>
+
+<span class="c1"># Apply optimizations</span>
+<span class="n">optimized_app</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_optimizations</span><span class="p">(</span><span class="n">current_app</span><span class="p">,</span> <span class="n">recommendations</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Application optimized for performance"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>Complete API documentation for all application functionality.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For application guides, see <a class="reference internal" href="../applications/index.html"><span class="doc">Application Framework</span></a>.
+For templates, see <span class="xref std std-doc">../applications/templates/index</span>.
+For case studies, see <span class="xref std std-doc">../applications/case_studies/index</span>.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="visualization.html" class="btn btn-neutral float-left" title="Visualization API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="platform.html" class="btn btn-neutral float-right" title="Platform API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

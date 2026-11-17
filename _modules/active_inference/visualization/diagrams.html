@@ -1,0 +1,826 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.visualization.diagrams &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.visualization.diagrams</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.visualization.diagrams</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Visualization Engine - Interactive Diagrams</span>
+
+<span class="sd">Interactive diagram system for visualizing Active Inference concepts, models,</span>
+<span class="sd">and processes. Provides dynamic, educational diagrams with real-time updates</span>
+<span class="sd">and interactive exploration capabilities.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DiagramType">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.DiagramType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DiagramType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Types of diagrams supported"""</span>
+
+    <span class="n">CONCEPT_MAP</span> <span class="o">=</span> <span class="s2">"concept_map"</span>
+    <span class="n">FLOWCHART</span> <span class="o">=</span> <span class="s2">"flowchart"</span>
+    <span class="n">STATE_DIAGRAM</span> <span class="o">=</span> <span class="s2">"state_diagram"</span>
+    <span class="n">ARCHITECTURE</span> <span class="o">=</span> <span class="s2">"architecture"</span>
+    <span class="n">TIMELINE</span> <span class="o">=</span> <span class="s2">"timeline"</span>
+    <span class="n">HIERARCHY</span> <span class="o">=</span> <span class="s2">"hierarchy"</span></div>
+
+
+
+<div class="viewcode-block" id="DiagramNode">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.DiagramNode">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DiagramNode</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Represents a node in a diagram"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">node_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"default"</span>
+    <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+
+
+<div class="viewcode-block" id="DiagramEdge">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.DiagramEdge">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DiagramEdge</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Represents an edge/connection in a diagram"""</span>
+
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">edge_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"directed"</span>
+    <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+
+
+<div class="viewcode-block" id="InteractiveDiagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.InteractiveDiagram">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Interactive diagram with dynamic updates"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diagram_type</span><span class="p">:</span> <span class="n">DiagramType</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagram_type</span> <span class="o">=</span> <span class="n">diagram_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DiagramNode</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DiagramEdge</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interactive_elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Created interactive diagram: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">diagram_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="InteractiveDiagram.add_node">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.InteractiveDiagram.add_node">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">DiagramNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add a node to the diagram"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Added node </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> to diagram </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="InteractiveDiagram.add_edge">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.InteractiveDiagram.add_edge">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge</span><span class="p">:</span> <span class="n">DiagramEdge</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add an edge to the diagram"""</span>
+        <span class="c1"># Validate that source and target nodes exist</span>
+        <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Source node </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> not found in diagram"</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Target node </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s2"> not found in diagram"</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Added edge </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="InteractiveDiagram.update_node_position">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.InteractiveDiagram.update_node_position">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_node_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Update the position of a node"""</span>
+        <span class="k">if</span> <span class="n">node_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Updated position of node </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="InteractiveDiagram.highlight_path">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.InteractiveDiagram.highlight_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">highlight_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"#ff0000"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Highlight a path through the diagram"""</span>
+        <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">node_ids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"highlight"</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Highlighted path: </span><span class="si">{</span><span class="n">node_ids</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="InteractiveDiagram.to_dict">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.InteractiveDiagram.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Export diagram to dictionary format"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"type"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagram_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">"title"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s2">"nodes"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="n">node_id</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s2">"label"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+                    <span class="s2">"position"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
+                    <span class="s2">"node_type"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">node_type</span><span class="p">,</span>
+                    <span class="s2">"properties"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">},</span>
+            <span class="s2">"edges"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"source"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                    <span class="s2">"target"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+                    <span class="s2">"label"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+                    <span class="s2">"edge_type"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">edge_type</span><span class="p">,</span>
+                    <span class="s2">"properties"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span>
+            <span class="p">],</span>
+            <span class="s2">"properties"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ConceptDiagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConceptDiagram</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Specialized diagrams for Active Inference concepts"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagrams</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">InteractiveDiagram</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="ConceptDiagram.create_active_inference_overview">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram.create_active_inference_overview">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_active_inference_overview</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create overview diagram of Active Inference"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span>
+            <span class="n">DiagramType</span><span class="o">.</span><span class="n">CONCEPT_MAP</span><span class="p">,</span> <span class="s2">"Active Inference Overview"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Add key concepts as nodes</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"perception"</span><span class="p">,</span> <span class="s2">"Perception"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"process"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"action"</span><span class="p">,</span> <span class="s2">"Action"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"process"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"learning"</span><span class="p">,</span> <span class="s2">"Learning"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="s2">"process"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"Generative Model"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span> <span class="s2">"component"</span>
+            <span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"Free Energy"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span> <span class="s2">"principle"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"variational_inference"</span><span class="p">,</span> <span class="s2">"Variational Inference"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"method"</span>
+            <span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"active_learning"</span><span class="p">,</span> <span class="s2">"Active Learning"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"method"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="c1"># Add relationships</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"perception"</span><span class="p">,</span> <span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"updates"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"action"</span><span class="p">,</span> <span class="s2">"guides"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"perception"</span><span class="p">,</span> <span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"minimizes"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"action"</span><span class="p">,</span> <span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"minimizes"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"learning"</span><span class="p">,</span> <span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"improves"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"variational_inference"</span><span class="p">,</span> <span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"computes"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"active_learning"</span><span class="p">,</span> <span class="s2">"action"</span><span class="p">,</span> <span class="s2">"drives"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+
+
+<div class="viewcode-block" id="ConceptDiagram.create_free_energy_principle_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram.create_free_energy_principle_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_free_energy_principle_diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create diagram explaining the Free Energy Principle"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span><span class="n">DiagramType</span><span class="o">.</span><span class="n">FLOWCHART</span><span class="p">,</span> <span class="s2">"Free Energy Principle"</span><span class="p">)</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"system"</span><span class="p">,</span> <span class="s2">"System"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"component"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"model"</span><span class="p">,</span> <span class="s2">"Internal Model"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"component"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"sensory_input"</span><span class="p">,</span> <span class="s2">"Sensory Input"</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"input"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"prediction"</span><span class="p">,</span> <span class="s2">"Prediction"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"output"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"prediction_error"</span><span class="p">,</span> <span class="s2">"Prediction Error"</span><span class="p">,</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"signal"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"Free Energy"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"measure"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"action"</span><span class="p">,</span> <span class="s2">"Action"</span><span class="p">,</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"response"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"sensory_input"</span><span class="p">,</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"received by"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"system"</span><span class="p">,</span> <span class="s2">"model"</span><span class="p">,</span> <span class="s2">"uses"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"model"</span><span class="p">,</span> <span class="s2">"prediction"</span><span class="p">,</span> <span class="s2">"generates"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"sensory_input"</span><span class="p">,</span> <span class="s2">"prediction_error"</span><span class="p">,</span> <span class="s2">"compared with"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"prediction"</span><span class="p">,</span> <span class="s2">"prediction_error"</span><span class="p">,</span> <span class="s2">"compared with"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"prediction_error"</span><span class="p">,</span> <span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"quantifies"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"free_energy"</span><span class="p">,</span> <span class="s2">"action"</span><span class="p">,</span> <span class="s2">"drives"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+
+
+<div class="viewcode-block" id="ConceptDiagram.create_bayesian_inference_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram.create_bayesian_inference_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_bayesian_inference_diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create comprehensive diagram of Bayesian inference in Active Inference"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span>
+            <span class="n">DiagramType</span><span class="o">.</span><span class="n">FLOWCHART</span><span class="p">,</span> <span class="s2">"Bayesian Inference in Active Inference"</span>
+        <span class="p">)</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"prior_belief"</span><span class="p">,</span> <span class="s2">"Prior Belief"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"belief"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"likelihood"</span><span class="p">,</span> <span class="s2">"Likelihood"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"evidence"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"posterior"</span><span class="p">,</span> <span class="s2">"Posterior"</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"belief"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"evidence"</span><span class="p">,</span> <span class="s2">"Evidence"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"data"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"bayes_theorem"</span><span class="p">,</span> <span class="s2">"Bayes' Theorem"</span><span class="p">,</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"formula"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"belief_update"</span><span class="p">,</span> <span class="s2">"Belief Update"</span><span class="p">,</span> <span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"process"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"prediction"</span><span class="p">,</span> <span class="s2">"Prediction"</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"output"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"prior_belief"</span><span class="p">,</span> <span class="s2">"bayes_theorem"</span><span class="p">,</span> <span class="s2">"P(θ)"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"evidence"</span><span class="p">,</span> <span class="s2">"bayes_theorem"</span><span class="p">,</span> <span class="s2">"P(D|θ)"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"bayes_theorem"</span><span class="p">,</span> <span class="s2">"posterior"</span><span class="p">,</span> <span class="s2">"P(θ|D)"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"posterior"</span><span class="p">,</span> <span class="s2">"belief_update"</span><span class="p">,</span> <span class="s2">"updates"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"belief_update"</span><span class="p">,</span> <span class="s2">"prediction"</span><span class="p">,</span> <span class="s2">"generates"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"posterior"</span><span class="p">,</span> <span class="s2">"prediction"</span><span class="p">,</span> <span class="s2">"guides"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+
+
+<div class="viewcode-block" id="ConceptDiagram.create_hierarchical_models_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram.create_hierarchical_models_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_hierarchical_models_diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create diagram showing hierarchical Active Inference models"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span>
+            <span class="n">DiagramType</span><span class="o">.</span><span class="n">HIERARCHY</span><span class="p">,</span> <span class="s2">"Hierarchical Active Inference"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create hierarchical levels</span>
+        <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">"sensory"</span><span class="p">,</span> <span class="s2">"Sensory Level"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">[</span><span class="s2">"observations"</span><span class="p">,</span> <span class="s2">"perceptions"</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s2">"contextual"</span><span class="p">,</span> <span class="s2">"Contextual Level"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="p">[</span><span class="s2">"categories"</span><span class="p">,</span> <span class="s2">"features"</span><span class="p">]),</span>
+            <span class="p">(</span>
+                <span class="s2">"conceptual"</span><span class="p">,</span>
+                <span class="s2">"Conceptual Level"</span><span class="p">,</span>
+                <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+                <span class="p">[</span><span class="s2">"concepts"</span><span class="p">,</span> <span class="s2">"abstractions"</span><span class="p">],</span>
+            <span class="p">),</span>
+            <span class="p">(</span><span class="s2">"goal"</span><span class="p">,</span> <span class="s2">"Goal Level"</span><span class="p">,</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="p">[</span><span class="s2">"objectives"</span><span class="p">,</span> <span class="s2">"intentions"</span><span class="p">]),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">level_id</span><span class="p">,</span> <span class="n">level_name</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">subconcepts</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">:</span>
+            <span class="c1"># Main level node</span>
+            <span class="n">main_node</span> <span class="o">=</span> <span class="n">DiagramNode</span><span class="p">(</span><span class="n">level_id</span><span class="p">,</span> <span class="n">level_name</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="s2">"level"</span><span class="p">)</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">main_node</span><span class="p">)</span>
+
+            <span class="c1"># Subconcept nodes</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">subconcept</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subconcepts</span><span class="p">):</span>
+                <span class="n">sub_x</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+                <span class="n">sub_y</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">50</span>
+                <span class="n">sub_node</span> <span class="o">=</span> <span class="n">DiagramNode</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">level_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">subconcept</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">subconcept</span><span class="p">,</span> <span class="p">(</span><span class="n">sub_x</span><span class="p">,</span> <span class="n">sub_y</span><span class="p">),</span> <span class="s2">"subconcept"</span>
+                <span class="p">)</span>
+                <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">sub_node</span><span class="p">)</span>
+
+                <span class="c1"># Connect main node to subconcepts</span>
+                <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">DiagramEdge</span><span class="p">(</span><span class="n">level_id</span><span class="p">,</span> <span class="n">sub_node</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">"contains"</span><span class="p">))</span>
+
+        <span class="c1"># Add hierarchical connections</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">current_level</span> <span class="o">=</span> <span class="n">levels</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">next_level</span> <span class="o">=</span> <span class="n">levels</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">DiagramEdge</span><span class="p">(</span><span class="n">current_level</span><span class="p">,</span> <span class="n">next_level</span><span class="p">,</span> <span class="s2">"influences"</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+
+
+<div class="viewcode-block" id="ConceptDiagram.create_information_geometry_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram.create_information_geometry_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_information_geometry_diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create diagram showing information geometry concepts"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span>
+            <span class="n">DiagramType</span><span class="o">.</span><span class="n">ARCHITECTURE</span><span class="p">,</span> <span class="s2">"Information Geometry in Active Inference"</span>
+        <span class="p">)</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"statistical_manifold"</span><span class="p">,</span> <span class="s2">"Statistical Manifold"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"geometry"</span>
+            <span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"fisher_metric"</span><span class="p">,</span> <span class="s2">"Fisher Metric"</span><span class="p">,</span> <span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"metric"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"riemannian_geometry"</span><span class="p">,</span> <span class="s2">"Riemannian Geometry"</span><span class="p">,</span> <span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"geometry"</span>
+            <span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"natural_gradient"</span><span class="p">,</span> <span class="s2">"Natural Gradient"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"optimization"</span>
+            <span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"geodesic"</span><span class="p">,</span> <span class="s2">"Geodesic Path"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"path"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"curvature"</span><span class="p">,</span> <span class="s2">"Curvature"</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"property"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"information_distance"</span><span class="p">,</span> <span class="s2">"Information Distance"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="s2">"measure"</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"statistical_manifold"</span><span class="p">,</span> <span class="s2">"fisher_metric"</span><span class="p">,</span> <span class="s2">"defined by"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"statistical_manifold"</span><span class="p">,</span> <span class="s2">"riemannian_geometry"</span><span class="p">,</span> <span class="s2">"is a"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"fisher_metric"</span><span class="p">,</span> <span class="s2">"natural_gradient"</span><span class="p">,</span> <span class="s2">"enables"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"riemannian_geometry"</span><span class="p">,</span> <span class="s2">"geodesic"</span><span class="p">,</span> <span class="s2">"has"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"riemannian_geometry"</span><span class="p">,</span> <span class="s2">"curvature"</span><span class="p">,</span> <span class="s2">"characterized by"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"geodesic"</span><span class="p">,</span> <span class="s2">"information_distance"</span><span class="p">,</span> <span class="s2">"measures"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"natural_gradient"</span><span class="p">,</span> <span class="s2">"information_distance"</span><span class="p">,</span> <span class="s2">"minimizes"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+
+
+<div class="viewcode-block" id="ConceptDiagram.create_policy_selection_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram.create_policy_selection_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_policy_selection_diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create diagram showing policy selection in Active Inference"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span>
+            <span class="n">DiagramType</span><span class="o">.</span><span class="n">STATE_DIAGRAM</span><span class="p">,</span> <span class="s2">"Policy Selection Process"</span>
+        <span class="p">)</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"current_state"</span><span class="p">,</span> <span class="s2">"Current State"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"state"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"Generative Model"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"model"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"policy_options"</span><span class="p">,</span> <span class="s2">"Policy Options"</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"decision"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"expected_fe"</span><span class="p">,</span> <span class="s2">"Expected Free Energy"</span><span class="p">,</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="s2">"calculation"</span>
+            <span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span>
+                <span class="s2">"policy_evaluation"</span><span class="p">,</span> <span class="s2">"Policy Evaluation"</span><span class="p">,</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"process"</span>
+            <span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"selected_policy"</span><span class="p">,</span> <span class="s2">"Selected Policy"</span><span class="p">,</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="s2">"decision"</span><span class="p">),</span>
+            <span class="n">DiagramNode</span><span class="p">(</span><span class="s2">"action_execution"</span><span class="p">,</span> <span class="s2">"Action Execution"</span><span class="p">,</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="s2">"action"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"current_state"</span><span class="p">,</span> <span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"provides context"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"generative_model"</span><span class="p">,</span> <span class="s2">"policy_options"</span><span class="p">,</span> <span class="s2">"generates"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"policy_options"</span><span class="p">,</span> <span class="s2">"expected_fe"</span><span class="p">,</span> <span class="s2">"evaluated by"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"expected_fe"</span><span class="p">,</span> <span class="s2">"policy_evaluation"</span><span class="p">,</span> <span class="s2">"computed in"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"policy_evaluation"</span><span class="p">,</span> <span class="s2">"selected_policy"</span><span class="p">,</span> <span class="s2">"determines"</span><span class="p">),</span>
+            <span class="n">DiagramEdge</span><span class="p">(</span><span class="s2">"selected_policy"</span><span class="p">,</span> <span class="s2">"action_execution"</span><span class="p">,</span> <span class="s2">"leads to"</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+
+
+<div class="viewcode-block" id="ConceptDiagram.create_multi_scale_modeling_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.ConceptDiagram.create_multi_scale_modeling_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_multi_scale_modeling_diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create diagram showing multi-scale modeling in Active Inference"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span>
+            <span class="n">DiagramType</span><span class="o">.</span><span class="n">HIERARCHY</span><span class="p">,</span> <span class="s2">"Multi-Scale Active Inference"</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Define different time scales</span>
+        <span class="n">scales</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span>
+                <span class="s2">"microseconds"</span><span class="p">,</span>
+                <span class="s2">"Microsecond Scale"</span><span class="p">,</span>
+                <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+                <span class="p">[</span><span class="s2">"neural firing"</span><span class="p">,</span> <span class="s2">"synaptic transmission"</span><span class="p">],</span>
+            <span class="p">),</span>
+            <span class="p">(</span>
+                <span class="s2">"milliseconds"</span><span class="p">,</span>
+                <span class="s2">"Millisecond Scale"</span><span class="p">,</span>
+                <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+                <span class="p">[</span><span class="s2">"perception"</span><span class="p">,</span> <span class="s2">"motor control"</span><span class="p">],</span>
+            <span class="p">),</span>
+            <span class="p">(</span><span class="s2">"seconds"</span><span class="p">,</span> <span class="s2">"Second Scale"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="p">[</span><span class="s2">"decision making"</span><span class="p">,</span> <span class="s2">"learning"</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s2">"minutes"</span><span class="p">,</span> <span class="s2">"Minute Scale"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="p">[</span><span class="s2">"planning"</span><span class="p">,</span> <span class="s2">"adaptation"</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s2">"hours"</span><span class="p">,</span> <span class="s2">"Hour Scale"</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="p">[</span><span class="s2">"strategy"</span><span class="p">,</span> <span class="s2">"long-term goals"</span><span class="p">]),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">scale_id</span><span class="p">,</span> <span class="n">scale_name</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">processes</span> <span class="ow">in</span> <span class="n">scales</span><span class="p">:</span>
+            <span class="c1"># Main scale node</span>
+            <span class="n">main_node</span> <span class="o">=</span> <span class="n">DiagramNode</span><span class="p">(</span><span class="n">scale_id</span><span class="p">,</span> <span class="n">scale_name</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="s2">"timescale"</span><span class="p">)</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">main_node</span><span class="p">)</span>
+
+            <span class="c1"># Process nodes</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">process</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">processes</span><span class="p">):</span>
+                <span class="n">process_x</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">200</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">120</span>
+                <span class="n">process_y</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">process_node</span> <span class="o">=</span> <span class="n">DiagramNode</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">scale_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">process</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                    <span class="n">process</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">process_x</span><span class="p">,</span> <span class="n">process_y</span><span class="p">),</span>
+                    <span class="s2">"process"</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">process_node</span><span class="p">)</span>
+
+                <span class="c1"># Connect scale to processes</span>
+                <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">DiagramEdge</span><span class="p">(</span><span class="n">scale_id</span><span class="p">,</span> <span class="n">process_node</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">"includes"</span><span class="p">))</span>
+
+        <span class="c1"># Add cross-scale connections</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">current_scale</span> <span class="o">=</span> <span class="n">scales</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">next_scale</span> <span class="o">=</span> <span class="n">scales</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">DiagramEdge</span><span class="p">(</span><span class="n">current_scale</span><span class="p">,</span> <span class="n">next_scale</span><span class="p">,</span> <span class="s2">"aggregates to"</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="VisualizationEngine">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">VisualizationEngine</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main visualization engine coordinating all diagram types"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span> <span class="o">=</span> <span class="n">ConceptDiagram</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagrams</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">InteractiveDiagram</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"VisualizationEngine initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VisualizationEngine.create_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.create_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_diagram</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">diagram_type</span><span class="p">:</span> <span class="n">DiagramType</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">nodes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">DiagramNode</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">edges</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">DiagramEdge</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveDiagram</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create a new interactive diagram"""</span>
+        <span class="n">diagram</span> <span class="o">=</span> <span class="n">InteractiveDiagram</span><span class="p">(</span><span class="n">diagram_type</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="n">diagram</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+                <span class="n">diagram</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagrams</span><span class="p">[</span><span class="n">title</span><span class="p">]</span> <span class="o">=</span> <span class="n">diagram</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Created diagram: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">diagram</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.get_concept_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.get_concept_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_concept_diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concept</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">InteractiveDiagram</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get a pre-built concept diagram"""</span>
+        <span class="k">if</span> <span class="n">concept</span> <span class="o">==</span> <span class="s2">"active_inference"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span><span class="o">.</span><span class="n">create_active_inference_overview</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">concept</span> <span class="o">==</span> <span class="s2">"free_energy_principle"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span><span class="o">.</span><span class="n">create_free_energy_principle_diagram</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">concept</span> <span class="o">==</span> <span class="s2">"bayesian_inference"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span><span class="o">.</span><span class="n">create_bayesian_inference_diagram</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">concept</span> <span class="o">==</span> <span class="s2">"hierarchical_models"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span><span class="o">.</span><span class="n">create_hierarchical_models_diagram</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">concept</span> <span class="o">==</span> <span class="s2">"information_geometry"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span><span class="o">.</span><span class="n">create_information_geometry_diagram</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">concept</span> <span class="o">==</span> <span class="s2">"policy_selection"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span><span class="o">.</span><span class="n">create_policy_selection_diagram</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">concept</span> <span class="o">==</span> <span class="s2">"multi_scale_modeling"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">concept_diagram</span><span class="o">.</span><span class="n">create_multi_scale_modeling_diagram</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Concept diagram not found: </span><span class="si">{</span><span class="n">concept</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.export_diagram">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.export_diagram">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_diagram</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">diagram_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"json"</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Export diagram in specified format"""</span>
+        <span class="k">if</span> <span class="n">diagram_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagrams</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Diagram not found: </span><span class="si">{</span><span class="n">diagram_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">diagram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagrams</span><span class="p">[</span><span class="n">diagram_name</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">diagram</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Export format not supported: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.implement_diagram_rendering_engine">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.implement_diagram_rendering_engine">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_diagram_rendering_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement high-performance diagram rendering with interactive features</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured diagram renderer instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a DiagramRenderer instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram rendering engine implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.create_concept_visualization_system">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.create_concept_visualization_system">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_concept_visualization_system</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create system for visualizing Active Inference concepts and relationships</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured concept visualizer instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a ConceptVisualizer instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Concept visualization system implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.implement_diagram_interaction_manager">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.implement_diagram_interaction_manager">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_diagram_interaction_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement comprehensive interaction management for diagram exploration</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured interaction manager instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create an InteractionManager instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram interaction manager implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.create_diagram_export_and_sharing_system">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.create_diagram_export_and_sharing_system">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_diagram_export_and_sharing_system</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create export and sharing system for diagrams in multiple formats</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured export manager instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create an ExportManager instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram export and sharing system implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.implement_diagram_accessibility_features">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.implement_diagram_accessibility_features">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_diagram_accessibility_features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement full accessibility support for diagram navigation and understanding</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured accessibility manager instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create an AccessibilityManager instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram accessibility features implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.create_diagram_performance_optimization">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.create_diagram_performance_optimization">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_diagram_performance_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create performance optimization for complex diagram rendering</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured performance optimizer instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a PerformanceOptimizer instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram performance optimization implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.implement_diagram_validation_system">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.implement_diagram_validation_system">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_diagram_validation_system</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement validation system for diagram correctness and completeness</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured diagram validator instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a DiagramValidator instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram validation system implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.create_diagram_integration_with_knowledge_graph">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.create_diagram_integration_with_knowledge_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_diagram_integration_with_knowledge_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create integration between diagrams and knowledge graph systems</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured knowledge integration instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a KnowledgeIntegration instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram knowledge graph integration implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.implement_diagram_security_and_access_control">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.implement_diagram_security_and_access_control">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_diagram_security_and_access_control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement security and access control for diagram systems</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured security manager instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a SecurityManager instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram security and access control implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="VisualizationEngine.create_diagram_analytics_and_insights">
+<a class="viewcode-back" href="../../../api/visualization.html#active_inference.visualization.VisualizationEngine.create_diagram_analytics_and_insights">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_diagram_analytics_and_insights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create analytics and insights system for diagram usage and effectiveness</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured diagram analytics instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a DiagramAnalytics instance</span>
+        <span class="c1"># For now, return a placeholder</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Diagram analytics and insights implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

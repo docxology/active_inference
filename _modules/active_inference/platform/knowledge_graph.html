@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>active_inference.platform.knowledge_graph &mdash; Active Inference Knowledge Environment 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=b676973c" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Active Inference Knowledge Environment
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/knowledge.html">Knowledge API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/research.html">Research API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/visualization.html">Visualization API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/applications.html">Applications API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/platform.html">Platform API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Active Inference Knowledge Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Code of Conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Active Inference Knowledge Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">active_inference.platform.knowledge_graph</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for active_inference.platform.knowledge_graph</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Knowledge Graph Platform Service</span>
+
+<span class="sd">Provides semantic knowledge representation and graph operations for the</span>
+<span class="sd">Active Inference Knowledge Environment. Manages knowledge nodes, relationships,</span>
+<span class="sd">and graph traversal algorithms.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NodeType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Types of knowledge graph nodes"""</span>
+
+    <span class="n">CONCEPT</span> <span class="o">=</span> <span class="s2">"concept"</span>
+    <span class="n">THEORY</span> <span class="o">=</span> <span class="s2">"theory"</span>
+    <span class="n">METHOD</span> <span class="o">=</span> <span class="s2">"method"</span>
+    <span class="n">IMPLEMENTATION</span> <span class="o">=</span> <span class="s2">"implementation"</span>
+    <span class="n">APPLICATION</span> <span class="o">=</span> <span class="s2">"application"</span>
+    <span class="n">PERSON</span> <span class="o">=</span> <span class="s2">"person"</span>
+    <span class="n">PUBLICATION</span> <span class="o">=</span> <span class="s2">"publication"</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RelationshipType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Types of relationships between nodes"""</span>
+
+    <span class="n">PREREQUISITE</span> <span class="o">=</span> <span class="s2">"prerequisite"</span>
+    <span class="n">RELATED_TO</span> <span class="o">=</span> <span class="s2">"related_to"</span>
+    <span class="n">IMPLEMENTS</span> <span class="o">=</span> <span class="s2">"implements"</span>
+    <span class="n">BASED_ON</span> <span class="o">=</span> <span class="s2">"based_on"</span>
+    <span class="n">EXTENDS</span> <span class="o">=</span> <span class="s2">"extends"</span>
+    <span class="n">CITES</span> <span class="o">=</span> <span class="s2">"cites"</span>
+    <span class="n">AUTHORED_BY</span> <span class="o">=</span> <span class="s2">"authored_by"</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">KnowledgeNode</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Knowledge graph node representation"""</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">node_type</span><span class="p">:</span> <span class="n">NodeType</span>
+    <span class="n">content</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">embeddings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">KnowledgeEdge</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Knowledge graph edge representation"""</span>
+
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">relationship_type</span><span class="p">:</span> <span class="n">RelationshipType</span>
+    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">relationship_type</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">KnowledgeEdge</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">target</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">relationship_type</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">relationship_type</span>
+        <span class="p">)</span>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KnowledgeGraphManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Manager for knowledge graph operations"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize knowledge graph manager"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeNode</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">KnowledgeEdge</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_index</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># For efficient lookups</span>
+
+        <span class="c1"># Storage backend (simplified for now)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage_backend</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"storage_backend"</span><span class="p">,</span> <span class="s2">"memory"</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Knowledge graph manager initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KnowledgeGraphManager.add_node">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.add_node">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">KnowledgeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add node to knowledge graph"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Node </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> already exists, updating"</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+
+            <span class="c1"># Update index</span>
+            <span class="n">node_type_str</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">node_type</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">node_type_str</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_index</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">node_index</span><span class="p">[</span><span class="n">node_type_str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_index</span><span class="p">[</span><span class="n">node_type_str</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Added node: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error adding node </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.update_node">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.update_node">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">KnowledgeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Update existing node"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Updated node: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error updating node </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.delete_node">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.delete_node">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Delete node from knowledge graph"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span>
+
+            <span class="c1"># Remove from index</span>
+            <span class="n">node_type_str</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">node_type</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">node_type_str</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_index</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">node_index</span><span class="p">[</span><span class="n">node_type_str</span><span class="p">]</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+            <span class="c1"># Remove associated edges</span>
+            <span class="n">edges_to_remove</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">edge_id</span><span class="p">,</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">node_id</span> <span class="ow">or</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">node_id</span><span class="p">:</span>
+                    <span class="n">edges_to_remove</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge_id</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">edge_id</span> <span class="ow">in</span> <span class="n">edges_to_remove</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">edge_id</span><span class="p">]</span>
+
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Deleted node: </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error deleting node </span><span class="si">{</span><span class="n">node_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.add_edge">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.add_edge">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge</span><span class="p">:</span> <span class="n">KnowledgeEdge</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add edge to knowledge graph"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Validate nodes exist</span>
+            <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="ow">or</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Cannot add edge: nodes </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> or </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s2"> do not"</span>
+                    <span class="s2">" exist"</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="n">edge_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">relationship_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s2">"</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">edge_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">edge</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Added edge: </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> --[</span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">relationship_type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">]--&gt;"</span>
+                <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error adding edge: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.get_node">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.get_node">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get node by ID"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.get_nodes_by_type">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.get_nodes_by_type">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_nodes_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_type</span><span class="p">:</span> <span class="n">NodeType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get all nodes of a specific type"""</span>
+        <span class="n">type_str</span> <span class="o">=</span> <span class="n">node_type</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">node_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">type_str</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">node_ids</span> <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.get_related_nodes">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.get_related_nodes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_related_nodes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">relationship_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RelationshipType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Get nodes related to specified node"""</span>
+        <span class="n">related</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">node_id</span> <span class="ow">or</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">node_id</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">relationship_type</span> <span class="ow">is</span> <span class="kc">None</span>
+                    <span class="ow">or</span> <span class="n">edge</span><span class="o">.</span><span class="n">relationship_type</span> <span class="o">==</span> <span class="n">relationship_type</span>
+                <span class="p">):</span>
+                    <span class="c1"># Determine if this node is source or target</span>
+                    <span class="n">related_node_id</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">node_id</span> <span class="k">else</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span>
+                    <span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">related_node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                        <span class="n">related_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">related_node_id</span><span class="p">]</span>
+                        <span class="n">related</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span>
+                                <span class="s2">"node"</span><span class="p">:</span> <span class="n">related_node</span><span class="p">,</span>
+                                <span class="s2">"relationship"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">relationship_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                                <span class="s2">"weight"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                                <span class="s2">"direction"</span><span class="p">:</span> <span class="p">(</span>
+                                    <span class="s2">"outgoing"</span> <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">node_id</span> <span class="k">else</span> <span class="s2">"incoming"</span>
+                                <span class="p">),</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">related</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.find_shortest_path">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.find_shortest_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_shortest_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Find shortest path between two nodes"""</span>
+        <span class="k">if</span> <span class="n">source_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="ow">or</span> <span class="n">target_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Simple BFS for shortest path</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="p">[(</span><span class="n">source_id</span><span class="p">,</span> <span class="p">[</span><span class="n">source_id</span><span class="p">])]</span>
+
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">current_id</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">current_id</span> <span class="o">==</span> <span class="n">target_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">path</span>
+
+            <span class="k">if</span> <span class="n">current_id</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_id</span><span class="p">)</span>
+
+            <span class="c1"># Add neighbors to queue</span>
+            <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">next_id</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">current_id</span> <span class="ow">and</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">next_id</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span>
+                <span class="k">elif</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">current_id</span> <span class="ow">and</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">next_id</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span>
+
+                <span class="k">if</span> <span class="n">next_id</span> <span class="ow">and</span> <span class="n">next_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">next_id</span><span class="p">,</span> <span class="n">path</span> <span class="o">+</span> <span class="p">[</span><span class="n">next_id</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># No path found</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.search_nodes">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.search_nodes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">search_nodes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">node_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">NodeType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">KnowledgeNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Search nodes by query"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Get nodes to search</span>
+        <span class="k">if</span> <span class="n">node_type</span><span class="p">:</span>
+            <span class="n">nodes_to_search</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nodes_by_type</span><span class="p">(</span><span class="n">node_type</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nodes_to_search</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="c1"># Simple text search</span>
+        <span class="n">query_lower</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes_to_search</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="ow">or</span> <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span>
+                    <span class="n">query_lower</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="p">):</span>
+
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">limit</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.get_statistics">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.get_statistics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get knowledge graph statistics"""</span>
+        <span class="n">node_types</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">node_type</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">node_type</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">node_types</span><span class="p">[</span><span class="n">node_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node_type</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="n">relationship_types</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">rel_type</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">relationship_type</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">relationship_types</span><span class="p">[</span><span class="n">rel_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">relationship_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">rel_type</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"total_nodes"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span>
+            <span class="s2">"total_edges"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">),</span>
+            <span class="s2">"node_types"</span><span class="p">:</span> <span class="n">node_types</span><span class="p">,</span>
+            <span class="s2">"relationship_types"</span><span class="p">:</span> <span class="n">relationship_types</span><span class="p">,</span>
+            <span class="s2">"average_degree"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="KnowledgeGraphManager.export_graph">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.KnowledgeGraphManager.export_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"json"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Export knowledge graph"""</span>
+        <span class="k">if</span> <span class="nb">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"json"</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"nodes"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"id"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="s2">"title"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">node_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                        <span class="s2">"content"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+                        <span class="s2">"properties"</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+                    <span class="p">}</span>
+                    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                <span class="p">],</span>
+                <span class="s2">"edges"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"source"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                        <span class="s2">"target"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+                        <span class="s2">"type"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">relationship_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                        <span class="s2">"weight"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                        <span class="s2">"properties"</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+                    <span class="p">}</span>
+                    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                <span class="p">],</span>
+            <span class="p">}</span>
+
+            <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported export format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SemanticEngine">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SemanticEngine">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SemanticEngine</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Engine for semantic operations on knowledge graph"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize semantic engine"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SemanticEngine.set_knowledge_graph">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SemanticEngine.set_knowledge_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_knowledge_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kg</span><span class="p">:</span> <span class="n">KnowledgeGraphManager</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Set knowledge graph reference"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span> <span class="o">=</span> <span class="n">kg</span></div>
+
+
+<div class="viewcode-block" id="SemanticEngine.compute_semantic_similarity">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SemanticEngine.compute_semantic_similarity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_semantic_similarity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node1_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">node2_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Compute semantic similarity between two nodes"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Simple path-based similarity</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">find_shortest_path</span><span class="p">(</span><span class="n">node1_id</span><span class="p">,</span> <span class="n">node2_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Similarity decreases with path length</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SemanticEngine.find_semantically_related_nodes">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.SemanticEngine.find_semantically_related_nodes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_semantically_related_nodes</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">"""Find semantically related nodes"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">related</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">other_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">other_id</span> <span class="o">!=</span> <span class="n">node_id</span><span class="p">:</span>
+                <span class="n">similarity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_semantic_similarity</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">other_id</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">similarity</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">:</span>
+                    <span class="n">related</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">{</span>
+                            <span class="s2">"node_id"</span><span class="p">:</span> <span class="n">other_id</span><span class="p">,</span>
+                            <span class="s2">"similarity"</span><span class="p">:</span> <span class="n">similarity</span><span class="p">,</span>
+                            <span class="s2">"node"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">other_id</span><span class="p">],</span>
+                        <span class="p">}</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">related</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">"similarity"</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Platform">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Platform</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Main platform class coordinating all services"""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize platform with configuration"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">KnowledgeGraphManager</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SemanticEngine</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_services</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_services</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize platform services"""</span>
+        <span class="c1"># Initialize knowledge graph</span>
+        <span class="n">kg_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"knowledge_graph"</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span> <span class="o">=</span> <span class="n">KnowledgeGraphManager</span><span class="p">(</span><span class="n">kg_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">"knowledge_graph"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span>
+
+        <span class="c1"># Initialize semantic engine</span>
+        <span class="n">semantic_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"semantic_engine"</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span> <span class="o">=</span> <span class="n">SemanticEngine</span><span class="p">(</span><span class="n">semantic_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span><span class="o">.</span><span class="n">set_knowledge_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">"semantic_engine"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Platform services initialized"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Platform.get_service">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.get_service">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get platform service by name"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">service_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Platform.implement_graph_storage_engine">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.implement_graph_storage_engine">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_graph_storage_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement efficient graph storage engine with indexing and caching</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured graph storage instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a GraphStorage instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph storage engine implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.create_graph_traversal_algorithms">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.create_graph_traversal_algorithms">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_graph_traversal_algorithms</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">callable</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create comprehensive graph traversal algorithms (DFS, BFS, shortest path)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of traversal algorithm functions</span>
+<span class="sd">        """</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">dfs_traversal</span><span class="p">(</span><span class="n">start_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">            </span><span class="sd">"""Depth-first search traversal"""</span>
+            <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">current</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="n">visited</span> <span class="ow">or</span> <span class="n">depth</span> <span class="o">&gt;=</span> <span class="n">max_depth</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="n">current</span><span class="p">):</span>
+                        <span class="n">dfs</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">dfs</span><span class="p">(</span><span class="n">start_node</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">path</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">bfs_traversal</span><span class="p">(</span><span class="n">start_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">            </span><span class="sd">"""Breadth-first search traversal"""</span>
+            <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">queue</span> <span class="o">=</span> <span class="p">[(</span><span class="n">start_node</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+                <span class="n">current</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="n">visited</span> <span class="ow">or</span> <span class="n">depth</span> <span class="o">&gt;=</span> <span class="n">max_depth</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="n">current</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">path</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">shortest_path</span><span class="p">(</span><span class="n">start_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">end_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">            </span><span class="sd">"""Find shortest path between nodes"""</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">start_node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">nodes</span>
+                <span class="ow">or</span> <span class="n">end_node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">nodes</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="p">[]</span>
+
+            <span class="c1"># Simple BFS-based shortest path</span>
+            <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">queue</span> <span class="o">=</span> <span class="p">[(</span><span class="n">start_node</span><span class="p">,</span> <span class="p">[</span><span class="n">start_node</span><span class="p">])]</span>
+
+            <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+                <span class="n">current</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="n">end_node</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">path</span>
+
+                <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="n">current</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">path</span> <span class="o">+</span> <span class="p">[</span><span class="n">neighbor</span><span class="p">]))</span>
+
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"dfs"</span><span class="p">:</span> <span class="n">dfs_traversal</span><span class="p">,</span>
+            <span class="s2">"bfs"</span><span class="p">:</span> <span class="n">bfs_traversal</span><span class="p">,</span>
+            <span class="s2">"shortest_path"</span><span class="p">:</span> <span class="n">shortest_path</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Platform.implement_semantic_similarity_engine">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.implement_semantic_similarity_engine">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_semantic_similarity_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"SemanticEngine"</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement semantic similarity computation using embeddings and metrics</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured semantic similarity engine</span>
+<span class="sd">        """</span>
+        <span class="c1"># Return the existing semantic engine if available</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span>
+
+        <span class="c1"># Create a basic semantic engine</span>
+        <span class="n">semantic_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"semantic_engine"</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span> <span class="o">=</span> <span class="n">SemanticEngine</span><span class="p">(</span><span class="n">semantic_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span><span class="o">.</span><span class="n">set_knowledge_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span></div>
+
+
+<div class="viewcode-block" id="Platform.create_graph_validation_system">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.create_graph_validation_system">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_graph_validation_system</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create comprehensive graph validation and integrity checking system</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured graph validator instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a GraphValidator instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph validation system implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.implement_graph_query_language">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.implement_graph_query_language">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_graph_query_language</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement graph query language for complex relationship queries</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured graph query processor</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a GraphQueryProcessor instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph query language implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.create_graph_visualization_integration">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.create_graph_visualization_integration">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_graph_visualization_integration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create integration with visualization systems for graph rendering</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured graph visualization instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a GraphVisualization instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph visualization integration implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.implement_graph_backup_and_recovery">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.implement_graph_backup_and_recovery">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_graph_backup_and_recovery</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement comprehensive graph backup and recovery mechanisms</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured backup system instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a BackupSystem instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph backup and recovery implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.create_performance_monitoring">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.create_performance_monitoring">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_performance_monitoring</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create performance monitoring and optimization for graph operations</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured performance monitor instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a GraphPerformanceMonitor instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph performance monitoring implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.implement_graph_security_model">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.implement_graph_security_model">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">implement_graph_security_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Implement security model for graph access control and permissions</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured security manager instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a SecurityManager instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph security model implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.create_graph_analytics_engine">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.create_graph_analytics_engine">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_graph_analytics_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create analytics engine for graph usage patterns and insights</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Configured graph analytics instance</span>
+<span class="sd">        """</span>
+
+        <span class="c1"># Implementation would create a GraphAnalytics instance</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Graph analytics engine implementation placeholder"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Platform.get_knowledge_graph">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.get_knowledge_graph">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_knowledge_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">KnowledgeGraphManager</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get knowledge graph manager"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">knowledge_graph</span></div>
+
+
+<div class="viewcode-block" id="Platform.get_semantic_engine">
+<a class="viewcode-back" href="../../../api/platform.html#active_inference.platform.Platform.get_semantic_engine">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_semantic_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SemanticEngine</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Get semantic engine"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">semantic_engine</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Active Inference Community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
