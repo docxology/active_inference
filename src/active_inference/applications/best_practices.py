@@ -40,7 +40,7 @@ class BestPractice:
 class ArchitecturePatterns:
     """Collection of architecture patterns"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.patterns: Dict[str, Dict[str, Any]] = {}
 
         self._initialize_patterns()
@@ -98,7 +98,7 @@ class ArchitecturePatterns:
 class BestPracticesGuide:
     """Guide for best practices in Active Inference development"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.practices: Dict[str, List[BestPractice]] = {}
 
         self._initialize_best_practices()

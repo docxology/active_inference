@@ -71,7 +71,7 @@ class LLMConfig:
 class OllamaClient:
     """Client for interacting with Ollama local LLM service"""
 
-    def __init__(self, config: LLMConfig):
+    def __init__(self, config: LLMConfig) -> None:
         self.config = config
         self.logger = self._setup_logging()
         self.client: Optional[httpx.AsyncClient] = None
@@ -418,6 +418,6 @@ class OllamaClient:
         await self.initialize()
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         """Async context manager exit"""
         await self.close()

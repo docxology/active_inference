@@ -70,7 +70,7 @@ class Deployment:
 class ServiceOrchestrator:
     """Orchestrates platform services"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize service orchestrator"""
         self.config = config
         self.services: Dict[str, ServiceInfo] = {}
@@ -158,7 +158,7 @@ class ServiceOrchestrator:
             logger.error(f"Error stopping service {service_name}: {e}")
             return False
 
-    def get_service_status(self, service_name: str = None) -> Dict[str, Any]:
+    def get_service_status(self, service_name: Optional[str] = None) -> Dict[str, Any]:
         """Get service status"""
         if service_name:
             service_info = self.services.get(service_name)
@@ -223,7 +223,7 @@ class ServiceOrchestrator:
 class HealthMonitoring:
     """Monitors platform health and performance"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize health monitoring"""
         self.config = config
         self.metrics: Dict[str, List[float]] = {}
@@ -232,7 +232,7 @@ class HealthMonitoring:
 
     def record_metric(
         self, metric_name: str, value: float, timestamp: Optional[float] = None
-    ):
+    ) -> None:
         """Record a metric value"""
         if metric_name not in self.metrics:
             self.metrics[metric_name] = []
@@ -318,13 +318,13 @@ class HealthMonitoring:
 class DeploymentAutomation:
     """Handles automated deployments"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize deployment automation"""
         self.config = config
         self.deployments: Dict[str, Deployment] = {}
 
     def deploy_service(
-        self, service_name: str, version: str, changes: List[str] = None
+        self, service_name: str, version: str, changes: Optional[List[str]] = None
     ) -> str:
         """Deploy a service"""
         deployment_id = f"deploy_{service_name}_{int(time.time())}"
@@ -420,7 +420,7 @@ class DeploymentAutomation:
 class MonitoringTools:
     """Comprehensive monitoring and analytics tools"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize monitoring tools"""
         self.config = config
         self.logs: List[Dict[str, Any]] = []
@@ -431,8 +431,8 @@ class MonitoringTools:
         level: str,
         message: str,
         service: str = "platform",
-        details: Dict[str, Any] = None,
-    ):
+        details: Optional[Dict[str, Any]] = None,
+    ) -> None:
         """Log an event"""
         log_entry = {
             "timestamp": datetime.now(),
@@ -502,7 +502,7 @@ class MonitoringTools:
 class DeploymentManager:
     """Main deployment manager coordinating all deployment services"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize deployment manager"""
         self.config = config
 

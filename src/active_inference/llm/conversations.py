@@ -62,7 +62,7 @@ class Conversation:
     updated_at: datetime = field(default_factory=datetime.now)
 
     def add_message(
-        self, role: str, content: str, metadata: Dict[str, Any] = None
+        self, role: str, content: str, metadata: Optional[Dict[str, Any]] = None
     ) -> None:
         """Add a message to the conversation"""
         message = Message(role=role, content=content, metadata=metadata or {})
@@ -149,7 +149,7 @@ class Conversation:
 class ConversationManager:
     """Manager for multiple conversations and persistence"""
 
-    def __init__(self, storage_path: Optional[Path] = None):
+    def __init__(self, storage_path: Optional[Path] = None) -> None:
         self.storage_path = storage_path or Path(__file__).parent / "conversations"
         self.conversations: Dict[str, Conversation] = {}
         self.logger = logging.getLogger(
@@ -163,7 +163,7 @@ class ConversationManager:
         self._load_conversations()
 
     def create_conversation(
-        self, title: str = "", metadata: Dict[str, Any] = None
+        self, title: str = "", metadata: Optional[Dict[str, Any]] = None
     ) -> Conversation:
         """Create a new conversation"""
         conversation_id = str(uuid.uuid4())
@@ -200,7 +200,7 @@ class ConversationManager:
         conversation_id: str,
         role: str,
         content: str,
-        metadata: Dict[str, Any] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> bool:
         """Add a message to a conversation"""
         conversation = self.get_conversation(conversation_id)
@@ -351,9 +351,9 @@ class ConversationTemplate:
         self,
         name: str,
         system_prompt: str,
-        initial_messages: List[Dict[str, str]] = None,
-        metadata: Dict[str, Any] = None,
-    ):
+        initial_messages: Optional[List[Dict[str, str]]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> None:
         self.name = name
         self.system_prompt = system_prompt
         self.initial_messages = initial_messages or []

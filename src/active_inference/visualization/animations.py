@@ -34,7 +34,7 @@ class AnimationFrame:
     narration: Optional[str] = None
     highlights: List[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.highlights is None:
             self.highlights = []
 
@@ -64,7 +64,7 @@ class AnimationSequence:
 class ProcessAnimation:
     """Animations for Active Inference processes"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.animations: Dict[str, AnimationSequence] = {}
 
     def create_perception_action_cycle(self) -> AnimationSequence:
@@ -178,7 +178,9 @@ class ProcessAnimation:
         )
 
     def create_belief_updating_animation(
-        self, initial_belief: List[float] = None, observations: List[float] = None
+        self,
+        initial_belief: Optional[List[float]] = None,
+        observations: Optional[List[float]] = None,
     ) -> AnimationSequence:
         """Create animation showing belief updating process"""
         if initial_belief is None:
@@ -396,7 +398,7 @@ class ProcessAnimation:
         )
 
     def create_neural_network_animation(
-        self, layers: List[int] = None
+        self, layers: Optional[List[int]] = None
     ) -> AnimationSequence:
         """Create animation showing Active Inference in neural networks"""
         if layers is None:
@@ -669,7 +671,7 @@ class ProcessAnimation:
 class AnimationEngine:
     """Main animation engine for educational content"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.process_animation = ProcessAnimation()
         self.animations: Dict[str, AnimationSequence] = {}

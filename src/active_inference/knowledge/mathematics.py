@@ -39,7 +39,7 @@ class Mathematics:
     - Proofs and theorems
     """
 
-    def __init__(self, repository: KnowledgeRepository):
+    def __init__(self, repository: KnowledgeRepository) -> None:
         self.repository = repository
         self._setup_mathematical_foundations()
 

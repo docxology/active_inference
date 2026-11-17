@@ -23,7 +23,7 @@ class Foundations:
     - Active Inference framework
     """
 
-    def __init__(self, repository: KnowledgeRepository):
+    def __init__(self, repository: KnowledgeRepository) -> None:
         self.repository = repository
         self._setup_foundations()
 

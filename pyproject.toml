@@ -44,6 +44,8 @@ dev = [
     "mypy>=0.910.0",
     "isort>=5.10.0",
     "pre-commit>=2.17.0",
+    "types-pyyaml>=6.0.12.20261113",
+    "types-psutil>=7.2.2.20261111",
 ]
 test = [
     "pytest>=6.2.0",

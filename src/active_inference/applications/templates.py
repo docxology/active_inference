@@ -42,7 +42,7 @@ class TemplateConfig:
     parameters: Dict[str, Any] = None
     output_directory: Optional[Path] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.parameters is None:
             self.parameters = {}
 
@@ -50,7 +50,7 @@ class TemplateConfig:
 class CodeGenerator:
     """Code generation engine for Active Inference applications"""
 
-    def __init__(self, templates_dir: Path):
+    def __init__(self, templates_dir: Path) -> None:
         self.templates_dir = Path(templates_dir)
         self.templates_dir.mkdir(parents=True, exist_ok=True)
         self.templates: Dict[str, Dict[str, Any]] = {}
@@ -872,7 +872,7 @@ if __name__ == "__main__":
 class TemplateManager:
     """Manages application templates and generation"""
 
-    def __init__(self, templates_dir: Path):
+    def __init__(self, templates_dir: Path) -> None:
         self.templates_dir = Path(templates_dir)
         self.code_generator = CodeGenerator(self.templates_dir / "generated")
         self.templates: Dict[str, TemplateType] = {}
@@ -928,7 +928,7 @@ class TemplateManager:
 class ApplicationFramework:
     """Main application framework coordinating templates and case studies"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.template_manager = TemplateManager(
             config.get("templates_dir", Path("./templates"))
@@ -937,7 +937,10 @@ class ApplicationFramework:
         logger.info("ApplicationFramework initialized")
 
     def create_application(
-        self, template_type: TemplateType, name: str, parameters: Dict[str, Any] = None
+        self,
+        template_type: TemplateType,
+        name: str,
+        parameters: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """Create a new application from template"""
         config = TemplateConfig(

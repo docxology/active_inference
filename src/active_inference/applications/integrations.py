@@ -35,7 +35,7 @@ class APIConnector:
     headers: Dict[str, str] = None
     timeout: int = 30
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.headers is None:
             self.headers = {}
 
@@ -43,7 +43,7 @@ class APIConnector:
 class IntegrationManager:
     """Manages integrations with external systems"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.connectors: Dict[str, APIConnector] = {}
         self.active_connections: Dict[str, Any] = {}
@@ -86,7 +86,10 @@ class IntegrationManager:
             return False
 
     def query_api(
-        self, connector_name: str, endpoint: str, params: Dict[str, Any] = None
+        self,
+        connector_name: str,
+        endpoint: str,
+        params: Optional[Dict[str, Any]] = None,
     ) -> Optional[Dict[str, Any]]:
         """Query an API endpoint"""
         if connector_name not in self.active_connections:

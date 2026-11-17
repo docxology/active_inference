@@ -24,7 +24,7 @@ from .llm import (
 class ActiveInferenceCLI:
     """Command line interface for the Active Inference Knowledge Environment"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.project_root = Path(__file__).parent.parent.parent
         self.knowledge_repo = None
         self.visualization_engine = None
@@ -38,7 +38,7 @@ class ActiveInferenceCLI:
         # Initialize components
         self._initialize_components()
 
-    def _initialize_components(self):
+    def _initialize_components(self) -> None:
         """Initialize all platform components"""
         try:
             # Initialize knowledge repository
@@ -998,7 +998,7 @@ Examples:
         return 0
 
 
-def main():
+def main() -> None:
     """Main entry point for the CLI"""
     cli = ActiveInferenceCLI()
     exit_code = cli.run()

@@ -43,7 +43,7 @@ class Task:
     result: Any = None
     error: Optional[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.dependencies is None:
             self.dependencies = []
         if self.created_at is None:
@@ -53,7 +53,7 @@ class Task:
 class WorkflowManager:
     """Manages complex workflows composed of multiple tasks"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.workflows: Dict[str, List[Task]] = {}
         self.task_results: Dict[str, Any] = {}
@@ -175,7 +175,7 @@ class WorkflowManager:
 class TaskScheduler:
     """Schedules and manages recurring tasks"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.scheduled_tasks: Dict[str, Dict[str, Any]] = {}
         self.running = False
@@ -188,7 +188,7 @@ class TaskScheduler:
         task_id: str,
         function: Callable,
         interval: float,
-        parameters: Dict[str, Any] = None,
+        parameters: Optional[Dict[str, Any]] = None,
     ) -> bool:
         """Schedule a recurring task"""
         if task_id in self.scheduled_tasks:
@@ -292,7 +292,7 @@ class TaskScheduler:
 class Orchestrator:
     """Main orchestrator coordinating workflows and tasks"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.workflow_manager = WorkflowManager(config.get("workflows", {}))
         self.task_scheduler = TaskScheduler(config.get("scheduler", {}))
@@ -303,8 +303,8 @@ class Orchestrator:
         self,
         name: str,
         function: Callable,
-        parameters: Dict[str, Any] = None,
-        dependencies: List[str] = None,
+        parameters: Optional[Dict[str, Any]] = None,
+        dependencies: Optional[List[str]] = None,
     ) -> Task:
         """Create a new task"""
         task_id = f"task_{name}_{int(datetime.now().timestamp())}"
@@ -354,7 +354,7 @@ class Orchestrator:
         task_id: str,
         function: Callable,
         interval: float,
-        parameters: Dict[str, Any] = None,
+        parameters: Optional[Dict[str, Any]] = None,
     ) -> bool:
         """Schedule a recurring task"""
         return self.task_scheduler.schedule_task(

@@ -26,7 +26,7 @@ class DashboardConfig:
     layout: str = "grid"  # grid, flex, custom
     components: List[Dict[str, Any]] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.components is None:
             self.components = []
 
@@ -34,7 +34,9 @@ class DashboardConfig:
 class DashboardComponent:
     """Base class for dashboard components"""
 
-    def __init__(self, component_id: str, component_type: str, config: Dict[str, Any]):
+    def __init__(
+        self, component_id: str, component_type: str, config: Dict[str, Any]
+    ) -> None:
         self.id = component_id
         self.type = component_type
         self.config = config
@@ -62,8 +64,11 @@ class RealTimeMonitor(DashboardComponent):
     """Real-time monitoring component for model metrics"""
 
     def __init__(
-        self, component_id: str, metrics: List[str], config: Dict[str, Any] = None
-    ):
+        self,
+        component_id: str,
+        metrics: List[str],
+        config: Optional[Dict[str, Any]] = None,
+    ) -> None:
         super().__init__(component_id, "realtime_monitor", config or {})
         self.metrics = metrics
         self.history_length = config.get("history_length", 100) if config else 100
@@ -106,7 +111,7 @@ class RealTimeMonitor(DashboardComponent):
 class Dashboard:
     """Interactive dashboard for real-time visualization"""
 
-    def __init__(self, config: DashboardConfig):
+    def __init__(self, config: DashboardConfig) -> None:
         self.config = config
         self.components: Dict[str, DashboardComponent] = {}
         self.data_sources: Dict[str, Callable] = {}
@@ -173,7 +178,9 @@ class Dashboard:
 class ActiveInferenceMonitor(RealTimeMonitor):
     """Specialized monitor for Active Inference metrics"""
 
-    def __init__(self, component_id: str, config: Dict[str, Any] = None):
+    def __init__(
+        self, component_id: str, config: Optional[Dict[str, Any]] = None
+    ) -> None:
         ai_metrics = [
             "free_energy",
             "prediction_error",
@@ -197,10 +204,10 @@ class ActiveInferenceMonitor(RealTimeMonitor):
     def update_ai_state(
         self,
         phase: str,
-        belief_precision: float = None,
-        prediction_confidence: float = None,
-        action: str = None,
-    ):
+        belief_precision: Optional[float] = None,
+        prediction_confidence: Optional[float] = None,
+        action: Optional[str] = None,
+    ) -> None:
         """Update Active Inference specific state"""
         self.ai_state["current_phase"] = phase
         if belief_precision is not None:

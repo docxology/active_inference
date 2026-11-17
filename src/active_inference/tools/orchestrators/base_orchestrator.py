@@ -60,7 +60,7 @@ class OrchestratorConfig:
     max_parallel_processes: int = 4
     timeout_minutes: int = 60
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Ensure output directory exists"""
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -77,7 +77,7 @@ class BaseOrchestrator:
     research components without duplicating their functionality.
     """
 
-    def __init__(self, config: OrchestratorConfig):
+    def __init__(self, config: OrchestratorConfig) -> None:
         """
         Initialize the base orchestrator.
 

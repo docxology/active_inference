@@ -30,7 +30,7 @@ class DocumentationConfig:
 class DocumentationGenerator:
     """Generates documentation from code and data"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.templates: Dict[str, str] = {}
 
@@ -181,7 +181,7 @@ class DocumentationGenerator:
 class KnowledgeDocBuilder:
     """Builds documentation from knowledge repository"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.documentation_generator = DocumentationGenerator(
             config.get("generator", {})
@@ -387,7 +387,7 @@ class KnowledgeDocBuilder:
 class DocumentationManager:
     """Main documentation management system"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.generator = DocumentationGenerator(config.get("generator", {}))
         self.knowledge_builder = KnowledgeDocBuilder(config.get("knowledge", {}))

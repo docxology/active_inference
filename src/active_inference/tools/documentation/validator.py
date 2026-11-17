@@ -57,7 +57,7 @@ class DocumentationValidator:
     completeness, consistency, and quality issues.
     """
 
-    def __init__(self, source_paths: List[Path]):
+    def __init__(self, source_paths: List[Path]) -> None:
         """
         Initialize documentation validator
 

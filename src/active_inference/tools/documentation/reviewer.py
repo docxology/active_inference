@@ -59,7 +59,7 @@ class RepositoryReviewer:
     and provides actionable insights for improvement.
     """
 
-    def __init__(self, repo_path: Path):
+    def __init__(self, repo_path: Path) -> None:
         """
         Initialize repository reviewer
 

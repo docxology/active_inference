@@ -89,7 +89,7 @@ class ModelRegistry:
         return [model for model in self.models.values() if model.family == family]
 
     def get_best_model_for_task(
-        self, task_capabilities: Set[str], max_memory: float = None
+        self, task_capabilities: Set[str], max_memory: Optional[float] = None
     ) -> Optional[ModelInfo]:
         """Get the best model for a task based on capabilities and constraints"""
         suitable_models = []
@@ -173,7 +173,7 @@ class ModelRegistry:
 class ModelManager:
     """Manager for LLM models and their interactions"""
 
-    def __init__(self, registry_path: Optional[Path] = None):
+    def __init__(self, registry_path: Optional[Path] = None) -> None:
         self.registry = ModelRegistry()
         self.registry_path = (
             registry_path or Path(__file__).parent / "model_registry.json"
@@ -295,7 +295,10 @@ class ModelManager:
         return self.registry.get_model(model_name)
 
     def find_best_model(
-        self, task: str, max_memory_gb: float = None, preferred_family: str = None
+        self,
+        task: str,
+        max_memory_gb: Optional[float] = None,
+        preferred_family: Optional[str] = None,
     ) -> Optional[ModelInfo]:
         """Find the best model for a specific task"""
 

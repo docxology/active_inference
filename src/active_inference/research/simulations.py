@@ -25,7 +25,7 @@ class ModelConfig:
     time_horizon: int = 1000
     time_step: float = 0.1
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.parameters is None:
             self.parameters = {}
 
@@ -33,7 +33,7 @@ class ModelConfig:
 class SimulationEngine:
     """Core simulation engine for Active Inference models"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.models: Dict[str, ModelConfig] = {}
         self.running_simulations: Dict[str, Any] = {}
@@ -51,7 +51,7 @@ class SimulationEngine:
         return True
 
     def run_simulation(
-        self, model_name: str, inputs: Dict[str, Any] = None
+        self, model_name: str, inputs: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """Run a simulation with the specified model"""
         if model_name not in self.models:
@@ -216,11 +216,11 @@ class SimulationEngine:
 class ModelRunner:
     """High-level interface for running multiple models"""
 
-    def __init__(self, simulation_engine: SimulationEngine):
+    def __init__(self, simulation_engine: SimulationEngine) -> None:
         self.engine = simulation_engine
 
     def run_comparison_study(
-        self, model_configs: List[ModelConfig], inputs: Dict[str, Any] = None
+        self, model_configs: List[ModelConfig], inputs: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """Run comparative study across multiple models"""
         logger.info(f"Starting comparison study with {len(model_configs)} models")

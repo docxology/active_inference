@@ -6,7 +6,7 @@ Provides methods for analyzing model performance, information flow, and system d
 """
 
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 from scipy import stats
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class StatisticalAnalysis:
     """Statistical analysis tools for research data"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.info("StatisticalAnalysis initialized")
 
     def compute_descriptive_stats(self, data: List[float]) -> Dict[str, float]:
@@ -154,7 +154,7 @@ class StatisticalAnalysis:
         return kl_div
 
     def bayesian_analysis(
-        self, data: Dict[str, Any], prior: Dict[str, float] = None
+        self, data: Dict[str, Any], prior: Optional[Dict[str, float]] = None
     ) -> Dict[str, Any]:
         """Perform Bayesian analysis on research data"""
         if prior is None:
@@ -422,7 +422,7 @@ class StatisticalAnalysis:
 class AnalysisTools:
     """Comprehensive analysis toolkit for research"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.statistical_analysis = StatisticalAnalysis()
         logger.info("AnalysisTools initialized")
 

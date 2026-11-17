@@ -35,7 +35,7 @@ class DiagramNode:
     node_type: str = "default"
     properties: Dict[str, Any] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.properties is None:
             self.properties = {}
 
@@ -50,7 +50,7 @@ class DiagramEdge:
     edge_type: str = "directed"
     properties: Dict[str, Any] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.properties is None:
             self.properties = {}
 
@@ -58,7 +58,7 @@ class DiagramEdge:
 class InteractiveDiagram:
     """Interactive diagram with dynamic updates"""
 
-    def __init__(self, diagram_type: DiagramType, title: str):
+    def __init__(self, diagram_type: DiagramType, title: str) -> None:
         self.diagram_type = diagram_type
         self.title = title
         self.nodes: Dict[str, DiagramNode] = {}
@@ -135,7 +135,7 @@ class InteractiveDiagram:
 class ConceptDiagram:
     """Specialized diagrams for Active Inference concepts"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.diagrams: Dict[str, InteractiveDiagram] = {}
 
     def create_active_inference_overview(self) -> InteractiveDiagram:
@@ -423,7 +423,7 @@ class ConceptDiagram:
 class VisualizationEngine:
     """Main visualization engine coordinating all diagram types"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.concept_diagram = ConceptDiagram()
         self.diagrams: Dict[str, InteractiveDiagram] = {}
@@ -434,8 +434,8 @@ class VisualizationEngine:
         self,
         diagram_type: DiagramType,
         title: str,
-        nodes: List[DiagramNode] = None,
-        edges: List[DiagramEdge] = None,
+        nodes: Optional[List[DiagramNode]] = None,
+        edges: Optional[List[DiagramEdge]] = None,
     ) -> InteractiveDiagram:
         """Create a new interactive diagram"""
         diagram = InteractiveDiagram(diagram_type, title)

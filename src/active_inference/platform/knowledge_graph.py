@@ -81,7 +81,7 @@ class KnowledgeEdge:
 class KnowledgeGraphManager:
     """Manager for knowledge graph operations"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize knowledge graph manager"""
         self.config = config
         self.nodes: Dict[str, KnowledgeNode] = {}
@@ -347,12 +347,12 @@ class KnowledgeGraphManager:
 class SemanticEngine:
     """Engine for semantic operations on knowledge graph"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize semantic engine"""
         self.config = config
         self.knowledge_graph = None
 
-    def set_knowledge_graph(self, kg: KnowledgeGraphManager):
+    def set_knowledge_graph(self, kg: KnowledgeGraphManager) -> None:
         """Set knowledge graph reference"""
         self.knowledge_graph = kg
 
@@ -395,7 +395,7 @@ class SemanticEngine:
 class Platform:
     """Main platform class coordinating all services"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize platform with configuration"""
         self.config = config
         self.services: Dict[str, Any] = {}
@@ -404,7 +404,7 @@ class Platform:
 
         self._initialize_services()
 
-    def _initialize_services(self):
+    def _initialize_services(self) -> None:
         """Initialize platform services"""
         # Initialize knowledge graph
         kg_config = self.config.get("knowledge_graph", {})
@@ -448,7 +448,7 @@ class Platform:
             visited = set()
             path = []
 
-            def dfs(current: str, depth: int = 0):
+            def dfs(current: str, depth: int = 0) -> None:
                 if current in visited or depth >= max_depth:
                     return
                 visited.add(current)

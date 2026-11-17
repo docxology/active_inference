@@ -22,7 +22,7 @@ class Implementations:
     - Educational code samples and projects
     """
 
-    def __init__(self, repository: KnowledgeRepository):
+    def __init__(self, repository: KnowledgeRepository) -> None:
         self.repository = repository
         self._setup_implementations()
 

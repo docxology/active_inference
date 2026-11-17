@@ -15,7 +15,7 @@ import json
 import logging
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Self
 
 
 @dataclass
@@ -45,7 +45,7 @@ class PromptTemplate:
                 missing.append(var)
         return missing
 
-    def get_example_prompt(self, example_name: str = None) -> Optional[str]:
+    def get_example_prompt(self, example_name: Optional[str] = None) -> Optional[str]:
         """Get an example prompt using template examples"""
         if not self.examples:
             return None
@@ -72,9 +72,9 @@ class PromptVariable:
         var_type: str = "string",
         description: str = "",
         required: bool = True,
-        default: Any = None,
+        default: Optional[Any] = None,
         validator: Optional[Callable] = None,
-    ):
+    ) -> None:
         self.name = name
         self.var_type = var_type
         self.description = description
@@ -106,14 +106,18 @@ class PromptSection:
 class PromptBuilder:
     """Builder for creating complex prompts with multiple sections"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.sections: List[PromptSection] = []
         self.variables: Dict[str, Any] = {}
         self.metadata: Dict[str, Any] = {}
 
     def add_section(
-        self, name: str, content: str, position: int = None, separator: str = "\n\n"
-    ) -> "PromptBuilder":
+        self,
+        name: str,
+        content: str,
+        position: Optional[int] = None,
+        separator: str = "\n\n",
+    ) -> Self:
         """Add a section to the prompt"""
         section = PromptSection(
             name, content, position or len(self.sections), separator
@@ -129,17 +133,17 @@ class PromptBuilder:
 
         return self
 
-    def set_variable(self, name: str, value: Any) -> "PromptBuilder":
+    def set_variable(self, name: str, value: Any) -> Self:
         """Set a variable value"""
         self.variables[name] = value
         return self
 
-    def set_variables(self, variables: Dict[str, Any]) -> "PromptBuilder":
+    def set_variables(self, variables: Dict[str, Any]) -> Self:
         """Set multiple variables"""
         self.variables.update(variables)
         return self
 
-    def set_metadata(self, key: str, value: Any) -> "PromptBuilder":
+    def set_metadata(self, key: str, value: Any) -> Self:
         """Set metadata"""
         self.metadata[key] = value
         return self
@@ -168,7 +172,7 @@ class PromptBuilder:
 
         return result
 
-    def clear(self) -> "PromptBuilder":
+    def clear(self) -> Self:
         """Clear all sections and variables"""
         self.sections.clear()
         self.variables.clear()
@@ -179,7 +183,7 @@ class PromptBuilder:
 class PromptManager:
     """Manager for prompt templates and prompt generation"""
 
-    def __init__(self, templates_path: Optional[Path] = None):
+    def __init__(self, templates_path: Optional[Path] = None) -> None:
         self.templates: Dict[str, PromptTemplate] = {}
         self.templates_path = templates_path or Path(__file__).parent / "templates"
         self.logger = logging.getLogger(
@@ -389,8 +393,8 @@ Follow these coding standards:
         name: str,
         description: str,
         template: str,
-        variables: List[str] = None,
-        examples: List[Dict[str, Any]] = None,
+        variables: Optional[List[str]] = None,
+        examples: Optional[List[Dict[str, Any]]] = None,
     ) -> PromptTemplate:
         """Create a custom prompt template"""
         return PromptTemplate(
@@ -460,7 +464,7 @@ Follow these coding standards:
 class ActiveInferencePromptBuilder(PromptBuilder):
     """Specialized prompt builder for Active Inference content"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def add_concept_explanation(
@@ -505,7 +509,10 @@ class ActiveInferencePromptBuilder(PromptBuilder):
         return self.add_section("research_questions", content)
 
     def add_code_implementation(
-        self, algorithm: str, language: str = "Python", requirements: List[str] = None
+        self,
+        algorithm: str,
+        language: str = "Python",
+        requirements: Optional[List[str]] = None,
     ) -> "ActiveInferencePromptBuilder":
         """Add code implementation section"""
         requirements = requirements or []
@@ -519,7 +526,7 @@ class ActiveInferencePromptBuilder(PromptBuilder):
 class EducationalPromptBuilder(PromptBuilder):
     """Specialized prompt builder for educational content"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def add_learning_objective(

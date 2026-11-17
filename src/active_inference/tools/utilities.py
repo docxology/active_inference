@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class DataProcessingTools:
     """Data processing utilities"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.info("DataProcessingTools initialized")
 
     def normalize_data(self, data: List[float], method: str = "minmax") -> List[float]:
@@ -93,7 +93,7 @@ class DataProcessingTools:
 class ConfigurationManager:
     """Configuration management utilities"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.config_cache: Dict[Path, Any] = {}
         logger.info("ConfigurationManager initialized")
 
@@ -185,7 +185,7 @@ class ConfigurationManager:
 class FileManager:
     """File and directory management utilities"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.info("FileManager initialized")
 
     def ensure_directory(self, directory: Path) -> bool:
@@ -246,7 +246,7 @@ class FileManager:
 class MathematicalUtilities:
     """Mathematical utilities for Active Inference"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.info("MathematicalUtilities initialized")
 
     def softmax(self, x: List[float], temperature: float = 1.0) -> List[float]:
@@ -299,7 +299,7 @@ class MathematicalUtilities:
 class HelperFunctions:
     """General helper functions"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.info("HelperFunctions initialized")
 
     def format_timestamp(self, timestamp: Optional[datetime] = None) -> str:
@@ -350,7 +350,7 @@ class HelperFunctions:
 class Utilities:
     """Main utilities class coordinating all utility functions"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.data_processing = DataProcessingTools()
         self.configuration = ConfigurationManager()
@@ -361,7 +361,7 @@ class Utilities:
         logger.info("Utilities initialized")
 
     def process_time_series(
-        self, data: List[float], operations: List[str] = None
+        self, data: List[float], operations: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """Process time series data with specified operations"""
         if operations is None:

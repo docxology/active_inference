@@ -8,7 +8,7 @@ Includes query processing, indexing, ranking, and result presentation.
 import logging
 import re
 import time
-from typing import Any, Dict, List, Set
+from typing import Any, Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
 
@@ -22,9 +22,9 @@ class SearchResult:
         title: str,
         content_type: str,
         score: float,
-        highlights: List[str] = None,
-        metadata: Dict[str, Any] = None,
-    ):
+        highlights: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> None:
         self.node_id = node_id
         self.title = title
         self.content_type = content_type
@@ -47,7 +47,7 @@ class SearchResult:
 class QueryProcessor:
     """Processes and analyzes search queries"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize query processor"""
         self.config = config
         self.stop_words = config.get(
@@ -158,7 +158,7 @@ class QueryProcessor:
 class IndexManager:
     """Manages search index operations"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize index manager"""
         self.config = config
         self.index: Dict[str, Dict[str, Any]] = {}
@@ -300,7 +300,7 @@ def _flatten_text(value: Any) -> str:
 class ResultRanker:
     """Ranks and sorts search results"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize result ranker"""
         self.config = config
 
@@ -366,7 +366,7 @@ class ResultRanker:
 class SearchEngine:
     """Main search engine coordinating all search components"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize search engine"""
         self.config = config
 
@@ -385,7 +385,7 @@ class SearchEngine:
     def search(
         self,
         query: str,
-        filters: Dict[str, Any] = None,
+        filters: Optional[Dict[str, Any]] = None,
         limit: int = 10,
         ranking: str = "relevance",
     ) -> List[Dict[str, Any]]:
@@ -505,7 +505,9 @@ class SearchEngine:
 
         return filtered_results
 
-    def _update_search_stats(self, query: str, response_time: float, result_count: int):
+    def _update_search_stats(
+        self, query: str, response_time: float, result_count: int
+    ) -> None:
         """Update search statistics"""
         self.search_stats["total_searches"] += 1
 

@@ -160,7 +160,7 @@ class KnowledgeRepository:
     path generation capabilities.
     """
 
-    def __init__(self, config: KnowledgeRepositoryConfig):
+    def __init__(self, config: KnowledgeRepositoryConfig) -> None:
         self.config = config
         self.root_path = config.root_path
         self.content_paths = config.content_paths or self._default_content_paths()
@@ -469,7 +469,7 @@ class KnowledgeRepository:
         graph = {"nodes": [], "edges": []}
         visited = set()
 
-        def add_node_and_prereqs(nid: str):
+        def add_node_and_prereqs(nid: str) -> None:
             if nid in visited:
                 return
             visited.add(nid)
@@ -619,7 +619,7 @@ class KnowledgeRepository:
         visited = set()
         path = []
 
-        def dfs(current_id, depth=0):
+        def dfs(current_id, depth=0) -> None:
             if current_id in path:
                 # Cycle detected
                 cycle_start = path.index(current_id)

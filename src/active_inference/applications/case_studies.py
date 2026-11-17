@@ -45,7 +45,7 @@ class CaseStudy:
 class ExampleApplications:
     """Collection of example applications"""
 
-    def __init__(self, examples_dir: Path):
+    def __init__(self, examples_dir: Path) -> None:
         self.examples_dir = Path(examples_dir)
         self.case_studies: Dict[str, CaseStudy] = {}
 
@@ -581,7 +581,7 @@ if __name__ == "__main__":
 class CaseStudyManager:
     """Manages case studies and examples"""
 
-    def __init__(self, examples_dir: Path):
+    def __init__(self, examples_dir: Path) -> None:
         self.examples_dir = Path(examples_dir)
         self.example_applications = ExampleApplications(self.examples_dir / "examples")
 

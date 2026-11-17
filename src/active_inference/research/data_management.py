@@ -72,7 +72,7 @@ class DataCollectionConfig:
 class DataManager:
     """Central data management for research workflows"""
 
-    def __init__(self, base_dir: Path, config: Dict[str, Any]):
+    def __init__(self, base_dir: Path, config: Dict[str, Any]) -> None:
         self.base_dir = Path(base_dir)
         self.config = config
         self.datasets: Dict[str, DataMetadata] = {}

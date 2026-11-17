@@ -43,7 +43,7 @@ class ExperimentConfig:
 class ExperimentManager:
     """Manages research experiments and their execution"""
 
-    def __init__(self, base_dir: Path):
+    def __init__(self, base_dir: Path) -> None:
         self.base_dir = Path(base_dir)
         self.base_dir.mkdir(parents=True, exist_ok=True)
         self.experiments: Dict[str, Dict] = {}
@@ -305,7 +305,7 @@ class ExperimentManager:
 class ResearchFramework:
     """Main research framework coordinating experiments and analysis"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.experiment_manager = ExperimentManager(
             config.get("experiments_dir", Path("./experiments"))

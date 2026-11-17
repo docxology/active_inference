@@ -35,7 +35,7 @@ class ModelComparison:
     metrics: Dict[str, float]
     recommendations: List[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.recommendations is None:
             self.recommendations = []
 
@@ -43,7 +43,7 @@ class ModelComparison:
 class ComparisonTool:
     """Tools for comparing models and approaches"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.comparisons: Dict[str, ModelComparison] = {}
         logger.info("ComparisonTool initialized")
 
@@ -51,7 +51,7 @@ class ComparisonTool:
         self,
         model_a_data: Dict[str, Any],
         model_b_data: Dict[str, Any],
-        comparison_metrics: List[str] = None,
+        comparison_metrics: Optional[List[str]] = None,
     ) -> ModelComparison:
         """Compare two models based on performance metrics"""
         if comparison_metrics is None:
@@ -175,7 +175,7 @@ class ComparisonTool:
 class ModelComparator:
     """Interactive model comparison interface"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.comparison_tool = ComparisonTool()
         self.visualization_config: Dict[str, Any] = {}
 
@@ -280,7 +280,7 @@ class ModelComparator:
 class StatisticalComparator:
     """Advanced statistical comparison tools for Active Inference models"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.significance_tests = {
             "t_test": self._perform_t_test,
             "wilcoxon": self._perform_wilcoxon_test,

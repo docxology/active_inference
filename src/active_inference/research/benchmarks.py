@@ -58,7 +58,7 @@ class PerformanceMetrics:
 class BenchmarkSuite:
     """Comprehensive benchmarking suite for model evaluation"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.metrics: Dict[str, PerformanceMetrics] = {}
         self.baselines: Dict[str, PerformanceMetrics] = {}
         logger.info("BenchmarkSuite initialized")
@@ -72,7 +72,7 @@ class BenchmarkSuite:
         self,
         model_name: str,
         evaluation_function: Callable,
-        test_data: Dict[str, Any] = None,
+        test_data: Optional[Dict[str, Any]] = None,
     ) -> PerformanceMetrics:
         """Evaluate a model using standardized metrics"""
         logger.info(f"Evaluating model: {model_name}")

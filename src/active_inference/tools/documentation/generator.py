@@ -38,7 +38,7 @@ class DocumentationConfig:
     theme: str = "sphinx_rtd_theme"
     extensions: List[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.extensions is None:
             self.extensions = [
                 "sphinx.ext.autodoc",
@@ -63,7 +63,7 @@ class DocumentationGenerator:
 
     def __init__(
         self, output_dir: Union[str, Path], config: Optional[DocumentationConfig] = None
-    ):
+    ) -> None:
         """
         Initialize documentation generator
 

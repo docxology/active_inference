@@ -35,7 +35,7 @@ class TestResult:
 class TestRunner:
     """Runs and manages test execution"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.test_results: List[TestResult] = []
 
@@ -218,7 +218,7 @@ class TestRunner:
 class QualityAssurance:
     """Quality assurance and validation tools"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.validation_rules: Dict[str, Callable] = {}
 
@@ -365,7 +365,7 @@ class QualityAssurance:
         self,
         component_name: str,
         component_data: Dict[str, Any],
-        validation_types: List[str] = None,
+        validation_types: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """Validate a component using specified validation rules"""
         if validation_types is None:
@@ -407,7 +407,7 @@ class QualityAssurance:
 class TestingFramework:
     """Main testing framework coordinating all testing activities"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.test_runner = TestRunner(config.get("runner", {}))
         self.quality_assurance = QualityAssurance(config.get("qa", {}))

@@ -118,7 +118,7 @@ class Activity:
 class UserManagement:
     """Manages user accounts and authentication"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize user management"""
         self.config = config
         self.users: Dict[str, User] = {}
@@ -219,7 +219,7 @@ class UserManagement:
 class WorkspaceManager:
     """Manages collaborative workspaces"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize workspace manager"""
         self.config = config
         self.workspaces: Dict[str, Workspace] = {}
@@ -354,13 +354,13 @@ class WorkspaceManager:
         workspace_ids = self.user_workspaces.get(user_id, set())
         return [self.workspaces[wid] for wid in workspace_ids if wid in self.workspaces]
 
-    def _add_user_workspace(self, user_id: str, workspace_id: str):
+    def _add_user_workspace(self, user_id: str, workspace_id: str) -> None:
         """Add workspace to user's workspace list"""
         if user_id not in self.user_workspaces:
             self.user_workspaces[user_id] = set()
         self.user_workspaces[user_id].add(workspace_id)
 
-    def _remove_user_workspace(self, user_id: str, workspace_id: str):
+    def _remove_user_workspace(self, user_id: str, workspace_id: str) -> None:
         """Remove workspace from user's workspace list"""
         if user_id in self.user_workspaces:
             self.user_workspaces[user_id].discard(workspace_id)
@@ -385,13 +385,13 @@ class WorkspaceManager:
 class ActivityTracker:
     """Tracks user activities for analytics"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize activity tracker"""
         self.config = config
         self.activities: List[Activity] = []
         self.max_activities = config.get("max_activities", 10000)
 
-    def log_activity(self, activity: Activity):
+    def log_activity(self, activity: Activity) -> None:
         """Log user activity"""
         self.activities.append(activity)
 
@@ -437,7 +437,7 @@ class ActivityTracker:
 class CollaborationManager:
     """Main collaboration manager coordinating all collaboration services"""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]) -> None:
         """Initialize collaboration manager"""
         self.config = config
 
@@ -485,8 +485,8 @@ class CollaborationManager:
         action: str,
         resource_type: str,
         resource_id: str,
-        details: Dict[str, Any] = None,
-    ):
+        details: Optional[Dict[str, Any]] = None,
+    ) -> None:
         """Log user activity"""
         activity = Activity(
             id=str(uuid.uuid4()),

@@ -27,7 +27,7 @@ class DocumentationCLI:
     validating standards, and reviewing repository health.
     """
 
-    def __init__(self, repo_path: Optional[Path] = None):
+    def __init__(self, repo_path: Optional[Path] = None) -> None:
         """
         Initialize documentation CLI
 
@@ -543,7 +543,7 @@ Documentation Score: {quality.coverage_percentage:.1f}%
             print(content)
 
 
-def main():
+def main() -> None:
     """Main entry point for documentation CLI"""
     cli = DocumentationCLI()
     exit_code = cli.run()
