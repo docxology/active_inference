@@ -91,7 +91,8 @@ Examples:
 
   ai-knowledge llm chat "Explain Active Inference"  # Chat with AI
   ai-knowledge llm chat --template explanation    # Use explanation template
-  ai-knowledge llm generate "What is FEP?" --template active_inference_explanation  # Generate explanation
+  ai-knowledge llm generate "What is FEP?" \\
+      --template active_inference_explanation  # Generate explanation
   ai-knowledge llm models list           # List available models
   ai-knowledge llm models pull gemma3:2b # Pull model from registry
   ai-knowledge llm conversation list     # List saved conversations
@@ -330,7 +331,8 @@ Examples:
         else:
             print(f"Unknown command: {args.command}")
             print(
-                "Available commands: knowledge, research, visualize, applications, llm, platform"
+                "Available commands: knowledge, research, visualize, applications, llm,"
+                " platform"
             )
             return 1
 
@@ -381,7 +383,8 @@ Examples:
                             print(f"  {i:2d}. {node.title}")
                             print(f"      {node.description}")
                             print(
-                                f"      Type: {node.content_type.value} | Difficulty: {node.difficulty.value}"
+                                f"      Type: {node.content_type.value} | Difficulty:"
+                                f" {node.difficulty.value}"
                             )
                             print()
 
@@ -423,7 +426,8 @@ Examples:
         for i, node in enumerate(results, 1):
             print(f"{i}. {node.title}")
             print(
-                f"   Type: {node.content_type.value} | Difficulty: {node.difficulty.value}"
+                f"   Type: {node.content_type.value} | Difficulty:"
+                f" {node.difficulty.value}"
             )
             print(f"   Description: {node.description}")
             if node.tags:
@@ -466,9 +470,10 @@ Examples:
                 if node:
                     print(f"  {i:2d}. {node.title}")
                     print(f"      {node.description}")
-                    print(
-                        f"      Prerequisites: {', '.join(node.prerequisites) if node.prerequisites else 'None'}"
+                    prereqs = (
+                        ", ".join(node.prerequisites) if node.prerequisites else "None"
                     )
+                    print(f"      Prerequisites: {prereqs}")
                     print()
 
         elif args.path_command == "list":
@@ -480,7 +485,8 @@ Examples:
                 print(f"• {path.name}")
                 print(f"  {path.description}")
                 print(
-                    f"  Duration: {path.estimated_hours}h | Difficulty: {path.difficulty.value}"
+                    f"  Duration: {path.estimated_hours}h | Difficulty:"
+                    f" {path.difficulty.value}"
                 )
                 print()
 
@@ -545,7 +551,8 @@ Examples:
         """Handle visualization commands (placeholder)"""
         print("👁️  Visualization tools coming soon!")
         print(
-            "This will include interactive diagrams, concept maps, and simulation dashboards."
+            "This will include interactive diagrams, concept maps, and simulation"
+            " dashboards."
         )
         return 0
 
@@ -565,7 +572,8 @@ Examples:
         """Handle LLM commands"""
         if not self.llm_client or not self.prompt_manager:
             print(
-                "LLM components not available. Please ensure Ollama is installed and running."
+                "LLM components not available. Please ensure Ollama is installed and"
+                " running."
             )
             print("Run: ollama serve")
             return 1
@@ -698,7 +706,9 @@ Examples:
                             "concept": args.concept or "Active Inference",
                             "context": "general explanation",
                             "audience_level": args.audience_level,
-                            "key_points": "core concepts, mathematical formulation, applications",
+                            "key_points": (
+                                "core concepts, mathematical formulation, applications"
+                            ),
                             "response_type": "comprehensive explanation",
                         }
                         prompt = self.prompt_manager.generate_prompt(
@@ -764,7 +774,8 @@ Examples:
                     else:
                         print("No models available.")
                         print(
-                            "Pull a model with: ai-knowledge llm models pull <model_name>"
+                            "Pull a model with: ai-knowledge llm models pull"
+                            " <model_name>"
                         )
                         print("Recommended: gemma3:2b, gemma3:4b")
 
@@ -804,7 +815,8 @@ Examples:
                 for conv in conversations:
                     print(f"• {conv.title} (ID: {conv.id[:8]}...)")
                     print(
-                        f"  Messages: {len(conv.messages)} | Updated: {conv.updated_at.strftime('%Y-%m-%d %H:%M')}"
+                        f"  Messages: {len(conv.messages)} | Updated:"
+                        f" {conv.updated_at.strftime('%Y-%m-%d %H:%M')}"
                     )
                     if conv.metadata:
                         print(f"  Type: {conv.metadata.get('type', 'general')}")
@@ -860,7 +872,8 @@ Examples:
             for i, impl in enumerate(implementations, 1):
                 print(f"{i}. {impl.title}")
                 print(
-                    f"   Type: {impl.content_type.value} | Difficulty: {impl.difficulty.value}"
+                    f"   Type: {impl.content_type.value} | Difficulty:"
+                    f" {impl.difficulty.value}"
                 )
                 print(f"   Description: {impl.description}")
                 if impl.tags:

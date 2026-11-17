@@ -137,7 +137,8 @@ class WorkflowManager:
 
         results["success"] = results["failed_tasks"] == 0
         logger.info(
-            f"Workflow {workflow_id} completed: {results['completed_tasks']} completed, {results['failed_tasks']} failed"
+            f"Workflow {workflow_id} completed: {results['completed_tasks']} completed,"
+            f" {results['failed_tasks']} failed"
         )
 
         return results

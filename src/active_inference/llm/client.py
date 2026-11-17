@@ -38,7 +38,9 @@ class LLMConfig:
     max_tokens: int = 2048
     context_window: int = 4096
     system_prompt: str = (
-        "You are a helpful AI assistant specialized in Active Inference and the Free Energy Principle. Provide accurate, helpful responses based on scientific knowledge."
+        "You are a helpful AI assistant specialized in Active Inference and the Free"
+        " Energy Principle. Provide accurate, helpful responses based on scientific"
+        " knowledge."
     )
     enable_logging: bool = True
     debug: bool = False
@@ -122,7 +124,8 @@ class OllamaClient:
 
             self._is_initialized = True
             self.logger.info(
-                f"Ollama client initialized successfully. Available models: {self._available_models}"
+                "Ollama client initialized successfully. Available models:"
+                f" {self._available_models}"
             )
             return True
 

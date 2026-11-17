@@ -66,7 +66,8 @@ class DocumentationAnalyzer:
         self.quality_thresholds = {"excellent": 0.8, "good": 0.6, "poor": 0.3}
 
         self.logger.info(
-            f"Documentation analyzer initialized for {len(self.source_paths)} source paths"
+            f"Documentation analyzer initialized for {len(self.source_paths)} source"
+            " paths"
         )
 
     def analyze_documentation(self) -> DocumentationQuality:
@@ -105,7 +106,8 @@ class DocumentationAnalyzer:
             )
 
         self.logger.info(
-            f"Documentation analysis completed: {quality.coverage_percentage:.1f}% coverage"
+            f"Documentation analysis completed: {quality.coverage_percentage:.1f}%"
+            " coverage"
         )
         return quality
 
@@ -407,7 +409,8 @@ class DocumentationAnalyzer:
         report.append("## Recommendations")
         if quality.coverage_percentage < 80:
             report.append(
-                f"1. Improve documentation coverage from {quality.coverage_percentage:.1f}% to 80%+"
+                "1. Improve documentation coverage from"
+                f" {quality.coverage_percentage:.1f}% to 80%+"
             )
         if poor_count > 0:
             report.append(
@@ -415,7 +418,8 @@ class DocumentationAnalyzer:
             )
         if quality.average_quality < 0.7:
             report.append(
-                "3. Add comprehensive docstrings with examples and parameter descriptions"
+                "3. Add comprehensive docstrings with examples and parameter"
+                " descriptions"
             )
         if not quality.missing_docs and not quality.poor_quality_docs:
             report.append("1. Excellent! Documentation quality is very good.")
@@ -462,7 +466,8 @@ class DocumentationAnalyzer:
 
         if current_quality.poor_quality_docs:
             suggestions["priority_actions"].append(
-                f"Improve {len(current_quality.poor_quality_docs)} poor quality docstrings"
+                f"Improve {len(current_quality.poor_quality_docs)} poor quality"
+                " docstrings"
             )
 
         if not current_quality.missing_docs and not current_quality.poor_quality_docs:

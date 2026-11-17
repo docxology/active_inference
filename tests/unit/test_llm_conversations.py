@@ -132,7 +132,9 @@ class TestConversation:
         conversation.add_message("user", "Short question")
         conversation.add_message(
             "assistant",
-            "This is a very long response that should exceed token limits when combined with other messages to test the context window optimization functionality.",
+            "This is a very long response that should exceed token limits when combined"
+            " with other messages to test the context window optimization"
+            " functionality.",
         )
 
         # Get context with reasonable token limit

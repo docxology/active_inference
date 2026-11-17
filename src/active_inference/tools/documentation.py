@@ -482,7 +482,8 @@ class DocumentationManager:
             "- [Mathematics Documentation](knowledge/mathematics_documentation.md)"
         )
         lines.append(
-            "- [Implementation Documentation](knowledge/implementation_documentation.md)"
+            "- [Implementation"
+            " Documentation](knowledge/implementation_documentation.md)"
         )
         lines.append(
             "- [Application Documentation](knowledge/application_documentation.md)"
@@ -512,13 +513,15 @@ class DocumentationManager:
         lines.append("## Getting Started")
         lines.append("")
         lines.append(
-            "1. Start with the [foundations documentation](knowledge/foundations_documentation.md)"
+            "1. Start with the [foundations"
+            " documentation](knowledge/foundations_documentation.md)"
         )
         lines.append(
             "2. Explore the [API documentation](api/) for implementation details"
         )
         lines.append(
-            "3. Check out [example applications](knowledge/application_documentation.md)"
+            "3. Check out [example"
+            " applications](knowledge/application_documentation.md)"
         )
         lines.append("")
 

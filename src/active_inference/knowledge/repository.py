@@ -245,7 +245,8 @@ class KnowledgeRepository:
                 )
                 if validation_errors:
                     logger.error(
-                        f"JSON validation errors in {knowledge_file}: {validation_errors}"
+                        f"JSON validation errors in {knowledge_file}:"
+                        f" {validation_errors}"
                     )
                     continue
 
@@ -266,7 +267,8 @@ class KnowledgeRepository:
 
             except ValidationError as e:
                 logger.error(
-                    f"Pydantic validation error loading knowledge node {knowledge_file}: {e}"
+                    "Pydantic validation error loading knowledge node"
+                    f" {knowledge_file}: {e}"
                 )
             except Exception as e:
                 logger.error(f"Error loading knowledge node {knowledge_file}: {e}")
@@ -845,7 +847,16 @@ class KnowledgeRepository:
         for node in nodes.values():
             tags_str = ";".join(node.tags)
             prereqs_str = ";".join(node.prerequisites)
-            line = f'"{node.id}","{node.title}","{node.content_type.value}","{node.difficulty.value}","{node.description}","{tags_str}","{prereqs_str}"'
+            fields = [
+                node.id,
+                node.title,
+                node.content_type.value,
+                node.difficulty.value,
+                node.description,
+                tags_str,
+                prereqs_str,
+            ]
+            line = ",".join(f'"{value}"' for value in fields)
             csv_lines.append(line)
 
         return "\n".join(csv_lines)

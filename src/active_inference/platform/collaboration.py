@@ -1,7 +1,8 @@
 """
 Collaboration Platform Service
 
-Provides multi-user collaboration features for the Active Inference Knowledge Environment.
+Provides multi-user collaboration features for the Active Inference Knowledge
+Environment.
 Includes user management, workspace management, and collaborative content creation.
 """
 

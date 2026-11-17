@@ -400,7 +400,8 @@ class StatisticalAnalysis:
         if "ranking" in analysis and analysis["ranking"]["ranked_models"]:
             best_model = analysis["ranking"]["ranked_models"][0]
             analysis["recommendations"].append(
-                f"Recommended model: {best_model['model']} (composite score: {best_model['score']:.3f})"
+                f"Recommended model: {best_model['model']} (composite score:"
+                f" {best_model['score']:.3f})"
             )
 
             # Check for significant differences
@@ -411,7 +412,8 @@ class StatisticalAnalysis:
                 )
                 if score_diff > 0.1:
                     analysis["recommendations"].append(
-                        f"Clear performance difference between top models ({score_diff:.3f} score gap)"
+                        "Clear performance difference between top models"
+                        f" ({score_diff:.3f} score gap)"
                     )
 
         return analysis

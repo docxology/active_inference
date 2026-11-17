@@ -225,7 +225,10 @@ if __name__ == "__main__":
         return {
             "files": {f"{config.name.lower().replace(' ', '_')}.py": model_code},
             "requirements": ["numpy", "typing"],
-            "readme": f"# {config.name}\n\n{config.description}\n\nGenerated Active Inference model implementation.",
+            "readme": (
+                f"# {config.name}\n\n{config.description}\n\nGenerated Active Inference"
+                " model implementation."
+            ),
         }
 
     def generate_research_pipeline(self, config: TemplateConfig) -> Dict[str, Any]:
@@ -534,7 +537,11 @@ if __name__ == "__main__":
                     {f"{config.name.lower().replace(' ', '_')}.py": robotics_code}
                 },
                 "requirements": ["numpy", "scipy", "matplotlib"],
-                "readme": f"# {config.name}\\n\\nRobotics control system using Active Inference principles.\\n\\nFeatures:\\n- Multi-joint control\\n- Safety constraints\\n- Goal-directed behavior\\n- Sensor fusion",
+                "readme": (
+                    f"# {config.name}\\n\\nRobotics control system using Active"
+                    " Inference principles.\\n\\nFeatures:\\n- Multi-joint control\\n-"
+                    " Safety constraints\\n- Goal-directed behavior\\n- Sensor fusion"
+                ),
             }
         }
 
@@ -858,7 +865,12 @@ if __name__ == "__main__":
             {
                 "files": {{f"{config.name.lower().replace(' ', '_')}.py": neural_code}},
                 "requirements": ["numpy", "scipy", "matplotlib", "mne"],
-                "readme": f"# {config.name}\\n\\nNeural interface using Active Inference for brain-machine interfaces.\\n\\nFeatures:\\n- Real-time neural signal processing\\n- Intent decoding\\n- Adaptive learning\\n- Signal quality assessment",
+                "readme": (
+                    f"# {config.name}\\n\\nNeural interface using Active Inference for"
+                    " brain-machine interfaces.\\n\\nFeatures:\\n- Real-time neural"
+                    " signal processing\\n- Intent decoding\\n- Adaptive learning\\n-"
+                    " Signal quality assessment"
+                ),
             }
         }
 

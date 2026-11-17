@@ -250,7 +250,8 @@ class ModelComparator:
         best_accuracy = max(accuracies, key=lambda x: x[1])
 
         insights.append(
-            f"Model {best_accuracy[0]} has the highest accuracy ({best_accuracy[1]:.3f})"
+            f"Model {best_accuracy[0]} has the highest accuracy"
+            f" ({best_accuracy[1]:.3f})"
         )
 
         # Compare free energy
@@ -512,7 +513,8 @@ class StatisticalComparator:
         if "overall" in rankings and rankings["overall"]:
             best_model = rankings["overall"][0]
             recommendations.append(
-                f"Recommended model: {best_model['model']} (score: {best_model['score']:.3f})"
+                f"Recommended model: {best_model['model']} (score:"
+                f" {best_model['score']:.3f})"
             )
 
         # Analyze statistical significance

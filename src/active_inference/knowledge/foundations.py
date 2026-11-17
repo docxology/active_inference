@@ -42,7 +42,10 @@ class Foundations:
                 "title": "Entropy and Information",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.BEGINNER,
-                "description": "Understanding entropy as a measure of uncertainty and information content",
+                "description": (
+                    "Understanding entropy as a measure of uncertainty and information"
+                    " content"
+                ),
                 "prerequisites": [],
                 "tags": ["information theory", "entropy", "uncertainty"],
                 "learning_objectives": [
@@ -56,7 +59,9 @@ class Foundations:
                 "title": "Kullback-Leibler Divergence",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Measuring the difference between probability distributions",
+                "description": (
+                    "Measuring the difference between probability distributions"
+                ),
                 "prerequisites": ["info_theory_entropy"],
                 "tags": ["information theory", "KL divergence", "distance"],
                 "learning_objectives": [
@@ -91,7 +96,9 @@ class Foundations:
                 "title": "Bayesian Probability",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.BEGINNER,
-                "description": "Fundamental concepts of Bayesian probability and inference",
+                "description": (
+                    "Fundamental concepts of Bayesian probability and inference"
+                ),
                 "prerequisites": [],
                 "tags": ["bayesian", "probability", "inference"],
                 "learning_objectives": [
@@ -105,7 +112,9 @@ class Foundations:
                 "title": "Bayesian Models",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Building and working with Bayesian probabilistic models",
+                "description": (
+                    "Building and working with Bayesian probabilistic models"
+                ),
                 "prerequisites": ["bayesian_basics"],
                 "tags": ["bayesian", "models", "generative"],
                 "learning_objectives": [
@@ -119,7 +128,9 @@ class Foundations:
                 "title": "Belief Updating",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Mechanisms for updating probabilistic beliefs over time",
+                "description": (
+                    "Mechanisms for updating probabilistic beliefs over time"
+                ),
                 "prerequisites": ["bayesian_basics"],
                 "tags": ["bayesian", "updating", "dynamics"],
                 "learning_objectives": [
@@ -140,7 +151,9 @@ class Foundations:
                 "title": "Free Energy Principle Overview",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Introduction to the Free Energy Principle as a unifying theory",
+                "description": (
+                    "Introduction to the Free Energy Principle as a unifying theory"
+                ),
                 "prerequisites": ["info_theory_kl_divergence", "bayesian_models"],
                 "tags": ["free energy principle", "theory", "unification"],
                 "learning_objectives": [
@@ -154,7 +167,9 @@ class Foundations:
                 "title": "Mathematical Foundations of FEP",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Rigorous mathematical formulation of the Free Energy Principle",
+                "description": (
+                    "Rigorous mathematical formulation of the Free Energy Principle"
+                ),
                 "prerequisites": ["fep_introduction", "info_theory_kl_divergence"],
                 "tags": ["free energy principle", "mathematics", "variational"],
                 "learning_objectives": [
@@ -168,7 +183,10 @@ class Foundations:
                 "title": "FEP in Biological Systems",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "How the Free Energy Principle explains biological self-organization",
+                "description": (
+                    "How the Free Energy Principle explains biological"
+                    " self-organization"
+                ),
                 "prerequisites": ["fep_introduction"],
                 "tags": ["free energy principle", "biology", "self-organization"],
                 "learning_objectives": [
@@ -189,7 +207,9 @@ class Foundations:
                 "title": "Active Inference Overview",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Introduction to Active Inference as a framework for behavior",
+                "description": (
+                    "Introduction to Active Inference as a framework for behavior"
+                ),
                 "prerequisites": ["fep_introduction", "belief_updating"],
                 "tags": ["active inference", "behavior", "planning"],
                 "learning_objectives": [
@@ -203,7 +223,9 @@ class Foundations:
                 "title": "Generative Models in Active Inference",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Structure and role of generative models in Active Inference",
+                "description": (
+                    "Structure and role of generative models in Active Inference"
+                ),
                 "prerequisites": ["active_inference_introduction", "bayesian_models"],
                 "tags": ["active inference", "generative models", "representation"],
                 "learning_objectives": [
@@ -217,7 +239,9 @@ class Foundations:
                 "title": "Policy Selection and Planning",
                 "content_type": ContentType.FOUNDATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "How Active Inference agents select actions and plan behavior",
+                "description": (
+                    "How Active Inference agents select actions and plan behavior"
+                ),
                 "prerequisites": [
                     "active_inference_introduction",
                     "ai_generative_models",
@@ -260,8 +284,17 @@ class Foundations:
         # Generate content based on node type
         if node_id == "info_theory_entropy":
             return {
-                "overview": "Entropy measures the uncertainty or disorder in a probability distribution. It quantifies how much information is needed to describe the outcome of a random variable.",
-                "mathematical_definition": "For a discrete random variable X with probability mass function p(x), the entropy H(X) is defined as:\n\nH(X) = -Σ_x p(x) log₂ p(x)\n\nFor continuous variables, differential entropy is used:\n\nh(X) = -∫ p(x) log p(x) dx",
+                "overview": (
+                    "Entropy measures the uncertainty or disorder in a probability"
+                    " distribution. It quantifies how much information is needed to"
+                    " describe the outcome of a random variable."
+                ),
+                "mathematical_definition": (
+                    "For a discrete random variable X with probability mass function"
+                    " p(x), the entropy H(X) is defined as:\n\nH(X) = -Σ_x p(x) log₂"
+                    " p(x)\n\nFor continuous variables, differential entropy is"
+                    " used:\n\nh(X) = -∫ p(x) log p(x) dx"
+                ),
                 "properties": [
                     "Entropy is always non-negative: H(X) ≥ 0",
                     "Entropy is maximized for uniform distributions",
@@ -273,13 +306,17 @@ class Foundations:
                         "name": "Fair Coin",
                         "description": "A fair coin has maximum entropy",
                         "calculation": "H = -0.5×log₂(0.5) - 0.5×log₂(0.5) = 1 bit",
-                        "interpretation": "1 bit of information is needed to describe the outcome",
+                        "interpretation": (
+                            "1 bit of information is needed to describe the outcome"
+                        ),
                     },
                     {
                         "name": "Biased Coin",
                         "description": "A biased coin has lower entropy",
                         "calculation": "H = -0.9×log₂(0.9) - 0.1×log₂(0.1) ≈ 0.47 bits",
-                        "interpretation": "Less information needed due to predictability",
+                        "interpretation": (
+                            "Less information needed due to predictability"
+                        ),
                     },
                 ],
                 "applications": [
@@ -293,8 +330,16 @@ class Foundations:
 
         elif node_id == "info_theory_kl_divergence":
             return {
-                "overview": "Kullback-Leibler divergence measures how much a probability distribution Q differs from a reference distribution P. It quantifies the information lost when Q is used to approximate P.",
-                "mathematical_definition": "For discrete distributions:\n\nD_KL(P||Q) = Σ_x p(x) log(p(x)/q(x))\n\nFor continuous distributions:\n\nD_KL(P||Q) = ∫ p(x) log(p(x)/q(x)) dx",
+                "overview": (
+                    "Kullback-Leibler divergence measures how much a probability"
+                    " distribution Q differs from a reference distribution P. It"
+                    " quantifies the information lost when Q is used to approximate P."
+                ),
+                "mathematical_definition": (
+                    "For discrete distributions:\n\nD_KL(P||Q) = Σ_x p(x)"
+                    " log(p(x)/q(x))\n\nFor continuous distributions:\n\nD_KL(P||Q) = ∫"
+                    " p(x) log(p(x)/q(x)) dx"
+                ),
                 "properties": [
                     "D_KL(P||Q) ≥ 0 (Gibbs' inequality)",
                     "D_KL(P||Q) ≠ D_KL(Q||P) (asymmetric)",
@@ -304,12 +349,16 @@ class Foundations:
                 "examples": [
                     {
                         "name": "Model Comparison",
-                        "description": "Compare true distribution vs model approximation",
+                        "description": (
+                            "Compare true distribution vs model approximation"
+                        ),
                         "interpretation": "KL divergence quantifies model accuracy",
                     },
                     {
                         "name": "Free Energy Principle",
-                        "description": "KL divergence between posterior and prior beliefs",
+                        "description": (
+                            "KL divergence between posterior and prior beliefs"
+                        ),
                         "interpretation": "Measures surprise or prediction error",
                     },
                 ],
@@ -324,8 +373,15 @@ class Foundations:
 
         elif node_id == "info_theory_mutual_information":
             return {
-                "overview": "Mutual information measures the amount of information shared between two random variables. It quantifies how much knowing one variable reduces uncertainty about the other.",
-                "mathematical_definition": "I(X;Y) = H(X) + H(Y) - H(X,Y)\n\nI(X;Y) = Σ_{x,y} p(x,y) log(p(x,y)/(p(x)p(y)))\n\nI(X;Y) = D_KL(p(x,y) || p(x)p(y))",
+                "overview": (
+                    "Mutual information measures the amount of information shared"
+                    " between two random variables. It quantifies how much knowing one"
+                    " variable reduces uncertainty about the other."
+                ),
+                "mathematical_definition": (
+                    "I(X;Y) = H(X) + H(Y) - H(X,Y)\n\nI(X;Y) = Σ_{x,y} p(x,y)"
+                    " log(p(x,y)/(p(x)p(y)))\n\nI(X;Y) = D_KL(p(x,y) || p(x)p(y))"
+                ),
                 "properties": [
                     "I(X;Y) ≥ 0 (non-negative)",
                     "I(X;Y) = I(Y;X) (symmetric)",
@@ -335,13 +391,22 @@ class Foundations:
                 "examples": [
                     {
                         "name": "Feature Selection",
-                        "description": "Mutual information for selecting relevant features",
-                        "interpretation": "Higher mutual information indicates better feature relevance",
+                        "description": (
+                            "Mutual information for selecting relevant features"
+                        ),
+                        "interpretation": (
+                            "Higher mutual information indicates better feature"
+                            " relevance"
+                        ),
                     },
                     {
                         "name": "Communication Channels",
-                        "description": "Information transmission through noisy channels",
-                        "interpretation": "Mutual information quantifies channel capacity",
+                        "description": (
+                            "Information transmission through noisy channels"
+                        ),
+                        "interpretation": (
+                            "Mutual information quantifies channel capacity"
+                        ),
                     },
                 ],
                 "applications": [
@@ -355,8 +420,17 @@ class Foundations:
 
         elif node_id == "bayesian_basics":
             return {
-                "overview": "Bayesian probability interprets probability as a measure of belief or uncertainty about an event, rather than long-run frequency. This allows for coherent updating of beliefs as new evidence becomes available.",
-                "mathematical_definition": "Bayesian inference updates beliefs using Bayes' theorem:\n\nP(θ|data) = P(data|θ) × P(θ) / P(data)\n\nPosterior = Likelihood × Prior / Evidence",
+                "overview": (
+                    "Bayesian probability interprets probability as a measure of belief"
+                    " or uncertainty about an event, rather than long-run frequency."
+                    " This allows for coherent updating of beliefs as new evidence"
+                    " becomes available."
+                ),
+                "mathematical_definition": (
+                    "Bayesian inference updates beliefs using Bayes'"
+                    " theorem:\n\nP(θ|data) = P(data|θ) × P(θ) / P(data)\n\nPosterior ="
+                    " Likelihood × Prior / Evidence"
+                ),
                 "key_concepts": [
                     "Prior: Initial beliefs before seeing data",
                     "Likelihood: Probability of data given parameters",
@@ -389,8 +463,17 @@ class Foundations:
 
         elif node_id == "bayesian_models":
             return {
-                "overview": "Bayesian models are generative models that specify how observed data is generated from underlying parameters. They provide a complete probabilistic description of the data generation process.",
-                "mathematical_definition": "A Bayesian model consists of:\n\n1. Prior distribution: p(θ)\n2. Likelihood function: p(data|θ)\n3. Posterior distribution: p(θ|data) ∝ p(data|θ) × p(θ)",
+                "overview": (
+                    "Bayesian models are generative models that specify how observed"
+                    " data is generated from underlying parameters. They provide a"
+                    " complete probabilistic description of the data generation"
+                    " process."
+                ),
+                "mathematical_definition": (
+                    "A Bayesian model consists of:\n\n1. Prior distribution: p(θ)\n2."
+                    " Likelihood function: p(data|θ)\n3. Posterior distribution:"
+                    " p(θ|data) ∝ p(data|θ) × p(θ)"
+                ),
                 "model_components": [
                     "Parameters (θ): Unknown quantities we want to learn",
                     "Data (x): Observed evidence",
@@ -409,7 +492,9 @@ class Foundations:
                         "name": "Linear Regression",
                         "description": "Bayesian treatment of linear regression",
                         "model": "y = β₀ + β₁x + ε, ε ~ N(0, σ²)",
-                        "interpretation": "Parameters have distributions, not point estimates",
+                        "interpretation": (
+                            "Parameters have distributions, not point estimates"
+                        ),
                     }
                 ],
                 "applications": [
@@ -423,8 +508,15 @@ class Foundations:
 
         elif node_id == "belief_updating":
             return {
-                "overview": "Belief updating is the process of revising probabilistic beliefs as new evidence becomes available. In Bayesian inference, this is done coherently using Bayes' theorem.",
-                "mathematical_definition": "Sequential updating:\n\np(θ|x₁, x₂, ..., xₜ) ∝ p(xₜ|θ, x₁, ..., xₜ₋₁) × p(θ|x₁, ..., xₜ₋₁)",
+                "overview": (
+                    "Belief updating is the process of revising probabilistic beliefs"
+                    " as new evidence becomes available. In Bayesian inference, this is"
+                    " done coherently using Bayes' theorem."
+                ),
+                "mathematical_definition": (
+                    "Sequential updating:\n\np(θ|x₁, x₂, ..., xₜ) ∝ p(xₜ|θ, x₁, ...,"
+                    " xₜ₋₁) × p(θ|x₁, ..., xₜ₋₁)"
+                ),
                 "updating_mechanisms": [
                     "Batch updating: Update with all data at once",
                     "Sequential updating: Update with each new observation",
@@ -441,7 +533,9 @@ class Foundations:
                     {
                         "name": "Kalman Filtering",
                         "description": "Recursive belief updating for linear systems",
-                        "interpretation": "Optimal estimation under Gaussian assumptions",
+                        "interpretation": (
+                            "Optimal estimation under Gaussian assumptions"
+                        ),
                     },
                     {
                         "name": "Particle Filtering",
@@ -460,9 +554,23 @@ class Foundations:
 
         elif node_id == "fep_introduction":
             return {
-                "overview": "The Free Energy Principle (FEP) proposes that all biological systems minimize free energy to maintain their structural and functional integrity. Free energy serves as a unified measure of surprise or prediction error.",
-                "mathematical_definition": "The free energy F for a model with parameters θ and data x is:\n\nF = -log p(x|θ) + D_KL(q(θ) || p(θ))\n\nwhere:\n- -log p(x|θ) is accuracy (negative log-likelihood)\n- D_KL(q(θ) || p(θ)) is complexity (KL divergence)",
-                "core_principle": "All biological systems act to minimize their free energy, which bounds the surprise or negative log-evidence of their sensory inputs.",
+                "overview": (
+                    "The Free Energy Principle (FEP) proposes that all biological"
+                    " systems minimize free energy to maintain their structural and"
+                    " functional integrity. Free energy serves as a unified measure of"
+                    " surprise or prediction error."
+                ),
+                "mathematical_definition": (
+                    "The free energy F for a model with parameters θ and data x"
+                    " is:\n\nF = -log p(x|θ) + D_KL(q(θ) || p(θ))\n\nwhere:\n- -log"
+                    " p(x|θ) is accuracy (negative log-likelihood)\n- D_KL(q(θ) ||"
+                    " p(θ)) is complexity (KL divergence)"
+                ),
+                "core_principle": (
+                    "All biological systems act to minimize their free energy, which"
+                    " bounds the surprise or negative log-evidence of their sensory"
+                    " inputs."
+                ),
                 "key_implications": [
                     "Perception: Inferring hidden causes of sensory data",
                     "Action: Selecting actions that fulfill predictions",
@@ -479,12 +587,16 @@ class Foundations:
                     {
                         "name": "Homeostasis",
                         "description": "Maintaining body temperature",
-                        "interpretation": "Actions minimize prediction error about ideal temperature",
+                        "interpretation": (
+                            "Actions minimize prediction error about ideal temperature"
+                        ),
                     },
                     {
                         "name": "Visual Perception",
                         "description": "Recognizing objects in images",
-                        "interpretation": "Brain infers object identities to explain visual input",
+                        "interpretation": (
+                            "Brain infers object identities to explain visual input"
+                        ),
                     },
                 ],
                 "applications": [
@@ -498,11 +610,31 @@ class Foundations:
 
         elif node_id == "fep_mathematical_formulation":
             return {
-                "overview": "The mathematical foundations of the Free Energy Principle provide a rigorous framework for understanding how systems minimize surprise through variational inference.",
-                "variational_free_energy": "The variational free energy F[q] for an approximate posterior q(θ) is:\n\nF[q] = E_q[log q(θ)] - E_q[log p(x,θ)]\n\n= D_KL(q(θ) || p(θ|x)) - log p(x)",
-                "free_energy_bound": "The variational free energy provides an upper bound on surprise:\n\n-log p(x) ≤ F[q]\n\nMinimizing free energy minimizes surprise.",
-                "gradient_descent": "Free energy can be minimized using gradient descent:\n\n∂F/∂θ = E_q[∂log p(x,θ)/∂θ] - ∂log q(θ)/∂θ",
-                "information_geometry": "The free energy landscape defines an information geometry where:\n- Riemannian metric given by Fisher information\n- Geodesics correspond to optimal inference paths\n- Curvature reflects model complexity",
+                "overview": (
+                    "The mathematical foundations of the Free Energy Principle provide"
+                    " a rigorous framework for understanding how systems minimize"
+                    " surprise through variational inference."
+                ),
+                "variational_free_energy": (
+                    "The variational free energy F[q] for an approximate posterior q(θ)"
+                    " is:\n\nF[q] = E_q[log q(θ)] - E_q[log p(x,θ)]\n\n= D_KL(q(θ) ||"
+                    " p(θ|x)) - log p(x)"
+                ),
+                "free_energy_bound": (
+                    "The variational free energy provides an upper bound on"
+                    " surprise:\n\n-log p(x) ≤ F[q]\n\nMinimizing free energy minimizes"
+                    " surprise."
+                ),
+                "gradient_descent": (
+                    "Free energy can be minimized using gradient descent:\n\n∂F/∂θ ="
+                    " E_q[∂log p(x,θ)/∂θ] - ∂log q(θ)/∂θ"
+                ),
+                "information_geometry": (
+                    "The free energy landscape defines an information geometry"
+                    " where:\n- Riemannian metric given by Fisher information\n-"
+                    " Geodesics correspond to optimal inference paths\n- Curvature"
+                    " reflects model complexity"
+                ),
                 "properties": [
                     "F ≥ -log p(x) (free energy bounds log-evidence)",
                     "F = 0 when q(θ) = p(θ|x) (perfect inference)",
@@ -513,7 +645,9 @@ class Foundations:
                     {
                         "name": "Variational Inference",
                         "description": "Approximating posterior distributions",
-                        "interpretation": "Free energy minimization finds best approximation",
+                        "interpretation": (
+                            "Free energy minimization finds best approximation"
+                        ),
                     }
                 ],
                 "applications": [
@@ -527,11 +661,36 @@ class Foundations:
 
         elif node_id == "fep_biological_systems":
             return {
-                "overview": "The Free Energy Principle explains how biological systems maintain their integrity by minimizing free energy, leading to emergent behaviors like homeostasis, perception, and action.",
-                "homeostasis": "Homeostasis can be understood as free energy minimization:\n\n- Set point: Predicted state of the system\n- Error signal: Difference between prediction and actual state\n- Action: Behavior that reduces prediction error",
-                "self_organization": "Biological systems self-organize to minimize free energy:\n\n- Structure formation minimizes free energy\n- Function follows from structure that minimizes surprise\n- Evolution selects for free energy minimizing architectures",
-                "perception_action_cycle": "The perception-action cycle implements free energy minimization:\n\n1. Generate predictions about sensory input\n2. Compare predictions with actual sensory data\n3. Update model to reduce prediction error\n4. Select actions that fulfill predictions",
-                "hierarchical_structure": "Biological systems have hierarchical organization:\n\n- Lower levels: Fast, local control (reflexes)\n- Higher levels: Slow, global control (goals)\n- Top level: Ultimate goals (survival, reproduction)",
+                "overview": (
+                    "The Free Energy Principle explains how biological systems maintain"
+                    " their integrity by minimizing free energy, leading to emergent"
+                    " behaviors like homeostasis, perception, and action."
+                ),
+                "homeostasis": (
+                    "Homeostasis can be understood as free energy minimization:\n\n-"
+                    " Set point: Predicted state of the system\n- Error signal:"
+                    " Difference between prediction and actual state\n- Action:"
+                    " Behavior that reduces prediction error"
+                ),
+                "self_organization": (
+                    "Biological systems self-organize to minimize free energy:\n\n-"
+                    " Structure formation minimizes free energy\n- Function follows"
+                    " from structure that minimizes surprise\n- Evolution selects for"
+                    " free energy minimizing architectures"
+                ),
+                "perception_action_cycle": (
+                    "The perception-action cycle implements free energy"
+                    " minimization:\n\n1. Generate predictions about sensory input\n2."
+                    " Compare predictions with actual sensory data\n3. Update model to"
+                    " reduce prediction error\n4. Select actions that fulfill"
+                    " predictions"
+                ),
+                "hierarchical_structure": (
+                    "Biological systems have hierarchical organization:\n\n- Lower"
+                    " levels: Fast, local control (reflexes)\n- Higher levels: Slow,"
+                    " global control (goals)\n- Top level: Ultimate goals (survival,"
+                    " reproduction)"
+                ),
                 "properties": [
                     "Self-organizing: Structure emerges from dynamics",
                     "Adaptive: Systems learn and adapt to environment",
@@ -561,11 +720,33 @@ class Foundations:
 
         elif node_id == "active_inference_introduction":
             return {
-                "overview": "Active Inference is a theoretical framework that explains behavior as the process of minimizing expected free energy. Agents act to fulfill their predictions about the world.",
-                "core_idea": "Active Inference posits that:\n\n1. Agents have generative models of their environment\n2. They select actions that minimize expected surprise\n3. Action is planning as inference\n4. Behavior maximizes evidence for the agent's model",
-                "mathematical_framework": "Expected Free Energy (EFE) for policy π:\n\nG(π) = Σ_τ E[log q(o_τ|s_τ)] - E[log p(o_τ)]\n\nwhere:\n- First term: Risk (expected prediction error)\n- Second term: Ambiguity (uncertainty about outcomes)",
-                "planning_as_inference": "Policy selection is cast as Bayesian inference:\n\np(π) ∝ exp(-G(π))\n\nOptimal policies minimize expected free energy.",
-                "perception_action_loop": "The Active Inference cycle:\n\n1. Perceive: Update beliefs about hidden states\n2. Plan: Select policies that minimize expected free energy\n3. Act: Execute selected actions\n4. Learn: Update generative model based on outcomes",
+                "overview": (
+                    "Active Inference is a theoretical framework that explains behavior"
+                    " as the process of minimizing expected free energy. Agents act to"
+                    " fulfill their predictions about the world."
+                ),
+                "core_idea": (
+                    "Active Inference posits that:\n\n1. Agents have generative models"
+                    " of their environment\n2. They select actions that minimize"
+                    " expected surprise\n3. Action is planning as inference\n4."
+                    " Behavior maximizes evidence for the agent's model"
+                ),
+                "mathematical_framework": (
+                    "Expected Free Energy (EFE) for policy π:\n\nG(π) = Σ_τ E[log"
+                    " q(o_τ|s_τ)] - E[log p(o_τ)]\n\nwhere:\n- First term: Risk"
+                    " (expected prediction error)\n- Second term: Ambiguity"
+                    " (uncertainty about outcomes)"
+                ),
+                "planning_as_inference": (
+                    "Policy selection is cast as Bayesian inference:\n\np(π) ∝"
+                    " exp(-G(π))\n\nOptimal policies minimize expected free energy."
+                ),
+                "perception_action_loop": (
+                    "The Active Inference cycle:\n\n1. Perceive: Update beliefs about"
+                    " hidden states\n2. Plan: Select policies that minimize expected"
+                    " free energy\n3. Act: Execute selected actions\n4. Learn: Update"
+                    " generative model based on outcomes"
+                ),
                 "properties": [
                     "Goal-directed: Actions serve to achieve preferred outcomes",
                     "Information-seeking: Agents explore to reduce uncertainty",
@@ -597,11 +778,34 @@ class Foundations:
 
         elif node_id == "ai_generative_models":
             return {
-                "overview": "In Active Inference, generative models specify how sensory data is generated from hidden causes. These models encode the agent's understanding of the world and guide both perception and action.",
-                "model_structure": "A generative model typically includes:\n\n1. Likelihood: p(o|s) - how observations are generated\n2. Prior: p(s) - prior beliefs about hidden states\n3. Transition: p(s_t|s_t₋₁, a) - state dynamics\n4. Preferences: p(o*) - preferred observations",
-                "hierarchical_models": "Active Inference often uses hierarchical models:\n\n- Lower levels: Sensory and motor representations\n- Higher levels: Abstract concepts and goals\n- Top level: Ultimate objectives (survival, well-being)",
-                "model_learning": "Models are learned through:\n\n1. Variational inference for parameter estimation\n2. Structure learning for model selection\n3. Active learning for efficient data collection\n4. Meta-learning for learning to learn",
-                "recognition_models": "Recognition models (variational posteriors) approximate:\n\nq(s|o) ≈ p(s|o)\n\nThese provide beliefs about hidden states given observations.",
+                "overview": (
+                    "In Active Inference, generative models specify how sensory data is"
+                    " generated from hidden causes. These models encode the agent's"
+                    " understanding of the world and guide both perception and action."
+                ),
+                "model_structure": (
+                    "A generative model typically includes:\n\n1. Likelihood: p(o|s) -"
+                    " how observations are generated\n2. Prior: p(s) - prior beliefs"
+                    " about hidden states\n3. Transition: p(s_t|s_t₋₁, a) - state"
+                    " dynamics\n4. Preferences: p(o*) - preferred observations"
+                ),
+                "hierarchical_models": (
+                    "Active Inference often uses hierarchical models:\n\n- Lower"
+                    " levels: Sensory and motor representations\n- Higher levels:"
+                    " Abstract concepts and goals\n- Top level: Ultimate objectives"
+                    " (survival, well-being)"
+                ),
+                "model_learning": (
+                    "Models are learned through:\n\n1. Variational inference for"
+                    " parameter estimation\n2. Structure learning for model"
+                    " selection\n3. Active learning for efficient data collection\n4."
+                    " Meta-learning for learning to learn"
+                ),
+                "recognition_models": (
+                    "Recognition models (variational posteriors) approximate:\n\nq(s|o)"
+                    " ≈ p(s|o)\n\nThese provide beliefs about hidden states given"
+                    " observations."
+                ),
                 "properties": [
                     "Generative: Can synthesize data from the model",
                     "Probabilistic: All uncertainty is quantified",
@@ -619,7 +823,9 @@ class Foundations:
                         "name": "Motor Control",
                         "description": "Controlling limb movements",
                         "model": "p(sensory feedback|motor command) × p(motor command)",
-                        "inference": "Infer motor commands from desired sensory outcomes",
+                        "inference": (
+                            "Infer motor commands from desired sensory outcomes"
+                        ),
                     },
                 ],
                 "applications": [
@@ -633,17 +839,38 @@ class Foundations:
 
         elif node_id == "ai_policy_selection":
             return {
-                "overview": "Policy selection in Active Inference chooses actions that minimize expected free energy. This framework casts planning as Bayesian inference over future courses of action.",
-                "expected_free_energy": "The expected free energy G(π) for policy π is:\n\nG(π) = Σ_τ [E[log q(o_τ|s_τ)] - E[log p(o_τ)]] + complexity terms\n\n= Risk + Ambiguity - Value",
+                "overview": (
+                    "Policy selection in Active Inference chooses actions that minimize"
+                    " expected free energy. This framework casts planning as Bayesian"
+                    " inference over future courses of action."
+                ),
+                "expected_free_energy": (
+                    "The expected free energy G(π) for policy π is:\n\nG(π) = Σ_τ"
+                    " [E[log q(o_τ|s_τ)] - E[log p(o_τ)]] + complexity terms\n\n= Risk"
+                    " + Ambiguity - Value"
+                ),
                 "policy_components": [
                     "Risk: Expected prediction error (epistemic)",
                     "Ambiguity: Uncertainty about outcomes (aleatoric)",
                     "Value: Expected reward or utility",
                     "Complexity: Cost of maintaining the policy",
                 ],
-                "planning_horizon": "Planning considers future consequences:\n\n- Short-term: Immediate action selection\n- Long-term: Multi-step planning\n- Hierarchical: Planning at different time scales",
-                "information_seeking": "Active Inference agents seek information:\n\n- Exploration: Reduce uncertainty about the world\n- Exploitation: Maximize expected reward\n- Balance: Trade-off between exploration and exploitation",
-                "decision_making": "Decision making under uncertainty:\n\n1. Evaluate all possible policies\n2. Compute expected free energy for each\n3. Select policy with minimal expected free energy\n4. Execute action and update beliefs",
+                "planning_horizon": (
+                    "Planning considers future consequences:\n\n- Short-term: Immediate"
+                    " action selection\n- Long-term: Multi-step planning\n-"
+                    " Hierarchical: Planning at different time scales"
+                ),
+                "information_seeking": (
+                    "Active Inference agents seek information:\n\n- Exploration: Reduce"
+                    " uncertainty about the world\n- Exploitation: Maximize expected"
+                    " reward\n- Balance: Trade-off between exploration and exploitation"
+                ),
+                "decision_making": (
+                    "Decision making under uncertainty:\n\n1. Evaluate all possible"
+                    " policies\n2. Compute expected free energy for each\n3. Select"
+                    " policy with minimal expected free energy\n4. Execute action and"
+                    " update beliefs"
+                ),
                 "properties": [
                     "Goal-directed: Actions serve preferred outcomes",
                     "Information-seeking: Agents explore to learn",

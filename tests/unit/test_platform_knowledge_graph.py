@@ -283,13 +283,16 @@ class TestKnowledgeGraph:
     # def test_validate_graph(self, knowledge_graph):
     #     """Test graph validation"""
     #     # Add valid nodes and edges
-    #     node1 = KnowledgeNode(id="valid_node1", title="Valid Node 1", node_type=NodeType.CONCEPT)
-    #     node2 = KnowledgeNode(id="valid_node2", title="Valid Node 2", node_type=NodeType.CONCEPT)
+    #     node1 = KnowledgeNode(id="valid_node1", title="Valid Node 1",
+    #         node_type=NodeType.CONCEPT)
+    #     node2 = KnowledgeNode(id="valid_node2", title="Valid Node 2",
+    #         node_type=NodeType.CONCEPT)
 
     #     knowledge_graph.add_node(node1)
     #     knowledge_graph.add_node(node2)
 
-    #     edge = KnowledgeEdge(source="valid_node1", target="valid_node2", relationship_type=RelationshipType.RELATED_TO)
+    #     edge = KnowledgeEdge(source="valid_node1", target="valid_node2",
+    #         relationship_type=RelationshipType.RELATED_TO)
     #     knowledge_graph.add_edge(edge)
 
     #     validation = knowledge_graph.validate_graph()
@@ -353,7 +356,8 @@ class TestKnowledgeGraph:
     #     # Create test graph
     #     nodes = []
     #     for i in range(5):
-    #         node = KnowledgeNode(id=f"node{i}", label=f"Node {i}", node_type="concept")
+    #         node = KnowledgeNode(id=f"node{i}", label=f"Node {i}",
+    #             node_type="concept")
     #         knowledge_graph.add_node(node)
     #         nodes.append(node)
 
@@ -369,23 +373,28 @@ class TestKnowledgeGraph:
     #         knowledge_graph.add_edge(edge)
 
     #     # Extract subgraph containing node0, node1, node2
-    #     subgraph = knowledge_graph.get_subgraph(["node0", "node1", "node2"], max_depth=1)
+    #     subgraph = knowledge_graph.get_subgraph(["node0", "node1", "node2"],
+    #         max_depth=1)
 
     #     assert len(subgraph.nodes) >= 3  # At least the specified nodes
     #     assert "node0" in subgraph.nodes
     #     assert "node1" in subgraph.nodes
     #     assert "node2" in subgraph.nodes
 
-    # TODO: Implement test_compute_graph_metrics when graph metrics functionality is added
+    # TODO: Implement test_compute_graph_metrics when graph metrics functionality is
+    # added
     # def test_compute_graph_metrics(self, knowledge_graph):
     #     """Test graph metrics computation"""
     #     # Create a simple graph
     #     for i in range(3):
-    #         node = KnowledgeNode(id=f"node{i}", label=f"Node {i}", node_type="concept")
+    #         node = KnowledgeNode(id=f"node{i}", label=f"Node {i}",
+    #             node_type="concept")
     #         knowledge_graph.add_node(node)
 
-    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1", relation_type="related"))
-    #     knowledge_graph.add_edge(KnowledgeEdge(source="node1", target="node2", relation_type="related"))
+    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1",
+    #         relation_type="related"))
+    #     knowledge_graph.add_edge(KnowledgeEdge(source="node1", target="node2",
+    #         relation_type="related"))
 
     #     metrics = knowledge_graph.compute_graph_metrics()
 
@@ -419,7 +428,8 @@ class TestKnowledgeGraph:
     # TODO: Implement test_get_concept_hierarchy when hierarchy functionality is added
     # def test_get_concept_hierarchy(self, knowledge_graph):
     #     """Test concept hierarchy extraction"""
-    #     node = KnowledgeNode(id="main_concept", label="Main Concept", node_type="concept")
+    #     node = KnowledgeNode(id="main_concept", label="Main Concept",
+    #         node_type="concept")
     #     knowledge_graph.add_node(node)
 
     #     hierarchy = knowledge_graph.get_concept_hierarchy("main_concept")
@@ -431,15 +441,18 @@ class TestKnowledgeGraph:
     #     assert "super_concepts" in hierarchy
     #     assert "sibling_concepts" in hierarchy
 
-    # TODO: Implement test_optimize_graph_structure when optimization functionality is added
+    # TODO: Implement test_optimize_graph_structure when optimization functionality is
+    # added
     # def test_optimize_graph_structure(self, knowledge_graph):
     #     """Test graph structure optimization"""
     #     # Add some nodes and edges
     #     for i in range(3):
-    #         node = KnowledgeNode(id=f"node{i}", title=f"Node {i}", node_type=NodeType.CONCEPT)
+    #         node = KnowledgeNode(id=f"node{i}", title=f"Node {i}",
+    #             node_type=NodeType.CONCEPT)
     #         knowledge_graph.add_node(node)
 
-    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1", relationship_type=RelationshipType.RELATED_TO))
+    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1",
+    #         relationship_type=RelationshipType.RELATED_TO))
 
     #     optimization = knowledge_graph.optimize_graph_structure()
 
@@ -452,7 +465,8 @@ class TestKnowledgeGraph:
     # def test_backup_and_restore_graph(self, knowledge_graph, tmp_path):
     #     """Test graph backup and restore functionality"""
     #     # Add test data
-    #     node = KnowledgeNode(id="backup_test", title="Backup Test", node_type=NodeType.CONCEPT)
+    #     node = KnowledgeNode(id="backup_test", title="Backup Test",
+    #         node_type=NodeType.CONCEPT)
     #     knowledge_graph.add_node(node)
 
     #     # Create backup
@@ -471,16 +485,20 @@ class TestKnowledgeGraph:
     #     # Clean up
     #     Path(backup_path).unlink()
 
-    # TODO: Implement test_compute_connectivity_metrics when metrics functionality is added
+    # TODO: Implement test_compute_connectivity_metrics when metrics functionality is
+    # added
     # def test_compute_connectivity_metrics(self, knowledge_graph):
     #     """Test connectivity metrics computation"""
     #     # Create a connected graph
     #     for i in range(3):
-    #         node = KnowledgeNode(id=f"node{i}", title=f"Node {i}", node_type=NodeType.CONCEPT)
+    #         node = KnowledgeNode(id=f"node{i}", title=f"Node {i}",
+    #             node_type=NodeType.CONCEPT)
     #         knowledge_graph.add_node(node)
 
-    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1", relationship_type=RelationshipType.RELATED_TO))
-    #     knowledge_graph.add_edge(KnowledgeEdge(source="node1", target="node2", relationship_type=RelationshipType.RELATED_TO))
+    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1",
+    #         relationship_type=RelationshipType.RELATED_TO))
+    #     knowledge_graph.add_edge(KnowledgeEdge(source="node1", target="node2",
+    #         relationship_type=RelationshipType.RELATED_TO))
 
     #     metrics = knowledge_graph.get_statistics()
     #     connectivity = metrics.get("connectivity", {})
@@ -493,17 +511,21 @@ class TestKnowledgeGraph:
     #     assert connectivity["connected_components"] == 1
     #     assert connectivity["is_connected"] is True
 
-    # TODO: Implement test_compute_centrality_metrics when centrality functionality is added
+    # TODO: Implement test_compute_centrality_metrics when centrality functionality is
+    # added
     # def test_compute_centrality_metrics(self, knowledge_graph):
     #     """Test centrality metrics computation"""
     #     # Create graph with different degrees
     #     for i in range(4):
-    #         node = KnowledgeNode(id=f"node{i}", title=f"Node {i}", node_type=NodeType.CONCEPT)
+    #         node = KnowledgeNode(id=f"node{i}", title=f"Node {i}",
+    #             node_type=NodeType.CONCEPT)
     #         knowledge_graph.add_node(node)
 
     #     # Node0 connected to node1 and node2
-    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1", relationship_type=RelationshipType.RELATED_TO))
-    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node2", relationship_type=RelationshipType.RELATED_TO))
+    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node1",
+    #         relationship_type=RelationshipType.RELATED_TO))
+    #     knowledge_graph.add_edge(KnowledgeEdge(source="node0", target="node2",
+    #         relationship_type=RelationshipType.RELATED_TO))
 
     #     # Node3 is isolated
     #     # Node1 connected to node0 only

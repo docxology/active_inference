@@ -125,7 +125,8 @@ class ServiceOrchestrator:
             service_info.status = ServiceStatus.STARTING
             service_info.start_time = datetime.now()
 
-            # Start service (simplified - in real implementation, this would start actual processes)
+            # Start service (simplified - in real implementation, this would start
+            # actual processes)
             logger.info(f"Starting service: {service_name}")
             service_info.status = ServiceStatus.RUNNING
 

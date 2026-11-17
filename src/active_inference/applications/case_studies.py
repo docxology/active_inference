@@ -51,7 +51,8 @@ class ExampleApplications:
 
         self._load_case_studies()
         logger.info(
-            f"ExampleApplications initialized with {len(self.case_studies)} case studies"
+            f"ExampleApplications initialized with {len(self.case_studies)} case"
+            " studies"
         )
 
     def _load_case_studies(self) -> None:
@@ -62,7 +63,10 @@ class ExampleApplications:
                 id="perceptual_inference",
                 title="Perceptual Inference in Vision",
                 domain=ApplicationDomain.PERCEPTION,
-                description="Implementation of perceptual inference for visual recognition using Active Inference",
+                description=(
+                    "Implementation of perceptual inference for visual recognition"
+                    " using Active Inference"
+                ),
                 difficulty="intermediate",
                 implementation_files=[
                     "perceptual_model.py",
@@ -86,7 +90,10 @@ class ExampleApplications:
                 id="decision_making",
                 title="Decision Making Under Uncertainty",
                 domain=ApplicationDomain.DECISION_MAKING,
-                description="Active Inference model for decision making in uncertain environments",
+                description=(
+                    "Active Inference model for decision making in uncertain"
+                    " environments"
+                ),
                 difficulty="advanced",
                 implementation_files=[
                     "decision_model.py",
@@ -110,7 +117,9 @@ class ExampleApplications:
                 id="motor_control",
                 title="Active Inference for Motor Control",
                 domain=ApplicationDomain.MOTOR_CONTROL,
-                description="Implementation of motor control using Active Inference principles",
+                description=(
+                    "Implementation of motor control using Active Inference principles"
+                ),
                 difficulty="intermediate",
                 implementation_files=[
                     "motor_model.py",

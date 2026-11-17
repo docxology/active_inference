@@ -74,7 +74,9 @@ class ArchitecturePatterns:
             },
             "multi_scale_modeling": {
                 "name": "Multi-Scale Modeling",
-                "description": "Models operating at different temporal and spatial scales",
+                "description": (
+                    "Models operating at different temporal and spatial scales"
+                ),
                 "components": ["FastDynamics", "SlowDynamics", "CouplingMechanism"],
                 "data_flow": ["MicroScale", "MesoScale", "MacroScale"],
                 "scalability": "Complex systems, large scale",
@@ -110,26 +112,39 @@ class BestPracticesGuide:
                     id="generative_model_clarity",
                     category="model_design",
                     title="Clear Generative Model Specification",
-                    description="Always explicitly specify the generative model including likelihood (A), transitions (B), preferences (C), and priors (D)",
+                    description=(
+                        "Always explicitly specify the generative model including"
+                        " likelihood (A), transitions (B), preferences (C), and"
+                        " priors (D)"
+                    ),
                     examples=[
                         "Use descriptive variable names for model parameters",
                         "Document the meaning of each parameter",
                         "Validate parameter dimensions match expectations",
                     ],
-                    rationale="Clear specifications enable better understanding, debugging, and reproducibility",
+                    rationale=(
+                        "Clear specifications enable better understanding, debugging,"
+                        " and reproducibility"
+                    ),
                     related_patterns=["active_inference_agent"],
                 ),
                 BestPractice(
                     id="parameter_validation",
                     category="model_design",
                     title="Parameter Validation",
-                    description="Validate all model parameters for correct dimensions, ranges, and probabilistic constraints",
+                    description=(
+                        "Validate all model parameters for correct dimensions, ranges,"
+                        " and probabilistic constraints"
+                    ),
                     examples=[
                         "Check that transition matrices are stochastic",
                         "Ensure prior preferences sum appropriately",
                         "Validate observation likelihood matrices",
                     ],
-                    rationale="Invalid parameters lead to numerical instability and incorrect inference",
+                    rationale=(
+                        "Invalid parameters lead to numerical instability and incorrect"
+                        " inference"
+                    ),
                     related_patterns=["active_inference_agent", "hierarchical_control"],
                 ),
             ],
@@ -138,26 +153,38 @@ class BestPracticesGuide:
                     id="numerical_stability",
                     category="implementation",
                     title="Numerical Stability",
-                    description="Implement numerical safeguards to prevent overflow, underflow, and division by zero",
+                    description=(
+                        "Implement numerical safeguards to prevent overflow, underflow,"
+                        " and division by zero"
+                    ),
                     examples=[
                         "Add small constants to prevent log(0)",
                         "Normalize probabilities after updates",
                         "Use stable matrix operations",
                     ],
-                    rationale="Active Inference involves many probabilistic computations that can become numerically unstable",
+                    rationale=(
+                        "Active Inference involves many probabilistic computations that"
+                        " can become numerically unstable"
+                    ),
                     related_patterns=["all"],
                 ),
                 BestPractice(
                     id="modular_design",
                     category="implementation",
                     title="Modular Architecture",
-                    description="Structure code into clear modules with well-defined interfaces and responsibilities",
+                    description=(
+                        "Structure code into clear modules with well-defined interfaces"
+                        " and responsibilities"
+                    ),
                     examples=[
                         "Separate inference from action selection",
                         "Use configuration objects for parameters",
                         "Implement clear error handling",
                     ],
-                    rationale="Modular design improves maintainability and allows for easier testing and extension",
+                    rationale=(
+                        "Modular design improves maintainability and allows for easier"
+                        " testing and extension"
+                    ),
                     related_patterns=["all"],
                 ),
             ],
@@ -172,14 +199,19 @@ class BestPracticesGuide:
                         "Validate model updates produce expected changes",
                         "Test edge cases and error conditions",
                     ],
-                    rationale="Thorough testing ensures reliability and helps catch bugs early",
+                    rationale=(
+                        "Thorough testing ensures reliability and helps catch bugs"
+                        " early"
+                    ),
                     related_patterns=["all"],
                 ),
                 BestPractice(
                     id="integration_testing",
                     category="testing",
                     title="Integration Testing",
-                    description="Test how components work together in realistic scenarios",
+                    description=(
+                        "Test how components work together in realistic scenarios"
+                    ),
                     examples=[
                         "Test complete perception-action cycles",
                         "Verify end-to-end functionality",

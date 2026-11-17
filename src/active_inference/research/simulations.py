@@ -180,9 +180,9 @@ class SimulationEngine:
                 "B_shape": B.shape,
                 "C_shape": C.shape,
                 "final_beliefs": beliefs.tolist(),
-                "preferred_observations": np.argsort(C)[
-                    -3:
-                ].tolist(),  # Top 3 preferred observations
+                "preferred_observations": (
+                    np.argsort(C)[-3:].tolist()
+                ),  # Top 3 preferred observations
             },
         }
 

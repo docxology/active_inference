@@ -263,7 +263,8 @@ class TestTemplateManager:
             # Create a mock template type that's not in the enum
             config = TemplateConfig(
                 name="UnknownApp",
-                template_type=TemplateType.BASIC_MODEL,  # Use valid type but modify after
+                # Use a valid type, then modify it afterwards
+                template_type=TemplateType.BASIC_MODEL,
                 description="Unknown application",
             )
 

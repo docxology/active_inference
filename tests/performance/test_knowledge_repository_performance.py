@@ -55,8 +55,14 @@ class TestKnowledgeRepositoryPerformance:
                         "description": f"Test description for {content_type} node {i}",
                         "prerequisites": [],
                         "content": {
-                            "overview": f"This is test content {i} for {content_type}. It contains various concepts and explanations related to Active Inference and the Free Energy Principle.",
-                            "mathematical_definition": f"F_{i}(x) = mathematical expression {i}",
+                            "overview": (
+                                f"This is test content {i} for {content_type}. It"
+                                " contains various concepts and explanations related"
+                                " to Active Inference and the Free Energy Principle."
+                            ),
+                            "mathematical_definition": (
+                                f"F_{i}(x) = mathematical expression {i}"
+                            ),
                             "examples": [
                                 {
                                     "name": f"Example {i}",
@@ -117,7 +123,8 @@ class TestKnowledgeRepositoryPerformance:
 
         # Performance assertions
         assert search_time < 1.0, f"Search took too long: {search_time:.3f}s"
-        # Search should complete without errors (results count depends on search implementation)
+        # Search should complete without errors (results count depends on search
+        # implementation)
         assert isinstance(results1, list), "Search should return a list"
         assert isinstance(results2, list), "Search should return a list"
         assert isinstance(results3, list), "Search should return a list"

@@ -442,6 +442,11 @@ Poor Quality Documentation:
 
             content = json.dumps(validation, indent=2)
         else:
+            category_lines = "\n".join(
+                f"- {category}: {len(results)} issues"
+                for category, results in validation["results_by_category"].items()
+                if results
+            )
             content = f"""
 🔍 Documentation Validation Results
 {'=' * 40}
@@ -454,7 +459,7 @@ Summary:
 - Validation Passed: {'✅ Yes' if validation['validation_passed'] else '❌ No'}
 
 Issues by Category:
-{chr(10).join(f'- {category}: {len(results)} issues' for category, results in validation['results_by_category'].items() if results)}
+{category_lines}
 """
 
         self._output_content(content, output_path)
@@ -510,7 +515,8 @@ Documentation Score: {quality.coverage_percentage:.1f}%
 
         if quality.coverage_percentage < 80:
             recommendations.append(
-                f"Improve documentation coverage from {quality.coverage_percentage:.1f}% to 80%+"
+                "Improve documentation coverage from"
+                f" {quality.coverage_percentage:.1f}% to 80%+"
             )
 
         if validation["errors"] > 0:

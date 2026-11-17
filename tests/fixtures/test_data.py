@@ -25,7 +25,10 @@ SAMPLE_KNOWLEDGE_NODES = [
             "Connect entropy to uncertainty",
         ],
         "content": {
-            "overview": "Entropy is a measure of uncertainty or disorder in a probability distribution.",
+            "overview": (
+                "Entropy is a measure of uncertainty or disorder in a probability"
+                " distribution."
+            ),
             "mathematical_definition": "H(X) = -Σ p(x) log p(x)",
             "examples": [
                 {
@@ -55,7 +58,10 @@ SAMPLE_KNOWLEDGE_NODES = [
             "Understand posterior distributions",
         ],
         "content": {
-            "overview": "Bayesian inference treats parameters as random variables with probability distributions.",
+            "overview": (
+                "Bayesian inference treats parameters as random variables with"
+                " probability distributions."
+            ),
             "mathematical_formulation": "p(θ|x) = p(x|θ) p(θ) / p(x)",
             "examples": [
                 {
@@ -98,7 +104,9 @@ SAMPLE_RESEARCH_SCENARIOS = [
         "id": "active_inference_simulation",
         "name": "Active Inference Simulation Study",
         "description": "Simulation study of Active Inference in decision making",
-        "hypothesis": "Active Inference agents will show better decision making under uncertainty",
+        "hypothesis": (
+            "Active Inference agents will show better decision making under uncertainty"
+        ),
         "methodology": "computational_simulation",
         "parameters": {
             "n_agents": 100,

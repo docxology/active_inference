@@ -91,7 +91,7 @@ class ModelRegistry:
     def get_best_model_for_task(
         self, task_capabilities: Set[str], max_memory: float = None
     ) -> Optional[ModelInfo]:
-        """Get the best model for a specific task based on capabilities and constraints"""
+        """Get the best model for a task based on capabilities and constraints"""
         suitable_models = []
 
         for model in self.models.values():
@@ -433,8 +433,9 @@ class ModelManager:
         # Placeholder metrics - in real implementation, this would run actual benchmarks
         metrics = {
             "reasoning_score": 0.8 if model.has_capability("reasoning") else 0.5,
-            "generation_speed": 100.0
-            / float(model.size.rstrip("b")),  # tokens per second estimate
+            "generation_speed": (
+                100.0 / float(model.size.rstrip("b"))
+            ),  # tokens per second estimate
             "memory_efficiency": 1.0 / model.get_memory_requirement(),
             "context_utilization": min(1.0, model.context_window / 8192),
         }

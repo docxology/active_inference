@@ -303,7 +303,8 @@ class BaseOrchestrator:
                 for dep in required_deps:
                     if dep not in stages[:i]:
                         validation["issues"].append(
-                            f"Stage {stage.value} requires {dep.value} but it's not before it"
+                            f"Stage {stage.value} requires {dep.value} but it's not"
+                            " before it"
                         )
 
         # Generate recommendations

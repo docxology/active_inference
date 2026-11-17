@@ -27,8 +27,13 @@ class TestLearningObjectivesValidation:
             "description": "Content for testing learning objectives",
             "prerequisites": [],
             "content": {
-                "overview": "This content teaches important concepts through clear explanations and examples",
-                "mathematical_definition": "Learning = f(knowledge, practice, feedback)",
+                "overview": (
+                    "This content teaches important concepts through clear explanations"
+                    " and examples"
+                ),
+                "mathematical_definition": (
+                    "Learning = f(knowledge, practice, feedback)"
+                ),
                 "examples": [
                     {
                         "name": "Concept Application",
@@ -36,7 +41,9 @@ class TestLearningObjectivesValidation:
                     },
                     {
                         "name": "Progressive Disclosure",
-                        "description": "Information presented at appropriate complexity levels",
+                        "description": (
+                            "Information presented at appropriate complexity levels"
+                        ),
                     },
                 ],
                 "interactive_exercises": [
@@ -130,16 +137,25 @@ class TestContentAccessibility:
             "description": "Content designed for accessibility",
             "prerequisites": [],
             "content": {
-                "overview": "This content uses clear, simple language that is easy to understand. Technical terms are explained when first introduced.",
+                "overview": (
+                    "This content uses clear, simple language that is easy to"
+                    " understand. Technical terms are explained when first introduced."
+                ),
                 "mathematical_definition": "Simple formula: result = input × factor",
                 "examples": [
                     {
                         "name": "Everyday Example",
-                        "description": "Think of this like baking a cake - you need ingredients (inputs) and a recipe (process) to get a result.",
+                        "description": (
+                            "Think of this like baking a cake - you need ingredients"
+                            " (inputs) and a recipe (process) to get a result."
+                        ),
                     },
                     {
                         "name": "Step by Step",
-                        "description": "1. Start with what you know\n2. Add new information\n3. Check your understanding\n4. Practice what you've learned",
+                        "description": (
+                            "1. Start with what you know\n2. Add new information\n3."
+                            " Check your understanding\n4. Practice what you've learned"
+                        ),
                     },
                 ],
             },
@@ -218,7 +234,10 @@ class TestDifficultyAssessment:
                 "description": "Simple concept for beginners",
                 "prerequisites": [],
                 "content": {
-                    "overview": "This is a simple concept that introduces basic ideas. It uses everyday language and familiar examples.",
+                    "overview": (
+                        "This is a simple concept that introduces basic ideas. It uses"
+                        " everyday language and familiar examples."
+                    ),
                     "mathematical_definition": "Simple: 1 + 1 = 2",
                 },
                 "tags": ["beginner", "simple"],
@@ -236,7 +255,11 @@ class TestDifficultyAssessment:
                 "description": "Concept requiring some background knowledge",
                 "prerequisites": ["beginner_concept"],
                 "content": {
-                    "overview": "This concept builds on basic ideas and introduces more complexity. It requires understanding of foundational concepts.",
+                    "overview": (
+                        "This concept builds on basic ideas and introduces more"
+                        " complexity. It requires understanding of foundational"
+                        " concepts."
+                    ),
                     "mathematical_definition": "f(x) = x² + 2x + 1 = (x+1)²",
                 },
                 "tags": ["intermediate", "builds_on_basics"],
@@ -254,8 +277,13 @@ class TestDifficultyAssessment:
                 "description": "Complex concept requiring deep understanding",
                 "prerequisites": ["intermediate_concept"],
                 "content": {
-                    "overview": "This advanced concept integrates multiple complex ideas and requires mathematical sophistication.",
-                    "mathematical_definition": "∇ × F = (∂R/∂y - ∂Q/∂z, ∂P/∂z - ∂R/∂x, ∂Q/∂x - ∂P/∂y)",
+                    "overview": (
+                        "This advanced concept integrates multiple complex ideas and"
+                        " requires mathematical sophistication."
+                    ),
+                    "mathematical_definition": (
+                        "∇ × F = (∂R/∂y - ∂Q/∂z, ∂P/∂z - ∂R/∂x, ∂Q/∂x - ∂P/∂y)"
+                    ),
                 },
                 "tags": ["advanced", "complex", "mathematical"],
                 "learning_objectives": [
@@ -356,7 +384,10 @@ class TestEducationalFlow:
                 "description": "Probability of events given other events",
                 "prerequisites": ["probability_basics"],
                 "content": {
-                    "overview": "Conditional probability updates beliefs based on new information"
+                    "overview": (
+                        "Conditional probability updates beliefs based on new"
+                        " information"
+                    )
                 },
                 "tags": ["conditional", "probability", "bayes"],
                 "learning_objectives": [
@@ -373,7 +404,10 @@ class TestEducationalFlow:
                 "description": "Full Bayesian inference framework",
                 "prerequisites": ["conditional_probability"],
                 "content": {
-                    "overview": "Bayesian inference provides complete framework for updating beliefs"
+                    "overview": (
+                        "Bayesian inference provides complete framework for updating"
+                        " beliefs"
+                    )
                 },
                 "tags": ["bayesian", "inference", "updating"],
                 "learning_objectives": [
@@ -406,7 +440,8 @@ class TestEducationalFlow:
         conditional_tags = set(conditional["tags"])
         bayesian_tags = set(bayesian["tags"])
 
-        # Each level should add new concepts (either contain foundational ones or have related concepts)
+        # Each level should add new concepts (either contain foundational ones or have
+        # related concepts)
         # More flexible - concepts might specialize rather than just extend
         common_concepts = basic_tags.intersection(conditional_tags)
         assert len(common_concepts) > 0 or any(

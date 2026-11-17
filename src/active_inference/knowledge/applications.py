@@ -43,7 +43,9 @@ class Applications:
                 "title": "Active Inference in Generative Models",
                 "content_type": ContentType.APPLICATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Application of Active Inference to generative AI models",
+                "description": (
+                    "Application of Active Inference to generative AI models"
+                ),
                 "prerequisites": ["generative_models", "variational_inference"],
                 "tags": [
                     "artificial intelligence",
@@ -59,11 +61,16 @@ class Applications:
                     "sections": [
                         {
                             "title": "Generative Models and Free Energy",
-                            "content": "Generative models learn to represent data distributions...",
+                            "content": (
+                                "Generative models learn to represent data"
+                                " distributions..."
+                            ),
                         },
                         {
                             "title": "Active Inference Framework",
-                            "content": "Active Inference provides a principled approach...",
+                            "content": (
+                                "Active Inference provides a principled approach..."
+                            ),
                         },
                     ]
                 },
@@ -81,7 +88,9 @@ class Applications:
                 "title": "Active Inference for Policy Selection in AI",
                 "content_type": ContentType.APPLICATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Using Active Inference for optimal policy selection in AI systems",
+                "description": (
+                    "Using Active Inference for optimal policy selection in AI systems"
+                ),
                 "prerequisites": ["decision_theory", "expected_free_energy"],
                 "tags": [
                     "policy selection",
@@ -126,7 +135,9 @@ class Applications:
                 "title": "Active Inference in Neural Perception",
                 "content_type": ContentType.APPLICATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Application of Active Inference to neural perception mechanisms",
+                "description": (
+                    "Application of Active Inference to neural perception mechanisms"
+                ),
                 "prerequisites": ["neural_dynamics", "predictive_coding"],
                 "tags": ["neuroscience", "perception", "predictive coding"],
                 "learning_objectives": [
@@ -138,7 +149,9 @@ class Applications:
                     "sections": [
                         {
                             "title": "Neural Perception Framework",
-                            "content": "Neural systems must infer causes from sensory data...",
+                            "content": (
+                                "Neural systems must infer causes from sensory data..."
+                            ),
                         }
                     ]
                 },
@@ -168,7 +181,9 @@ class Applications:
                 "title": "Active Inference in Control Systems",
                 "content_type": ContentType.APPLICATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Application of Active Inference to engineering control systems",
+                "description": (
+                    "Application of Active Inference to engineering control systems"
+                ),
                 "prerequisites": ["control_theory", "continuous_control"],
                 "tags": ["engineering", "control systems", "cybernetics"],
                 "learning_objectives": [
@@ -197,7 +212,9 @@ class Applications:
                 "title": "Active Inference in Robotics Control",
                 "content_type": ContentType.APPLICATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Application of Active Inference to autonomous robotics control",
+                "description": (
+                    "Application of Active Inference to autonomous robotics control"
+                ),
                 "prerequisites": ["robotics", "control_systems"],
                 "tags": ["robotics", "autonomous systems", "control"],
                 "learning_objectives": [
@@ -209,7 +226,9 @@ class Applications:
                     "sections": [
                         {
                             "title": "Robotics and Active Inference",
-                            "content": "Robots must operate in uncertain environments...",
+                            "content": (
+                                "Robots must operate in uncertain environments..."
+                            ),
                         }
                     ]
                 },
@@ -238,7 +257,9 @@ class Applications:
                 "title": "Active Inference in Decision Making",
                 "content_type": ContentType.APPLICATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Application of Active Inference to human decision making",
+                "description": (
+                    "Application of Active Inference to human decision making"
+                ),
                 "prerequisites": ["decision_theory", "cognitive_psychology"],
                 "tags": ["psychology", "decision making", "behavior"],
                 "learning_objectives": [
@@ -250,7 +271,10 @@ class Applications:
                     "sections": [
                         {
                             "title": "Decision Making Framework",
-                            "content": "Human decision making involves complex cognitive processes...",
+                            "content": (
+                                "Human decision making involves complex cognitive"
+                                " processes..."
+                            ),
                         }
                     ]
                 },
@@ -280,7 +304,9 @@ class Applications:
                 "title": "Active Inference in Adaptive Learning",
                 "content_type": ContentType.APPLICATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Application of Active Inference to adaptive educational systems",
+                "description": (
+                    "Application of Active Inference to adaptive educational systems"
+                ),
                 "prerequisites": ["learning_theory", "adaptive_systems"],
                 "tags": ["education", "adaptive learning", "personalization"],
                 "learning_objectives": [
@@ -292,7 +318,10 @@ class Applications:
                     "sections": [
                         {
                             "title": "Adaptive Learning Systems",
-                            "content": "Adaptive learning systems adjust to individual learner needs...",
+                            "content": (
+                                "Adaptive learning systems adjust to individual learner"
+                                " needs..."
+                            ),
                         }
                     ]
                 },

@@ -1,7 +1,8 @@
 """
 Mathematics Module
 
-Mathematical foundations and formulations for Active Inference and the Free Energy Principle.
+Mathematical foundations and formulations for Active Inference and the Free Energy
+Principle.
 Provides rigorous derivations, computational implementations, and mathematical tools
 for understanding and working with the theoretical framework.
 """
@@ -106,7 +107,9 @@ class Mathematics:
                 "title": "Entropy: Mathematical Foundations",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Rigorous mathematical treatment of entropy and information",
+                "description": (
+                    "Rigorous mathematical treatment of entropy and information"
+                ),
                 "prerequisites": ["probability_basics"],
                 "tags": ["information theory", "entropy", "mathematics"],
                 "learning_objectives": [
@@ -120,7 +123,9 @@ class Mathematics:
                 "title": "KL Divergence: Mathematical Theory",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Mathematical foundations of Kullback-Leibler divergence",
+                "description": (
+                    "Mathematical foundations of Kullback-Leibler divergence"
+                ),
                 "prerequisites": ["entropy_mathematics"],
                 "tags": ["KL divergence", "information theory", "mathematics"],
                 "learning_objectives": [
@@ -155,7 +160,9 @@ class Mathematics:
                 "title": "Variational Inference Fundamentals",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Mathematical foundations of variational inference methods",
+                "description": (
+                    "Mathematical foundations of variational inference methods"
+                ),
                 "prerequisites": ["bayesian_mathematics"],
                 "tags": ["variational inference", "optimization", "mathematics"],
                 "learning_objectives": [
@@ -169,7 +176,9 @@ class Mathematics:
                 "title": "Free Energy Calculus",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.EXPERT,
-                "description": "Mathematical theory of free energy and variational free energy",
+                "description": (
+                    "Mathematical theory of free energy and variational free energy"
+                ),
                 "prerequisites": [
                     "variational_inference_basics",
                     "kl_divergence_mathematics",
@@ -186,7 +195,9 @@ class Mathematics:
                 "title": "Stochastic Optimization in Inference",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.EXPERT,
-                "description": "Mathematical foundations of stochastic optimization for inference",
+                "description": (
+                    "Mathematical foundations of stochastic optimization for inference"
+                ),
                 "prerequisites": ["variational_inference_basics"],
                 "tags": ["stochastic optimization", "inference", "algorithms"],
                 "learning_objectives": [
@@ -221,7 +232,9 @@ class Mathematics:
                 "title": "Stochastic Processes and Active Inference",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Mathematical theory of stochastic processes in Active Inference",
+                "description": (
+                    "Mathematical theory of stochastic processes in Active Inference"
+                ),
                 "prerequisites": ["dynamical_systems_basics", "bayesian_mathematics"],
                 "tags": ["stochastic processes", "active inference", "dynamics"],
                 "learning_objectives": [
@@ -235,7 +248,9 @@ class Mathematics:
                 "title": "Information Dynamics",
                 "content_type": ContentType.MATHEMATICS,
                 "difficulty": DifficultyLevel.EXPERT,
-                "description": "Mathematical theory of information flow in dynamical systems",
+                "description": (
+                    "Mathematical theory of information flow in dynamical systems"
+                ),
                 "prerequisites": ["stochastic_processes", "information_geometry"],
                 "tags": ["information dynamics", "transfer entropy", "causality"],
                 "learning_objectives": [
@@ -249,7 +264,7 @@ class Mathematics:
         self._save_nodes_to_repository(nodes_data)
 
     def _save_nodes_to_repository(self, nodes_data: List[Dict[str, Any]]) -> None:
-        """Save knowledge nodes to the repository (placeholder for actual implementation)"""
+        """Save knowledge nodes to the repository (placeholder implementation)"""
         # In a real implementation, this would save to the repository's storage
         # For now, this is a placeholder
         pass
@@ -547,7 +562,8 @@ class Mathematics:
     def generate_mathematical_derivation(self, concept: str) -> str:
         """Generate step-by-step mathematical derivation"""
         derivations = {
-            "entropy": """Step-by-step derivation of entropy:
+            "entropy": (
+                """Step-by-step derivation of entropy:
 
 1. Start with uncertainty measure: H(X) = -Σ p(x) log p(x)
 2. Use base-2 logarithm for bits: H(X) = -Σ p(x) log₂ p(x)
@@ -556,8 +572,10 @@ class Mathematics:
    - H(X) ≥ 0 (non-negative)
    - H(X) = 0 when p(x) = 1 for some x (deterministic)
    - H(X) maximized when p(x) = 1/n (maximum uncertainty)
-5. Interpretation: bits needed to encode outcome""",
-            "kl_divergence": """Step-by-step derivation of KL divergence:
+5. Interpretation: bits needed to encode outcome"""
+            ),
+            "kl_divergence": (
+                """Step-by-step derivation of KL divergence:
 
 1. Start with relative entropy: D_KL(P||Q) = Σ p(x) log(p(x)/q(x))
 2. Use log properties: D_KL(P||Q) = Σ p(x) log p(x) - Σ p(x) log q(x)
@@ -566,8 +584,10 @@ class Mathematics:
    - D_KL(P||Q) ≥ 0 (Gibbs' inequality)
    - D_KL(P||Q) = 0 iff P = Q
    - Not symmetric: D_KL(P||Q) ≠ D_KL(Q||P)
-5. Interpretation: Information lost when Q approximates P""",
-            "variational_free_energy": """Step-by-step derivation of variational free energy:
+5. Interpretation: Information lost when Q approximates P"""
+            ),
+            "variational_free_energy": (
+                """Step-by-step derivation of variational free energy:
 
 1. Start with log-evidence: log p(x) = log ∫ p(x,θ) dθ
 2. Use Jensen's inequality: log p(x) ≥ ∫ q(θ) log(p(x,θ)/q(θ)) dθ
@@ -576,7 +596,8 @@ class Mathematics:
 5. Components:
    - Complexity: ∫ q(θ) log q(θ) dθ = H[q]
    - Accuracy: -∫ q(θ) log p(x,θ) dθ = -E[log p(x,θ)]
-6. Minimize F[q] to approximate posterior q(θ) ≈ p(θ|x)""",
+6. Minimize F[q] to approximate posterior q(θ) ≈ p(θ|x)"""
+            ),
         }
 
         return derivations.get(concept, f"Derivation for {concept} concept")
@@ -623,14 +644,18 @@ class Mathematics:
         """Analyze complexity of mathematical expression"""
         complexity_metrics = {
             "expression_length": len(expression),
-            "num_operators": expression.count("+")
-            + expression.count("-")
-            + expression.count("*")
-            + expression.count("/"),
-            "num_functions": expression.count("log")
-            + expression.count("exp")
-            + expression.count("sin")
-            + expression.count("cos"),
+            "num_operators": (
+                expression.count("+")
+                + expression.count("-")
+                + expression.count("*")
+                + expression.count("/")
+            ),
+            "num_functions": (
+                expression.count("log")
+                + expression.count("exp")
+                + expression.count("sin")
+                + expression.count("cos")
+            ),
             "num_variables": len(set([c for c in expression if c.isalpha()])),
             "num_parentheses": expression.count("(") + expression.count(")"),
             "num_integrals": expression.count("∫") + expression.count("Σ"),
@@ -731,7 +756,8 @@ class Mathematics:
 
         summary.append(f"Total Mathematical Concepts: {len(learning_path)}")
         summary.append(
-            f"Total Prerequisite Relationships: {sum(len(prereqs) for prereqs in prerequisites.values())}"
+            "Total Prerequisite Relationships:"
+            f" {sum(len(prereqs) for prereqs in prerequisites.values())}"
         )
         summary.append("")
 

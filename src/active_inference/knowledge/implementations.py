@@ -40,7 +40,9 @@ class Implementations:
                 "title": "Basic Active Inference Implementation",
                 "content_type": ContentType.IMPLEMENTATION,
                 "difficulty": DifficultyLevel.INTERMEDIATE,
-                "description": "Complete implementation of basic Active Inference agent",
+                "description": (
+                    "Complete implementation of basic Active Inference agent"
+                ),
                 "prerequisites": ["bayesian_fundamentals", "probability_basics"],
                 "tags": ["active inference", "implementation", "python", "tutorial"],
                 "learning_objectives": [
@@ -52,15 +54,23 @@ class Implementations:
                     "sections": [
                         {
                             "title": "Overview",
-                            "content": "This implementation provides a complete Active Inference agent...",
+                            "content": (
+                                "This implementation provides a complete Active"
+                                " Inference agent..."
+                            ),
                         },
                         {
                             "title": "Mathematical Foundation",
-                            "content": "The implementation follows the mathematical framework...",
+                            "content": (
+                                "The implementation follows the mathematical"
+                                " framework..."
+                            ),
                         },
                         {
                             "title": "Code Implementation",
-                            "content": "Complete working Python code with explanations...",
+                            "content": (
+                                "Complete working Python code with explanations..."
+                            ),
                         },
                     ]
                 },
@@ -79,7 +89,9 @@ class Implementations:
                 "title": "Expected Free Energy Calculation",
                 "content_type": ContentType.IMPLEMENTATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Implementation of Expected Free Energy for policy selection",
+                "description": (
+                    "Implementation of Expected Free Energy for policy selection"
+                ),
                 "prerequisites": ["variational_free_energy", "information_geometry"],
                 "tags": ["expected free energy", "policy selection", "computation"],
                 "learning_objectives": [
@@ -91,11 +103,17 @@ class Implementations:
                     "sections": [
                         {
                             "title": "Mathematical Background",
-                            "content": "Expected Free Energy (EFE) provides a principled approach...",
+                            "content": (
+                                "Expected Free Energy (EFE) provides a principled"
+                                " approach..."
+                            ),
                         },
                         {
                             "title": "Implementation Details",
-                            "content": "The implementation computes EFE for policy evaluation...",
+                            "content": (
+                                "The implementation computes EFE for policy"
+                                " evaluation..."
+                            ),
                         },
                     ]
                 },
@@ -123,7 +141,9 @@ class Implementations:
                     "sections": [
                         {
                             "title": "MCMC Fundamentals",
-                            "content": "Markov Chain Monte Carlo provides a framework...",
+                            "content": (
+                                "Markov Chain Monte Carlo provides a framework..."
+                            ),
                         }
                     ]
                 },
@@ -152,7 +172,9 @@ class Implementations:
                 "title": "Neural Network Implementation of Active Inference",
                 "content_type": ContentType.IMPLEMENTATION,
                 "difficulty": DifficultyLevel.EXPERT,
-                "description": "Deep learning implementation of Active Inference principles",
+                "description": (
+                    "Deep learning implementation of Active Inference principles"
+                ),
                 "prerequisites": ["neural_networks", "variational_inference"],
                 "tags": ["neural networks", "deep learning", "tensorflow", "pytorch"],
                 "learning_objectives": [
@@ -180,7 +202,9 @@ class Implementations:
                 "title": "Variational Inference Implementation",
                 "content_type": ContentType.IMPLEMENTATION,
                 "difficulty": DifficultyLevel.ADVANCED,
-                "description": "Practical implementation of variational inference methods",
+                "description": (
+                    "Practical implementation of variational inference methods"
+                ),
                 "prerequisites": ["bayesian_inference", "optimization"],
                 "tags": ["variational inference", "optimization", "computation"],
                 "learning_objectives": [
@@ -192,7 +216,10 @@ class Implementations:
                     "sections": [
                         {
                             "title": "Variational Methods",
-                            "content": "Variational inference provides efficient approximations...",
+                            "content": (
+                                "Variational inference provides efficient"
+                                " approximations..."
+                            ),
                         }
                     ]
                 },
@@ -221,7 +248,10 @@ class Implementations:
                 "title": "Grid World Tutorial Implementation",
                 "content_type": ContentType.IMPLEMENTATION,
                 "difficulty": DifficultyLevel.BEGINNER,
-                "description": "Step-by-step tutorial implementing Active Inference in a grid world",
+                "description": (
+                    "Step-by-step tutorial implementing Active Inference in a grid"
+                    " world"
+                ),
                 "prerequisites": ["active_inference_basic"],
                 "tags": ["tutorial", "grid world", "step-by-step"],
                 "learning_objectives": [
@@ -237,7 +267,9 @@ class Implementations:
                         },
                         {
                             "title": "Implementing the Agent",
-                            "content": "Now we'll implement the Active Inference agent...",
+                            "content": (
+                                "Now we'll implement the Active Inference agent..."
+                            ),
                         },
                     ]
                 },

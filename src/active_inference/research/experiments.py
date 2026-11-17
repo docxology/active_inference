@@ -203,14 +203,16 @@ class ExperimentManager:
             "belief_trajectory": belief_trajectory,
             "accuracy": accuracy_trajectory,
             "final_beliefs": beliefs.tolist(),
-            "convergence_time": len(
-                [
-                    f
-                    for f in free_energy_trajectory[-10:]
-                    if f < free_energy_trajectory[0] * 0.9
-                ]
-            )
-            * 10,
+            "convergence_time": (
+                len(
+                    [
+                        f
+                        for f in free_energy_trajectory[-10:]
+                        if f < free_energy_trajectory[0] * 0.9
+                    ]
+                )
+                * 10
+            ),
             "timestamp": datetime.now().isoformat(),
         }
 
@@ -243,10 +245,9 @@ class ExperimentManager:
             "parameters": config.parameters,
             "free_energy": free_energy,
             "accuracy": accuracy,
-            "convergence_time": len(
-                [f for f in free_energy[-10:] if f < base_free_energy * 0.8]
-            )
-            * 10,
+            "convergence_time": (
+                len([f for f in free_energy[-10:] if f < base_free_energy * 0.8]) * 10
+            ),
             "timestamp": datetime.now().isoformat(),
         }
 

@@ -160,7 +160,10 @@ class TestPromptBuilder:
 
         result = builder.build()
 
-        expected = "Active Inference Explanation\n\nExplain entropy in the context of Free Energy Principle."
+        expected = (
+            "Active Inference Explanation\n\nExplain entropy in the context of Free"
+            " Energy Principle."
+        )
         assert result == expected
 
     def test_build_with_custom_separator(self):

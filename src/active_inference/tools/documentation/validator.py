@@ -16,6 +16,15 @@ from typing import Any, Dict, List, Optional
 logger = logging.getLogger(__name__)
 
 
+def _node_kind(node: ast.AST, default: str = "Class") -> str:
+    """Label an AST node as Function/Class, falling back to ``default``."""
+    if isinstance(node, ast.FunctionDef):
+        return "Function"
+    if isinstance(node, ast.ClassDef):
+        return "Class"
+    return default
+
+
 @dataclass
 class ValidationRule:
     """A documentation validation rule"""
@@ -114,7 +123,9 @@ class DocumentationValidator:
         rules.append(
             ValidationRule(
                 name="docstring_has_description",
-                description="Docstring should have a description beyond just the summary",
+                description=(
+                    "Docstring should have a description beyond just the summary"
+                ),
                 severity="info",
                 category="content",
                 check_function=self._check_docstring_description,
@@ -230,7 +241,8 @@ class DocumentationValidator:
         }
 
         self.logger.info(
-            f"Documentation validation completed: {errors} errors, {warnings} warnings, {info} info"
+            f"Documentation validation completed: {errors} errors, {warnings} warnings,"
+            f" {info} info"
         )
         return summary
 
@@ -275,7 +287,10 @@ class DocumentationValidator:
                         severity="error",
                         message="Module is missing docstring",
                         file_path=file_path,
-                        suggestion="Add a module docstring describing the module's purpose and functionality",
+                        suggestion=(
+                            "Add a module docstring describing the module's purpose and"
+                            " functionality"
+                        ),
                     )
                 )
 
@@ -313,7 +328,10 @@ class DocumentationValidator:
                                 file_path=file_path,
                                 line_number=node.lineno,
                                 element_name=node.name,
-                                suggestion="Add a class docstring describing the class purpose, parameters, and methods",
+                                suggestion=(
+                                    "Add a class docstring describing the class"
+                                    " purpose, parameters, and methods"
+                                ),
                             )
                         )
 
@@ -348,7 +366,10 @@ class DocumentationValidator:
                                 file_path=file_path,
                                 line_number=node.lineno,
                                 element_name=node.name,
-                                suggestion="Add a function docstring describing parameters, return value, and behavior",
+                                suggestion=(
+                                    "Add a function docstring describing parameters,"
+                                    " return value, and behavior"
+                                ),
                             )
                         )
 
@@ -377,7 +398,10 @@ class DocumentationValidator:
                             severity="warning",
                             message="Module docstring missing proper summary",
                             file_path=file_path,
-                            suggestion="Add a concise summary line at the beginning of the module docstring",
+                            suggestion=(
+                                "Add a concise summary line at the beginning of the"
+                                " module docstring"
+                            ),
                         )
                     )
 
@@ -390,11 +414,17 @@ class DocumentationValidator:
                             ValidationResult(
                                 rule_name="docstring_has_summary",
                                 severity="warning",
-                                message=f"{'Function' if isinstance(node, ast.FunctionDef) else 'Class'} '{node.name}' docstring missing proper summary",
+                                message=(
+                                    f"{_node_kind(node)}"
+                                    f" '{node.name}' docstring missing proper summary"
+                                ),
                                 file_path=file_path,
                                 line_number=node.lineno,
                                 element_name=node.name,
-                                suggestion="Add a concise summary line at the beginning of the docstring",
+                                suggestion=(
+                                    "Add a concise summary line at the beginning of the"
+                                    " docstring"
+                                ),
                             )
                         )
 
@@ -423,11 +453,18 @@ class DocumentationValidator:
                             ValidationResult(
                                 rule_name="docstring_has_description",
                                 severity="info",
-                                message=f"{'Function' if isinstance(node, ast.FunctionDef) else 'Class'} '{node.name}' docstring could use more detailed description",
+                                message=(
+                                    f"{_node_kind(node)}"
+                                    f" '{node.name}' docstring could use more detailed"
+                                    " description"
+                                ),
                                 file_path=file_path,
                                 line_number=node.lineno,
                                 element_name=node.name,
-                                suggestion="Add a more detailed description of the functionality and behavior",
+                                suggestion=(
+                                    "Add a more detailed description of the"
+                                    " functionality and behavior"
+                                ),
                             )
                         )
 
@@ -461,11 +498,17 @@ class DocumentationValidator:
                                 ValidationResult(
                                     rule_name="parameters_documented",
                                     severity="warning",
-                                    message=f"Function '{node.name}' parameters not documented",
+                                    message=(
+                                        f"Function '{node.name}' parameters not"
+                                        " documented"
+                                    ),
                                     file_path=file_path,
                                     line_number=node.lineno,
                                     element_name=node.name,
-                                    suggestion=f"Add parameter documentation in Args section: {', '.join(args)}",
+                                    suggestion=(
+                                        "Add parameter documentation in Args section:"
+                                        f" {', '.join(args)}"
+                                    ),
                                 )
                             )
 
@@ -496,11 +539,17 @@ class DocumentationValidator:
                                 ValidationResult(
                                     rule_name="returns_documented",
                                     severity="warning",
-                                    message=f"Function '{node.name}' return value not documented",
+                                    message=(
+                                        f"Function '{node.name}' return value not"
+                                        " documented"
+                                    ),
                                     file_path=file_path,
                                     line_number=node.lineno,
                                     element_name=node.name,
-                                    suggestion="Add return value documentation in Returns section",
+                                    suggestion=(
+                                        "Add return value documentation in Returns"
+                                        " section"
+                                    ),
                                 )
                             )
 
@@ -529,11 +578,17 @@ class DocumentationValidator:
                             ValidationResult(
                                 rule_name="docstring_format_consistent",
                                 severity="info",
-                                message=f"{'Function' if isinstance(node, ast.FunctionDef) else 'Class' if isinstance(node, ast.ClassDef) else 'Module'} docstring format could be improved",
+                                message=(
+                                    f"{_node_kind(node, default='Module')}"
+                                    " docstring format could be improved"
+                                ),
                                 file_path=file_path,
                                 line_number=getattr(node, "lineno", None),
                                 element_name=getattr(node, "name", "module"),
-                                suggestion="Use consistent docstring format with proper sections and formatting",
+                                suggestion=(
+                                    "Use consistent docstring format with proper"
+                                    " sections and formatting"
+                                ),
                             )
                         )
 
@@ -565,7 +620,10 @@ class DocumentationValidator:
                                 message=f"Localhost URL found in documentation: {url}",
                                 file_path=file_path,
                                 line_number=i,
-                                suggestion="Replace localhost URLs with relative paths or proper documentation links",
+                                suggestion=(
+                                    "Replace localhost URLs with relative paths or"
+                                    " proper documentation links"
+                                ),
                             )
                         )
 
@@ -607,11 +665,17 @@ class DocumentationValidator:
                                 ValidationResult(
                                     rule_name="examples_provided",
                                     severity="info",
-                                    message=f"Important function '{node.name}' should have usage examples",
+                                    message=(
+                                        f"Important function '{node.name}' should have"
+                                        " usage examples"
+                                    ),
                                     file_path=file_path,
                                     line_number=node.lineno,
                                     element_name=node.name,
-                                    suggestion="Add usage examples in Examples section of docstring",
+                                    suggestion=(
+                                        "Add usage examples in Examples section of"
+                                        " docstring"
+                                    ),
                                 )
                             )
 
@@ -646,11 +710,16 @@ class DocumentationValidator:
                                 ValidationResult(
                                     rule_name="raises_documented",
                                     severity="info",
-                                    message=f"Function '{node.name}' should document exceptions it can raise",
+                                    message=(
+                                        f"Function '{node.name}' should document"
+                                        " exceptions it can raise"
+                                    ),
                                     file_path=file_path,
                                     line_number=node.lineno,
                                     element_name=node.name,
-                                    suggestion="Add exception documentation in Raises section",
+                                    suggestion=(
+                                        "Add exception documentation in Raises section"
+                                    ),
                                 )
                             )
 
@@ -809,7 +878,8 @@ class DocumentationValidator:
         report.append(f"- **Warnings:** {validation['warnings']}")
         report.append(f"- **Info:** {validation['info']}")
         report.append(
-            f"- **Validation Passed:** {'✅ Yes' if validation['validation_passed'] else '❌ No'}"
+            "- **Validation Passed:**"
+            f" {'✅ Yes' if validation['validation_passed'] else '❌ No'}"
         )
         report.append("")
 
@@ -822,7 +892,8 @@ class DocumentationValidator:
                     report.append(f"- **{result.severity.upper()}:** {result.message}")
                     if result.file_path and result.element_name:
                         report.append(
-                            f"  - File: {result.file_path}, Element: {result.element_name}"
+                            f"  - File: {result.file_path}, Element:"
+                            f" {result.element_name}"
                         )
                     elif result.file_path:
                         report.append(f"  - File: {result.file_path}")
@@ -854,7 +925,8 @@ class DocumentationValidator:
             report.append("1. **Fix all errors** before proceeding")
         if validation["warnings"] > 0:
             report.append(
-                f"2. **Address {validation['warnings']} warnings** to improve documentation quality"
+                f"2. **Address {validation['warnings']} warnings** to improve"
+                " documentation quality"
             )
         if validation["info"] > 0:
             report.append(

@@ -168,7 +168,10 @@ class ProcessAnimation:
         return AnimationSequence(
             id="perception_action_cycle",
             name="Perception-Action Cycle",
-            description="Animation showing the complete perception-action cycle in Active Inference",
+            description=(
+                "Animation showing the complete perception-action cycle in Active"
+                " Inference"
+            ),
             frames=frames,
             duration=5.0,
             frame_rate=30,
@@ -266,7 +269,10 @@ class ProcessAnimation:
         return AnimationSequence(
             id="belief_updating",
             name="Belief Updating Process",
-            description="Animation showing Bayesian belief updating with different learning rates",
+            description=(
+                "Animation showing Bayesian belief updating with different learning"
+                " rates"
+            ),
             frames=frames,
             duration=6.0,
             frame_rate=30,
@@ -380,7 +386,10 @@ class ProcessAnimation:
         return AnimationSequence(
             id="multi_agent_interaction",
             name="Multi-Agent Active Inference",
-            description="Animation showing coordinated belief updating and action selection in multi-agent systems",
+            description=(
+                "Animation showing coordinated belief updating and action selection in"
+                " multi-agent systems"
+            ),
             frames=frames,
             duration=5.0,
             frame_rate=30,
@@ -482,7 +491,10 @@ class ProcessAnimation:
         return AnimationSequence(
             id="neural_network_ai",
             name="Neural Network Active Inference",
-            description="Animation showing Active Inference principles in neural network processing",
+            description=(
+                "Animation showing Active Inference principles in neural network"
+                " processing"
+            ),
             frames=frames,
             duration=6.0,
             frame_rate=30,
@@ -605,7 +617,10 @@ class ProcessAnimation:
         return AnimationSequence(
             id="information_flow",
             name="Information Flow in Active Inference",
-            description="Animation showing complete information flow from sensory input to action selection",
+            description=(
+                "Animation showing complete information flow from sensory input to"
+                " action selection"
+            ),
             frames=frames,
             duration=8.0,
             frame_rate=30,
@@ -641,7 +656,10 @@ class ProcessAnimation:
         return AnimationSequence(
             id="free_energy_minimization",
             name="Free Energy Minimization",
-            description="Animation showing progressive free energy minimization through model updates",
+            description=(
+                "Animation showing progressive free energy minimization through model"
+                " updates"
+            ),
             frames=frames,
             duration=5.0,
             frame_rate=30,

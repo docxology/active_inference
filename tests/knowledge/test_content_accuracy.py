@@ -123,8 +123,13 @@ class TestConceptualAccuracy:
             "description": "Test active inference concept",
             "prerequisites": [],
             "content": {
-                "overview": "Active Inference is a framework for understanding intelligent behavior",
-                "mathematical_definition": "Active Inference minimizes variational free energy",
+                "overview": (
+                    "Active Inference is a framework for understanding intelligent"
+                    " behavior"
+                ),
+                "mathematical_definition": (
+                    "Active Inference minimizes variational free energy"
+                ),
                 "examples": [
                     {
                         "name": "Perception",
@@ -132,7 +137,9 @@ class TestConceptualAccuracy:
                     },
                     {
                         "name": "Action",
-                        "description": "Selecting actions to minimize expected free energy",
+                        "description": (
+                            "Selecting actions to minimize expected free energy"
+                        ),
                     },
                 ],
             },
@@ -226,7 +233,10 @@ class TestReferenceValidation:
             "description": "Test free energy principle with references",
             "prerequisites": ["test_bayesian_basics"],
             "content": {
-                "overview": "The Free Energy Principle explains how biological systems maintain themselves",
+                "overview": (
+                    "The Free Energy Principle explains how biological systems maintain"
+                    " themselves"
+                ),
                 "mathematical_definition": "F = D_KL[q(θ)||p(θ|x)] - log p(x)",
                 "examples": [
                     {
@@ -244,8 +254,14 @@ class TestReferenceValidation:
             "metadata": {
                 "version": "1.0",
                 "references": [
-                    "Friston, K. (2009). The free-energy principle: a rough guide to the brain? Trends in Cognitive Sciences, 13(7), 293-301.",
-                    "Friston, K. (2010). The free energy principle: a unified brain theory? Nature Reviews Neuroscience, 11(2), 127-138.",
+                    (
+                        "Friston, K. (2009). The free-energy principle: a rough guide"
+                        " to the brain? Trends in Cognitive Sciences, 13(7), 293-301."
+                    ),
+                    (
+                        "Friston, K. (2010). The free energy principle: a unified brain"
+                        " theory? Nature Reviews Neuroscience, 11(2), 127-138."
+                    ),
                 ],
             },
         }
@@ -311,7 +327,9 @@ class TestCrossReferenceValidation:
                 "description": "Basic Bayesian inference concepts",
                 "prerequisites": [],
                 "content": {
-                    "overview": "Bayesian inference updates beliefs based on new evidence",
+                    "overview": (
+                        "Bayesian inference updates beliefs based on new evidence"
+                    ),
                     "mathematical_definition": "p(θ|x) = p(x|θ) p(θ) / p(x)",
                 },
                 "tags": ["bayesian", "inference", "probability"],
@@ -329,8 +347,13 @@ class TestCrossReferenceValidation:
                 "description": "Advanced Bayesian inference techniques",
                 "prerequisites": ["bayesian_basics"],
                 "content": {
-                    "overview": "Advanced methods extend basic Bayesian inference to complex models",
-                    "mathematical_definition": "Variational inference approximates posterior distributions",
+                    "overview": (
+                        "Advanced methods extend basic Bayesian inference to complex"
+                        " models"
+                    ),
+                    "mathematical_definition": (
+                        "Variational inference approximates posterior distributions"
+                    ),
                 },
                 "tags": ["bayesian", "variational_inference", "approximation"],
                 "learning_objectives": [
@@ -363,8 +386,10 @@ class TestCrossReferenceValidation:
         basic_tags = set(basic_content["tags"])
         advanced_tags = set(advanced_content["tags"])
 
-        # Advanced should build upon basic concepts (either contain them or have related concepts)
-        # This is more flexible - advanced concepts might specialize rather than just extend
+        # Advanced should build upon basic concepts (either contain them or have related
+        # concepts)
+        # This is more flexible - advanced concepts might specialize rather than just
+        # extend
         common_concepts = basic_tags.intersection(advanced_tags)
         assert len(common_concepts) > 0 or any(
             "bayes" in tag.lower() for tag in advanced_tags

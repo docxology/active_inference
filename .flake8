@@ -4,3 +4,11 @@
 max-line-length = 88
 extend-ignore = E203, W503, E704
 exclude = .git,__pycache__,.venv,build,dist,.eggs,.mypy_cache
+# These modules embed generated-code templates and LLM prompt text in
+# triple-quoted strings; rewrapping those lines would change their output.
+# Black still enforces line length on the surrounding code.
+per-file-ignores =
+    src/active_inference/applications/templates.py: E501
+    src/active_inference/applications/case_studies.py: E501
+    src/active_inference/llm/conversations.py: E501
+    src/active_inference/llm/prompts.py: E501

@@ -458,7 +458,8 @@ class RepositoryReviewer:
         for file_path in python_files:
             if file_path.stat().st_size > 1024 * 1024:  # 1MB
                 issues.append(
-                    f"Large file detected: {file_path} ({file_path.stat().st_size / 1024 / 1024:.2f}MB)"
+                    f"Large file detected: {file_path}"
+                    f" ({file_path.stat().st_size / 1024 / 1024:.2f}MB)"
                 )
 
         return issues
@@ -586,12 +587,14 @@ class RepositoryReviewer:
         # Documentation recommendations
         if docs.coverage_percentage < 80:
             recommendations.append(
-                f"Improve documentation coverage: currently {docs.coverage_percentage:.1f}%"
+                "Improve documentation coverage: currently"
+                f" {docs.coverage_percentage:.1f}%"
             )
 
         if quality["type_hint_coverage"] < 70:
             recommendations.append(
-                f"Add type hints: currently {quality['type_hint_coverage']:.1f}% coverage"
+                f"Add type hints: currently {quality['type_hint_coverage']:.1f}%"
+                " coverage"
             )
 
         # Testing recommendations
@@ -600,7 +603,8 @@ class RepositoryReviewer:
 
         if testing["coverage_available"] and quality["average_test_coverage"] < 80:
             recommendations.append(
-                f"Improve test coverage: currently {quality['average_test_coverage']:.1f}%"
+                "Improve test coverage: currently"
+                f" {quality['average_test_coverage']:.1f}%"
             )
 
         # Architecture recommendations
@@ -681,7 +685,8 @@ class RepositoryReviewer:
         report.append(f"- **Modules with Issues:** {quality['modules_with_issues']}")
         report.append(f"- **Average Complexity:** {quality['average_complexity']:.2f}")
         report.append(
-            f"- **Documentation Coverage:** {quality['average_documentation_coverage']:.1f}%"
+            "- **Documentation Coverage:**"
+            f" {quality['average_documentation_coverage']:.1f}%"
         )
         report.append(f"- **Type Hint Coverage:** {quality['type_hint_coverage']:.1f}%")
         report.append("")
@@ -694,7 +699,8 @@ class RepositoryReviewer:
             f"- **Documented Modules:** {docs.documented_modules}/{docs.total_modules}"
         )
         report.append(
-            f"- **Documented Functions:** {docs.documented_functions}/{docs.total_functions}"
+            "- **Documented Functions:**"
+            f" {docs.documented_functions}/{docs.total_functions}"
         )
         report.append("")
 
@@ -704,7 +710,8 @@ class RepositoryReviewer:
         report.append(f"- **Test Files:** {testing['test_files']}")
         report.append(f"- **Test Functions:** {testing['test_functions']}")
         report.append(
-            f"- **Coverage Tool:** {'Available' if testing['coverage_available'] else 'Not configured'}"
+            "- **Coverage Tool:**"
+            f" {'Available' if testing['coverage_available'] else 'Not configured'}"
         )
         report.append("")
 

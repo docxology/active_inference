@@ -39,7 +39,11 @@ class TestLLMIntegration:
     def mock_ollama_response(self):
         """Mock Ollama API responses for integration tests"""
         return {
-            "response": "This is a comprehensive explanation of entropy in the context of Active Inference and the Free Energy Principle. Entropy measures the uncertainty or disorder in a probability distribution...",
+            "response": (
+                "This is a comprehensive explanation of entropy in the context of"
+                " Active Inference and the Free Energy Principle. Entropy measures the"
+                " uncertainty or disorder in a probability distribution..."
+            ),
             "done": True,
             "context": [1234, 5678, 9012],
             "total_duration": 1500000000,
@@ -98,7 +102,9 @@ class TestLLMIntegration:
                 "concept": "entropy",
                 "context": "information theory and Active Inference",
                 "audience_level": "intermediate",
-                "key_points": "uncertainty, probability distributions, information content",
+                "key_points": (
+                    "uncertainty, probability distributions, information content"
+                ),
                 "response_type": "comprehensive explanation",
             }
 
@@ -135,7 +141,11 @@ class TestLLMIntegration:
             chat_response = {
                 "message": {
                     "role": "assistant",
-                    "content": "I understand you're asking about variational inference in the context of Active Inference. This is a key computational method for...",
+                    "content": (
+                        "I understand you're asking about variational inference in the"
+                        " context of Active Inference. This is a key computational"
+                        " method for..."
+                    ),
                 },
                 "done": True,
             }
@@ -409,7 +419,8 @@ class TestLLMPerformance:
             conversation_manager.add_message(
                 conversation.id,
                 "user" if i % 2 == 0 else "assistant",
-                f"This is message number {i} with some content to make it longer and test the context window optimization.",
+                f"This is message number {i} with some content to make it longer and"
+                " test the context window optimization.",
             )
 
         # Get context with reasonable token limit
@@ -434,7 +445,8 @@ class TestLLMPerformance:
         for i in range(100):
             builder.add_section(
                 f"section_{i}",
-                f"This is section {i} with content that should be included in the final prompt.",
+                f"This is section {i} with content that should be included in the final"
+                " prompt.",
             )
 
         # Build prompt

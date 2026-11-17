@@ -165,7 +165,8 @@ class KnowledgeGraphManager:
             # Validate nodes exist
             if edge.source not in self.nodes or edge.target not in self.nodes:
                 logger.error(
-                    f"Cannot add edge: nodes {edge.source} or {edge.target} do not exist"
+                    f"Cannot add edge: nodes {edge.source} or {edge.target} do not"
+                    " exist"
                 )
                 return False
 
@@ -173,7 +174,8 @@ class KnowledgeGraphManager:
             self.edges[edge_id] = edge
 
             logger.info(
-                f"Added edge: {edge.source} --[{edge.relationship_type.value}]--> {edge.target}"
+                f"Added edge: {edge.source} --[{edge.relationship_type.value}]-->"
+                f" {edge.target}"
             )
             return True
 

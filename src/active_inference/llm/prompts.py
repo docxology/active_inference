@@ -228,7 +228,10 @@ Focus on making the explanation accessible while maintaining scientific accuracy
                         "concept": "entropy",
                         "context": "information theory foundations",
                         "audience_level": "beginner",
-                        "key_points": "uncertainty, information content, probability distributions",
+                        "key_points": (
+                            "uncertainty, information content, probability"
+                            " distributions"
+                        ),
                         "response_type": "comprehensive explanation",
                     },
                 }
@@ -238,7 +241,9 @@ Focus on making the explanation accessible while maintaining scientific accuracy
         # Research question template
         research_template = PromptTemplate(
             name="research_question",
-            description="Template for generating research questions in Active Inference",
+            description=(
+                "Template for generating research questions in Active Inference"
+            ),
             template="""Generate research questions related to {topic} in Active Inference.
 
 DOMAIN:
@@ -333,8 +338,13 @@ Follow these coding standards:
                     "variables": {
                         "algorithm": "variational inference",
                         "language": "Python",
-                        "problem_description": "Implement variational inference for approximate Bayesian computation",
-                        "requirements": "numpy, scipy, type hints, comprehensive testing",
+                        "problem_description": (
+                            "Implement variational inference for approximate Bayesian"
+                            " computation"
+                        ),
+                        "requirements": (
+                            "numpy, scipy, type hints, comprehensive testing"
+                        ),
                         "constraints": "numerical stability, memory efficiency",
                         "codebase_context": "Active Inference knowledge environment",
                     },
@@ -488,7 +498,10 @@ class ActiveInferencePromptBuilder(PromptBuilder):
         methodology: str = "theoretical_analysis",
     ) -> "ActiveInferencePromptBuilder":
         """Add research question section"""
-        content = f"Generate research questions about {topic} in {domain} using {methodology} approaches."
+        content = (
+            f"Generate research questions about {topic} in {domain} using {methodology}"
+            " approaches."
+        )
         return self.add_section("research_questions", content)
 
     def add_code_implementation(

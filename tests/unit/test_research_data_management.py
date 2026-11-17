@@ -181,7 +181,8 @@ class TestResearchDataManagement(unittest.TestCase):
         # Test missing values check
         data_with_missing = {"a": 1, "b": None, "c": 3}
         self.data_manager._has_missing_values(data_with_missing)
-        # Placeholder returns False, but real implementation should detect missing values
+        # Placeholder returns False, but real implementation should detect missing
+        # values
 
         # Test outliers check
         data_with_outliers = {"values": [1, 2, 3, 1000, 4, 5]}  # 1000 is outlier

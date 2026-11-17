@@ -176,7 +176,10 @@ class TestContentSanitization:
             "description": "Testing script tag removal",
             "prerequisites": [],
             "content": {
-                "overview": "This content contains <script>alert('xss')</script> malicious script",
+                "overview": (
+                    "This content contains <script>alert('xss')</script> malicious"
+                    " script"
+                ),
                 "mathematical_definition": "F = <script>alert('xss')</script>",
             },
             "tags": ["security", "script"],
@@ -246,8 +249,9 @@ class TestResourceLimits:
             "content": {
                 "overview": "A" * 100000,  # 100KB of content
                 "mathematical_definition": "F = " + "x" * 50000,
-                "examples": [{"name": "Large Example", "description": "B" * 50000}]
-                * 10,
+                "examples": (
+                    [{"name": "Large Example", "description": "B" * 50000}] * 10
+                ),
             },
             "tags": ["large", "content", "test"],
             "learning_objectives": ["Handle large content"] * 100,

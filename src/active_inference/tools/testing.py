@@ -67,7 +67,8 @@ class TestRunner:
 
         self.test_results.append(result)
         logger.debug(
-            f"Test {test_name} completed: {result.status} ({result.execution_time:.3f}s)"
+            f"Test {test_name} completed: {result.status}"
+            f" ({result.execution_time:.3f}s)"
         )
 
         return result
@@ -107,7 +108,9 @@ class TestRunner:
                 test_instance.tearDown()
 
         logger.info(
-            f"Test class {test_class.__name__} completed: {len([r for r in results if r.status == 'passed'])}/{len(results)} passed"
+            f"Test class {test_class.__name__} completed:"
+            f" {len([r for r in results if r.status == 'passed'])}/{len(results)}"
+            " passed"
         )
 
         return results
@@ -369,7 +372,8 @@ class QualityAssurance:
             validation_types = list(self.validation_rules.keys())
 
         logger.info(
-            f"Validating component {component_name} with {len(validation_types)} validation types"
+            f"Validating component {component_name} with {len(validation_types)}"
+            " validation types"
         )
 
         validation_results = {}

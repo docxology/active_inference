@@ -1,7 +1,8 @@
 """
 Coverage Configuration
 
-Comprehensive test coverage configuration for the Active Inference Knowledge Environment.
+Comprehensive test coverage configuration for the Active Inference Knowledge
+Environment.
 Defines coverage requirements, exclusions, and reporting configuration.
 """
 
@@ -152,8 +153,10 @@ def analyze_coverage_gaps() -> dict:
                             {
                                 "file": file_path,
                                 "missing_lines": len(missing_lines),
-                                "coverage_percent": file_data.get("summary", {}).get(
-                                    "percent_covered", 0
+                                "coverage_percent": (
+                                    file_data.get("summary", {}).get(
+                                        "percent_covered", 0
+                                    )
                                 ),
                             }
                         )
@@ -166,8 +169,8 @@ def analyze_coverage_gaps() -> dict:
                 "total_files": len(files_data),
                 "files_with_gaps": len(gaps),
                 "gaps": gaps[:20],  # Top 20 files with worst coverage
-                "overall_coverage": coverage_data.get("totals", {}).get(
-                    "percent_covered", 0
+                "overall_coverage": (
+                    coverage_data.get("totals", {}).get("percent_covered", 0)
                 ),
             }
 

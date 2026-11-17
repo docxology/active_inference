@@ -50,7 +50,8 @@ class DocumentationConfig:
 
 class DocumentationGenerator:
     """
-    Comprehensive documentation generator for the Active Inference Knowledge Environment.
+    Comprehensive documentation generator for the Active Inference Knowledge
+    Environment.
 
     Generates API documentation, knowledge base documentation, learning paths,
     concept maps, and various analysis reports.
@@ -333,11 +334,13 @@ Structured learning tracks for Active Inference and the Free Energy Principle.
 Search Learning Paths
 ---------------------
 
-Use the search functionality to find learning paths by topic, difficulty, or content type.
+Use the search functionality to find learning paths by topic, difficulty, or
+content type.
 
 .. seealso::
 
-   For detailed information about individual knowledge nodes, see the :doc:`../nodes/index` section.
+   For detailed information about individual knowledge nodes, see the
+   :doc:`../nodes/index` section.
 """
 
         with open(index_path, "w") as f:
