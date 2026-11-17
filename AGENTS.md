@@ -283,6 +283,22 @@ class TestComponentPattern:
 - **🚀 Performance**: Optimized algorithms and data structures
 - **🔒 Security**: Secure coding practices and vulnerability prevention
 
+### Enforced Regression Boundaries
+CI enforces these standards with ratchets that may only tighten:
+- **Coverage**: `--cov-fail-under` plus `scripts/check_ratchets.py coverage coverage.json`
+  apply the per-component thresholds in `tests/coverage_config.py` (95% per
+  component, 99% overall). Raise them as coverage rises; never lower them.
+- **Typing**: modules still exempt from strict mypy are listed in
+  `pyproject.toml` with an exact error budget each
+  (`[tool.active_inference.ratchets.mypy_legacy_errors]`).
+  `scripts/check_ratchets.py mypy` fails when a new module joins the list, an
+  error appears outside it, or a count differs from its budget. Fix errors,
+  lower the budget, and drop a module once it reaches zero.
+- **Documentation**: `scripts/check_ratchets.py sphinx` requires the Sphinx
+  warning count to equal `sphinx_warnings`; lower it when you fix warnings.
+- **Planned APIs**: expected failures must be strict, name the missing
+  capability as their condition and the exception they expect.
+
 ### Content Quality Standards
 - **🎓 Educational Value**: Progressive disclosure and scaffolded learning
 - **🔬 Technical Accuracy**: Peer-reviewed mathematical and conceptual content

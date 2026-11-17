@@ -154,9 +154,9 @@ class DocumentationAnalyzer:
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef):
                     quality.total_elements += 1
-                    if ast.get_docstring(node):
+                    func_docstring = ast.get_docstring(node)
+                    if func_docstring:
                         quality.documented_elements += 1
-                        func_docstring = ast.get_docstring(node)
                         docstring_metrics = self._analyze_docstring(func_docstring)
                         self._categorize_docstring_quality(
                             f"{file_path}::{node.name}",
@@ -167,9 +167,9 @@ class DocumentationAnalyzer:
 
                 elif isinstance(node, ast.ClassDef):
                     quality.total_elements += 1
-                    if ast.get_docstring(node):
+                    class_docstring = ast.get_docstring(node)
+                    if class_docstring:
                         quality.documented_elements += 1
-                        class_docstring = ast.get_docstring(node)
                         docstring_metrics = self._analyze_docstring(class_docstring)
                         self._categorize_docstring_quality(
                             f"{file_path}::{node.name}",
@@ -205,7 +205,7 @@ class DocumentationAnalyzer:
 
         # Check for sections
         current_section = None
-        section_content = []
+        section_content: List[str] = []
 
         for line in content_lines[1:]:  # Skip first line (summary)
             if line.startswith(("Args:", "Arguments:", "Parameters:")):
@@ -234,12 +234,22 @@ class DocumentationAnalyzer:
             elif current_section:
                 section_content.append(line)
 
-        # Count parameters in Args section
+        # Count parameters in Args section (indentation survives only in raw lines)
         if metrics.has_parameters:
-            param_lines = [
-                line for line in content_lines if "    " in line and ":" in line
-            ]
-            metrics.parameter_count = len(param_lines)
+            args_indent: Optional[int] = None
+            param_indent: Optional[int] = None
+            for raw_line in lines:
+                stripped = raw_line.strip()
+                indent = len(raw_line) - len(raw_line.lstrip())
+                if stripped.startswith(("Args:", "Arguments:", "Parameters:")):
+                    args_indent, param_indent = indent, None
+                elif args_indent is None or not stripped:
+                    continue
+                elif indent <= args_indent:
+                    args_indent = None
+                elif ":" in stripped and param_indent in (None, indent):
+                    param_indent = indent
+                    metrics.parameter_count += 1
 
         # Calculate quality score
         metrics.quality_score = self._calculate_docstring_quality_score(metrics)
@@ -443,7 +453,7 @@ class DocumentationAnalyzer:
 
         current_quality = self.analyze_documentation()
 
-        suggestions = {
+        suggestions: Dict[str, Any] = {
             "current_coverage": current_quality.coverage_percentage,
             "target_coverage": target_coverage,
             "gap": target_coverage - current_quality.coverage_percentage,

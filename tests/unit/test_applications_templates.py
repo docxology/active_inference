@@ -415,8 +415,11 @@ class TestApplicationFramework:
             assert isinstance(non_existent, dict)
             assert non_existent["name"] == "web_application"  # Still in the list
 
-    def test_framework_configuration_handling(self):
+    def test_framework_configuration_handling(self, tmp_path, monkeypatch):
         """Test framework configuration handling"""
+        # The default templates directory is relative; create it under tmp_path
+        # rather than in the checkout.
+        monkeypatch.chdir(tmp_path)
         # Test with minimal config
         config = {}
         framework = ApplicationFramework(config)

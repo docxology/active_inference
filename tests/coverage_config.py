@@ -37,15 +37,22 @@ COVERAGE_CONFIG = {
     ],
 }
 
-# Coverage thresholds by component
+# Coverage thresholds, enforced in CI by `scripts/check_ratchets.py coverage`.
+# AGENTS.md requires >80% overall and >95% for core components; every
+# component below is held to the core bar. "overall" matches the
+# `--cov-fail-under` floor in .github/workflows/ci.yml and sits just under the
+# measured line coverage (99.9% when it was set), so it works as a ratchet:
+# raise it as coverage rises and never lower it to admit a regression.
 COVERAGE_THRESHOLDS = {
-    "overall": 85,
-    "knowledge": 90,
-    "llm": 88,
-    "research": 80,
-    "platform": 75,
-    "visualization": 70,
-    "applications": 75,
+    "overall": 99,
+    "package": 95,  # top-level modules: __init__.py and cli.py
+    "applications": 95,
+    "knowledge": 95,
+    "llm": 95,
+    "platform": 95,
+    "research": 95,
+    "tools": 95,
+    "visualization": 95,
 }
 
 # Coverage reporting configuration
@@ -68,7 +75,55 @@ def get_coverage_threshold(component: str = "overall") -> int:
 def is_coverage_acceptable(coverage_percent: float, component: str = "overall") -> bool:
     """Check if coverage meets the required threshold"""
     threshold = get_coverage_threshold(component)
+    if component in COVERAGE_THRESHOLDS and component != "overall":
+        return coverage_percent > threshold
     return coverage_percent >= threshold
+
+
+def component_of(path: str) -> str:
+    """Map a source path from a coverage report to its component name."""
+    parts = Path(path).parts
+    index = parts.index("active_inference")
+    return parts[index + 1] if len(parts) > index + 2 else "package"
+
+
+def check_coverage_report(report_path: Path) -> list[str]:
+    """Check a coverage.py JSON report against COVERAGE_THRESHOLDS.
+
+    Reports unmet thresholds and components that are missing from the
+    report, have no measured statements, or have no configured threshold.
+    """
+    import json
+
+    report = json.loads(Path(report_path).read_text())
+    covered: dict[str, int] = {}
+    statements: dict[str, int] = {}
+    for path, data in report["files"].items():
+        component = component_of(path)
+        summary = data["summary"]
+        covered[component] = covered.get(component, 0) + summary["covered_lines"]
+        statements[component] = statements.get(component, 0) + summary["num_statements"]
+    problems = []
+    expected = COVERAGE_THRESHOLDS.keys() - {"overall"}
+    for component in sorted(expected - statements.keys()):
+        problems.append(f"component {component!r} is missing from the coverage report")
+    for component in sorted(statements.keys() - expected):
+        problems.append(f"component {component!r} has no coverage threshold")
+    for component in sorted(expected & statements.keys()):
+        count = statements[component]
+        if count == 0:
+            problems.append(f"component {component!r} has no measured statements")
+            continue
+        percent = 100.0 * covered[component] / count
+        threshold = COVERAGE_THRESHOLDS[component]
+        print(f"{component}: {percent:.2f}% (must exceed {threshold}%)")
+        if covered[component] * 100 <= threshold * count:
+            problems.append(f"{component}: {percent:.2f}% must exceed {threshold}%")
+    total = report["totals"]["percent_covered"]
+    print(f"overall: {total:.2f}% (threshold {COVERAGE_THRESHOLDS['overall']}%)")
+    if total < COVERAGE_THRESHOLDS["overall"]:
+        problems.append(f"overall: {total:.2f}% < {COVERAGE_THRESHOLDS['overall']}%")
+    return problems
 
 
 def generate_coverage_report(output_formats: list = None) -> dict:

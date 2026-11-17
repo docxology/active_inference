@@ -627,7 +627,7 @@ class KnowledgeRepository:
                 graph["cycles"].append(cycle)
                 return
 
-            if current_id in visited:
+            if current_id in visited or current_id not in self._nodes:
                 return
 
             visited.add(current_id)

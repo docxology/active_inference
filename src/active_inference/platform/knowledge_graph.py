@@ -225,6 +225,20 @@ class KnowledgeGraphManager:
 
         return related
 
+    def get_neighbors(self, node_id: str) -> List[str]:
+        """Get IDs of nodes adjacent to a node via edges in either direction"""
+        neighbors: List[str] = []
+        for edge in self.edges.values():
+            if edge.source == node_id:
+                other = edge.target
+            elif edge.target == node_id:
+                other = edge.source
+            else:
+                continue
+            if other not in neighbors:
+                neighbors.append(other)
+        return neighbors
+
     def find_shortest_path(self, source_id: str, target_id: str) -> Optional[List[str]]:
         """Find shortest path between two nodes"""
         if source_id not in self.nodes or target_id not in self.nodes:

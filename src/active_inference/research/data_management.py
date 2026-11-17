@@ -204,7 +204,11 @@ class DataManager:
         self, data: Any, validation_rules: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Validate data against specified rules"""
-        validation_result = {"valid": True, "issues": [], "warnings": []}
+        validation_result: Dict[str, Any] = {
+            "valid": True,
+            "issues": [],
+            "warnings": [],
+        }
 
         # Check data completeness
         if not data:
@@ -318,8 +322,8 @@ class DataManager:
 
     def _calculate_data_size(self, data: Any) -> int:
         """Calculate data size in bytes"""
-        # Placeholder implementation
-        return 1024
+        # Size of the JSON serialization written by _store_json_data
+        return len(json.dumps(data, indent=2).encode("utf-8"))
 
     def _calculate_checksum(self, data: Any) -> str:
         """Calculate data checksum"""
@@ -390,7 +394,7 @@ class DataManager:
         if data is None:
             return {"valid": False, "error": "Could not load dataset"}
 
-        validation_result = {
+        validation_result: Dict[str, Any] = {
             "valid": True,
             "issues": [],
             "metadata": {

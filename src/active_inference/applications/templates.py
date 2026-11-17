@@ -8,6 +8,7 @@ generation of common application structures.
 
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
@@ -218,8 +219,8 @@ if __name__ == "__main__":
     model = {config.name.replace(' ', '').replace('-', '_')}(config)
     results = model.run_simulation(100)
 
-    print(f"Final free energy: {{results['free_energy_history'][-1]".3f"}}")
-    print(f"Average accuracy: {{np.mean(results['accuracy_history'])".3f"}}")
+    print(f"Final free energy: {{results['free_energy_history'][-1]:.3f}}")
+    print(f"Average accuracy: {{np.mean(results['accuracy_history']):.3f}}")
 '''
 
         return {
@@ -1092,7 +1093,7 @@ class ApplicationFramework:
         required_elements = ["class.*Model", "def __init__", "def perceive", "def act"]
 
         for element in required_elements:
-            if not any(element in line for line in code.split("\n")):
+            if not any(re.search(element, line) for line in code.split("\n")):
                 results["issues"].append(f"Missing required element: {element}")
                 results["valid"] = False
 

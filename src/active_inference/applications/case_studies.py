@@ -187,7 +187,7 @@ for visual recognition tasks using Active Inference principles.
 """
 
 import numpy as np
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 import matplotlib.pyplot as plt
 
 
@@ -408,7 +408,7 @@ if __name__ == "__main__":
     print("Decision making simulation completed:")
     print(f"Actions taken: {results['actions']}")
     print(f"Final beliefs: {results['beliefs'][-1]}")
-    print(f"Average expected FE: {np.mean(results['expected_free_energy'])".3f"}")
+    print(f"Average expected FE: {np.mean(results['expected_free_energy']):.3f}")
 '''
 
     def _generate_motor_control_code(self) -> str:
@@ -422,9 +422,12 @@ showing how agents can learn to control their movements through
 minimizing free energy.
 """
 
+import logging
 import numpy as np
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 import matplotlib.pyplot as plt
+
+logger = logging.getLogger(__name__)
 
 
 class MotorControlModel:
@@ -573,8 +576,8 @@ if __name__ == "__main__":
     print("Motor control simulation completed:")
     print(f"Final position: {results['states'][-1]}")
     print(f"Target position: {target_pos}")
-    print(f"Final error: {np.linalg.norm(results['states'][-1] - target_pos)".3f"}")
-    print(f"Average free energy: {np.mean(results['free_energy'])".3f"}")
+    print(f"Final error: {np.linalg.norm(results['states'][-1] - target_pos):.3f}")
+    print(f"Average free energy: {np.mean(results['free_energy']):.3f}")
 '''
 
 

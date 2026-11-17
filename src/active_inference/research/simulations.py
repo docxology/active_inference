@@ -7,7 +7,7 @@ studying complex adaptive systems.
 """
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 import numpy as np
@@ -21,12 +21,12 @@ class ModelConfig:
 
     name: str
     model_type: str = "active_inference"
-    parameters: Dict[str, Any] = None
+    parameters: Dict[str, Any] = field(default_factory=dict)
     time_horizon: int = 1000
     time_step: float = 0.1
 
     def __post_init__(self) -> None:
-        if self.parameters is None:
+        if not self.parameters:
             self.parameters = {}
 
 
@@ -150,9 +150,9 @@ class SimulationEngine:
                 # Total expected free energy
                 expected_free_energy[a] = extrinsic - epistemic
 
-            # Select action (greedy policy)
-            current_action = np.argmin(expected_free_energy)  # Minimize free energy
-            action_trajectory.append(int(current_action))
+            # Select action (greedy policy): minimize expected free energy
+            current_action = int(np.argmin(expected_free_energy))
+            action_trajectory.append(current_action)
 
             # Calculate variational free energy (simplified)
             # F = E_Q[log Q] - E_Q[log P]
@@ -225,7 +225,7 @@ class ModelRunner:
         """Run comparative study across multiple models"""
         logger.info(f"Starting comparison study with {len(model_configs)} models")
 
-        results = {
+        results: Dict[str, Any] = {
             "study_id": f"comparison_{len(model_configs)}",
             "models": [],
             "comparison_metrics": {},

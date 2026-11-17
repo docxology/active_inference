@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from .knowledge import KnowledgeRepository, KnowledgeRepositoryConfig
+from .knowledge import ContentType, KnowledgeRepository, KnowledgeRepositoryConfig
 from .llm import (
     ActiveInferenceTemplates,
     ConversationManager,
@@ -683,8 +683,7 @@ Examples:
                 print(f"❌ Chat failed: {e}")
                 return 1
 
-        asyncio.run(chat())
-        return 0
+        return asyncio.run(chat()) or 0
 
     def _handle_generate_command(self, args) -> int:
         """Handle generate command"""
@@ -752,8 +751,7 @@ Examples:
                 print(f"❌ Generation failed: {e}")
                 return 1
 
-        asyncio.run(generate())
-        return 0
+        return asyncio.run(generate()) or 0
 
     def _handle_models_command(self, args) -> int:
         """Handle model management commands"""
@@ -802,8 +800,7 @@ Examples:
                 print(f"❌ Model command failed: {e}")
                 return 1
 
-        asyncio.run(handle_models())
-        return 0
+        return asyncio.run(handle_models()) or 0
 
     def _handle_conversation_command(self, args) -> int:
         """Handle conversation management commands"""
@@ -863,7 +860,7 @@ Examples:
             print()
 
             implementations = self.knowledge_repo.search(
-                "implementation", content_types=["implementation"]
+                "implementation", content_types=[ContentType.IMPLEMENTATION]
             )
             if not implementations:
                 print("No implementations found.")
@@ -918,7 +915,7 @@ Examples:
             print()
 
             applications = self.knowledge_repo.search(
-                "application", content_types=["application"]
+                "application", content_types=[ContentType.APPLICATION]
             )
             if not applications:
                 print("No applications found.")
@@ -969,7 +966,7 @@ Examples:
 
             for domain in domains:
                 apps = self.knowledge_repo.search(
-                    f"application {domain}", content_types=["application"]
+                    f"application {domain}", content_types=[ContentType.APPLICATION]
                 )
                 if apps:
                     print(f"• {domain.title().replace('_', ' ')}:")

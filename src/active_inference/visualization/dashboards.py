@@ -8,7 +8,7 @@ of model dynamics and learning processes.
 
 import json
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
 
@@ -24,10 +24,10 @@ class DashboardConfig:
     title: str
     refresh_interval: int = 1000  # milliseconds
     layout: str = "grid"  # grid, flex, custom
-    components: List[Dict[str, Any]] = None
+    components: List[Dict[str, Any]] = field(default_factory=list)
 
     def __post_init__(self) -> None:
-        if self.components is None:
+        if not self.components:
             self.components = []
 
 
@@ -97,7 +97,8 @@ class RealTimeMonitor(DashboardComponent):
             "mean": sum(history) / len(history) if history else value,
         }
 
-        self.update_data(self.data)
+        # Record the refresh without re-entering the batch update_data override.
+        super().update_data(self.data)
 
     def update_data(self, data: Dict[str, Any]) -> None:
         """Override to handle batch updates"""
@@ -219,15 +220,17 @@ class ActiveInferenceMonitor(RealTimeMonitor):
 
         # Update data with AI state
         self.data["ai_state"] = self.ai_state.copy()
-        self.update_data(self.data)
+        DashboardComponent.update_data(self, self.data)
 
     def compute_information_theoretic_metrics(self) -> Dict[str, float]:
         """Compute information-theoretic metrics from current state"""
-        metrics = {}
+        metrics: Dict[str, float] = {}
 
         # Entropy of current beliefs (simplified)
         if "belief_history" in self.history and self.history["belief_history"]:
-            beliefs = self.history["belief_history"][-1]  # Most recent beliefs
+            # Entries may be whole belief distributions recorded by callers, so
+            # treat the latest one as unvalidated until checked below.
+            beliefs: object = self.history["belief_history"][-1]
             if isinstance(beliefs, list) and len(beliefs) > 0:
                 # Compute entropy of belief distribution
                 belief_entropy = -sum(b * np.log(b + 1e-10) for b in beliefs if b > 0)

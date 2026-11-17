@@ -6,6 +6,7 @@ Provides step-by-step animations, process demonstrations, and interactive
 learning experiences for complex theoretical concepts.
 """
 
+import copy
 import logging
 from dataclasses import dataclass
 from enum import Enum
@@ -54,6 +55,9 @@ class AnimationSequence:
         """Get frame at specific time"""
         if not self.frames:
             return None
+        if self.duration <= 0:
+            # A zero-length sequence (e.g. one frame at t=0) has a single instant.
+            return self.frames[0]
 
         frame_index = int((time / self.duration) * len(self.frames))
         frame_index = max(0, min(frame_index, len(self.frames) - 1))
@@ -296,7 +300,7 @@ class ProcessAnimation:
                 frame_id=0,
                 timestamp=0.0,
                 components={
-                    "agents": agent_states,
+                    "agents": copy.deepcopy(agent_states),
                     "environment": {"state": "neutral", "shared_info": 0.0},
                     "communication": {"active": False, "messages": []},
                 },
@@ -311,7 +315,7 @@ class ProcessAnimation:
                 frame_id=1,
                 timestamp=1.0,
                 components={
-                    "agents": agent_states,
+                    "agents": copy.deepcopy(agent_states),
                     "environment": {"state": "changed", "shared_info": 0.7},
                     "communication": {"active": False, "messages": []},
                 },
@@ -338,7 +342,7 @@ class ProcessAnimation:
                 frame_id=2,
                 timestamp=2.0,
                 components={
-                    "agents": agent_states,
+                    "agents": copy.deepcopy(agent_states),
                     "environment": {"state": "changed", "shared_info": 0.7},
                     "communication": {"active": False, "messages": []},
                 },
@@ -348,9 +352,10 @@ class ProcessAnimation:
         )
 
         # Frame 4: Communication phase
+        # Each agent passes its beliefs to the next one (0->1, 1->2, ...).
         messages = [
-            {"sender": 0, "receiver": 1, "content": agent_states[0]["beliefs"]},
-            {"sender": 1, "receiver": 2, "content": agent_states[1]["beliefs"]},
+            {"sender": i, "receiver": i + 1, "content": agent_states[i]["beliefs"]}
+            for i in range(num_agents - 1)
         ]
 
         frames.append(
@@ -358,7 +363,7 @@ class ProcessAnimation:
                 frame_id=3,
                 timestamp=3.0,
                 components={
-                    "agents": agent_states,
+                    "agents": copy.deepcopy(agent_states),
                     "environment": {"state": "changed", "shared_info": 0.7},
                     "communication": {"active": True, "messages": messages},
                 },
@@ -376,7 +381,7 @@ class ProcessAnimation:
                 frame_id=4,
                 timestamp=4.0,
                 components={
-                    "agents": agent_states,
+                    "agents": copy.deepcopy(agent_states),
                     "environment": {"state": "changed", "shared_info": 0.7},
                     "communication": {"active": True, "messages": messages},
                 },
@@ -420,7 +425,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=0,
                 timestamp=0.0,
-                components=network_state,
+                components=copy.deepcopy(network_state),
                 narration="Neural network initialized for Active Inference",
                 highlights=[],
             )
@@ -432,7 +437,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=1,
                 timestamp=1.0,
-                components=network_state,
+                components=copy.deepcopy(network_state),
                 narration="Forward pass: Processing sensory input",
                 highlights=["input_layer"],
             )
@@ -448,7 +453,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=2,
                 timestamp=2.0,
-                components=network_state,
+                components=copy.deepcopy(network_state),
                 narration="Generating predictions in hidden layers",
                 highlights=["hidden_layers"],
             )
@@ -460,7 +465,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=3,
                 timestamp=3.0,
-                components=network_state,
+                components=copy.deepcopy(network_state),
                 narration="Output layer generates predictions",
                 highlights=["output_layer"],
             )
@@ -472,7 +477,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=4,
                 timestamp=4.0,
-                components=network_state,
+                components=copy.deepcopy(network_state),
                 narration="Updating weights to minimize prediction error",
                 highlights=["weights"],
             )
@@ -484,7 +489,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=5,
                 timestamp=5.0,
-                components=network_state,
+                components=copy.deepcopy(network_state),
                 narration="Free energy minimization through weight updates",
                 highlights=["activation"],
             )
@@ -521,7 +526,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=0,
                 timestamp=0.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Information flow begins with high uncertainty",
                 highlights=[],
             )
@@ -534,7 +539,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=1,
                 timestamp=1.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Sensory input reduces uncertainty",
                 highlights=["sensory_input"],
             )
@@ -547,7 +552,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=2,
                 timestamp=2.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Generative model processes sensory information",
                 highlights=["generative_model"],
             )
@@ -559,7 +564,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=3,
                 timestamp=3.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Prediction generated with increasing confidence",
                 highlights=["prediction"],
             )
@@ -572,7 +577,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=4,
                 timestamp=4.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Prediction error provides information gain",
                 highlights=["prediction_error"],
             )
@@ -584,7 +589,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=5,
                 timestamp=5.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Free energy quantifies model fit and complexity",
                 highlights=["free_energy"],
             )
@@ -597,7 +602,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=6,
                 timestamp=6.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Action selected to minimize free energy",
                 highlights=["action"],
             )
@@ -610,7 +615,7 @@ class ProcessAnimation:
             AnimationFrame(
                 frame_id=7,
                 timestamp=7.0,
-                components=components,
+                components=copy.deepcopy(components),
                 narration="Information flow stabilizes with reduced free energy",
                 highlights=["free_energy"],
             )
