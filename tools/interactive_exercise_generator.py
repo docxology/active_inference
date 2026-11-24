@@ -416,7 +416,7 @@ def implement_concept():
 
 if __name__ == "__main__":
     result = implement_concept()
-    print(f"Result: {result}")'''
+    print(f"Result: {{result}}")'''
 
     def _generate_test_cases(self, node_data: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Generate test cases"""
@@ -441,7 +441,7 @@ def implement_concept():
 
 if __name__ == "__main__":
     result = implement_concept()
-    print(f"Result: {result}")'''
+    print(f"Result: {{result}}")'''
 
     def _generate_buggy_code(self, node_data: Dict[str, Any]) -> str:
         """Generate buggy code for debugging exercises"""
