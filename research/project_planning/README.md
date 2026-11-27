@@ -379,7 +379,7 @@ review_config = {
 
 ## Contributing
 
-We welcome contributions to the project planning module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+We welcome contributions to the project planning module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
 ```bash

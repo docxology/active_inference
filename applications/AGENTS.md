@@ -285,9 +285,9 @@ class BaseIntegration(ABC):
 
 ## Related Documentation
 
-- **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
+- **[Main AGENTS.md](../AGENTS.md)**: Project-wide agent guidelines
 - **[Applications README](./README.md)**: Applications module overview
-- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../docs/CONTRIBUTING.md)**: Contribution guidelines
 - **[Knowledge Repository](../knowledge)**: Theoretical foundations
 - **[Research Tools](../research)**: Research methodologies
 

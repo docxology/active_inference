@@ -804,7 +804,7 @@ print(f"CPU Usage: {performance_monitor.cpu_usage:.1f}%")
 
 ## Contributing
 
-We welcome contributions to the data collection framework! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the data collection framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
 ```bash
@@ -848,7 +848,7 @@ python benchmarks/collection_performance.py
 - **[Collection AGENTS.md](./AGENTS.md)**: Collection development guidelines
 - **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../../AGENTS.md)**: Research tools module guidelines
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ## Collection Architecture
 

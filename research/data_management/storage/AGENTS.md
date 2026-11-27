@@ -770,7 +770,7 @@ class DataVersionManager:
 - **[Data Management AGENTS.md](../AGENTS.md)**: Data management development guidelines
 - **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../../AGENTS.md)**: Research tools module guidelines
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ---
 

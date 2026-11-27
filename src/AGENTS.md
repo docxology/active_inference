@@ -661,7 +661,7 @@ def get_memory_usage() -> float:
 
 - **[Main Package README](README.md)**: Package overview and usage
 - **[.cursorrules](../.cursorrules)**: Complete development standards
-- **[Platform AGENTS.md](../../../AGENTS.md)**: Platform-wide agent guidelines
+- **[Platform AGENTS.md](../AGENTS.md)**: Platform-wide agent guidelines
 
 ### Technical References
 

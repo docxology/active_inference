@@ -801,7 +801,7 @@ class AnimationVisualizer(BaseVisualizer):
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../AGENTS.md)**: Research tools module guidelines
 - **[Analysis Tools](../../research/analysis/)**: Data analysis and statistics
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ---
 

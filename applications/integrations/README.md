@@ -310,7 +310,7 @@ class ResilientIntegration:
 
 ## Contributing
 
-We welcome contributions to the integrations module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the integrations module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Integrations**: Create connectors for new external systems
@@ -339,7 +339,7 @@ We welcome contributions to the integrations module! See [CONTRIBUTING.md](../..
 - **[Applications README](../README.md)**: Applications module overview
 - **[Main README](../../README.md)**: Project overview and getting started
 - **[Platform Documentation](../../platform/)**: Platform integration tools
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution guidelines
 - **[Research Tools](../../research/)**: Research data integration
 
 ## Integration Checklist

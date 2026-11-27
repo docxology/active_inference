@@ -898,7 +898,7 @@ dashboard = create_quality_dashboard(experiment_data_sources)
 
 ## Contributing
 
-We welcome contributions to the validation framework! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the validation framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
 ```bash
@@ -942,7 +942,7 @@ python tools/validate_test_data.py
 - **[Validation AGENTS.md](./AGENTS.md)**: Validation development guidelines
 - **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../../AGENTS.md)**: Research tools module guidelines
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ## Validation Architecture
 

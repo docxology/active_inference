@@ -489,7 +489,7 @@ suggestions = search_engine.get_suggestions('active infer')
 
 ## Contributing
 
-We welcome contributions to the platform infrastructure! See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the platform infrastructure! See [CONTRIBUTING.md](../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Services**: Implement new platform services
@@ -515,12 +515,12 @@ We welcome contributions to the platform infrastructure! See [CONTRIBUTING.md](.
 
 ## Related Documentation
 
-- **[Main README](../../README.md)**: Project overview and getting started
+- **[Main README](../README.md)**: Project overview and getting started
 - **[Knowledge Repository](../knowledge)**: Educational content
 - **[Research Tools](../research)**: Research methodologies
 - **[Applications](../applications)**: Practical applications
 - **Visualization `../../visualization/`**: Visualization tools
-- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../docs/CONTRIBUTING.md)**: Contribution guidelines
 
 ## Platform Architecture
 

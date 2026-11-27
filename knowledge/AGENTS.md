@@ -500,7 +500,7 @@ graph TB
 ### 🔝 **Core Platform Documentation**
 - **[Main AGENTS.md](../AGENTS.md)**: Project-wide agent guidelines and standards
 - **[Main README.md](../README.md)**: Active Inference Knowledge Environment overview
-- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes and guidelines
+- **[Contributing Guide](../docs/CONTRIBUTING.md)**: Contribution processes and guidelines
 
 ### 📚 **Knowledge Module Documentation**
 - **[Knowledge README](./README.md)**: Knowledge base overview and usage guide

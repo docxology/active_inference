@@ -244,7 +244,7 @@ Utilities
 
 ## Contributing
 
-We welcome contributions to the API documentation! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the API documentation! See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **API Documentation**: Document new or updated APIs
@@ -273,7 +273,7 @@ We welcome contributions to the API documentation! See [CONTRIBUTING.md](../../C
 - **[Documentation README](../README.md)**: Documentation module overview
 - **[Main README](../../README.md)**: Project overview and getting started
 - **[Platform Documentation](../../platform/)**: Platform APIs and services
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution guidelines
 - **[Integration Documentation](../../applications/integrations/)**: Integration APIs
 
 ## API Testing

@@ -131,7 +131,7 @@ make test-security
 
 ## Related Documentation
 
-- **[Main README](../../README.md)**: Project overview
+- **[Main README](../README.md)**: Project overview
 - **[Troubleshooting](../docs/TROUBLESHOOTING.md)**: Debugging guide
 - **[Quick Start](../docs/QUICK_START.md)**: Getting started
 

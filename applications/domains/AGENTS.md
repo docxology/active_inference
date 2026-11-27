@@ -526,7 +526,7 @@ class KnowledgeTransferEngine(DomainIntegrator):
 - **[Domains README](./README.md)**: Domain applications overview
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
 - **[Applications AGENTS.md](../AGENTS.md)**: Applications module guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution processes
 - **[Research Tools](../../research/README.md)**: Research methodologies
 
 ---

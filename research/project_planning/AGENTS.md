@@ -923,7 +923,7 @@ class PowerAnalysis:
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../AGENTS.md)**: Research tools module guidelines
 - **Ethics Tools `../../platform/ethics/`**: Ethics and compliance tools
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ---
 

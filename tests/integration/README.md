@@ -198,7 +198,7 @@ def test_api_data_exchange(self, api_client, test_server):
 
 - **[Testing AGENTS.md](../AGENTS.md)**: Testing framework development guidelines
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution processes
 - **[Unit Tests](../unit/)**: Individual component testing
 
 ---

@@ -960,7 +960,7 @@ class KnowledgeValidationSuite:
 - **[Knowledge Testing README](./README.md)**: Knowledge testing module overview
 - **[Testing AGENTS.md](../AGENTS.md)**: Testing framework development guidelines
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ---
 

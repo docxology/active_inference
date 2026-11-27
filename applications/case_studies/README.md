@@ -127,7 +127,7 @@ class CaseStudyAnalysis(PerformanceAnalyzer):
 
 ## Contributing
 
-We encourage contributions to the case studies module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We encourage contributions to the case studies module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Case Studies**: Document real-world applications of Active Inference

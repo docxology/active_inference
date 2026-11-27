@@ -398,7 +398,7 @@ See [AGENTS.md](AGENTS.md) for detailed agent development guidelines and [.curso
 ## 📚 Resources
 
 ### Documentation
-- **[Main README](../../../README.md)**: Project overview
+- **[Main README](../README.md)**: Project overview
 - **[AGENTS.md](AGENTS.md)**: Agent development guidelines
 - **[.cursorrules](../.cursorrules)**: Complete development standards
 
