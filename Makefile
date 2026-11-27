@@ -82,14 +82,10 @@ test-specific:
 
 # Documentation
 docs:
-	@echo "Generating documentation..."
-	@source venv/bin/activate && sphinx-build docs/ docs/_build/
-	@mkdir -p documentation/knowledge
-	@python tools/documentation/generate_knowledge_docs.py
+	uv run --extra docs sphinx-build -W -b html docs docs/_build
 
-docs-serve:
-	@echo "Serving documentation locally..."
-	@source venv/bin/activate && sphinx-autobuild docs/ docs/_build/
+docs-serve: docs
+	uv run python -m http.server --bind 127.0.0.1 --directory docs/_build
 
 # Platform services
 serve:

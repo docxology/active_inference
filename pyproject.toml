@@ -210,7 +210,7 @@ dev = [
 # until the budget is lowered to match, so budgets only ever move down.
 [tool.active_inference.ratchets]
 # Warnings from `sphinx-build -b html docs/` with the locked `docs` extra.
-sphinx_warnings = 359
+sphinx_warnings = 0
 
 # Strict-mypy errors still present in each legacy module listed in the
 # ignore_errors override above. The two lists must name the same modules, and

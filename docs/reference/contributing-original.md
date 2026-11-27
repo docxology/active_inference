@@ -383,7 +383,7 @@ We maintain a hall of contributors recognizing significant contributions to the 
 
 ## 🤝 Code of Conduct
 
-This project follows the Contributor Covenant Code of Conduct ([docs/code_of_conduct.rst](docs/code_of_conduct.rst)). By participating, you are expected to uphold this code. Please report unacceptable behavior to community@activeinference.org.
+This project follows the Contributor Covenant Code of Conduct ([docs/code_of_conduct.rst](../code_of_conduct.rst)). By participating, you are expected to uphold this code. Please report unacceptable behavior to community@activeinference.org.
 
 ## 📞 Getting Help
 
@@ -404,7 +404,3 @@ This project follows the Contributor Covenant Code of Conduct ([docs/code_of_con
 Your contributions help build a comprehensive, accessible knowledge environment for Active Inference and the Free Energy Principle. Every contribution, no matter how small, helps advance our collective understanding and application of these powerful theoretical frameworks.
 
 *"Active Inference for, with, by Generative AI"* - Together, we're building the future of intelligent systems understanding!
-
-
-
-

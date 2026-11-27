@@ -1,0 +1,19 @@
+paper:
+  title: "The Active Inference Knowledge Environment"
+  subtitle: "Local course, graph and categorical simulation examples"
+  version: "0.3.0"
+authors:
+  - name: "Active Inference Community"
+publication:
+  repository_url: "https://github.com/docxology/active_inference"
+  repository_label: "Source repository"
+metadata:
+  language: en
+  license: MIT
+render:
+  formats:
+    pdf: true
+    html: true
+    slides: false
+    docx: false
+    epub: false
