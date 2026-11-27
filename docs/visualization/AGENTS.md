@@ -363,22 +363,7 @@ def test_integration_references():
 
 ### Documentation Testing Commands
 
-```bash
-# Validate all visualization documentation
-make validate-visualization-docs
-
-# Test educational effectiveness
-pytest docs/visualization/tests/test_education.py -v
-
-# Test example functionality
-pytest docs/visualization/tests/test_examples.py -v
-
-# Test cross-references
-python tools/documentation/test_visualization_references.py
-
-# Validate accessibility documentation
-python tools/documentation/test_accessibility.py docs/visualization/
-```
+Run the repository documentation checks from the root checkout. [Documentation checks](../CONTRIBUTING.md#documentation-checks)
 
 ## 📖 Visualization Documentation Standards
 

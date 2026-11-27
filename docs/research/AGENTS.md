@@ -292,19 +292,7 @@ def test_navigation_consistency():
 
 ### Documentation Testing Commands
 
-```bash
-# Validate all research documentation
-make validate-research-docs
-
-# Test code examples
-pytest docs/research/tests/test_examples.py -v
-
-# Check documentation completeness
-python tools/documentation/validate_completeness.py docs/research/
-
-# Test cross-references
-python tools/documentation/test_links.py docs/research/
-```
+Run the repository documentation checks from the root checkout. [Documentation checks](../CONTRIBUTING.md#documentation-checks)
 
 ## 📖 Documentation Standards
 

@@ -378,22 +378,7 @@ def test_method_consistency():
 
 ### Documentation Testing Commands
 
-```bash
-# Validate all analysis documentation
-make validate-analysis-docs
-
-# Test statistical accuracy
-pytest docs/research/analysis/tests/test_accuracy.py -v
-
-# Test code examples
-pytest docs/research/analysis/tests/test_examples.py -v
-
-# Check cross-references
-python tools/documentation/test_cross_references.py docs/research/analysis/
-
-# Validate statistical consistency
-python tools/documentation/test_statistical_consistency.py docs/research/analysis/
-```
+Run the repository documentation checks from the root checkout. [Documentation checks](../../CONTRIBUTING.md#documentation-checks)
 
 ## 📖 Documentation Standards
 
