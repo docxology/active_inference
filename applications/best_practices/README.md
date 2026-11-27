@@ -104,7 +104,7 @@ class SystemValidation(QualityAssurance):
 
 ## Contributing
 
-We encourage contributions to the best practices module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We encourage contributions to the best practices module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Patterns**: Document new architectural or design patterns
@@ -129,7 +129,7 @@ We encourage contributions to the best practices module! See [CONTRIBUTING.md](.
 
 - **[Applications README](../README.md)**: Applications module overview
 - **[Main README](../../README.md)**: Project overview and getting started
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution guidelines
 - **[Knowledge Repository](../../knowledge/)**: Theoretical foundations
 - **[Templates](../templates/)**: Implementation templates
 

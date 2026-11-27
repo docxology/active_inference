@@ -685,8 +685,8 @@ class SearchEngine:
 ## Related Documentation
 
 - **[Platform README](./README.md)**: Platform infrastructure overview
-- **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes
+- **[Main AGENTS.md](../AGENTS.md)**: Project-wide agent guidelines
+- **[Contributing Guide](../docs/CONTRIBUTING.md)**: Contribution processes
 - **[Knowledge Repository](../knowledge)**: Knowledge management
 - **[Search Tools](search)**: Search implementation
 - **[Deployment Tools](deployment)**: Deployment infrastructure

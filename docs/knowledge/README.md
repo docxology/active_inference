@@ -121,7 +121,7 @@ Resources
 
 ## Contributing
 
-We welcome contributions to the knowledge documentation! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the knowledge documentation! See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Content**: Create new educational content
@@ -150,7 +150,7 @@ We welcome contributions to the knowledge documentation! See [CONTRIBUTING.md](.
 - **[Documentation README](../README.md)**: Documentation module overview
 - **[Knowledge Repository](../../knowledge/)**: Educational content source
 - **[Main README](../../README.md)**: Project overview and getting started
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution guidelines
 - **[Learning Paths](../../knowledge/learning_paths.json)**: Structured learning paths
 
 ## Content Validation

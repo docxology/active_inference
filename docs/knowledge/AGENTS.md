@@ -590,7 +590,7 @@ class ContentAssessment:
 - **[Knowledge README](./README.md)**: Knowledge documentation overview
 - **[Documentation AGENTS.md](../AGENTS.md)**: Documentation module guidelines
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes
 - **[Knowledge Repository](../../knowledge/)**: Educational content
 
 ---

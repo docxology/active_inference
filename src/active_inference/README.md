@@ -415,7 +415,7 @@ When contributing to the source code:
 - **[AGENTS.md](AGENTS.md)**: Agent development guidelines for this module
 - **[CLI Documentation](cli.py)**: Command-line interface details
 - **[API Reference](../../docs/api/)**: Complete API documentation
-- **[Development Guide](../../CONTRIBUTING.md)**: Contributing guidelines
+- **[Development Guide](../../docs/CONTRIBUTING.md)**: Contributing guidelines
 
 ---
 

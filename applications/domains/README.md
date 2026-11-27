@@ -199,7 +199,7 @@ class CrossDomainApplication(MultiDomainIntegrator):
 
 ## Contributing
 
-We encourage domain-specific contributions! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We encourage domain-specific contributions! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **Domain Applications**: Create applications for new or existing domains
@@ -229,7 +229,7 @@ We encourage domain-specific contributions! See [CONTRIBUTING.md](../../CONTRIBU
 - **[Main README](../../README.md)**: Project overview and getting started
 - **[Research Tools](../../research/README.md)**: Research methodologies
 - **[Platform Services](../../platform/README.md)**: Platform infrastructure
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution guidelines
 
 ## Domain Research & Development
 

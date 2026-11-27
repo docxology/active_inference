@@ -278,7 +278,7 @@ performance_config = {
 
 ## Contributing
 
-We welcome contributions to the benchmarks suite! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+We welcome contributions to the benchmarks suite! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
 ```bash

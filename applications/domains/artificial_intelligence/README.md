@@ -207,7 +207,7 @@ class ActiveInferencePlanner(AIPlanningTemplate):
 
 ## Contributing
 
-We welcome AI domain contributions! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for detailed guidelines.
+We welcome AI domain contributions! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **AI Algorithms**: New Active Inference algorithms for AI

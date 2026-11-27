@@ -969,7 +969,7 @@ def apply_preprocessing_template(template_name, custom_overrides=None):
 
 ## Contributing
 
-We welcome contributions to the preprocessing framework! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the preprocessing framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
 ```bash
@@ -1013,7 +1013,7 @@ python benchmarks/preprocessing_performance.py
 - **[Preprocessing AGENTS.md](./AGENTS.md)**: Preprocessing development guidelines
 - **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../../AGENTS.md)**: Research tools module guidelines
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ## Preprocessing Architecture
 

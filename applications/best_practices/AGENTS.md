@@ -318,7 +318,7 @@ class QualityAssuranceFramework:
 - **[Best Practices README](./README.md)**: Best practices module overview
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
 - **[Applications AGENTS.md](../AGENTS.md)**: Applications module guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution processes
 - **[Knowledge Repository](../../knowledge/)**: Theoretical foundations
 
 ---

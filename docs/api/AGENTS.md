@@ -553,7 +553,7 @@ class APIDocumentationValidator:
 - **[API README](./README.md)**: API documentation module overview
 - **[Documentation AGENTS.md](../AGENTS.md)**: Documentation module guidelines
 - **[Main AGENTS.md](../../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes
 - **[Platform Documentation](../../platform/)**: Platform APIs
 
 ---

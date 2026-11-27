@@ -222,8 +222,8 @@ component = Applications(debug_config)
 ## 📚 Resources and References
 
 ### Core Documentation
-- **[Main README](../../../README.md)**: Project overview and navigation
-- **[AGENTS.md](../../../AGENTS.md)**: Master agent guidelines
+- **[Main README](../../README.md)**: Project overview and navigation
+- **[AGENTS.md](../../AGENTS.md)**: Master agent guidelines
 - **[Development Standards](../../.cursorrules)**: Complete development standards
 
 ### Component-Specific Resources

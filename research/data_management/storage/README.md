@@ -718,7 +718,7 @@ results, report = run_experiment_with_storage(active_inference_experiment_config
 
 ## Contributing
 
-We welcome contributions to the storage framework! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the storage framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
 ```bash
@@ -762,7 +762,7 @@ python benchmarks/storage_performance.py
 - **[Storage AGENTS.md](./AGENTS.md)**: Storage development guidelines
 - **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../../AGENTS.md)**: Research tools module guidelines
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ## Storage Architecture
 

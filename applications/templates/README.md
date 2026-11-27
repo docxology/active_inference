@@ -312,7 +312,7 @@ class HierarchicalActiveInferenceSystem:
 
 ## Contributing
 
-We encourage contributions to the templates module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We encourage contributions to the templates module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Templates**: Create new implementation templates
@@ -342,7 +342,7 @@ We encourage contributions to the templates module! See [CONTRIBUTING.md](../../
 - **[Best Practices](../best_practices/)**: Architectural guidelines
 - **[Case Studies](../case_studies/)**: Real-world implementation examples
 - **[Main README](../../README.md)**: Project overview and getting started
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution guidelines
 
 ## Template Development Guidelines
 

@@ -712,7 +712,7 @@ results, security_report = run_secure_experiment(confidential_medical_experiment
 
 ## Contributing
 
-We welcome contributions to the security framework! See [CONTRIBUTING.md](../../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the security framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
 ```bash
@@ -756,7 +756,7 @@ python examples/test_security_scenarios.py
 - **[Security AGENTS.md](./AGENTS.md)**: Security development guidelines
 - **[Main AGENTS.md](../../../AGENTS.md)**: Project-wide agent guidelines
 - **[Research AGENTS.md](../../AGENTS.md)**: Research tools module guidelines
-- **[Contributing Guide](../../../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](../../../docs/CONTRIBUTING.md)**: Contribution processes
 
 ## Security Architecture
 

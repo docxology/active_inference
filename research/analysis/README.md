@@ -174,7 +174,7 @@ report = perf_analyzer.generate_performance_report(metrics, benchmark_comparison
 
 ## Contributing
 
-We welcome contributions to the analysis tools module! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions to the analysis tools module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Contribution Types
 - **New Methods**: Implement new analysis algorithms
@@ -203,7 +203,7 @@ We welcome contributions to the analysis tools module! See [CONTRIBUTING.md](../
 - **[Research README](../README.md)**: Research tools module overview
 - **[Main README](../../README.md)**: Project overview and getting started
 - **[Knowledge Repository](../../knowledge/)**: Theoretical foundations
-- **[Contributing Guide](../../CONTRIBUTING.md)**: Contribution guidelines
+- **[Contributing Guide](../../docs/CONTRIBUTING.md)**: Contribution guidelines
 - **Statistical Methods `../../research/analysis/statistical/`**: Statistical analysis methods
 
 ## Analysis Pipeline
