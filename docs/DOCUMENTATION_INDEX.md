@@ -175,9 +175,9 @@ This index provides quick access to all documentation resources in the Active In
 ## 🔍 Search Documentation
 
 ### By Topic
-- **Installation**: [Quick Start](QUICK_START.md#installation), [Troubleshooting](TROUBLESHOOTING.md#installation-and-setup-issues)
-无法运行时**: [Quick Start](QUICK_START.md#troubleshooting), [Troubleshooting Guide](TROUBLESHOOTING.md)
-- **Architecture**: [Main README](../README.md#architecture-overview), Component README files
+- **Installation**: [Quick Start](QUICK_START.md), [Installation troubleshooting](TROUBLESHOOTING.md#installation-and-setup-issues)
+- **Troubleshooting**: [Troubleshooting Guide](TROUBLESHOOTING.md)
+- **Architecture**: [Project overview](../README.md), Component README files
 - **Development**: [Contributing](CONTRIBUTING.md), [AGENTS.md](../AGENTS.md)
 - **Testing**: [Testing README](../tests/README.md)
 - **Deployment**: [Platform Deployment](../platform/deployment)
