@@ -536,7 +536,7 @@ class ContentManager:
 
 - **[Documentation README](./README.md)**: Documentation module overview
 - **[Main AGENTS.md](../AGENTS.md)**: Project-wide agent guidelines
-- **[Contributing Guide](../CONTRIBUTING.md)**: Contribution processes
+- **[Contributing Guide](CONTRIBUTING.md)**: Contribution processes
 - **[Knowledge Repository](../knowledge/)**: Educational content
 - **[Platform Documentation](../platform/)**: Platform information
 

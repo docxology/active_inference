@@ -127,7 +127,7 @@ Each package follows consistent patterns:
 ### Master Documentation
 - **[📖 README.md](README.md)**: Project overview and navigation (this file)
 - **[🤖 AGENTS.md](AGENTS.md)**: Master agent guidelines (this file)
-- **[📋 CONTRIBUTING.md](CONTRIBUTING.md)**: Contribution processes and standards
+- **[📋 CONTRIBUTING.md](docs/CONTRIBUTING.md)**: Contribution processes and standards
 
 ### Component Documentation
 Every major component has comprehensive documentation:
@@ -541,7 +541,7 @@ is in place for this repo.
 ### For New Agents
 1. **Start Here**: [README.md](README.md) - Project overview and navigation
 2. **Agent Guidelines**: [AGENTS.md](AGENTS.md) - Agent development workflows
-3. **Contribution Guide**: [CONTRIBUTING.md](CONTRIBUTING.md) - Getting started
+3. **Contribution Guide**: [CONTRIBUTING.md](docs/CONTRIBUTING.md) - Getting started
 4. **Code Examples**: Review existing implementations for patterns
 5. **Test Suite**: Understand testing frameworks and quality standards
 
