@@ -258,16 +258,7 @@ if __name__ == "__main__":
 
 ### Running Example Tests
 
-```bash
-# Test all examples
-make test-examples
-
-# Test specific example
-pytest examples/simple/test_basic_active_inference.py
-
-# Test domain examples
-pytest examples/artificial_intelligence/tests/
-```
+See [Running tests](../../../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup and repository test commands.
 
 ### Example Testing
 

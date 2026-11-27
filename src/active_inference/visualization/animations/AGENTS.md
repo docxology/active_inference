@@ -371,21 +371,10 @@ def test_accessibility():
 
 ### Animation Testing Commands
 
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Test all animations
-make test-animations
-
-# Test animation performance
-pytest src/active_inference/visualization/animations/tests/test_performance.py -v
-
-# Test educational effectiveness
-pytest src/active_inference/visualization/animations/tests/test_education.py -v
-
-# Test accessibility
-pytest src/active_inference/visualization/animations/tests/test_accessibility.py -v
-
-# Validate animation quality
-python tools/animation/validate_quality.py src/active_inference/visualization/animations/
+make test-specific FILE=tests/unit/test_cov_viz_animations.py
 ```
 
 ## 📖 Animation Documentation Standards

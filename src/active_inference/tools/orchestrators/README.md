@@ -316,18 +316,10 @@ print(f"Resource utilization: {metrics['resource_utilization']}%")
 
 ### Running Tests
 
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Run orchestrator tests
-make test-orchestrators
-
-# Or run specific tests
-pytest src/active_inference/tools/orchestrators/tests/ -v
-
-# Load testing
-pytest src/active_inference/tools/orchestrators/tests/test_load.py -v
-
-# Integration tests
-pytest src/active_inference/tools/orchestrators/tests/test_integration.py -v
+make test-specific FILE=tests/unit/test_cov_tools_base_orchestrator.py
 ```
 
 ### Test Coverage

@@ -48,17 +48,15 @@ Tests that validate documentation standards:
 
 ### Running Knowledge Tests
 
+Run these commands from the repository root.
+
 ```bash
-# Run all knowledge tests
-pytest tests/knowledge/ -v
+make test-knowledge
+make test-specific FILE=tests/knowledge/test_content_accuracy.py
+make test-specific FILE=tests/knowledge/test_educational_quality.py
 
-# Run specific knowledge test categories
-pytest tests/knowledge/test_content_accuracy.py -v
-pytest tests/knowledge/test_educational_quality.py -v
-pytest tests/knowledge/test_content_integration.py -v
-
-# Run knowledge tests with coverage
-pytest tests/knowledge/ --cov=src/ --cov-report=html
+# Run the knowledge suite with coverage
+uv run python -m pytest tests/knowledge/ --cov=src/ --cov-report=html
 ```
 
 ### Writing Knowledge Tests
@@ -122,17 +120,9 @@ class TestKnowledgeContentAccuracy:
 ## Test Organization
 
 ### Test File Structure
-```
-tests/knowledge/
-├── __init__.py
-├── test_content_accuracy.py           # Content accuracy validation
-├── test_educational_quality.py        # Educational effectiveness testing
-├── test_content_integration.py        # Content relationship testing
-├── test_documentation_quality.py     # Documentation standards testing
-├── test_learning_paths.py            # Learning path validation
-├── test_search_functionality.py       # Knowledge search testing
-└── test_content_maintenance.py       # Content maintenance testing
-```
+
+- [`test_content_accuracy.py`](test_content_accuracy.py) checks mathematical and conceptual accuracy, references, and prerequisite relationships.
+- [`test_educational_quality.py`](test_educational_quality.py) checks learning objectives, accessibility, and educational flow.
 
 ### Knowledge Test Patterns
 

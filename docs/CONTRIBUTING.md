@@ -5,6 +5,32 @@ under `docs/manuscript/`. Retain conceptual lessons and machine-readable
 examples in their source trees. Component README files can point readers
 to the appropriate guide.
 
+## Running tests
+
+From the repository root, install the locked test dependencies.
+
+```bash
+uv sync --locked --extra dev --extra test
+```
+
+The root [Makefile](../Makefile) provides these commands.
+
+| Command | Scope |
+| --- | --- |
+| `make test` | Full test suite |
+| `make test-unit` | Unit tests |
+| `make test-integration` | Integration tests |
+| `make test-knowledge` | Knowledge content tests |
+| `make test-coverage` | Full suite with coverage |
+
+To run one module, pass its path as `FILE`.
+
+```bash
+make test-specific FILE=tests/unit/test_knowledge_repository.py
+```
+
+## Documentation checks
+
 Run the checks relevant to a documentation or teaching example change from
 the repository root.
 

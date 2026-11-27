@@ -388,22 +388,7 @@ def test_interactive_elements():
 
 ### Reporting Testing Commands
 
-```bash
-# Test all reporting functionality
-make test-reporting-framework
-
-# Test scientific quality
-pytest research/reporting/tests/test_scientific_quality.py -v
-
-# Test publication compliance
-pytest research/reporting/tests/test_publication_compliance.py -v
-
-# Test presentation effectiveness
-pytest research/reporting/tests/test_presentation_effectiveness.py -v
-
-# Validate reporting standards
-python research/reporting/validate_reporting_standards.py
-```
+See [Running tests](../../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup and repository test commands.
 
 ## 📖 Reporting Documentation Standards
 

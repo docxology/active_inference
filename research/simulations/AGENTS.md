@@ -358,21 +358,10 @@ def test_educational_effectiveness():
 
 ### Simulation Testing Commands
 
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Test all simulation functionality
-make test-simulations
-
-# Test scientific validation
-pytest research/simulations/tests/test_scientific_validation.py -v
-
-# Test numerical stability
-pytest research/simulations/tests/test_numerical_stability.py -v
-
-# Test performance and scalability
-pytest research/simulations/tests/test_performance.py -v
-
-# Validate simulation accuracy
-python research/simulations/validate_simulation_accuracy.py
+make test-specific FILE=tests/unit/test_cov_research_simulations.py
 ```
 
 ## 📖 Simulation Documentation Standards

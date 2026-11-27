@@ -389,16 +389,8 @@ optimization_config = {
 We welcome contributions to the model development module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
-```bash
-# Install model development dependencies
-pip install -e ".[model_development,dev]"
 
-# Run model development tests
-pytest tests/unit/test_model_development.py -v
-
-# Run integration tests
-pytest tests/integration/test_model_development_integration.py -v
-```
+See [Running tests](../../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup and repository test commands.
 
 ## Learning Resources
 

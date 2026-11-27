@@ -389,24 +389,12 @@ def test_recommendation_diversity():
 
 ### Search Testing Commands
 
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Test all search functionality
-make test-search-engine
-
-# Test search accuracy
-pytest platform/search/tests/test_accuracy.py -v
-
-# Test search performance
-pytest platform/search/tests/test_performance.py -v
-
-# Test recommendation systems
-pytest platform/search/tests/test_recommendations.py -v
-
-# Test search integration
-pytest platform/search/tests/test_integration.py -v
-
-# Validate search quality
-python platform/search/validate_search_quality.py
+uv run python -m pytest -v \
+  tests/unit/test_platform_search.py \
+  tests/unit/test_cov_platform_search.py
 ```
 
 ## 📖 Search Documentation Standards

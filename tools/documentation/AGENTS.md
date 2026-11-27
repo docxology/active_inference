@@ -555,21 +555,15 @@ def test_cross_tool_compatibility():
 
 ### Documentation Tool Testing Commands
 
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Run all documentation tool tests
-make test-documentation-tools
-
-# Run generation tests
-pytest tools/documentation/tests/test_documentation_generation.py -v
-
-# Run validation tests
-pytest tools/documentation/tests/test_documentation_validation.py -v --tb=short
-
-# Run integration tests
-pytest tools/documentation/tests/test_documentation_integration.py -v
-
-# Check documentation tool test coverage
-pytest tools/documentation/ --cov=tools/documentation/ --cov-report=html --cov-fail-under=95
+uv run python -m pytest -v \
+  tests/unit/test_cov_docgen_analyzer.py \
+  tests/unit/test_cov_docgen_cli.py \
+  tests/unit/test_cov_docgen_generator.py \
+  tests/unit/test_cov_docrv_reviewer.py \
+  tests/unit/test_cov_docrv_validator.py
 ```
 
 ## 📖 Documentation Standards

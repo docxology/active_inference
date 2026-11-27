@@ -281,15 +281,11 @@ performance_config = {
 We welcome contributions to the benchmarks suite! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
+
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Install benchmarking dependencies
-pip install -e ".[benchmarks,dev]"
-
-# Run benchmark tests
-pytest tests/unit/test_benchmarks.py
-
-# Run performance benchmarks
-python benchmarks/benchmark_performance.py
+make test-specific FILE=tests/unit/test_cov_research_benchmarks.py
 ```
 
 ## Learning Resources

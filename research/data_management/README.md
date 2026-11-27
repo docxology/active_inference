@@ -358,18 +358,13 @@ We welcome contributions to the data management module! See [CONTRIBUTING.md](..
 - **Standards Compliance**: Additional regulatory compliance tools
 
 ### Development Setup
+
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Install data management dependencies
-pip install -e ".[data_management,dev]"
-
-# Set up test databases
-python tools/setup_test_databases.py
-
-# Run data management tests
-pytest tests/data_management/ -v
-
-# Run performance benchmarks
-python benchmarks/data_performance.py
+uv run python -m pytest -v \
+  tests/unit/test_research_data_management.py \
+  tests/unit/test_cov_research_data_management.py
 ```
 
 ## Learning Resources

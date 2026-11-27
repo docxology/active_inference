@@ -972,19 +972,8 @@ def apply_preprocessing_template(template_name, custom_overrides=None):
 We welcome contributions to the preprocessing framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
-```bash
-# Install preprocessing dependencies
-pip install -e ".[data_preprocessing,dev]"
 
-# Run preprocessing tests
-pytest tests/data_management/preprocessing/ -v
-
-# Test with sample datasets
-python examples/test_preprocessing_pipelines.py
-
-# Benchmark preprocessing performance
-python benchmarks/preprocessing_performance.py
-```
+See the [data management test commands](../README.md#development-setup) for the shared unit suite.
 
 ### Priority Areas
 - **New Preprocessing Methods**: Advanced cleaning and transformation algorithms
