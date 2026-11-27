@@ -100,33 +100,20 @@ This component maintains comprehensive test coverage:
 
 ### Running Tests
 
-```bash
-# Run component tests
-make test-research-project_planning-literature_review
-
-# Or run specific test files
-pytest tests/test_core.py -v
-```
+See [Running tests](../../../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup and repository test commands.
 
 ## 🔄 Development Workflow
 
 ### For Contributors
 
+Run these commands from the repository root.
+
 1. **Set Up Environment**:
    ```bash
    make setup
-   cd research/project_planning/literature_review
    ```
 
-2. **Follow TDD**:
-   ```bash
-   # Write tests first
-   pytest tests/test_core.py::test_new_feature
-
-   # Implement feature
-   # Run tests frequently
-   make test
-   ```
+2. **Follow TDD** by adding tests before implementing a change. Run `make test-unit` while you work.
 
 3. **Quality Assurance**:
    ```bash

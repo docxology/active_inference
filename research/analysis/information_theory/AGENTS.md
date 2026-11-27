@@ -375,21 +375,10 @@ def test_parallel_scalability():
 
 ### Information Theory Testing Commands
 
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Test all information theory implementations
-make test-information-theory
-
-# Test mathematical accuracy
-pytest research/analysis/information_theory/tests/test_accuracy.py -v
-
-# Test numerical stability
-pytest research/analysis/information_theory/tests/test_stability.py -v
-
-# Test performance characteristics
-pytest research/analysis/information_theory/tests/test_performance.py -v
-
-# Validate against benchmarks
-python research/analysis/information_theory/validate_benchmarks.py
+make test-specific FILE=tests/unit/test_cov_research_analysis.py
 ```
 
 ## 📖 Information Theory Documentation Standards

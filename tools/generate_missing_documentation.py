@@ -119,6 +119,7 @@ class DocumentationGenerator:
         """Generate README.md content for a directory"""
         relative_path = dir_path.relative_to(self.root_path)
         path_str = str(relative_path)
+        testing_guide = Path(os.path.relpath(self.root_path / 'docs' / 'CONTRIBUTING.md', dir_path)).as_posix()
 
         # Determine component type and description based on path
         component_type, description, features = self._analyze_component_type(path_str)
@@ -226,33 +227,20 @@ This component maintains comprehensive test coverage:
 
 ### Running Tests
 
-```bash
-# Run component tests
-make test-{path_str.replace('/', '-')}
-
-# Or run specific test files
-pytest tests/test_core.py -v
-```
+See [Running tests]({testing_guide}#running-tests) in the contributor guide for setup and repository test commands.
 
 ## 🔄 Development Workflow
 
 ### For Contributors
 
+Run these commands from the repository root.
+
 1. **Set Up Environment**:
    ```bash
    make setup
-   cd {path_str}
    ```
 
-2. **Follow TDD**:
-   ```bash
-   # Write tests first
-   pytest tests/test_core.py::test_new_feature
-
-   # Implement feature
-   # Run tests frequently
-   make test
-   ```
+2. **Follow TDD** by adding tests before implementing a change. Run `make test-unit` while you work.
 
 3. **Quality Assurance**:
    ```bash

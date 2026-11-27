@@ -229,50 +229,24 @@ This component maintains comprehensive test coverage:
 
 ### Running Tests
 
-```bash
-# Run component tests
-make test-component_name
-
-# Or run specific test files
-pytest tests/test_core.py -v
-pytest tests/test_integration.py -v
-
-# Check coverage
-pytest tests/ --cov=src/active_inference/[module]/ --cov-report=html
-```
+See `docs/CONTRIBUTING.md` for the shared test setup and commands. Run `make test-unit` from the repository root during development.
 
 ### Test Structure
 
-```
-tests/
-├── test_core.py              # Core functionality tests
-├── test_integration.py       # Integration tests
-├── test_performance.py       # Performance tests
-├── test_errors.py           # Error handling tests
-└── fixtures/
-    ├── test_data.json       # Test data fixtures
-    └── test_config.yaml     # Test configuration
-```
+Place unit tests in `tests/unit/` and integration tests in `tests/integration/` at the repository root.
 
 ## 🔄 Development Workflow
 
 ### For Contributors
 
+Run these commands from the repository root.
+
 1. **Set Up Environment**:
    ```bash
    make setup
-   cd component_directory
    ```
 
-2. **Follow TDD**:
-   ```bash
-   # Write tests first
-   pytest tests/test_core.py::test_new_feature
-
-   # Implement feature
-   # Run tests frequently
-   make test
-   ```
+2. **Follow TDD** by adding tests before implementing a change. Run `make test-unit` while you work.
 
 3. **Quality Assurance**:
    ```bash

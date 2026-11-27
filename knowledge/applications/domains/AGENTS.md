@@ -360,22 +360,7 @@ def test_integration_performance():
 
 ### Implementation Testing Commands
 
-```bash
-# Test all domain implementations
-make test-domain-implementations
-
-# Test specific domain
-pytest knowledge/applications/domains/artificial_intelligence/tests/ -v
-
-# Test industry compliance
-pytest knowledge/applications/domains/tests/test_compliance.py -v
-
-# Test performance requirements
-pytest knowledge/applications/domains/tests/test_performance.py -v
-
-# Validate against benchmarks
-python knowledge/applications/domains/validate_benchmarks.py
-```
+See [Running tests](../../../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup and repository test commands.
 
 ## 📖 Implementation Documentation Standards
 

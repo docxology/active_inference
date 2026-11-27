@@ -227,54 +227,33 @@ This package maintains comprehensive test coverage:
 
 ### Running Tests
 
+Run tests from the repository root. See [Running tests](../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup.
+
 ```bash
-# Run all package tests
-make test-src
-
-# Or run specific test files
-pytest src/tests/test_core.py -v
-pytest src/tests/test_integration.py -v
-
-# Check coverage
-pytest src/ --cov=src/active_inference/ --cov-report=html
+make test
+make test-unit
+make test-integration
+make test-coverage
 ```
 
 ### Test Structure
 
-The intended test layout under `src/` is (the suites currently live in `tests/` at the repository root):
-
-```
-src/tests/
-├── test_core.py              # Core functionality tests
-├── test_integration.py       # Integration tests
-├── test_performance.py       # Performance tests
-├── test_errors.py           # Error handling tests
-└── fixtures/
-    ├── test_data.json       # Test data fixtures
-    └── test_config.yaml     # Test configuration
-```
+The [test suites](../tests/) live at the repository root. Unit tests are in
+[`tests/unit/`](../tests/unit/), with integration tests in
+[`tests/integration/`](../tests/integration/).
 
 ## 🔄 Development Workflow
 
 ### For Contributors
 
+Run these commands from the repository root.
+
 1. **Set Up Environment**:
    ```bash
-   cd src/
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   pip install -e ../
+   uv sync --locked --extra dev --extra test
    ```
 
-2. **Follow TDD**:
-   ```bash
-   # Write tests first
-   pytest tests/test_new_feature.py::test_implementation
-
-   # Implement feature
-   # Run tests frequently
-   make test
-   ```
+2. **Follow TDD** by adding tests before implementing a change. Run `make test-unit` while you work.
 
 3. **Quality Assurance**:
    ```bash

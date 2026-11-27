@@ -33,35 +33,13 @@ Tests that validate system behavior under increasing loads:
 
 ### Running Performance Tests
 
-```bash
-# Run all performance tests
-pytest tests/performance/ -v
-
-# Run specific performance test categories
-pytest tests/performance/test_knowledge_repository_performance.py -v
-pytest tests/performance/test_llm_performance.py -v
-
-# Run performance tests with profiling
-pytest tests/performance/ --profile
-
-# Run performance benchmarks
-pytest tests/performance/ -m benchmark
-```
-
-### Performance Test Configuration
-
-Performance tests can be configured through environment variables and pytest markers:
+From the repository root, run the checked-in performance suite.
 
 ```bash
-# Set performance thresholds
-export PERF_MAX_SEARCH_TIME=1.0
-export PERF_MAX_MEMORY_INCREASE=100  # MB
-export PERF_MIN_THROUGHPUT=100     # operations/second
-
-# Run with specific performance requirements
-pytest tests/performance/ -m "performance and not slow"
-pytest tests/performance/ -m "benchmark"
+uv run python -m pytest tests/performance/ -v
 ```
+
+The [`performance`-marked tests](test_knowledge_repository_performance.py) cover knowledge repository search, filtering, loading, statistics, and prerequisite graph construction.
 
 ## Performance Benchmarks
 

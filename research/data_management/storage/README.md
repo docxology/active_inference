@@ -721,19 +721,8 @@ results, report = run_experiment_with_storage(active_inference_experiment_config
 We welcome contributions to the storage framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
-```bash
-# Install storage dependencies
-pip install -e ".[data_storage,dev]"
 
-# Set up test databases
-python tools/setup_test_databases.py
-
-# Run storage tests
-pytest tests/data_management/storage/ -v
-
-# Benchmark storage performance
-python benchmarks/storage_performance.py
-```
+See the [data management test commands](../README.md#development-setup) for the shared unit suite.
 
 ### Priority Areas
 - **New Storage Backends**: Integration with emerging storage technologies

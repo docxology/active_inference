@@ -387,22 +387,7 @@ def test_tool_integration():
 
 ### Research Tools Testing Commands
 
-```bash
-# Test all research tools
-make test-research-tools
-
-# Test automation tools
-pytest research/tools/tests/test_automation.py -v
-
-# Test orchestration capabilities
-pytest research/tools/tests/test_orchestration.py -v
-
-# Test utility functions
-pytest research/tools/tests/test_utilities.py -v
-
-# Validate tool integration
-python research/tools/validate_tool_integration.py
-```
+See [Running tests](../../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup and repository test commands.
 
 ## 📖 Research Tools Documentation Standards
 

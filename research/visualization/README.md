@@ -359,15 +359,15 @@ interactive_config = {
 We welcome contributions to the visualization module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
+
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Install visualization dependencies
-pip install -e ".[visualization,dev]"
-
-# Run visualization tests
-pytest tests/unit/test_visualization.py -v
-
-# Run integration tests
-pytest tests/integration/test_visualization_integration.py -v
+uv run python -m pytest -v \
+  tests/unit/test_cov_viz_animations.py \
+  tests/unit/test_cov_viz_comparative.py \
+  tests/unit/test_cov_viz_dashboards.py \
+  tests/unit/test_cov_viz_diagrams.py
 ```
 
 ## Learning Resources

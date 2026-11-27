@@ -392,21 +392,10 @@ def test_reporting_system():
 
 ### Experiment Testing Commands
 
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Test all experiment functionality
-make test-experiments
-
-# Test experiment reproducibility
-pytest research/experiments/tests/test_reproducibility.py -v
-
-# Test statistical validity
-pytest research/experiments/tests/test_statistical_validity.py -v
-
-# Test execution systems
-pytest research/experiments/tests/test_execution.py -v
-
-# Validate experiment quality
-python research/experiments/validate_experiment_quality.py
+make test-specific FILE=tests/unit/test_cov_research_experiments.py
 ```
 
 ## 📖 Experiment Documentation Standards

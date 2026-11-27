@@ -807,19 +807,8 @@ print(f"CPU Usage: {performance_monitor.cpu_usage:.1f}%")
 We welcome contributions to the data collection framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
-```bash
-# Install collection dependencies
-pip install -e ".[data_collection,dev]"
 
-# Run collection tests
-pytest tests/data_management/collection/ -v
-
-# Test with sample data sources
-python examples/test_collection_apis.py
-
-# Benchmark collection performance
-python benchmarks/collection_performance.py
-```
+See the [data management test commands](../README.md#development-setup) for the shared unit suite.
 
 ### Priority Areas
 - **New Data Sources**: Integration with emerging platforms and APIs

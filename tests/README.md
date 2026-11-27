@@ -125,7 +125,7 @@ make test-coverage
 make test-unit
 make test-integration
 make test-knowledge
-make test-performance
+uv run python -m pytest tests/performance/ -v
 make test-security
 ```
 

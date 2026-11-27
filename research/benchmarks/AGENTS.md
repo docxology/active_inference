@@ -291,7 +291,7 @@ report_config = {
 ## Testing Framework
 
 ### 🧪 Unit Tests
-**Location**: `tests/unit/test_benchmarks.py`
+**Location**: `tests/unit/test_cov_research_benchmarks.py`
 
 **Coverage Areas**:
 - Individual evaluation methods
@@ -300,18 +300,14 @@ report_config = {
 - Statistical validation procedures
 - Error handling scenarios
 
-### 🔗 Integration Tests
-**Location**: `tests/integration/test_benchmark_integration.py`
-
+### 🔗 Integration Test Ideas
 **Coverage Areas**:
 - End-to-end benchmarking pipelines
 - Cross-module integration
 - Large-scale evaluation scenarios
 - Performance under load
 
-### 📊 Benchmark Tests
-**Location**: `tests/benchmarks/test_benchmark_performance.py`
-
+### 📊 Performance Test Ideas
 **Coverage Areas**:
 - Computational performance
 - Memory usage analysis
@@ -321,15 +317,11 @@ report_config = {
 ## Contributing to Benchmarks Suite
 
 ### 🚀 Development Setup
+
+From the repository root, run the checked-in unit tests.
+
 ```bash
-# Install benchmarking dependencies
-pip install -e ".[benchmarks,dev]"
-
-# Run benchmark tests
-pytest tests/unit/test_benchmarks.py -v
-
-# Run performance benchmarks
-python benchmarks/benchmark_performance.py
+make test-specific FILE=tests/unit/test_cov_research_benchmarks.py
 ```
 
 ### 📝 Contribution Guidelines

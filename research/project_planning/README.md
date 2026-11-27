@@ -382,16 +382,8 @@ review_config = {
 We welcome contributions to the project planning module! See [CONTRIBUTING.md](../../docs/CONTRIBUTING.md) for guidelines.
 
 ### Development Setup
-```bash
-# Install planning dependencies
-pip install -e ".[planning,dev]"
 
-# Run planning tests
-pytest tests/unit/test_project_planning.py -v
-
-# Run integration tests
-pytest tests/integration/test_project_planning_integration.py -v
-```
+See [Running tests](../../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup and repository test commands.
 
 ## Learning Resources
 

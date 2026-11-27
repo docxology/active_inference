@@ -306,7 +306,7 @@ def execute_performance_test(test_name: str, operation: str, func: Callable, con
 
 ### Performance Testing Categories (MANDATORY)
 
-#### 1. Load Testing Tests (`tests/test_load_testing.py`)
+#### 1. Load Testing Example
 **Test load generation and system performance under load:**
 ```python
 def test_load_generation():
@@ -361,7 +361,7 @@ def test_load_test_execution():
     assert "error_rate" in metrics
 ```
 
-#### 2. Benchmark Testing Tests (`tests/test_benchmark_testing.py`)
+#### 2. Benchmark Testing Example
 **Test benchmarking and comparative performance analysis:**
 ```python
 def test_benchmark_execution():
@@ -430,7 +430,7 @@ def test_benchmark_comparison():
     assert "effect_sizes" in stats
 ```
 
-#### 3. Scalability Testing Tests (`tests/test_scalability_testing.py`)
+#### 3. Scalability Testing Example
 **Test system scalability and performance under increasing load:**
 ```python
 def test_scalability_analysis():
@@ -508,22 +508,7 @@ def test_memory_scalability():
 
 ### Performance Testing Commands
 
-```bash
-# Run all performance tests
-make test-performance
-
-# Run load testing
-pytest tests/performance/test_load_testing.py -v
-
-# Run benchmark testing
-pytest tests/performance/test_benchmark_testing.py -v --tb=short
-
-# Run scalability testing
-pytest tests/performance/test_scalability_testing.py -v
-
-# Check performance test coverage
-pytest tests/performance/ --cov=tests/performance/ --cov-report=html --cov-fail-under=95
-```
+Use the [performance test guide](README.md#running-performance-tests) to run the repository's performance suite.
 
 ## 📖 Documentation Standards
 

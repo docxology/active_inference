@@ -36,17 +36,13 @@ Tests that validate complete system functionality:
 
 ### Running Integration Tests
 
+From the repository root, run the integration suite. Its tests use mocked provider responses for client and conversation workflows.
+
 ```bash
-# Run all integration tests
-pytest tests/integration/ -v
+make test-integration
 
-# Run specific integration test categories
-pytest tests/integration/test_knowledge_integration.py -v
-pytest tests/integration/test_platform_integration.py -v
-pytest tests/integration/test_data_flow_integration.py -v
-
-# Run integration tests with coverage
-pytest tests/integration/ --cov=src/ --cov-report=html
+# Run the integration suite with coverage
+uv run python -m pytest tests/integration/ --cov=src/ --cov-report=html
 ```
 
 ### Writing Integration Tests
@@ -100,19 +96,9 @@ class TestKnowledgeResearchIntegration:
 ## Test Organization
 
 ### Test File Structure
-```
-tests/integration/
-├── __init__.py
-├── test_knowledge_integration.py       # Knowledge system integration
-├── test_research_integration.py        # Research tools integration
-├── test_platform_integration.py        # Platform services integration
-├── test_visualization_integration.py   # Visualization integration
-├── test_data_flow_integration.py       # Data flow validation
-├── test_api_integration.py             # API functionality testing
-├── test_storage_integration.py         # Storage backend integration
-├── test_search_integration.py          # Search system integration
-└── test_full_system_integration.py     # Complete system integration
-```
+
+[`test_llm_integration.py`](test_llm_integration.py) covers prompt construction,
+client behavior, conversation handling, and local persistence.
 
 ### Integration Test Patterns
 

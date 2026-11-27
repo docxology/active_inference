@@ -183,7 +183,7 @@ def execute_with_error_handling(operation: str, func: Callable[..., Any], *args,
 
 ### Test Categories (MANDATORY)
 
-#### 1. Unit Tests (`src/tests/test_core.py`)
+#### 1. Unit Tests (`tests/unit/`)
 **Test individual functions and methods:**
 ```python
 def test_platform_initialization():
@@ -208,7 +208,7 @@ def test_component_factory():
         create_platform_component('invalid_component', config.to_dict())
 ```
 
-#### 2. Integration Tests (`src/tests/test_integration.py`)
+#### 2. Integration Tests (`tests/integration/`)
 **Test component interactions:**
 ```python
 def test_knowledge_research_integration():
@@ -243,7 +243,7 @@ def test_platform_services_integration():
     platform.stop()
 ```
 
-#### 3. Error Tests (`src/tests/test_errors.py`)
+#### 3. Error Handling Tests
 **Test error handling and edge cases:**
 ```python
 def test_invalid_configuration():
@@ -273,17 +273,7 @@ def test_missing_dependencies():
 
 ### Running Tests
 
-```bash
-# Run all source package tests
-make test-src
-
-# Run specific test types
-pytest src/tests/test_core.py -v
-pytest src/tests/test_integration.py -v --tb=short
-
-# Check coverage
-pytest src/ --cov=src/active_inference/ --cov-report=html
-```
+Run `make test` from the repository root. See [Running tests](../docs/CONTRIBUTING.md#running-tests) in the contributor guide for setup, focused suites, and coverage.
 
 ## 📖 Documentation Standards
 

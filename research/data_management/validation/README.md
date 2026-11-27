@@ -901,19 +901,8 @@ dashboard = create_quality_dashboard(experiment_data_sources)
 We welcome contributions to the validation framework! See [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### Development Setup
-```bash
-# Install validation dependencies
-pip install -e ".[data_validation,dev]"
 
-# Run validation tests
-pytest tests/data_management/validation/ -v
-
-# Test with sample datasets
-python examples/test_validation_pipelines.py
-
-# Validate test data quality
-python tools/validate_test_data.py
-```
+See the [data management test commands](../README.md#development-setup) for the shared unit suite.
 
 ### Priority Areas
 - **Advanced Validation Methods**: Machine learning-based validation techniques
