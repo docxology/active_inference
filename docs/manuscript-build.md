@@ -4,7 +4,8 @@ The [canonical source](https://github.com/docxology/active_inference/tree/main/d
 uses numbered Markdown sections, paper metadata, a LaTeX preamble and BibTeX.
 The teaching results and figure come from the actual local fixture.
 
-From an isolated project checkout, prepare the native artifacts.
+Prepare the native artifacts from an isolated checkout whose directory is named
+`active_inference` on disk so Stage 04 can find `active_inference_combined.pdf`.
 
 ```bash
 uv sync --locked
